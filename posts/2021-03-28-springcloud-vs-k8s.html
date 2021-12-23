@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="SpringCloud与K8S谁与争锋？ - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="SpringCloud与K8S谁与争锋？ - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>SpringCloud与K8S谁与争锋？ - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2021-03-28"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">SpringCloud与K8S谁与争锋？</h1> <small> <h3 class="author">王福强</h3>2021-03-28 </small> 
+    <p></p> 
+    <hr> 
+    <p>现在很少做技术科普了， 只不过今天又有原厂某小伙儿 <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>找我解答技术疑问，遂唠叨几句…</p> 
+    <p><img src="images/16651616939786_.pic.jpg"></p> 
+    <p>其实正常来讲，SpringCloud和k8s应该不在一个比较的层面上，包括Service Mesh, 如果非要比较，那应该是在微服务技术体系这个大的概念下去比较， 就好像我在给企业做的内训《微服务深度揭秘》中所阐述的那样，SpringCloud也好， k8s也好，都只是实现你自己组织里微服务技术体系的一种选择而已，但绝对不是唯一的选择。</p> 
+    <p><img src="images/16661616940349_.pic.jpg"></p> 
+    <p>微服务的好处来自于它的体系，而不是使用什么技术， 唯一的选择标准我认为就是“适合不适合，hold不hold住”。</p> 
+    <p>讨论什么技术优秀或者是未来之星,对于技术人员去了解技术趋势当然是好的，但对于组织来说，则不一定。对于组织来说， 使用合适的技术，高效稳定的解决业务问题（以及衍生出来的技术问题）才应该是技术团队的核心目标。</p> 
+    <p>过于关注技术的倾向，很容易走入误区，比如动不动要重写系统，导致组织付出沉重的负担 <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>：</p> 
+    <p><img src="images/16671616940823_.pic.jpg"></p> 
+    <p>原则上来说，因为任何个人和组织都会在时间线上做出自己的投入，形成一种“沉没成本”，形成自己的依赖路径，所以，任何前期的投入都是有价值的，也应该继续发挥它的价值，所以，不能因为有了更好的技术升级就直接全盘否定或者抛弃旧有的沉淀下来的基础设施，在这个前提下，只要原有设施足够稳定，足够支撑业务发展，足够具有演化空间，我们就应该继续在上面添砖加瓦，如果有一些阻碍，那就想办法做重构，以更小的风险敞口来推进系统和基础设施的演化。</p> 
+    <p>或许k8s和service mesh的思路很好，现在也很普遍了，但这不意味着“你不用他们，组织的数字化效能就比别人更差”，一定是具体情况具体分析，而不是盲目大干快上， 你一中小企业就几台或者十几台服务器，用至少三四台机器搭个k8s集群干嘛？先IT预算多得花不过来吗？ 如果你原来就有很成熟的技术体系，而且稳定应对业务扩张都绰绰有余，你非要折腾Service Mesh干嘛？ 嫌系统性的崩盘少了？ 很多时候，只有大厂才有折腾和试错的成本和空间（当然，个别场景，大厂也不一定让搞），中小企业还是尽量根据自身情况评估之后再慎重考虑PR稿才好，不要自己没有能力hold，还非要搞Service Mesh，最后可能Service Mesh没搞成，却搞成了Service Mess。</p> 
+    <p>至于说技术赢家这个话题，其实根本就没有‘最终赢’这一说，<strong>大家都只是过客和阶段性的赢</strong>，这是总的过程纲领 ；）</p> 
+    <section class="footnotes" role="doc-endnotes"> 
+     <hr> 
+     <ol> 
+      <li id="fn1" role="doc-endnote"><p>估计不能算小伙儿了，毕竟我也很老了，当时的小伙儿，哈哈哈<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+      <li id="fn2" role="doc-endnote"><p>鉴于这种现象也很普遍，所以在我的新书《坑获》里也有相应的故事和分享<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+     </ol> 
+    </section> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2008-09-29-headache.html">头痛欲裂 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2010-07-02-setup-multi-repo-of-svn.html">Setup multiple subversion repositories on Mac </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2009-10-26-misc.html">杂记 </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

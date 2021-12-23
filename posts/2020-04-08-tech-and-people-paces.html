@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="你是否还在沿用十多年前的思维和做事方式而不自知？ - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="你是否还在沿用十多年前的思维和做事方式而不自知？ - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>你是否还在沿用十多年前的思维和做事方式而不自知？ - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2020-04-08"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">你是否还在沿用十多年前的思维和做事方式而不自知？</h1> <small> <h3 class="author">王福强</h3>2020-04-08 </small> 
+    <p></p> 
+    <hr> 
+    <ul> 
+     <li><a href="#应用层数据访问"><span class="toc-section-number">1</span> 应用层数据访问</a></li> 
+     <li><a href="#数据库的新与旧"><span class="toc-section-number">2</span> 数据库的新与旧</a></li> 
+     <li><a href="#数据仓库与bi"><span class="toc-section-number">3</span> 数据仓库与BI</a></li> 
+    </ul> 
+    <hr> 
+    <h1 data-number="1" id="应用层数据访问"><span class="header-section-number">1</span> 应用层数据访问</h1> 
+    <p>十几二十年前就是单库事务，OLTP和OLAP共用一个数据库，今天还是很多公司在沿用这种应用开发模式， 不是技术没有发展，而是人没有发展，运行规则没有发展。</p> 
+    <p>单库读写+数据分析， 到单库读写分离， 到OLTP和OLAP分离， 到整个数据链路的streamline，经历过的感觉很easy，但是大部分公司的技术演变，却死死的受限于技术团队的人和对应的思维困境中。</p> 
+    <h1 data-number="2" id="数据库的新与旧"><span class="header-section-number">2</span> 数据库的新与旧</h1> 
+    <p>大概是三四年前吧，大虫跟我说TiDB的时候， 我还是很不看好这种模式的， 但今天看来，我觉得，可能那时候的我过于自负了。</p> 
+    <p>实际上， 单纯从技术角度去评估， 我倒是更乐意推荐原来的方案， 即应用好业界现有数据库的单库特性（比如mysql， postgres等）， 然后通过外部化的方案整合成集群方案来应对大数据和大规模扩展场景。</p> 
+    <p>但是，当我看到很多公司的应用开发人员和团队“捅”数据库的玩法，以及对数据库集群的基础理解和把控能力之后，我倒是挺推荐他们新方案直接上像TiDB这类新时代的数据库的， 既然现在很多技术团队的核心价值是<strong>快速应用开发</strong>，那么就别学什么BAT折腾那些中间件啦， 那不是你技术团队的核心竞争力，公司也不愿意在这些上面投入太多， 只要新时代的数据库提供了兼容的接口（比如TiDB的兼容mysql协议的策略），那应用开发团队还是直接像十几二十年前那样直接“捅”数据库吧， 爱怎么折腾怎么折腾， 等真的发现性能瓶颈的时候再调整和优化好了。</p> 
+    <p>所以， 采用新时代的数据库的策略选择不是基于技术牛逼不就逼，而是你是不是可以减轻快速应用开发的认知和使用成本，我觉得从数据库的开发者到很大一批从业人员应该都太会认同我这么说吧~</p> 
+    <h1 data-number="3" id="数据仓库与bi"><span class="header-section-number">3</span> 数据仓库与BI</h1> 
+    <p>十几二十年前的报表方案依然在现在中国大地上很多公司里开花结果， 搞个报表还得投入专门的研发搞排期和开发， 基于Hadoop的生态方案在这些公司里都成了新时代的救世主， 很多2B的顾问公司和解决方案供应商也是大数据言必Hadoop，殊不知， 即使是Hadoop也是十几年前的方案，今天，扩展存储和扩展计算早可以有更好的方式，只是80%的人和团队都视而不见罢了。</p> 
+    <p>对于商业智能和数据智能来说， 也早已进入了<strong>self-service时代</strong>， 不是我不告诉你，而是人的思维和公司运行规则与文化实在根深蒂固， 软件和工具先进不先进真的是其次， 很多时候，你只能依托人， 现有的人和团队， 来完成工作， 这也就是他们熟悉啥就用啥吧，只要拿到结果就好。 管理上不是早就告诉过你嘛： <strong>不要尝试改变任何人！</strong></p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2021-05-03-lowcode-tumor-and-my-opinion.html">低代码、毒瘤与个人观点 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2009-05-17-wan-ge.html">挽歌 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2008-11-26-the-ways-to-achieve-modular-sys.html">The Ways To Achieve Your Modular System </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

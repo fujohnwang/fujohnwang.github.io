@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="revisit_implicit_resolution_in_scala - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="revisit_implicit_resolution_in_scala - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>revisit_implicit_resolution_in_scala - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2012-07-30"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">revisit_implicit_resolution_in_scala</h1> <small> <h3 class="author">fujohnwang</h3>2012-07-30 </small> 
+    <p></p> 
+    <hr> 
+    <ul> 
+     <li><a href="#implicit-value-implicit-parameter"><span class="toc-section-number">1</span> implicit value + implicit parameter</a> 
+      <ul> 
+       <li><a href="#implicit-parameter"><span class="toc-section-number">1.1</span> implicit parameter</a></li> 
+       <li><a href="#implicit-value"><span class="toc-section-number">1.2</span> implicit value</a></li> 
+       <li><a href="#implicit-scope"><span class="toc-section-number">1.3</span> implicit scope</a></li> 
+      </ul></li> 
+     <li><a href="#implicit-view-method-selectioncall"><span class="toc-section-number">2</span> implicit view + method selection/call</a> 
+      <ul> 
+       <li><a href="#method-selectioncall"><span class="toc-section-number">2.1</span> method selection/call</a></li> 
+       <li><a href="#implicit-view"><span class="toc-section-number">2.2</span> implicit view</a></li> 
+       <li><a href="#implicit-scope-1"><span class="toc-section-number">2.3</span> implicit scope</a></li> 
+      </ul></li> 
+     <li><a href="#conclusion"><span class="toc-section-number">3</span> Conclusion</a></li> 
+     <li><a href="#references"><span class="toc-section-number">4</span> References</a></li> 
+    </ul> 
+    <hr> 
+    <p><strong>author: fujohnwang</strong></p> 
+    <p>implicit在日常的Scala编程中不是很经常用，间隔以时日，很容易忘记如何区分implicit resolution或者implicit conversion的时候，到底是以目标类型为基准，还是以起始类型为基准，故此，决定重新梳理一下…</p> 
+    <figure> 
+     <img src="images/scala_implicit/Scala_Implicit_overview.png" alt="Scala_Implicit_overview">
+     <figcaption aria-hidden="true">
+      Scala_Implicit_overview
+     </figcaption> 
+    </figure> 
+    <p>implicit resolution的过程梳理如上图所示分为两种情况：</p> 
+    <ol type="1"> 
+     <li><p>implicit value + implicit parameter</p></li> 
+     <li><p>implicit view + (method parameter | method selection)</p> <p>第二种情况即implicit conversion.</p></li> 
+    </ol> 
+    <p>每一种类型的implicit resolution的过程都牵扯三种元素：</p> 
+    <ol type="1"> 
+     <li>implicit resolution的应用场景(implicit parameter, or method selection…)</li> 
+     <li>implicit resolution的输入(implicit value or implicit view)</li> 
+     <li>implicit resolution的输入查找范围，即implicit resolution scope</li> 
+    </ol> 
+    <p>下面分别对两种情况下各自牵扯的三种元素进行详细说明…</p> 
+    <h1 data-number="1" id="implicit-value-implicit-parameter"><span class="header-section-number">1</span> implicit value + implicit parameter</h1> 
+    <h2 data-number="1.1" id="implicit-parameter"><span class="header-section-number">1.1</span> implicit parameter</h2> 
+    <p>型如下： {% highlight scala %} scala&gt; def foo(implicit p:Int) = p {% endhighlight %} 可以明确的传入指定参数调用，也可以不传入参数调用，但是，对于后者来讲，要让编译器可以找到符合条件的implicit value来填补空缺才行。</p> 
+    <p>{% highlight scala %} scala&gt; foo(4) // OK scala&gt; foo // error: not enough arguments for method foo: (implicit p: Int)Unit. {% endhighlight %}</p> 
+    <h2 data-number="1.2" id="implicit-value"><span class="header-section-number">1.2</span> implicit value</h2> 
+    <p>{% highlight scala %} scala&gt; implicit val v:Int = 5 scala&gt; foo // OK scala&gt; foo() // error: not enough arguments for method foo: (implicit p: Int)Int. {% endhighlight %}</p> 
+    <p>在REPL中声明一个implicit value之后， foo方法不传入参数即可调用成功(注意调用方式，不能加括号)，但是，除了REPL这种情况，还有那些情况下可以提供符合条件的implicit value那？！</p> 
+    <h2 data-number="1.3" id="implicit-scope"><span class="header-section-number">1.3</span> implicit scope</h2> 
+    <p>最简单的做法是，在任何地方声明，只要在使用到implicit parameter的之前import即可。 不过，为了避免每次都import，在implicit parameter类型对应的companion object中提供一个默认的implicit value作为默认值倒是一个不错的选择。</p> 
+    <h1 data-number="2" id="implicit-view-method-selectioncall"><span class="header-section-number">2</span> implicit view + method selection/call</h1> 
+    <h2 data-number="2.1" id="method-selectioncall"><span class="header-section-number">2.1</span> method selection/call</h2> 
+    <p>场景一：</p> 
+    <p>{% highlight scala %} scala&gt; def bar(message:String) = println(message) bar: (message: String)Unit</p> 
+    <p>scala&gt; bar(5) &lt;console&gt;:13: error: type mismatch; found : Int(5) required: String bar(5) ^ {% endhighlight %} bar方法expect字符串类型的参数，但我们却传入了Int类型的参数(5)，bang!</p> 
+    <p>场景二：</p> 
+    <p>{% highlight scala %} scala&gt; class Bar{} defined class Bar</p> 
+    <p>scala&gt; val b = new Bar b: Bar = Bar@18760838</p> 
+    <p>scala&gt; b.go <console>
+      :14: error: value go is not a member of Bar b.go ^ {% endhighlight %} 声明了类型Bar，但调用了它并没声明的方法go， bang!
+     </console></p> 
+    <p>实际上，只要为以上两种场景提供相应的implicit view，那么就可以避免出错的命运…</p> 
+    <h2 data-number="2.2" id="implicit-view"><span class="header-section-number">2.2</span> implicit view</h2> 
+    <p>implicit view用来将一种类型转换为另一种类型，其一般形式为： {% highlight scala %} implicit def <myconversionname>
+      (
+      <argumentname>
+        : OriginalType) : ViewType {% endhighlight %} 简单来讲其实就是一个OriginalType=&gt;ViewType的函数，只不过要以implicit方法的形式来定义。
+      </argumentname>
+     </myconversionname></p> 
+    <p>针对场景一和场景二，我们提供相应的implicit view如下：</p> 
+    <p>{% highlight scala %} scala&gt; implicit def int2String(i:Int) = i.toString int2String: (i: Int)java.lang.String</p> 
+    <p>scala&gt; bar(5) 5 {% endhighlight %}</p> 
+    <p>{% highlight scala %} scala&gt; class Go{def go()= println(“gogogo”)} defined class Go</p> 
+    <p>scala&gt; implicit def bar2Go(bar:Bar) = new Go bar2Go: (bar: Bar)Go</p> 
+    <p>scala&gt; b.go gogogo {% endhighlight %}</p> 
+    <h2 data-number="2.3" id="implicit-scope-1"><span class="header-section-number">2.3</span> implicit scope</h2> 
+    <p>与implicit parameter的resolution scope类型， implicit conversion使用的implicit view定义也可以定义在任何位置，然后在使用的位置import就行了，但与implicit parameter可以在implicit paramter类型的companion object中定义默认implicit value不同，implicit conversion用到的默认implicit view需要在起始类型(即OriginalType)的companion object中定义，而不是expect的类型。</p> 
+    <h1 data-number="3" id="conclusion"><span class="header-section-number">3</span> Conclusion</h1> 
+    <ol type="1"> 
+     <li>implicit parameter做implicit resolution的时候，如果以companion object作为implicit resolution scope的话， 以implicit parameter类型的co为基准(也就是implicit value的类型对应的co)； 而implicit conversion如果以co为irs的话， 则以A=&gt;B中A类型的co为基准！</li> 
+     <li>一般情况下， 可以在合适的companion object中定义implicit value或者implicit view作为默认值，但可以通过import或者其他方式提供其他明确的implicit value或者implicit view来覆写这些默认值。</li> 
+    </ol> 
+    <h1 data-number="4" id="references"><span class="header-section-number">4</span> References</h1> 
+    <ul> 
+     <li>“Scala In Depth”</li> 
+    </ul> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2020-04-08-tech-and-people-paces.html">你是否还在沿用十多年前的思维和做事方式而不自知？ </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2021-05-13-Qian-history.html">钱镠墓被盗背后的故事 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2021-09-27-dillema-of-processes.html">流程悖论 </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

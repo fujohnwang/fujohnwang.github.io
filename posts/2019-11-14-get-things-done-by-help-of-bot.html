@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="我是如何用机器人做催收的 - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="我是如何用机器人做催收的 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>我是如何用机器人做催收的 - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2019-11-14"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">我是如何用机器人做催收的</h1> <small> <h3 class="author">王福强</h3>2019-11-14 </small> 
+    <p></p> 
+    <hr> 
+    <p>其实标题原来想叫“技术管理之日常催收 - 基于Jenkins的重要不紧急事项的定时提醒与敦促”，whatever, 故事的背景是这样的…</p> 
+    <p>新接手团队， 杂事颇多， 团队更是上下习惯于胡子眉毛一把抓，没有抓大放小的意识，就是什么都想要，一切向业务需求看齐，这当然没有错，但作为一个技术团队，还是要有些追求的，否则，就陷入了bug hell而不能自拔，急着开发，急着上线，急着修bug，急着开发下一批需求， 急着开发…</p> 
+    <p>很多重要但不紧急的事情往往就无人关注，大家都陷入Event Driven，完全无人关注全局性和中长远价值的事情， 比如团队成长， 比如技术基础设施的沉淀，比如关键数字资产的保全， 诸如此类， 短期看来或许没有价值，但要走的长远，却又是明眼上看不到、实际上却保证后劲的蓄电池。</p> 
+    <p>于是，像我这样傻逼的领导，在明确主战略方向之后， 日常就开始抓那些零散的重要不紧急的事情啦， 不抓不知道，一抓一千条（TODO ITEM）， mmp，靠我天天念叨我也不一定关键时刻想的起来啊，于是，我就得外包，把这些重要不紧急事情的“控进度”交给了机器和机器人（BOT）， 我是这样想的：</p> 
+    <ol type="1"> 
+     <li>有个助理可以定期提醒我有这些或者那些重要不紧急的事情需要关注和跟进；</li> 
+     <li>这个助理更可以定期push这些重要不紧急的事情给相关负责人，相关负责人可以选择继续让我push或者抓紧时间想想办法把事情给做了；</li> 
+     <li>push消息到群体面前，这样大家可以一起做团队监督；</li> 
+    </ol> 
+    <p>正好我要push的负责人都在一个钉钉群里，所以，我就选择了钉钉的bot来做我的傻逼助理（其实一点儿不智能），在为群加了Custom的bot之后（小乔同学）， 剩下的就是让bot小乔定时提醒啦， 在mini PC上run一个jenkins， 然后设置一个job执行shell，比如每周五16点以后，发送提醒：</p> 
+    <pre><code>curl 'https://oapi.dingtalk.com/robot/send?access_token=dd18af422bd048a2ccbe694ce694bf9995902a1a3910ea128113xxxxxxxxxxx' -H 'Content-Type: application/json' -d '{"msgtype": "text", "text": {"content": "@树袋熊， 那个啥事儿搞完了没呀？又一周过去啦..."}, "at": {"isAtAll": true}}'</code></pre> 
+    <p><img src="images/jenkins_job_config.png"></p> 
+    <p>另外， 除了钉钉群， 还同时构建了基于邮件和邮件列表以及Telegram的push信道， anyway，总之就是多信道打击，😯，说漏嘴了，多信道触达，保证信息的触达率达到理想的效果 ；）</p> 
+    <p><img src="images/jenkins_jobs.png"></p> 
+    <p>啥？ 你还问我为啥要搞这个？ 咱其实是有理论依据的， <strong>时间管理四象限法</strong>听说过不？ 我相信应该都听说过的：</p> 
+    <ol type="1"> 
+     <li>重要紧急</li> 
+     <li>重要不紧急</li> 
+     <li>紧急不重要</li> 
+     <li>不重要不紧急</li> 
+    </ol> 
+    <p><img src="images/time-matrix.jpg"></p> 
+    <p>对于重要紧急的事儿怎么做？ 马上干啊，丫的都火烧火燎了， 你就是救火的；</p> 
+    <p>对于重要不紧急的事儿咋办？ 规划好将来某个时间做， 排期起码有个盼头儿，是不是？</p> 
+    <p>紧急不重要的事儿， 讲清楚，交给其他人去做， 也给小朋友们试错成长的机会嘛~</p> 
+    <p>不重要不紧急的事儿， 嗯， “哈，好的，没问题，那都不是事儿”（滚一边去）</p> 
+    <p>此中有个关系各位看官要搞清楚，如果重要不紧急的事儿你一直排期，一直规划，一直tnd不去做，那么，后面一定有很多重要紧急的事儿火烧火燎地来烧你屁股，你就天天救火吧， 哼哼~</p> 
+    <p>所以， 为了避免天天救火，天天疲于奔命， 我只能采取这种下策了，毕竟，老子时间有限，一天就24个小时，还得陪老婆，看书学习上进， 开会打豆豆， 能够外包的一定要外包呀， 当然， 为了保证效果，除了Jenkins的定时推送， 我自己当然也有一个TODO LIST啦， VS Code编辑的markdown， 配合Markdown Checkbox， 不要太爽！</p> 
+    <p>最后， 敦促次数多了如果还是没有进展， 那也就只能直接找上门去了那啥啦~</p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2009-03-04-ten-principles-of-economics.html">10 Principles of Economics </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2009-06-10-harward-negotiating-training-note.html">Harward Negotiating Training Note </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2013-04-23-anti-earthquake-design.html">门外汉谈建筑的抗震设计 </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

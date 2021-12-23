@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="“Playing BitTorrent with ttorrent” - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="“Playing BitTorrent with ttorrent” - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>“Playing BitTorrent with ttorrent” - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2012-04-09"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">“Playing BitTorrent with ttorrent”</h1> <small> <h3 class="author">fujohnwang</h3>2012-04-09 </small> 
+    <p></p> 
+    <hr> 
+    <ul> 
+     <li><a href="#a-bigpicture-of-bittorrent"><span class="toc-section-number">1</span> A BigPicture Of BitTorrent</a></li> 
+     <li><a href="#ttorrent-explained"><span class="toc-section-number">2</span> TTorrent Explained</a></li> 
+     <li><a href="#hello-world-ttorrent"><span class="toc-section-number">3</span> Hello, <del>World</del> ttorrent</a></li> 
+     <li><a href="#why-bt-matters"><span class="toc-section-number">4</span> Why BT matters?</a></li> 
+     <li><a href="#references"><span class="toc-section-number">5</span> References</a></li> 
+    </ul> 
+    <hr> 
+    <p><em>Author: fujohnwang, 2012-04-10</em></p> 
+    <p>Before we get our hands dirty with the code, we need to know something basic to BitTorrent…</p> 
+    <h1 data-number="1" id="a-bigpicture-of-bittorrent"><span class="header-section-number">1</span> A BigPicture Of BitTorrent</h1> 
+    <p>I will first show u a flow chart to demenstrate how BitTorrent works: <img src="../images/ttorrent/BT-Process-Flow.png" alt="BitTorrent Process Flow"></p> 
+    <p>First, we need to generate a .torrent metainfo file from the source file(s), in this step, the souce file(s) will be split into pieces with size of 512K-1M, and hashed with SHA-1, these hashes, the tracker, the file name(s) and other information will be collected into the generated .torrent file.</p> 
+    <p>After we get a .torrent metainfo file, we need to distribute it to others so that they can download and share source files as per the metainfo in .torrent file. There are many ways to distribute the .torrrent file, like sending via email, hosted on a web server, etc. Most of the time, we will publish the .torrent file to some web server so that other peers can download it by clicking the link.</p> 
+    <p>When some peer get the .torrent file, it can start to download or upload(sharing) the source files as per metainfo in the .torrent file, each peer needs to connect to the tracker(whose address can be retrieved from .torrent file) to get available peers to interact with, they send handshake, messages, and other packets to tracker to notify and receive corresponding states or events from each peer, more details can be found in the Reference part, I will not elaborate it here.</p> 
+    <p>In the big picture of bit torrent, several roles you should pay attention to:</p> 
+    <ol type="1"> 
+     <li><p><strong>tracker</strong></p> 
+      <ul> 
+       <li>the tracker is the central part of the whole ecosystem of bit torrent, it will coordinate the peers in the swarm(that’s, the peer group).</li> 
+      </ul></li> 
+     <li><p><strong>initial seeder</strong></p> 
+      <ul> 
+       <li>each bit torrent sharing should be initialized by some peer, this peer has the whole piece of the source file and will generate .torrent metainfo file and publish it, this peer is called the initial seeder.</li> 
+      </ul></li> 
+     <li><p><strong>peers</strong></p> 
+      <ul> 
+       <li><strong>seeder</strong> (the peers who has a complete source file, that’s, it has completed the download and only offering upload to other peers)</li> 
+       <li><strong>lecher</strong> (the peers who don’t have some complate source file and need to download from other peers)</li> 
+      </ul> <p>NOTE: a seeder can be a lecher, and a lecher can be a seeder, maybe just for different source file(s)</p></li> 
+     <li><p><strong>.torrent publisher</strong></p> 
+      <ul> 
+       <li>usually a web server which hosts the download service of the .torrent files</li> 
+      </ul></li> 
+    </ol> 
+    <p>So we have know some basic thing about bit torrent, let’s get to the real…</p> 
+    <h1 data-number="2" id="ttorrent-explained"><span class="header-section-number">2</span> TTorrent Explained</h1> 
+    <p>TURN’s ttorrent is a java library which can be embeded in our java applications so that we can use bit torrent to do something cool. I heard about it from esty team’s blog(you can find the blog in the Reference part).</p> 
+    <p>ttorrent is hosted at <a href="https://github.com/turn/ttorrent" class="uri">https://github.com/turn/ttorrent</a>, you can ‘git clone’ it to your local and browse its code to get the idea how it works.</p> 
+    <p>Generally, ttorrent hide all of the trivial and complicated protocol things behind several components/classes. The codebase of ttorent is simple, just 4 top source packages:</p> 
+    <ol type="1"> 
+     <li><strong>bcodec</strong>, responsible for encoding/decoding of data types</li> 
+     <li><strong>client</strong>, peer client which hide communication protocols behind to offer better use API</li> 
+     <li><strong>common</strong>, .torrent metainfo object abstraction and peer abstraction</li> 
+     <li><strong>tracker</strong>, provide tracker service use simple framework to serve http requests.</li> 
+    </ol> 
+    <h1 data-number="3" id="hello-world-ttorrent"><span class="header-section-number">3</span> Hello, <del>World</del> ttorrent</h1> 
+    <p>We have talked too much, it’s time to get our hands dirty with some code, here we go.</p> 
+    <p>```scala val parent = new File(“/Users/XXX/Movies/Fightings/”) val tracker = new Tracker(InetAddress.getLocalHost, “version-1”) tracker.start() println(“ttorrent tracker is running…”) try { println(“create new .torrent metainfo file…”) val sharedFile = “/Users/XXX/Movies/Fightings/RoK-FrontKick.asf” val torrent = Torrent.create(new File(sharedFile), tracker.getAnnounceUrl, “createdByDarren”)</p> 
+    <pre><code>  println("save .torrent to file...")
+  torrent.save(new File("seed.torrent"))
+
+  println("announce new .torrent available...")
+  tracker.announce(torrent)
+
+  println("kick off seeder to share...")
+  val seeder = new Client(InetAddress.getLocalHost, new SharedTorrent(torrent, parent, true))
+  seeder.share()
+  try {
+    if (!ClientState.ERROR.equals(seeder.getState())) {
+      val reader = new BufferedReader(new InputStreamReader(System.in))
+      try {
+        reader.readLine()
+      } finally {
+        reader.close()
+      }
+    }
+  } finally {
+    seeder.stop()
+  }
+} finally {
+  tracker.stop()
+}```</code></pre> 
+    <p>We start a Tracker at localhost first, then we decide to publish a movie, so we use Torrent class to create a .torrent metainfo file to the movie and announce it to the tracker. After that, we need to start a Client(which works as a peer) which will serve as the initial seeder to share the movie. To make a Client to work as the initial seeder, we need to use SharedTorrent(torrent, parent, seeder) constructor and make seeder=true to create a SharedTorrent instance for Client to use. At the end, call seeder.share to kick off the sharing.</p> 
+    <p>Since we have the tracker and initial seeder started, let’s add a new peer to the swarm to download the movie, the code listed below:</p> 
+    <p>```scala import util.control.Breaks._ val client = new Client(InetAddress.getLocalHost, SharedTorrent.fromFile(new File(“seed.torrent”), new File(“.”))) try { println(“start to download…”) client.share() // SEEDING for completion signal // client.download() // DONE for completion signal</p> 
+    <pre><code>  breakable {
+    while (!ClientState.SEEDING.equals(client.getState)) {
+      if (ClientState.ERROR.equals(client.getState())) {
+        throw new Exception("ttorrent client Error State")
+      }
+      TimeUnit.SECONDS.sleep(1)
+    }
+    println("download completed.")
+  }
+} finally {
+  println("stop client.")
+  client.stop()
+}```</code></pre> 
+    <p>we will run the new peer at local host too, and since we have saved the .torrent into ‘seed.torrent’ file before, we can just loaded it here, but with different parent when create the SharedTorrent instance, suppose, we just want to download the movie into the folder where the ‘seed.torrent’ file resides.</p> 
+    <p>The new peer’s job is simple, just download/share the movie with the .torrent, as the code speaks, create a Client and call share method, then we are done. The left code just for proper cleanups.</p> 
+    <p>If you just want the new peer to download and exit, you can call download method of the Client instead of share, but it’s not a recommended way, since BT is better that other P2P solutions with its “tit-for-tat” principle.</p> 
+    <p>So that’s all, when we start the tracker, the initial seeder and then the new peer, we can see that the movie is donwloaded successfully, try to add more peers to gain more benefits :-)</p> 
+    <pre><code>Trick: 
+    1. SharedTorrent's constructor needs a parent parameter(type of java.io.File), If you want to use the result SharedTorrent with the initial seeder, try to point this parent location to the path where your source files(the movies, for example) reside; For other peers, point the parent to the location where you would like to download the source files to. 
+    2. You can create .torrent metainfo file for single source file or a collection of source files with Torrent class's helper methods.
+    3. Tracker, Seeder, Common Peers are all linked together with the .torrent file, so to get better understanding of bit torrent, read more about .torrent stucture or specification :-)</code></pre> 
+    <h1 data-number="4" id="why-bt-matters"><span class="header-section-number">4</span> Why BT matters?</h1> 
+    <p>I know maybe you have used BT to share your audio/video with your friends every day, but as a software engineer, you may would like to escalate the usage scenarios of BT, just like esty, facebook or twitter do:</p> 
+    <ol type="1"> 
+     <li>etsy uses BT to replicate their Solr index;</li> 
+     <li>facebook and twitter use BT to do software artifacts distribution and deployment.</li> 
+    </ol> 
+    <p>Can we explore further?</p> 
+    <ul> 
+     <li>large clusters’ ops automation</li> 
+     <li>large distributed system state replication</li> 
+     <li>infrustructure maintainance and sync up?!</li> 
+     <li>…</li> 
+    </ul> 
+    <h1 data-number="5" id="references"><span class="header-section-number">5</span> References</h1> 
+    <ol type="1"> 
+     <li><a href="http://en.wikipedia.org/wiki/BitTorrent_(protocol)">BitTorrent (protocol)</a></li> 
+     <li><a href="http://turn.github.com/ttorrent/">Ttorrent-Turn’s BitTorrent library</a></li> 
+     <li><a href="http://codeascraft.etsy.com/2012/01/23/solr-bittorrent-index-replication/">Turbocharging Solr Index Replication with BitTorrent</a></li> 
+     <li><a href="http://wiki.theory.org/BitTorrentSpecification">Bittorrent Protocol Specification v1.0</a></li> 
+    </ol> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2019-06-02-memory_tricks.html">记忆技巧 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2021-10-11-db-rules-them-all.html">对数据库的爱有多少可以重来？ </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2008-06-30-rehunting-job.html">反复后准备开始重生 </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

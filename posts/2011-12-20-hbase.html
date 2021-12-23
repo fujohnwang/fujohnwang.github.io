@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="“HBase” - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="“HBase” - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>“HBase” - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2011-12-20"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">“HBase”</h1> <small> <h3 class="author">fujohnwang</h3>2011-12-20 </small> 
+    <p></p> 
+    <hr> 
+    <ul> 
+     <li><a href="#hbase的前世今生"><span class="toc-section-number">1</span> HBase的前世今生</a></li> 
+     <li><a href="#hbase的配置"><span class="toc-section-number">2</span> HBase的配置</a> 
+      <ul> 
+       <li><a href="#依赖前提"><span class="toc-section-number">2.1</span> 依赖前提</a></li> 
+       <li><a href="#分布式部署"><span class="toc-section-number">2.2</span> 分布式部署</a></li> 
+       <li><a href="#cautions"><span class="toc-section-number">2.3</span> Cautions</a></li> 
+      </ul></li> 
+     <li><a href="#hbase-replication"><span class="toc-section-number">3</span> HBase Replication</a> 
+      <ul> 
+       <li><a href="#hbase-replication-ref"><span class="toc-section-number">3.1</span> HBase Replication Ref</a></li> 
+       <li><a href="#issues"><span class="toc-section-number">3.2</span> Issues</a></li> 
+      </ul></li> 
+     <li><a href="#schema-design"><span class="toc-section-number">4</span> Schema Design</a></li> 
+     <li><a href="#distributions"><span class="toc-section-number">5</span> Distributions</a></li> 
+     <li><a href="#原理"><span class="toc-section-number">6</span> 原理</a></li> 
+     <li><a href="#references"><span class="toc-section-number">7</span> References</a></li> 
+    </ul> 
+    <hr> 
+    <h1 data-number="1" id="hbase的前世今生"><span class="header-section-number">1</span> HBase的前世今生</h1> 
+    <p>Born from the idea of Google Bigtable</p> 
+    <h1 data-number="2" id="hbase的配置"><span class="header-section-number">2</span> HBase的配置</h1> 
+    <h2 data-number="2.1" id="依赖前提"><span class="header-section-number">2.1</span> 依赖前提</h2> 
+    <ol type="1"> 
+     <li>Java 6 or above</li> 
+     <li>SSH - using passwordless login (Google “<em>ssh passwordless login</em>”)</li> 
+     <li>DNS</li> 
+     <li>NTP</li> 
+     <li>ulimit and nproc</li> 
+    </ol> 
+    <ul> 
+     <li>base需要很多文件句柄，所以系统默认的文件句柄数基本上不够，一般需要设置为1w以上</li> 
+     <li>“upping the file descriptors and nproc for the user who is running the HBase process is an operating system configuration, not an HBase configuration.”</li> 
+    </ul> 
+    <h2 data-number="2.2" id="分布式部署"><span class="header-section-number">2.2</span> 分布式部署</h2> 
+    <p>Hbase的配置需要在所有结点之间同步， 可以在一台机器上编辑完，然后用rsync同步，或者，专门搞一台发布机，集中管理配置， 然后分发（puppet之类的软件应该是干这个事情的）。</p> 
+    <p>配置hbase的时候， 最基本的需要通过override默认的配置，告知hbase：</p> 
+    <ol type="1"> 
+     <li>使用什么FileSystem，是local的还是HDFS等；</li> 
+     <li>要使用的zookeeper部署位置是什么；</li> 
+    </ol> 
+    <h2 data-number="2.3" id="cautions"><span class="header-section-number">2.3</span> Cautions</h2> 
+    <blockquote> 
+     <p>HBase will lose data unless it is running on an HDFS that has a durable <strong><em>sync</em></strong>.</p> 
+    </blockquote> 
+    <h1 data-number="3" id="hbase-replication"><span class="header-section-number">3</span> HBase Replication</h1> 
+    <pre><code>8.6.4. Write Ahead Log (WAL)
+    The WAL is in HDFS in /hbase/.logs/ with subdirectories per region.</code></pre> 
+    <p><strong>应该需要了解region server在zk里的ephemeral node，以便在region server failover之后，eromanga也可以转到新的region server上从新的hlog开始抓取变更。</strong></p> 
+    <p>API - <a href="http://hbase.apache.org/apidocs/org/apache/hadoop/hbase/replication/package-summary.html#requirements" class="uri">http://hbase.apache.org/apidocs/org/apache/hadoop/hbase/replication/package-summary.html#requirements</a></p> 
+    <div class="line-block">
+     Once a HRegionServer starts and is opening the regions it hosts it checks if there are some left over log files and applies those all the way down in Store.doReconstructionLog(). Replaying a log is simply done by reading the log and adding the contained edits to the current MemStore. At the end an explicit flush of the MemStore (note, this is not the flush of the log!) helps writing those changes out to disk.
+    </div> 
+    <p>|—-HLog Replay</p> 
+    <h2 data-number="3.1" id="hbase-replication-ref"><span class="header-section-number">3.1</span> HBase Replication Ref</h2> 
+    <ol type="1"> 
+     <li><a href="http://hbase.apache.org/replication.html" class="uri">http://hbase.apache.org/replication.html</a></li> 
+     <li><a href="http://hbase.apache.org/apidocs/org/apache/hadoop/hbase/regionserver/wal/HLog.html" class="uri">http://hbase.apache.org/apidocs/org/apache/hadoop/hbase/regionserver/wal/HLog.html</a></li> 
+     <li><a href="http://blog.sematext.com/2011/03/11/hbase-backup-options/" class="uri">http://blog.sematext.com/2011/03/11/hbase-backup-options/</a> - HBase Backup Options &gt; You might want to check out at MapR’s distro for Apache Hadoop (www.mapr.com). It has consistent point-in-time snapshots, as well the ability to mirror the snapshots to another data-center for disaster-recovery.</li> 
+     <li><a href="https://github.com/mozilla-metrics/akela/blob/master/src/main/java/com/mozilla/hadoop/Backup.java">https://github.com/mozilla-metrics/akela/blob/master/src/main/java/com/mozilla/hadoop/Backup.java</a> | <a href="http://blog.mozilla.com/data/2011/02/04/migrating-hbase-in-the-trenches/" class="uri">http://blog.mozilla.com/data/2011/02/04/migrating-hbase-in-the-trenches/</a> - Mozilla Backup tool</li> 
+     <li><a href="http://javamaster.wordpress.com/2010/03/19/replication-architecture-in-cassandra-and-hbase/" class="uri">http://javamaster.wordpress.com/2010/03/19/replication-architecture-in-cassandra-and-hbase/</a> <img src="http://javamaster.files.wordpress.com/2010/03/hbasereplication.png?w=460&amp;h=359"></li> 
+     <li><a href="http://koven2049.iteye.com/blog/983633" class="uri">http://koven2049.iteye.com/blog/983633</a></li> 
+     <li><a href="http://highscalability.com/blog/2009/8/24/how-google-serves-data-from-multiple-datacenters.html">How Google Serves Data From Multiple Datacenters</a></li> 
+     <li><a href="http://punishzhou.iteye.com/blog/1286230">Hbase的log管理(一)</a></li> 
+     <li><a href="http://punishzhou.iteye.com/blog/1288175">Hbase的log管理(二)</a></li> 
+     <li><a href="http://www.spnguru.com/2011/03/hbase%E5%BC%82%E5%B8%B8%E2%80%94%E2%80%94%E5%BD%93regionserver-crash%E4%B9%8B%E5%90%8E/">HBase异常——当RegionServer Crash之后</a></li> 
+     <li>​</li> 
+    </ol> 
+    <h2 data-number="3.2" id="issues"><span class="header-section-number">3.2</span> Issues</h2> 
+    <ol type="1"> 
+     <li><a href="https://issues.apache.org/jira/browse/HBASE-2958">When hbase.hlog.split.skip.errors is set to false, we fail the split but thats it</a></li> 
+     <li><a href="https://issues.apache.org/jira/browse/HBASE-2643">Figure how to deal with eof splitting logs</a></li> 
+     <li><a href="https://issues.apache.org/jira/browse/HBASE-1295">Multi data center replication</a></li> 
+     <li>​</li> 
+    </ol> 
+    <h1 data-number="4" id="schema-design"><span class="header-section-number">4</span> Schema Design</h1> 
+    <blockquote> 
+     <p>in general its best to avoid using a timestamp or a sequence (e.g.&nbsp;1, 2, 3) as the row-key.</p> 
+    </blockquote> 
+    <blockquote> 
+     <p><a href="http://ikaisays.com/2011/01/25/app-engine-datastore-tip-monotonically-increasing-values-are-bad/" class="uri">http://ikaisays.com/2011/01/25/app-engine-datastore-tip-monotonically-increasing-values-are-bad/</a></p> 
+    </blockquote> 
+    <h1 data-number="5" id="distributions"><span class="header-section-number">5</span> Distributions</h1> 
+    <ol type="1"> 
+     <li>Apache HBase</li> 
+     <li>Cloudera</li> 
+     <li>Others</li> 
+    </ol> 
+    <h1 data-number="6" id="原理"><span class="header-section-number">6</span> 原理</h1> 
+    <ol type="1"> 
+     <li><a href="http://koven2049.iteye.com/blog/974714">hbase 源码解析之master篇1</a></li> 
+     <li><a href="http://koven2049.iteye.com/blog/976619">hbase 源码解析之master篇2</a></li> 
+    </ol> 
+    <h1 data-number="7" id="references"><span class="header-section-number">7</span> References</h1> 
+    <ol type="1"> 
+     <li><a href="http://www.pigi-project.org/" class="uri">http://www.pigi-project.org/</a> - Powerful, Invincible, Great Indexing for HBase</li> 
+     <li>** <a href="https://db.usenix.org//events/osdi06/tech/chang/chang_html/">Bigtable: A Distributed Storage System for Structured Data</a> **</li> 
+     <li><a href="http://java.dzone.com/videos/hbase-schema-design-things-you">HBase Schema Design - Things you need to know</a></li> 
+     <li><a href="http://www.larsgeorge.com/2009/10/hbase-architecture-101-storage.html">HBase Architecture 101 - Storage</a></li> 
+     <li><a href="http://www.larsgeorge.com/2010/01/hbase-architecture-101-write-ahead-log.html">HBase Architecture 101 - Write-ahead-Log</a></li> 
+     <li><a href="http://java.dzone.com/videos/hbase-schema-design-things-you">HBase Schema Design - Things you need to know</a></li> 
+     <li><a href="http://www.spnguru.com/tag/hbase/">http://www.spnguru.com/tag/hbase/ - 趋势科技中国研发中心SPN研发团队hbase tag</a></li> 
+     <li><a href="https://issues.apache.org/jira/browse/HBASE-1512">Coprocessors: Support aggregate functions</a></li> 
+     <li><a href="http://blog.nosqlfan.com/html/3694.html">HBase在淘宝的应用和优化小结</a></li> 
+     <li><a href="http://www.meetup.com/hbaseusergroup/files/" class="uri">http://www.meetup.com/hbaseusergroup/files/</a></li> 
+     <li><a href="https://www.guru99.com/hbase-architecture-data-flow-usecases.html" class="uri">https://www.guru99.com/hbase-architecture-data-flow-usecases.html</a> - Guru99 HBase Tutorial</li> 
+    </ol> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2017-02-08-expiry-notification-side-project.html">开放测试个人证件过期提醒服务 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2010-03-04-software-idea.html">软件系统思考点滴 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2013-06-29-understanding-tcp-friends-mechanism.html">了解TCP Friends机制 </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

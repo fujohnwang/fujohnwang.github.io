@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="扯一下这阵子摸索的一些东西 - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="扯一下这阵子摸索的一些东西 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>扯一下这阵子摸索的一些东西 - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2011-01-25"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">扯一下这阵子摸索的一些东西</h1> <small> <h3 class="author">fujohnwang</h3>2011-01-25 </small> 
+    <p></p> 
+    <hr> 
+    <p><strong>author: fujohnwang</strong></p> 
+    <p>病了， 蔫儿蔫儿的， 痛苦中夹杂着痛苦，病痛是一种， 最主要的确是， 新的存储结构和系统架构还是没有完全想明白， 好消息是， 大体上的路线基本确定了， 只是一些小细节上暂时还是绕不过去，或者说绕起来也“不好看”, 一直围绕着这些烦人的小细节而阵痛…</p> 
+    <p>存储结构的细节暂时可能还无法确定，但最初读了bitcask的论文之后，心里基本也有了底儿， 甚至在看到kafka的存储结构说明的时候， 更是板上钉钉的事儿了，基本上是append only write， 这可以很大程度上利用磁盘的IO能力， 缩短各个存储结构之间的差距，不过， 我还是想在这个基础上在发挥一下，所以让实习生帮忙验证新基于BigMemory的推测出来的另一种方式， 目前看来效果不错， 只不过可能需要添加冗余结点来保证可用性和可靠性。（<a href="http://sna-projects.com/krati/" class="uri">http://sna-projects.com/krati/</a>有些思想也是类似的， 但还是不能吃现成的饭）</p> 
+    <p>集群的管理打算用zookeeper， jgroups虽然之前用的，了解过zookeeper之后， 感觉还是zookeeper甚得吾心，这东西用的好了，不但我手头上的项目可以用，部门其他项目也可以共享其服务， 岂是不亦乐乎？只不过， 基于zk的group membership管理可能还远远满足不了需求，需要做更进一步的扩展和考虑，这部分还是没有摆平， 明显不是zk的理解程度之类的问题了， 还要综合考虑产品的特性和要求， 以及部署和管理相关关注点。</p> 
+    <p>还有心烦的就是， 系统架构用Actor模型来构建应该很简单， 也避免了不必要的并发控制， 可Java实现Actor实在是蹩脚， 不得不一个Actor耗费一个线程而且还不是那么正宗， Task-Based Concurrency的结构模拟Data-Based Concurrency的结构，再怎么说，也不会那么完美的匹配。 想直接用Scala写了算了，可整个team也就我玩，其它的都不了解， 带着这么批新人做项目就是这个不爽， 走一步都得掂前顾后…</p> 
+    <p>其它没啥太好说的了， 就是感觉好像今年我没咋好好读几本书…</p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2006-00-00-sshexec-ant-task.html">扩展Ant Task之sshexec </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2010-06-28-cars-in-back-mirror.html">后视镜中的车流</a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2021-02-11-release-keenotes-v1-2-3-for-spring-festival.html">KeeNotes发布新版恭祝大家新春快乐~ </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

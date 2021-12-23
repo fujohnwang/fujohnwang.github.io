@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="分享一个注重隐私的信息管理工具 - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="分享一个注重隐私的信息管理工具 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>分享一个注重隐私的信息管理工具 - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2021-01-21"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">分享一个注重隐私的信息管理工具</h1> <small> <h3 class="author">王福强</h3>2021-01-21 </small> 
+    <p></p> 
+    <hr> 
+    <p>2021年虽然依然是疫情严重的一年，但也是顶住压力继续创造的一年， 新的一年，为大家介绍一个新开源的注重隐私的信息管理工具-<a href="https://github.com/keevol/keenotes-desktop">KeeNotes</a>。</p> 
+    <p>这个工具的设计和开发的初衷是小时候老师经常念叨的一句话：“好记性不如烂笔头儿”， 虽然自诩脑瓜子没那么笨，但随着年纪渐长，这记性还真感觉有点儿越来越疲弱地不敢依赖了，遂就有了“想到什么就记录什么”的需求。</p> 
+    <p>之前做这个事情也有“解决方案”，那就是通过公众号、Slack、Web页面等形式随手记录，但实际上， 并非所有的信息都愿意通过公网信道传输（即使传说中加了密的也不行），所以， 在新的一年就决定开发一个集私密性、易备份、易检索等特征的信息管理工具，<a href="https://github.com/keevol/keenotes-desktop">KeeNotes Desktop</a>遂孕育而生。</p> 
+    <p>KeeNotes的设计有几个理念：</p> 
+    <ol type="1"> 
+     <li><strong>Privacy First</strong>， 即<strong>私密性</strong>是第一性要求，把注重信息的私密性放在第一位。 我相信每个人都有想分享的信息，也有不想分享的信息，而前者其实是后者的子集；</li> 
+     <li><strong>easy to backup</strong>，即<strong>易备份</strong>。 大部分个人的信息储量并不需要像ElasticSearch之类的分布式系统来存储和检索， 也就不需要复杂的Snapshot等机制来保障信息的完整性，一个文件可以拷贝（copy），那是最好的；</li> 
+     <li><strong>Immutable</strong>， 即信息不怕冗余，只怕丢失甚至误操作删除。 虽然后面根据‘天使客户’的需求加了一个delete操作的入口，但并没有添加update操作，原因就是配合delete和append操作，可以最小化的功能集完成update同样的需求目标。</li> 
+     <li><strong>Searching As Filtering</strong>， 检索即过滤， 这是针对界面设计来说的，检索条件的输入实际上对应到UI界面上就是信息只显示基于检索条件的记录，当然，能把搜索功能说的这么厚颜无耻，也就我了吧；）</li> 
+     <li><strong>text only</strong>，<strong>文本优先</strong>，虽然今天图片、（短）视频等形式的信息也已经是主流，但碎片化的想法、闪念等，使用文本依然是最简单有效的形式。最初原本还想追加“Tagging”的场景， 但最终因为只专注文本（text）而得以省却了，毕竟搜索关键字其实就是最好的tag；</li> 
+     <li><strong>stay on the desktop</strong>， 即<strong>触手可及</strong>（长驻桌面）。 有想法，随手就可以记，“烂笔头儿”的数字对等物是也；</li> 
+    </ol> 
+    <p>KeeNotes是一个注重信息私密性的短文本信息管理工具， 它不是Evernote/Notion/OneNote之类的富长文本/多媒体信息管理工具或者说效率工具的竞品， 它的竞品在产品的首页有记录，大家感兴趣可以挪步观瞧。</p> 
+    <p>说了这么多，正事儿其实没提（大家毕竟都是外貌协会的嘛）， KeeNotes长这个样子：</p> 
+    <p><img src="images/KeeNotes_Desk_1_1_6_.png"></p> 
+    <p>其实没啥复杂的东西，就是一个记录、展示加检索。</p> 
+    <p>当然，KeeNotes也提供了设置界面（点击右上角那个齿轮），可以对Note的文本进行字体等设置。</p> 
+    <p>另外，像“双击Note卡片即可拷贝内容到剪切板”等小技巧，大家如果感兴趣可以自行去发现哟～</p> 
+    <p>好啦，今天就说到这里吧， 后面如果有更多人对这个工具感兴趣， 我会慢慢释出更多的特性和使用技巧的～</p> 
+    <p>欢迎大家试用，有问题可以github提issue ；）</p> 
+    <p>最后， 2021年祝大家牛气冲天，一起冲散疫情的阴霾～</p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2015-03-17-api-design-and-documentation.html">API Design And Documentation </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2011-06-23-a-custom-cfg-impl-with-scala.html">一个简单的自定义配置格式的Scala实现 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2021-07-25-pkm-and-real-words.html">也谈谈知识管理与真实 </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

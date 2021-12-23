@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="description" content="扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀">
+    <meta name="keywords" content="architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学">
+    <meta name="author" content="王福强">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>KEEVOL一周泛读 - 扶墙老师说：一个架构士的思考与沉淀</title>
+        <meta name="date" content="2019-03-17" />
+        <link rel="shortcut icon" href="/favicon.ico"/>
+    <style type="text/css">code{white-space: pre;}</style>
+            <!-- Bootstrap core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/freelancer.css" rel="stylesheet">
+<!--    <link href="/ivy.css" rel="stylesheet">-->
+    
+    <!-- 百度统计 -->
+    <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  </head>
+
+  <body id="page-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="/">扶墙老师说</a>
+        <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a>
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a>
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a>
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3" href="/favorite.html">我的收藏</a>
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3" href="/dashboard.html">金融看板</a>
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3" href="/columns.html">专栏文章</a>
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3" href="/references.html">快捷参考</a>
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+   <section>
+      <div class="container">
+<!--        <div class="row">-->
+<!--          <div class="col-lg-8 mx-auto">-->
+           
+<p class="lead">
+<h1 class="title">KEEVOL一周泛读</h1>
+<small>
+<h3 class="author">王福强</h3>2019-03-17
+</small>
+
+</p>
+
+<hr>
+
+<ul>
+<li><a href="#本周技术泛读"><span class="toc-section-number">1</span> 本周技术泛读</a></li>
+<li><a href="#本周商业泛读"><span class="toc-section-number">2</span> 本周商业泛读</a></li>
+<li><a href="#本周福强观点"><span class="toc-section-number">3</span> 本周福强观点</a></li>
+</ul>
+<hr/>
+
+<h1 id="本周技术泛读"><span class="header-section-number">1</span> 本周技术泛读</h1>
+<ul>
+<li><p><a href="https://prometheus.io/" class="uri">https://prometheus.io/</a></p>
+<ul>
+<li>闲来想给自己家里的几台mini servers搞个监控，所以瞅瞅这个开源界明星，也顺道看了下Atlas</li>
+<li><a href="https://github.com/Netflix/atlas">Netflix Atlas</a>
+<ul>
+<li><blockquote>
+<p>Atlas is the system Netflix uses to manage dimensional time-series data for near real-time operational insight.</p>
+</blockquote></li>
+<li>特定场景，特定方案， 本质上就是个通过<code>HTTP GET+各种query表达式</code>作为探针来刺探系统状态和信息的工具，要不咋叫operational insight呢 ：）</li>
+</ul></li>
+</ul></li>
+<li><p><a href="https://dev.to/winduptoy/a-javascript-free-frontend-2d3e">A JavaScript-Free Frontend</a></p>
+<ul>
+<li>原本SPA就是适合面向后台应用， 如果直接面向用户的应用，最好的方式就是在load和interactive之间做合理的权衡，只是大多数人都是懒的，所以做到极致的永远是少数人。</li>
+</ul></li>
+<li><p><a href="https://github.com/hasura/graphql-engine/tree/master/community/tools/graphql2chartjs">graphql2chartjs</a></p>
+<ul>
+<li>我估计<a href="https://tinyletter.com/foxgem">老胡</a>应该会比较喜欢吧， 直接将后端postgres动态映射到前端<a href="https://www.chartjs.org/">chart</a>： <a href="https://hasura.io/">Instant Realtime GraphQL on Postgres</a></li>
+<li>另一个角度看， GraphQL貌似渐成气候的样子…</li>
+</ul></li>
+</ul>
+<h1 id="本周商业泛读"><span class="header-section-number">2</span> 本周商业泛读</h1>
+<ul>
+<li><a href="https://www.usv.com/blog/analyzing-tools-used-by-our-network?utm_source=wanqu.co&amp;utm_campaign=Wanqu+Daily&amp;utm_medium=website">Analyzing Tools Used by Our Network</a>
+<ul>
+<li>可以一窥国外2B软件市场的现状</li>
+</ul></li>
+<li><a href="https://traduora.com/" class="uri">https://traduora.com/</a>开源翻译平台
+<ul>
+<li>对于搞国际化的团队应该有帮助</li>
+</ul></li>
+<li><a href="https://mp.weixin.qq.com/s/6yAdOF8ha4FqObheKfusgA">中国企业服务潜规则</a></li>
+</ul>
+<h1 id="本周福强观点"><span class="header-section-number">3</span> 本周福强观点</h1>
+<figure>
+<img src="images/WechatIMG1902.jpeg" alt="WechatIMG1902" /><figcaption>WechatIMG1902</figcaption>
+</figure>
+
+    
+    
+<!--          </div>-->
+<!--        </div>-->
+		<div class="text-center"><hr><img src="/images/mp_footer.jpeg" class="img-responsive" style="width: fit-content;"></div>
+      </div>
+      
+    </section>
+
+
+    <div class="copyright py-4 text-center text-white">
+      <div class="container">
+        <small>Copyright &copy; 王福强个人版权所有 - 2018</small>
+      </div>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom scripts for this template -->
+    <script src="/js/freelancer.min.js"></script>
+
+  </body>
+
+</html>

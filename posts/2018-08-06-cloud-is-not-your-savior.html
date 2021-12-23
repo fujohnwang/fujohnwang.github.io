@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="云不是万能药， 治不了你的无知与懒惰 - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="云不是万能药， 治不了你的无知与懒惰 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>云不是万能药， 治不了你的无知与懒惰 - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2018-08-06"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">云不是万能药， 治不了你的无知与懒惰</h1> <small> <h3 class="author">王福强 著</h3>2018-08-06 </small> 
+    <p></p> 
+    <hr> 
+    <p>虽然不知道最终我朝诉讼双方和诉讼和稀泥一方最终会搞出个什么结果出来，但窃以为作为曾经的一名“运维架构师”，还是要为大家科普一下云上数据的安全性问题…</p> 
+    <p>很多人有个误区：觉得一年花个几千块钱上云，数据和服务就万事无忧了， 其实这是有问题的。 不管你是上了AWS，还是阿里云，腾讯云，甚至现在的华为云， 他们只是在基础设施服务层面比你做的好很多，但远没有说可以100%不出问题。 对于技术团队中的运维团队来说，他们最尴尬的地方就在于， 他们纵然再努力，都只能无限趋近100%不出问题天际线， 但却永远达不到，抓不着， 嗯， 跟夸父追日有一拼。</p> 
+    <p>所以， 回到今天某数据公司在腾讯云出了故障之后数据皆丢失的问题上来：</p> 
+    <ol type="1"> 
+     <li>腾讯云一定会出问题的（AWS也会， 阿里云也会， XYZ云都会）， 作为服务的使用方，应该有最基本的认知，CEO没有，CTO或者运维总监也应该有，否则难辞其咎；</li> 
+     <li>腾讯云收取服务费用，提供服务， 除了问题，肯定要承担责任，至于责任定性，我估计双方在签订服务合同的时候应该就有约定， 腾讯云显然推脱不了服务出问题的责任；</li> 
+     <li>数据是企业自己的数据， 数据丢了， 首要责任是企业自己（内部的事情）， 将责任推卸给腾讯云也不能挽回数据丢失的事实，以及造成的最终后果。企业要为自己的数据承担最终兜底的责任， 抱怨别人，推卸责任，都不是一个做事企业的正确态度。只有自己才能对自己要承担的结果负责， 第三方自然有第三方的责任和赔偿，但终归挽救不了你自己要经受的惨痛经历。</li> 
+    </ol> 
+    <p>架构上有个原则（老调重弹了， 哥10年前的经验）： <strong>不信任任何第三方依赖</strong>。</p> 
+    <p>对于某企业来说，腾讯云就是他的第三方依赖， 遵循<strong>不信任任何第三方依赖</strong>就意味着，你要清醒的认识到， 任何第三个组件或者服务都是不可靠的，有可能出问题的，所以，要提前做好预防工作，包括但不限于重试，断路器，多副本，高可用，多供应商等等手段。</p> 
+    <p>而针对此次事件， 该企业即使做一个简单的定时脚本每天备份一下数据，也不至于说数据全都丢失， 一点儿运维意识都没有，明明一个定时定期的冷备就可以搞定80%-90%的风险敞口， easy却不去做， 不该你去死又该是谁呢？愚蠢至此，还好意思要1000万赔偿，我也是醉了， 不想想你才花了多少点儿银子？！如果风险那么大，收益还那么低，SB才干这个生意那，早赔光早托生啊~</p> 
+    <p>给各位CEO和老板们几点建议：</p> 
+    <ol type="1"> 
+     <li>系统一定会出问题的，不出问题才怪。出问题不可怕，不正视问题才可怕。实际上每次出了问题，都是一次借事修人，整顿内务的机会，我们天天要求运维团队提高系统可用性到几个9， 本质上是在避免人祸，但“天灾”有些时候就是你我无法左右的。</li> 
+     <li>找点儿有责任心的技术负责人， 大部分人都是<strong>又贪又不能担</strong>，要敢于提拔那些敢担责的人，而不是那些善于推卸责任的人。</li> 
+     <li>内功不是一天修炼成的， 敢于用人，敢于试错， 也别一朝被蛇咬十年怕井绳，创业过程中的不确定性多了去了， 活下来的都是幸运的，不是能力最强的， 有些时候， 运气还真是很重要的东西 ；）</li> 
+    </ol> 
+    <p>嗯，就这么些， 前阵子有兄弟跟我说生产库被删了， 也不止恢复过来没有， 我已经听到不知道多少家公司的CEO或者CTO跟我实时报道这种事件了， 该踩的坑儿，看来谁也躲不过，哈</p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2010-03-26-gotchas-with-junit-exec-model.html">Gotchas With JUnit’s Execution Model </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2007-11-04-BF4768EE8B110260_684.html">继续《奋斗》</a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2014-07-17-intro-cobar-extra-rules.html">Cobar分区函数扩展项目简介(cobar</a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="Why I am called myself Scarja? - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="Why I am called myself Scarja? - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>Why I am called myself Scarja? - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2020-07-21"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">Why I am called myself Scarja?</h1> <small> <h3 class="author">王福强</h3>2020-07-21 </small> 
+    <p></p> 
+    <hr> 
+    <blockquote> 
+     <p>别的不能说，只能聊聊技术与架构设计啦…</p> 
+    </blockquote> 
+    <p>大家都知道， 我虽然不写生产代码很久了，但偶尔还是会用Scala（Lang）写写prototyping，但我不是典型的Scala老粉红，我更多用的是一种裁剪后的Scala，或者说走的是用Scala来写Java的曲风，所以，我一直说我用的是Scarja， 即带点儿伤疤(Scar)的Scala+Java。</p> 
+    <p><img src="images/assault-rifle-555882_1280.png"></p> 
+    <p>我在老早之前就说过了，Scala的设计初衷和理念加上主流社区的一些工程实践， 其实，并不太适合大规模的上生产环境，你用它来写Endpoints型的应用或者服务是OK的，但如果要用它来写较为通用的Component或者说SDK Library，就没那么好玩了， 交叉编译，Scala自身版本之间的行为不一致甚至不兼容，所有这些东西都会让你处处有惊喜。瞧， 已经不止一个人反映这个问题了，比如今天Scala小王子lihaoyi就牢骚了一把：</p> 
+    <p><img src="images/lihaoyi-reported-bug-on-scala.png"></p> 
+    <p>其实在此之前就有人反映Scala各个版本之间的Collection行为不一致的问题， 甚至于让我很不爽的一点就是， 2.12里Scala和Java的Collection转换用的<code>import scala.collection.JavaConverters._</code>， 升级2.13却得改成<code>import scala.jdk.CollectionConverters._</code>， 其实一个产品让用户不爽的就是这些小的地方，计算机语言的语法设计， 类库的接口设计， 产品的UI/UX设计，其实都是一个道理：<strong>你是不是让你的用户更加乐于接受、更容易接受你的这种设计</strong>。 所谓Don’t Make Me Think， 无非也就是这样。</p> 
+    <p>我为什么一种用Scala，其实无非也只是尝试了n种计算机语言智慧化，也就Scala的语法和设计更符合自己的口味罢了，但也还是没法完全匹配个人的口味，所以只能裁剪着用。比如我只用最基本清晰的语法和特性，比如我只用Java类库而很少用Scala社区的类库，比如我就是用Scala来写Java…</p> 
+    <p>语言之争其实没有意义， 因为萝卜白菜各有所爱， 最主要的是这个东西能最终形成一种能力，让你可以<strong>解决现实中的问题</strong>，这才是最终诉求。</p> 
+    <p>但对自己来说，简单、务实、高效的工具，显然更有价值。</p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2015-07-23-gitlab-server-side-hook-how-to.html">gitlab的server端hook简要使用说明 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2014-04-26-weak-horse-effect.html">瘦马效应 #What’s in a story# </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2009-05-14-say-goodbye-to-CSTS.html">最终还是不得不发出这样的邮件 </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

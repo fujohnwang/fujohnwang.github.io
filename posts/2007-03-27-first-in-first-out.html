@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="First In, First Out - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="First In, First Out - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>First In, First Out - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">First In, First Out</h1> 
+    <p></p> 
+    <hr> 
+    <blockquote> 
+     <p>2014年从msn space存档中重新恢复出来！</p> 
+    </blockquote> 
+    <p>各位看官，别误会，如果你是搞IT的，可能认为是先入先出队列啥的，不过这里不是，这里是Accounting中的一个概念，为了搞清楚这个东西，偶搜遍google的每个角落（有点儿夸张了哈，其实就几页），来搞清楚这个概念到底干嘛的，因为FX里面最后计算损益的时候要用到。以下是摘自的 http://www.waycross.edu/faculty/bsmith/inventory%20valuation.htm 部分内容，因为较为能够说明问题（我讨厌死板的理论！）：</p> 
+    <pre>Suppose that Phil started business on January 1st.  During the year he made the following purchases
+
+January                 260 units @ $10 per unit = $2,600
+
+May                       150 units @ $13 per unit = $1,950
+
+September             200 units @ $16 per unit = $3,200
+
+December              100 units @ $20 per unit = $2,000
+
+Total                       710 units                            $9,750=total purchases for the year
+
+Of these 710 units, suppose 515 were sold during the year leaving 195 units in ending inventory
+
+First in, first out or FIFO:
+
+With FIFO the 515 units sold are assumed to come from the first three purchases made during the year (Jan-Sept).   This leaves all 100 units of the December purchase in inventory and 95 of the September purchase in inventory.   The COGS is calculated as follows:
+
+January                         260 units @ $10 per unit = $2,600
+
+Plus May                       150 units @ $13 per unit = $1,950
+
+Plus September             105 units @ $16 per unit = $1,680
+
+   Total                          515 units                              $6,230= COGS
+
+
+This means the valuation for the ending inventory is 
+
+September                      95 units @ $16 per unit = $1,520
+
+Plus December             100 units @ $20 per unit = $2,000
+
+   Total                          195 units                              $3,520= Ending inventory
+
+Advantage: It more accurately reflects the replacement cost of inventory items during periods of inflation.
+
+Disadvantage: It reduces the cost of goods sold during inflationary periods thereby increasing company income tax liability.
+
+Last in, first out or LIFO:
+
+With LIFO the 515 units sold are assumed to come from the last three purchases made during the year (Sept-Dec) and an additional 65 units from the January purchase.  
+
+The COGS is calculated as follows:
+
+January                           65 units @ $10 per unit =    $650
+
+Plus May                       150 units @ $13 per unit = $1,950
+
+Plus September              200 units @ $16 per unit = $3,200
+
+Plus December              100 units @ $20 per unit = $2,000
+
+Total                              710 units                             $7,800=COGS
+
+ 
+
+This means the valuation for the ending inventory is
+
+January                         195 units @ 10 per unit = $1,950
+
+   Total                          195 units                           $1,950= Ending inventory
+
+Note:
+
+Cost of goods available for sale (LIFO) = COGS + Ending inventory = 7,800 + 1,950 = 9,750
+
+Cost of goods available for sale (FIFO) = COGS + Ending inventory = 6,230 + 3,520 = 9,750
+
+其中的COGS是Cost Of Goods Sold的缩写。
+</pre> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2018-08-30-illusion_as_reality.html">冲突，臆想与现实 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2017-05-04-what-makes-an-architect.html">架构师不是你想的那样 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2015-02-17-my-actor-practice-advices.html">Practice Advices On Design and Impl. with Actor Model </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

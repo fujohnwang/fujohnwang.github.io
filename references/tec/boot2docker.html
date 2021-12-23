@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="Docker with boot2Docker on Mac - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="Docker with boot2Docker on Mac - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>Docker with boot2Docker on Mac - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2015-04-23"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">Docker with boot2Docker on Mac</h1> <small> <h3 class="author">陨石 - yunshi AT wacai DOTA com</h3>2015-04-23 </small> 
+    <p></p> 
+    <hr> 
+    <ul> 
+     <li><a href="#准备与运行"><span class="toc-section-number">1</span> 准备与运行</a></li> 
+     <li><a href="#常用命令说明"><span class="toc-section-number">2</span> 常用命令说明</a> 
+      <ul> 
+       <li><a href="#升级boot2docker"><span class="toc-section-number">2.1</span> 升级boot2docker</a></li> 
+       <li><a href="#升级docker"><span class="toc-section-number">2.2</span> 升级docker</a></li> 
+       <li><a href="#下载最新的boot2docker-iso"><span class="toc-section-number">2.3</span> 下载最新的boot2docker iso</a></li> 
+       <li><a href="#删除虚拟机景象"><span class="toc-section-number">2.4</span> 删除虚拟机景象</a></li> 
+      </ul></li> 
+     <li><a href="#gotchas"><span class="toc-section-number">3</span> Gotchas</a></li> 
+     <li><a href="#references"><span class="toc-section-number">4</span> References</a></li> 
+    </ul> 
+    <hr> 
+    <h1 data-number="1" id="准备与运行"><span class="header-section-number">1</span> 准备与运行</h1> 
+    <ol start="0" type="1"> 
+     <li><p>先装<a href="https://www.virtualbox.org/wiki/Downloads">virtualbox</a>, boot2docker需要它！</p></li> 
+     <li><p><a href="https://github.com/boot2docker/osx-installer/releases">download</a> and install</p> 
+      <ul> 
+       <li>更简单的做法：<code>brew update</code> &amp; <code>brew install boot2docker</code></li> 
+      </ul></li> 
+     <li><p><code>boot2docker init</code> to download vm iso and create it in virtual box;</p> <pre><code>➜  ~  boot2docker init
+Latest release for boot2docker/boot2docker is v1.6.0
+Downloading boot2docker ISO image...</code></pre></li> 
+     <li><p><code>boot2docker start</code></p> 
+      <ul> 
+       <li>返回信息中会提示你设置环境变量，不用手动设置， 直接执行第4步的命令即可。</li> 
+      </ul></li> 
+     <li><p><code>boot2docker shellinit</code> - 设置相关环境变量</p></li> 
+     <li></li> 
+    </ol> 
+    <h1 data-number="2" id="常用命令说明"><span class="header-section-number">2</span> 常用命令说明</h1> 
+    <h2 data-number="2.1" id="升级boot2docker"><span class="header-section-number">2.1</span> 升级boot2docker</h2> 
+    <p>下载最新的boot2docker安装包并安装即可。</p> 
+    <h2 data-number="2.2" id="升级docker"><span class="header-section-number">2.2</span> 升级docker</h2> 
+    <p>运行<code>boot2docker download</code></p> 
+    <h2 data-number="2.3" id="下载最新的boot2docker-iso"><span class="header-section-number">2.3</span> 下载最新的boot2docker iso</h2> 
+    <p><code>boot2docker download</code></p> 
+    <h2 data-number="2.4" id="删除虚拟机景象"><span class="header-section-number">2.4</span> 删除虚拟机景象</h2> 
+    <p><code>boot2docker delete</code></p> 
+    <h1 data-number="3" id="gotchas"><span class="header-section-number">3</span> Gotchas</h1> 
+    <p>哥黑苹果， BIOS有的项目禁止了， 所以up不起来，fuck~</p> 
+    <h1 data-number="4" id="references"><span class="header-section-number">4</span> References</h1> 
+    <ol type="1"> 
+     <li><a href="http://docs.docker.com/installation/mac/" class="uri">http://docs.docker.com/installation/mac/</a></li> 
+     <li><a href="https://www.gitbook.com/book/yeasy/docker_practice/details">Docker —— 从入门到实践</a> 
+      <ul> 
+       <li><a href="http://yeasy.gitbooks.io/docker_practice/content/dockerfile/basic_structure.html" class="uri">http://yeasy.gitbooks.io/docker_practice/content/dockerfile/basic_structure.html</a> - Dockerfile基础结构</li> 
+      </ul></li> 
+     <li><a href="http://www.luiselizondo.net/a-production-ready-docker-workflow/">A production ready Docker workflow</a></li> 
+    </ol> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2009-10-29-create-custom-maven-archetype.html">自定义Maven archetype的创建 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2009-07-27-depressing-days.html">再这样下去有点儿不像话了 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2017-01-20-youxinren-1st-release.html">我们“有薪人”上线啦~ </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

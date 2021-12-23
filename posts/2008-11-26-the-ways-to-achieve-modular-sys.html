@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="The Ways To Achieve Your Modular System - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="The Ways To Achieve Your Modular System - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>The Ways To Achieve Your Modular System - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">The Ways To Achieve Your Modular System</h1> 
+    <p></p> 
+    <hr> 
+    <p>进CSTS(大连)之后，当前的项目的frontend是用Swing实现的，这本来没啥惊奇的，但是，时间长了却发现一个比较现实的问题。本来以为当前的GUI的framework只是我们team用的，后来才发现，另一个Team开发的功能也要挂在这个应用框架之上，当两个team的发布时间不同的时候，问题就来了，我们Team要做Code Freeze的时候，需要同时协调另一个Team是否继续让他们提交代码，因为同时在一个Branch上开发，同时提交到相同的codebase，或许通过配置管理可以解决这样的冲突，但是，为什么不一开始就通过模块化系统的设计，来分离这样比较独立的功能模块那？这就促使我想要提一提标题所给出的这个话题…</p> 
+    <p>但是，即使是仅关注桌面应用的开发这一块儿，即使是仅关注Java平台上桌面应用这一块儿，也会发现，整个话题牵扯的范围依然过于宽泛了，根本就不是三言两语可以说清楚的，即使是三言两语说出来的，也可能只是皮毛而已。 而且现在感觉自己各方面状态不好，所以，这个话题暂且搁置了吧，不过，把开始的构思先放这里，或许以后某一天，我可以从这里继续…</p> 
+    <pre>==The Ways To Achieve Your Modular System==
+Phase 1: 
+1-Interface + Classloader custom solutions 
+2-The service discovery mechanism in Java.(SPI) 
+  eg. JDBC drivers, providers for sounds api. 
+3-NetBeans Platform Modules (as if the LookupAPI is based on 2) 
+  3.1 Spring RCP 
+Phase 2: 
+4-OSGi and JSR277 or JSR294??? 
+  4.1 Eclipse Plugin Modules (Eclipse RCP) 
+  4.2 Spring DM 
+5-... 
+
+Reference: 
+1)-http://www.javaranch.com/journal/200607/Journal200607.jsp?print=on#a1 
+2)-http://java.sun.com/j2se/1.4.2/docs/guide/jar/jar.html#Service%20Provider 
+3)-http://mockus.org/optimum/JavaTutorial/mustang/sound/SPI-intro.html    (not too necessary) 
+4)-http://dvbcentral.sourceforge.net/netbeans-runtime.html 
+5)-http://netbeans.dzone.com/news/from-pain-gain-swing-and-netbe 
+6)-&lt;<rich client programming:plugging into the netbeans platform>
+      &gt; 
+
+     </rich></pre> 
+    <p>即使是从现在的结构也可以看出来，要参考的资料还是很多的，现在的参考列表还只是个开始而已。不过，要是其他人对这个话题感兴趣，倒是可以继续哈，我想之前这样的话题也应该有人提过了吧，没有google过，但能够从总体上对java平台上的桌面应用开发中的架构思考的资料，应该还是比较令人期待的吧？！</p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2020-07-13-go-big-or-strong.html">为什么一定要做大或者做强 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2007-05-02-what-a-51-holiday.html">2007之五一7天记 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2008-01-06-xintianyou.html">信天游 </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="了解LaunchDaemons - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="了解LaunchDaemons - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>了解LaunchDaemons - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <style type="text/css">
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">了解LaunchDaemons</h1> <small> <h3 class="author">王福强</h3> </small> 
+    <p></p> 
+    <hr> 
+    <ul> 
+     <li><a href="#简单介绍"><span class="toc-section-number">1</span> 简单介绍</a> 
+      <ul> 
+       <li><a href="#目录位置说明"><span class="toc-section-number">1.1</span> 目录位置说明</a></li> 
+       <li><a href="#plist文件简单说明"><span class="toc-section-number">1.2</span> plist文件简单说明</a></li> 
+      </ul></li> 
+     <li><a href="#操作"><span class="toc-section-number">2</span> 操作</a> 
+      <ul> 
+       <li><a href="#获取信息"><span class="toc-section-number">2.1</span> 获取信息</a></li> 
+       <li><a href="#加载或者卸载load-unload"><span class="toc-section-number">2.2</span> 加载或者卸载(load / unload)</a></li> 
+       <li><a href="#启动或者停止startstop"><span class="toc-section-number">2.3</span> 启动或者停止(start/stop)</a></li> 
+      </ul></li> 
+     <li><a href="#references"><span class="toc-section-number">3</span> References</a></li> 
+    </ul> 
+    <hr> 
+    <p>用了这么长时间Mac， 这基础性东西今天才去了解一下， 权做笔记。</p> 
+    <h1 data-number="1" id="简单介绍"><span class="header-section-number">1</span> 简单介绍</h1> 
+    <p>使用plist文件（一种xml格式的文件，全称为<em>property list</em>）来定义， 放入几个指定的目录，具体目录的位置决定了这个plist对应的是一个Agent还是一个Daemon， Agent和Daemon的唯一区别是他们的存放位置，以及为谁服务， Agent只为当前登录的用户服务， Daemon则是为root或者指定的用户服务。</p> 
+    <h2 data-number="1.1" id="目录位置说明"><span class="header-section-number">1.1</span> 目录位置说明</h2> 
+    <ol type="1"> 
+     <li>~/Library/LaunchAgents</li> 
+     <li>/Library/LaunchAgents</li> 
+     <li>/Library/LaunchDaemons</li> 
+     <li>/System/Library/LaunchAgents</li> 
+     <li>/System/Library/LaunchDaemons</li> 
+    </ol> 
+    <p>一般情况下，不需要去动/System下的agents或者daemons。</p> 
+    <h2 data-number="1.2" id="plist文件简单说明"><span class="header-section-number">1.2</span> plist文件简单说明</h2> 
+    <p>一般关注几项主要的配置即可：</p> 
+    <ol type="1"> 
+     <li>Label - 标志名称</li> 
+     <li>Program - 运行的程序是哪个</li> 
+     <li>RunAtLoad - 是否在加载的同时启动</li> 
+    </ol> 
+    <div class="sourceCode" id="cb1">
+     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;?xml</span> version="1.0" encoding="UTF-8"<span class="kw">?&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;!DOCTYPE </span>plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"<span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;plist</span><span class="ot"> version=</span><span class="st">"1.0"</span><span class="kw">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;dict&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;key&gt;</span>Label<span class="kw">&lt;/key&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;string&gt;</span>com.example.app<span class="kw">&lt;/string&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;key&gt;</span>Program<span class="kw">&lt;/key&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;string&gt;</span>/Users/Me/Scripts/cleanup.sh<span class="kw">&lt;/string&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;key&gt;</span>RunAtLoad<span class="kw">&lt;/key&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;true/&gt;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/dict&gt;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/plist&gt;</span></span></code></pre>
+    </div> 
+    <p>以上是一个最简版的plist配置实例</p> 
+    <h1 data-number="2" id="操作"><span class="header-section-number">2</span> 操作</h1> 
+    <p>plist只是配置，要执行这些配置，需要使用<strong>launchctl</strong>命令， 它运行你罗列信息， 加载，卸载，启动和关闭agents或者daemons</p> 
+    <h2 data-number="2.1" id="获取信息"><span class="header-section-number">2.1</span> 获取信息</h2> 
+    <div class="sourceCode" id="cb2">
+     <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> launchctl list</span></code></pre>
+    </div> 返回结果类似于： 
+    <pre>...
+1230    -   com.apple.speech.speechsynthesisd
+353     -   com.apple.security.cloudkeychainproxy3
+255     -   com.apple.secd
+-       0   com.apple.sbd
+...
+</pre> 
+    <p>第一列表示进程号，如果有在结果中罗列，但没有数字而只是一个横线，标志虽然已经loaded， 但没有运行；</p> 
+    <p>第二列是上次退出的状态号(the last exit code), 0表示成功，正数表示错误退出， 负数表示收到信号后退出。</p> 
+    <h2 data-number="2.2" id="加载或者卸载load-unload"><span class="header-section-number">2.2</span> 加载或者卸载(load / unload)</h2> 
+    <div class="sourceCode" id="cb3">
+     <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">launchctl</span> load ~/Library/LaunchAgents/com.example.app.plist</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">launchctl</span> load -F ~/Library/LaunchAgents/com.example.app.plist   // 如果被disabled的话， 强制启动</span></code></pre>
+    </div> 
+    <p>例如Jenkins：</p> 
+    <ul> 
+     <li>Start Jenkins: 
+      <ul> 
+       <li><code>sudo launchctl load /Library/LaunchDaemons/org.jenkins-ci.plist</code></li> 
+      </ul></li> 
+     <li>Stop Jenkins: 
+      <ul> 
+       <li><code>sudo launchctl unload /Library/LaunchDaemons/org.jenkins-ci.plist</code></li> 
+      </ul></li> 
+    </ul> 
+    <h2 data-number="2.3" id="启动或者停止startstop"><span class="header-section-number">2.3</span> 启动或者停止(start/stop)</h2> 
+    <p>agents或者daemons可以加载但不启动，所以，事后可以单独启动或者关闭：</p> 
+    <div class="sourceCode" id="cb4">
+     <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">launchctl</span> start com.example.app</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">launchctl</span> stop com.example.app</span></code></pre>
+    </div> 
+    <h1 data-number="3" id="references"><span class="header-section-number">3</span> References</h1> 
+    <ol type="1"> 
+     <li><a href="https://developer.apple.com/library/mac/technotes/tn2083/_index.html">Daemons and Agents</a> - 手册， 太jm详细了，就是看着挺繁琐…</li> 
+     <li><a href="http://launchd.info/">What is launchd?</a> - 说明简单明了，较全面</li> 
+     <li><a href="http://paul.annesley.cc/2012/09/mac-os-x-launchd-is-cool/">Mac OS X: Launchd Is Cool</a></li> 
+    </ol> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2009-01-27-design-can-be-so-simple.html">设计原本如此简单 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2017-03-08-fuck-three-idiots.html">今天就像三妈之前跟我说的那样：“吃了苍蝇” </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2009-02-28-movie-the-reader.html">生死朗读 </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

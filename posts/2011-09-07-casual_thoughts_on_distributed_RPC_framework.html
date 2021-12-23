@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="Casual Thoughts On Distributed RPC Service Framework - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="Casual Thoughts On Distributed RPC Service Framework - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>Casual Thoughts On Distributed RPC Service Framework - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2011-09-07"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">Casual Thoughts On Distributed RPC Service Framework</h1> <small> <h3 class="author">fujohnwang</h3>2011-09-07 </small> 
+    <p></p> 
+    <hr> 
+    <ul> 
+     <li><a href="#service-identity"><span class="toc-section-number">1</span> service identity</a></li> 
+     <li><a href="#service-identity-1"><span class="toc-section-number">2</span> service identity</a></li> 
+     <li><a href="#service-lookup"><span class="toc-section-number">3</span> service lookup</a></li> 
+     <li><a href="#service-extensions"><span class="toc-section-number">4</span> service extensions</a></li> 
+     <li><a href="#service-upgrade"><span class="toc-section-number">5</span> service upgrade</a></li> 
+     <li><a href="#service-deployment"><span class="toc-section-number">6</span> service deployment</a></li> 
+     <li><a href="#potential-points"><span class="toc-section-number">7</span> potential points</a></li> 
+    </ul> 
+    <hr> 
+    <p><strong>author: fujohnwang</strong></p> 
+    <h1 data-number="1" id="service-identity"><span class="header-section-number">1</span> service identity</h1> 
+    <p>[artifact version] + FQname + version</p> 
+    <h1 data-number="2" id="service-identity-1"><span class="header-section-number">2</span> service identity</h1> 
+    <p>[artifact version] + FQname + version</p> 
+    <h1 data-number="3" id="service-lookup"><span class="header-section-number">3</span> service lookup</h1> 
+    <ol type="1"> 
+     <li>how many services exist?</li> 
+     <li>what kind of details operations/services in each service?!</li> 
+     <li>what’s the signature of each operations?</li> 
+    </ol> 
+    <h1 data-number="4" id="service-extensions"><span class="header-section-number">4</span> service extensions</h1> 
+    <ol type="1"> 
+     <li>can I replace the data structure serialization and deserialization?! 
+      <ul> 
+       <li>use custom serialization mechanism</li> 
+       <li>some flag to indicate the mechanism that’s used by service providers</li> 
+      </ul></li> 
+     <li>can I intercept service operations without service implementations’ intrusion?!</li> 
+     <li>can I replace default service lookup service provider?</li> 
+     <li>can I hook in custom LB and failover mechanisms in the service users’ side?</li> 
+     <li>can I hook in audit and monitoring concerns?</li> 
+     <li>can I tune the server side of the service exposion? 
+      <ul> 
+       <li>TcpNoDelay?!</li> 
+       <li>send buffer or receive buffer size</li> 
+       <li>timeout</li> 
+       <li>etc.</li> 
+      </ul></li> 
+     <li>can I expose same service via different transports at the same time?!</li> 
+    </ol> 
+    <h1 data-number="5" id="service-upgrade"><span class="header-section-number">5</span> service upgrade</h1> 
+    <ol type="1"> 
+     <li>service framework upgrade</li> 
+     <li>service upgrade</li> 
+    </ol> 
+    <h1 data-number="6" id="service-deployment"><span class="header-section-number">6</span> service deployment</h1> 
+    <ol type="1"> 
+     <li>how to ease the large scale service deployment?! even make it automatically?</li> 
+     <li>template publication node?!</li> 
+    </ol> 
+    <h1 data-number="7" id="potential-points"><span class="header-section-number">7</span> potential points</h1> 
+    <ol type="1"> 
+     <li>are overloaded methods allowed?!</li> 
+     <li>are multiple languages inter-operations supported?!</li> 
+     <li>If you want to provide OO-RPC interface for clients to use, what kind of interception mechanisms u want to use? reflection or bytecode gen? Are there some overheads in this point?</li> 
+    </ol> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2008-12-31-so-hard-to-watch-a-movie-these-days.html">看场电影都那么难 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2020-04-22-toB-dilemma-in-China.html">2020年对企业服务市场的三点思考 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2007-09-21-whats-wrong-with-me.html">What’s wrong with me? </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="闲话SpringAOP的应用(2) - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="闲话SpringAOP的应用(2) - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>闲话SpringAOP的应用(2) - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <style type="text/css">
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">闲话SpringAOP的应用(2)</h1> <small> <h3 class="author">FuqiangWang</h3> </small> 
+    <p></p> 
+    <hr> 
+    <blockquote> 
+     <p>2014年从msn space存档中重新恢复出来！</p> 
+    </blockquote> 
+    <p>blog接上回…</p> 
+    <p>昨天其实我都不知道写了些什么，呵呵，或许只是为了提一下那个event generator idiom 吧，不过，今天我可是想好好说说SpringAOP了。</p> 
+    <p>我们先以我刚刚完成的那个双数据源互换的问题作为切入点来引出话题吧。</p> 
+    <p>要想在primary的数据源crash掉之后，马上就可以切换到secondary数据源，我们需要在spring的配置文件中定义两个数据源，就是primaryDataSource和secondaryDataSource 。但是，为了屏蔽掉这两个数据源的差异性，我们需要提供一个屏蔽层，以便DAO或者说客户端在使用的时候不需要处理二者的差别性，而Spring提供的DelegatingDataSource类（org.springframework.jdbc.datasource包下面）恰好给我们提供了方便，而客户端也只需要跟这单一的数据源打交道就可以了。</p> 
+    <p>所以，第一步，我们定义SwappableDataSource，它扩展DelegatingDataSource，可以指定当前的targetDataSource, 并且，我们为其提供primaryDataSource和色condaryDataSource的引用，而默认的targetDataSource就使用primaryDataSource。SwappableDataSource类的定义简单列举如下：</p> 
+    <div class="sourceCode" id="cb1">
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> SwappableDataSource <span class="kw">extends</span> DelegatingDataSource {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">//</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">private</span> <span class="bu">DataSource</span> primaryDataSource;</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">//</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">private</span> <span class="bu">DataSource</span> secondaryDataSource;</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">//</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">private</span> <span class="dt">boolean</span> isPrimaryCrashed = <span class="kw">false</span>;</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">// </span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">/*</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">* Swap the Datasouce between supplied 2 dataSources</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">void</span> <span class="fu">swap</span>()</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>isPrimaryCrashed = !isPrimaryCrashed;</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span>(isPrimaryCrashed)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">setTargetDataSource</span>(<span class="kw">this</span>.<span class="fu">getSecondaryDataSource</span>());</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="kw">else</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">setTargetDataSource</span>(<span class="kw">this</span>.<span class="fu">getPrimaryDataSource</span>());</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">* </span><span class="an">@return </span>Returns the primaryDataSource<span class="co">.</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="bu">DataSource</span> <span class="fu">getPrimaryDataSource</span>() {</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="kw">return</span> primaryDataSource;</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co">* </span><span class="an">@param primaryDataSource </span>The primaryDataSource to set<span class="co">.</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">void</span> <span class="fu">setPrimaryDataSource</span>(<span class="bu">DataSource</span> primaryDataSource) {</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="kw">this</span>.<span class="fu">primaryDataSource</span> = primaryDataSource;</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="co">* </span><span class="an">@return </span>Returns the secondaryDataSource<span class="co">.</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="bu">DataSource</span> <span class="fu">getSecondaryDataSource</span>() {</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="kw">return</span> secondaryDataSource;</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co">* </span><span class="an">@param secondaryDataSource </span>The secondaryDataSource to set<span class="co">.</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">void</span> <span class="fu">setSecondaryDataSource</span>(<span class="bu">DataSource</span> secondaryDataSource) {</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="kw">this</span>.<span class="fu">secondaryDataSource</span> = secondaryDataSource;</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>}</span></code></pre>
+    </div> 
+    <p>当然，完成了类的定义后，我们需要在spring的config文件中配置它，下面是配置该bean的片段:</p> 
+    <div class="sourceCode" id="cb2">
+     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;bean</span><span class="ot"> id=</span><span class="st">"dataSourceTarget"</span><span class="ot"> class=</span><span class="st">"com.livedoor.finance.credit.monitor.dao.datasource.SwappableDataSource"</span><span class="kw">&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;property</span><span class="ot"> name=</span><span class="st">"targetDataSource"</span><span class="kw">&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;ref</span><span class="ot"> bean=</span><span class="st">"dataSourcePrimary"</span><span class="kw">/&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/property&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;property</span><span class="ot"> name=</span><span class="st">"primaryDataSource"</span><span class="kw">&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;ref</span><span class="ot"> bean=</span><span class="st">"dataSourcePrimary"</span><span class="kw">/&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/property&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;property</span><span class="ot"> name=</span><span class="st">"secondaryDataSource"</span><span class="kw">&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;ref</span><span class="ot"> bean=</span><span class="st">"dataSourceSecondary"</span><span class="kw">/&gt;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/property&gt;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/bean&gt;</span></span></code></pre>
+    </div> 
+    <p>这个类提供了一个swap的公共方法，用来处理数据源的互换，这个方法的调用将在后面提到。</p> 
+    <p>下面，我们有了数据源的屏蔽，并且也提供了swap的逻辑，那么，在那里调用那？或者说，当数据库crash掉之后，我们在那里通知SwappableDataSource来swap到备用的dataSource那？答案是在数据库crash后抛出异常的时候处理，而这里就需要用的AOP概念里面的Throws Advice。</p> 
+    <p>与其他AOP的实现相同，SpringAOP提供了基本的Before Advice，AfterReturnningAdvice，Around Advice（在spring里使用aop alliance的interceptor概念）和Throws Advice，当然Introduction也提供了，但是我们现在用不上。在这几个Advice类型中，ThrowsAdvice显然就是我们所需要的东西，它可以在Exception发生的时候被激发，并调用其相应的实现逻辑。 在SpringAOP中，要实现org.springframework.aop.ThrowsAdvice接口，该接口是一个标志接口，没有提供具体的方法，但是，实现该接口的类必须提供一下至少一个方法的实现： <code>void afterThrowing(Throwable throwable)</code> 和<code>void afterThrowing(Method method, Object[] args, Object target,Throwable throwable)</code></p> 
+    <p>在这里，我们需要后者，所以，因为我们要跟被Advised对象打交道，呵呵，所以，我们定义我们的DatabaseCrashThrowsAdvice如下：</p> 
+    <div class="sourceCode" id="cb3">
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> DatabaseCrashThrowsAdvice <span class="kw">implements</span> ThrowsAdvice</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">/*</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">* Intercept The DataSouce''s getConnection method after a SQLException occured.</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">* @author Darren.Wang</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">* 2005-3-18 11:15:11</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">void</span> <span class="fu">afterThrowing</span>(<span class="bu">Method</span> m, <span class="bu">Object</span>[] args, <span class="bu">Object</span> target,<span class="bu">SQLException</span> exp)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>logger.<span class="fu">warn</span>(<span class="st">"Database crashed or can''t get connection from DB!"</span>,exp);</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>((SwappableDataSource)target).<span class="fu">swap</span>();</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>logger.<span class="fu">warn</span>(<span class="st">"After the exception, We have swap to the other Datasource!"</span>);</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre>
+    </div> 
+    <p>这里我们拦截的是SQLException，而不是DataAccessResourceFailureException，因为我们现在是在DataSource这一层进行拦截，而不是dao层，只所以如此，是因为这样更简单有效，也是同事给出的意见，虽然我本人认为直接在Dao层拦截DataAccessResourceFailureException更好一些。不过，上面的实现有所简化，因为并非所有的SQLException都表示数据库连接失败，所以，要达到更好的或者说更精确，还需要根据不同的数据库vendor来分析ErrorCode和SQLState，这里就不作赘述了。</p> 
+    <p>完成了Advice的定义，我们需要在spring的配置文件中配置之：</p> 
+    <div class="sourceCode" id="cb4">
+     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;bean</span><span class="ot"> id=</span><span class="st">"dbThrowsAdvice"</span><span class="ot"> class=</span><span class="st">"com.livedoor.finance.credit.monitor.advice.DatabaseCrashThrowsAdvice"</span><span class="kw">&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/bean&gt;</span></span></code></pre>
+    </div> 
+    <p>完成了以上两项之后，基本的工作就算完成了，后面要做的就是如何将他们bind到一起，在springAOP中是这样做的：</p> 
+    <p>配置Advisor，当然这步可以直接免掉，直接用ProxyFactoryBean指定一切，不过还是按部就班的好。Advisor是SpringAOP里面的概念，其他AOP实现并没有该概念，可以说是SpringAOP特有的，用它来将Advice和PointCut组织在一起（Spring uses the term advisor for an object representing an aspect, including both an advice and a pointcut targeting it to specific joinpoints――引自Spring Reference）。我们可以自己定义Advisor不过这在一般情况下是没有必要的，springAOP提供的几个实现类已经足够我们使用了，比如NameMatchMethodPointcutAdvisor和RegexpMethodPointcutAdvisor。</p> 
+    <p>我们这里使用后者－RegexpMethodPointcutAdvisor ，且看配置：</p> 
+    <div class="sourceCode" id="cb5">
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>&lt;bean id=<span class="st">"advisor"</span> <span class="kw">class</span>=<span class="st">"org.springframework.aop.support.RegexpMethodPointcutAdvisor"</span>&gt;</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>&lt;property name=<span class="st">"advice"</span>&gt;</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>&lt;ref local=<span class="st">"dbThrowsAdvice"</span>/&gt;</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>&lt;/property&gt; </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>&lt;property name=<span class="st">"pattern"</span>&gt; </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>&lt;value&gt;.*\.<span class="fu">getConnection</span>.*&lt;/value&gt; </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>&lt;/property&gt; </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>&lt;/bean&gt;</span></code></pre>
+    </div> 
+    <p>要注意的一点就是，使用该advisor需要在classpath中包含jakarta－ORO，因为pattern的解释是用的该类库。</p> 
+    <p>好了，现在Advice和pointcut都准备好了，怎么将他们与具体的被拦截对象绑定到一起那？使用ProxyFactoryBean。该类用来生成并返回相应的proxy对象，将要拦截的对象和相应的advice给他，剩下的就不用你管了。</p> 
+    <p>该类同样是一个bean，呵呵，最常用的几个属性罗列如下：</p> 
+    <ul> 
+     <li>Target－要拦截的对象，advised Object</li> 
+     <li>proxyInterfaces－要代理的接口列表，以list形式提供，因为springAOP使用的是jdk1.3以后提供的dynamic Proxy机制实现的aop，所以，需要指定要拦截类实现的接口，如果说advised Object没有实现任何接口，那么springAOP会使用cglib类处理，但是该方法只限于遗留代码，不提倡使用；</li> 
+     <li>interceptorNames－加载到advisedObject之上的advice，advisor或者interceptor的列表；</li> 
+    </ul> 
+    <p>其他属性可以参考Spring的javadoc。根据以上说明，我们以如下形式定义我们的proxyFactoryBean</p> 
+    <div class="sourceCode" id="cb6">
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>&lt;bean id=<span class="st">"dataSource"</span> <span class="kw">class</span>=<span class="st">"org.springframework.aop.framework.ProxyFactoryBean"</span>&gt;</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>&lt;property name=<span class="st">"proxyInterfaces"</span>&gt;</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>&lt;value&gt;javax.<span class="fu">sql</span>.<span class="fu">DataSource</span>&lt;/value&gt;</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>&lt;/property&gt;</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>&lt;property name=<span class="st">"target"</span>&gt;</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>&lt;ref bean=<span class="st">"dataSourceTarget"</span>/&gt;</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>&lt;/property&gt;</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>&lt;property name=<span class="st">"interceptorNames"</span>&gt;</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>&lt;list&gt;</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>&lt;value&gt;advisor&lt;/value&gt;</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>&lt;/list&gt;</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>&lt;/property&gt;</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>&lt;/bean&gt;</span></code></pre>
+    </div> 
+    <p>这样，在beanFactory中取得的dataSource就是已经被advised之后的数据源了，当数据源的getConnection方法抛出SQLException之后，我们的ThrowsAdvice会被激发并调用SwappableDataSource的swap方法来取得可用的数据源，保证数据存储的持续进行。</p> 
+    <p>现在的dataSource对于调用者来说，跟普通的数据源没有什么两样，比如：</p> 
+    <div class="sourceCode" id="cb7">
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>&lt;bean id=<span class="st">"mailDao"</span> <span class="kw">class</span>=<span class="st">"com.livedoor.finance.credit.monitor.dao.MailStateUpdateDao"</span>&gt;</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>&lt;property name=<span class="st">"dataSource"</span>&gt;</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>&lt;ref bean=<span class="st">"dataSource"</span>/&gt;</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>&lt;/property&gt;</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>…</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>&lt;/bean&gt;</span></code></pre>
+    </div> 
+    <p>OK，所有的东西都在上面了，希望这个或许可以给出一个使用SpringAOP的简单蓝图，呵呵，不过，有没有人想过那，现在只是advise单个的对象，而且ProxyFactoryBean的target的属性也只能提供单一的advise Target，如果说，我们的joinPoints分散在多个类甚至多个方法中，我们又要如何处理那？不至于要我们为每一个要advise的对象都手动配置一个ProxyFactoryBean吧？！苍天那，大地啊，不会吧？！呵呵，当然不会啦。</p> 
+    <p>使用AutoProxy啊，什么autoproxy不知道是什么，那稍后在说吧，我可要吃饭了，大家都走了，就剩下我一个，我也闪先…</p> 
+    <p>且听下回慢慢道来…</p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2018-09-17-AI-panic.html">人工智能恐慌（AI Panic） </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2011-06-01-book_digest_from_scalability_rules.html">book_digest_from_scalability_rules </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2009-11-04-shy3_best_practice.html">关于钱磊在Shy3框架中使用的“动态URL”功能的小记 </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

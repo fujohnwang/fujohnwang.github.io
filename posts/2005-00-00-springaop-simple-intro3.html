@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="闲话SpringAOP的应用(3) - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="闲话SpringAOP的应用(3) - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>闲话SpringAOP的应用(3) - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <style type="text/css">
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">闲话SpringAOP的应用(3)</h1> <small> <h3 class="author">FuqiangWang</h3> </small> 
+    <p></p> 
+    <hr> 
+    <blockquote> 
+     <p>2014年从msn space存档中重新恢复出来！</p> 
+    </blockquote> 
+    <p>上回对最基本的SpringAOP概念进行了阐述和应用举例，这回我们将对SpringAOP的某些概念做更深入的探索。</p> 
+    <p>按照以前的ProxyFactoryBean来处理分布于多个地方的joinpoint无疑是一场恶梦，不是嘛？！因为那样的话，我们需要为每一个需要被代理的类手动配置ProxyFactoryBean和相应的Advice跟pointcut，这显然不是我们所希望的。</p> 
+    <p>鉴于此，SpringAOP提供了其autoproxy机制，该机制基于bean factory在初始化bean后期会对其进行post process原理实现，而且，只能用于ApplicationContext，而不能用于普通的BeanFactory（起码对于SpringAOP这部分来说，不然也不叫autoproxy了，呵呵），因为BeanPostProcessor接口的实现只是在ApplicationContext初始化的时候才会自动加载，而普通的BeanFactory只能通过编程的方式调用之。</p> 
+    <p>在Spring In Action和Spring Reference中提到了两种基本的auto proxy Creator，他们是BeanNameAutoProxyCreator和DefaultAdvisorAutoProxyCreator。当然，要使用他们提供的便利你必须使用ApplicationContext而不是普通的BeanFactory，否则他们就不会auto了。</p> 
+    <p>对于BeanNameAutoProxyCreator来说，他可以通过正则表达式的方式指定多个要被Advised的bean的名字，而且，可以指定多个interceptorNames，包括普通的MethodInterceptor，Advice甚至是Advisors。但是，一个要注意的问题就是，对于符合正则表达式的存在于当前Context下的所有bean来说，如果指定的是interceptor或者是advice的话，那么他们可不管你要拦截那个方法或者不想拦截那个，只要bean里面声明的方法，他们都会不管三七二十一，统统进行拦截并返回proxy后的结果；相对来说，指定Advisor倒是可以更精确的指定aop的粒度，因为Advisor包含了Advice和Pointcut，所以，Advice也只会应用于pointcut所表述的方法之上。</p> 
+    <p>或许，给出一个实例可以更好的理解该类的功能和如何使用。</p> 
+    <p>假设我们的系统实现存在一个Dao层，而该层的Dao中一般都会存在更新数据库或者查询数据库的操作，那么现在因为某种原因，我们的系统在数据库交换方面存在瓶颈，我们需要知道到底问题出在什么地方，所以，我们实现了一个ProfileInterceptor用来统计方法的执行时间，下面是该类的简单实现：</p> 
+    <div class="sourceCode" id="cb1">
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> ProfileInterceptor <span class="kw">implements</span> MethodInterceptor {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">private</span> <span class="dt">static</span> <span class="dt">final</span> <span class="bu">Logger</span> logger = <span class="bu">Logger</span>.<span class="fu">getLogger</span>(ProfileInterceptor.<span class="fu">class</span>); </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="bu">Object</span> <span class="fu">invoke</span>(MethodInvocation invocation) <span class="kw">throws</span> <span class="bu">Throwable</span> {</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">long</span> t = <span class="bu">System</span>.<span class="fu">currentTimeMillis</span>();</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">Object</span> o = invocation.<span class="fu">proceed</span>();</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>t = <span class="bu">System</span>.<span class="fu">currentTimeMillis</span>() - t;</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>logger.<span class="fu">info</span>(invocation.<span class="fu">getMethod</span>().<span class="fu">gatName</span>()+”consumed:”+t);</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">return</span> o;</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre>
+    </div> 
+    <p>当然，我们不会单单将这个ProfileInterceptor应用于单一的一个dao上面，我们需要对所有存在于dao层的dao实现进行检测，故此，我们定义我们需要的BeanNameAutoProxyCreator如下：</p> 
+    <div class="sourceCode" id="cb2">
+     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;bean</span><span class="ot"> id=</span><span class="st">"profileInterceptor"</span><span class="ot"> class=</span><span class="st">"net.darrenstudio.springaop.advice.ProfileInerceptor”&gt;</span><span class="er">&lt;</span><span class="st">/bean&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;</span><span class="st">bean id="</span><span class="ot">profileAutoProxyCreator</span><span class="er">"</span> <span class="er">class</span><span class="ot">=</span><span class="st">"org.springframework.aop.framework.</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="st">autoproxy.BeanNameAutoProxyProxyCreator"</span><span class="kw">&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;bean&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;property</span><span class="ot"> name=</span><span class="st">"beanNames"</span><span class="kw">&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;list&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;value&gt;</span>*Dao<span class="kw">&lt;/value&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/list&gt;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/property&gt;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;property</span><span class="ot"> name=</span><span class="st">"interceptorNames"</span><span class="kw">&gt;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;value&gt;</span> profileInterceptor <span class="kw">&lt;/value&gt;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/property&gt;</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/bean&gt;</span></span></code></pre>
+    </div> 
+    <p>这样，在调用每个dao实现的时候，其所有的方法调用和执行情况就可以全部记录下来了，通过分析log就可以得出一定的结果并加以改进。如果说要对某些方法，比如查询方法（我们假设这类方法都是以query开头的），我们可以定义一个Advisor，比如以前提过的RegexpMethodPointcutAdvisor，并指定advice为ProfileInterceptor，pointcut的形式为query.*，最后使用该advisor代替直接将ProfileInterceptor提供给BeanNameAutoProxyCreator类的interceptorNames属性就可以了。而且，如果说以后系统成熟之后不想用profile功能了，直接在spring的配置文件中注释掉上面的配置信息就可以了。当然，以上功能要起作用，不要忘了你要用ApplicationContext而不是BeanFactory哦。</p> 
+    <p>说过了BeanNameAutoProxyCreator，下面我们说说DefaultAdvisorAutoProxyCreator吧！这个比前者更加智能，你都不用指定要处理哪些beans，也不用指定那个advice要应用到那个bean上面，你唯一需要关心的就是要注意这个类只会处理advisor类型的interceptor类型，而不会关心你到底提供了多少正常的MethodInterceptor或者advice。</p> 
+    <p>DefaultAdvisorAutoProxyCreator类就像一个网络爬虫，他会爬遍整个的applicationContext，找到定义于该context下的所有advisor，然后将这些查找到的advisor应用于context定义的所有bean，当然前提是你的bean符合advisor的pointcut定义。不要忘了，advisor不但有advice的引用，他同样也有pointcut的定义啊，所以通过advisor，autoproxyCreator完全可以决定将哪个advisor应用于哪个bean。而使用DefaultAdvisorAutoProxyCreator现在也变得如此简单，只要在applicationContext中配置一下该类的一个bean实例就可以了：</p> 
+    <div class="sourceCode" id="cb3">
+     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;bean</span><span class="ot"> id=</span><span class="st">"autoProxyCreator"</span><span class="ot"> class=</span><span class="st">"org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"</span><span class="kw">/&gt;</span></span></code></pre>
+    </div> 
+    <p>不过，该类方便是方便，但是cross-cutting的粒度却不好掌握，往往某些我们不希望应用aop的类却被proxy了，从而造成程序行为的不正常。打一个不会造成不正常行为的例子吧，就以上面的profile为例，虽然大部分dao实现我们会乐意去检测，但是，某些无关紧要的dao我们明明知道不会造成问题的，我们当然不会希望去徒劳的检测他们吧？！谁也不可否认类似情况的发生，profile还好一些，如果说牵扯到影响程序逻辑的cross-cutting行为的时候，很容易就可以造成程序的不正常行为发生。所以说，在使用该类auto proxy的时候，需要仔细考虑，谨慎使用之。为了能够更好的控制cross-cutting的粒度，完全可以使用BeanNameAutoProxyCreator，只要分情况指定targets和相应的advisors就可以了，当然了，又要多写配置了，呵呵</p> 
+    <p>好了，先写这么些吧，有时间的话后面在说说spring提供的metadata的支持吧！</p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2009-10-09-mid-autumn-holiday.html">回家过中秋，在招远转了转，拍了几张照片，感觉还不错，呵呵 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2017-10-13-will-and-hold-on.html">扶墙老师谈管理之再说“心硬” </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2015-07-31-microservices-essential.html">扶墙老师谈微服务(Microservices Essential) </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

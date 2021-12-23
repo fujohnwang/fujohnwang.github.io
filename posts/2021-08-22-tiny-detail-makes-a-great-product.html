@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="好的产品，一个细节就够了！ - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="好的产品，一个细节就够了！ - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>好的产品，一个细节就够了！ - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2021-08-22"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">好的产品，一个细节就够了！</h1> <small> <h3 class="author">王福强</h3>2021-08-22 </small> 
+    <p></p> 
+    <hr> 
+    <p>之前的兄弟向我推荐过两款商业型工具软件，我都买了，但第一款（某Markdown编辑器）买了之后就没有用几天，反而第二款用的时间长一些，一直到现在还在用（应该有两年了吧），也在设想方便的时候在其基础上再根据自己的理念做一定的修改和适配，这款软件一直用的原因没法说得很明确，但有一个细节我觉得很能体现出这款工具产品在打磨过程中耗费的心力：</p> 
+    <p><img src="images/4351629635794_.pic.jpg"></p> 
+    <p>这款图片管理软件在自适应布局下，不管每一行展示多少张图片，所有行都是边距对齐的，初看起来这好像不算什么，但细细想来，其实有很多细节要去处理，比如我之前自己写给自己吃的“狗食” <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> 在这个层面就比较粗糙，从观感上和感受上一对比你就瞧出差别在哪儿了：</p> 
+    <p><img src="images/4501629636363_.pic.jpg"></p> 
+    <p><strong>不怕不识货，就怕货比货</strong>， 我这个“狗粮”当时粗糙写写也花了不少时间， 更不要说人家这个产品已经相当成熟并且售卖好多年了。</p> 
+    <p>而且，这个产品还有一个好处是，它有Open API，我日常如果有些文字想要做成海报，那么肯定希望是留存到这个软件里统一管理（统一收口），但每次手工拷贝来拷贝去实在是繁琐，而且容易忘记，所以，我就在web版的海报工具与这款软件之间架了一个的“桥梁”或者说钩子(Hook)， 图片海报在web应用里生成之后，程序会自动地再把海报加入该软件进行管理，目前来看，也是perfect运行两年多，可以说，这款软件上花得那笔钱是真值，如果将来配合AI，估计便捷性上可以做得更好，就是不知道他们有没有这方面的考虑。</p> 
+    <p>话说回来，我脑子放空的时候琢磨过它这个自适应布局怎么实现 <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>，但目前为止，还没有完全琢磨清楚（也可能心思还一直没放在这个上面），只能说，我这个老码农觉得这个产品细节很牛逼，所以拎出来感慨一下，哈，不管是设计层面还是实现层面，都揉入了这个团队的心血在里面， 👍</p> 
+    <p><strong>好的产品，真得可以一个细节就能打动用户</strong>，我自己写的工具，都可以痴迷于一个习惯上的细节改进而无法自拔，何况这种投入了更多资源的商业型工具产品呢？！</p> 
+    <section class="footnotes" role="doc-endnotes"> 
+     <hr> 
+     <ol> 
+      <li id="fn1" role="doc-endnote"><p>Eat My Own Dog Food<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+      <li id="fn2" role="doc-endnote"><p>没办法，程序员出身，总想搞清楚怎么回事，know-why嘛<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+     </ol> 
+    </section> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2006-07-26-thought-on-project-codebase-management.html">由工程的组织结构所引发的… </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2015-03-11-ngrok-simple-manual.html">ngrok简明手册 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2007-07-25-BF4768EE8B110260_502.html">我是一个没素质的人</a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

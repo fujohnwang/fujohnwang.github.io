@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="前端开发简史(How Frontend Dev. Evolves) - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="前端开发简史(How Frontend Dev. Evolves) - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>前端开发简史(How Frontend Dev. Evolves) - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2021-02-28"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">前端开发简史(How Frontend Dev. Evolves)</h1> <small> <h3 class="author">王福强</h3>2021-02-28 </small> 
+    <p></p> 
+    <hr> 
+    <ul> 
+     <li><a href="#前端开发基础背景"><span class="toc-section-number">1</span> 前端开发基础背景</a></li> 
+     <li><a href="#前端开发第一阶段"><span class="toc-section-number">2</span> 前端开发第一阶段</a></li> 
+     <li><a href="#前端开发第二阶段"><span class="toc-section-number">3</span> 前端开发第二阶段</a></li> 
+     <li><a href="#前端开发第三阶段"><span class="toc-section-number">4</span> 前端开发第三阶段</a> 
+      <ul> 
+       <li><a href="#组件化"><span class="toc-section-number">4.1</span> 组件化</a></li> 
+       <li><a href="#客户端路由"><span class="toc-section-number">4.2</span> 客户端路由</a></li> 
+       <li><a href="#更广的工具链与能力边界"><span class="toc-section-number">4.3</span> 更广的工具链与能力边界</a></li> 
+      </ul></li> 
+     <li><a href="#小结"><span class="toc-section-number">5</span> 小结</a></li> 
+    </ul> 
+    <hr> 
+    <p>今天有同学提到一个话题：“今天我们是如何写前端的”， 我觉得应该很有普遍性，而且，我作为一个纯后端出身的曾经的程序员， 对于今天前端的发展也确实是很有兴趣，尤其是年岁越长，对前端的兴趣越浓，或许这就是中年男人的普遍特点吧，“能力”不够了，只能谈谈情怀、看看脸了，况且很多客户确实只看“脸”，哈哈哈</p> 
+    <p>虽然我们可以把web的发展按照<code>web 1.0 -&gt; web 2.0 -&gt; web 3.0</code>这样的阶段和演化路径进行划分，但今天我打算按照自己组织的故事线来带大家回顾一下我眼里的前端开发是怎么演化到今天的，虽然我不是专业前端开发，但毕竟科普也不需要那么专业的去处理工程性问题，所以，如果你很介意“前端专业性”， 后面的文字其实就可以不用看了…</p> 
+    <h1 data-number="1" id="前端开发基础背景"><span class="header-section-number">1</span> 前端开发基础背景</h1> 
+    <p>我们都知道，从始至终， 前端开发的基础都是围绕着HTML、CSS和Javascript这三种前端基础技术展开的，可以说是前端开发三剑客，也是所有前端开发人员必须有的基础知识。</p> 
+    <p>这三剑客中：</p> 
+    <ul> 
+     <li>HTML主管内容；</li> 
+     <li>CSS主管布局和“美色”；</li> 
+     <li>Javascript则主管页面中所有动态效果与交互；</li> 
+    </ul> 
+    <p>HTML/CSS/Javascript三剑客的工作成果最终通过浏览器加过并输出给用户使用，最早期的浏览器以Mosaic/Netscape Navigator为典型代表。</p> 
+    <h1 data-number="2" id="前端开发第一阶段"><span class="header-section-number">2</span> 前端开发第一阶段</h1> 
+    <p>第一阶段的前端开发以静态页面为主要形式， 页面布局有基于HTML table做的， 也有基于CSS做的, 至于页面的交互和动态性，这个阶段大多都是手动写一些零碎的javascript嵌入HTML页面或者自己组织代码重用， 很少有通用的框架可用。</p> 
+    <p>这个时代的页面开发工具有两个帮派： “所见即所得”派和“文本编辑器”派（也可以叫手撸代码派）， 前者最典型的开发工具在那个时候使用的有微软(MS)的FrontPage以及Macromedia的Dreamweaver（当然， Dreamweaver还有两个兄弟叫Flash和Fireworks，俗称网页三剑客，也算当年的“网红”了）。</p> 
+    <blockquote> 
+     <p>NOTE</p> 
+     <p>这个时代除了Javascript，还有一个JScript，前者是Netscape公司搞出来的，后者是微软(MS)搞出了，他们之间并不兼容。 之所以提一下JScript，是因为虽然JScript最终也没有“成器”， 但后面微软(MS)依然会搞出ta自己生态里新的前端开发语言和生态。</p> 
+    </blockquote> 
+    <h1 data-number="3" id="前端开发第二阶段"><span class="header-section-number">3</span> 前端开发第二阶段</h1> 
+    <p>随着前端技术和网络生态的发展，前端开发进入了规范化与动态化， 这个阶段最典型的就是Ajax技术和JQuery框架， 前端页面现在可以跟后端服务进行随时随地的交互和通信了，也不再完全依赖浏览器的通信机制做页面的<strong>整页</strong>加载和刷新了。</p> 
+    <p>在这个时代节点上， 前端开发开始分化出“客户端渲染(Client-side Rendering)”和“服务器端渲染(Serverside Rendering)”两大流派，在此之前，大部分页面都是基于服务器端渲染，即由服务器端使用模板技术融合要返回给客户端的数据输出给浏览器直接可以加载的HTML页面内容：</p> 
+    <p><img src="images/template-engine.png"></p> 
+    <p>有了Ajax的玩法之后，浏览器和服务器端通信的格式逐步从服务器端返回HTML演变为直接返回JSON数据， 直到今天(2021)，这种客户端和服务器端使用JSON作为数据和内容交互的玩法也依然是主流中的主流：</p> 
+    <p><img src="images/fe-json-be.jpg"></p> 
+    <p>这个时代的浏览器从IE(微软的Internet Explorer)一家独大， 逐渐演化为百花齐放， 国外有Firefox, Chrome, Safari, Opera等，国内则有很多基于IE内核二次开发和封装出来的浏览器（当年的浏览器工具栏之战也是基于这个生态搞出来的）。</p> 
+    <h1 data-number="4" id="前端开发第三阶段"><span class="header-section-number">4</span> 前端开发第三阶段</h1> 
+    <p>随着时代的发展， 用户对交互和体验的要求越来越高， 而且， 随着Chrome（以及底层Webkit技术）的一家独大，使用服务器端渲染以尽量避免浏览器兼容性的必要性也不大了，在Ajax技术的持续加持下， 前端开发的规范化和动态化更是向前迈进了一步： 整个前端开发迈入了SPA时代(Single Page Application)。</p> 
+    <p>这个时代最典型的就是出现了三大新的前端开发框架： React， Vue以及Angular。 当然， 也有很多其他的框架，但从生态普及上来说，这三大框架最为普遍。</p> 
+    <p>前端开发的理念在这个阶段逐渐侧重于：</p> 
+    <ol type="1"> 
+     <li>基于组件化开发（component based， 相对于jquery时代的命令式开发-imperative based）；</li> 
+     <li>客户端路由（相对于曾经的服务器端路由-routing);</li> 
+     <li>更广的工具链与能力边界；</li> 
+    </ol> 
+    <h2 data-number="4.1" id="组件化"><span class="header-section-number">4.1</span> 组件化</h2> 
+    <p>相对于前一个阶段使用Bootstrap和JQuery进行前端开发的玩法， 今天的三大框架几乎都支持基于组件的开发模式，前端开发人员从应用设计的思维到工程实践，都转上了组件化的大道。</p> 
+    <p>组件化极大地简化了前端开发工作， 不管SPA如何复杂，基于组件的开发和组合思维都可以灵活应对自如，开发和维护都不再痛苦。</p> 
+    <p>除了三大框架的支持，业界也逐渐演化出了像web component这样的规范，同样是想让这个时代的前端开发向着更为规范的方向发展。</p> 
+    <blockquote> 
+     <p>TIP</p> 
+     <p>个人比较喜欢一个叫shoelace的前端组件库，当然，这东西比较小众， 我也就是玩玩，要上生产，大家自行评估。</p> 
+    </blockquote> 
+    <h2 data-number="4.2" id="客户端路由"><span class="header-section-number">4.2</span> 客户端路由</h2> 
+    <p>过去页面跳转都是通过传统的超链接和浏览器支持完成， 也就是页面的跳转和路由都由浏览器提交给服务器来区分和返回相应的页面或者片段， 进入新的SPA时代，页面内的交互和跳转基本上都在客户端浏览器内完成（不再与服务器端打交道）， 这得感谢三大框架(React/Vue/Angular)全都默认支持客户端路由，同时，相应的一些交互与组件之间的状态同步和存储等逻辑和支持，这时候也都挪到了客户端来处理， 像Redux之类的设计模式，也是这些场景下演化出来的。</p> 
+    <p><img src="images/client_side-routing_compare.jpg"></p> 
+    <h2 data-number="4.3" id="更广的工具链与能力边界"><span class="header-section-number">4.3</span> 更广的工具链与能力边界</h2> 
+    <p>今天的前端开发越来越复杂、也越来越强大，依然用HTML/CSS/Javascript三剑客基础设施已经不足以满足开发与交付需求，所以，前端开发的语言也不再只限于Javascript， 前端开发面向的场景和终端形态也不再只限于浏览器和桌面电脑。</p> 
+    <p>语言层面， 前端开发从传统的Javascript动态语言已经演化为可以使用像Typescript(微软Again)/Java之类的静态语言， 相应的，也就引入了编译的过程以及依赖管理的需求。</p> 
+    <p>从Google为业内引入V8引擎和NodeJS生态开始，npm/webpack等工具链几乎成为前端开发人员必备， 前端开发也不再能够像过去开发简单页面那样（直接文本编辑器引入css/js资源就开干），而需要安装工具链和依赖包，通过编译、压缩、打包等步骤完成前端应用的发布和部署。(这里会同时想起多年前@无尽同学给我解释babel在前端开发的场景中是一个什么的存在：解决语言版本兼容问题）</p> 
+    <p>而且，今天的前端开发人员职责也不再只限于纯粹的前端页面和桌面web应用的开发，从前端到后端， 从web到手机APP/mobile应用以及各手机平台的小程序， 前端开发人员的职责和要求也越来越多，很多公司自然也顺势把前端团队增强为<strong>大前端</strong>团队（我当年称为“<strong>全端</strong>”团队）。</p> 
+    <p>在纯web(pure web)与原生应用(mobile native)之间，还有一类混合嵌入(hybrid/embedded)的场景，比如今天的Electron和Visual Studio Code，也属于前端开发的领地之一。</p> 
+    <h1 data-number="5" id="小结"><span class="header-section-number">5</span> 小结</h1> 
+    <p>实际上， 前端开发之所以复杂，本质上还是因为处理问题的场景越来越复杂了，所以技术和生态也就越来越复杂，这与组织的复杂度以及像后端微服务之类的技术发展趋势其实是一致的。</p> 
+    <p>如果各位看官还是意犹未尽，我不妨再提供一些视角提示，大家可以自行去探索其中之乐趣吧~</p> 
+    <ul> 
+     <li>static vs.&nbsp;dynamic</li> 
+     <li>server side vs.&nbsp;client side rendering</li> 
+     <li>imperative vs.&nbsp;declarative（jquery vs.&nbsp;htmx）</li> 
+     <li>components based vs.&nbsp;monolith layout based.</li> 
+     <li>pure web vs.&nbsp;embedded vs.&nbsp;hybrid scerarios and devices</li> 
+     <li>javascript vs.&nbsp;multiple language cross-compiling</li> 
+    </ul> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2021-08-17-dest-or-road-problem.html">TA真得是在问路吗？ </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2009-05-04-some-words.html">那些话儿 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2006-07-26-thought-on-project-codebase-management.html">由工程的组织结构所引发的… </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

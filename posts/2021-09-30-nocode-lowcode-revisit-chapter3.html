@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="再谈NoCode与LowCode - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="再谈NoCode与LowCode - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>再谈NoCode与LowCode - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2021-09-30"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">再谈NoCode与LowCode</h1> <small> <h3 class="author">王福强</h3>2021-09-30 </small> 
+    <p></p> 
+    <hr> 
+    <p>如果到今天各位看官依然无法清晰地区分NoCode和LowCode，那么，我倒是可以提供一个提示。</p> 
+    <p>NoCode与LowCode的最大区别就是<strong>用户是谁</strong>：NoCode是直接面向（使用的）用户， 而LowCode则更多是直接面向（使用的）开发者。</p> 
+    <p>举个简单的例子， Excel是直接面向用户，用户可以通过Excel直接拿业务结果， 而操作Excel的共享类库或者填充之后生成Excel的工具，则属于LowCode范畴，LowCode是帮助开发者提效，快速稳定地拿到业务系统或者技术系统的最终结果，而这些业务系统的最终结果再被终端用户使用。</p> 
+    <p>整个的发展阶段或者说承接阶段类似于： <code>code -&gt; lowcode -&gt; (nocode | business sys | infra sys) -&gt; users</code></p> 
+    <p>从形态上来讲， LowCode可以进一步分为两派： 有形派（GUI）与无形派（Headless）。</p> 
+    <p>有形派的典型代表就是现在很多<code>Drag and Drop</code>操作的图形化系统和作业工具，比如游戏编辑器、工业建模与模拟软件、基于组件的CMS等，他们的主要特征就是UI可见，所谓的WYSIWYG（所见即所得）就是这类产品的底层哲学。</p> 
+    <p>无形派的典型代表就是各种语言的类库甚至宏，这类LowCode的典型特征是<code>API+实现</code>的前轻后重，使用者只管调调API就可以了，API背后的功能早就有前人实现，可以重复使用。很多公司在处理一些常见的前端场景（Frontend）的时候，会直接创建并编辑json/xml之类格式的配置文件，然后运行CI/CD/CLI就能直接生成前端页面和前端应用，这也是LowCode的一种。 这些年很多CMS方案也会强调他们的Headless属性，本质上就是突出自己产品“通过API使用CMS以及构建CMS页面”的能力。</p> 
+    <p>有形派的好处是<strong>具象化、直接快速反馈</strong>，而无形派的好处则是<strong>抽象化、可以批量化与自动化衔接</strong>。</p> 
+    <p>如果说NoCode是工具和手段，那么LowCode更是工具和手段，​为NoCode服务。​</p> 
+    <p>所以，除却商业的营销与宣传，从用户和技术的角度来看， NoCode和LowCode也就没啥神秘的了，依然是新瓶儿装旧酒，就像是经济学里的需求和供给。</p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2007-06-20-stock-t+0-trade.html">股票的T+0操作 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2017-09-01-what-I-think-about-ICO.html">ICO之我见 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2017-05-04-what-makes-an-architect.html">架构师不是你想的那样 </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

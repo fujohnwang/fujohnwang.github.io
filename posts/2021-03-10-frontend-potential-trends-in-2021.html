@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="2021年几个值得关注的小众前端技术趋势 - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="2021年几个值得关注的小众前端技术趋势 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>2021年几个值得关注的小众前端技术趋势 - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2021-03-10"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <style type="text/css">
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">2021年几个值得关注的小众前端技术趋势</h1> <small> <h3 class="author">王福强</h3>2021-03-10 </small> 
+    <p></p> 
+    <hr> 
+    <ul> 
+     <li><a href="#svelte3"><span class="toc-section-number">1</span> Svelte3</a></li> 
+     <li><a href="#tailwindcss"><span class="toc-section-number">2</span> TailwindCSS</a></li> 
+     <li><a href="#wasmweb-assembly"><span class="toc-section-number">3</span> WASM（Web Assembly）</a></li> 
+     <li><a href="#小结"><span class="toc-section-number">4</span> 小结</a></li> 
+    </ul> 
+    <hr> 
+    <p>这些前端技术已经早就展露头角，但与当前大规模应用的前端技术相比，则还处于相对小众阶段， 有望继续发扬光大，所以才在这里跟大家分享一下…</p> 
+    <h1 data-number="1" id="svelte3"><span class="header-section-number">1</span> Svelte3</h1> 
+    <p>Svelte3的小众是相对于现在前端技术的三大巨头React、Vue和Angular来说的，但从我们对Svelte3的调研和实践上看，Svelte3将有可能跻身前三，成为更多前端技术人员的最爱。</p> 
+    <p>Svelte3拥有现代前端开发的必要支持， 比如：</p> 
+    <ol type="1"> 
+     <li>基于组件化的前端开发；</li> 
+     <li>数据绑定；</li> 
+     <li>状态管理</li> 
+     <li>客户端和服务器端路由支持（当然，需要第三方或者官方推荐框架或者类库）</li> 
+    </ol> 
+    <p>但我们认为更有意思的特色在于：</p> 
+    <ol type="1"> 
+     <li>更轻量更快捷；</li> 
+     <li>近乎直觉性的使用原生HTML/CSS/Javascript(ES6);</li> 
+     <li>更具灵活与扩展性的基础设施，比如动画， 比如Actions， 比如生命周期关注点等；</li> 
+    </ol> 
+    <p>我们用200多行代码即开发了一个完备可用的Reactive Web Application，并把TailwindCSS以及扩展动画一并包含到了项目中， 所以，2021年我们重点推荐前端框架或者说compiler-Svelte3， 后端程序员也不例外哦， 快快动手试一下吧！</p> 
+    <figure> 
+     <video src="images/keenotes-svelte.mov" controls="">
+      <a href="images/keenotes-svelte.mov">keenotes with svelte3</a>
+     </video>
+     <figcaption aria-hidden="true">
+      <img src="images/keenotes-with-svelte3.jpg" alt="keenotes with svelte3">
+     </figcaption> 
+    </figure> 
+    <h1 data-number="2" id="tailwindcss"><span class="header-section-number">2</span> TailwindCSS</h1> 
+    <p>是的， TailWindCSS， 现在提可能算是“起个大早赶了个晚集”， 但我们认为TailwindCSS将在2021年继续扩大战场，就好像后端的Vertx将逐步蚕食传统的Spring/SpringBoot的市场， TailwindCSS的出现应该会逐步蚕食Bootstrap的市场以及其它CSS实践。</p> 
+    <p>TailwindCSS既有预设的classes，也可以自定义扩展，更可以与现有框架和前端开发工具集成，比如postcss。</p> 
+    <p>svelte3也可以与TailwindCSS很好的集成，深度集成可以通过postcss， 如果初步尝试，则可以直接：</p> 
+    <div class="sourceCode" id="cb1">
+     <pre class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;svelte:head&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">'stylesheet'</span><span class="ot"> href=</span><span class="st">'https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css'</span><span class="kw">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/svelte:head&gt;</span></span></code></pre>
+    </div> 
+    <p>这种方式依然可以获得按需大小的bundles，如果不介意这些，你当然也可以更加快糙猛地直接在index.html里直接引用tailwind.min.css，只不过2M+的大小，使用的时候还是得掂量掂量。</p> 
+    <h1 data-number="3" id="wasmweb-assembly"><span class="header-section-number">3</span> WASM（Web Assembly）</h1> 
+    <p>我们在介绍前端开发史的时候，有同学提到他们在使用wasm开发应用并且也开发了自己的wasm框架，所以，我觉得wasm也确实可以提及一下，毕竟也确实有很多应用已经迁移到wasm并且成功运行，比如传统的pc游戏doom、diablo等。</p> 
+    <p><img src="images/diablo.png"></p> 
+    <p>wasm的好处是，各个语言生态只要提供了相应的transpiler基本上都可以让相应语言生态的开发人员更高效地开发基于wasm技术的前端应用。</p> 
+    <p>鉴于wasm的特点， 估计会在游戏、工具等场合发挥更大的作用， 但我们依然认为wasm还是处于比较小众的位置，只不过将来有可能会有更大的发展。</p> 
+    <h1 data-number="4" id="小结"><span class="header-section-number">4</span> 小结</h1> 
+    <p>以上就是我们为大家介绍的2021年几个小众但值得大家关注的前端技术方向，也欢迎大家留言分享自己认为优秀但还比较小众的前端技术。</p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2017-11-07-serverless-bullshit.html">不提Serverless你就过时了？ Are You Kidding Me？ </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2015-03-17-api-design-and-documentation.html">API Design And Documentation </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2013-03-25-about_startup.html">about startup </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

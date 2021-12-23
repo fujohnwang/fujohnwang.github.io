@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="门外汉谈建筑的抗震设计 - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="门外汉谈建筑的抗震设计 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>门外汉谈建筑的抗震设计 - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">门外汉谈建筑的抗震设计</h1> <small> <h3 class="author">王福强</h3> </small> 
+    <p></p> 
+    <hr> 
+    <p>今天微博上好多地方看到芦山某处老屋地震之后我自岿然不动的转发，比如：</p> 
+    <blockquote>
+      【芦山“屋坚强”】这座张家大院是瓦木结构四合院，坐落于龙门乡古城村山脚下，主人说这老房子建于清朝同治年间，而在地震中，除了屋脊脱落几块瓦片外，没有任何损伤。7户人家在房子里照常生活……古宅真不是吹的 
+    </blockquote> 
+    <blockquote>
+      【芦山地震震中一座百年老宅屹立不倒 居民照常生活(图)】【奇迹，震中一座百年老宅巍然屹立，堪称“屋坚强” 】7户张姓人家震后在这里照常生活。张家大院为瓦木结构四合院，坐落于芦山县龙门乡古城村山脚下，主人之一张大金说：“建于清朝同治年间的老宅 http://t.cn/zTXAtxG 
+    </blockquote> 
+    <p>然后就相应微博评论里就很容易想到的凸显出带有倾向性的谩骂与讥讽，好在哥现在心态比较淡定，而且又在间歇性的通过《全能住宅改造王》这种非专业娱乐节目来多多少少的去了解一些建筑上的设计，借此看能否借鉴人家的经验并apply到软件架构的设计和系统建设当中去，所以，就借这个话题，说说我这建筑行业门外汉的点滴看法…</p> 
+    <p>我第一眼看到这些微博报道的时候，第一个关注的词是“瓦木结构”， 因为这让之前看节目的时候脑海里一直萦绕的一个疑云开始看到了一缕阳光， 灵光乍现哦，哈哈（不过有可能让建筑行业的耻笑，太小儿科了）</p> 
+    <p>在看了很多集《全能住宅改造王》之后，我发现，他们的房屋大都是横木做地基 + 木柱做主要支撑和横梁， 开始会多少受反日“营销“的影响，觉得日本的房子能够这么搞， 完全是因为tmd能够从我们伟大的祖国这里低成本的进口木材，可是哥已经没有那么愤青了，就避开这个观点，暂时先suspend这个疑问，等等触发重新调度…</p> 
+    <p>日本的住宅内使用木材有一个原因是希望通过木材的柔和来烘托建筑的温暖，以此来对比水泥的冰冷，当然了，一级建筑士们可以通过小的trick来让水泥也带来些许的温情，只是，从材质上对人的第一感觉来说，水泥还是冰冷的，而木材却是柔和而温暖的，但是，这只是木材在他们建筑中使用而体现的功用的一个方面，而另一个方面，在看到我们的瓦木结构的屋坚强之后，“抗震”这词儿就忽然跃入哥的脑海了,哈哈</p> 
+    <p>如果看官与哥同业，那在软件架构设计的时候，应该会考虑系统弹性的问题， 通过加入诸如buffer等机制来缓冲外部压力对系统的冲击， 那回头来看，木材柔韧的特性，在抗震的时候，是不是就可以发挥作用了那？！ 不过反过来， 农村的纯砖和水泥的结构，在抗震层面的表现估计就惨不忍睹。 至于钢筋混凝土， 如果钢筋的布局和用量到位，那么应该也是有一定抗震性的，不过，前提是从地基到整体结构上能够协同才行， 局部做的太好，整体架子烂了，不倒都难…</p> 
+    <p>其实抗震结构在节目里还有其他的设计，太久远，记不太清了，这里牵扯用料， 物理， 力学等多个层面的考虑， 就不班门弄斧了。</p> 
+    <p>不管我的前提和解释是否专业或者靠谱，反正哥解开了一个心结， 很高兴，哈哈哈，顺道做做伪科普^_^</p> 
+    <p>BTW. 某些entity被骂也是应该的，不用叫屈，谁让你tmd不好好搞教育那，不好好搞architecture和 rules<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>，怀疑某些entity很欢迎被骂似的。 还是自学成才吧，亲～</p> 
+    <p>另外，再补充一下， 这个屋子真不是最牛逼的， 你知道日本一个破茅草屋都能300年屹立不倒吗？</p> 
+    <section class="footnotes" role="doc-endnotes"> 
+     <hr> 
+     <ol> 
+      <li id="fn1" role="doc-endnote"><p>(这个词儿其实不贴切的，为啥自己想)<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+     </ol> 
+    </section> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2009-12-23-change-laptop.html">终于把我的三星X05折腾坏了… </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2009-12-07-java-reflection-with-dsl.html">Using Java Reflection In a DSL</a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2017-09-22-wedding-journal-2.html">婚礼筹备曲续 </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

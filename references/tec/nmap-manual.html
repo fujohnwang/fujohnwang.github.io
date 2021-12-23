@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="nmap手册 - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="nmap手册 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>nmap手册 - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">nmap手册</h1> <small> <h3 class="author">王福强</h3> </small> 
+    <p></p> 
+    <hr> 
+    <ul> 
+     <li><a href="#获取远程主机的系统类型及开放端口"><span class="toc-section-number">1</span> 获取远程主机的系统类型及开放端口</a></li> 
+     <li><a href="#列出开放了指定端口的主机列表"><span class="toc-section-number">2</span> 列出开放了指定端口的主机列表</a></li> 
+     <li><a href="#在网络寻找所有在线主机"><span class="toc-section-number">3</span> 在网络寻找所有在线主机</a></li> 
+     <li><a href="#ping-指定范围内的-ip-地址"><span class="toc-section-number">4</span> Ping 指定范围内的 IP 地址</a></li> 
+     <li><a href="#在某段子网上查找未占用的-ip"><span class="toc-section-number">5</span> 在某段子网上查找未占用的 IP</a></li> 
+     <li><a href="#在局域网上扫找-conficker-蠕虫病毒"><span class="toc-section-number">6</span> 在局域网上扫找 Conficker 蠕虫病毒</a></li> 
+     <li><a href="#扫描网络上的恶意接入点-rogue-aps."><span class="toc-section-number">7</span> 扫描网络上的恶意接入点 （rogue APs）.</a></li> 
+     <li><a href="#使用诱饵扫描方法来扫描主机端口"><span class="toc-section-number">8</span> 使用诱饵扫描方法来扫描主机端口</a></li> 
+     <li><a href="#为一个子网列出反向-dns-记录"><span class="toc-section-number">9</span> 为一个子网列出反向 DNS 记录</a></li> 
+     <li><a href="#显示网络上共有多少台-linux-及-win-设备"><span class="toc-section-number">10</span> 显示网络上共有多少台 Linux 及 Win 设备?</a></li> 
+     <li><a href="#扫描主机中所有的保留tcp端口"><span class="toc-section-number">11</span> 扫描主机中所有的保留TCP端口</a></li> 
+     <li><a href="#syn扫描"><span class="toc-section-number">12</span> SYN扫描</a></li> 
+     <li><a href="#其它"><span class="toc-section-number">13</span> 其它</a></li> 
+     <li><a href="#参考资料"><span class="toc-section-number">14</span> 参考资料</a></li> 
+    </ul> 
+    <hr> 
+    <h1 data-number="1" id="获取远程主机的系统类型及开放端口"><span class="header-section-number">1</span> 获取远程主机的系统类型及开放端口</h1> 
+    <blockquote> 
+     <p>nmap -sS -P0 -sV -O <target></target></p> 
+    </blockquote> 
+    <p>这里的 &lt; target &gt; 可以是单一 IP, 或主机名，或域名，或子网</p> 
+    <ol type="1"> 
+     <li>-sS TCP SYN 扫描 (又称半开放,或隐身扫描)</li> 
+     <li>-P0 允许你关闭 ICMP pings.</li> 
+     <li>-sV 打开系统版本检测</li> 
+     <li>-O 尝试识别远程操作系统</li> 
+    </ol> 
+    <p>其它选项:</p> 
+    <p>-A 同时打开操作系统指纹和版本检测 -v 详细输出扫描情况.</p> 
+    <blockquote> 
+     <p>nmap -sS -P0 -A -v &lt; target &gt;</p> 
+    </blockquote> 
+    <h1 data-number="2" id="列出开放了指定端口的主机列表"><span class="header-section-number">2</span> 列出开放了指定端口的主机列表</h1> 
+    <blockquote> 
+     <p>nmap -sT -p 80 -oG – 192.168.1.* | grep open</p> 
+    </blockquote> 
+    <h1 data-number="3" id="在网络寻找所有在线主机"><span class="header-section-number">3</span> 在网络寻找所有在线主机</h1> 
+    <blockquote> 
+     <p>nmap -sP 192.168.0.*</p> 
+    </blockquote> 
+    <p>或者也可用以下命令:</p> 
+    <blockquote> 
+     <p>nmap -sP 192.168.0.0/24</p> 
+    </blockquote> 
+    <p>指定 subnet</p> 
+    <h1 data-number="4" id="ping-指定范围内的-ip-地址"><span class="header-section-number">4</span> Ping 指定范围内的 IP 地址</h1> 
+    <blockquote> 
+     <p>nmap -sP 192.168.1.100-254</p> 
+    </blockquote> 
+    <h1 data-number="5" id="在某段子网上查找未占用的-ip"><span class="header-section-number">5</span> 在某段子网上查找未占用的 IP</h1> 
+    <blockquote> 
+     <p>nmap -T4 -sP 192.168.2.0/24 &amp;&amp; egrep “00:00:00:00:00:00″ /proc/net/arp</p> 
+    </blockquote> 
+    <h1 data-number="6" id="在局域网上扫找-conficker-蠕虫病毒"><span class="header-section-number">6</span> 在局域网上扫找 Conficker 蠕虫病毒</h1> 
+    <blockquote> 
+     <p>nmap -PN -T4 -p139,445 -n -v –script=smb-check-vulns –script-args safe=1 192.168.0.1-254</p> 
+    </blockquote> 
+    <h1 data-number="7" id="扫描网络上的恶意接入点-rogue-aps."><span class="header-section-number">7</span> 扫描网络上的恶意接入点 （rogue APs）.</h1> 
+    <blockquote> 
+     <p>nmap -A -p1-85,113,443,8080-8100 -T4 –min-hostgroup 50 –max-rtt-timeout 2000 –initial-rtt-timeout 300 –max-retries 3 –host-timeout 20m –max-scan-delay 1000 -oA wapscan 10.0.0.0/8</p> 
+    </blockquote> 
+    <h1 data-number="8" id="使用诱饵扫描方法来扫描主机端口"><span class="header-section-number">8</span> 使用诱饵扫描方法来扫描主机端口</h1> 
+    <blockquote> 
+     <p>sudo nmap -sS 192.168.0.10 -D 192.168.0.2</p> 
+    </blockquote> 
+    <h1 data-number="9" id="为一个子网列出反向-dns-记录"><span class="header-section-number">9</span> 为一个子网列出反向 DNS 记录</h1> 
+    <blockquote> 
+     <p>nmap -R -sL 209.85.229.99/27 | awk ‘{if($3==”not”)print”(“$2″) no PTR”;else print$3″ is “$2}’ | grep ‘(‘</p> 
+    </blockquote> 
+    <h1 data-number="10" id="显示网络上共有多少台-linux-及-win-设备"><span class="header-section-number">10</span> 显示网络上共有多少台 Linux 及 Win 设备?</h1> 
+    <p>sudo nmap -F -O 192.168.0.1-255 | grep “Running:” &gt; /tmp/os; echo “<span class="math inline">(<em>c</em><em>a</em><em>t</em>/<em>t</em><em>m</em><em>p</em>/<em>o</em><em>s</em>|<em>g</em><em>r</em><em>e</em><em>p</em><em>L</em><em>i</em><em>n</em><em>u</em><em>x</em>|<em>w</em><em>c</em> − <em>l</em>)<em>L</em><em>i</em><em>n</em><em>u</em><em>x</em><em>d</em><em>e</em><em>v</em><em>i</em><em>c</em><em>e</em>(<em>s</em>)”;<em>e</em><em>c</em><em>h</em><em>o</em>“</span>(cat /tmp/os | grep Windows | wc -l) Window(s) device”</p> 
+    <h1 data-number="11" id="扫描主机中所有的保留tcp端口"><span class="header-section-number">11</span> 扫描主机中所有的保留TCP端口</h1> 
+    <blockquote> 
+     <p>nmap -v scanme.nmap.org</p> 
+    </blockquote> 
+    <p>选项-v启用细节模式。</p> 
+    <h1 data-number="12" id="syn扫描"><span class="header-section-number">12</span> SYN扫描</h1> 
+    <blockquote> 
+     <p>nmap -sS -O scanme.nmap.org/24</p> 
+    </blockquote> 
+    <p>进行秘密SYN扫描，对象为主机Saznme所在的“C类”网段 的255台主机。同时尝试确定每台工作主机的操作系统类型。因为进行SYN扫描 和操作系统检测，这个扫描需要有根权限。</p> 
+    <h1 data-number="13" id="其它"><span class="header-section-number">13</span> 其它</h1> 
+    <blockquote> 
+     <p>nmap -sV -p 22，53，110，143，4564 198.116.0-255.1-127</p> 
+    </blockquote> 
+    <p>进行主机列举和TCP扫描，对象为B类188.116网段中255个8位子网。这 个测试用于确定系统是否运行了sshd、DNS、imapd或4564端口。如果这些端口 打开，将使用版本检测来确定哪种应用在运行。</p> 
+    <blockquote> 
+     <p>nmap -v -iR 100000 -P0 -p 80</p> 
+    </blockquote> 
+    <p>随机选择100000台主机扫描是否运行Web服务器(80端口)。由起始阶段 发送探测报文来确定主机是否工作非常浪费时间，而且只需探测主机的一个端口，因 此使用-P0禁止对主机列表。</p> 
+    <blockquote> 
+     <p>nmap -P0 -p80 -oX logs/pb-port80scan.xml -oG logs/pb-port80scan.gnmap 216.163.128.20/20</p> 
+    </blockquote> 
+    <p>扫描4096个IP地址，查找Web服务器(不ping)，将结果以Grep和XML格式保存。</p> 
+    <blockquote> 
+     <p>host -l company.com | cut -d -f 4 | nmap -v -iL -</p> 
+    </blockquote> 
+    <p>进行DNS区域传输，以发现company.com中的主机，然后将IP地址提供给 Nmap。上述命令用于GNU/Linux – 其它系统进行区域传输时有不同的命令。</p> 
+    <h1 data-number="14" id="参考资料"><span class="header-section-number">14</span> 参考资料</h1> 
+    <ol type="1"> 
+     <li><a href="http://www.91ri.org/891.html">十条nmap常用的扫描命令</a></li> 
+     <li><a href="http://nmap.org/man/zh/man-examples.html" class="uri">http://nmap.org/man/zh/man-examples.html</a></li> 
+    </ol> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2007-04-14-miss-you-grandma.html">思忆外婆 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2013-05-13-scala-for-the-impatient-note.html">《Scala For The Impatient》琐碎记录 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2021-09-27-dillema-of-processes.html">流程悖论 </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

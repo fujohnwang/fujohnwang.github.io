@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="框架API设计相关的碎言 - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="框架API设计相关的碎言 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>框架API设计相关的碎言 - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2009-11-17"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">框架API设计相关的碎言</h1> <small> <h3 class="author">fujohnwang</h3>2009-11-17 </small> 
+    <p></p> 
+    <hr> 
+    <p><strong>author: fujohnwang</strong></p> 
+    <p>框架的API设计，应该是一个从粗粒度到细粒度的精炼过程，而不能一开始就提供细粒度却没有考虑周全的API，这样的情况会：</p> 
+    <p>造成框架使用者的窘迫， 当框架实现中存在bug的时候， 使用者将难以绕过这些bug而前行， 只能等待框架的bug fix版本的发布；</p> 
+    <p>造成框架的频繁而仓猝的升级， 难免又引入新的bug；</p> 
+    <p>从理性的角度来看， 框架的API设计， 开始之初， 应该是一种粗粒度的， 且功能限定几乎没有的形式。之后，可以根据使用者的反馈以及框架设计者本身的考虑，来进一步的细化或者暴露新的，但功能相似的API，也就是说，我们可以在之后鼓励使用者使用新的API，而尽量少用旧有的API， 这样的好处就是， 当新的API有考虑不周全的时候， 使用者依然可以转而求助于旧的，但功能几乎没有限定的API， 使得使用者不用心急火燎的等待框架新版本的发布， 与此同时，框架本身可能因为开发进度无法及时发布。</p> 
+    <p>举例来说， 一个Web层的Action/Controller类的定义， 现在通常都是声明为一个简单的POJO， 框架设计者可能直接就规定死：在这些Action/Controller的定义中， 只能声明指定类型的参数。这样做的后果就是， 当框架指定的参数类型不能满足使用者需求的时候， 使用者会一筹莫展，因为， 除非框架升级，否则，他们无法获得更多的进展。</p> 
+    <p>可是，如果框架设计者最初不是一上来就开始限定，而是，一开始先提供粗粒度的API要求，那么，上面的情况就可以绕得过去。不管什么参数类型，他们的数据来源最终都要通过ServletRequest输入，通过ServletResponse输出，那么，我们就可以对如下的Action/Controller的处理方法提供支持：</p> 
+    <pre>public void actionMethod(ServletRequest requet, ServletResponse response);
+</pre> 
+    <p>然后，在这的基础上，再提供细粒度并且有效提炼的API支持：</p> 
+    <pre>public void actionMethod(Type1 argument1, Type2 argument2, ...);
+</pre> 
+    <p>当框架提供的细粒度的API支持无法满足用户需求的时候，用户依然可以转而求助于最初的粗粒度的API，而不是眼巴巴的干等。</p> 
+    <p>框架设计者提供细粒度的，精炼后的API当然是最初的目的，并且也是为了简化使用者的工作，但难免有考虑不周之处，所以，采取循序渐进， 留条后路的做法，很多情况下，对使用者来说，对框架设计来说，都会是受益的。使用者不用心急火燎的等待， 框架的设计和开发者也不用火烧屁股般紧急发布bugfix版本， good balance， isn’t it？</p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2007-03-20-trivial-words.html">达伦杂言 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2007-06-01-talking-on-taxi-reject.html">从出租车司机拒载说起 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2015-11-10-why-techies-also-need-think-the-PD-way.html">技术人也需要有产品思维(why techies also need think the PD way) </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

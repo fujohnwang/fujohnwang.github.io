@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="Java/Scala项目设立原则 - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="Java/Scala项目设立原则 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>Java/Scala项目设立原则 - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2015-03-24"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">Java/Scala项目设立原则</h1> <small> <h3 class="author">王福强</h3>2015-03-24 </small> 
+    <p></p> 
+    <hr> 
+    <ul> 
+     <li><a href="#components型项目"><span class="toc-section-number">1</span> Components型项目</a></li> 
+     <li><a href="#endpoint型项目"><span class="toc-section-number">2</span> Endpoint型项目</a></li> 
+    </ul> 
+    <hr> 
+    <figure> 
+     <img src="images/component-vs-endpoint.png" alt="project types by yunshi">
+     <figcaption aria-hidden="true">
+      project types by yunshi
+     </figcaption> 
+    </figure> 
+    <p>所有的Java项目， 可以划分为两类：</p> 
+    <ol type="1"> 
+     <li>component型项目（包括对外服务的接口，各种client等）建议使用Java进行开发和发布，以避免scala频繁的版本更新以及二进制兼容性考虑不多可能造成的依赖问题。</li> 
+     <li>endpoint型项目可以自由选择使用Java或者Scala语言进行开发。</li> 
+    </ol> 
+    <h1 data-number="1" id="components型项目"><span class="header-section-number">1</span> Components型项目</h1> 
+    <p>也可以称为Dependency型项目， 一般是作为jar包发布，该jar包不可独立运行，一般作为其它可独立运行系统的一部分依赖存在，比如加入到各项目classpath的那些jar包，皆属于此类型。</p> 
+    <p>这种类型的项目应该尽量减少变更， 维护API的兼容性， 而且尽可能少的减少自身依赖的其它component型项目的数量，为了尽量减少依赖的问题，甚至可以通过拷贝代码这样的实践方式，总之， 这种类型项目讲求的是精简，精致，可复用。</p> 
+    <p>因为Scala在二进制兼容性方面的“恶名”， 建议Component型项目使用Java进行开发， 只有Scala特定的项目，比如SBT插件项目或者确实是Scala的Component型项目， 才建议使用Scala进行开发，但需要进行交叉编译，发布针对多个Scala版本的jar包。</p> 
+    <h1 data-number="2" id="endpoint型项目"><span class="header-section-number">2</span> Endpoint型项目</h1> 
+    <p>Endpoint型项目属于独立可运行的实体， 一般指Java的Standalone类型的应用， 特定的比如dubbo服务，playframework的web应用等。</p> 
+    <p>对于这种类型的项目，没有特殊情况的话，可以说爱依赖什么包依赖什么包。</p> 
+    <p>使用Maven发布这种类型的项目，一般使用<a href="http://maven.apache.org/plugins/maven-assembly-plugin/">maven assembly插件</a>或者<a href="http://mojo.codehaus.org/rpm-maven-plugin/">maven的rpm插件</a>； 使用SBT发布这种类型的项目，一般使用<a href="https://github.com/sbt/sbt-native-packager">sbt-native-packager</a>。</p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2010-06-22-life-in-a-loop.html">轮回</a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2011-10-26-memory_barrier_question.html">One Of My Memory Barrier Questions </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2005-00-00-currency-format-in-poi.html">有关POI中对货币格式化的支持问题 </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

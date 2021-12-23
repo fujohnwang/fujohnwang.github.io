@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="How To Homebrew KeeNotes - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="How To Homebrew KeeNotes - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>How To Homebrew KeeNotes - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2021-02-04"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <style type="text/css">
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">How To Homebrew KeeNotes</h1> <small> <h3 class="author">王福强</h3>2021-02-04 </small> 
+    <p></p> 
+    <hr> 
+    <ul> 
+     <li><a href="#手动作业过程说明"><span class="toc-section-number">1</span> 手动作业过程说明</a></li> 
+     <li><a href="#术语"><span class="toc-section-number">2</span> 术语</a> 
+      <ul> 
+       <li><a href="#formula"><span class="toc-section-number">2.1</span> Formula</a></li> 
+       <li><a href="#tap"><span class="toc-section-number">2.2</span> Tap</a></li> 
+       <li><a href="#bottle"><span class="toc-section-number">2.3</span> Bottle</a></li> 
+       <li><a href="#cask"><span class="toc-section-number">2.4</span> Cask</a></li> 
+      </ul></li> 
+     <li><a href="#本地作业不分享local-workout-only"><span class="toc-section-number">3</span> 本地作业不分享(Local Workout Only)</a></li> 
+     <li><a href="#其它需要注意的点attentions"><span class="toc-section-number">4</span> 其它需要注意的点(Attentions)</a> 
+      <ul> 
+       <li><a href="#cask-file-name-and-cask-token-in-the-file"><span class="toc-section-number">4.1</span> cask file name and cask token in the file</a></li> 
+      </ul></li> 
+     <li><a href="#参考资料ref"><span class="toc-section-number">5</span> 参考资料(Ref)</a></li> 
+    </ul> 
+    <hr> 
+    <h1 data-number="1" id="手动作业过程说明"><span class="header-section-number">1</span> 手动作业过程说明</h1> 
+    <p>我是先在本地创建一个项目， 目录结构参考：</p> 
+    <pre><code>homebrew-keenotes/
+    Casks/
+        keenotes.rb
+    Formula/
+        keenotes.rb
+    README.md</code></pre> 
+    <p>然后拷贝一个Formula的定义模板并修改相应值。</p> 
+    <p>比如<code>sha256 "xxxx"</code>的配置行， 其值我们使用如下命令获得并更换：</p> 
+    <div class="sourceCode" id="cb2">
+     <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">base</span><span class="kw">)</span> ➜  <span class="ex">KeeNotes</span> git:(master) <span class="op">&gt;</span> <span class="ex">shasum</span> -a 256 <span class="st">"KeeNotes Desktop-1.2.2.dmg"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">e3731d376958ba68e927f876b27ade5a9d049461d59af2c4c32dc0df6db12a75</span>  KeeNotes Desktop-1.2.2.dmg</span></code></pre>
+    </div> 
+    <p>比如url指向的安装文件位置，我们直接用github上的releases里的下载文件地址：</p> 
+    <div class="sourceCode" id="cb3">
+     <pre class="sourceCode ruby"><code class="sourceCode ruby"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>url <span class="st">"https://github.com/keevol/keenotes-desktop/releases/download/v1.2.2/KeeNotes.Desktop-1.2.2.dmg"</span></span></code></pre>
+    </div> 
+    <blockquote> 
+     <p>NOTE</p> 
+     <p>虽然现在安装文件都是习惯性的放在Github，但其实url可以指向任何地址， 比如<code>url "https://cdn.electronic.us/products/commander/mac/download/commander.dmg"</code>, 所以，鉴于国内从github下载东西很慢的现状， 可以将体积大的安装文件放在国内的服务器上配合CDN加快下载与安装过程。</p> 
+    </blockquote> 
+    <p>所有这些本地编辑完成后， 在gibhub上新建一个项目<a href="https://github.com/keevol/homebrew-keenotes">homebrew-keenotes</a>, 项目名称需要遵循<code>homebrew-&lt;appname&gt;</code>的规则， 之后把本地项目push上去就可以了。</p> 
+    <p>所有这些做完之后，就可以：</p> 
+    <div class="sourceCode" id="cb4">
+     <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask install keenotes</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install --cask keenotes</span></code></pre>
+    </div> 
+    <blockquote> 
+     <p>TIPS</p> 
+     <p>当然， 以上手动过程可以通过<code>brew create</code>命令简化，比如<code>brew create https://github.com/keevol/keenotes-desktop/releases/download/v1.2.2/KeeNotes.Desktop-1.2.2.dmg</code>会自动计算hash并生成一个Formula脚手架配置文件，稍后只要根据情况手动调整就好了(<code>brew edit &lt;formula&gt;</code>)。</p> 
+    </blockquote> 
+    <h1 data-number="2" id="术语"><span class="header-section-number">2</span> 术语</h1> 
+    <h2 data-number="2.1" id="formula"><span class="header-section-number">2.1</span> Formula</h2> 
+    <p>A formula is a package definition written in Ruby.</p> 
+    <p>其实就是安装说明配置文件。</p> 
+    <h2 data-number="2.2" id="tap"><span class="header-section-number">2.2</span> Tap</h2> 
+    <p>A Git repository of Formulae and/or commands</p> 
+    <p>告诉homebrew去哪儿找新的或者默认没有的安装说明配置文件(Formula)。</p> 
+    <h2 data-number="2.3" id="bottle"><span class="header-section-number">2.3</span> Bottle</h2> 
+    <p>Homebrew can distribute <strong>precompiled binaries</strong> of your software, called <strong>bottles</strong>. By default, everything in the main Homebrew repository (Homebrew/homebrew-core) is bottled. This provides a superior user experience and saves time when installing software that takes a long time to compile (e.g., GCC).</p> 
+    <p>其实就是编译好的可安装文件， 省却很多麻烦，否则要加入从源码本地编译的逻辑， Formula会比较tricky，需要很多时间去debug。</p> 
+    <h2 data-number="2.4" id="cask"><span class="header-section-number">2.4</span> Cask</h2> 
+    <p>An extension of Homebrew to install macOS native apps</p> 
+    <p>其实就是安装有界面的App， 默认homebrew的Formula安装的都是命令行程序(Command Line Executable)。</p> 
+    <h1 data-number="3" id="本地作业不分享local-workout-only"><span class="header-section-number">3</span> 本地作业不分享(Local Workout Only)</h1> 
+    <p>如果只是本地开发和使用， 可以不用跟github打交道：</p> 
+    <pre><code>brew tap-new keevol/keenotes
+cd $(brew --repo keevol/keenotes)
+pwd
+
+brew create --tap=keevol/keenotes &lt;URL&gt; 
+    where `&lt;URL&gt;` is a zip or tarball, installed with `brew install &lt;formula&gt;`, and debugged with `brew install --debug --verbose &lt;formula&gt;`.
+然后根据需求手动改动一些必要信息即可。</code></pre> 
+    <h1 data-number="4" id="其它需要注意的点attentions"><span class="header-section-number">4</span> 其它需要注意的点(Attentions)</h1> 
+    <h2 data-number="4.1" id="cask-file-name-and-cask-token-in-the-file"><span class="header-section-number">4.1</span> cask file name and cask token in the file</h2> 
+    <p>The first non-comment line in a Cask follows the form:</p> 
+    <pre><code>cask "&lt;cask-token&gt;" do
+    ...</code></pre> 
+    <p><code>&lt;cask-token&gt;</code> should match the Cask filename, without the .rb extension, enclosed in single quotes.</p> 
+    <h1 data-number="5" id="参考资料ref"><span class="header-section-number">5</span> 参考资料(Ref)</h1> 
+    <ul> 
+     <li>https://docs.brew.sh/Formula-Cookbook</li> 
+     <li><a href="https://speakerdeck.com/defeated/homebrew-publish-your-first-formula">Homebrew: Publish Your First Formula</a></li> 
+     <li><a href="https://github.com/Homebrew/homebrew-cask/blob/master/doc/cask_language_reference/readme.md" class="uri">https://github.com/Homebrew/homebrew-cask/blob/master/doc/cask_language_reference/readme.md</a></li> 
+    </ul> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2010-06-10-gold-T+D.html">黄金T+D, 看起来很美 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2021-03-09-long-term-strategy.html">谈谈‘长期主义’ </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2012-03-28-twitter-util-eval-is-cool.html">“twitter_util_eval_is_cool” </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

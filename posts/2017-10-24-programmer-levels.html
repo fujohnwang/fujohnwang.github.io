@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="程序员的手感 - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="程序员的手感 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>程序员的手感 - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2017-10-24"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">程序员的手感</h1> <small> <h3 class="author">王福强 - fujohnwang AT gmail DOTA com</h3>2017-10-24 </small> 
+    <p></p> 
+    <hr> 
+    <p>今天是1024，所谓的程序员节，恰好又听到一位客户讲了一个他们程序员的故事，所以，扶墙老师今天要谈下程序员的手感问题..</p> 
+    <p>之前在微博上有句话我记得不太清了，大体意思是， 低级一点儿的程序员只管解决问题，但不知道背后的原理； 中级一点儿的程序员会解决问题，但更多会偏向于高深复杂的技术方案； 高级一点儿的程序员则可以根据情况选择合适的技术快速高效的解决问题。 其实这里说的就是程序员的手感， 不同的问题，在不同水平的程序员手里会得到不同的结果。</p> 
+    <p>今天客户谈到的就是他们核心交易系统因为性能太差，经过他们追查发现是数据库表的设计过于遵循数据库设计范式（Normalization），导致应用方处理一个事务要访问数据库70多次，压测的时候把万兆网卡都打满了。这种现象其实说明的是设计系统的程序员在水平和手感把握上的不足，其实遵循范式也好（Normalization），打破范式也罢(De-normalization)， 都不能生搬硬套，要根据具体实践场景来权衡和实施。</p> 
+    <p>我还记得当年去去哪儿（qunar.com）面试的时候， 当对方的技术负责人跟我说他们使用内存来缓存所有飞行航线作为搜索服务的时候，我那时候表现出来的不屑，但实际上，根据他们的场景，这种设计是最简单高效的，因为航线大部分是固定的，那么数据量也是固定的，缓存到内存是最简单高效的方法， 而如果生搬硬套， 引入binlog实时事件最终然后更新搜索引擎索引之类，就过于复杂和流于俗套了。只可惜，当年我还是中级程序员的觉悟。</p> 
+    <p>我想， 一个程序员的成长之路最终都要经历一个“看山是山，看山不是山，看山是山”的阶段吧， 祝所有程序员朋友们节日快乐， 征信跬步，之一不二！</p> 
+    <p><img src="images/rainbow.png"></p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2008-11-14-am-I-too-hard-to-myself.html">是不是对自己太苛刻了？！ </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2008-11-26-the-ways-to-achieve-modular-sys.html">The Ways To Achieve Your Modular System </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2007-08-04-fucking-ridiculous.html">到底是在彰显什么？ </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

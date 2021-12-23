@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="Serverless、BIU与1% - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="Serverless、BIU与1% - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>Serverless、BIU与1% - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2021-05-28"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">Serverless、BIU与1%</h1> <small> <h3 class="author">王福强</h3>2021-05-28 </small> 
+    <p></p> 
+    <hr> 
+    <ul> 
+     <li><a href="#serverless"><span class="toc-section-number">1</span> Serverless</a></li> 
+     <li><a href="#biu"><span class="toc-section-number">2</span> BIU</a></li> 
+     <li><a href="#section"><span class="toc-section-number">3</span> 1%</a></li> 
+     <li><a href="#guess-what"><span class="toc-section-number">4</span> Guess What?</a></li> 
+    </ul> 
+    <hr> 
+    <h1 data-number="1" id="serverless"><span class="header-section-number">1</span> Serverless</h1> 
+    <p>我记得应该是2015或者2016年左右的时候， 挖财那时候业务研发团队对Kafka的使用上可谓是百花齐放，尤其是position的存储，有存数据库的，有存redis的，有存zookeeper的，所以，那时候我就让架构师去做一个Serverless方案（AWS那时候应该也是刚提Serverless不久），以此来简化Kafka的使用，让业务研发只专注业务研发的东西。</p> 
+    <p>可是最后没有落地，原因嘛，要么是人事关系的问题，要么就是不理解我说在说啥，要么就是理解了也不知道怎么落地，Anyway，事儿没成。</p> 
+    <p>当今天或者说这几年又是一波甚嚣尘上的Serverless的时候，我就感觉很没意思，其实就是一个IoC的思路在做同样的事情，本质上就是要简化研发难度、提高研发效率、减少犯错几率。</p> 
+    <p>微软搞个Dapr，当然也是更大粒度上的IoC， IoC就是不同粒度上的、不同时间点上一个持续的过程。</p> 
+    <h1 data-number="2" id="biu"><span class="header-section-number">2</span> BIU</h1> 
+    <p>BIU是2015年我在主持工作的时候让前端研发团队一个P5小伙儿搞的营销工具，只不过是重点面向Mobile端的，类似淘宝早年的TMS，但更易用，不牵扯编码，当时的目的就是为了提高运营和市场营销的效率，拖拽一下就可以发布上线一个活动，相对于传统流程里从设计到研发的每次重复工作，极大的提高了组织的整体效率。</p> 
+    <p>5，6年了，整个组织还在用它，即使今天很多人提nocode/lowcode，甚至重起炉灶再干一个KPI新品，依然无法有效替换这套东西，原因就是它起步确实是个工具，但牵扯的底层资源却是系统性的，从发布交付到CDN等资源，再到组织协作流程，都是一个完整的体系，而不单单是一个工具那么简单，它既是工具，也是产品更是一套完整的运营支撑体系。</p> 
+    <p>但是，在当时（5，6年前）， 并没有多少人对BIU的价值有清晰的认知，或许今天，持续的结果和nocode风潮的兴起，应该可以让原来看不到这个产品核心价值的人看到它的核心价值吧！</p> 
+    <h1 data-number="3" id="section"><span class="header-section-number">3</span> 1%</h1> 
+    <p>很多时候，我跟客户要1%，客户都会直觉性地回绝，但等我说明为什么要这1%的时候，很多人也就理解了。</p> 
+    <p>其实不是我占你便宜，而是我帮你维护你的长期利益。这1%在过程里可以节省的成本和费用，绝对比你认为的付出要少的多，而且给你带来的收益要多得多。</p> 
+    <h1 data-number="4" id="guess-what"><span class="header-section-number">4</span> Guess What?</h1> 
+    <p>依然没有理清我在说什么对吧？</p> 
+    <p>其实我在说的，也是阿里土话一直在说的， 也就是“<strong>因为相信，所以看见</strong>”！</p> 
+    <p>大多数人永远是看见了（结果）才会相信（你之前说的话），而只有极少数人才会因为相信所以看见。</p> 
+    <p>价值，要给到合适的人！ <strong>相信你自己的价值主张</strong>，即使很多人不理解，因为“理解”在这个世界上是稀缺资源，尤其是<strong>太超前</strong>的时候。</p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2021-10-27-2Bmarket-dilemma.html">PPT、专利与白嫖 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2009-11-17-words_on_framework_api_design.html">框架API设计相关的碎言 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2019-07-29-talk-about-postmortem-how-to.html">复盘不是你想的那样 </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

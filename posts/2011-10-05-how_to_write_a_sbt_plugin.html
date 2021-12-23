@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="How to write a SBT 0.10+ plugin? - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="How to write a SBT 0.10+ plugin? - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>How to write a SBT 0.10+ plugin? - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2011-10-05"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <style type="text/css">
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">How to write a SBT 0.10+ plugin?</h1> <small> <h3 class="author">fujohnwang</h3>2011-10-05 </small> 
+    <p></p> 
+    <hr> 
+    <ul> 
+     <li><a href="#the-build-file-of-the-plugin-sample-build.sbt-under-project-root"><span class="toc-section-number">1</span> the build file of the plugin sample (build.sbt under project root)</a></li> 
+     <li><a href="#the-definition-file-of-the-plugin-samplesrcmainscala.scala"><span class="toc-section-number">2</span> the definition file of the plugin sample(src/main/scala/*.scala)</a></li> 
+     <li><a href="#last-mile---how-to-use-the-plugin-u-have-just-finished"><span class="toc-section-number">3</span> Last Mile - How to use the plugin u have just finished?</a></li> 
+     <li><a href="#what-u-can-learn-from-the-experience-of-writing-a-plugin"><span class="toc-section-number">4</span> What U can learn from the experience of writing a plugin?</a></li> 
+     <li><a href="#references"><span class="toc-section-number">5</span> References:</a></li> 
+    </ul> 
+    <hr> 
+    <p><strong>author: fujohnwang</strong></p> 
+    <p>To draft a SBT 0.10+ plugin, TWO parts should be taken into consideration:</p> 
+    <ol type="1"> 
+     <li><p>the build file of the plugin;</p></li> 
+     <li><p>the source code file or the definition files of the plugin;</p></li> 
+    </ol> 
+    <h1 data-number="1" id="the-build-file-of-the-plugin-sample-build.sbt-under-project-root"><span class="header-section-number">1</span> the build file of the plugin sample (build.sbt under project root)</h1> 
+    <pre>sbtPlugin := true
+
+name := "aspectj_sbt_plugin"
+
+version := "0.0.1"
+
+organization := "name.fujohnwang"
+
+publishMavenStyle := true
+
+scalacOptions := Seq("-deprecation", "-unchecked")
+
+resolvers += "Typesafe Repo" at "http://repo.typesafe.com/typesafe/releases/"
+
+libraryDependencies ++= Seq("org.aspectj" % "aspectjtools" % "1.6.11.RELEASE", "org.aspectj" % "aspectjrt" % "1.6.11.RELEASE","org.aspectj" % "aspectjweaver" % "1.6.11.RELEASE")
+</pre> 
+    <h1 data-number="2" id="the-definition-file-of-the-plugin-samplesrcmainscala.scala"><span class="header-section-number">2</span> the definition file of the plugin sample(src/main/scala/*.scala)</h1> 
+    <div class="sourceCode" id="cb1">
+     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> sbt.<span class="fu">_</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> Keys.<span class="fu">_</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">object</span> MyPlugin <span class="kw">extends</span> Plugin {</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a> <span class="kw">val</span> MyConfiguration = <span class="fu">config</span>(<span class="st">"myconf"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a> <span class="kw">val</span> mySetting = SettingKey[String](<span class="st">"my-setting"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a> <span class="kw">val</span> myTask = TaskKey[Unit](<span class="st">"my-task"</span>, <span class="st">"task description"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a> <span class="kw">override</span> <span class="kw">lazy</span> <span class="kw">val</span> settings = <span class="fu">inConfig</span>(MyConfiguration)(Seq(</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a> mySetting := <span class="st">"initial value for my-setting"</span>,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a> myTask &lt;&lt;= (streams, mySetting, …) map{</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a> (s, ms, …)=&gt; </span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a> <span class="co">// do what u want to do with the arguments</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a> },</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a> <span class="co">// other settings </span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a> ))</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>}</span></code></pre>
+    </div> 
+    <p>Note: U refer to each setting via their key and refer to their values via map from key.</p> 
+    <h1 data-number="3" id="last-mile---how-to-use-the-plugin-u-have-just-finished"><span class="header-section-number">3</span> Last Mile - How to use the plugin u have just finished?</h1> 
+    <p>in your project, 2 places should be taken care about:</p> 1- the “project/plugins.sbt” 
+    <pre> resolvers += yourResolver   // help sbt to find out where your plugin is
+
+ addSbtPlugin("name.fujohnwang" % "aspectj_sbt_plugin" % "0.0.1")   // declare to use your plugin
+</pre> 
+    <p>2- build.sbt under the root path of your project(light configuration) or project/Build.scala(full configuration)</p> 
+    <p>usually, you can customize the settings of the plugin or add necessary dependencies in your build file(s), this is variable as per your usage scenarios. If default values are ok for you, nothing about plugin is needed to add to your build file.</p> 
+    <h1 data-number="4" id="what-u-can-learn-from-the-experience-of-writing-a-plugin"><span class="header-section-number">4</span> What U can learn from the experience of writing a plugin?</h1> 
+    <p>1- declare custom Configuration to enhance the modularity;</p> 
+    <p>2- declare necessary SettingKey(s) to make your plugin flexible(which allows your users to customize the plugin)</p> 
+    <p>3- each Keys(Setting or Task) can be initialized or implemented by &lt;&lt;= with other Key(s)</p> 
+    <h1 data-number="5" id="references"><span class="header-section-number">5</span> References:</h1> 
+    <ol type="1"> 
+     <li><a href="https://github.com/harrah/xsbt/wiki/Plugins-Best-Practices" class="uri">https://github.com/harrah/xsbt/wiki/Plugins-Best-Practices</a></li> 
+     <li><a href="https://github.com/harrah/xsbt/wiki/sbt-0.10-plugins-list" class="uri">https://github.com/harrah/xsbt/wiki/sbt-0.10-plugins-list</a></li> 
+     <li><a href="http://eed3si9n.com/sbt-010-guide" class="uri">http://eed3si9n.com/sbt-010-guide</a></li> 
+     <li>The AspectJ compiler API</li> 
+     <li>typesafehub-sbt-aspectj plugin</li> 
+    </ol> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2020-06-24-instinct-and-data-both-matters.html">直觉不可靠，让数据[对比]来说话 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2005-06-18-explore-struts--web-framework.html">Struts实现探索 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2005-06-18-integrate-velocity-and-struts.html">实现Velocity和Struts的集成 </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="docbook addict - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="docbook addict - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>docbook addict - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">docbook addict</h1> 
+    <p></p> 
+    <hr> 
+    <blockquote> 
+     <p>2014年从msn space存档中重新恢复出来！</p> 
+    </blockquote> 
+    <p>自从打算写点儿东西，就一直在寻摸该使用什么编辑器进行：</p> 
+    <ul> 
+     <li>word吧，文件大了还不好弄，而且格式啥的还得时不时的调整；</li> 
+     <li>LaTex吧，好像学术论文比较合适；</li> 
+     <li>直接文本文件？更不行，图片啥的都不支持；</li> 
+    </ul> 
+    <p>最后想到《Process XML With Java》的作者提到他写书的时候使用的Docbook，所以，就开始上网挖相关资料了…</p> 
+    <p>docbook纯粹的用xml来保存数据，其实就是普通的文本，但他有一套标准的xml标签，这些标签对book，article等内部的组织结构进行了定义，用户使用的时候直接通过相应的xml标签来限定相应block中的内容即可。作者要做的就是这些，关于最终的发布出版啥的，可以在后期处理。通过XSL转换成HTML或者通过FOP转换成PDF，如果需要，通过其他式样表，也可以转换成其他格式的文档，只不过，如果现在没有相关的实现的话，重新写一套这样的式样表和相应的转换程序可能需要耗费时日。也就是说，这种文档格式的可移植性非常好，docbook文档专门负责数据，也就是内容，最终输出格式则由专门的式样表和转换程序来管，分工明确，在软件工程里面这叫耦合性极低，呵呵</p> 因为docbook标准xml标签很多，所以，刚开始接触这个东西，还是有些费劲的，不过经过几天环境的折腾，现在已经小有成就，呵呵，发布出来的HTML已经很激动人心了，目录章节索引全部自动生成（当然，这个是写xsl那帮兄弟的功劳，<dedication> 
+     <title>
+Thanks
+</title> 
+     <para>
+       thanks to docbook.sourceforge.net 
+     </para> 
+     <p>）。当真正入手之后，这种只需要一个文本编辑器就可以进行的写作方式会给你带来比较上瘾的感觉，写东西，发布到net上与大家分享。</p> 
+     <p>像SUN，LINUX Howto的文档都是以docbook编写并以各自的式样表格式化发布的，Spring的reference也是，所以，如果在某个组织内部实行这种技术或者产品文档的管理，应该是比较有效的。通过CVS或者Subversion对文档内容进行统一管理，发布的产品文档也可以组织内统一风格的式样表格式化输出，不是很cool嘛？我想比CVS管理的word或者excel要来的方便，只要通过一个文档服务器入口，完全可以覆盖整个的产品文档。</p> 
+     <p>通过internet共享当然是没有问题，我现在担心的是各个出版社是否支持这种格式的文档发布。</p> 
+     <p>Anyway，之后我希望能够沉浸在docbook的世界中，为了码字而奋斗，hoho</p> <!--          </div>--> <!--        </div>--> 
+     <hr> 
+     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+     </div> 
+     <div id="random_posts"> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2020-05-02-compentency-trap-reading.html">《能力陷阱》读书摘录 </a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2018-07-19-my-lovely-wife.html">今天被我家爱臭美的女人给逗乐了 </a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2013-04-23-anti-earthquake-design.html">门外汉谈建筑的抗震设计 </a> 
+      </div> 
+     </div> 
+     <hr> 
+     <img src="/images/zanshang.jpg" width="300/"> 
+     <div id="comments"></div> 
+     <hr> 
+     <div class="text-center"> 
+      <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+     </div> 
+    </dedication>
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="API Design And Documentation - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="API Design And Documentation - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>API Design And Documentation - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2015-03-17"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">API Design And Documentation</h1> <small> <h3 class="author">王福强</h3>2015-03-17 </small> 
+    <p></p> 
+    <hr> 
+    <ul> 
+     <li><a href="#why-we-need-api-design-and-documentation"><span class="toc-section-number">1</span> Why we need API design and documentation</a></li> 
+     <li><a href="#how-api-design-and-documentation-work"><span class="toc-section-number">2</span> How API design and documentation work</a></li> 
+     <li><a href="#available-solutions"><span class="toc-section-number">3</span> Available Solutions</a></li> 
+     <li><a href="#minor-cons"><span class="toc-section-number">4</span> Minor Cons</a></li> 
+     <li><a href="#小结"><span class="toc-section-number">5</span> 小结</a></li> 
+     <li><a href="#references"><span class="toc-section-number">6</span> References</a></li> 
+    </ul> 
+    <hr> 
+    <h1 data-number="1" id="why-we-need-api-design-and-documentation"><span class="header-section-number">1</span> Why we need API design and documentation</h1> 
+    <p>HTTP API <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> can’t be typesafe as per the http protocol’s essential， so we need to find a way so that the api providers and consumers can come to the same rendzvous point with proper constraits and clarity.</p> 
+    <p>HTTP协议的特性决定了基于HTTP的API属于松散类型（与强类型或者说类型安全的API相对应）， 为了能够让API的提供者和消费者可以一种双方都可以明晰且明确的方式达成共识， 我们需要找到一种方式来描述API，以便对双方进行一定的约束，从而形成一种双方都可以遵守的契约式的协议， 在某些层面增加少许工作量的同时，为双方提供便利和参考。</p> 
+    <p><img src="images/why-api-doc.png"></p> 
+    <h1 data-number="2" id="how-api-design-and-documentation-work"><span class="header-section-number">2</span> How API design and documentation work</h1> 
+    <p>API设计的一般的思路是，API提供者根据某种语法规范，表达和编写相应的API， 然后使用对应这种语法规范的工具解析并生成指定格式的API文档， 当然， 更进一步， API的实现代码也可以一并生成。</p> 
+    <p>生成的文档以及代码可以发布到版本控制系统以及相应的web站点， 然后API的使用者或者说消费者根据发布的API文档作为参考， 使用指定的API规范访问开放的API服务。</p> 
+    <p><img src="images/api-design-flow.png"></p> 
+    <p>或者引用一下apiary的流程：</p> 
+    <p><img src="images/design-use-implement-flow.png"></p> 
+    <p>思路上稍微存在一些差异（即是否生成代码），但先从API设计入手，然后迭代，最终发布这样的大体流程是类似的。</p> 
+    <p>当然， 围绕着这个典型的流程， 很多解决方案可以进一步提供一些周边的工具支持， 比如便于测试的工具， 便于版本化管理的支持， 图形化的API编辑工具， 对应的客户端API服务调用代码的生成工具， 等等。</p> 
+    <h1 data-number="3" id="available-solutions"><span class="header-section-number">3</span> Available Solutions</h1> 
+    <p>只挑几种，但不限于：</p> 
+    <ol type="1"> 
+     <li><a href="http://swagger.io/">Swagger</a> 
+      <ul> 
+       <li>使用json风格的API描述，支持比较全面， 名声相对来说更响一些</li> 
+      </ul></li> 
+     <li><a href="http://apiary.io/how-it-works">apiary</a> 
+      <ul> 
+       <li>使用markdown风格的API描述, 遵循<code>API Blueprint</code>规范</li> 
+      </ul></li> 
+     <li><a href="http://www.getpostman.com/">postman</a> 
+      <ul> 
+       <li>支持测试的客户端工具貌似很不错</li> 
+      </ul></li> 
+    </ol> 
+    <h1 data-number="4" id="minor-cons"><span class="header-section-number">4</span> Minor Cons</h1> 
+    <p>将API设计描述放在实现类注释(comment)中，然后通过工具解析抽取并生成文档是保持文档和代码同步的最便捷方式，也更容易集中于一点进行维护，但灵活度会收到原有语言语法的限制。</p> 
+    <p>前者对于强类型语言的实现方案比较合适，而使用结构化的文本来描述API设计，则更灵活，唯一的不足可能文档的更新同步某些时候会不够及时，当然， 如果完全遵循API design and documentation的思路和流程，则可以尽可能的规避这一不足。</p> 
+    <blockquote> 
+     <p>对于实现和API规范同步的问题， 一种思路是根据API规范生成测试集， 然后“打到”最终实现，如果不通过，则要求要么更新API规范，要么更新代码实现。 这样， 可以基本可以保证二者的同步。当然，这样的做法其实更像是先实现，后出API规范文档， 与API设计和文档化驱动的做法还是有些差异的。</p> 
+    </blockquote> 
+    <h1 data-number="5" id="小结"><span class="header-section-number">5</span> 小结</h1> 
+    <p>个人是markdown粉儿，但萝卜白菜各有所爱， 看官喜欢什么口味选择什么口味就好了， 以上方案大体上都可以满足基本的需求。</p> 
+    <h1 data-number="6" id="references"><span class="header-section-number">6</span> References</h1> 
+    <ol type="1"> 
+     <li><a href="https://github.com/for-GET/know-your-http-well/blob/master/status-codes.md">KNOW YOUR HTTP status codes WELL</a></li> 
+     <li><a href="http://apievangelist.com/2014/03/08/hello-world-product-api-with-blueprint-raml-and-swagger/">Hello World Product API With Blueprint, RAML And Swagger</a> - 这篇贵在提供了三种API design方案的对比 
+      <ul> 
+       <li><a href="http://apievangelist.com/2014/02/25/api-design-tooling-from-swagger/">API Design Tooling From <strong>Swagger</strong></a></li> 
+       <li><a href="http://apievangelist.com/2014/03/01/api-design-tooling-from-raml/">API Design Tooling From <strong>RAML</strong></a></li> 
+       <li><a href="http://apievangelist.com/2014/02/27/api-design-tooling-from-api-blueprint/">API Design Tooling From <strong>API Blueprint</strong></a> 
+        <ul> 
+         <li><a href="https://bitbucket.org/outofcoffee/api-blueprint-mockserver">API Blueprint Mock Server - Java based API Blueprint mock server, with J2SE and Android* support.</a></li> 
+        </ul></li> 
+      </ul></li> 
+     <li><a href="http://www.programmableweb.com/news/automated-documentation-rest-apis/2012/03/28">AUTOMATED DOCUMENTATION FOR REST APIS</a></li> 
+     <li><a href="https://developer.github.com/v3/">GitHub API v3</a></li> 
+     <li><a href="http://www.infoq.com/research/api-documentation">How do you document your APIs?</a> 
+      <ul> 
+       <li>除了常见的几种方案，这篇还提供了其它方案的信息链接</li> 
+      </ul></li> 
+     <li><a href="https://github.com/danielgtaylor/aglio" class="uri">https://github.com/danielgtaylor/aglio</a> - 还不错的一个根据API Blueprint生成文档的工具 
+      <ul> 
+       <li>An API Blueprint renderer with theme support that outputs static HTML</li> 
+      </ul></li> 
+    </ol> 
+    <section class="footnotes" role="doc-endnotes"> 
+     <hr> 
+     <ol> 
+      <li id="fn1" role="doc-endnote"><p>现在很多地方都使用REST API这个术语， 不过注意这里使用的是HTTP API，至于为什么， 嘿嘿，自己意会吧 ;-)<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+     </ol> 
+    </section> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2008-12-31-so-hard-to-watch-a-movie-these-days.html">看场电影都那么难 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2006-07-28-springdoclet.html">使用springdoclet简化基于spring框架的应用开发 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2017-10-14-when-to-encourage-when-to-criticize.html">到底应该“扬善于公堂，规过于私室”还是“扬善于私室，规过于公堂”？ </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="谈java中的动态条件查询（Dynamic Criteria Query In Java） - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="谈java中的动态条件查询（Dynamic Criteria Query In Java） - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>谈java中的动态条件查询（Dynamic Criteria Query In Java） - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <style type="text/css">
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">谈java中的动态条件查询（Dynamic Criteria Query In Java）</h1> <small> <h3 class="author">FuqiangWang</h3> </small> 
+    <p></p> 
+    <hr> 
+    <ul> 
+     <li><a href="#查询需求"><span class="toc-section-number">1</span> 查询需求</a></li> 
+     <li><a href="#查询需求的实现方式"><span class="toc-section-number">2</span> 查询需求的实现方式</a> 
+      <ul> 
+       <li><a href="#sql语句的字符串拼接sql-string-concatenation"><span class="toc-section-number">2.1</span> SQL语句的字符串拼接（SQL String Concatenation)</a></li> 
+       <li><a href="#ibatis的dynamicsql支持"><span class="toc-section-number">2.2</span> iBatis的DynamicSQL支持</a></li> 
+       <li><a href="#hibernate的detachedcriteria或者hql拼接"><span class="toc-section-number">2.3</span> Hibernate的(Detached)Criteria或者HQL拼接</a></li> 
+      </ul></li> 
+     <li><a href="#篇后语"><span class="toc-section-number">3</span> 篇后语</a></li> 
+     <li><a href="#参考文献"><span class="toc-section-number">4</span> 参考文献</a></li> 
+    </ul> 
+    <hr> 
+    <blockquote> 
+     <p>2014年从msn space存档中重新恢复出来！</p> 
+    </blockquote> 
+    <p>偶然的机会，发现开发中的这个共通的问题—动态条件查询，故此决定结合自己当初的开发方式以及网上各种观点，对这个问题点作一个分析和总结，以供参考。 在我们的开发过程中，经常需要面对各种数据的查询需求，比如说检索顾客信息，根据业务视图抽取相关数据做成报表等等，而对于这些查询，有的时候查询条件是固定的，比如说检索所有的顾客；但有的时候则不然，查询条件会不固定，像用户可以根据需求选择相应的查询条件，比如这次要根据姓名查询，下次可能就会根据年龄段来查询等等，像这类问题，查询的处理就会比固定条件查询要复杂一些，所以，下面我们就对这种动态查询的情况做一个总结，以期引入更多观点来完善相应问题的解决方式。 为了说明各种方式的差异，我们需要一个实例来作为比较的标准，所以，假设我们拥有以下查询条件画面（因为只是实例，所以无论从画面还是表结构上都做了很大的简化，实际项目中要复杂的多）：</p> 
+    <pre>-------------------------- ---
+顾客姓名｜ ｜ ｜暧｜
+-------------------------- ---
+-------------------------
+电话号码 ｜ ｜
+-------------------------
++--------------------------------------+
+| ［X］家庭固定电话 ［X］移动电话 |
+| ［X］亲属电话1 ［X］亲属电话2 |
+| ［X］工作地电话1 ［X］工作地电话2 | 
++--------------------------------------+
+</pre> 
+    <h1 data-number="1" id="查询需求"><span class="header-section-number">1</span> 查询需求</h1> 
+    <ol type="1"> 
+     <li>用户可以输入顾客姓名进行查询，默认查询模式为模糊查询，如果用户点击［暧］按钮，可以在［暧］－［前］－［后］－［全］四种模式中选择，分别进行模糊查询，前向匹配查询，后向匹配查询和完全匹配查询；如果用户没有输入顾客姓名，则顾客姓名不加入查询条件；</li> 
+     <li>用户可以输入电话号码进行查询 
+      <ol type="1"> 
+       <li>用户只是输入电话号码，而没有选择下方group中的相应电话类型，则查询条件中不加入电话号码的条件限制；</li> 
+       <li>用户没有输入电话号码，不管选择还是没有选择下方group中的相应电话类型，则查询条件不加入电话号码条件限制；</li> 
+       <li>用户输入了电话号码，并选择了下方group中的最少一项电话类型，加入电话号码和电话类型的查询条件进行检索。</li> 
+      </ol></li> 
+     <li>如果用户没有添加任何查询条件，进行全检索。</li> 
+    </ol> 
+    <h1 data-number="2" id="查询需求的实现方式"><span class="header-section-number">2</span> 查询需求的实现方式</h1> 
+    <h2 data-number="2.1" id="sql语句的字符串拼接sql-string-concatenation"><span class="header-section-number">2.1</span> SQL语句的字符串拼接（SQL String Concatenation)</h2> 
+    <p>这种方式是从我大学时期做兼职时代就开始的一种实现方式，在我没有找到更好的解决方式之前，也是我解决类似问题的唯一方式，缺点自然不用多说，各种条件的判断纠缠在一起，后期维护很难；但是，如果后期不会加入太多新的查询条件的话，测试完成后就基本可以不用管了（对了，说到测试，这东西也很难测试的哦！）。 下面是对于实例画面给出的一个参考拼接结果，当然不是唯一的，仅作参考：</p> 
+    <div class="sourceCode" id="cb1">
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">StringBuffer</span> criteria = <span class="kw">new</span> <span class="bu">StringBuffer</span>();</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>criteria.<span class="fu">append</span>(<span class="st">"SELECT DISTINCT CustomerID FROM Mastercustomer as cust WHERE "</span>);</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> flag = <span class="dv">0</span>;</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> surnameKanji = model.<span class="fu">getSurNameKanji</span>();</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span>(!CustomerValidator.<span class="fu">isBlank</span>(surnameKanji))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">switch</span>(model.<span class="fu">getSurNameKanjiFlag</span>())</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">case</span> CmpQueryState.<span class="fu">LEFT_MATCH_STATE</span>:</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>criteria.<span class="fu">append</span>(<span class="st">"CUSTOMERNAME LIKE '"</span>+surnameKanji+<span class="st">"%' AND "</span>);</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="kw">break</span>;</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">case</span> CmpQueryState.<span class="fu">RIGHT_MATCH_STATE</span>:</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>criteria.<span class="fu">append</span>(<span class="st">"CUSTOMERNAME LIKE '%"</span>+surnameKanji+<span class="st">"' AND "</span>);</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="kw">break</span>;</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="kw">case</span> CmpQueryState.<span class="fu">ALL_MATCH_STATE</span>:</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>criteria.<span class="fu">append</span>(<span class="st">"CUSTOMERNAME = '"</span>+surnameKanji+<span class="st">"' AND "</span>);</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="kw">break</span>;</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="kw">case</span> CmpQueryState.<span class="fu">AMBIGUOUS_MATCH_STATE</span>:</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>criteria.<span class="fu">append</span>(<span class="st">"CUSTOMERNAME LIKE '%"</span>+surnameKanji+<span class="st">"%' AND "</span>);</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="kw">break</span>;</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>flag++;</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> tel = model.<span class="fu">getPhoneNum</span>();</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span>(!CustomerValidator.<span class="fu">isBlank</span>(tel))</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>tel = telFormatter<span class="fu">.format</span>(tel);</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> innerflag = <span class="dv">0</span>;</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>criteria.<span class="fu">append</span>(<span class="st">"( "</span>);</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span>(model.<span class="fu">isHomeTelSelected</span>())</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>criteria.<span class="fu">append</span>(<span class="st">"APPLHOMETEL = '"</span>+tel+<span class="st">"' OR "</span>);</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>innerflag++;</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span>(model.<span class="fu">isKin1TelSelected</span>())</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>criteria.<span class="fu">append</span>(<span class="st">"KIN1HOMETEL = '"</span>+tel+<span class="st">"' OR "</span>);</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>innerflag++;</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span>(model.<span class="fu">isKin2TelSelected</span>())</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>criteria.<span class="fu">append</span>(<span class="st">"KIN2HOMETEL = '"</span>+tel+<span class="st">"' OR "</span>);</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>innerflag++;</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span>(model.<span class="fu">isOffice1TelSelected</span>())</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>criteria.<span class="fu">append</span>(<span class="st">"APPLWRK1TEL = '"</span>+tel+<span class="st">"' OR "</span>);</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>innerflag++;</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span>(model.<span class="fu">isOffice2TelSelected</span>())</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>criteria.<span class="fu">append</span>(<span class="st">"APPLWRK2TEL = '"</span>+tel+<span class="st">"' OR "</span>);</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>innerflag++;</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span>(model.<span class="fu">isMobile1Selected</span>())</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>criteria.<span class="fu">append</span>(<span class="st">"APPLMOBILE1TEL = '"</span>+tel+<span class="st">"' OR "</span>);</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>innerflag++;</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="co">//-----------DELETE USELESS WORDS---------------</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span>(innerflag == <span class="dv">0</span>)</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>criteria.<span class="fu">delete</span>(criteria.<span class="fu">length</span>()-<span class="dv">2</span>,criteria.<span class="fu">length</span>());</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="kw">else</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>criteria.<span class="fu">delete</span>(criteria.<span class="fu">length</span>()-<span class="dv">3</span>,criteria.<span class="fu">length</span>());</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>criteria.<span class="fu">append</span>(<span class="st">" ) AND "</span>);</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>flag++;</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="co">// finally</span></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span>(flag == <span class="dv">0</span>)</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="co">// In this way, the user select no query constraint field</span></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="co">// we need to delete the "WHERE" from the StringBuffer's end </span></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>criteria.<span class="fu">delete</span>(criteria.<span class="fu">length</span>()-<span class="dv">6</span> , criteria.<span class="fu">length</span>());</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="kw">else</span></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="co">// here, the user select one or more query constraint field,</span></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a><span class="co">// we need to delete the "AND" from the StringBuffer's end</span></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>criteria.<span class="fu">delete</span>(criteria.<span class="fu">length</span>() - <span class="dv">4</span> , criteria.<span class="fu">length</span>());</span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a><span class="kw">return</span> criteria.<span class="fu">toString</span>(); </span></code></pre>
+    </div> 
+    <p>可能一些地方还可以节俭，但你还是可以看出，这种方式是多么的复杂，不仅要维护条件的上下文，而且还要根据情况添加查询条件，我想你看到这么多的条件判断语句已经很faint了吧，呵呵，不过这还只是一个简单的查询页面，想想一个页面上几十甚至上百个的查询条件，这种方式恐怖你就可想而知了，开发效率，健壮性，可维护性，这些都是问题啊…</p> 
+    <p>但，我想，有些时候，如果其他方式无法解决的话，这也只能是你的last resort了。</p> 
+    <blockquote> 
+     <p>NOTE：这种方式虽然复杂，但是同时也可以给你最大的灵活性，“路怎么走，你看着办咯”</p> 
+    </blockquote> 
+    <p>另外，实际项目中，出于安全性考虑，最好对SQL进行escape，以防止SQL injection攻击等,原型就是原型，我们这里不可能面面具到的。</p> 
+    <h2 data-number="2.2" id="ibatis的dynamicsql支持"><span class="header-section-number">2.2</span> iBatis的DynamicSQL支持</h2> 
+    <p>iBatis针对这种动态查询提供了一种DynamicSQL的支持，通过在其SQLMap中定义查询条件，减少抽取逻辑和程序之间的耦合，而且，这种SQL的组装是通过XML来完成的，通过合理的处理，相对于SQL语句拼接方式来说，开发效率上更胜一筹。</p> 
+    <p>让我们来看一下相应于实例画面的查询，DynamicSQL是如何实现的吧：</p> 
+    <div class="sourceCode" id="cb2">
+     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;statement</span><span class="ot"> id=</span><span class="st">"yourQuery"</span><span class="ot"> resultMap=</span><span class="st">"yourRetMap"</span><span class="kw">&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>SELECT DISTINCT CustomerID FROM Mastercustomer as cust</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;dynamic</span><span class="ot"> prepend=</span><span class="st">"WHERE"</span><span class="kw">&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;isNotEmpty</span><span class="ot"> property=</span><span class="st">"customerName"</span><span class="ot"> prepend=</span><span class="st">"AND"</span><span class="kw">&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;isEqual</span><span class="ot"> property=</span><span class="st">"customerNameSearchMode"</span><span class="ot"> compareValue=</span><span class="st">"0"</span><span class="kw">&gt;</span>CUSTOMERNAME LIKE '#customerName#%'<span class="kw">&lt;/isEqual&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;isEqual</span><span class="ot"> property=</span><span class="st">"customerNameSearchMode"</span><span class="ot"> compareValue=</span><span class="st">"1"</span><span class="kw">&gt;</span>CUSTOMERNAME LIKE '%#customerName#'<span class="kw">&lt;/isEqual&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;isEqual</span><span class="ot"> property=</span><span class="st">"customerNameSearchMode"</span><span class="ot"> compareValue=</span><span class="st">"2"</span><span class="kw">&gt;</span>CUSTOMERNAME = '#customerName#'<span class="kw">&lt;/isEqual&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;isEqual</span><span class="ot"> property=</span><span class="st">"customerNameSearchMode"</span><span class="ot"> compareValue=</span><span class="st">"3"</span><span class="kw">&gt;</span>CUSTOMERNAME LIKE '%#customerName#%'<span class="kw">&lt;/isEqual&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/isNotEmpty&gt;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;isNotEmpty</span><span class="ot"> property=</span><span class="st">"telNum"</span><span class="ot"> prepend=</span><span class="st">"AND"</span><span class="kw">&gt;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;iterate</span><span class="ot"> property=</span><span class="st">"telTypeList"</span><span class="ot"> open=</span><span class="st">"("</span><span class="ot"> close=</span><span class="st">")"</span><span class="ot"> conjunction=</span><span class="st">"OR"</span><span class="kw">&gt;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>telNumber=#telTypeList[]#</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/iterate&gt;</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/isNotEmpty&gt;</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/dynamic&gt;</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/statement&gt;</span></span></code></pre>
+    </div> 
+    <p>更多信息可以参考iBatis提供的Reference…</p> 
+    <p>btw.个人还是很看中这种方式的</p> 
+    <h2 data-number="2.3" id="hibernate的detachedcriteria或者hql拼接"><span class="header-section-number">2.3</span> Hibernate的(Detached)Criteria或者HQL拼接</h2> 
+    <p>如果你的系统当前的persistence层用的是Hibernate的话，那恭喜你，在你享有hibernate当前便利的前提下，针对这种动态查询问题，你还会享有hibernate提供的(Detached)Criteria或者HQL灵活拼接的支持。</p> 
+    <p>只要你将相应的SearchContext中的查询条件设置到(Detached)Criteria中，那么你就可以直接取得你需要的查询结果就可以了，所有的什么拼接啦，查询结果组装啦什么乱七八糟的事情统统全免，是不是很惬意那？！不过，前提是你的系统persistence用的是hibernate，而且，实际上，(Detached)Criteria也不是万能药，对于复杂的查询，他也依然无能为力，所以，这个时候，不好意思，你还是的求助于字符串拼接的方式，不过，这回不是SQL的拼接了，而是HQL的拼接，不过原理是一样的，这里就不做赘述了，下面只是列出使用(Detached)Criteria的实现代码片段以供参考：</p> 
+    <div class="sourceCode" id="cb3">
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>DetachedCriteria detachedCriteria = DetachedCriteria.<span class="fu">forClass</span>(Mastercustomer.<span class="fu">class</span>); </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">// ... 根据情况取得相应的Criterion,如Criterion nameCriteria = Restrictions.eq("customerName",customerName);</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>detachedCriteria.<span class="fu">add</span>(nameCriteria);</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span>(<span class="fu">notEmpty</span>(telNum))</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>Disjunction disjunction = Restrictions.<span class="fu">disjunction</span>();</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>for（int i=<span class="dv">0</span>,size=telTypeList.<span class="fu">size</span>;i&lt;size;i++)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>disjuction.<span class="fu">add</span>(Restrictions.<span class="fu">eq</span>(<span class="st">"telNum"</span>,telTypeList.<span class="fu">get</span>(i)));</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>detachedCriteria.<span class="fu">add</span>(disjunction);</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>Criteria criteria = detachedCriteria.<span class="fu">getExecutableCriteria</span>(session);</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="kw">return</span> criteria.<span class="fu">list</span>(); </span></code></pre>
+    </div> 
+    <p>以上就是我本人对于这种动态查询条件相关问题解决方式的几点认识，如有谬误，还望指正。希望以上文字可以为大家解决相关问题提供一定的思路和解决问题的方向，如果大家还有什么更好的解决方式，也可以放到网上与大家共享，毕竟现在是互联网的时代 :-&gt;</p> 
+    <h1 data-number="3" id="篇后语"><span class="header-section-number">3</span> 篇后语</h1> 
+    <p>感谢Sun Java Forums 和javaEye Forum中的开发者共享他们的观点，使我能够可以了解更多相关信息并促成这篇文字的诞生，同时也要感谢万维网和google的支持，没有他们，我也无法顺利的形成这篇文字并将其与大家分享…</p> 
+    <h1 data-number="4" id="参考文献"><span class="header-section-number">4</span> 参考文献</h1> 
+    <ol type="1"> 
+     <li>《iBatis SqlMap Developer Guide 2.0》</li> 
+     <li>《Hibernate Reference》</li> 
+    </ol> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2018-03-27-write-a-book-with-pandoc.html">扶墙老师教你如何用pandoc写一本书 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2006-09-04-Intro-to-an-excel-template-engine.html">Introduction 2 an excel template engine </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2007-08-25-sun-rebrand-to-java.html">SUNW to be rebranded JAVA </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

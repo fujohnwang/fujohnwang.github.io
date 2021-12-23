@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="SaaS编年史之技术视角观察 - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="SaaS编年史之技术视角观察 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>SaaS编年史之技术视角观察 - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2019-12-20"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">SaaS编年史之技术视角观察</h1> <small> <h3 class="author">王福强</h3>2019-12-20 </small> 
+    <p></p> 
+    <hr> 
+    <ul> 
+     <li><a href="#crud程序员与web管理后台"><span class="toc-section-number">1</span> CRUD程序员与web管理后台</a></li> 
+     <li><a href="#从项目制到后台公网化"><span class="toc-section-number">2</span> 从项目制到后台公网化</a> 
+      <ul> 
+       <li><a href="#项目制"><span class="toc-section-number">2.1</span> 项目制</a></li> 
+       <li><a href="#模块化"><span class="toc-section-number">2.2</span> 模块化</a></li> 
+      </ul></li> 
+     <li><a href="#前后多端通吃到泛化saas概念"><span class="toc-section-number">3</span> 前后多端通吃到泛化SaaS概念</a></li> 
+    </ul> 
+    <hr> 
+    <h1 data-number="1" id="crud程序员与web管理后台"><span class="header-section-number">1</span> CRUD程序员与web管理后台</h1> 
+    <p>说道SaaS，我觉得不得不提及一下传统软件开发里最简单的一个结构概念。</p> 
+    <p>BS架构下到软件，最简单的结构一般是这样式儿的：</p> 
+    <p><img src="images/basic_topology_of_web.png"></p> 
+    <p>围绕一个数据库分成前台应用和管理后台， 而这里的管理后台其实就是后来声称是SaaS的大多数应用平台的雏形。</p> 
+    <p>在这个阶段的管理后台应用里，大部分的功能逻辑就是CRUD操作（Create, Read, Update, Delete），即常说的增删改查， 而对应开发这些系统的人员，则大多沉淀的都是技术专业能力不高的团队成员（这话可能说的有点儿伤人了，但本质上就是酱紫）</p> 
+    <h1 data-number="2" id="从项目制到后台公网化"><span class="header-section-number">2</span> 从项目制到后台公网化</h1> 
+    <p>将web管理后台的生意发展成SaaS模式， 第一个阶段是做项目， 做各种各样公司内部用的管理系统和管理后台，到这个阶段来说还都挺好的， 起码这些应用都是部署在内网， 对于性能之类的要求都不高，而且内网带宽和时延也都不是啥大问题， 你就算从原来的完全服务器端渲染整个视图(SSR HTML)，发展为今天单页应用(SPA)要加载很大的js等静态资源， 在内网环境下其实都问题不大(当然，如果内网拓扑和基础实施搞得实在太烂，那也会死慢死慢的)。</p> 
+    <p>但是要称为SaaS，首先的一个转变就是我是要通过公网为客户提供服务的，即使之前是做企业内部用的管理后台，但一旦声称是SaaS，这个管理后台也得让人能够通过公网访问呀，而不管你是一家公司部署一套，还是多家公司公用部署一套。</p> 
+    <p>一旦公网化， 本质上就有些变化了，你得处理在公网环境下才会遇到的各种问题， 首先就是网络环境的差异， 带宽和时延都跟内网环境不是一个数量级了，所以要做资源的优化，要做网络优化，当然，还要做好安全防控，因为战线已经暴露在黑白帽甚至竞争对手的跟前。</p> 
+    <p>实际上，这个时候完全可以说是后台前台化了，因为它要处理之前前台应用才会考虑的n多问题。</p> 
+    <p>除此之外， 生意的发展阶段和系统与产品的发展在这个阶段也可以划分一下：</p> 
+    <h2 data-number="2.1" id="项目制"><span class="header-section-number">2.1</span> 项目制</h2> 
+    <p>任何软件和生意都是有发展阶段的， 很多所谓的SaaS生意，大都是从做项目开始的，这家企业用户接个项目，那家企业用户接个项目，先通过做项目赚钱养活团队， 需求差异性很大， 所以， 就算对外声称是SaaS， 底下可能还是一个个独立部署的系统。</p> 
+    <h2 data-number="2.2" id="模块化"><span class="header-section-number">2.2</span> 模块化</h2> 
+    <p>随着项目越做越多，如果还是沿用过去项目制的经验， 那么一定会朝着规模不经济的路走下去，要扩张，要做更多项目，就得招更多的人，虽然这种模式也可以发展（做保险销售的按照这种模式可以发展到80万人到120万人不等）， 但很难有人效上质的变化，所以， 有点儿追求的团队，就得考虑如何通过产品和技术架构来提升SaaS的交付效率，减少后期维护成本， 模块化显然是最合理的方式。</p> 
+    <p>但是， 模块化说起来容易，做起来就难咯， 当年OSGi叫的很火，理念也很好，但最终为什么落得个一地鸡毛？ 因为忽视了承接落地的人群的感受。理念很好，落地却是渣的一塌糊涂，没啥鸟用，因为<strong>工程上从来是越简单越好</strong>。</p> 
+    <p>所以， SaaS要模块化做好，一定得先有能规划产品和技术架构的人，其次是结合产品和团队现状如何落地，最后才有可能收获好的效果。</p> 
+    <p>如果组织和人才储备上没有相应的规划和承接能力，还不如老老实实做项目制更务实。</p> 
+    <h1 data-number="3" id="前后多端通吃到泛化saas概念"><span class="header-section-number">3</span> 前后多端通吃到泛化SaaS概念</h1> 
+    <p>时至今日， SaaS的概念其实已经泛化为任何通过软件系统和平台创造营收的模式都是SaaS模式（anything that can make earnings from software），比如淘宝，拼多多，早年可能都提平台，但其实他们本身就是通过软件来创造营收，很早起的软件研发投入在中长期通过运营和商业模式来创造服务价值，真正践行了Software As A Service的理念。</p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2006-07-28-springdoclet.html">使用springdoclet简化基于spring框架的应用开发 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2020-03-08-just-respect-the-professionals.html">自己不专业就别瞎bb </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2006-01-06-pdf-printing-with-java.html">在java中实现PDF打印（PDF Printing With Java） </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

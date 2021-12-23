@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="Programming with a thought considerate of others - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="Programming with a thought considerate of others - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>Programming with a thought considerate of others - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">Programming with a thought considerate of others</h1> 
+    <p></p> 
+    <hr> 
+    <ul> 
+     <li><a href="#add-necessary-comment-into-the-javadoc-of-your-classescomponents-as-much-as-possible."><span class="toc-section-number">1</span> add necessary comment into the javadoc of your classes/components as much as possible.</a></li> 
+     <li><a href="#if-you-tdd-first-code-second-then-please-document-everything-last-as-more-details-as-possible."><span class="toc-section-number">2</span> If you TDD first, Code second, then please document everything last as more details as possible.</a></li> 
+    </ul> 
+    <hr> 
+    <h1 data-number="1" id="add-necessary-comment-into-the-javadoc-of-your-classescomponents-as-much-as-possible."><span class="header-section-number">1</span> add necessary comment into the javadoc of your classes/components as much as possible.</h1> 
+    <p>Usually, you are not the only user of the classes or components you defined before, in order to ease other people to better or fully understand your thinking at the time you define your classes or components, adding some sample code or remark words into javadoc will be more helpful to others, even to yourself.</p> 
+    <p>You may wonder why I would like to mention this point, here are some reasons for this:</p> 
+    <p>After on board CSTS, I have to dig into others’ code to find out what this piece of work is for, so that I can do something, such as refactoring or develop new features on the fundation of those code. It takes time and sucks to try to understand those code pieces, no matter the code piece is good one or bad one, if the original author add some comment for his/her masterpiece, that will save me a lot.</p> 
+    <p>Another story is , Since the original system is still using older version of some framework(can’t upgrade for a reason of stability), in order to support some functionality, I have to implement some support components/classes for this, but after that, I found others were using it in a way of going against my orginal philosophy, and almost mess up my design and structure. So I have to add more comment into the javadoc to notify others how this comoponent is supposed to be used.</p> 
+    <p>So, u see, it’s a bilateral relationship, both for the orginal code author or the code user.</p> 
+    <p>There are two camps in the world of software solutions, the open source ones and the commercial ones. I remembered some words Dino said before, he said, “the most pain or pitfall of open source software is, they are seldom good-documented”. To some extent, I have to agree. It’s true that the commercial software solutions always provide well-prepared document and materials, although some open souce solutions do so, e.g.&nbsp;the spring framework, jboss solutions, most of the open source software do not provide proper document , even necessary document.</p> 
+    <p>Bad-documented open source software solutions take more time for users to get close to them, seldom to become popular. So add more document to your software solutions as much as possible.</p> 
+    <p>Even down to the fundamental parts of the software, I mean, source code, we should add necessary comment to it. You and others will benefit from what you do one day.</p> 
+    <h1 data-number="2" id="if-you-tdd-first-code-second-then-please-document-everything-last-as-more-details-as-possible."><span class="header-section-number">2</span> If you TDD first, Code second, then please document everything last as more details as possible.</h1> 
+    <pre><code>Although you and others can find more information about your code later, but only unit tests are not enough, even though, you can't make sure whether you have created any unit tests. 
+So please go ahead to write document for your design and implementations, Agile doesn't mean no document, after you have finished your document, add links to your code.  In this way, others or yourself later can find out what's going on with your design and implementations soon.
+Everyone can benefit a lot from what you do.</code></pre> 
+    <p>Stay tuned!</p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2021-04-05-keeposters-is-released.html">分享一款海报神器 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2021-02-28-frontend-evolution-in-my-words.html">前端开发简史(How Frontend Dev. Evolves) </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2015-12-17-create-a-gitlab-oauth2-application.html">Gitlab OAuth2 Application简明教程 </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

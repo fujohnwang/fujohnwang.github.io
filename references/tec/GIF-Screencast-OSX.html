@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="GIF-Screencast-OSX - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="GIF-Screencast-OSX - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>GIF-Screencast-OSX - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <hr> 
+    <ul> 
+     <li><a href="#os-x-screencast-to-animated-gif"><span class="toc-section-number">1</span> OS X Screencast to animated GIF</a> 
+      <ul> 
+       <li><a href="#instructions"><span class="toc-section-number">1.1</span> Instructions</a></li> 
+       <li><a href="#installation"><span class="toc-section-number">1.2</span> Installation</a></li> 
+       <li><a href="#see-also"><span class="toc-section-number">1.3</span> See also</a></li> 
+       <li><a href="#resources"><span class="toc-section-number">1.4</span> Resources</a></li> 
+       <li><a href="#related-ideas"><span class="toc-section-number">1.5</span> Related Ideas</a></li> 
+      </ul></li> 
+    </ul> 
+    <hr> 
+    <h1 data-number="1" id="os-x-screencast-to-animated-gif"><span class="header-section-number">1</span> OS X Screencast to animated GIF</h1> 
+    <p>This gist shows how to create a GIF screencast using only free OS X tools: <em>QuickTime, ffmpeg, and gifsicle</em>.</p> 
+    <figure> 
+     <img src="http://dl-web.dropbox.com/u/29440342/screenshots/OBDHSF-KJDFKJS-screencapture.gif" alt="Screencapture GIF">
+     <figcaption aria-hidden="true">
+      Screencapture GIF
+     </figcaption> 
+    </figure> 
+    <h2 data-number="1.1" id="instructions"><span class="header-section-number">1.1</span> Instructions</h2> 
+    <p>To capture the video (filesize: 19MB), using the free “QuickTime Player” application:</p> 
+    <ul> 
+     <li>Open “Quicktime Player”,</li> 
+     <li>Go to File -&gt; New Screen Recording</li> 
+     <li>Selected screen portion by dragging a rectangle, recorded 13 second video.</li> 
+     <li>Go to File -&gt; Export -&gt; As Movie 
+      <ul> 
+       <li>Saved the video in <strong>full quality</strong> with the filename <code>in.mov</code></li> 
+      </ul></li> 
+    </ul> 
+    <p>To convert in.mov into out.gif (filesize: 48KB), open Terminal to the folder with <code>in.mov</code> and run the following command:</p> 
+    <pre><code>ffmpeg -i in.mov -s 600x400 -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=3 &gt; out.gif</code></pre> 
+    <p>Notes on the arguments:</p> 
+    <ul> 
+     <li><code>-r 10</code> tells ffmpeg to reduce the frame rate from 25 fps to 10</li> 
+     <li><code>-s 600x400</code> tells ffmpeg the max-width and max-height</li> 
+     <li><code>--delay=3</code> tells gifsicle to delay 30ms between each gif</li> 
+     <li><code>--optimize=3</code> requests that gifsicle use the slowest/most file-size optimization</li> 
+    </ul> 
+    <p>To share the new GIF using <a href="http://dropbox.com">Dropbox</a> and <a href="https://github.com/dergachev/copy-public-url">Copy Public URL</a>, run the following:</p> 
+    <pre><code>cp out.gif ~/Dropbox/Public/screenshots/Screencast-`date +"%Y.%m.%d-%H.%M"`.gif</code></pre> 
+    <h2 data-number="1.2" id="installation"><span class="header-section-number">1.2</span> Installation</h2> 
+    <p>The conversion process requires the following command-line tools:</p> 
+    <ul> 
+     <li><strong>ffmpeg</strong> to process the video file</li> 
+     <li><strong>gifsicle</strong> to create and optimize the an animated gif</li> 
+    </ul> 
+    <p>If you use homebrew and homebrew-cask software packages, just type this in:</p> 
+    <pre><code>brew install ffmpeg 
+brew cask install x-quartz #dependency for gifsicle, only required for mountain-lion and above
+open /usr/local/Cellar/x-quartz/2.7.4/XQuartz.pkg # runs the XQuartz installer
+brew install gifsicle</code></pre> 
+    <h2 data-number="1.3" id="see-also"><span class="header-section-number">1.3</span> See also</h2> 
+    <p>I ended up rewriting this gist’s functionality into <a href="https://github.com/dergachev/screengif"><strong>screengif</strong></a>, a ruby script with significant quality improvements and a few gratuitous features. Check it out at https://github.com/dergachev/screengif</p> 
+    <h2 data-number="1.4" id="resources"><span class="header-section-number">1.4</span> Resources</h2> 
+    <ul> 
+     <li>http://schneems.com/post/41104255619/use-gifs-in-your-pull-request-for-good-not-evil (primary source!)</li> 
+     <li>http://www.reddit.com/r/programming/comments/16zu7d/use_gifs_in_your_pull_requests_for_good_not_evil/</li> 
+     <li>http://superuser.com/questions/436056/how-can-i-get-ffmpeg-to-convert-a-mov-to-a-gif#<em>=</em></li> 
+     <li>http://gnuski.blogspot.ca/2012/06/creating-animate-gif-with-free-software.html</li> 
+    </ul> 
+    <h2 data-number="1.5" id="related-ideas"><span class="header-section-number">1.5</span> Related Ideas</h2> 
+    <ul> 
+     <li>Extend https://github.com/dergachev/copy-public-url folder action for this use case 
+      <ul> 
+       <li>it would automate the conversion before copying Dropbox public URL</li> 
+       <li>assign the folder action to ~/Dropbox/Public/Screenshots/gif</li> 
+       <li>consider finding a way to simplify the dependency installation</li> 
+      </ul></li> 
+    </ul> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2011-11-21-SBT_dependency_exclude.html">SBT Dependencies Exlusion Gotchas </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2010-12-04-n_things_should_know_about_handlersocket.html">N Things You should know about HandlerSocket </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2007-09-08-BF4768EE8B110260_603.html">赐予我力量吧,我是希曼~</a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

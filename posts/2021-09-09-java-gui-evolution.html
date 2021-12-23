@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="Java图形化技术发展简史(A Brief History of Java GUI) - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="Java图形化技术发展简史(A Brief History of Java GUI) - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>Java图形化技术发展简史(A Brief History of Java GUI) - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2021-09-09"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">Java图形化技术发展简史(A Brief History of Java GUI)</h1> <small> <h3 class="author">王福强</h3>2021-09-09 </small> 
+    <p></p> 
+    <hr> 
+    <ul> 
+     <li><a href="#时间线视角"><span class="toc-section-number">1</span> 时间线视角</a></li> 
+     <li><a href="#技术理念的视角"><span class="toc-section-number">2</span> 技术理念的视角</a></li> 
+     <li><a href="#后话"><span class="toc-section-number">3</span> 后话</a></li> 
+    </ul> 
+    <hr> 
+    <p>Java图形化技术的发展可以从两个视角来看待，一个视角是时间线的视角，一个视角是技术理念的视角。</p> 
+    <h1 data-number="1" id="时间线视角"><span class="header-section-number">1</span> 时间线视角</h1> 
+    <p><img src="images/SUN地摊车.jpg"></p> 
+    <p>太阳微系统公司(Sun Microsystems)在没有沦落到被Oracle收购之前， 在技术人员心目中那是何等的牛逼啊！</p> 
+    <p>1995年Java发布之初，其实就已经自带了AWT技术(全称Abstract Window Toolkit)，到Java1.2，新推出的Swing逐步成为推荐的Java GUI主流框架， IntelliJ IDEA就是基于Swing技术的杀手级产品，Java程序员朋友应该都家喻户晓。</p> 
+    <p>下面是翻硬盘时候发现的老古董， Aqua Data Studio 4.7.2版本， 你可以认为是DBeaver的前辈，但是在20年前 <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>，今天我拿它跑在Java16上依然流畅如飞：</p> 
+    <figure> 
+     <img src="images/Aqua_Data_Studio_4.7.2.png" alt="Aqua Data Studio 4.7.2">
+     <figcaption aria-hidden="true">
+      Aqua Data Studio 4.7.2
+     </figcaption> 
+    </figure> 
+    <p>另外就是2008年在花旗的时候， 债券系统也是Swing写的， 那时候小蒯写Swing写的那叫一个眉飞色舞啊，现在俩儿子的爹，都成老蒯了… (同年，隔壁的finance desk还是基于motif开发，这也是老古董的GUI框架，只是不是Java家的)</p> 
+    <p>然后是2003年SWT冒出来，打的旗号是进一步应用好每一个平台/OS的特性，也就是抽象+不同平台不同具体实现的思路，杀手级产品当然就是Eclipse。</p> 
+    <p>SWT/JFace哥也写过，写的是对日的信贷系统，俗称高利贷，利率我今天还记得是29.3%，但这在日本是合法的，国内也是P2P一地鸡毛之后才开始规范利率，但即使规范后的利率，那也是比日本当年这个利率标准高…</p> 
+    <p>再后来就是JavaFX， 先是JavaFX2.0（当时这技术还是在SUN手里），然后到JavaFX8.0之后，Oracle放弃维护，一家叫Gluon的创业公司(startups)接手继续推动JavaFX的发展（因为它们早期搞了mobile版的适配，在这方向上有投入也有功力），所以，8.0后面的JavaFX都是独立于JDK/JRE之外发展了。 <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p> 
+    <p>JavaFX相对于AWT/Swing的一些好处是设计上可扩展性更好，也支持用CSS对组件进行风格定制（当然，跟纯web版的css也有些出入）。</p> 
+    <p>至于JavaFX的杀手级产品，早年有NASA等机构一类的产品，但特别引人注目并进入大众视野的好像不多，社区比较小，优秀的类库和框架还是有的，比如游戏框架FXGL，比如配置类库PreferencesFX等。</p> 
+    <h1 data-number="2" id="技术理念的视角"><span class="header-section-number">2</span> 技术理念的视角</h1> 
+    <p>这个世界好像永远会存在<strong>至少</strong>两派人，<strong>追求差异化独特性</strong>的一群人， 以及<strong>追求整齐划一</strong>的一群人，甚至于可能是同一群人不同阶段， 不管怎么样，在Java的GUI生态里，其实也因这种理念上的差异衍生出了不同的两类方案。</p> 
+    <p>AWT和SWT原则上应该属于一类理念， 他们都是基于不同平台各自的图形化生态和支持构建封装或者适配，能用操作系统原生的就用原生的，原生的没有的，再单独构建开发新的组件和功能；</p> 
+    <p>Swing和JavaFX则走的另一条路，我tmd全都自己“画”，在什么操作系统上都长一个样儿，你要是嫌这种整齐划一不好看也没问题， 我给你提供theme切换(LAF = Look and Feel)总行了吧？ JavaFX还能用CSS做进一步的风格调整呢~</p> 
+    <p>虽然我们之前讲过，要提倡多平台方案而不是跨平台方案：</p> 
+    <p><img src="images/Multi-Platform-Not-Cross-Platform.png"></p> 
+    <p>但其实话只是说了一半儿，理性地讲应该是，<strong>在该选择跨平台方案的时候，选择跨平台方案，在该选择多平台方案的时候，选择多平台方案</strong>。</p> 
+    <h1 data-number="3" id="后话"><span class="header-section-number">3</span> 后话</h1> 
+    <p>王婆卖瓜，最后不能忘了自夸 ^_-</p> 
+    <p>既然要做<strong>“土”公司</strong> (A Tool Company)，那我们就要选择适合自己而自己又能把控的技术。</p> 
+    <p>从2019年至今， 福强科技基于JavaFX技术与生态搞了KeeBox、KeeOps、Tinclick、KeeNotes Desktop以及KareData等一系列的桌面型软件产品 <a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>，后面还会继续丰富品类，敬请关注 🤪</p> 
+    <section class="footnotes" role="doc-endnotes"> 
+     <hr> 
+     <ol> 
+      <li id="fn1" role="doc-endnote"><p>虽然自诩也有20年的Java经验，但我其实是从1.3/1.4左右开始接触Java和Swing的， 那时候天天泡在大工的图书馆里翻一本Swing的英文书，比我自己后来2009出版的《Spring揭秘》还tmd厚<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+      <li id="fn2" role="doc-endnote"><p>独立于JDK/JRE之外有利有弊，利是更加独立灵活，弊嘛，不能像当年IE搭自己Windows操作系统的便车那样，而AWT/Swing则一直是JDK/JRE自带<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+      <li id="fn3" role="doc-endnote"><p>https://keevol.cn/tools.html<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+     </ol> 
+    </section> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2010-09-05-driving-car-stories.html">行车记录 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2007-09-21-whats-wrong-with-me.html">What’s wrong with me? </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2008-04-05-also-about-movies.html">达伦谈电影</a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>
