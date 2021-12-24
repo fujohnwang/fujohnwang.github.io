@@ -55,9 +55,9 @@
 > 
 > This is a pure English Tech book for svelte3, not deemed for Chinese readers. 
 
-![](images/cover_simple_svelte.jpg)
+<!-- ![](images/cover_simple_svelte.jpg) -->
 
-《Simple Svelte: Frontend for Backend Developers》 will cover from product design to technology implementations, I will guide you thru how to think, how to design and how to build even how to operate. With this book, you will learn more than just svelte3 and technology things, but also product, marketing and human natures.
+《Simple Svelte》 will cover from product design to technology implementations, I will guide you thru how to think, how to design and how to build even how to operate. With this book, you will learn more than just svelte3 and technology things, but also product, marketing and human natures.
 
 When the book is completed, It will be also on sale at gumroad.com, as all of my other ebooks has been listed.
 
