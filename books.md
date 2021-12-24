@@ -49,7 +49,7 @@
 
 
 
-# 《Simple Svelte: Frontend for Backend Developers》 ^in_progress^
+# 《Simple Svelte: A Frontend Book From A Backend Developer》 ^in_progress^
 
 > NOTE
 > 
