@@ -5,6 +5,124 @@
     <link>http://afoo.me</link>
     <description>福强说 - 王福强的博客 - 一个架构士的思考与实践之地</description>
     <item>
+      <title>简单谈几个我的架构原则</title>
+      <link>http://afoo.me/posts/2021-12-25-my-architecture-principles-nowadays.html</link>
+      <description>&lt;!doctype html&gt;
+&lt;html lang="zh"&gt; 
+ &lt;head&gt; 
+  &lt;meta charset="utf-8"&gt; 
+  &lt;meta name="keywords" content="简单谈几个我的架构原则 - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
+  &lt;meta name="description" content="简单谈几个我的架构原则 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
+  &lt;meta name="author" content="王福强"&gt; 
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
+  &lt;title&gt;简单谈几个我的架构原则 - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
+  &lt;meta name="date" content="2021-12-25"&gt; 
+  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
+  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
+  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
+  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
+  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
+  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
+  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
+  &lt;script&gt;
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    &lt;/script&gt; 
+ &lt;/head&gt; 
+ &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
+  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
+   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
+    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
+     &lt;ul class="navbar-nav ml-auto"&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的著作&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
+     &lt;/ul&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/nav&gt; 
+  &lt;section&gt; 
+   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
+    &lt;p class="lead"&gt; &lt;/p&gt;
+    &lt;h1 class="title"&gt;简单谈几个我的架构原则&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2021-12-25 &lt;/small&gt; 
+    &lt;p&gt;&lt;/p&gt; 
+    &lt;hr&gt; 
+    &lt;p&gt;源于左耳朵耗子前几天发表了一篇很好的文章《我做系统架构的一些原则》，所以也想借此话题谈谈自己的一些浅显思考…&lt;/p&gt; 
+    &lt;p&gt;可能有些装逼或者夸张的成分，但技术层面的架构思考，我觉得2013年在阿里技术嘉年华上分享的《架构模式与实践漫谈》(https://keepoints.feishu.cn/docs/doccnRcplsIfpeahsUsTrFLOwgN#dwAN5S) 话题中已经把该说的都说了，所以，今天我们主要说说技术之外的东西…&lt;/p&gt; 
+    &lt;p&gt;&lt;img src="images/_My_Architek_Principles.003.png"&gt;&lt;/p&gt; 
+    &lt;p&gt;我认为架构师习惯提到的架构原则，更多还是每个人自己的架构原则，而不一定是通用原则（当然，越靠近技术，确实越靠近通用原则）。&lt;/p&gt; 
+    &lt;p&gt;每个人其实都会相信自己的“口味”才是最好的， 才是最合理的，但其实如果真得互相照照镜子就会发现，多少还是有些差异，而这些差异根源上都来自于每个架构师个人的认知与哲学思维，架构原则，其实是个人认知与哲学思维的外延。&lt;/p&gt; 
+    &lt;p&gt;当我们谈论架构原则的时候，我希望大家可以先把这个前提摆在面前。&lt;/p&gt; 
+    &lt;p&gt;&lt;img src="images/_My_Architek_Principles.004.png"&gt;&lt;/p&gt; 
+    &lt;p&gt;企业和组织发展是有发展阶段的，不同阶段的组织和企业在做事方式与资源丰富度上是完全不一样的，我们不能照搬大船的经验来驾驶小船，我们也不能躺在树下谈论金锄头， 所以，一个举重若轻的架构师一定是根据企业和组织的现状去选择和设计架构。&lt;/p&gt; 
+    &lt;p&gt;&lt;img src="images/_My_Architek_Principles.005.png"&gt;&lt;/p&gt; 
+    &lt;p&gt;小企业要的的就是快速、灵活，所以，能省就省，能重启搞定的事情就不要搞什么多活和双A， 大企业随着企业复杂度的提升，架构师本身作为SPOF就是瓶颈，所以，能自动化都自动化掉，能系统化都系统化掉，能智能化的就让机器去干，什么AI， 什么RPA，什么业财一体，能花钱搞定的直接用钱砸~&lt;/p&gt; 
+    &lt;p&gt;&lt;img src="images/_My_Architek_Principles.006.png"&gt;&lt;/p&gt; 
+    &lt;p&gt;架构师如果身在职场还想有所大作为，我觉得你可以考虑抓点儿管理职权和资源，然后再全心投入把事儿干了，背后的道理，自己寻思，不便多说。&lt;/p&gt; 
+    &lt;p&gt;&lt;img src="images/_My_Architek_Principles.007.png"&gt;&lt;/p&gt; 
+    &lt;p&gt;如果在商场， 那么客户的需求才是架构原则的准绳，你觉得最好的架构，对客户来说不一定是最好的，客户觉得好的才是最好的， ；）&lt;/p&gt; 
+    &lt;p&gt;扭不过这个劲儿来，那也没办法…&lt;/p&gt; 
+    &lt;p&gt;&lt;img src="images/_My_Architek_Principles.008.jpg"&gt;&lt;/p&gt; 
+    &lt;p&gt;尊重客户的组织现状，然后再帮客户规划合理的架构方案和选择，不要用自己的架构原则和架构执念去绑架客户， 很熟悉的客户还好，合作不深的客户不适合用proactive的思维，很多时候，适合客户的才是最好的，就跟对你我自己来说，适合自己的，才是最好的。&lt;/p&gt; 
+    &lt;blockquote&gt; 
+     &lt;p&gt;插图来自《扶墙老师和他的读者朋友们》微信群&lt;/p&gt; 
+    &lt;/blockquote&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
+    &lt;hr&gt; 
+    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
+    &lt;/div&gt; 
+    &lt;div id="random_posts"&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2021-04-01-deprecated-software-methodology.html"&gt;那些曾经风靡一时的研发方法论 &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2018-06-20-cross_desert_sucks.html"&gt;不要以穿越沙漠为荣 &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2011-06-23-a-custom-cfg-impl-with-scala.html"&gt;一个简单的自定义配置格式的Scala实现 &lt;/a&gt; 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
+    &lt;div id="comments"&gt;&lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;div class="text-center"&gt; 
+     &lt;img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/section&gt; 
+  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
+   ©王福强个人版权所有, All Rights Reserved.
+  &lt;/div&gt; 
+  &lt;div class="copyright py-4 text-center text-white"&gt; 
+   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
+   &lt;/div&gt; 
+  &lt;/div&gt; 
+  &lt;script type="text/javascript"&gt;
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    &lt;/script&gt;  
+  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
+ &lt;/body&gt;
+&lt;/html&gt;</description>
+      <pubDate>Fri, 24 Dec 2021 16:00:00 GMT</pubDate>
+      <guid>http://afoo.me/posts/2021-12-25-my-architecture-principles-nowadays.html</guid>
+      <dc:date>2021-12-24T16:00:00Z</dc:date>
+    </item>
+    <item>
       <title>Shit Happens: log4j 0day灾难始末</title>
       <link>http://afoo.me/posts/2021-12-10-log4j-shit-happens.html</link>
       <description>&lt;!doctype html&gt;
@@ -1225,117 +1343,6 @@ gitalk.render('comments')
       <pubDate>Wed, 29 Sep 2021 16:00:00 GMT</pubDate>
       <guid>http://afoo.me/posts/2021-09-30-nocode-lowcode-revisit-chapter3.html</guid>
       <dc:date>2021-09-29T16:00:00Z</dc:date>
-    </item>
-    <item>
-      <title>流程悖论</title>
-      <link>http://afoo.me/posts/2021-09-27-dillema-of-processes.html</link>
-      <description>&lt;!doctype html&gt;
-&lt;html lang="zh"&gt; 
- &lt;head&gt; 
-  &lt;meta charset="utf-8"&gt; 
-  &lt;meta name="keywords" content="流程悖论 - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
-  &lt;meta name="description" content="流程悖论 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
-  &lt;meta name="author" content="王福强"&gt; 
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
-  &lt;title&gt;流程悖论 - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
-  &lt;meta name="date" content="2021-09-27"&gt; 
-  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
-  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
-  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
-  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
-  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
-  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
-  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
-  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
-  &lt;script&gt;
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    &lt;/script&gt; 
- &lt;/head&gt; 
- &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
-  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
-   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
-    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
-     &lt;ul class="navbar-nav ml-auto"&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的著作&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
-     &lt;/ul&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/nav&gt; 
-  &lt;section&gt; 
-   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
-    &lt;p class="lead"&gt; &lt;/p&gt;
-    &lt;h1 class="title"&gt;流程悖论&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2021-09-27 &lt;/small&gt; 
-    &lt;p&gt;&lt;/p&gt; 
-    &lt;hr&gt; 
-    &lt;p&gt;流程，组织内的连接与神经网络;&lt;/p&gt; 
-    &lt;p&gt;流程，不能全走也不能没有;&lt;/p&gt; 
-    &lt;p&gt;流程，有人推崇也有人抗拒;&lt;/p&gt; 
-    &lt;p&gt;在有的团队，流程是经验的总结，让成功结果可重复；&lt;/p&gt; 
-    &lt;p&gt;在有的团队，流程是互相推脱的借口，让自己能名正言顺地“甩锅”；&lt;/p&gt; 
-    &lt;p&gt;此中差异，就在于这家公司到底是为了流程而流程，还是在文化与环境建设的大前提下，自然而然形成地可执行的流程。&lt;/p&gt; 
-    &lt;p&gt;很多时候，非不能也，实不愿也，你强制制定的流程，我自然可以阳奉阴违，就是人性的正常逻辑。&lt;/p&gt; 
-    &lt;p&gt;但流程终归只是流程，它也只是一种组织运营工具，无分好坏，只看在谁的手中，更看由谁制定。&lt;/p&gt; 
-    &lt;p&gt;流程虽硬，需辅以环境与文化之软才能发挥预期效能。&lt;/p&gt; 
-    &lt;p&gt;流程虽好，也要人参与才能发挥作用。&lt;/p&gt; 
-    &lt;p&gt;组织的价值不在于流程，在于人。&lt;/p&gt; 
-    &lt;p&gt;人不对， 流程不行， 组织无效。 人对了， 流程助攻， 组织效能加倍。&lt;/p&gt; 
-    &lt;p&gt;一切都是人的问题，一切也都是人为构建、为人服务，别指望流程能解决所有问题，更不要指望流程解决问题的根本。&lt;/p&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
-    &lt;hr&gt; 
-    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
-    &lt;/div&gt; 
-    &lt;div id="random_posts"&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-05-27-am-I-still-naive.html"&gt;心理年龄小 &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-04-08-make-your-own-rules.html"&gt;谈个性的张扬与个人价值的体现 &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2012-07-17-build-interactive-command-line-app-with-sbt.html"&gt;使用SBT构建可交互的命令行应用程序(Build Interactive Command Line Application With SBT) &lt;/a&gt; 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
-    &lt;div id="comments"&gt;&lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;div class="text-center"&gt; 
-     &lt;img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/section&gt; 
-  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
-   ©王福强个人版权所有, All Rights Reserved.
-  &lt;/div&gt; 
-  &lt;div class="copyright py-4 text-center text-white"&gt; 
-   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
-   &lt;/div&gt; 
-  &lt;/div&gt; 
-  &lt;script type="text/javascript"&gt;
-var gitalk = new Gitalk({
-  clientID: '518a605d711883414ac0',
-  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-  repo: 'afoo.me.comments',
-  owner: 'fujohnwang',
-  admin: ['fujohnwang'],
-  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-  distractionFreeMode: false  // Facebook-like distraction free mode
-})
-
-gitalk.render('comments')
-    &lt;/script&gt;  
-  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
- &lt;/body&gt;
-&lt;/html&gt;</description>
-      <pubDate>Sun, 26 Sep 2021 16:00:00 GMT</pubDate>
-      <guid>http://afoo.me/posts/2021-09-27-dillema-of-processes.html</guid>
-      <dc:date>2021-09-26T16:00:00Z</dc:date>
     </item>
   </channel>
 </rss>

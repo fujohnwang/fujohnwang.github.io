@@ -10,7 +10,7 @@
 - [金融看板](dashboard.html)
 - [快捷参考](references.html)
 - [友情链接](interlinks.html)
-
+- [汉字拼音工具](https://afoo.me/pinyin/index.html)
 
 
 
