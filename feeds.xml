@@ -5,6 +5,244 @@
     <link>http://afoo.me</link>
     <description>福强说 - 王福强的博客 - 一个架构士的思考与实践之地</description>
     <item>
+      <title>怎么把手机摄像头作为obs输入源</title>
+      <link>http://afoo.me/posts/2022-01-01-mobile-as-obs-source.html</link>
+      <description>&lt;!doctype html&gt;
+&lt;html lang="zh"&gt; 
+ &lt;head&gt; 
+  &lt;meta charset="utf-8"&gt; 
+  &lt;meta name="keywords" content="怎么把手机摄像头作为obs输入源 - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
+  &lt;meta name="description" content="怎么把手机摄像头作为obs输入源 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
+  &lt;meta name="author" content="王福强"&gt; 
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
+  &lt;title&gt;怎么把手机摄像头作为obs输入源 - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
+  &lt;meta name="date" content="2022-01-01"&gt; 
+  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
+  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
+  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
+  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
+  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
+  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
+  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
+  &lt;script&gt;
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    &lt;/script&gt; 
+ &lt;/head&gt; 
+ &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
+  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
+   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
+    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
+     &lt;ul class="navbar-nav ml-auto"&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的著作&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
+     &lt;/ul&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/nav&gt; 
+  &lt;section&gt; 
+   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
+    &lt;p class="lead"&gt; &lt;/p&gt;
+    &lt;h1 class="title"&gt;怎么把手机摄像头作为obs输入源&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2022-01-01 &lt;/small&gt; 
+    &lt;p&gt;&lt;/p&gt; 
+    &lt;hr&gt; 
+    &lt;ul&gt; 
+     &lt;li&gt;&lt;a href="#有线方案"&gt;&lt;span class="toc-section-number"&gt;1&lt;/span&gt; 有线方案&lt;/a&gt;&lt;/li&gt; 
+     &lt;li&gt;&lt;a href="#无线方案"&gt;&lt;span class="toc-section-number"&gt;2&lt;/span&gt; 无线方案&lt;/a&gt;&lt;/li&gt; 
+    &lt;/ul&gt; 
+    &lt;hr&gt; 
+    &lt;p&gt;Macbook Pro16的摄像头实在太渣，现在任何一个手机的摄像头都比它强吧，所以，考虑怎么把手机的摄像头作为直播视频的输入源纳入OBS，简单了解了一下，基本上就两个思路：&lt;/p&gt; 
+    &lt;ul&gt; 
+     &lt;li&gt;&lt;strong&gt;有线&lt;/strong&gt;方案&lt;/li&gt; 
+     &lt;li&gt;&lt;strong&gt;无线&lt;/strong&gt;方案&lt;/li&gt; 
+    &lt;/ul&gt; 
+    &lt;h1 data-number="1" id="有线方案"&gt;&lt;span class="header-section-number"&gt;1&lt;/span&gt; 有线方案&lt;/h1&gt; 
+    &lt;p&gt;恰好去年闲着无聊逛电商的时候搞了个玩具型视频采集卡，所以，组合&lt;code&gt;视频采集卡 + USB HUB&lt;/code&gt;把手机和电脑连接起来之后，OBS就会自动识别把手机作为一个USB视频设备了，唯一不爽的就是串联各种线和各种转接头…&lt;/p&gt; 
+    &lt;p&gt;这是视频采集卡再加个USB转Type-C的转接头：&lt;/p&gt; 
+    &lt;p&gt;&lt;img src="images/ingest_card.jpg"&gt;&lt;/p&gt; 
+    &lt;p&gt;这是USB HUB转接HDMI和Type-C：&lt;/p&gt; 
+    &lt;p&gt;&lt;img src="images/hub.jpg"&gt;&lt;/p&gt; 
+    &lt;h1 data-number="2" id="无线方案"&gt;&lt;span class="header-section-number"&gt;2&lt;/span&gt; 无线方案&lt;/h1&gt; 
+    &lt;p&gt;无线方案嘛，基本思路是这样的： 手机端起一个推流的客户端，然后把视频流推到一个推流服务器，之后，OBS里新加一个Media Source（去除本地文件选项）， 指定推流服务器对应的URL，把视频流从推流服务器拉下来就可以了。&lt;/p&gt; 
+    &lt;p&gt;手机装app客户端当然可以，也可以选择像&lt;a href="https://obs.ninja/"&gt;obs.ninja&lt;/a&gt;这样的网页版，不需要安装任何客户端，点开连接并授权就可以开始推流了。&lt;/p&gt; 
+    &lt;p&gt;如果有技术能力，自己假设一个推流服务器，自己折腾推流客户端逻辑，当然就更内聚了，不过，纯粹就是为了玩技术而玩儿了 &lt;a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;，忘了其实初衷是为了玩内容 ；）&lt;/p&gt; 
+    &lt;section class="footnotes" role="doc-endnotes"&gt; 
+     &lt;hr&gt; 
+     &lt;ol&gt; 
+      &lt;li id="fn1" role="doc-endnote"&gt;&lt;p&gt;当然，初衷是为视频内容创作者提供工具就也是正事儿，哈&lt;a href="#fnref1" class="footnote-back" role="doc-backlink"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt; 
+     &lt;/ol&gt; 
+    &lt;/section&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
+    &lt;hr&gt; 
+    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
+    &lt;/div&gt; 
+    &lt;div id="random_posts"&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2017-01-20-youxinren-1st-release.html"&gt;我们“有薪人”上线啦~ &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2007-03-20-trivial-words.html"&gt;达伦杂言 &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2005-06-27-improve-codebase-with-reflection.html"&gt;使用反射（Reflection）改进项目代码架构 &lt;/a&gt; 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
+    &lt;div id="comments"&gt;&lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;div class="text-center"&gt; 
+     &lt;img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/section&gt; 
+  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
+   ©王福强个人版权所有, All Rights Reserved.
+  &lt;/div&gt; 
+  &lt;div class="copyright py-4 text-center text-white"&gt; 
+   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
+   &lt;/div&gt; 
+  &lt;/div&gt; 
+  &lt;script type="text/javascript"&gt;
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    &lt;/script&gt;  
+  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
+ &lt;/body&gt;
+&lt;/html&gt;</description>
+      <pubDate>Fri, 31 Dec 2021 16:00:00 GMT</pubDate>
+      <guid>http://afoo.me/posts/2022-01-01-mobile-as-obs-source.html</guid>
+      <dc:date>2021-12-31T16:00:00Z</dc:date>
+    </item>
+    <item>
+      <title>2022还是2020？</title>
+      <link>http://afoo.me/posts/2021-12-31-explore-instead-of-judge.html</link>
+      <description>&lt;!doctype html&gt;
+&lt;html lang="zh"&gt; 
+ &lt;head&gt; 
+  &lt;meta charset="utf-8"&gt; 
+  &lt;meta name="keywords" content="2022还是2020？ - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
+  &lt;meta name="description" content="2022还是2020？ - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
+  &lt;meta name="author" content="王福强"&gt; 
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
+  &lt;title&gt;2022还是2020？ - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
+  &lt;meta name="date" content="2021-12-31"&gt; 
+  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
+  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
+  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
+  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
+  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
+  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
+  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
+  &lt;script&gt;
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    &lt;/script&gt; 
+ &lt;/head&gt; 
+ &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
+  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
+   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
+    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
+     &lt;ul class="navbar-nav ml-auto"&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的著作&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
+     &lt;/ul&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/nav&gt; 
+  &lt;section&gt; 
+   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
+    &lt;p class="lead"&gt; &lt;/p&gt;
+    &lt;h1 class="title"&gt;2022还是2020？&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2021-12-31 &lt;/small&gt; 
+    &lt;p&gt;&lt;/p&gt; 
+    &lt;hr&gt; 
+    &lt;p&gt;&lt;img src="images/51651640919606_.pic.jpg"&gt;&lt;/p&gt; 
+    &lt;p&gt;看似玩笑，实则看你怎么看。&lt;/p&gt; 
+    &lt;p&gt;昨天正好跟佩信集团IT团队做了个私享，谈了下管仲的四句话：&lt;/p&gt; 
+    &lt;blockquote&gt; 
+     &lt;p&gt;不为不可成 不求不可得 不处不可久 不行不可复&lt;/p&gt; 
+    &lt;/blockquote&gt; 
+    &lt;p&gt;大多数人实际上只会理解一层意思，少数人或许可以解读两层意思，但应该只有极少数人可以辩证解读、灵活运用。&lt;/p&gt; 
+    &lt;p&gt;这背后的差异在哪儿？ 思维模式。&lt;/p&gt; 
+    &lt;p&gt;所有的外物都是每个人心镜的投射，你的心是什么状态，所有外物映照出来的就是什么状态，跟外物无关，只与你的本心有关。 你可以说这很唯心，或许吧，但人其实就是唯心的，你接受亦或否定，其实也是本心的轮转，不是吗？&lt;/p&gt; 
+    &lt;p&gt;还记得我之前经常放出来的那个问题吗？ “你是探索性思维，还是限定性思维？”&lt;/p&gt; 
+    &lt;p&gt;不同的选择，注定不同的结果， 但我又无意于说得太开，因为这东西本来就是一个开放性的问题，最有意思的反而是不同个体的反映。&lt;/p&gt; 
+    &lt;p&gt;有的人因为相信所以看见，有的人只有看见才会相信，这是差异，更是差距，而这种差距，本心即是本源。&lt;/p&gt; 
+    &lt;p&gt;&lt;img src="https://afoo.me/posts/images/2021-12-09-203513824.jpg"&gt;&lt;/p&gt; 
+    &lt;p&gt;马上2022年了， 其实不想写这段文字，但早上手贱写了TODO备注项，所以，还是写下几句，算是一个了结，也是一个展望吧！&lt;/p&gt; 
+    &lt;p&gt;我的年度TODO LIST也该翻篇了，最后， 预祝大家新年快乐～&lt;/p&gt; 
+    &lt;p&gt;&lt;img src="images/51751640957394_.pic.jpg"&gt;&lt;/p&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
+    &lt;hr&gt; 
+    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
+    &lt;/div&gt; 
+    &lt;div id="random_posts"&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2007-10-25-BF4768EE8B110260_625.html"&gt;答题，答题...&lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2007-08-25-sun-rebrand-to-java.html"&gt;SUNW to be rebranded JAVA &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2014-12-12-nexus-admin-lite-manual.html"&gt;Nexus Maven Repository Manager管理手册 &lt;/a&gt; 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
+    &lt;div id="comments"&gt;&lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;div class="text-center"&gt; 
+     &lt;img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/section&gt; 
+  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
+   ©王福强个人版权所有, All Rights Reserved.
+  &lt;/div&gt; 
+  &lt;div class="copyright py-4 text-center text-white"&gt; 
+   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
+   &lt;/div&gt; 
+  &lt;/div&gt; 
+  &lt;script type="text/javascript"&gt;
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    &lt;/script&gt;  
+  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
+ &lt;/body&gt;
+&lt;/html&gt;</description>
+      <pubDate>Thu, 30 Dec 2021 16:00:00 GMT</pubDate>
+      <guid>http://afoo.me/posts/2021-12-31-explore-instead-of-judge.html</guid>
+      <dc:date>2021-12-30T16:00:00Z</dc:date>
+    </item>
+    <item>
       <title>简单谈几个我的架构原则</title>
       <link>http://afoo.me/posts/2021-12-25-my-architecture-principles-nowadays.html</link>
       <description>&lt;!doctype html&gt;
@@ -1117,232 +1355,6 @@ gitalk.render('comments')
       <pubDate>Sat, 02 Oct 2021 16:00:00 GMT</pubDate>
       <guid>http://afoo.me/posts/2021-10-03-why_gui_tools_instead_of_cli.html</guid>
       <dc:date>2021-10-02T16:00:00Z</dc:date>
-    </item>
-    <item>
-      <title>提倡什么得到什么</title>
-      <link>http://afoo.me/posts/2021-10-02-you-get-what-you-advocate.html</link>
-      <description>&lt;!doctype html&gt;
-&lt;html lang="zh"&gt; 
- &lt;head&gt; 
-  &lt;meta charset="utf-8"&gt; 
-  &lt;meta name="keywords" content="提倡什么得到什么 - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
-  &lt;meta name="description" content="提倡什么得到什么 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
-  &lt;meta name="author" content="王福强"&gt; 
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
-  &lt;title&gt;提倡什么得到什么 - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
-  &lt;meta name="date" content="2021-10-02"&gt; 
-  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
-  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
-  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
-  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
-  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
-  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
-  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
-  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
-  &lt;script&gt;
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    &lt;/script&gt; 
- &lt;/head&gt; 
- &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
-  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
-   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
-    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
-     &lt;ul class="navbar-nav ml-auto"&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的著作&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
-     &lt;/ul&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/nav&gt; 
-  &lt;section&gt; 
-   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
-    &lt;p class="lead"&gt; &lt;/p&gt;
-    &lt;h1 class="title"&gt;提倡什么得到什么&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2021-10-02 &lt;/small&gt; 
-    &lt;p&gt;&lt;/p&gt; 
-    &lt;hr&gt; 
-    &lt;ul&gt; 
-     &lt;li&gt;&lt;a href="#从摘豆叶想到的管理实践"&gt;&lt;span class="toc-section-number"&gt;1&lt;/span&gt; 从摘豆叶想到的管理实践&lt;/a&gt;&lt;/li&gt; 
-     &lt;li&gt;&lt;a href="#南京之行"&gt;&lt;span class="toc-section-number"&gt;2&lt;/span&gt; 南京之行&lt;/a&gt;&lt;/li&gt; 
-     &lt;li&gt;&lt;a href="#二流管理"&gt;&lt;span class="toc-section-number"&gt;3&lt;/span&gt; 二流管理&lt;/a&gt;&lt;/li&gt; 
-    &lt;/ul&gt; 
-    &lt;hr&gt; 
-    &lt;p&gt;丈母娘闲来无事种了几垅豆子，这几天割了要晒，量大的话基本就直接晒了， 但本来就没多少，所以，几个人坐着闲扯的功夫，先把叶子给摘掉，然后再晾晒，这样晾晒的快一些。&lt;/p&gt; 
-    &lt;p&gt;在摘豆叶的过程中，室友笑话我摘得还没她多，我懒得搭理她，但不觉地联想到如果真要管理摘豆叶的目标和现场，应该怎么做会比较好呢？&lt;/p&gt; 
-    &lt;h1 data-number="1" id="从摘豆叶想到的管理实践"&gt;&lt;span class="header-section-number"&gt;1&lt;/span&gt; 从摘豆叶想到的管理实践&lt;/h1&gt; 
-    &lt;p&gt;有的豆子长得枝繁叶茂，但就是整个枝干上就挂两三个豆荚；&lt;/p&gt; 
-    &lt;p&gt;有的豆子长得没多少叶子，但整个枝干上挂满了豆荚；&lt;/p&gt; 
-    &lt;p&gt;如果以谁摘的豆叶多作为考核目标，那么，聪明人一定是去找那些枝繁叶茂的豆子摘；&lt;/p&gt; 
-    &lt;p&gt;如果以谁摘的豆荚多维考核目标，那么，聪明人一定是去找那些没多少叶子（最好没叶子）的豆子摘；&lt;/p&gt; 
-    &lt;p&gt;所以，大多数时候，都是倡导什么得到什么，而人与人之间的一些差别是很难兼顾的：&lt;/p&gt; 
-    &lt;p&gt;如果同时计量豆叶和豆荚，虽然公平了，但弱化了核心目标，而且管理成本也上来了，担任管理者的人又会受累于人性而懈怠，最后就变成批量分配，总量类似，出多少豆荚和豆叶不做考核，但新的问题也会出现，聪明人会“偷藏”，管理者又得综合考虑各个单元的产出，以此来对比并检查谁有没有“偷藏”。&lt;/p&gt; 
-    &lt;h1 data-number="2" id="南京之行"&gt;&lt;span class="header-section-number"&gt;2&lt;/span&gt; 南京之行&lt;/h1&gt; 
-    &lt;p&gt;今年某个时间点去南京跟某公司的创始团队见面沟通了一轮，聊完之后感觉很不好，感觉自己被某种偏见或者看法所左右，左思右想，想到一个点是，他们觉得我在阿里的经历表现出来的很像一个投机分子（当然，也只是我单方面认为）。 因为他们认为我每一年都升一级，预期一定很高，而且也会有很强的投机成分在里面，但说实话，我倒是认为我能连续升级是因为我符合阿里倡导的价值观和KPI要求，而要达到这些，我付出的是体力、脑力和心力的巨大消耗。如果我真有那么聪明（更明白个中机巧），根本不需要从阿里出来趟各种盘子、踩各种混水，说白了，还是环境决定的，个人相对于环境（以及组织惯性）来说，其实没有多少主动权。&lt;/p&gt; 
-    &lt;p&gt;更多时候， 组织倡导什么，个人迎合什么，组织得到什么。 在这个前提下， 个人要么迎合组织要求，要么就得被边缘化（甚至滚蛋）， 别无他途。 这些，根本扯不上个人的人品和道德。&lt;/p&gt; 
-    &lt;h1 data-number="3" id="二流管理"&gt;&lt;span class="header-section-number"&gt;3&lt;/span&gt; 二流管理&lt;/h1&gt; 
-    &lt;p&gt;其实很多时候， 管理很难兼顾公平和效率（或者说省力），所以，我会觉得很多企业能做到的最好的管理也只是二流管理，二流管理几乎就是任何组织的管理水平的天花板，只能更烂，没法更好。&lt;/p&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
-    &lt;hr&gt; 
-    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
-    &lt;/div&gt; 
-    &lt;div id="random_posts"&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2008-01-14-jta-interactive-flow-in-my-words.html"&gt;JTA interactive flow in my words &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2011-11-21-SBT_dependency_exclude.html"&gt;SBT Dependencies Exlusion Gotchas &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2019-09-10-humble-to-serve.html"&gt;事情要做好，多走用户视角 &lt;/a&gt; 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
-    &lt;div id="comments"&gt;&lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;div class="text-center"&gt; 
-     &lt;img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/section&gt; 
-  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
-   ©王福强个人版权所有, All Rights Reserved.
-  &lt;/div&gt; 
-  &lt;div class="copyright py-4 text-center text-white"&gt; 
-   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
-   &lt;/div&gt; 
-  &lt;/div&gt; 
-  &lt;script type="text/javascript"&gt;
-var gitalk = new Gitalk({
-  clientID: '518a605d711883414ac0',
-  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-  repo: 'afoo.me.comments',
-  owner: 'fujohnwang',
-  admin: ['fujohnwang'],
-  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-  distractionFreeMode: false  // Facebook-like distraction free mode
-})
-
-gitalk.render('comments')
-    &lt;/script&gt;  
-  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
- &lt;/body&gt;
-&lt;/html&gt;</description>
-      <pubDate>Fri, 01 Oct 2021 16:00:00 GMT</pubDate>
-      <guid>http://afoo.me/posts/2021-10-02-you-get-what-you-advocate.html</guid>
-      <dc:date>2021-10-01T16:00:00Z</dc:date>
-    </item>
-    <item>
-      <title>再谈NoCode与LowCode</title>
-      <link>http://afoo.me/posts/2021-09-30-nocode-lowcode-revisit-chapter3.html</link>
-      <description>&lt;!doctype html&gt;
-&lt;html lang="zh"&gt; 
- &lt;head&gt; 
-  &lt;meta charset="utf-8"&gt; 
-  &lt;meta name="keywords" content="再谈NoCode与LowCode - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
-  &lt;meta name="description" content="再谈NoCode与LowCode - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
-  &lt;meta name="author" content="王福强"&gt; 
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
-  &lt;title&gt;再谈NoCode与LowCode - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
-  &lt;meta name="date" content="2021-09-30"&gt; 
-  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
-  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
-  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
-  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
-  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
-  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
-  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
-  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
-  &lt;script&gt;
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    &lt;/script&gt; 
- &lt;/head&gt; 
- &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
-  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
-   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
-    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
-     &lt;ul class="navbar-nav ml-auto"&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的著作&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
-     &lt;/ul&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/nav&gt; 
-  &lt;section&gt; 
-   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
-    &lt;p class="lead"&gt; &lt;/p&gt;
-    &lt;h1 class="title"&gt;再谈NoCode与LowCode&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2021-09-30 &lt;/small&gt; 
-    &lt;p&gt;&lt;/p&gt; 
-    &lt;hr&gt; 
-    &lt;p&gt;如果到今天各位看官依然无法清晰地区分NoCode和LowCode，那么，我倒是可以提供一个提示。&lt;/p&gt; 
-    &lt;p&gt;NoCode与LowCode的最大区别就是&lt;strong&gt;用户是谁&lt;/strong&gt;：NoCode是直接面向（使用的）用户， 而LowCode则更多是直接面向（使用的）开发者。&lt;/p&gt; 
-    &lt;p&gt;举个简单的例子， Excel是直接面向用户，用户可以通过Excel直接拿业务结果， 而操作Excel的共享类库或者填充之后生成Excel的工具，则属于LowCode范畴，LowCode是帮助开发者提效，快速稳定地拿到业务系统或者技术系统的最终结果，而这些业务系统的最终结果再被终端用户使用。&lt;/p&gt; 
-    &lt;p&gt;整个的发展阶段或者说承接阶段类似于： &lt;code&gt;code -&amp;gt; lowcode -&amp;gt; (nocode | business sys | infra sys) -&amp;gt; users&lt;/code&gt;&lt;/p&gt; 
-    &lt;p&gt;从形态上来讲， LowCode可以进一步分为两派： 有形派（GUI）与无形派（Headless）。&lt;/p&gt; 
-    &lt;p&gt;有形派的典型代表就是现在很多&lt;code&gt;Drag and Drop&lt;/code&gt;操作的图形化系统和作业工具，比如游戏编辑器、工业建模与模拟软件、基于组件的CMS等，他们的主要特征就是UI可见，所谓的WYSIWYG（所见即所得）就是这类产品的底层哲学。&lt;/p&gt; 
-    &lt;p&gt;无形派的典型代表就是各种语言的类库甚至宏，这类LowCode的典型特征是&lt;code&gt;API+实现&lt;/code&gt;的前轻后重，使用者只管调调API就可以了，API背后的功能早就有前人实现，可以重复使用。很多公司在处理一些常见的前端场景（Frontend）的时候，会直接创建并编辑json/xml之类格式的配置文件，然后运行CI/CD/CLI就能直接生成前端页面和前端应用，这也是LowCode的一种。 这些年很多CMS方案也会强调他们的Headless属性，本质上就是突出自己产品“通过API使用CMS以及构建CMS页面”的能力。&lt;/p&gt; 
-    &lt;p&gt;有形派的好处是&lt;strong&gt;具象化、直接快速反馈&lt;/strong&gt;，而无形派的好处则是&lt;strong&gt;抽象化、可以批量化与自动化衔接&lt;/strong&gt;。&lt;/p&gt; 
-    &lt;p&gt;如果说NoCode是工具和手段，那么LowCode更是工具和手段，​为NoCode服务。​&lt;/p&gt; 
-    &lt;p&gt;所以，除却商业的营销与宣传，从用户和技术的角度来看， NoCode和LowCode也就没啥神秘的了，依然是新瓶儿装旧酒，就像是经济学里的需求和供给。&lt;/p&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
-    &lt;hr&gt; 
-    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
-    &lt;/div&gt; 
-    &lt;div id="random_posts"&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2007-06-20-stock-t+0-trade.html"&gt;股票的T+0操作 &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2017-09-01-what-I-think-about-ICO.html"&gt;ICO之我见 &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2017-05-04-what-makes-an-architect.html"&gt;架构师不是你想的那样 &lt;/a&gt; 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
-    &lt;div id="comments"&gt;&lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;div class="text-center"&gt; 
-     &lt;img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/section&gt; 
-  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
-   ©王福强个人版权所有, All Rights Reserved.
-  &lt;/div&gt; 
-  &lt;div class="copyright py-4 text-center text-white"&gt; 
-   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
-   &lt;/div&gt; 
-  &lt;/div&gt; 
-  &lt;script type="text/javascript"&gt;
-var gitalk = new Gitalk({
-  clientID: '518a605d711883414ac0',
-  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-  repo: 'afoo.me.comments',
-  owner: 'fujohnwang',
-  admin: ['fujohnwang'],
-  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-  distractionFreeMode: false  // Facebook-like distraction free mode
-})
-
-gitalk.render('comments')
-    &lt;/script&gt;  
-  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
- &lt;/body&gt;
-&lt;/html&gt;</description>
-      <pubDate>Wed, 29 Sep 2021 16:00:00 GMT</pubDate>
-      <guid>http://afoo.me/posts/2021-09-30-nocode-lowcode-revisit-chapter3.html</guid>
-      <dc:date>2021-09-29T16:00:00Z</dc:date>
     </item>
   </channel>
 </rss>

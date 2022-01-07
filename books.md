@@ -49,17 +49,17 @@
 
 
 
-# 《Simple Svelte: A Frontend Book From A Backend Developer》 ^in_progress^
+# [《Simple Svelte: A Frontend Book From A Backend Developer》](https://wfq.gumroad.com/l/simple_svelte) ^in_progress^
 
 > NOTE
 > 
-> This is a pure English Tech book for svelte3, not deemed for Chinese readers. 
+> This is a pure English Tech book for svelte3. 
 
-<!-- ![](images/cover_simple_svelte.jpg) -->
+[《Simple Svelte》](https://wfq.gumroad.com/l/simple_svelte) will cover from product design to technology implementations, I will guide you thru how to think, how to design and how to build even how to operate. With this book, you will learn more than just svelte3 and technology things, but also product, marketing and human natures.
 
-《Simple Svelte》 will cover from product design to technology implementations, I will guide you thru how to think, how to design and how to build even how to operate. With this book, you will learn more than just svelte3 and technology things, but also product, marketing and human natures.
+You can read the trial chapters by [downloading this revision of Simple Svelte](https://afoo.me/books/SimpleSvelte_Trial_Edition.pdf).
 
-When the book is completed, It will be also on sale at gumroad.com, as all of my other ebooks has been listed.
+When the book is completed, It will be also on sale at [gumroad.com](https://wfq.gumroad.com/l/simple_svelte), as all of my other ebooks has been listed.
 
 If you want to get a feel for the sample SPA, play with [keeposter](https://poster.keevol.cn/) instead. ^[[How to use?](https://www.bilibili.com/video/BV1pg411F7jQ?share_source=copy_web)]
 
@@ -69,6 +69,9 @@ If you want to get a feel for the sample SPA, play with [keeposter](https://post
 
 [点击](https://wfq.gumroad.com/l/wKzbp)获取。
 
+# [福强海报2021合集](https://wfq.gumroad.com/l/fqhb2021) ^免费(free_of_charge)^
+
+付费读者群专属海报2021年合集，[点击链接](https://wfq.gumroad.com/l/fqhb2021)免费获取。
 
 # 《坑获》
 
