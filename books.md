@@ -12,7 +12,9 @@
 
 # 《深度思考揭秘》aka. 《The Way of Deep Thinking》 
 
-已经在[Gumroad](https://gumroad.com/l/BRmvgb)上架销售 ^\[提醒\]访问Gumroad需要些许“攀爬技能”^, 现价**$9.9**^~~$16.99~~^。
+国内在[面包多](https://mianbaoduo.com/o/fgg)上架销售。
+
+国外在[Gumroad](https://gumroad.com/l/BRmvgb)上架销售 ^\[提醒\]访问Gumroad需要些许“攀爬技能”^, 现价**$9.9**^~~$16.99~~^。
 
 ---
 
@@ -20,7 +22,9 @@
 
 # [《技术、商业与人》](https://afoo.me/afpay/?id=tbh)
 
-已经在[Gumroad](https://gum.co/uLPkW)上架销售 ^\[提醒\]访问Gumroad需要些许“攀爬技能”^， 现价**$7.99**^~~$9.99~~^。 
+国内在[面包多](https://mianbaoduo.com/o/fgg)上架销售。
+
+国外在[Gumroad](https://gum.co/uLPkW)上架销售 ^\[提醒\]访问Gumroad需要些许“攀爬技能”^， 现价**$7.99**^~~$9.99~~^。 
 
 
 ---
@@ -31,7 +35,7 @@
 
 因很多同学希望阅读这本儿，所以，再次开放在[Gumroad](https://gum.co/fANOaE)上架销售，现价**$7.99**^~~$9.99~~^。 
 
-这本儿更建议走[面包多](https://mianbaoduo.com/o/bread/YZ2WlZdq)购买，有更多折扣。
+如果是国内读者，这本儿更建议走[面包多](https://mianbaoduo.com/o/bread/YZ2WlZdq)购买，有更多折扣。
 
 ---
 
