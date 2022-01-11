@@ -12,9 +12,8 @@
 
 # 《深度思考揭秘》aka. 《The Way of Deep Thinking》 
 
-国内在[面包多](https://mianbaoduo.com/o/fgg)上架销售。
-
-国外在[Gumroad](https://gumroad.com/l/BRmvgb)上架销售 ^\[提醒\]访问Gumroad需要些许“攀爬技能”^, 现价**$9.9**^~~$16.99~~^。
+- [去面包多购买](https://mianbaoduo.com/o/fgg)
+- [去Gumroad购买](https://gumroad.com/l/BRmvgb)
 
 ---
 
@@ -22,10 +21,9 @@
 
 # [《技术、商业与人》](https://afoo.me/afpay/?id=tbh)
 
-国内在[面包多](https://mianbaoduo.com/o/fgg)上架销售。(点击标题连接也可以直接购买)
-
-国外在[Gumroad](https://gum.co/uLPkW)上架销售 ^\[提醒\]访问Gumroad需要些许“攀爬技能”^， 现价**$7.99**^~~$9.99~~^。 
-
+- [直接购买](https://afoo.me/afpay/?id=tbh)
+- [去面包多购买](https://mianbaoduo.com/o/fgg)
+- [去Gumroad购买](https://gum.co/uLPkW)
 
 ---
 
@@ -33,23 +31,16 @@
 
 # 《极简管理课》
 
-因很多同学希望阅读这本儿，所以，再次开放在[Gumroad](https://gum.co/fANOaE)上架销售，现价**$7.99**^~~$9.99~~^。 
+因很多同学希望阅读这本儿，所以，再次开放。
 
-如果是国内读者，这本儿更建议走[面包多](https://mianbaoduo.com/o/bread/YZ2WlZdq)购买，有更多折扣。
-
----
-
-大道易得，小术难求， 管理之道也是如此， 所有别人所谈之观点只能作为参考，实际情况依然需要根据自身所处企业与团队的环境与文化进行适配和调整。 
-
-管理的道理就那么多， 所以简单了解就好。
-
-管理的套路也差不多，所以简单调整适配就好。
-
-管理的观点说多也多， 所以收敛沉淀出自己的管理心法与策略最好！
+- [去面包多购买](https://mianbaoduo.com/o/bread/YZ2WlZdq)
+- [去Gumroad购买](https://gum.co/fANOaE)
 
 ---
-另附个人有关管理的分享(视频回放)
-[![](images/mgt_talk_cover.jpg)](https://youtu.be/tIPwf7KKinc)
+
+另附"*InfoQ 大咖说*"上有关管理的个人分享([视频回放](https://youtu.be/tIPwf7KKinc))
+
+<!-- [![](images/mgt_talk_cover.jpg)](https://youtu.be/tIPwf7KKinc) -->
 
 
 
@@ -57,13 +48,15 @@
 
 > NOTE
 > 
-> This is a pure English Tech book for svelte3. 
+> This is a pure English Tech book for Svelte 3. 
 
 [《Simple Svelte》](https://wfq.gumroad.com/l/simple_svelte) will cover from product design to technology implementations, I will guide you thru how to think, how to design and how to build even how to operate. With this book, you will learn more than just svelte3 and technology things, but also product, marketing and human natures.
 
-You can read the trial chapters by [downloading this revision of Simple Svelte](https://afoo.me/books/SimpleSvelte_Trial_Edition.pdf).
+You can read the trial chapters: 
 
-When the book is completed, It will be also on sale at [gumroad.com](https://wfq.gumroad.com/l/simple_svelte), as all of my other ebooks has been listed.
+- [downloading trail chapters of Simple Svelte](https://afoo.me/books/SimpleSvelte_Trial_Edition.pdf).
+
+---
 
 If you want to get a feel for the sample SPA, play with [keeposter](https://poster.keevol.cn/) instead. ^[[How to use?](https://www.bilibili.com/video/BV1pg411F7jQ?share_source=copy_web)]
 
@@ -75,7 +68,9 @@ If you want to get a feel for the sample SPA, play with [keeposter](https://post
 
 # [福强海报2021合集](https://wfq.gumroad.com/l/fqhb2021) ^免费(free_of_charge)^
 
-付费读者群专属海报2021年合集，[点击链接](https://wfq.gumroad.com/l/fqhb2021)免费获取。
+付费读者群专属海报2021年合集
+
+[点击链接](https://wfq.gumroad.com/l/fqhb2021)免费获取。
 
 # 《坑获》
 
@@ -87,7 +82,6 @@ If you want to get a feel for the sample SPA, play with [keeposter](https://post
 - [所有上架电子书都可以在Gumroad访问获取](https://wfq.gumroad.com/l) 
     - **gumroad是购买后直接在gumroad网站下载获取本书，不是通过邮件发送，发现有的同学有疑惑，所以这里提醒一下**
 - 国内在面包多平台也有[部分上架](https://mianbaoduo.com/o/fgg)
-  - [![扶墙老师的《极简管理课》](images/mbd_share_mgt_book.png)](https://mianbaoduo.com/o/bread/YZ2WlZdq)
 
 BTW. 你永远可以通过邮箱`i AT afoo DOT me`联系到我。
 
