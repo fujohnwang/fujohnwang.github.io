@@ -22,7 +22,7 @@
 
 # [《技术、商业与人》](https://afoo.me/afpay/?id=tbh)
 
-国内在[面包多](https://mianbaoduo.com/o/fgg)上架销售。
+国内在[面包多](https://mianbaoduo.com/o/fgg)上架销售。(点击标题连接也可以直接购买)
 
 国外在[Gumroad](https://gum.co/uLPkW)上架销售 ^\[提醒\]访问Gumroad需要些许“攀爬技能”^， 现价**$7.99**^~~$9.99~~^。 
 
@@ -71,7 +71,7 @@ If you want to get a feel for the sample SPA, play with [keeposter](https://post
 
 # [《福鱼画册》](https://wfq.gumroad.com/l/wKzbp) ^免费(free_of_charge)^
 
-[点击](https://wfq.gumroad.com/l/wKzbp)获取。
+[点击链接](https://wfq.gumroad.com/l/wKzbp)免费获取。
 
 # [福强海报2021合集](https://wfq.gumroad.com/l/fqhb2021) ^免费(free_of_charge)^
 
