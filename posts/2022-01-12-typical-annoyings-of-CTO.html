@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="新晋CTO遇到的三个问题 - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="新晋CTO遇到的三个问题 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>新晋CTO遇到的三个问题 - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2022-01-12"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的著作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">新晋CTO遇到的三个问题</h1> <small> <h3 class="author">王福强</h3>2022-01-12 </small> 
+    <p></p> 
+    <hr> 
+    <ul> 
+     <li><a href="#架构师的权力是什么"><span class="toc-section-number">1</span> 架构师的权力是什么？</a></li> 
+     <li><a href="#怎么解决产研团队的系统腐化问题"><span class="toc-section-number">2</span> 怎么解决产研团队的系统腐化问题？</a></li> 
+     <li><a href="#老板只招便宜的人怎么办"><span class="toc-section-number">3</span> 老板只招便宜的人怎么办？</a></li> 
+     <li><a href="#summary"><span class="toc-section-number">4</span> Summary</a></li> 
+    </ul> 
+    <hr> 
+    <p>一位CTO朋友刚接手新团队，上周间歇中向扶墙老师抛了几个问题，觉得比较典型，所以跟大家分享一下…</p> 
+    <h1 data-number="1" id="架构师的权力是什么"><span class="header-section-number">1</span> 架构师的权力是什么？</h1> 
+    <p>一上来就问我这么尖锐的问题，我有点儿摸不着头脑，所以问他遇到了什么场景才会提出这样的问题？</p> 
+    <p>原来是不知道怎么给新招的架构师设计权责，以便能让他们可以更好的推进事务。</p> 
+    <p>其实，实话说，<strong>架构师没有啥权力</strong>。<strong>架构师不是靠权力来做事的， 架构师是靠影响力来做事的</strong>。 不过，像我当年那么路子野的，估计也有吧…</p> 
+    <h1 data-number="2" id="怎么解决产研团队的系统腐化问题"><span class="header-section-number">2</span> 怎么解决产研团队的系统腐化问题？</h1> 
+    <p>关于系统腐化的问题其实也比较泛， 要解决也需要对症下药。</p> 
+    <p>首先就是每个人对这个系统腐化的概念理解肯定是不一样的， 从技术人员和技术管理者的角度来说， <strong>往往</strong>意味着从最初设计就傻逼，后面实现更傻逼，到自己接手就是一坨屎。</p> 
+    <p>但从扶墙老师的角度来说，这个完全要<strong>看情况</strong>，还记得我在《深度思考揭秘》(https://afoo.me/books.html)里提到的终极思考武器了吗？</p> 
+    <p>如果是系统新增，那么要解决或者避免系统腐化问题其实很简单，根本没啥秘密，就是“<strong>事前review，事后check</strong>”，算是管理者或者团队leaders的体力活和routines；</p> 
+    <p>如果是接手老系统，那么，你就得根据情况去权衡，看人…，哦，不对，看系统下菜碟儿， 实在撑不住了的， 还是尽量调研清楚然后refactor吧 ；）</p> 
+    <p>终极的解决方案，嗯，太大，太虚，不在这里展开了…</p> 
+    <h1 data-number="3" id="老板只招便宜的人怎么办"><span class="header-section-number">3</span> 老板只招便宜的人怎么办？</h1> 
+    <p><strong>CEO是企业的最大天花板</strong>(或者董事长，总之就是公司的掌舵人)。</p> 
+    <p>老板以什么风格做事情，作为下属D是很难改变的，而且<strong>想改变别人本身就是很傻逼的事情</strong>（虽然很多人还是乐此不疲、把持不住）。</p> 
+    <p>作为老板的D，你能做的无非就两个选择，走还是留。</p> 
+    <p>选择走，那么招什么人，怎么招人你就没必要操心了；</p> 
+    <p>选择留（我相信问这个问题肯定是选择这项），那么就要<strong>接受现实</strong>，可以考虑内外兼修的思路，即能从内部提拔的，从内部提拔，尽量用好现在团队的人； 不能自己团队搞定的，那就求助于外力，现在软件系统又不贵， 总比你养一个人便宜， 还有就是考虑像我这么丑但很有料的顾问呀，哈哈哈</p> 
+    <p>另外，也跟老板沟通下，<strong>固定预算调结构</strong>，总之，想留，方法总比困难多嘛~</p> 
+    <h1 data-number="4" id="summary"><span class="header-section-number">4</span> Summary</h1> 
+    <p>每家企业都不一样，<strong>因地制宜</strong>就好。 你看，我又得搬出阿里的土话了，最终<strong>拼手感</strong>，哈哈哈哈</p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2017-09-20-wedding-journal.html">结婚筹备曲 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2007-03-24-business-is-business.html">就事儿论事儿 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2013-03-02-fix-protocol-study-note-1.html">FIX Protocol Study Note </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>
