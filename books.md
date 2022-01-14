@@ -56,6 +56,11 @@ You can read the trial chapters:
 
 - [downloading trail chapters of Simple Svelte](https://afoo.me/books/SimpleSvelte_Trial_Edition.pdf).
 
+**Buy Now**!
+
+- [Buy on Gumroad](https://wfq.gumroad.com/l/simple_svelte), 19.99美金
+- [去面包多购买](https://mianbaoduo.com/o/bread/YpeTkp1s), 10.24元
+
 ---
 
 If you want to get a feel for the sample SPA, play with [keeposter](https://poster.keevol.cn/) instead. ^[[How to use?](https://www.bilibili.com/video/BV1pg411F7jQ?share_source=copy_web)]
