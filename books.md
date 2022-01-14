@@ -44,7 +44,7 @@
 
 
 
-# [《Simple Svelte: A Frontend Book From A Backend Developer》](https://wfq.gumroad.com/l/simple_svelte) ^in_progress^
+# [《Simple Svelte: A Frontend Book From A Backend Developer》](https://wfq.gumroad.com/l/simple_svelte)
 
 > NOTE
 > 
