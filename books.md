@@ -84,11 +84,21 @@ If you want to get a feel for the sample SPA, play with [keeposter](https://post
 
 # 购买渠道与支付方式
 
-- [所有上架电子书都可以在Gumroad访问获取](https://wfq.gumroad.com/l) 
-    - **gumroad是购买后直接在gumroad网站下载获取本书，不是通过邮件发送，发现有的同学有疑惑，所以这里提醒一下**
-- 国内在面包多平台也有[部分上架](https://mianbaoduo.com/o/fgg)
-
 BTW. 你永远可以通过邮箱`i AT afoo DOT me`联系到我。
+
+## [Gumroad](https://wfq.gumroad.com/)
+
+[所有上架电子书都可以在Gumroad访问获取](https://wfq.gumroad.com/l) 
+
+> **gumroad是购买后直接在gumroad网站下载获取本书，不是通过邮件发送，发现有的同学有疑惑，所以这里提醒一下**
+
+![](images/gumroad_list.png)
+
+## [面包多](https://mianbaoduo.com/o/fgg)
+
+国内在面包多平台也有[部分上架](https://mianbaoduo.com/o/fgg)
+
+![](images/mianbaoduo_list.png)
 
 
 
