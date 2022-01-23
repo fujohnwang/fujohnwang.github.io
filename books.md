@@ -44,17 +44,17 @@
 
 
 
-# [《Simple Svelte: A Frontend Book From A Backend Developer》](https://wfq.gumroad.com/l/simple_svelte)
+# [《Simple Svelte: A Frontend Book From A Backend Developer》](https://wfq.gumroad.com/l/simple_svelte) ^[Simple Svelte is a pure English Tech book for Svelte 3.]
 
-> NOTE
-> 
-> This is a pure English Tech book for Svelte 3. 
+- Create a Single Page Application from scratch?  Svelte is simple to get start.
+- Migrate a legacy web application? Svelte is simple to integrate.
+- As a backend developer who wants to try frontend nowadays? Svelte is simpler to play with than React/Vue.
 
 [《Simple Svelte》](https://wfq.gumroad.com/l/simple_svelte) will cover from product design to technology implementations, I will guide you thru how to think, how to design and how to build even how to operate. With this book, you will learn more than just svelte3 and technology things, but also product, marketing and human natures.
 
-You can read the trial chapters: 
+Grab the **FREE** trial chapters: 
 
-- [downloading trail chapters of Simple Svelte](https://afoo.me/books/SimpleSvelte_Trial_Edition.pdf).
+- [downloading free trail chapters of Simple Svelte](https://afoo.me/books/SimpleSvelte_Trial_Edition.pdf).
 
 **Buy Now**!
 
