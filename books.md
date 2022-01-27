@@ -72,6 +72,7 @@
 - (2B)创业者
 - 终身学习者
 - 追求真知者
+- 想要防止自己被坑的准CTO和CTO们？
 
 
 # [《Simple Svelte: A Frontend Book From A Backend Developer》](https://wfq.gumroad.com/l/simple_svelte) ^[Simple Svelte is a pure English Tech book for Svelte 3.]
