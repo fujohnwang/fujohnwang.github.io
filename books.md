@@ -92,7 +92,7 @@ BTW. 你永远可以通过邮箱`i AT afoo DOT me`联系到我。
 
 > **gumroad是购买后直接在gumroad网站下载获取本书，不是通过邮件发送，发现有的同学有疑惑，所以这里提醒一下**
 
-![](images/gumroad_list.png)
+![](images/books_list_on_gumroad.jpg)
 
 ## [面包多](https://mianbaoduo.com/o/fgg)
 
