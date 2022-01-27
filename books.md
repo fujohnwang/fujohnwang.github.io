@@ -15,6 +15,12 @@
 - [去面包多购买](https://mianbaoduo.com/o/fgg)
 - [去Gumroad购买](https://gumroad.com/l/BRmvgb)
 
+**面向读者**
+
+- 终身学习者
+- 追求真知者
+- 思考与践行者
+
 ---
 
 另，[->>> 读者的反馈](book-readers-praise.html)与您分享。
@@ -24,6 +30,12 @@
 - [直接购买](https://afoo.me/afpay/?id=tbh)
 - [去面包多购买](https://mianbaoduo.com/o/fgg)
 - [去Gumroad购买](https://gum.co/uLPkW)
+
+**面向读者**
+
+- 资深技术研发人员
+- 创业者
+- 组织者与管理者
 
 ---
 
@@ -36,6 +48,12 @@
 - [去面包多购买](https://mianbaoduo.com/o/bread/YZ2WlZdq)
 - [去Gumroad购买](https://gum.co/fANOaE)
 
+**面向读者**
+
+- 新晋管理者
+- 团队leaders
+- CTOs
+
 ---
 
 另附"*InfoQ 大咖说*"上有关管理的个人分享([视频回放](https://youtu.be/tIPwf7KKinc))
@@ -44,7 +62,17 @@
 
 # 《坑获》
 
+你可以自己踩坑，你也从别人踩坑的惨痛经历中吸取教训然后自己少踩坑儿...
+
 - [Gumroad Sale **Only**](https://wfq.gumroad.com/l/kenghuo)
+
+
+**面向读者**
+
+- (2B)创业者
+- 终身学习者
+- 追求真知者
+
 
 # [《Simple Svelte: A Frontend Book From A Backend Developer》](https://wfq.gumroad.com/l/simple_svelte) ^[Simple Svelte is a pure English Tech book for Svelte 3.]
 
@@ -63,6 +91,12 @@ Grab the **FREE** trial chapters:
 - [Buy on Gumroad](https://wfq.gumroad.com/l/simple_svelte), 19.99美金
 - [去面包多购买](https://mianbaoduo.com/o/bread/YpeTkp1s), 10.24元
 
+**For Readers**
+
+- backend developers
+- frontend beginners
+- developers old-fashioned who want to learn new tricks
+
 ---
 
 If you want to get a feel for the sample SPA, play with [keeposter](https://poster.keevol.cn/) instead. ^[[How to use?](https://www.bilibili.com/video/BV1pg411F7jQ?share_source=copy_web)]
@@ -73,11 +107,11 @@ If you want to get a feel for the sample SPA, play with [keeposter](https://post
 
 [点击链接](https://wfq.gumroad.com/l/wKzbp)免费获取。
 
-# [福强海报2021合集](https://wfq.gumroad.com/l/fqhb2021) ^免费(free_of_charge)^
+# [福强海报2021合集](https://wfq.gumroad.com/l/fqhb2021) 
 
 付费读者群专属海报2021年合集
 
-[点击链接](https://wfq.gumroad.com/l/fqhb2021)免费获取。
+[点击获取](https://wfq.gumroad.com/l/fqhb2021)
 
 
 
