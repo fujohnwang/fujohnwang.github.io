@@ -5,6 +5,108 @@
     <link>http://afoo.me</link>
     <description>福强说 - 王福强的博客 - 一个架构士的思考与实践之地</description>
     <item>
+      <title>Why not cover SvelteKit in Simple Svelte?</title>
+      <link>http://afoo.me/posts/2022-01-24-why-not-cover-sveltekit-in-simple-svelte.html</link>
+      <description>&lt;!doctype html&gt;
+&lt;html lang="zh"&gt; 
+ &lt;head&gt; 
+  &lt;meta charset="utf-8"&gt; 
+  &lt;meta name="keywords" content="Why not cover SvelteKit in Simple Svelte? - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
+  &lt;meta name="description" content="Why not cover SvelteKit in Simple Svelte? - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
+  &lt;meta name="author" content="王福强"&gt; 
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
+  &lt;title&gt;Why not cover SvelteKit in Simple Svelte? - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
+  &lt;meta name="date" content="2022-01-24"&gt; 
+  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
+  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
+  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
+  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
+  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
+  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
+  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
+  &lt;script&gt;
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    &lt;/script&gt; 
+ &lt;/head&gt; 
+ &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
+  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
+   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
+    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
+     &lt;ul class="navbar-nav ml-auto"&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的著作&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
+     &lt;/ul&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/nav&gt; 
+  &lt;section&gt; 
+   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
+    &lt;p class="lead"&gt; &lt;/p&gt;
+    &lt;h1 class="title"&gt;Why not cover SvelteKit in Simple Svelte?&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2022-01-24 &lt;/small&gt; 
+    &lt;p&gt;&lt;/p&gt; 
+    &lt;hr&gt; 
+    &lt;p&gt;People on &lt;a href="https://www.reddit.com/r/sveltejs/comments/s9xhtz/i_wrote_a_svelte_book_as_a_20_years_backend/htsifji/"&gt;Reddit&lt;/a&gt; commented and asked whether I have covered SvelteKit in my &lt;a href="https://wfq.gumroad.com/l/simple_svelte"&gt;Simple Svelte&lt;/a&gt; book, sorry, the answer is No, but I would like to talk about why.&lt;/p&gt; 
+    &lt;p&gt;Firstly, this is a book for beginners not for advanced developers, no matter frontend or backend, so I only cover basic and overall things about Svelte, while SvelteKit is part of whole pure Javascript stack, it’s a great choice for advanced frontend/js developers, but not for beginners, in my opinion.&lt;/p&gt; 
+    &lt;p&gt;Secondly, I have my own tastes on backend or web layer. As a programmer with 20+ year experiences, especially most of the time as a backend developer, I have many ways to build a backend for frontend(BFF), so let Svelte be for frontend, while I will build a backend for it in my way. If Spring/SpringBoot is too boring, then more new players pop up, Vert.x/Quarkus/Micronaut…, you name it.&lt;/p&gt; 
+    &lt;p&gt;Last but not the least, it doesn’t mean I don’t know SvelteKit or have the expertise on it if I don’t mention or elaborate it, I just don’t want introduce too much burden for readers to get Svelte simply. Anyway, it’s called &lt;a href="https://wfq.gumroad.com/l/simple_svelte"&gt;Simple Svelte&lt;/a&gt;, not &lt;em&gt;Expert One-on-One Svelte Design and Development&lt;/em&gt;, ;0)&lt;/p&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
+    &lt;hr&gt; 
+    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
+    &lt;/div&gt; 
+    &lt;div id="random_posts"&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2007-08-25-sun-rebrand-to-java.html"&gt;SUNW to be rebranded JAVA &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2013-03-25-about_startup.html"&gt;about startup &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2007-09-14-BF4768EE8B110260_607.html"&gt;spring ioc container section index draft&lt;/a&gt; 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
+    &lt;div id="comments"&gt;&lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;div class="text-center"&gt; 
+     &lt;img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/section&gt; 
+  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
+   ©王福强个人版权所有, All Rights Reserved.
+  &lt;/div&gt; 
+  &lt;div class="copyright py-4 text-center text-white"&gt; 
+   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
+   &lt;/div&gt; 
+  &lt;/div&gt; 
+  &lt;script type="text/javascript"&gt;
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    &lt;/script&gt;  
+  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
+ &lt;/body&gt;
+&lt;/html&gt;</description>
+      <pubDate>Sun, 23 Jan 2022 16:00:00 GMT</pubDate>
+      <guid>http://afoo.me/posts/2022-01-24-why-not-cover-sveltekit-in-simple-svelte.html</guid>
+      <dc:date>2022-01-23T16:00:00Z</dc:date>
+    </item>
+    <item>
       <title>销售管理为什么要求一定要打卡？</title>
       <link>http://afoo.me/posts/2022-01-21-why-sales-should-checkin-daily.html</link>
       <description>&lt;!doctype html&gt;
@@ -1180,233 +1282,6 @@ gitalk.render('comments')
       <pubDate>Fri, 24 Dec 2021 16:00:00 GMT</pubDate>
       <guid>http://afoo.me/posts/2021-12-25-my-architecture-principles-nowadays.html</guid>
       <dc:date>2021-12-24T16:00:00Z</dc:date>
-    </item>
-    <item>
-      <title>Shit Happens: log4j 0day灾难始末</title>
-      <link>http://afoo.me/posts/2021-12-10-log4j-shit-happens.html</link>
-      <description>&lt;!doctype html&gt;
-&lt;html lang="zh"&gt; 
- &lt;head&gt; 
-  &lt;meta charset="utf-8"&gt; 
-  &lt;meta name="keywords" content="Shit Happens: log4j 0day灾难始末 - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
-  &lt;meta name="description" content="Shit Happens: log4j 0day灾难始末 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
-  &lt;meta name="author" content="王福强"&gt; 
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
-  &lt;title&gt;Shit Happens: log4j 0day灾难始末 - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
-  &lt;meta name="date" content="2021-12-10"&gt; 
-  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
-  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
-  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
-  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
-  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
-  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
-  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
-  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
-  &lt;script&gt;
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    &lt;/script&gt; 
- &lt;/head&gt; 
- &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
-  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
-   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
-    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
-     &lt;ul class="navbar-nav ml-auto"&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的著作&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
-     &lt;/ul&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/nav&gt; 
-  &lt;section&gt; 
-   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
-    &lt;p class="lead"&gt; &lt;/p&gt;
-    &lt;h1 class="title"&gt;Shit Happens: log4j 0day灾难始末&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2021-12-10 &lt;/small&gt; 
-    &lt;p&gt;&lt;/p&gt; 
-    &lt;hr&gt; 
-    &lt;ul&gt; 
-     &lt;li&gt;&lt;a href="#internet-melting-shit-happens"&gt;&lt;span class="toc-section-number"&gt;1&lt;/span&gt; internet-melting-shit happens&lt;/a&gt;&lt;/li&gt; 
-     &lt;li&gt;&lt;a href="#怎么检查我方或我厂有没有中招"&gt;&lt;span class="toc-section-number"&gt;2&lt;/span&gt; 怎么检查我方或我厂有没有中招？！&lt;/a&gt;&lt;/li&gt; 
-     &lt;li&gt;&lt;a href="#哪些服务和系统将收影响"&gt;&lt;span class="toc-section-number"&gt;3&lt;/span&gt; 哪些服务和系统将收影响？&lt;/a&gt;&lt;/li&gt; 
-     &lt;li&gt;&lt;a href="#how-this-shit-happens"&gt;&lt;span class="toc-section-number"&gt;4&lt;/span&gt; how this shit happens？&lt;/a&gt;&lt;/li&gt; 
-     &lt;li&gt;&lt;a href="#怎么防护-aka.-解决方案与权衡"&gt;&lt;span class="toc-section-number"&gt;5&lt;/span&gt; 怎么防护？！ aka. 解决方案与权衡&lt;/a&gt; 
-      &lt;ul&gt; 
-       &lt;li&gt;&lt;a href="#waf级别"&gt;&lt;span class="toc-section-number"&gt;5.1&lt;/span&gt; WAF级别&lt;/a&gt;&lt;/li&gt; 
-       &lt;li&gt;&lt;a href="#rasp级别"&gt;&lt;span class="toc-section-number"&gt;5.2&lt;/span&gt; RASP级别&lt;/a&gt;&lt;/li&gt; 
-       &lt;li&gt;&lt;a href="#应用级别"&gt;&lt;span class="toc-section-number"&gt;5.3&lt;/span&gt; 应用级别&lt;/a&gt;&lt;/li&gt; 
-       &lt;li&gt;&lt;a href="#类库级别"&gt;&lt;span class="toc-section-number"&gt;5.4&lt;/span&gt; 类库级别&lt;/a&gt;&lt;/li&gt; 
-       &lt;li&gt;&lt;a href="#jvm级别"&gt;&lt;span class="toc-section-number"&gt;5.5&lt;/span&gt; JVM级别&lt;/a&gt;&lt;/li&gt; 
-       &lt;li&gt;&lt;a href="#agent热加载"&gt;&lt;span class="toc-section-number"&gt;5.6&lt;/span&gt; Agent热加载&lt;/a&gt;&lt;/li&gt; 
-      &lt;/ul&gt;&lt;/li&gt; 
-     &lt;li&gt;&lt;a href="#后话"&gt;&lt;span class="toc-section-number"&gt;6&lt;/span&gt; 后话&lt;/a&gt;&lt;/li&gt; 
-     &lt;li&gt;&lt;a href="#references"&gt;&lt;span class="toc-section-number"&gt;7&lt;/span&gt; References&lt;/a&gt;&lt;/li&gt; 
-    &lt;/ul&gt; 
-    &lt;hr&gt; 
-    &lt;p&gt;今天最靓的仔是谁？ 非log4j2莫属啊！&lt;/p&gt; 
-    &lt;p&gt;(抱歉，已经算是昨天了，码完字才发现已经是2021年12月11日凌晨了)&lt;/p&gt; 
-    &lt;h1 data-number="1" id="internet-melting-shit-happens"&gt;&lt;span class="header-section-number"&gt;1&lt;/span&gt; internet-melting-shit happens&lt;/h1&gt; 
-    &lt;p&gt;我是昨天晚上或者说今天凌晨看到斗象安全推送的消息，然后直觉上意识到log4j2的这个0day爆破力度会相当大，第一个是这东西太底层，相当多类库、系统都依赖它， 另一个就是Java虽然在语言排行榜上处于下滑趋势，但架不住存量大，况且即使下滑也依然是占据榜单头部区域，你想啊，两三个年营收以千亿计的乙方公司为招标单位提供的技术体系和方案都tmd是Java和Spring生态的，就更不要说其它公司了，说影响范围不广，你信吗？&lt;/p&gt; 
-    &lt;p&gt;所以， 我直接转发了漏洞报告到我的朋友圈，然后睡觉，毕竟，虽然我不操心，但有人或许要因此而睡不好觉了呀，&lt;strong&gt;早发现、早预防&lt;/strong&gt;吧！&lt;/p&gt; 
-    &lt;h1 data-number="2" id="怎么检查我方或我厂有没有中招"&gt;&lt;span class="header-section-number"&gt;2&lt;/span&gt; 怎么检查我方或我厂有没有中招？！&lt;/h1&gt; 
-    &lt;p&gt;国外有位仁兄给的方案挺轻量的：&lt;/p&gt; 
-    &lt;blockquote&gt; 
-     &lt;p&gt;How to detect if affected: Start netcat parallel to your app: “nc -lp 1234”, then type the following into app where it gets logged (e.g.&amp;nbsp;the query string of your search): “${jndi:ldap://127.0.0.1:1234/abc}” If you then see garbage/emojis in the netcat console your’re vulnerable!&lt;/p&gt; 
-    &lt;/blockquote&gt; 
-    &lt;p&gt;简单来说就是在你应用节点上用nc起一个服务，然后在自己的应用里注入这样一个字符串：&lt;code&gt;${jndi:ldap://127.0.0.1:1234/abc}&lt;/code&gt;， 如果nc的控制台有打印出一些乱七八糟的信息，恭喜你，你中招了。&lt;/p&gt; 
-    &lt;p&gt;当然，再专业点儿、再直观点儿的做法是像下图这样：&lt;/p&gt; 
-    &lt;p&gt;&lt;img src="images/253011639137831_.pic.jpg"&gt;&lt;/p&gt; 
-    &lt;p&gt;我想今天dnslog.cn估计qps会涨不少，哈&lt;/p&gt; 
-    &lt;h1 data-number="3" id="哪些服务和系统将收影响"&gt;&lt;span class="header-section-number"&gt;3&lt;/span&gt; 哪些服务和系统将收影响？&lt;/h1&gt; 
-    &lt;blockquote&gt; 
-     &lt;p&gt;The vulnerability impacts Apache Log4j 2 versions 2.0 to 2.14.1.&lt;/p&gt; 
-    &lt;/blockquote&gt; 
-    &lt;p&gt;所有直接或者间接使用了log4j2从2.0到2.15rc2版本的应该都受影响， 一些重量级明星项目比如Kafka、Druid以及Minecraft这种世界级范围内的游戏都在受影响的行列，更不要提各个公司的内外部系统了。&lt;/p&gt; 
-    &lt;p&gt;影响不可谓不大…&lt;/p&gt; 
-    &lt;h1 data-number="4" id="how-this-shit-happens"&gt;&lt;span class="header-section-number"&gt;4&lt;/span&gt; how this shit happens？&lt;/h1&gt; 
-    &lt;p&gt;log4j2的这个0day是RCE漏洞，即远程代码执行(Remote Code Execution)， 意味着别人可以给你的程序或者系统注入一段他们的代码，然后，很多“美妙”的事情就不知不觉之间发生了，最主要的是，你还不一定知道。&lt;/p&gt; 
-    &lt;blockquote&gt; 
-     &lt;p&gt;说到0day，某携程神级运维一品大员反映说这个缺陷8年前就已经存在，被仙界（我估计他说的是安全界）利用的够够儿的了，今天才抛向人间，惊得鹧鸪乱飞…&lt;/p&gt; 
-    &lt;/blockquote&gt; 
-    &lt;p&gt;我昨天和今天在客户那里连轴转开了两天会，所以，白天没时间深究，只是空闲之间看各个群里讨论的热烈， 晚上回来抽时间扒拉了一些资料和代码， 尝试跟大家分析下这个破事儿是怎么发生的，如果有误，也可以拍砖，我再深入学习下。&lt;/p&gt; 
-    &lt;p&gt;首先是这个事情要发生，有几个关键条件：&lt;/p&gt; 
-    &lt;ol type="1"&gt; 
-     &lt;li&gt;log4j2在某个版本之后允许JNDI Lookup了；&lt;/li&gt; 
-     &lt;li&gt;既然允许， 那我做JNDI Lookup就可以有来有往了： 
-      &lt;ol type="1"&gt; 
-       &lt;li&gt;出栈(outbound)如果不做限制，那我就可以让查询指向任何服务（不管是内部的还是外部的）；&lt;/li&gt; 
-       &lt;li&gt;入栈(inbound)结果回来之后，你怎么处理我给你的结果？&lt;/li&gt; 
-      &lt;/ol&gt;&lt;/li&gt; 
-     &lt;li&gt;JNDI目标服务器上存放的数据结构和规范是什么样的？&lt;/li&gt; 
-    &lt;/ol&gt; 
-    &lt;p&gt;抱着这些疑问，我们就可以抽丝剥茧地缕出一个头绪了：&lt;/p&gt; 
-    &lt;ol type="1"&gt; 
-     &lt;li&gt;JNDI规范确实定义了服务器端数据结构的存储规范，如果你按照这个规范来，那么恭喜你，天生具备了被捅的特质，因为java的serialization机制早几年就被爆过了，而JNDI服务器端数据存储规范其实就是基于java serialization搞的。&lt;/li&gt; 
-     &lt;li&gt;但规范归规范，还要看客户端是怎么处理的，是遵循规范，还是简单toString？ 毕竟，log4j也只是一个log类库，最终还是要转成toString才能打印到文件嘛！&lt;/li&gt; 
-     &lt;li&gt;查看github上紧急修复和merge的记录以及2.14.1的源代码，我发现没那么复杂，其实，事情出在toString上面， jndi查询回来的结果对象是通过Objects.toString转成String字符串的， 而Objects.toString的逻辑其实就是交给参数对象的toString： &lt;code&gt;Objects.toString(jndiManager.lookup(jndiName), null);&lt;/code&gt;&lt;/li&gt; 
-     &lt;li&gt;嫌疑就变成了返回对象的toString方法，只要允许jndi查询，并且查询的目标服务器是cracker方的服务器，那么，cracker就是可以给你返回任何结果对象，自然也就可以给你一个复写了toString的对象，而这toString返回之前，他搞了什么事情，那就天知地知他知你不知咯~&lt;/li&gt; 
-     &lt;li&gt;而且你去研究下rfc2713， 活脱脱地一个java序列化粪坑，javaClassName，javaCodebase，javaSerializedData这些规定属性（attribute），摆明了给人家注入提供便利啊， 更不要说refAddr类型的结果了， 哎， &lt;strong&gt;结果反序列化之时，就是你被爆菊之日啊&lt;/strong&gt;！！！&lt;/li&gt; 
-    &lt;/ol&gt; 
-    &lt;h1 data-number="5" id="怎么防护-aka.-解决方案与权衡"&gt;&lt;span class="header-section-number"&gt;5&lt;/span&gt; 怎么防护？！ aka. 解决方案与权衡&lt;/h1&gt; 
-    &lt;p&gt;业界总结了几种规范的应急机制， 我也厚着脸皮勾搭了下阿里内部长时间未联系的负责2000+人安全团队的高P， 大体上给出的思路是：&lt;/p&gt; 
-    &lt;blockquote&gt; 
-     &lt;p&gt;边界先用waf和rasp之类的产品防住，再升级log4j的版本&lt;/p&gt; 
-    &lt;/blockquote&gt; 
-    &lt;p&gt;最早在成哥的SRE群里亚猛给的规范指导书也值得借鉴：&lt;/p&gt; 
-    &lt;p&gt;&lt;img src="images/48121639125000_.pic.jpg"&gt;&lt;/p&gt; 
-    &lt;p&gt;整体思路有了，还没思路的各位看官可以寻路而去了，愿意了解更多的，可以随我继续往下再探一探，看一下这个思路是怎么总结和权衡出来的。&lt;/p&gt; 
-    &lt;h2 data-number="5.1" id="waf级别"&gt;&lt;span class="header-section-number"&gt;5.1&lt;/span&gt; WAF级别&lt;/h2&gt; 
-    &lt;p&gt;WAF是Web Application Firewall的缩写， 使用WAF的好处是不需要对现有成千上万的服务和系统进行干预和重启，只要在WAF上对这次log4j2的JNDILookup漏洞引发的流量特征做封堵就好了，配置规则也不需要重启还实时生效，so easy~&lt;/p&gt; 
-    &lt;p&gt;但问题有可能是， 流量特征没有那么容易封堵完全，比如：&lt;/p&gt; 
-    &lt;pre&gt;&lt;code&gt;讲个笑话，log4j这个洞的payload格式比想象得多得多得多。
-
-现在90%的waf规则都是无效的~
-
-我举个例子：${sys:ldap://&lt;/code&gt;&lt;/pre&gt; 
-    &lt;p&gt;所以， WAF也只能解决燃眉之急，不解决根本问题，可以缓解，但无法根治。&lt;/p&gt; 
-    &lt;h2 data-number="5.2" id="rasp级别"&gt;&lt;span class="header-section-number"&gt;5.2&lt;/span&gt; RASP级别&lt;/h2&gt; 
-    &lt;p&gt;扶墙老师不是专职搞安全的（虽然什么都会一点儿），差点儿看成asap…&lt;/p&gt; 
-    &lt;p&gt;&lt;img src="images/yewen_smddyd.jpg"&gt;&lt;/p&gt; 
-    &lt;p&gt;所以，特意查了下RASP是个什么东西 - Runtime application self-protection:&lt;/p&gt; 
-    &lt;blockquote&gt; 
-     &lt;p&gt;运行时应用程序自我保护（RASP）是应用程序安全生态系统中的一项创新，可通过提供对隐藏漏洞的更多可见性来处理对软件应用程序层的运行时攻击。它本质上是一种安全软件，可与应用程序或其运行时环境集成在一起，并不断拦截对应用程序的调用以检查其安全性。RASP软件无需等待威胁影响应用程序。相反，它会主动在进入应用程序的流量中寻找恶意软件，并防止在应用程序内部执行欺诈性呼叫。&lt;/p&gt; 
-    &lt;/blockquote&gt; 
-    &lt;p&gt;简单来说就是跟应用自身融合在一起，可以从多个层级和粒度主动防御，怎么实现，那就是专业人士的事儿了，总之我觉得很牛逼，下面这个截图应该就是本次log4j2漏洞被某rasp拦截后的效果：&lt;/p&gt; 
-    &lt;p&gt;&lt;img src="images/48231639139431_.pic.jpg"&gt;&lt;/p&gt; 
-    &lt;h2 data-number="5.3" id="应用级别"&gt;&lt;span class="header-section-number"&gt;5.3&lt;/span&gt; 应用级别&lt;/h2&gt; 
-    &lt;p&gt;RASP其实也是应用级别，但我们也可以泛化一下，你不是可以梳理每个应用，主动对调用log4j的地方做消毒（sanitization）呢？&lt;/p&gt; 
-    &lt;p&gt;开玩笑啦，你真别当真， 牵扯面大，不好实施不说， 风险其实也是最大的。 实施的时候参差不齐，其实也没法保证完全解决这个问题。&lt;/p&gt; 
-    &lt;p&gt;最不建议这么做！&lt;/p&gt; 
-    &lt;h2 data-number="5.4" id="类库级别"&gt;&lt;span class="header-section-number"&gt;5.4&lt;/span&gt; 类库级别&lt;/h2&gt; 
-    &lt;p&gt;log4j2团队在爆出漏洞之后，也是紧急修复了多个版本， 包括rc1， rc2， 直到最新的2.15.0，算是初步修复了这个漏洞（但其实也是讨巧，对代码逻辑感兴趣的同学可以去看下，其实采用了一种类似“电路短路”的策略，在前面添加了各种基于host， class之类的封堵策略）。&lt;/p&gt; 
-    &lt;p&gt;所以， 可以尽快让自己组织内的团队升级类库版本并重新发布服务和系统。&lt;/p&gt; 
-    &lt;p&gt;这种方案需要滚动发布，所以，相应的，你的devops平台准备好了吗？&lt;/p&gt; 
-    &lt;p&gt;重启过程中依赖先后顺序梳理过吗？ 演练过吗？ ；）&lt;/p&gt; 
-    &lt;h2 data-number="5.5" id="jvm级别"&gt;&lt;span class="header-section-number"&gt;5.5&lt;/span&gt; JVM级别&lt;/h2&gt; 
-    &lt;p&gt;最经常提到方案其实是java虚拟机级别的，一个是升级jdk/jre，因为Java 8u121之后如下两个相关属性都已经默认是false了：&lt;/p&gt; 
-    &lt;ul&gt; 
-     &lt;li&gt;com.sun.jndi.rmi.object.trustURLCodebase&lt;/li&gt; 
-     &lt;li&gt;com.sun.jndi.cosnaming.object.trustURLCodebase&lt;/li&gt; 
-    &lt;/ul&gt; 
-    &lt;blockquote&gt; 
-     &lt;p&gt;Java 8u121 (see https://www.oracle.com/java/technologies/javase/8u121-relnotes.html) protects against remote code execution by defaulting “com.sun.jndi.rmi.object.trustURLCodebase” and “com.sun.jndi.cosnaming.object.trustURLCodebase” to “false”.&lt;/p&gt; 
-    &lt;/blockquote&gt; 
-    &lt;p&gt;另外就是直接改参数并重启：&lt;/p&gt; 
-    &lt;ul&gt; 
-     &lt;li&gt;修改 jvm 参数 &lt;code&gt;-Dlog4j2.formatMsgNoLookups=true&lt;/code&gt;&lt;/li&gt; 
-     &lt;li&gt;修改配置 &lt;code&gt;log4j2.formatMsgNoLookups=true&lt;/code&gt;&lt;/li&gt; 
-     &lt;li&gt;将系统环境变量 &lt;code&gt;FORMAT_MESSAGES_PATTERN_DISABLE_LOOKUPS&lt;/code&gt; 设置为&lt;code&gt;true&lt;/code&gt;&lt;/li&gt; 
-    &lt;/ul&gt; 
-    &lt;p&gt;不过，所有服务和系统重启，又回到了升级类库一样的尴尬之中， 谁担责所有服务和系统都重启的责任？ 谁又能保证重启过程不出问题？ 谁保证你做了这些就一定可以彻底解决问题？ 说句不好听的， 你disable了某些配置参数，你又怎么保证对所有服务和系统的健康度没有影响？ （有没有某些关键系统依托日志的关键格式来决策？ 升级也好，改配置也好，改虚拟机参数也好，都需要批量操作，而且不敢保证服务的健康度）&lt;/p&gt; 
-    &lt;h2 data-number="5.6" id="agent热加载"&gt;&lt;span class="header-section-number"&gt;5.6&lt;/span&gt; Agent热加载&lt;/h2&gt; 
-    &lt;p&gt;这种方案就是基于运行期加载的javaagent来禁止JndiLookup相关的功能， 这种方案风险适中， 也不需要重启所有系统和服务， 但首先要保证agent的代码没有问题，其实就是，这个方案即使上了，事后还是需要收拾残局， 必须要等log4j2新的版本彻底修复了这个漏洞并发布之后，所有服务和系统再发布一次，否则，下次可就不一定会有人记得你中间热加载过这个agent咯~&lt;/p&gt; 
-    &lt;p&gt;&lt;a href="https://twitter.com/volker_simonis"&gt;volker_simonis&lt;/a&gt;(https://twitter.com/volker_simonis)提供了一个patch： https://github.com/simonis/Log4jPatch， 可以作为一个选择。&lt;/p&gt; 
-    &lt;h1 data-number="6" id="后话"&gt;&lt;span class="header-section-number"&gt;6&lt;/span&gt; 后话&lt;/h1&gt; 
-    &lt;p&gt;不管怎么说， 在经历了轰轰烈烈地被爆之后， log4j2的这个漏洞也终于迎来了它的正式编号： &lt;a href="https://www.randori.com/blog/cve-2021-44228/"&gt;CVE-2021-44228 – Log4j 2 Vulnerability Analysis&lt;/a&gt;(https://www.randori.com/blog/cve-2021-44228/), 升级最新发布的2.15.0版本也可以初步从根本上解决问题，但你回头想想是不是还是有些后怕？&lt;/p&gt; 
-    &lt;p&gt;很多时候， &lt;strong&gt;看得见的危险其实没那么危险， 那些看不见的威胁才是最危险啊！&lt;/strong&gt;&lt;/p&gt; 
-    &lt;p&gt;扶墙老师和他的读者群专属海报一张，借机正好也可以与大家一起分享：&lt;/p&gt; 
-    &lt;p&gt;&lt;img src="images/2021-12-09-203513824.jpg"&gt;&lt;/p&gt; 
-    &lt;h1 data-number="7" id="references"&gt;&lt;span class="header-section-number"&gt;7&lt;/span&gt; References&lt;/h1&gt; 
-    &lt;ul&gt; 
-     &lt;li&gt;&lt;a href="https://www.lunasec.io/docs/blog/log4j-zero-day/"&gt;Log4Shell: RCE 0-day exploit found in log4j, a popular Java logging package&lt;/a&gt;，https://www.lunasec.io/docs/blog/log4j-zero-day/&lt;/li&gt; 
-     &lt;li&gt;&lt;a href="https://datatracker.ietf.org/doc/html/rfc2713"&gt;Schema for Representing Java(tm) Objects in an LDAP Directory&lt;/a&gt;,https://datatracker.ietf.org/doc/html/rfc2713&lt;/li&gt; 
-     &lt;li&gt;&lt;a href="https://datatracker.ietf.org/doc/html/rfc2713"&gt;JNDI规范&lt;/a&gt;里规定的javaObject存储逻辑决定了获取之后的解析和使用逻辑, https://datatracker.ietf.org/doc/html/rfc2713&lt;/li&gt; 
-     &lt;li&gt;&lt;a href="https://github.com/huanghongxun/HMCL/pull/1209"&gt;默认情况下禁止 Minecraft 日志记录中使用 Message Pattern Lookup #1209&lt;/a&gt;,https://github.com/huanghongxun/HMCL/pull/1209&lt;/li&gt; 
-     &lt;li&gt;还有就是log4j2的相关版本的源代码&lt;/li&gt; 
-    &lt;/ul&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
-    &lt;hr&gt; 
-    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
-    &lt;/div&gt; 
-    &lt;div id="random_posts"&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2018-08-06-cloud-is-not-your-savior.html"&gt;云不是万能药， 治不了你的无知与懒惰 &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2021-03-19-tech-ecosystem-upgrading.html"&gt;技术体系转型就应该这样干！ &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-04-12-wii-sport.html"&gt;Wii Sport &lt;/a&gt; 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
-    &lt;div id="comments"&gt;&lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;div class="text-center"&gt; 
-     &lt;img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/section&gt; 
-  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
-   ©王福强个人版权所有, All Rights Reserved.
-  &lt;/div&gt; 
-  &lt;div class="copyright py-4 text-center text-white"&gt; 
-   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
-   &lt;/div&gt; 
-  &lt;/div&gt; 
-  &lt;script type="text/javascript"&gt;
-var gitalk = new Gitalk({
-  clientID: '518a605d711883414ac0',
-  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-  repo: 'afoo.me.comments',
-  owner: 'fujohnwang',
-  admin: ['fujohnwang'],
-  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-  distractionFreeMode: false  // Facebook-like distraction free mode
-})
-
-gitalk.render('comments')
-    &lt;/script&gt;  
-  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
- &lt;/body&gt;
-&lt;/html&gt;</description>
-      <pubDate>Thu, 09 Dec 2021 16:00:00 GMT</pubDate>
-      <guid>http://afoo.me/posts/2021-12-10-log4j-shit-happens.html</guid>
-      <dc:date>2021-12-09T16:00:00Z</dc:date>
     </item>
   </channel>
 </rss>

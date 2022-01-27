@@ -42,7 +42,9 @@
 
 <!-- [![](images/mgt_talk_cover.jpg)](https://youtu.be/tIPwf7KKinc) -->
 
+# 《坑获》
 
+- [Gumroad Sale **Only**](https://wfq.gumroad.com/l/kenghuo)
 
 # [《Simple Svelte: A Frontend Book From A Backend Developer》](https://wfq.gumroad.com/l/simple_svelte) ^[Simple Svelte is a pure English Tech book for Svelte 3.]
 
@@ -77,9 +79,7 @@ If you want to get a feel for the sample SPA, play with [keeposter](https://post
 
 [点击链接](https://wfq.gumroad.com/l/fqhb2021)免费获取。
 
-# 《坑获》
 
-不对外销售。
 
 
 # 购买渠道与支付方式
