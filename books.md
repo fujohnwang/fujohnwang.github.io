@@ -12,6 +12,8 @@
 
 # 《深度思考揭秘》aka. 《The Way of Deep Thinking》 
 
+想要独立思考？ 原来有套路！
+
 - [去面包多购买](https://mianbaoduo.com/o/fgg)
 - [去Gumroad购买](https://gumroad.com/l/BRmvgb)
 
@@ -26,6 +28,8 @@
 另，[->>> 读者的反馈](book-readers-praise.html)与您分享。
 
 # [《技术、商业与人》](https://afoo.me/afpay/?id=tbh)
+
+囊括了作者对技术、商业与人的思考凝炼与践行总结。
 
 - [直接购买](https://afoo.me/afpay/?id=tbh)
 - [去面包多购买](https://mianbaoduo.com/o/fgg)
@@ -43,7 +47,15 @@
 
 # 《极简管理课》
 
-因很多同学希望阅读这本儿，所以，再次开放。
+作为管理者和领导者，你是否不知道：
+
+- 该怎么做决策？
+- 该怎么定目标？
+- 该怎么谈绩效？
+- 该怎么领导队伍向前跑？
+- 该怎么提升士气和团队氛围？
+
+或许《极简管理科》能给你一些启示...
 
 - [去面包多购买](https://mianbaoduo.com/o/bread/YZ2WlZdq)
 - [去Gumroad购买](https://gum.co/fANOaE)
@@ -77,6 +89,8 @@
 
 # [《Simple Svelte: A Frontend Book From A Backend Developer》](https://wfq.gumroad.com/l/simple_svelte) ^[Simple Svelte is a pure English Tech book for Svelte 3.]
 
+Have you ever...
+
 - Create a Single Page Application from scratch?  Svelte is simple to get start.
 - Migrate a legacy web application? Svelte is simple to integrate.
 - As a backend developer who wants to try frontend nowadays? Svelte is simpler to play with than React/Vue.
@@ -105,6 +119,8 @@ If you want to get a feel for the sample SPA, play with [keeposter](https://post
 
 
 # [《福鱼画册》](https://wfq.gumroad.com/l/wKzbp) ^免费(free_of_charge)^
+
+作者个人的思考点滴与金句汇集成此一画册。
 
 [点击链接](https://wfq.gumroad.com/l/wKzbp)免费获取。
 
