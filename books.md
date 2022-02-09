@@ -12,16 +12,18 @@
 
 # 《深度思考揭秘》aka. 《The Way of Deep Thinking》 
 
-想要独立思考？ 原来有套路！
-
-- [去面包多购买](https://mianbaoduo.com/o/fgg)
-- [去Gumroad购买](https://gumroad.com/l/BRmvgb)
+怎么深度思考？ 如何独立思考？ 或许这里有你要找的答案。
 
 **面向读者**
 
 - 终身学习者
 - 追求真知者
 - 思考与践行者
+
+**购买渠道**
+
+- [去面包多购买](https://mianbaoduo.com/o/fgg)
+- [去Gumroad购买](https://gumroad.com/l/BRmvgb)
 
 ---
 
@@ -31,15 +33,17 @@
 
 囊括了作者对技术、商业与人的思考凝炼与践行总结。
 
-- [直接购买](https://afoo.me/afpay/?id=tbh)
-- [去面包多购买](https://mianbaoduo.com/o/fgg)
-- [去Gumroad购买](https://gum.co/uLPkW)
-
 **面向读者**
 
 - 资深技术研发人员
 - 创业者
 - 组织者与管理者
+
+**购买渠道**
+
+- [直接购买](https://afoo.me/afpay/?id=tbh)
+- [去面包多购买](https://mianbaoduo.com/o/fgg)
+- [去Gumroad购买](https://gum.co/uLPkW)
 
 ---
 
@@ -57,14 +61,16 @@
 
 或许《极简管理科》能给你一些启示...
 
-- [去面包多购买](https://mianbaoduo.com/o/bread/YZ2WlZdq)
-- [去Gumroad购买](https://gum.co/fANOaE)
-
 **面向读者**
 
 - 新晋管理者
 - 团队leaders
 - CTOs
+
+**购买渠道**
+
+- [去面包多购买](https://mianbaoduo.com/o/bread/YZ2WlZdq)
+- [去Gumroad购买](https://gum.co/fANOaE)
 
 ---
 
@@ -76,8 +82,6 @@
 
 你可以自己踩坑，你也从别人踩坑的惨痛经历中吸取教训然后自己少踩坑儿...
 
-- [Gumroad Sale **Only**](https://wfq.gumroad.com/l/kenghuo)
-
 
 **面向读者**
 
@@ -85,6 +89,10 @@
 - 终身学习者
 - 追求真知者
 - 想要防止自己被坑的准CTO和CTO们？
+
+**购买渠道**
+
+- [Gumroad Sale **Only**](https://wfq.gumroad.com/l/kenghuo)
 
 
 # [《Simple Svelte: A Frontend Book From A Backend Developer》](https://wfq.gumroad.com/l/simple_svelte) ^[Simple Svelte is a pure English Tech book for Svelte 3.]
@@ -97,6 +105,12 @@ Have you ever...
 
 [《Simple Svelte》](https://wfq.gumroad.com/l/simple_svelte) will cover from product design to technology implementations, I will guide you thru how to think, how to design and how to build even how to operate. With this book, you will learn more than just svelte3 and technology things, but also product, marketing and human natures.
 
+**For Readers**
+
+- backend developers
+- frontend beginners
+- developers old-fashioned who want to learn new tricks
+
 Grab the **FREE** trial chapters: 
 
 - [downloading free trail chapters of Simple Svelte](https://afoo.me/books/SimpleSvelte_Trial_Edition.pdf).
@@ -105,12 +119,6 @@ Grab the **FREE** trial chapters:
 
 - [Buy on Gumroad](https://wfq.gumroad.com/l/simple_svelte), 19.99美金
 - [去面包多购买](https://mianbaoduo.com/o/bread/YpeTkp1s), 10.24元
-
-**For Readers**
-
-- backend developers
-- frontend beginners
-- developers old-fashioned who want to learn new tricks
 
 ---
 
