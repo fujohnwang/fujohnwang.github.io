@@ -33,6 +33,8 @@
 
 [这里可以了解我的更多著作](books.html)
 
+<iframe src='https://my.spline.design/shapesanimationcopy-26e4ea6b1f58c206ae1dffb1645eba37/' frameborder='0' width='100%' height='100%'></iframe>
+
 # 我在线上
 
 ![](images/qrcode_for_gh_4fe672b2e860_258.jpg)
