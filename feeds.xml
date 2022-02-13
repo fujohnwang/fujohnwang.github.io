@@ -5,6 +5,122 @@
     <link>http://afoo.me</link>
     <description>福强说 - 王福强的博客 - 一个架构士的思考与实践之地</description>
     <item>
+      <title>谈谈关于反馈的几个思考</title>
+      <link>http://afoo.me/posts/2022-02-13-feedback-matters-a-lot.html</link>
+      <description>&lt;!doctype html&gt;
+&lt;html lang="zh"&gt; 
+ &lt;head&gt; 
+  &lt;meta charset="utf-8"&gt; 
+  &lt;meta name="keywords" content="谈谈关于反馈的几个思考 - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
+  &lt;meta name="description" content="谈谈关于反馈的几个思考 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
+  &lt;meta name="author" content="王福强"&gt; 
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
+  &lt;title&gt;谈谈关于反馈的几个思考 - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
+  &lt;meta name="date" content="2022-02-13"&gt; 
+  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
+  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
+  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
+  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
+  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
+  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
+  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
+  &lt;script&gt;
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    &lt;/script&gt; 
+ &lt;/head&gt; 
+ &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
+  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
+   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
+    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
+     &lt;ul class="navbar-nav ml-auto"&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的著作&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
+     &lt;/ul&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/nav&gt; 
+  &lt;section&gt; 
+   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
+    &lt;p class="lead"&gt; &lt;/p&gt;
+    &lt;h1 class="title"&gt;谈谈关于反馈的几个思考&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2022-02-13 &lt;/small&gt; 
+    &lt;p&gt;&lt;/p&gt; 
+    &lt;hr&gt; 
+    &lt;p&gt;其实是今天看到有人分享一个产品图片， 然后联想到自己这阵子几个事情上的思考，感觉可以放到一起跟大家做个简单的分享。&lt;/p&gt; 
+    &lt;p&gt;对于笔记软件来说，这些年我对它们已经完全失去兴趣了，因为对于个人来说，重要的是能够即时记录下闪过的想法，不是比较软件美不美观，功能炫不绚丽，所以，我自己打造了自己的一个笔记体系，了解我的同学估计也猜得到，叫KeeNotes。 KeeNotes有很多端或者入口， 但经常用的就是微信公众号入口，置顶了之后，一有念头闪过，我就会通过这个入口跟自己“自言自语”， 有些时候搞得我“室友”经常怀疑我是不是外面有人了，但其实她不理解个中乐趣；）&lt;/p&gt; 
+    &lt;p&gt;&lt;img src="images/sheldon.png"&gt;&lt;/p&gt; 
+    &lt;p&gt;好吧，只是开个玩笑，其实我想说的是，在每次输入笔记之后，我的KeeNotes微信公众号入口现在其实是没有反馈的：&lt;/p&gt; 
+    &lt;p&gt;&lt;img src="images/60321644766559_.pic.jpg"&gt;&lt;/p&gt; 
+    &lt;p&gt;这就意味着，我不知道我发的note到底有没有给我保存到remote的存储中，只有工作状态时，用PC打开后台才可以确认，这从用户体验上来说其实挺糟糕的，但好在自己用，所以能托就托… &lt;a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt; 
+    &lt;p&gt;这其实是一个很小的细节，但做没做，在产品的体验上却能体现出很大的差异。&lt;/p&gt; 
+    &lt;p&gt;大多数时候，用户（其实就是你我）需要的是&lt;strong&gt;即时反馈&lt;/strong&gt;，忽视了这种心理诉求，小则产品不受欢迎，大则影响公司战略与营收， 比如脑黄金和脑白金就是很好的一个案例。&lt;/p&gt; 
+    &lt;p&gt;史玉柱在湖畔大学做过一个分享， 他说脑黄金到3000万营收就再也上不去了，但脑白金却没有上限， 当他和团队打造完销售手册之后，他已经可以看到10亿营收的门槛了，事实也证明当年他们干到了13个亿， 这其中的差别在哪儿？&lt;/p&gt; 
+    &lt;p&gt;差别就是脑黄金吃完用户很难马上就感受到好处（“虽然确实是个好东西”），而脑白金则可以第二天醒来就能感受到产品的功效到底如何，所以， 最终脑白金的营收天花板远超脑黄金。&lt;/p&gt; 
+    &lt;p&gt;这就好像你给客户撕心裂肺地奉上一套好的方案， 但客户没感觉，反而帮助客户解决一些眼前的小问题， 客户反而更觉得有帮助，因为TA可以即时地获取到反馈。 毕竟，你自己觉得好，客户根本就无从知道，就跟做技术的都知道，架构虽好，但现实却是大家都喜欢“救火队员”。 扁鹊和他哥的故事一直在延续，但也没有办法，&lt;strong&gt;人性是不变的&lt;/strong&gt;。&lt;/p&gt; 
+    &lt;p&gt;创业其实也是一样， 讲求&lt;strong&gt;小步快跑、快速验证&lt;/strong&gt;，不是说长期主义不好，而是说长期主义成功地概率更低，风险更大，长期主义最大的问题就是需要极其痛苦的煎熬，还不一定看得到希望，这是反人性的，而且最终结果怎么样也未知，很多成功故事告诉你长期主义的丰厚回报与风光无限，却从来没人跟你提长期主义也有最后万劫不复的，所以，&lt;strong&gt;路怎么走，你的自己选&lt;/strong&gt;…&lt;/p&gt; 
+    &lt;section class="footnotes" role="doc-endnotes"&gt; 
+     &lt;hr&gt; 
+     &lt;ol&gt; 
+      &lt;li id="fn1" role="doc-endnote"&gt;&lt;p&gt;后面新开发的飞书入口就解决了这个糟糕的细节&lt;a href="#fnref1" class="footnote-back" role="doc-backlink"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt; 
+     &lt;/ol&gt; 
+    &lt;/section&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
+    &lt;hr&gt; 
+    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
+    &lt;/div&gt; 
+    &lt;div id="random_posts"&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2007-03-27-first-in-first-out.html"&gt;First In, First Out &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2011-10-05-how_to_write_a_sbt_plugin.html"&gt;How to write a SBT 0.10+ plugin? &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2015-07-31-microservices-essential.html"&gt;扶墙老师谈微服务(Microservices Essential) &lt;/a&gt; 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
+    &lt;div id="comments"&gt;&lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;div class="text-center"&gt; 
+     &lt;img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/section&gt; 
+  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
+   ©王福强个人版权所有, All Rights Reserved.
+  &lt;/div&gt; 
+  &lt;div class="copyright py-4 text-center text-white"&gt; 
+   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
+   &lt;/div&gt; 
+  &lt;/div&gt; 
+  &lt;script type="text/javascript"&gt;
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    &lt;/script&gt;  
+  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
+ &lt;/body&gt;
+&lt;/html&gt;</description>
+      <pubDate>Sat, 12 Feb 2022 16:00:00 GMT</pubDate>
+      <guid>http://afoo.me/posts/2022-02-13-feedback-matters-a-lot.html</guid>
+      <dc:date>2022-02-12T16:00:00Z</dc:date>
+    </item>
+    <item>
       <title>为什么我认为阿里很难再起飞</title>
       <link>http://afoo.me/posts/2022-02-09-why-ali-is-hard-to-rise-again.html</link>
       <description>&lt;!doctype html&gt;
@@ -1156,127 +1272,6 @@ gitalk.render('comments')
       <pubDate>Tue, 11 Jan 2022 16:00:00 GMT</pubDate>
       <guid>http://afoo.me/posts/2022-01-12-typical-annoyings-of-CTO.html</guid>
       <dc:date>2022-01-11T16:00:00Z</dc:date>
-    </item>
-    <item>
-      <title>关于老友CEO任上经历二次挫折的若干意见</title>
-      <link>http://afoo.me/posts/2022-01-11-delimma-of-ceo.html</link>
-      <description>&lt;!doctype html&gt;
-&lt;html lang="zh"&gt; 
- &lt;head&gt; 
-  &lt;meta charset="utf-8"&gt; 
-  &lt;meta name="keywords" content="关于老友CEO任上经历二次挫折的若干意见 - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
-  &lt;meta name="description" content="关于老友CEO任上经历二次挫折的若干意见 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
-  &lt;meta name="author" content="王福强"&gt; 
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
-  &lt;title&gt;关于老友CEO任上经历二次挫折的若干意见 - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
-  &lt;meta name="date" content="2022-01-11"&gt; 
-  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
-  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
-  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
-  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
-  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
-  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
-  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
-  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
-  &lt;script&gt;
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    &lt;/script&gt; 
- &lt;/head&gt; 
- &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
-  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
-   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
-    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
-     &lt;ul class="navbar-nav ml-auto"&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的著作&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
-     &lt;/ul&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/nav&gt; 
-  &lt;section&gt; 
-   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
-    &lt;p class="lead"&gt; &lt;/p&gt;
-    &lt;h1 class="title"&gt;关于老友CEO任上经历二次挫折的若干意见&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2022-01-11 &lt;/small&gt; 
-    &lt;p&gt;&lt;/p&gt; 
-    &lt;hr&gt; 
-    &lt;ul&gt; 
-     &lt;li&gt;&lt;a href="#双方认知错配"&gt;&lt;span class="toc-section-number"&gt;1&lt;/span&gt; 双方认知错配&lt;/a&gt;&lt;/li&gt; 
-     &lt;li&gt;&lt;a href="#利益需分内外"&gt;&lt;span class="toc-section-number"&gt;2&lt;/span&gt; 利益需分内外&lt;/a&gt;&lt;/li&gt; 
-     &lt;li&gt;&lt;a href="#历史进程与个人努力"&gt;&lt;span class="toc-section-number"&gt;3&lt;/span&gt; 历史进程与个人努力&lt;/a&gt;&lt;/li&gt; 
-    &lt;/ul&gt; 
-    &lt;hr&gt; 
-    &lt;p&gt;老友已经做过两家近独角兽级别公司的CEO了， 但两次任上折戟，今天又跟我说公司层面有变动，比较悲观，其实我觉得没有必要，出现失败和挫折是正常的，看开点儿就好了，比较悲观的原因是之前太顺利，对人性关注不够， 为什么这么说呢？&lt;/p&gt; 
-    &lt;p&gt;我的意见分三个部分阐述…&lt;/p&gt; 
-    &lt;h1 data-number="1" id="双方认知错配"&gt;&lt;span class="header-section-number"&gt;1&lt;/span&gt; 双方认知错配&lt;/h1&gt; 
-    &lt;p&gt;经历过大厂和正规机构的人， 与没有经历大厂和正规机构的人，彼此认知上是有错配的，这种错配就很容易造成双方的情绪冲突，进而导致合作的失败。尤其是当前者碰到后者，而后者又掌握资源与主导权的时候，往往更容易出现交恶。&lt;/p&gt; 
-    &lt;p&gt;这种经常出现在大厂和正规机构的人“向下”适配SMB市场的时候。&lt;/p&gt; 
-    &lt;h1 data-number="2" id="利益需分内外"&gt;&lt;span class="header-section-number"&gt;2&lt;/span&gt; 利益需分内外&lt;/h1&gt; 
-    &lt;p&gt;董事长的家室一定不要参合，不管表面上看他们家族内部有多么分崩离析，也不管董事长自己嘴上怎么说，很多公司发展到今天，不是靠按照公司法正规经营起来的，也不是靠董事长认知和格局有多高做起来的，而是各种利益纠葛与家族利益搞起来的，所以，公私不分很正常，一定不要用现代公司的标准去要求TA，更不要用高标准高预期去期望TA。&lt;/p&gt; 
-    &lt;p&gt;与这种背景起来的老总打交道， 首先就是接受TA的局限性，少干预TA家的私人关系领地，做好自己能做的就好了。&lt;/p&gt; 
-    &lt;p&gt;过去皇帝的家事儿都得设立独立机构去管理，你就不用说每家公司老总背后的那些家事儿了，一句话，别掺和。&lt;/p&gt; 
-    &lt;p&gt;另外就是，很多老总其实很难理解“TA挣TA的那部分，别人挣别人该挣的那部分”的道理。&lt;/p&gt; 
-    &lt;h1 data-number="3" id="历史进程与个人努力"&gt;&lt;span class="header-section-number"&gt;3&lt;/span&gt; 历史进程与个人努力&lt;/h1&gt; 
-    &lt;p&gt;互联网这二三十年的发展太顺了，顺的让人分不清楚是个人能力和努力才让自己走的那么顺，还是历史进程让自己走的那么顺。&lt;/p&gt; 
-    &lt;p&gt;超前的经历与过高的预期，碰到外围的泥沼地，肯定遭遇挫折的几率高很多，方向不同，境遇和体验不同， 看开就好了。&lt;/p&gt; 
-    &lt;p&gt;糖水喝惯了，喝点儿苦水会觉得天塌下来；&lt;/p&gt; 
-    &lt;p&gt;苦水喝惯了，喝点儿糖水会觉得天儿真tmd好；&lt;/p&gt; 
-    &lt;p&gt;其实只是预期的差异，无关糖水还是苦水，；）&lt;/p&gt; 
-    &lt;p&gt;换下思路和方向，没啥大不了的！&lt;/p&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
-    &lt;hr&gt; 
-    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
-    &lt;/div&gt; 
-    &lt;div id="random_posts"&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2007-11-08-BF4768EE8B110260_691.html"&gt;栽了，呵呵&lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2021-09-27-dillema-of-processes.html"&gt;流程悖论 &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-06-10-harward-negotiating-training-note.html"&gt;Harward Negotiating Training Note &lt;/a&gt; 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
-    &lt;div id="comments"&gt;&lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;div class="text-center"&gt; 
-     &lt;img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/section&gt; 
-  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
-   ©王福强个人版权所有, All Rights Reserved.
-  &lt;/div&gt; 
-  &lt;div class="copyright py-4 text-center text-white"&gt; 
-   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
-   &lt;/div&gt; 
-  &lt;/div&gt; 
-  &lt;script type="text/javascript"&gt;
-var gitalk = new Gitalk({
-  clientID: '518a605d711883414ac0',
-  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-  repo: 'afoo.me.comments',
-  owner: 'fujohnwang',
-  admin: ['fujohnwang'],
-  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-  distractionFreeMode: false  // Facebook-like distraction free mode
-})
-
-gitalk.render('comments')
-    &lt;/script&gt;  
-  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
- &lt;/body&gt;
-&lt;/html&gt;</description>
-      <pubDate>Mon, 10 Jan 2022 16:00:00 GMT</pubDate>
-      <guid>http://afoo.me/posts/2022-01-11-delimma-of-ceo.html</guid>
-      <dc:date>2022-01-10T16:00:00Z</dc:date>
     </item>
   </channel>
 </rss>

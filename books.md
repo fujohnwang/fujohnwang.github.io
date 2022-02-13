@@ -41,7 +41,7 @@
 
 **购买渠道**
 
-- [直接购买](https://afoo.me/afpay/?id=tbh)
+<!-- - [直接购买](https://afoo.me/afpay/?id=tbh) -->
 - [去面包多购买](https://mianbaoduo.com/o/fgg)
 - [去Gumroad购买](https://gum.co/uLPkW)
 
