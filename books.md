@@ -45,9 +45,18 @@
 - [去面包多购买](https://mianbaoduo.com/o/fgg)
 - [去Gumroad购买](https://gum.co/uLPkW)
 
+
 ---
 
 [免费试读](books/技术_商业与人-免费试读.pdf)部分章节
+
+
+# 《技术、商业与人(II)》
+
+如若要试读，可以关注公众号：'福强'，然后点击菜单选择“试读尝鲜” ^-^
+
+![](images/qrcode_for_gh_4fe672b2e860_430.jpg)
+
 
 # 《极简管理课》
 
@@ -76,6 +85,10 @@
 
 另附"*InfoQ 大咖说*"上有关管理的个人分享([视频回放](https://youtu.be/tIPwf7KKinc))
 
+> NOTE
+> 
+> 实际上，本书中所提及的内容并非普遍适用，甚至可以说对于大部分中国企业来说并不适用，只有你个人追求进取而且企业自身也追求进取的情况下，本书中的内容或许才有价值。
+> 
 <!-- [![](images/mgt_talk_cover.jpg)](https://youtu.be/tIPwf7KKinc) -->
 
 # 《坑获》
