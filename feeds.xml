@@ -5,6 +5,461 @@
     <link>http://afoo.me</link>
     <description>福强说 - 王福强的博客 - 一个架构士的思考与实践之地</description>
     <item>
+      <title>Svelte with tailwind and daisyui</title>
+      <link>http://afoo.me/posts/2022-03-09-svelte_with_tailwind_and_daisyui.html</link>
+      <description>&lt;!doctype html&gt;
+&lt;html lang="zh"&gt; 
+ &lt;head&gt; 
+  &lt;meta charset="utf-8"&gt; 
+  &lt;meta name="keywords" content="Svelte with tailwind and daisyui - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
+  &lt;meta name="description" content="Svelte with tailwind and daisyui - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
+  &lt;meta name="author" content="王福强"&gt; 
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
+  &lt;title&gt;Svelte with tailwind and daisyui - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
+  &lt;meta name="date" content="2022-03-09"&gt; 
+  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
+  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
+  &lt;style type="text/css"&gt;
+    pre &gt; code.sourceCode { white-space: pre; position: relative; }
+    pre &gt; code.sourceCode &gt; span { display: inline-block; line-height: 1.25; }
+    pre &gt; code.sourceCode &gt; span:empty { height: 1.2em; }
+    code.sourceCode &gt; span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre &gt; code.sourceCode { white-space: pre-wrap; }
+    pre &gt; code.sourceCode &gt; span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code &gt; span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code &gt; span &gt; a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre &gt; code.sourceCode &gt; span &gt; a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  &lt;/style&gt; 
+  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
+  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
+  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
+  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
+  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
+  &lt;script&gt;
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    &lt;/script&gt; 
+ &lt;/head&gt; 
+ &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
+  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
+   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
+    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
+     &lt;ul class="navbar-nav ml-auto"&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的著作&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
+     &lt;/ul&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/nav&gt; 
+  &lt;section&gt; 
+   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
+    &lt;p class="lead"&gt; &lt;/p&gt;
+    &lt;h1 class="title"&gt;Svelte with tailwind and daisyui&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2022-03-09 &lt;/small&gt; 
+    &lt;p&gt;&lt;/p&gt; 
+    &lt;hr&gt; 
+    &lt;p&gt;要在svelte里使用tailwind和daisyui， 首先我们要安装依赖：&lt;/p&gt; 
+    &lt;div class="sourceCode" id="cb1"&gt;
+     &lt;pre class="sourceCode bash"&gt;&lt;code class="sourceCode bash"&gt;&lt;span id="cb1-1"&gt;&lt;a href="#cb1-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="ex"&gt;npx&lt;/span&gt; degit sveltejs/template __prj__&lt;/span&gt;
+&lt;span id="cb1-2"&gt;&lt;a href="#cb1-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="ex"&gt;npm&lt;/span&gt; install -D tailwindcss daisyui postcss autoprefixer svelte-preprocess&lt;/span&gt;
+&lt;span id="cb1-3"&gt;&lt;a href="#cb1-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="ex"&gt;npm&lt;/span&gt; install&lt;/span&gt;
+&lt;span id="cb1-4"&gt;&lt;a href="#cb1-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="ex"&gt;npx&lt;/span&gt; tailwindcss init&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt; 
+    &lt;p&gt;然后我们开始配置…&lt;/p&gt; 
+    &lt;p&gt;配置tailwind.config.js(这个文件已经由&lt;code&gt;npx tailwindcss init&lt;/code&gt;创建):&lt;/p&gt; 
+    &lt;div class="sourceCode" id="cb2"&gt;
+     &lt;pre class="sourceCode js"&gt;&lt;code class="sourceCode javascript"&gt;&lt;span id="cb2-1"&gt;&lt;a href="#cb2-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;module&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;exports&lt;/span&gt; &lt;span class="op"&gt;=&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb2-2"&gt;&lt;a href="#cb2-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="dt"&gt;content&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; [&lt;span class="st"&gt;'./src/**/*.{svelte,js,ts}'&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;'./public/index.html'&lt;/span&gt;]&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-3"&gt;&lt;a href="#cb2-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="dt"&gt;plugins&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; [&lt;span class="pp"&gt;require&lt;/span&gt;(&lt;span class="st"&gt;'daisyui'&lt;/span&gt;)]&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-4"&gt;&lt;a href="#cb2-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="dt"&gt;future&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb2-5"&gt;&lt;a href="#cb2-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="dt"&gt;purgeLayersByDefault&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="kw"&gt;true&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-6"&gt;&lt;a href="#cb2-6" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="dt"&gt;removeDeprecatedGapUtilities&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="kw"&gt;true&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-7"&gt;&lt;a href="#cb2-7" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    }&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-8"&gt;&lt;a href="#cb2-8" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="dt"&gt;purge&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb2-9"&gt;&lt;a href="#cb2-9" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="dt"&gt;content&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; [&lt;span class="st"&gt;'./src/**/*.{svelte,js,ts}'&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;'./public/index.html'&lt;/span&gt;]&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-10"&gt;&lt;a href="#cb2-10" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="dt"&gt;enabled&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="kw"&gt;true&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-11"&gt;&lt;a href="#cb2-11" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    }&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-12"&gt;&lt;a href="#cb2-12" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;}&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt; 
+    &lt;p&gt;配置rollup.config.js：&lt;/p&gt; 
+    &lt;div class="sourceCode" id="cb3"&gt;
+     &lt;pre class="sourceCode js"&gt;&lt;code class="sourceCode javascript"&gt;&lt;span id="cb3-1"&gt;&lt;a href="#cb3-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="im"&gt;import&lt;/span&gt; sveltePreprocess &lt;span class="im"&gt;from&lt;/span&gt; &lt;span class="st"&gt;'svelte-preprocess'&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-2"&gt;&lt;a href="#cb3-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="op"&gt;...&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-3"&gt;&lt;a href="#cb3-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb3-4"&gt;&lt;a href="#cb3-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;plugins&lt;span class="op"&gt;:&lt;/span&gt; [&lt;/span&gt;
+&lt;span id="cb3-5"&gt;&lt;a href="#cb3-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="fu"&gt;svelte&lt;/span&gt;({&lt;/span&gt;
+&lt;span id="cb3-6"&gt;&lt;a href="#cb3-6" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="dt"&gt;preprocess&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="fu"&gt;sveltePreprocess&lt;/span&gt;({&lt;/span&gt;
+&lt;span id="cb3-7"&gt;&lt;a href="#cb3-7" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;                &lt;span class="dt"&gt;sourceMap&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="op"&gt;!&lt;/span&gt;production&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-8"&gt;&lt;a href="#cb3-8" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;                &lt;span class="dt"&gt;postcss&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb3-9"&gt;&lt;a href="#cb3-9" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;                    &lt;span class="dt"&gt;plugins&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; [&lt;span class="pp"&gt;require&lt;/span&gt;(&lt;span class="st"&gt;'tailwindcss'&lt;/span&gt;)()&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="pp"&gt;require&lt;/span&gt;(&lt;span class="st"&gt;'autoprefixer'&lt;/span&gt;)()]&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-10"&gt;&lt;a href="#cb3-10" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;                }&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-11"&gt;&lt;a href="#cb3-11" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            })&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-12"&gt;&lt;a href="#cb3-12" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="op"&gt;...&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-13"&gt;&lt;a href="#cb3-13" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        })&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-14"&gt;&lt;a href="#cb3-14" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="op"&gt;...&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt; 
+    &lt;p&gt;最后，在顶层的.svelte文件（比如App.svelte）里添加如下内容：&lt;/p&gt; 
+    &lt;div class="sourceCode" id="cb4"&gt;
+     &lt;pre class="sourceCode html"&gt;&lt;code class="sourceCode html"&gt;&lt;span id="cb4-1"&gt;&lt;a href="#cb4-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;&amp;lt;style&lt;/span&gt;&lt;span class="ot"&gt; lang=&lt;/span&gt;&lt;span class="st"&gt;"postcss"&lt;/span&gt;&lt;span class="ot"&gt; global&lt;/span&gt;&lt;span class="kw"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-2"&gt;&lt;a href="#cb4-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="im"&gt;@tailwind&lt;/span&gt; base&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-3"&gt;&lt;a href="#cb4-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="im"&gt;@tailwind&lt;/span&gt; components&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-4"&gt;&lt;a href="#cb4-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="im"&gt;@tailwind&lt;/span&gt; utilities&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-5"&gt;&lt;a href="#cb4-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;&amp;lt;/style&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt; 
+    &lt;p&gt;好啦，直接像往常那样&lt;code&gt;npm run dev&lt;/code&gt;就可以开玩了，svelte配合上tailwind和daisyui，绝配！&lt;/p&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
+    &lt;hr&gt; 
+    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
+    &lt;/div&gt; 
+    &lt;div id="random_posts"&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2007-10-09-before-going-home.html"&gt;回家之前 &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2021-09-27-dillema-of-processes.html"&gt;流程悖论 &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2012-04-09-playing-bittorrent-with-ttorrent.html"&gt;“Playing BitTorrent with ttorrent” &lt;/a&gt; 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
+    &lt;div id="comments"&gt;&lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;div class="text-center"&gt; 
+     &lt;img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/section&gt; 
+  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
+   ©王福强个人版权所有, All Rights Reserved.
+  &lt;/div&gt; 
+  &lt;div class="copyright py-4 text-center text-white"&gt; 
+   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
+   &lt;/div&gt; 
+  &lt;/div&gt; 
+  &lt;script type="text/javascript"&gt;
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    &lt;/script&gt;  
+  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
+ &lt;/body&gt;
+&lt;/html&gt;</description>
+      <pubDate>Tue, 08 Mar 2022 16:00:00 GMT</pubDate>
+      <guid>http://afoo.me/posts/2022-03-09-svelte_with_tailwind_and_daisyui.html</guid>
+      <dc:date>2022-03-08T16:00:00Z</dc:date>
+    </item>
+    <item>
+      <title>从Threejs到Svelte-Cubed</title>
+      <link>http://afoo.me/posts/2022-03-07-intro-svelte-cubed.html</link>
+      <description>&lt;!doctype html&gt;
+&lt;html lang="zh"&gt; 
+ &lt;head&gt; 
+  &lt;meta charset="utf-8"&gt; 
+  &lt;meta name="keywords" content="从Threejs到Svelte-Cubed - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
+  &lt;meta name="description" content="从Threejs到Svelte-Cubed - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
+  &lt;meta name="author" content="王福强"&gt; 
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
+  &lt;title&gt;从Threejs到Svelte-Cubed - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
+  &lt;meta name="date" content="2022-03-07"&gt; 
+  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
+  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
+  &lt;style type="text/css"&gt;
+    pre &gt; code.sourceCode { white-space: pre; position: relative; }
+    pre &gt; code.sourceCode &gt; span { display: inline-block; line-height: 1.25; }
+    pre &gt; code.sourceCode &gt; span:empty { height: 1.2em; }
+    code.sourceCode &gt; span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre &gt; code.sourceCode { white-space: pre-wrap; }
+    pre &gt; code.sourceCode &gt; span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code &gt; span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code &gt; span &gt; a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre &gt; code.sourceCode &gt; span &gt; a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  &lt;/style&gt; 
+  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
+  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
+  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
+  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
+  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
+  &lt;script&gt;
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    &lt;/script&gt; 
+ &lt;/head&gt; 
+ &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
+  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
+   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
+    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
+     &lt;ul class="navbar-nav ml-auto"&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的著作&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
+     &lt;/ul&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/nav&gt; 
+  &lt;section&gt; 
+   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
+    &lt;p class="lead"&gt; &lt;/p&gt;
+    &lt;h1 class="title"&gt;从Threejs到Svelte-Cubed&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2022-03-07 &lt;/small&gt; 
+    &lt;p&gt;&lt;/p&gt; 
+    &lt;hr&gt; 
+    &lt;p&gt;数字世界如果继续升级换代， 3D的普及应该是一个大的方向，2021年开始火热的元宇宙概念，其实也是3D继续一展拳脚的地方，当然， 配合AI、云计算等基础设施，可以进一步丰富3D世界的建设与绚丽。&lt;/p&gt; 
+    &lt;p&gt;要构建3D世界，已经有很多作业工具可以选用，毕竟， 3D建模也不是什么新鲜的事务了，传统的3D建模工具基于系统的能力， 新一代的3D建模工具则直接基于Web，那基于Web构建3D世界，依赖的主要是什么呢？ 答案是WebGL（2022年可以关注WebGPU），而WebGL则是基于OpenGL等系统级API构建， 而传统的工具恰恰都是基于OpenGL这些API构建的。&lt;/p&gt; 
+    &lt;p&gt;WebGL使用称之为GLSL的编程语言编写图形渲染程序 &lt;a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;，这些程序一般成为shader(s)，它们一般会被交给GPU去执行。编写GLSL不是什么赏心悦目的事情，大部分情况， 除非需要工业级精细和精密建模需要，我们一般会选择使用threejs来编写WebGL程序，我们可以把threejs理解成js当年的jquery， 它可以极大简化编写WebGL程序的难度。&lt;/p&gt; 
+    &lt;p&gt;一个threejs程序通常由以下几个部分组成：&lt;/p&gt; 
+    &lt;p&gt;&lt;img src="images/threejs_concepts.png"&gt;&lt;/p&gt; 
+    &lt;p&gt;Meshes以下我们都可以理解成组成3D实体的部件， 一个Mesh通常由一个Geometry+一个或者多个Materials组成。&lt;/p&gt; 
+    &lt;p&gt;所有的Meshes添加到Scene组成一个SceneGraph然后跟Camera一起通过Renderer渲染到DOM的某个Canvas上。&lt;/p&gt; 
+    &lt;p&gt;空说无凭，让我Show you code：&lt;/p&gt; 
+    &lt;div class="sourceCode" id="cb1"&gt;
+     &lt;pre class="sourceCode html"&gt;&lt;code class="sourceCode html"&gt;&lt;span id="cb1-1"&gt;&lt;a href="#cb1-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="dt"&gt;&amp;lt;!DOCTYPE &lt;/span&gt;html&lt;span class="dt"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-2"&gt;&lt;a href="#cb1-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;&amp;lt;html&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-3"&gt;&lt;a href="#cb1-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;&amp;lt;head&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-4"&gt;&lt;a href="#cb1-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="kw"&gt;&amp;lt;meta&lt;/span&gt;&lt;span class="ot"&gt; charset=&lt;/span&gt;&lt;span class="st"&gt;"utf-8"&lt;/span&gt;&lt;span class="kw"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-5"&gt;&lt;a href="#cb1-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="kw"&gt;&amp;lt;title&amp;gt;&lt;/span&gt;My first three.js app&lt;span class="kw"&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-6"&gt;&lt;a href="#cb1-6" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="kw"&gt;&amp;lt;style&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-7"&gt;&lt;a href="#cb1-7" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            body { &lt;span class="kw"&gt;margin&lt;/span&gt;: &lt;span class="dv"&gt;0&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt; }&lt;/span&gt;
+&lt;span id="cb1-8"&gt;&lt;a href="#cb1-8" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="kw"&gt;&amp;lt;/style&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-9"&gt;&lt;a href="#cb1-9" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="kw"&gt;&amp;lt;script&lt;/span&gt;&lt;span class="ot"&gt; src=&lt;/span&gt;&lt;span class="st"&gt;"three.js"&lt;/span&gt;&lt;span class="kw"&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-10"&gt;&lt;a href="#cb1-10" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;&amp;lt;/head&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-11"&gt;&lt;a href="#cb1-11" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;&amp;lt;body&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-12"&gt;&lt;a href="#cb1-12" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="kw"&gt;&amp;lt;script&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-13"&gt;&lt;a href="#cb1-13" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="kw"&gt;const&lt;/span&gt; scene &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="kw"&gt;new&lt;/span&gt; THREE&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;Scene&lt;/span&gt;()&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-14"&gt;&lt;a href="#cb1-14" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="kw"&gt;const&lt;/span&gt; camera &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="kw"&gt;new&lt;/span&gt; THREE&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;PerspectiveCamera&lt;/span&gt;( &lt;span class="dv"&gt;75&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="bu"&gt;window&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;innerWidth&lt;/span&gt; &lt;span class="op"&gt;/&lt;/span&gt; &lt;span class="bu"&gt;window&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;innerHeight&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="fl"&gt;0.1&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="dv"&gt;1000&lt;/span&gt; )&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-15"&gt;&lt;a href="#cb1-15" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="kw"&gt;const&lt;/span&gt; renderer &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="kw"&gt;new&lt;/span&gt; THREE&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;WebGLRenderer&lt;/span&gt;({&lt;span class="dt"&gt;antialias&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="kw"&gt;true&lt;/span&gt;})&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-16"&gt;&lt;a href="#cb1-16" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            renderer&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;setSize&lt;/span&gt;( &lt;span class="bu"&gt;window&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;innerWidth&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="bu"&gt;window&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;innerHeight&lt;/span&gt; )&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-17"&gt;&lt;a href="#cb1-17" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="bu"&gt;document&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;body&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;appendChild&lt;/span&gt;( renderer&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;domElement&lt;/span&gt; )&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-18"&gt;&lt;a href="#cb1-18" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;/span&gt;
+&lt;span id="cb1-19"&gt;&lt;a href="#cb1-19" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="kw"&gt;const&lt;/span&gt; geometry &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="kw"&gt;new&lt;/span&gt; THREE&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;ConeGeometry&lt;/span&gt;(&lt;span class="dv"&gt;3&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt;&lt;span class="dv"&gt;3&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt;&lt;span class="dv"&gt;3&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-20"&gt;&lt;a href="#cb1-20" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="kw"&gt;const&lt;/span&gt; material &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="kw"&gt;new&lt;/span&gt; THREE&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;MeshNormalMaterial&lt;/span&gt;( { &lt;span class="dt"&gt;color&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="bn"&gt;0x3883F8&lt;/span&gt; } )&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-21"&gt;&lt;a href="#cb1-21" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="kw"&gt;const&lt;/span&gt; cube&lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="kw"&gt;new&lt;/span&gt; THREE&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;Mesh&lt;/span&gt;( geometry&lt;span class="op"&gt;,&lt;/span&gt; [material&lt;span class="op"&gt;,&lt;/span&gt;material] )&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-22"&gt;&lt;a href="#cb1-22" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            scene&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;add&lt;/span&gt;( cube )&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-23"&gt;&lt;a href="#cb1-23" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb1-24"&gt;&lt;a href="#cb1-24" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            camera&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;position&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;z&lt;/span&gt; &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="dv"&gt;5&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-25"&gt;&lt;a href="#cb1-25" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb1-26"&gt;&lt;a href="#cb1-26" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="kw"&gt;const&lt;/span&gt; light &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="kw"&gt;new&lt;/span&gt; THREE&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;AmbientLight&lt;/span&gt;( &lt;span class="bn"&gt;0x404040&lt;/span&gt; )&lt;span class="op"&gt;;&lt;/span&gt; &lt;span class="co"&gt;// soft white light&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-27"&gt;&lt;a href="#cb1-27" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            scene&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;add&lt;/span&gt;( light )&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-28"&gt;&lt;a href="#cb1-28" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb1-29"&gt;&lt;a href="#cb1-29" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="kw"&gt;var&lt;/span&gt; pointLight &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="kw"&gt;new&lt;/span&gt; THREE&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;PointLight&lt;/span&gt;( &lt;span class="bn"&gt;0xffffff&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="dv"&gt;1&lt;/span&gt; )&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-30"&gt;&lt;a href="#cb1-30" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            pointLight&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;position&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;set&lt;/span&gt;( &lt;span class="dv"&gt;25&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="dv"&gt;50&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="dv"&gt;25&lt;/span&gt; )&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-31"&gt;&lt;a href="#cb1-31" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            scene&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;add&lt;/span&gt;( pointLight )&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-32"&gt;&lt;a href="#cb1-32" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb1-33"&gt;&lt;a href="#cb1-33" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="kw"&gt;function&lt;/span&gt; &lt;span class="fu"&gt;animate&lt;/span&gt;() {&lt;/span&gt;
+&lt;span id="cb1-34"&gt;&lt;a href="#cb1-34" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;                &lt;span class="fu"&gt;requestAnimationFrame&lt;/span&gt;( animate )&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-35"&gt;&lt;a href="#cb1-35" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;                &lt;/span&gt;
+&lt;span id="cb1-36"&gt;&lt;a href="#cb1-36" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;                cube&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;rotation&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;y&lt;/span&gt; &lt;span class="op"&gt;+=&lt;/span&gt; &lt;span class="fl"&gt;0.01&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-37"&gt;&lt;a href="#cb1-37" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;                renderer&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;render&lt;/span&gt;( scene&lt;span class="op"&gt;,&lt;/span&gt; camera )&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-38"&gt;&lt;a href="#cb1-38" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            }&lt;/span&gt;
+&lt;span id="cb1-39"&gt;&lt;a href="#cb1-39" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="fu"&gt;animate&lt;/span&gt;()&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-40"&gt;&lt;a href="#cb1-40" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="kw"&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-41"&gt;&lt;a href="#cb1-41" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-42"&gt;&lt;a href="#cb1-42" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt; 
+    &lt;p&gt;如果我打开这个页面，就可以看到一个旋转的三角了（当然，你也可以点击下面的图片&lt;a href="https://afoo.me/demo/threejs/"&gt;直接看效果&lt;/a&gt;）：&lt;/p&gt; 
+    &lt;p&gt;&lt;a href="https://afoo.me/demo/threejs/"&gt;&lt;img src="images/63141646660058_.pic.jpg"&gt;&lt;/a&gt;&lt;/p&gt; 
+    &lt;p&gt;这虽然是最简单的threejs程序了，但依然有很多概念需要理解，比如我们向Scene了添加了Light， 我们把Camera的位置重新设置， 我们通过requestAnimationFrame来调度渲染等。&lt;/p&gt; 
+    &lt;p&gt;不过，一旦理解了threejs的基础概念和API支持，再使用svelte-cubed来开发就更加方便了。&lt;/p&gt; 
+    &lt;p&gt;svelte-cubed是svelte框架 &lt;a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;作者Rich Harris开发的实验性类库（当前状态）， 它延续了svelte的理念，通过声明式(declaritive)组件的方式来构建threejs应用，比如，上面的demo通过svelte-cubed重构之后就很简单了：&lt;/p&gt; 
+    &lt;div class="sourceCode" id="cb2"&gt;
+     &lt;pre class="sourceCode html"&gt;&lt;code class="sourceCode html"&gt;&lt;span id="cb2-1"&gt;&lt;a href="#cb2-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;import * as THREE from 'three';&lt;/span&gt;
+&lt;span id="cb2-2"&gt;&lt;a href="#cb2-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;import * as SC from 'svelte-cubed';&lt;/span&gt;
+&lt;span id="cb2-3"&gt;&lt;a href="#cb2-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb2-4"&gt;&lt;a href="#cb2-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;&amp;lt;SC.Canvas&lt;/span&gt;&lt;span class="ot"&gt; antialias background=&lt;/span&gt;&lt;span class="st"&gt;{new&lt;/span&gt;&lt;span class="ot"&gt; THREE.Color&lt;/span&gt;&lt;span class="er"&gt;('papayawhip')}&lt;/span&gt;&lt;span class="ot"&gt; shadows fog=&lt;/span&gt;&lt;span class="st"&gt;{new&lt;/span&gt;&lt;span class="ot"&gt; THREE.FogExp2&lt;/span&gt;&lt;span class="er"&gt;('papayawhip',&lt;/span&gt; &lt;span class="er"&gt;0.1)}&lt;/span&gt;&lt;span class="kw"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-5"&gt;&lt;a href="#cb2-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="kw"&gt;&amp;lt;SC.Mesh&lt;/span&gt;&lt;span class="ot"&gt; geometry=&lt;/span&gt;&lt;span class="st"&gt;{new&lt;/span&gt;&lt;span class="ot"&gt; THREE.ConeGeometry&lt;/span&gt;&lt;span class="er"&gt;()}&lt;/span&gt;&lt;span class="ot"&gt; position=&lt;/span&gt;&lt;span class="st"&gt;{[3,&lt;/span&gt; &lt;span class="er"&gt;3,&lt;/span&gt; &lt;span class="er"&gt;3]}&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-6"&gt;&lt;a href="#cb2-6" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="ot"&gt;             material=&lt;/span&gt;&lt;span class="st"&gt;{new&lt;/span&gt;&lt;span class="ot"&gt; THREE.MeshNormalMaterial&lt;/span&gt;&lt;span class="er"&gt;({&lt;/span&gt;&lt;span class="ot"&gt; color:&lt;/span&gt; &lt;span class="er"&gt;0x3883F8&lt;/span&gt; &lt;span class="er"&gt;})}&lt;/span&gt;&lt;span class="kw"&gt;/&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-7"&gt;&lt;a href="#cb2-7" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;&amp;lt;SC.PerspectiveCamera&lt;/span&gt;&lt;span class="ot"&gt; position=&lt;/span&gt;&lt;span class="st"&gt;{[0,&lt;/span&gt; &lt;span class="er"&gt;0,&lt;/span&gt; &lt;span class="er"&gt;5]}&lt;/span&gt;&lt;span class="kw"&gt;/&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-8"&gt;&lt;a href="#cb2-8" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;&amp;lt;SC.OrbitControls&lt;/span&gt;&lt;span class="ot"&gt; enableZoom=&lt;/span&gt;&lt;span class="st"&gt;{true}&lt;/span&gt;&lt;span class="ot"&gt; maxPolarAngle=&lt;/span&gt;&lt;span class="st"&gt;{Math.PI&lt;/span&gt;&lt;span class="ot"&gt; *&lt;/span&gt; &lt;span class="er"&gt;0.51}&lt;/span&gt;&lt;span class="kw"&gt;/&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-9"&gt;&lt;a href="#cb2-9" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;&amp;lt;SC.AmbientLight&lt;/span&gt;&lt;span class="ot"&gt; intensity=&lt;/span&gt;&lt;span class="st"&gt;{0.6}&lt;/span&gt;&lt;span class="kw"&gt;/&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-10"&gt;&lt;a href="#cb2-10" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;&amp;lt;SC.PointLight&lt;/span&gt; &lt;span class="er"&gt;...&lt;/span&gt;&lt;span class="kw"&gt;/&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-11"&gt;&lt;a href="#cb2-11" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;&amp;lt;/SC.Canvas&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt; 
+    &lt;p&gt;附带着，通过引入一行&lt;code&gt;&amp;lt;SC.OrbitControls enableZoom={true}/&amp;gt;&lt;/code&gt;我们就可以通过鼠标与3D实体和场景进行交互 &lt;a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"&gt;&lt;sup&gt;3&lt;/sup&gt;&lt;/a&gt;。&lt;/p&gt; 
+    &lt;p&gt;另一个好处就是，借着Svelte的编译，我们顺道还完成了treeshaking，把不需要的js依赖去除掉了，用户加载的资源更少，自然也就更快。&lt;/p&gt; 
+    &lt;p&gt;没骗你吧？ svelte-cubed是不是让threejs更简单？&lt;/p&gt; 
+    &lt;p&gt;当然，svelte-cubed因为还是在试验期，不够成熟和完善，所以，文档方面完成度也不高，很多组件如果要深入了解只能自己读代码，但个人感觉理念很好，期望它能尽快完善起来啦~&lt;/p&gt; 
+    &lt;section class="footnotes" role="doc-endnotes"&gt; 
+     &lt;hr&gt; 
+     &lt;ol&gt; 
+      &lt;li id="fn1" role="doc-endnote"&gt;&lt;p&gt;GLSL全称为Open&lt;strong&gt;GL&lt;/strong&gt; &lt;strong&gt;S&lt;/strong&gt;hading &lt;strong&gt;L&lt;/strong&gt;anguage&lt;a href="#fnref1" class="footnote-back" role="doc-backlink"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt; 
+      &lt;li id="fn2" role="doc-endnote"&gt;&lt;p&gt;啥？你不知道svelte框架是啥？那我就不得不王婆卖瓜了，可以看看我写的&lt;a href="https://afoo.me/books.html"&gt;Simple Svelte&lt;/a&gt;&lt;a href="#fnref2" class="footnote-back" role="doc-backlink"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt; 
+      &lt;li id="fn3" role="doc-endnote"&gt;&lt;p&gt;&lt;a href="https://keevol.cn/cubed/index.html"&gt;这里&lt;/a&gt;有一个使用svelte-cubed开发的简单3D应用&lt;a href="#fnref3" class="footnote-back" role="doc-backlink"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt; 
+     &lt;/ol&gt; 
+    &lt;/section&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
+    &lt;hr&gt; 
+    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
+    &lt;/div&gt; 
+    &lt;div id="random_posts"&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2008-04-05-also-about-movies.html"&gt;达伦谈电影&lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2020-10-25-saas-evolution-path.html"&gt;我对SaaS产品研发的些许观点分享 &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2019-12-19-about-value-to-everyone.html"&gt;价值与公平 &lt;/a&gt; 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
+    &lt;div id="comments"&gt;&lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;div class="text-center"&gt; 
+     &lt;img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/section&gt; 
+  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
+   ©王福强个人版权所有, All Rights Reserved.
+  &lt;/div&gt; 
+  &lt;div class="copyright py-4 text-center text-white"&gt; 
+   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
+   &lt;/div&gt; 
+  &lt;/div&gt; 
+  &lt;script type="text/javascript"&gt;
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    &lt;/script&gt;  
+  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
+ &lt;/body&gt;
+&lt;/html&gt;</description>
+      <pubDate>Sun, 06 Mar 2022 16:00:00 GMT</pubDate>
+      <guid>http://afoo.me/posts/2022-03-07-intro-svelte-cubed.html</guid>
+      <dc:date>2022-03-06T16:00:00Z</dc:date>
+    </item>
+    <item>
       <title>我的PKM理念与Keenotes产品实践</title>
       <link>http://afoo.me/posts/2022-02-15-keenotes-and-PKM.html</link>
       <description>&lt;!doctype html&gt;
@@ -1046,247 +1501,6 @@ gitalk.render('comments')
       <pubDate>Wed, 19 Jan 2022 16:00:00 GMT</pubDate>
       <guid>http://afoo.me/posts/2022-01-20-invest-driven-days-no-more.html</guid>
       <dc:date>2022-01-19T16:00:00Z</dc:date>
-    </item>
-    <item>
-      <title>坑获：用户的习惯岂是你想改就能改</title>
-      <link>http://afoo.me/posts/2022-01-19-kenghuo-habit-momentum.html</link>
-      <description>&lt;!doctype html&gt;
-&lt;html lang="zh"&gt; 
- &lt;head&gt; 
-  &lt;meta charset="utf-8"&gt; 
-  &lt;meta name="keywords" content="坑获：用户的习惯岂是你想改就能改 - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
-  &lt;meta name="description" content="坑获：用户的习惯岂是你想改就能改 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
-  &lt;meta name="author" content="王福强"&gt; 
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
-  &lt;title&gt;坑获：用户的习惯岂是你想改就能改 - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
-  &lt;meta name="date" content="2022-01-19"&gt; 
-  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
-  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
-  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
-  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
-  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
-  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
-  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
-  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
-  &lt;script&gt;
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    &lt;/script&gt; 
- &lt;/head&gt; 
- &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
-  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
-   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
-    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
-     &lt;ul class="navbar-nav ml-auto"&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的著作&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
-     &lt;/ul&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/nav&gt; 
-  &lt;section&gt; 
-   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
-    &lt;p class="lead"&gt; &lt;/p&gt;
-    &lt;h1 class="title"&gt;坑获：用户的习惯岂是你想改就能改&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2022-01-19 &lt;/small&gt; 
-    &lt;p&gt;&lt;/p&gt; 
-    &lt;hr&gt; 
-    &lt;p&gt;读到叶茂中的《广告人手记》里这段，有些感触，遂与大家分享些许感触…&lt;/p&gt; 
-    &lt;p&gt;&lt;img src="images/customer-habits.png"&gt;&lt;/p&gt; 
-    &lt;p&gt;用户习惯是一个很“顽固”的事情， 不是说这个东西不好，而是要有一个正确的认识， 不能觉得自己手里的“锤子”更好，就贬低客户手里的“棒槌”，很多时候，&lt;strong&gt;熟悉&lt;/strong&gt;或许才是最合适的选择。&lt;/p&gt; 
-    &lt;p&gt;2020年给李总 &lt;a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;公司输入了一套自助式数据分析与可视化平台，从我的角度，有了这套东西，此后公司部门里绝大部分数据需求都可以完全免去研发的介入，一个普通研发人员的年薪，换来公司全面的数据智能化改观，应该是很划算的事情，但现实却是打脸。&lt;/p&gt; 
-    &lt;p&gt;从上到下一直是基于Excel的工作方式和汇报形式，从上层领导的汇报形式要求，到员工的技能和工作流程与结构配比，其实都是基于Excel的， 你要是说上套系统就解决所有问题了，那肯定是很扯淡的事情。&lt;/p&gt; 
-    &lt;p&gt;&lt;strong&gt;要做变革，首先应该是观念的变革&lt;/strong&gt;，没有观念的变更，就不要谈习惯上的改变，从这个角度来说，很多公司天天忽悠客户公司做数字化、数智化转型，本身就是很扯淡的事情， 我老早就说过，要做这些转型，首先是一把手自己有没有这个认识，有没有观念上的相应认知和转变，然后再谈规划和实施。&lt;/p&gt; 
-    &lt;p&gt;所以，此后我一般不再“为客户着想”，而是根据客户的现状，“辨证施治”，有需求，给alternatives建议，客户自己做主 要不要做，要做，然后再谈后面怎么做的事情。 我感觉，只是我感觉哈， 有些客户其实需要的不是什么先进经验，更需要的是根据组织现状和习惯如何逐步改进的举措。&lt;/p&gt; 
-    &lt;p&gt;当然，从商务和销售的角度来看，我的做法肯定是很傻逼的，不propose超豪华套餐，怎么做通货膨胀？ 没办法， 一贯做事的风格就是这样， 先把事儿做烂再改进的套路我不是不懂，但不愿意做。&lt;/p&gt; 
-    &lt;p&gt;我当然知道怎么&lt;code&gt;TimeUnit.SECONDS.sleep(5)&lt;/code&gt;…&lt;/p&gt; 
-    &lt;p&gt;Anyway, &lt;strong&gt;尊重客户的习惯，尊重客户的组织现状&lt;/strong&gt;，这其实才是我想说的。&lt;/p&gt; 
-    &lt;section class="footnotes" role="doc-endnotes"&gt; 
-     &lt;hr&gt; 
-     &lt;ol&gt; 
-      &lt;li id="fn1" role="doc-endnote"&gt;&lt;p&gt;这里也跟李总道个歉，确实事情没做好，服务没到位&lt;a href="#fnref1" class="footnote-back" role="doc-backlink"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt; 
-     &lt;/ol&gt; 
-    &lt;/section&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
-    &lt;hr&gt; 
-    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
-    &lt;/div&gt; 
-    &lt;div id="random_posts"&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2021-05-24-million-salary-ways.html"&gt;怎么做到年薪以百万单位起跳？ &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2017-09-08-ridiculous-dream-on-stock-price.html"&gt;荒诞之梦 &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2005-00-00-currency-format-in-poi.html"&gt;有关POI中对货币格式化的支持问题 &lt;/a&gt; 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
-    &lt;div id="comments"&gt;&lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;div class="text-center"&gt; 
-     &lt;img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/section&gt; 
-  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
-   ©王福强个人版权所有, All Rights Reserved.
-  &lt;/div&gt; 
-  &lt;div class="copyright py-4 text-center text-white"&gt; 
-   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
-   &lt;/div&gt; 
-  &lt;/div&gt; 
-  &lt;script type="text/javascript"&gt;
-var gitalk = new Gitalk({
-  clientID: '518a605d711883414ac0',
-  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-  repo: 'afoo.me.comments',
-  owner: 'fujohnwang',
-  admin: ['fujohnwang'],
-  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-  distractionFreeMode: false  // Facebook-like distraction free mode
-})
-
-gitalk.render('comments')
-    &lt;/script&gt;  
-  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
- &lt;/body&gt;
-&lt;/html&gt;</description>
-      <pubDate>Tue, 18 Jan 2022 16:00:00 GMT</pubDate>
-      <guid>http://afoo.me/posts/2022-01-19-kenghuo-habit-momentum.html</guid>
-      <dc:date>2022-01-18T16:00:00Z</dc:date>
-    </item>
-    <item>
-      <title>我对叶茂中先生手记的三点感同！</title>
-      <link>http://afoo.me/posts/2022-01-16-three-points-I-learned-from-YMZ.html</link>
-      <description>&lt;!doctype html&gt;
-&lt;html lang="zh"&gt; 
- &lt;head&gt; 
-  &lt;meta charset="utf-8"&gt; 
-  &lt;meta name="keywords" content="我对叶茂中先生手记的三点感同！ - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
-  &lt;meta name="description" content="我对叶茂中先生手记的三点感同！ - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
-  &lt;meta name="author" content="王福强"&gt; 
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
-  &lt;title&gt;我对叶茂中先生手记的三点感同！ - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
-  &lt;meta name="date" content="2022-01-16"&gt; 
-  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
-  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
-  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
-  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
-  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
-  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
-  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
-  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
-  &lt;script&gt;
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    &lt;/script&gt; 
- &lt;/head&gt; 
- &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
-  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
-   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
-    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
-     &lt;ul class="navbar-nav ml-auto"&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的著作&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
-     &lt;/ul&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/nav&gt; 
-  &lt;section&gt; 
-   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
-    &lt;p class="lead"&gt; &lt;/p&gt;
-    &lt;h1 class="title"&gt;我对叶茂中先生手记的三点感同！&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2022-01-16 &lt;/small&gt; 
-    &lt;p&gt;&lt;/p&gt; 
-    &lt;hr&gt; 
-    &lt;ul&gt; 
-     &lt;li&gt;&lt;a href="#实打实"&gt;&lt;span class="toc-section-number"&gt;1&lt;/span&gt; 实打实&lt;/a&gt;&lt;/li&gt; 
-     &lt;li&gt;&lt;a href="#事上练"&gt;&lt;span class="toc-section-number"&gt;2&lt;/span&gt; 事上练&lt;/a&gt;&lt;/li&gt; 
-     &lt;li&gt;&lt;a href="#传帮带"&gt;&lt;span class="toc-section-number"&gt;3&lt;/span&gt; 传帮带&lt;/a&gt;&lt;/li&gt; 
-    &lt;/ul&gt; 
-    &lt;hr&gt; 
-    &lt;p&gt;信息密度比较高，看得比较慢， 还没看完，但已经可以深深感受到叶茂中先生在哲学层面的修为不一般，虽然是以广告营销切入，但个人哲学才是底层逻辑。&lt;/p&gt; 
-    &lt;p&gt;姑且谈三点个人的观点…&lt;/p&gt; 
-    &lt;h1 data-number="1" id="实打实"&gt;&lt;span class="header-section-number"&gt;1&lt;/span&gt; 实打实&lt;/h1&gt; 
-    &lt;p&gt;所有观点简单直接，鞭辟入里，没有一丝累赘和修饰。&lt;/p&gt; 
-    &lt;blockquote&gt; 
-     &lt;p&gt;从来没有一个客户找广告公司的目的是为了做专业的广告、高雅的广告，他们对广告的需要只有一个：“成功”地把产品卖出去。&lt;/p&gt; 
-    &lt;/blockquote&gt; 
-    &lt;p&gt;企业的目的其实就是利润，广告和营销的最终目的其实就是把产品卖出去，把钱收回来。有一说一，虽然赤裸，但确实事实， 没有利润，没有赚到钱，所有的体面，所有的情怀都是屁。&lt;/p&gt; 
-    &lt;h1 data-number="2" id="事上练"&gt;&lt;span class="header-section-number"&gt;2&lt;/span&gt; 事上练&lt;/h1&gt; 
-    &lt;blockquote&gt; 
-     &lt;p&gt;在战争中学会战争。&lt;/p&gt; 
-    &lt;/blockquote&gt; 
-    &lt;p&gt;叶茂中先生也不是一开始就可以声名鹊起，也是一步步地遇到困顿，然后思变，寻求转型， 也就是&lt;strong&gt;打通&lt;/strong&gt;一道道的关卡， &lt;strong&gt;打穿&lt;/strong&gt;一道道的困境，遇山开路、遇水搭桥， 遇事处事，一步一步走到今天。&lt;/p&gt; 
-    &lt;p&gt;所有的知识都是公开的知识，所有的知识都是别人的智慧，只有将别人的知识和自己事上练的感悟融合为自己的智慧，才算学有所成，事有成果。&lt;/p&gt; 
-    &lt;h1 data-number="3" id="传帮带"&gt;&lt;span class="header-section-number"&gt;3&lt;/span&gt; 传帮带&lt;/h1&gt; 
-    &lt;p&gt;你说他作坊也好，说他不是现代公司也罢，这些都不重要，重要的是，他知道自己要什么，而你可能并不不知道。&lt;/p&gt; 
-    &lt;p&gt;不是所有人都要做公司，也不是所有公司都能做成大公司。&lt;/p&gt; 
-    &lt;p&gt;当所有人都盯着大公司和集团的时候，却忽略了这个世界上最原始最有效的组织方式， 那就是师徒制，传帮带。&lt;/p&gt; 
-    &lt;p&gt;国内因为竞争和利益的原始分配格局，导致说，很多都是让个人自己去摸索。 但实际上，&lt;strong&gt;一个人要成长更快，没有什么比言传身教更有效的教育和培训方式了&lt;/strong&gt;。&lt;/p&gt; 
-    &lt;p&gt;所以KEEVOL的咨询工具箱里也会把&lt;strong&gt;传帮带(CBD Methodology)&lt;/strong&gt;作为关键工具之一。&lt;/p&gt; 
-    &lt;p&gt;一个成熟的机构和团队，只要形成传帮带的传统，也依然可以保持组织的持续进化。&lt;/p&gt; 
-    &lt;p&gt;对于生态来说，Different is good！&lt;/p&gt; 
-    &lt;p&gt;&lt;img src="images/different_is_good.png"&gt;&lt;/p&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
-    &lt;hr&gt; 
-    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
-    &lt;/div&gt; 
-    &lt;div id="random_posts"&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-06-09-fuck-gfw.html"&gt;tnd， 终于解封了 &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2014-12-12-nexus-admin-lite-manual.html"&gt;Nexus Maven Repository Manager管理手册 &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2020-07-23-intension-economy-unfinished.html"&gt;《意愿经济》为啥没坚持读完… &lt;/a&gt; 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
-    &lt;div id="comments"&gt;&lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;div class="text-center"&gt; 
-     &lt;img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/section&gt; 
-  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
-   ©王福强个人版权所有, All Rights Reserved.
-  &lt;/div&gt; 
-  &lt;div class="copyright py-4 text-center text-white"&gt; 
-   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
-   &lt;/div&gt; 
-  &lt;/div&gt; 
-  &lt;script type="text/javascript"&gt;
-var gitalk = new Gitalk({
-  clientID: '518a605d711883414ac0',
-  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-  repo: 'afoo.me.comments',
-  owner: 'fujohnwang',
-  admin: ['fujohnwang'],
-  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-  distractionFreeMode: false  // Facebook-like distraction free mode
-})
-
-gitalk.render('comments')
-    &lt;/script&gt;  
-  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
- &lt;/body&gt;
-&lt;/html&gt;</description>
-      <pubDate>Sat, 15 Jan 2022 16:00:00 GMT</pubDate>
-      <guid>http://afoo.me/posts/2022-01-16-three-points-I-learned-from-YMZ.html</guid>
-      <dc:date>2022-01-15T16:00:00Z</dc:date>
     </item>
   </channel>
 </rss>
