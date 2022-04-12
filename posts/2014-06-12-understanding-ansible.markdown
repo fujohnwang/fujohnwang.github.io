@@ -269,10 +269,11 @@ ansible-playbook -i production webservers.yml --limit boston[10-20]
 
 # 参考
 ## Playbook相关参考
-1. <http://docs.ansible.com/playbooks_intro.html>
-2. <http://docs.ansible.com/playbooks_roles.html>
+1. <https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html>
+2. <https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html>
+3. <https://spacelift.io/blog/ansible-playbooks>
 ## 其它
-1. <http://docs.ansible.com/playbooks_best_practices.html>
+1. <https://docs.ansible.com/ansible/2.8/user_guide/playbooks_best_practices.html>
 
 
 
