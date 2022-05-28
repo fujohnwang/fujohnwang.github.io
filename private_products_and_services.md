@@ -2,6 +2,8 @@
 % 王福强
 % 2022-05-28
 
+[关于我](whoami.html)
+
 # 个人书籍
 
 <https://afoo.me/books.html>

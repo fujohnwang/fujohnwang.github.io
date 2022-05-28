@@ -1,6 +1,8 @@
-%  福強个人图书列表
+% 福強个人图书列表
 % 王福强
 % 2018-06-16
+
+[除了图书之外的其它产品和服务](private_products_and_services.html)
 
 # 《Spring揭秘》
 
@@ -29,7 +31,7 @@
 
 另，[->>> 读者的反馈](book-readers-praise.html)与您分享。
 
-# [《技术、商业与人》](https://afoo.me/afpay/?id=tbh)
+# 《技术、商业与人》
 
 囊括了作者对技术、商业与人的思考凝炼与践行总结。
 
@@ -131,7 +133,7 @@ Grab the **FREE** trial chapters:
 **Buy Now**!
 
 - [Buy on Gumroad](https://wfq.gumroad.com/l/simple_svelte), 19.99美金
-- [去面包多购买](https://mianbaoduo.com/o/bread/YpeTkp1s), 10.24元
+<!-- - [去面包多购买](https://mianbaoduo.com/o/bread/YpeTkp1s), 10.24元 -->
 
 ---
 
