@@ -5,6 +5,118 @@
     <link>http://afoo.me</link>
     <description>福强说 - 王福强的博客 - 一个架构士的思考与实践之地</description>
     <item>
+      <title>好工具：从n8n回归吃自己的狗食</title>
+      <link>http://afoo.me/posts/2022-05-28-from-n8n-to-my-own-dogfood.html</link>
+      <description>&lt;!doctype html&gt;
+&lt;html lang="zh"&gt; 
+ &lt;head&gt; 
+  &lt;meta charset="utf-8"&gt; 
+  &lt;meta name="keywords" content="好工具：从n8n回归吃自己的狗食 - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
+  &lt;meta name="description" content="好工具：从n8n回归吃自己的狗食 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
+  &lt;meta name="author" content="王福强"&gt; 
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
+  &lt;title&gt;好工具：从n8n回归吃自己的狗食 - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
+  &lt;meta name="date" content="2022-05-28"&gt; 
+  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
+  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
+  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
+  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
+  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
+  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
+  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
+  &lt;script&gt;
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    &lt;/script&gt; 
+ &lt;/head&gt; 
+ &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
+  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
+   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
+    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
+     &lt;ul class="navbar-nav ml-auto"&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的著作&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
+     &lt;/ul&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/nav&gt; 
+  &lt;section&gt; 
+   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
+    &lt;p class="lead"&gt; &lt;/p&gt;
+    &lt;h1 class="title"&gt;好工具：从n8n回归吃自己的狗食&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2022-05-28 &lt;/small&gt; 
+    &lt;p&gt;&lt;/p&gt; 
+    &lt;hr&gt; 
+    &lt;p&gt;Build and use good tools: turn to eat my own dog food from n8n&lt;/p&gt; 
+    &lt;hr&gt; 
+    &lt;p&gt;今天讲讲n8n的故事…&lt;/p&gt; 
+    &lt;p&gt;n8n是一个flow platform, 可以自部署，可能对于js开发人员或者非开发人员，这个平台会有吸引力吧，我个人使用下来的历程是这样的：&lt;/p&gt; 
+    &lt;ol type="1"&gt; 
+     &lt;li&gt;尝试构建复杂多节点的flow， 受挫于twitter的v2 api level不够；&lt;/li&gt; 
+     &lt;li&gt;尝试简化flow，只用cron node + http requests这些nodes， works；&lt;/li&gt; 
+     &lt;li&gt;今天发现，定义的flow周末也触发了discord webhook，看了下才发现，n8n的cron node貌似不支持完整的cron表达式？&lt;/li&gt; 
+     &lt;li&gt;遂回归自己最拿手的底层技能，linux本地的crontab + 一个scala写的monolith提供web api， done！&lt;/li&gt; 
+    &lt;/ol&gt; 
+    &lt;p&gt;虽然我很想用好工具，&lt;/p&gt; 
+    &lt;p&gt;&lt;img src="images/2022-04-06-190012138.jpg"&gt;&lt;/p&gt; 
+    &lt;p&gt;但发现，最适合自己的工具才是好工具；&lt;/p&gt; 
+    &lt;p&gt;&lt;img src="images/2022-05-27-133955004.jpg"&gt;&lt;/p&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
+    &lt;hr&gt; 
+    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
+    &lt;/div&gt; 
+    &lt;div id="random_posts"&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2020-07-23-intension-economy-unfinished.html"&gt;《意愿经济》为啥没坚持读完… &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-12-07-java-reflection-with-dsl.html"&gt;Using Java Reflection In a DSL&lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2007-03-24-business-is-business.html"&gt;就事儿论事儿 &lt;/a&gt; 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
+    &lt;div id="comments"&gt;&lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;div class="text-center"&gt; 
+     &lt;img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/section&gt; 
+  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
+   ©王福强个人版权所有, All Rights Reserved.
+  &lt;/div&gt; 
+  &lt;div class="copyright py-4 text-center text-white"&gt; 
+   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
+   &lt;/div&gt; 
+  &lt;/div&gt; 
+  &lt;script type="text/javascript"&gt;
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    &lt;/script&gt;  
+  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
+ &lt;/body&gt;
+&lt;/html&gt;</description>
+      <pubDate>Fri, 27 May 2022 16:00:00 GMT</pubDate>
+      <guid>http://afoo.me/posts/2022-05-28-from-n8n-to-my-own-dogfood.html</guid>
+      <dc:date>2022-05-27T16:00:00Z</dc:date>
+    </item>
+    <item>
       <title>疫情管控之下的上海困局</title>
       <link>http://afoo.me/posts/2022-04-16-sh-covid-disaster.html</link>
       <description>&lt;!doctype html&gt;
@@ -1530,115 +1642,6 @@ gitalk.render('comments')
       <pubDate>Sat, 12 Feb 2022 16:00:00 GMT</pubDate>
       <guid>http://afoo.me/posts/2022-02-13-feedback-matters-a-lot.html</guid>
       <dc:date>2022-02-12T16:00:00Z</dc:date>
-    </item>
-    <item>
-      <title>为什么我认为阿里很难再起飞</title>
-      <link>http://afoo.me/posts/2022-02-09-why-ali-is-hard-to-rise-again.html</link>
-      <description>&lt;!doctype html&gt;
-&lt;html lang="zh"&gt; 
- &lt;head&gt; 
-  &lt;meta charset="utf-8"&gt; 
-  &lt;meta name="keywords" content="为什么我认为阿里很难再起飞 - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
-  &lt;meta name="description" content="为什么我认为阿里很难再起飞 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
-  &lt;meta name="author" content="王福强"&gt; 
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
-  &lt;title&gt;为什么我认为阿里很难再起飞 - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
-  &lt;meta name="date" content="2022-02-09"&gt; 
-  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
-  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
-  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
-  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
-  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
-  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
-  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
-  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
-  &lt;script&gt;
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    &lt;/script&gt; 
- &lt;/head&gt; 
- &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
-  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
-   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
-    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
-     &lt;ul class="navbar-nav ml-auto"&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的著作&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
-     &lt;/ul&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/nav&gt; 
-  &lt;section&gt; 
-   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
-    &lt;p class="lead"&gt; &lt;/p&gt;
-    &lt;h1 class="title"&gt;为什么我认为阿里很难再起飞&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2022-02-09 &lt;/small&gt; 
-    &lt;p&gt;&lt;/p&gt; 
-    &lt;hr&gt; 
-    &lt;p&gt;闲来无事，码点儿字。&lt;/p&gt; 
-    &lt;p&gt;因为昨天有兄弟谈到说“（阿里）要是海外起不来 估计要走下坡路了”， 我直接回答“起不来”，原因在之前一篇&lt;a href="https://mp.weixin.qq.com/s/-6gYu29vOUubesN50qNoIA"&gt;【我曾经跟阿里内部人说过的话】&lt;/a&gt;里也提到过，另外就是，一只大象要起舞，谈何容易，就好像我在几本自出版书里经常提到的那样：&lt;/p&gt; 
-    &lt;p&gt;&lt;img src="images/hanjian_shengming.png"&gt;&lt;/p&gt; 
-    &lt;p&gt;18M那本书卖得好，完全是因为就那么一个成功案例…&lt;/p&gt; 
-    &lt;p&gt;说阿里难以再起飞，第一个因素就是&lt;strong&gt;大环境&lt;/strong&gt;，嗯，我一直强调&lt;strong&gt;环境很重要&lt;/strong&gt;，跟本山大爷是两个路数。&lt;/p&gt; 
-    &lt;p&gt;&lt;img src="images/59401644375360_.pic.jpg"&gt;&lt;/p&gt; 
-    &lt;p&gt;至于大环境怎么理解，就不方便多说了，就好像马老师最后一次盛大发言，大部分人根本就看了个表象一样。&lt;/p&gt; 
-    &lt;p&gt;第二个因素就是主业的增长与开拓，这里就牵扯到了前面提到的海外的话题，但这个板块如果要对整体板块的应收有较大贡献，目前来看，很难，毕竟，东南亚的主次分野早就形成了，先发优势、思维模式、团队， 都不占优，怎么起飞？&lt;/p&gt; 
-    &lt;p&gt;第三个因素就是国内市场的持续分流， 京东、拼多多、抖音，这些原有竞对+新场景竞对，都是在做&lt;strong&gt;存量的争夺&lt;/strong&gt;，也不会让你再起飞的那么容易…&lt;/p&gt; 
-    &lt;p&gt;另外就是“&lt;strong&gt;攻守之势异也&lt;/strong&gt;”，过去的成功“积淀”与再起飞其实是冲突的，打破也难。&lt;/p&gt; 
-    &lt;p&gt;不是为了看衰而看衰老东家，纯粹就是感觉不乐观， 但不排除会有奇迹， &lt;strong&gt;Hope is a good thing&lt;/strong&gt;.&lt;/p&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
-    &lt;hr&gt; 
-    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
-    &lt;/div&gt; 
-    &lt;div id="random_posts"&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-01-12-crazy-love-made-terrible-thing.html"&gt;狂热，不应该用在这里 &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2018-04-05-expect_incentive_and_opportunity_cost.html"&gt;预期， 激励与机会成本 &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2013-04-23-transfer-file-with-nc-and-tar.html"&gt;使用nc或者结合tar进行文件传输 &lt;/a&gt; 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
-    &lt;div id="comments"&gt;&lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;div class="text-center"&gt; 
-     &lt;img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/section&gt; 
-  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
-   ©王福强个人版权所有, All Rights Reserved.
-  &lt;/div&gt; 
-  &lt;div class="copyright py-4 text-center text-white"&gt; 
-   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
-   &lt;/div&gt; 
-  &lt;/div&gt; 
-  &lt;script type="text/javascript"&gt;
-var gitalk = new Gitalk({
-  clientID: '518a605d711883414ac0',
-  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-  repo: 'afoo.me.comments',
-  owner: 'fujohnwang',
-  admin: ['fujohnwang'],
-  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-  distractionFreeMode: false  // Facebook-like distraction free mode
-})
-
-gitalk.render('comments')
-    &lt;/script&gt;  
-  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
- &lt;/body&gt;
-&lt;/html&gt;</description>
-      <pubDate>Tue, 08 Feb 2022 16:00:00 GMT</pubDate>
-      <guid>http://afoo.me/posts/2022-02-09-why-ali-is-hard-to-rise-again.html</guid>
-      <dc:date>2022-02-08T16:00:00Z</dc:date>
     </item>
   </channel>
 </rss>

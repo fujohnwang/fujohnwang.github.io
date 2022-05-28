@@ -33,18 +33,27 @@
 
 [这里可以了解我的更多著作](books.html)
 
-<iframe src='https://my.spline.design/shapesanimationcopy-26e4ea6b1f58c206ae1dffb1645eba37/' frameborder='0' width='100%' height='400'></iframe>
-
+<!--
+<iframe src='https://my.spline.design/shapesanimationcopy-26e4ea6b1f58c206ae1dffb1645eba37/' frameborder='0' width='100%' height='400'></iframe>-->
 
 # 我在线上
 
-![](images/qrcode_for_gh_4fe672b2e860_258.jpg)
 
-* 公众号 - 福强
+
+
 * Twitter - [王福强](https://twitter.com/fujohnwang)
-* 微博 - [@王福强](http://www.weibo.com/fujohnwang)
+* Youtube - <https://www.youtube.com/channel/UCxhsCy-gAGwRnG_z7Wqrs3A>
+* 公众号 - 福强
+  * ![](images/qrcode_for_gh_4fe672b2e860_258.jpg)
+* [微博](http://www.weibo.com/fujohnwang)
 * [slideshare](http://www.slideshare.net/fujohnwang/) - 如果各位看官对偶之前的一些`骗骗他`(PPT)感兴趣的话，可以参看
 
+
+# 视频号
+
+![](images/sph_jiagoubaike.jpg)
+
+![](images/sph_bumaiwenrou.pic.jpg)
 
 # 我的文章和视频
 
@@ -66,3 +75,6 @@
 专注于并发并行编程，HPC，分布式系统设计与实现，Big Data， 实时数据追踪与计算等领域,
 相关Web Framework、DDAL(Distributed Data Access Layer)^[<https://github.com/alibaba/cobarclient>, 原有域名阿里内部已经弃用，很多同学又很懒（人性啊~）， 所以， 我还是编译一份文档供参考吧， [中文参考文档](/references/cobarclient/zh/index.html)看这里，[英文参考文档(Reference Doc)](/references/cobarclient/en/index.html)看这里]以及Middleware的Product Owner/Co-owner。
 
+# Buy me a coffee 
+
+<a href="https://dun.mianbaoduo.com/@fq" target="_blank"><img src="https://img.niucodata.com/dundunfan-bt.png"></a>

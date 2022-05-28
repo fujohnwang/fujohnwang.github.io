@@ -5,6 +5,7 @@
 - 我的Youtube频道
   - [不卖温柔](https://www.youtube.com/channel/UCxhsCy-gAGwRnG_z7Wqrs3A)
   - [架构百科](https://www.youtube.com/channel/UCG4NNmSjcCQGv3T25JBlHTQ)
+- [为可以提供的产品与服务](private_products_and_services.html)
 - [博客首页](posts.html)
 - [专栏文章](columns.html)
 - [我的收藏夹](favorite.html)
