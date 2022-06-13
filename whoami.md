@@ -44,16 +44,20 @@
 * Twitter - [王福强](https://twitter.com/fujohnwang)
 * Youtube - <https://www.youtube.com/channel/UCxhsCy-gAGwRnG_z7Wqrs3A>
 * 公众号 - 福强
-  * ![](images/qrcode_for_gh_4fe672b2e860_258.jpg)
+<!--  * ![](images/qrcode_for_gh_4fe672b2e860_258.jpg)-->
 * [微博](http://www.weibo.com/fujohnwang)
 * [slideshare](http://www.slideshare.net/fujohnwang/) - 如果各位看官对偶之前的一些`骗骗他`(PPT)感兴趣的话，可以参看
 
 
 # 视频号
 
-![](images/sph_jiagoubaike.jpg)
+| 个人视频号  | 「架构百科」视频号  | 
+|:-------------: |:---------------:|
+| ![](images/my_shipinhao.pic.jpg) | ![](images/jiagoubaike_shipinhao.pic.jpg) | 
 
-![](images/sph_bumaiwenrou.pic.jpg)
+
+
+
 
 # 我的文章和视频
 
