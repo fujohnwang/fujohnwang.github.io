@@ -155,6 +155,17 @@ If you want to get a feel for the sample SPA, play with [keeposter](https://post
 
 
 
+# 扶墙生长：认知成长课
+
+## [底层逻辑](https://mianbaoduo.com/o/bread/mbd-YpuYlp1v)
+
+理解底层逻辑，方能决策自如。
+
+## 组织逻辑
+
+理解组织逻辑，方能理解企业。
+
+
 
 # 购买渠道与支付方式
 
