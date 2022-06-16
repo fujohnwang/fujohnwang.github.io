@@ -161,9 +161,11 @@ If you want to get a feel for the sample SPA, play with [keeposter](https://post
 
 理解底层逻辑，方能决策自如。
 
-## 组织逻辑
+## [组织逻辑](https://mianbaoduo.com/o/bread/mbd-YpuZk55y)
 
 理解组织逻辑，方能理解企业。
+
+市面上唯一**体系化**讲明白组织与组织管理底层逻辑的线上课程。
 
 
 
