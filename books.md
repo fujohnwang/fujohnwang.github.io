@@ -155,7 +155,7 @@ If you want to get a feel for the sample SPA, play with [keeposter](https://post
 
 
 
-# 扶墙生长：认知成长课
+# [扶墙生长：认知成长课堂](https://afoo.me/ke)
 
 ## [底层逻辑](https://mianbaoduo.com/o/bread/mbd-YpuYlp1v)
 
@@ -167,6 +167,23 @@ If you want to get a feel for the sample SPA, play with [keeposter](https://post
 
 市面上唯一**体系化**讲明白组织与组织管理底层逻辑的线上课程。
 
+## [产品思维](https://mianbaoduo.com/o/bread/Ypuakppp)
+
+理念性的产品思维分享与案例回顾。
+
+不是面向产品助理、产品经理等群体，更多还是面向企业中高层领导者。
+
+## [架构思维](https://mianbaoduo.com/o/bread/Ypuak5Zw)
+
+什么是架构思维？ 
+
+架构解决什么问题或者说解决什么阶段的问题？
+
+架构好坏决定了什么关键痛点？
+
+另外， 好的架构应该怎么做？ 都有哪些好的架构原则与实践？
+
+这堂「架构思维」课或许可以给你些许启发！
 
 
 # 购买渠道与支付方式
