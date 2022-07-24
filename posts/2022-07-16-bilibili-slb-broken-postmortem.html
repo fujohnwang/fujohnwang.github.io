@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="谈谈B站的SLB故障复盘 - 架构教练,架构师个人成长教练,个人成长,组织成长,个人与组织成长顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="谈谈B站的SLB故障复盘 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>谈谈B站的SLB故障复盘 - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2022-07-16"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">谈谈B站的SLB故障复盘</h1> <small> <h3 class="author">王福强</h3>2022-07-16 </small> 
+    <p></p> 
+    <hr> 
+    <p><img src="images/2022-07-16-11-25-34.png"></p> 
+    <p>整篇文章挺好的，也挺详尽，但我总觉得最后的改进措施可能没那么到位。</p> 
+    <p>其实没必要过多强调多活的问题，如果真的是接入层的问题，多少个活着的接入点都没用，不是吗？</p> 
+    <p>至于消防演习，这个是没问题的，早训练，早准备嘛！</p> 
+    <p>我倒是觉得，更应该重视的是研发流程管理，尤其是关键基础设施的测试与上线。</p> 
+    <p>这次的SLB出问题，更多应该是新增根据权重做Load Balance的功能没有经过充分的测试，尤其是precheck。 0和“0”这种情况，我觉得作为典型的边际条件，不应该测试不到啊…</p> 
+    <p>所以，加强研发流程的管理，加强日常的Code Review，加强关键基础设施上线前的测试，可以极大降低SLB（以及其它关键基础设施）出这种问题的概率。</p> 
+    <p>至于消防演习，相当于是有准备、有预谋的拉练队伍，但感觉B站这种，早就应该进入Chaos Engineering的行列了。 从被动到主动， 以进攻做防御，这才是终极的稳定性测试 ^_-</p> 
+    <p>所以，简单总结下，整个事情，我觉得更应该做的三件事的优先级和顺序应该是：</p> 
+    <ol type="1"> 
+     <li><strong>加强研发流程管理</strong>，尤其是关键基础中间件的新增、测试与上线；</li> 
+     <li><strong>消防演习</strong>，锻炼队伍应急响应能力；</li> 
+     <li><strong>多活</strong>，根据情况逐步推进；</li> 
+    </ol> 
+    <p>以上。</p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2021-05-24-million-salary-ways.html">怎么做到年薪以百万单位起跳？ </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2020-04-13-questions_on_thyroid_desease.html">关于甲状腺疾病的几点思考 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2006-09-04-Intro-to-an-excel-template-engine.html">Introduction 2 an excel template engine </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

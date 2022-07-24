@@ -6,7 +6,7 @@
 
 **`A Writer, A Fighter, A Programmer And A Teacher`**
 
-王福强，aka. 扶墙老师，杭州[福强科技](https://keevol.cn)创始人兼CEO，持续创业者，《Spring揭秘》和《SpringBoot揭秘》作者 ^[这里可以了解我的更多著作](books.html)^。
+王福强，aka. 扶墙老师，[架构教练（架构师成长教练）](https://afoo.me/ama), 杭州[福强科技](https://keevol.cn)创始人，持续创业者，《Spring揭秘》和《SpringBoot揭秘》作者 ^[这里可以了解我的更多著作](books.html)^, 写代码的CTO，如履薄冰的CEO 😂
 
 - 原阿里巴巴平台技术部海量数据部门高级技术专家；
 - 原天猫产品技术部导购部资深架构师;
@@ -18,6 +18,7 @@
 年轻时好武，玩过散打，拳击，跆拳道，太极，终无定性；
 
 亦好文，好藏书，之前看技术书居多，现尝试更往杂里读；
+
 
 
 # [我的著作](books.html)

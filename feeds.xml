@@ -5,13 +5,1060 @@
     <link>http://afoo.me</link>
     <description>福强说 - 王福强的博客 - 一个架构士的思考与实践之地</description>
     <item>
+      <title>谈谈B站的SLB故障复盘</title>
+      <link>http://afoo.me/posts/2022-07-16-bilibili-slb-broken-postmortem.html</link>
+      <description>&lt;!doctype html&gt;
+&lt;html lang="zh"&gt; 
+ &lt;head&gt; 
+  &lt;meta charset="utf-8"&gt; 
+  &lt;meta name="keywords" content="谈谈B站的SLB故障复盘 - 架构教练,架构师个人成长教练,个人成长,组织成长,个人与组织成长顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
+  &lt;meta name="description" content="谈谈B站的SLB故障复盘 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
+  &lt;meta name="author" content="王福强"&gt; 
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
+  &lt;title&gt;谈谈B站的SLB故障复盘 - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
+  &lt;meta name="date" content="2022-07-16"&gt; 
+  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
+  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
+  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
+  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
+  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
+  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
+  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
+  &lt;script&gt;
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    &lt;/script&gt; 
+ &lt;/head&gt; 
+ &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
+  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
+   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
+    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
+     &lt;ul class="navbar-nav ml-auto"&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的创作&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
+     &lt;/ul&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/nav&gt; 
+  &lt;section&gt; 
+   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
+    &lt;p class="lead"&gt; &lt;/p&gt;
+    &lt;h1 class="title"&gt;谈谈B站的SLB故障复盘&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2022-07-16 &lt;/small&gt; 
+    &lt;p&gt;&lt;/p&gt; 
+    &lt;hr&gt; 
+    &lt;p&gt;整篇文章挺好的，也挺详尽，但我总觉得最后的改进措施可能没那么到位。&lt;/p&gt; 
+    &lt;p&gt;其实没必要过多强调多活的问题，如果真的是接入层的问题，多少个活着的接入点都没用，不是吗？&lt;/p&gt; 
+    &lt;p&gt;至于消防演习，这个是没问题的，早训练，早准备嘛！&lt;/p&gt; 
+    &lt;p&gt;我倒是觉得，更应该重视的是研发流程管理，尤其是关键基础设施的测试与上线。&lt;/p&gt; 
+    &lt;p&gt;这次的SLB出问题，更多应该是新增根据权重做Load Balance的功能没有经过充分的测试，尤其是precheck。 0和“0”这种情况，我觉得作为典型的边际条件，不应该测试不到啊…&lt;/p&gt; 
+    &lt;p&gt;所以，加强研发流程的管理，加强日常的Code Review，加强关键基础设施上线前的测试，可以极大降低SLB（以及其它关键基础设施）出这种问题的概率。&lt;/p&gt; 
+    &lt;p&gt;至于消防演习，相当于是有准备、有预谋的拉练队伍，但感觉B站这种，早就应该进入Chaos Engineering的行列了。 从被动到主动， 以进攻做防御，这才是终极的稳定性测试 ^_-&lt;/p&gt; 
+    &lt;p&gt;所以，简单总结下，整个事情，我觉得更应该做的三件事的优先级和顺序应该是：&lt;/p&gt; 
+    &lt;ol type="1"&gt; 
+     &lt;li&gt;&lt;strong&gt;加强研发流程管理&lt;/strong&gt;，尤其是关键基础中间件的新增、测试与上线；&lt;/li&gt; 
+     &lt;li&gt;&lt;strong&gt;消防演习&lt;/strong&gt;，锻炼队伍应急响应能力；&lt;/li&gt; 
+     &lt;li&gt;&lt;strong&gt;多活&lt;/strong&gt;，根据情况逐步推进；&lt;/li&gt; 
+    &lt;/ol&gt; 
+    &lt;p&gt;以上。&lt;/p&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
+    &lt;hr&gt; 
+    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
+    &lt;/div&gt; 
+    &lt;div id="random_posts"&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2015-02-17-my-actor-practice-advices.html"&gt;Practice Advices On Design and Impl. with Actor Model &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2007-04-21-understanding-factor-in.html"&gt;“factor in”, you know these words, right?! &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2022-02-15-keenotes-and-PKM.html"&gt;我的PKM理念与Keenotes产品实践 &lt;/a&gt; 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
+    &lt;div id="comments"&gt;&lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;div class="text-center"&gt; 
+     &lt;img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/section&gt; 
+  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
+   ©王福强个人版权所有, All Rights Reserved.
+  &lt;/div&gt; 
+  &lt;div class="copyright py-4 text-center text-white"&gt; 
+   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
+   &lt;/div&gt; 
+  &lt;/div&gt; 
+  &lt;script type="text/javascript"&gt;
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    &lt;/script&gt;  
+  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
+ &lt;/body&gt;
+&lt;/html&gt;</description>
+      <pubDate>Fri, 15 Jul 2022 16:00:00 GMT</pubDate>
+      <guid>http://afoo.me/posts/2022-07-16-bilibili-slb-broken-postmortem.html</guid>
+      <dc:date>2022-07-15T16:00:00Z</dc:date>
+    </item>
+    <item>
+      <title>象牙塔理解不了外围的杂乱差！</title>
+      <link>http://afoo.me/posts/2022-07-14-ivory-tower-vs-suburban.html</link>
+      <description>&lt;!doctype html&gt;
+&lt;html lang="zh"&gt; 
+ &lt;head&gt; 
+  &lt;meta charset="utf-8"&gt; 
+  &lt;meta name="keywords" content="象牙塔理解不了外围的杂乱差！ - 架构教练,架构师个人成长教练,个人成长,组织成长,个人与组织成长顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
+  &lt;meta name="description" content="象牙塔理解不了外围的杂乱差！ - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
+  &lt;meta name="author" content="王福强"&gt; 
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
+  &lt;title&gt;象牙塔理解不了外围的杂乱差！ - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
+  &lt;meta name="date" content="2022-07-14"&gt; 
+  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
+  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
+  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
+  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
+  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
+  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
+  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
+  &lt;script&gt;
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    &lt;/script&gt; 
+ &lt;/head&gt; 
+ &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
+  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
+   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
+    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
+     &lt;ul class="navbar-nav ml-auto"&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的创作&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
+     &lt;/ul&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/nav&gt; 
+  &lt;section&gt; 
+   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
+    &lt;p class="lead"&gt; &lt;/p&gt;
+    &lt;h1 class="title"&gt;象牙塔理解不了外围的杂乱差！&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2022-07-14 &lt;/small&gt; 
+    &lt;p&gt;&lt;/p&gt; 
+    &lt;hr&gt; 
+    &lt;p&gt;&lt;img src="images/2022-07-14-15-44-57.png"&gt;&lt;/p&gt; 
+    &lt;p&gt;今天看到一篇翻译的文章，讲主人公“不小心”招了一批只会从Google代码片段的程序员，这里面有两个点我觉得很有意思、也很典型。&lt;/p&gt; 
+    &lt;p&gt;第一点就是， 其实能够用好搜索引擎把工作任务完成，这个是好事情，文中所说的只会Google的程序员，其实是没有任何技术素养和基础的“打工”人，只要能入职，后面怎么样可以先不管。 所以，随着时间的流逝，作者发现，这群人不“生长”了。 另一群能用好搜索引擎把工作最好的程序员，其实是有技术“骨架”和基础素养的那批人，搜索引擎是他们的外延。 所以，搜索引擎没错，用好搜索引擎也没错，但人群绝对不一样。&lt;/p&gt; 
+    &lt;p&gt;&lt;img src="images/2022-07-14-15-45-07.png"&gt;&lt;/p&gt; 
+    &lt;p&gt;第二点就是，从文中的字句可以看出作者属于那种一直比较上进的人，可能一路风调雨顺，专注工作走到今天的位置，所以，在没有发生这些事情之前，他意识不到还有那么大一批人其实是跟他不一样的，我称这种现象叫“象牙塔理解不了外围的杂乱差！”，就是如果是一直优秀的人，TA会直觉上认为所有人都“应该”这样 &lt;a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;，但其实不是。 就好像“善良的人永远理解不了坏人能有多坏”一样，只有当TA碰到了，才会“困而知之”。&lt;/p&gt; 
+    &lt;p&gt;&lt;img src="images/2022-07-14-15-45-19.png"&gt;&lt;/p&gt; 
+    &lt;p&gt;很多时候， 现实中的大厂其实就是象牙塔，大厂里的人（尤其是走到高级别的人），TA很难理解外围的杂乱，即使TA当年可能也是从外围走出来的，但整条线路上要么有人无意中给TA护航了，要么一直是团队里的明星而“不问世事”，所以，也很难理解外围的生态到底是怎么样的，只有当TA因为某个事件要自己面对外围的人事的时候，才会幡然醒悟。&lt;/p&gt; 
+    &lt;p&gt;我遥记得一位兄弟跟我分享他从阿里出来创业之后的经历， 当时他很难理解有人一上来就跟他要回扣这事儿，但等他不再创业并再次回到阿里之后，也就想明白了，其实，阿里就是个象牙塔，而外面广袤的土地上的人和事才是&lt;strong&gt;日常的大多数&lt;/strong&gt;。&lt;/p&gt; 
+    &lt;p&gt;很多时候，大厂之所以成长为大厂，是因为他们从一开始就把整个大盘&lt;strong&gt;架构&lt;/strong&gt;设计好了， 即使终归会偶尔出现这样或者那样的乱象，但基本盘不会变，基础体系是没问题的。因为期间总会掺杂人情和人的多样性等因素，所以也就总会有缝隙和漏网之鱼，但只要基本盘不变，那就“无伤大雅”。&lt;/p&gt; 
+    &lt;p&gt;文中作者最后也发现了问题的关键，那就是走回源头，在招聘环节重新把关，所谓“选用育留”，&lt;strong&gt;选&lt;/strong&gt;其实才是关键。你同意吗？&lt;/p&gt; 
+    &lt;section class="footnotes" role="doc-endnotes"&gt; 
+     &lt;hr&gt; 
+     &lt;ol&gt; 
+      &lt;li id="fn1" role="doc-endnote"&gt;&lt;p&gt;还记得“应该”的诅咒吗？&lt;a href="#fnref1" class="footnote-back" role="doc-backlink"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt; 
+     &lt;/ol&gt; 
+    &lt;/section&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
+    &lt;hr&gt; 
+    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
+    &lt;/div&gt; 
+    &lt;div id="random_posts"&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2012-07-30-revisit_implicit_resolution_in_scala.html"&gt;revisit_implicit_resolution_in_scala &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2020-01-06-talk-about-daily-management.html"&gt;从消防通道的治理谈管理的日常 &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-07-06-bai-a-training.html"&gt;百年阿里培训7天记 &lt;/a&gt; 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
+    &lt;div id="comments"&gt;&lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;div class="text-center"&gt; 
+     &lt;img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/section&gt; 
+  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
+   ©王福强个人版权所有, All Rights Reserved.
+  &lt;/div&gt; 
+  &lt;div class="copyright py-4 text-center text-white"&gt; 
+   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
+   &lt;/div&gt; 
+  &lt;/div&gt; 
+  &lt;script type="text/javascript"&gt;
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    &lt;/script&gt;  
+  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
+ &lt;/body&gt;
+&lt;/html&gt;</description>
+      <pubDate>Wed, 13 Jul 2022 16:00:00 GMT</pubDate>
+      <guid>http://afoo.me/posts/2022-07-14-ivory-tower-vs-suburban.html</guid>
+      <dc:date>2022-07-13T16:00:00Z</dc:date>
+    </item>
+    <item>
+      <title>借着WPS的困境讲讲三种维度的架构</title>
+      <link>http://afoo.me/posts/2022-07-13-wps-dilemma.html</link>
+      <description>&lt;!doctype html&gt;
+&lt;html lang="zh"&gt; 
+ &lt;head&gt; 
+  &lt;meta charset="utf-8"&gt; 
+  &lt;meta name="keywords" content="借着WPS的困境讲讲三种维度的架构 - 架构教练,架构师个人成长教练,个人成长,组织成长,个人与组织成长顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
+  &lt;meta name="description" content="借着WPS的困境讲讲三种维度的架构 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
+  &lt;meta name="author" content="王福强"&gt; 
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
+  &lt;title&gt;借着WPS的困境讲讲三种维度的架构 - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
+  &lt;meta name="date" content="2022-07-13"&gt; 
+  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
+  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
+  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
+  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
+  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
+  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
+  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
+  &lt;script&gt;
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    &lt;/script&gt; 
+ &lt;/head&gt; 
+ &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
+  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
+   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
+    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
+     &lt;ul class="navbar-nav ml-auto"&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的创作&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
+     &lt;/ul&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/nav&gt; 
+  &lt;section&gt; 
+   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
+    &lt;p class="lead"&gt; &lt;/p&gt;
+    &lt;h1 class="title"&gt;借着WPS的困境讲讲三种维度的架构&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2022-07-13 &lt;/small&gt; 
+    &lt;p&gt;&lt;/p&gt; 
+    &lt;hr&gt; 
+    &lt;ul&gt; 
+     &lt;li&gt;&lt;a href="#背景"&gt;&lt;span class="toc-section-number"&gt;1&lt;/span&gt; 背景&lt;/a&gt;&lt;/li&gt; 
+     &lt;li&gt;&lt;a href="#信息监管架构"&gt;&lt;span class="toc-section-number"&gt;2&lt;/span&gt; 信息监管架构&lt;/a&gt;&lt;/li&gt; 
+     &lt;li&gt;&lt;a href="#商业架构"&gt;&lt;span class="toc-section-number"&gt;3&lt;/span&gt; 商业架构&lt;/a&gt;&lt;/li&gt; 
+     &lt;li&gt;&lt;a href="#技术架构"&gt;&lt;span class="toc-section-number"&gt;4&lt;/span&gt; 技术架构&lt;/a&gt;&lt;/li&gt; 
+     &lt;li&gt;&lt;a href="#怎么办"&gt;&lt;span class="toc-section-number"&gt;5&lt;/span&gt; 怎么办&lt;/a&gt;&lt;/li&gt; 
+    &lt;/ul&gt; 
+    &lt;hr&gt; 
+    &lt;h1 data-number="1" id="背景"&gt;&lt;span class="header-section-number"&gt;1&lt;/span&gt; 背景&lt;/h1&gt; 
+    &lt;p&gt;有人反映自己通过WPS写的文档被锁定，还有的说自己本地文件被删：&lt;/p&gt; 
+    &lt;p&gt;&lt;img src="images/2022-07-13-18-13-27.jpg"&gt;&lt;/p&gt; 
+    &lt;p&gt;金山就此也辟谣了：&lt;/p&gt; 
+    &lt;p&gt;&lt;img src="images/2022-07-13-18-15-53.jpg"&gt;&lt;/p&gt; 
+    &lt;p&gt;我相信，这个辟谣的可信度还是可以的，应该还是合规性问题，而不是随意删除文件，如果是随意删除文件，那就涉及到破坏用户数据了，这个，破坏计算机系统罪不知道适用不适用啊；）&lt;/p&gt; 
+    &lt;p&gt;实际上，之前很多用户反映，什么云文档啦或者什么云音乐啦，要么会查看用户的云文档内容，或者删除/锁定用户本地的音乐文件，其实这些都属于合规性问题，你骂企业是没有用的，企业要合法经营，也得遵守所在国家的法律框架不是？&lt;/p&gt; 
+    &lt;p&gt;&lt;img src="images/2022-07-13-18-25-01.jpg"&gt;&lt;/p&gt; 
+    &lt;p&gt;由此，我们倒是可以引申出三种维度的架构问题…&lt;/p&gt; 
+    &lt;h1 data-number="2" id="信息监管架构"&gt;&lt;span class="header-section-number"&gt;2&lt;/span&gt; 信息监管架构&lt;/h1&gt; 
+    &lt;p&gt;我们先抛开道德感不论，在一个有信息监管需要的地方，设计一套行之有效的监管实施架构最有效的方式就是法律，付诸于法律背后的神秘力量，然后展开到区域和实体的实施，这是更大力度的架构，也是我们首先要关注的架构设计。&lt;/p&gt; 
+    &lt;p&gt;至于记者证啦，搞搞活动啦，都只是属于运营的一部分。&lt;/p&gt; 
+    &lt;p&gt;企业作为监管架构下的某个实体，在框架设计的约束下运转。&lt;/p&gt; 
+    &lt;h1 data-number="3" id="商业架构"&gt;&lt;span class="header-section-number"&gt;3&lt;/span&gt; 商业架构&lt;/h1&gt; 
+    &lt;p&gt;WPS的产品最早是单机产品，甚至于还是DOS时代的产物：&lt;/p&gt; 
+    &lt;p&gt;&lt;img src="images/2022-07-13-18-31-15.jpg"&gt;&lt;/p&gt; 
+    &lt;p&gt;但单机产品有个最头疼的问题，尤其是在我们这片土地上： &lt;strong&gt;盗版&lt;/strong&gt;。&lt;/p&gt; 
+    &lt;p&gt;所以，随着网络的普及以及SaaS模式的出现，各大软件厂商逐渐将产品形态从单机转向云和SaaS模式，当然有办公协调层面的考虑，但从商业模式或者商业架构上考虑，SaaS模式带来的好处不单单是天然反盗版（因为缺乏信任，只能核心资产上收），更主要的是，从厂商的角度，可以年年收租金，月月都有现金流。&lt;/p&gt; 
+    &lt;p&gt;如果说过去用户可以通过付费买断软件的所有权，那么，今天用户只能通过付费买软件的使用权。 这就是&lt;strong&gt;SaaS产品和商业模式的本质： 租&lt;/strong&gt;！&lt;/p&gt; 
+    &lt;h1 data-number="4" id="技术架构"&gt;&lt;span class="header-section-number"&gt;4&lt;/span&gt; 技术架构&lt;/h1&gt; 
+    &lt;p&gt;现在让我们把视线落到大家认知里最常见的架构，也就是“技术架构”上来，如果让你作为架构师来设计像WPS这样云产品的技术架构，你会怎么设计？&lt;/p&gt; 
+    &lt;p&gt;是云+端等量同步吗？ 还是云为主，端为辅？ 甚至直接通过浏览器+云的模式，把所有核心职能都上收到云上？&lt;/p&gt; 
+    &lt;p&gt;如果要检测用户的文档内容是否符合合规要求，我们是在云端直接扫描呢？ 还是像当年杀毒软件那样，把病毒库下发到用户电脑端执行？ 要锁定不合规的文件，我们是云端直接权限控制，还是做指令下发？&lt;/p&gt; 
+    &lt;p&gt;好啦，留着些问题给大家去思考吧，毕竟，我们不是WPS的架构师；）&lt;/p&gt; 
+    &lt;h1 data-number="5" id="怎么办"&gt;&lt;span class="header-section-number"&gt;5&lt;/span&gt; 怎么办&lt;/h1&gt; 
+    &lt;p&gt;这或许才是大家最为关心的，是的，就算了解了这些， 我们应该怎么办呢？&lt;/p&gt; 
+    &lt;p&gt;至少有两条路，至于路怎么走，当然你自己看着办咯~&lt;/p&gt; 
+    &lt;p&gt;&lt;strong&gt;要么，合规化操作&lt;/strong&gt;。&lt;/p&gt; 
+    &lt;p&gt;比如那天华章的杨福川就做过出版行业使用WPS的实践和经验，其中就有提醒作者在内容创作过程中要注意的合规性问题。&lt;/p&gt; 
+    &lt;p&gt;&lt;strong&gt;要么，选择其它产品&lt;/strong&gt;。&lt;/p&gt; 
+    &lt;p&gt;至少有三类产品可以作为替代品：&lt;/p&gt; 
+    &lt;ol type="1"&gt; 
+     &lt;li&gt;&lt;strong&gt;Offic类替代品&lt;/strong&gt;：这类替代品主要是为了那些习惯了使用office的人群（当然，前提是可以寻求这类替代品），比如退回到某个老版本的微软office，或者选择像LibreOffice这样的开源产品；&lt;/li&gt; 
+     &lt;li&gt;&lt;strong&gt;Block Editor类替代品&lt;/strong&gt;： 基于块（Block）的编辑器现在也发展的很成熟了，比如Notion，如果你能习惯这类内容编辑器，这也是一类不错的替代品选择；&lt;/li&gt; 
+     &lt;li&gt;&lt;strong&gt;Markdown类替代品&lt;/strong&gt;： 这个就比较geek了，偏纯文本，对于非程序员用户极其不友好，不推荐普通大众使用，虽然我现在日常最多的就是用这种方式，这个我之前讲过（git + markdown + pandoc）；&lt;/li&gt; 
+    &lt;/ol&gt; 
+    &lt;p&gt;好啦，GL &amp;amp; HF，今天就这样吧！&lt;/p&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
+    &lt;hr&gt; 
+    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
+    &lt;/div&gt; 
+    &lt;div id="random_posts"&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2022-01-19-kenghuo-habit-momentum.html"&gt;坑获：用户的习惯岂是你想改就能改 &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2010-02-18-spring-festval.html"&gt;大年三十 &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2018-10-26-thinking_upgrade.html"&gt;王福强：让升级思维指引行业方向的选择 &lt;/a&gt; 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
+    &lt;div id="comments"&gt;&lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;div class="text-center"&gt; 
+     &lt;img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/section&gt; 
+  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
+   ©王福强个人版权所有, All Rights Reserved.
+  &lt;/div&gt; 
+  &lt;div class="copyright py-4 text-center text-white"&gt; 
+   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
+   &lt;/div&gt; 
+  &lt;/div&gt; 
+  &lt;script type="text/javascript"&gt;
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    &lt;/script&gt;  
+  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
+ &lt;/body&gt;
+&lt;/html&gt;</description>
+      <pubDate>Tue, 12 Jul 2022 16:00:00 GMT</pubDate>
+      <guid>http://afoo.me/posts/2022-07-13-wps-dilemma.html</guid>
+      <dc:date>2022-07-12T16:00:00Z</dc:date>
+    </item>
+    <item>
+      <title>处处都是老鼠屎的代价！</title>
+      <link>http://afoo.me/posts/2022-07-08-fuck-luke-shit.html</link>
+      <description>&lt;!doctype html&gt;
+&lt;html lang="zh"&gt; 
+ &lt;head&gt; 
+  &lt;meta charset="utf-8"&gt; 
+  &lt;meta name="keywords" content="处处都是老鼠屎的代价！ - 架构教练,架构师个人成长教练,个人成长,组织成长,个人与组织成长顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
+  &lt;meta name="description" content="处处都是老鼠屎的代价！ - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
+  &lt;meta name="author" content="王福强"&gt; 
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
+  &lt;title&gt;处处都是老鼠屎的代价！ - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
+  &lt;meta name="date" content="2022-07-08"&gt; 
+  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
+  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
+  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
+  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
+  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
+  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
+  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
+  &lt;script&gt;
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    &lt;/script&gt; 
+ &lt;/head&gt; 
+ &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
+  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
+   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
+    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
+     &lt;ul class="navbar-nav ml-auto"&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的创作&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
+     &lt;/ul&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/nav&gt; 
+  &lt;section&gt; 
+   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
+    &lt;p class="lead"&gt; &lt;/p&gt;
+    &lt;h1 class="title"&gt;处处都是老鼠屎的代价！&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2022-07-08 &lt;/small&gt; 
+    &lt;p&gt;&lt;/p&gt; 
+    &lt;hr&gt; 
+    &lt;p&gt;昨天睡前听了一段王局对一个叫卢克的事件点评，其实没啥稀奇的，因为见过的多了。&lt;/p&gt; 
+    &lt;p&gt;一颗老鼠屎，搅坏一锅汤，成本和代价所有人承担，这tmd都快成铁律了。&lt;/p&gt; 
+    &lt;p&gt;我记得那是哪年去泰国，单独找教练训练，中午他请吃饭，吃完了，还不忘说一句“你们中国人啊，怎么怎么样”，意思就是浪费粮食，铺张浪费，你说，我能跟他讲什么道理吗？ 讲不了啥，不是所有人都知道应该规避抽象专注个体，也不是所有人跟你认知一样，所以，才会有“你说的都对”，因为认知不对称嘛。 这个教练还是打过好几次交道的，而且他还读过国际化学校，按道理来说，应该知道差异性与多样性，但直觉上，就是被我们中国人怎么怎么样的印象给刷新了内存啊！&lt;/p&gt; 
+    &lt;p&gt;只要有一个或者几个中国人做了坏事，然后后面出去的一定要背负同样的骂名（毕竟，好事儿不出门，坏事传千里嘛），所以，我那天看王小波的《沉默的大多数》里那句“他乡遇故知，心里挺别扭”，就tmd会心一笑。&lt;/p&gt; 
+    &lt;p&gt;你心里很清楚自己什么德行，你也很清楚个别人是什么德行，但大多数人不一定清楚。&lt;/p&gt; 
+    &lt;p&gt;多少行业都是毁在这种老鼠屎上面啊，好好的P2P不干，搞什么自融自贷，搞什么高利贷，搞什么捐钱跑路，后面不还是得行业里规规矩矩做事情的人和公司来背负骂名和代价？（大众认知的P2P别tmd跟我喷粪，同样一个词儿，我说的P2P跟你脑子里的不一样）&lt;/p&gt; 
+    &lt;p&gt;这个所谓的卢克不也是一下子把各个视频平台有色人种举牌祝福的生意全给下架了？&lt;/p&gt; 
+    &lt;p&gt;只要老鼠屎臭味儿足够大，搞垮一个行业还不是分分钟的事儿？&lt;/p&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
+    &lt;hr&gt; 
+    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
+    &lt;/div&gt; 
+    &lt;div id="random_posts"&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2004-00-00-some-tips-of-ssl.html"&gt;有关SSL的一些tips &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2008-09-29-headache.html"&gt;头痛欲裂 &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-01-20-damn-2008.html"&gt;DAMN 2008 &lt;/a&gt; 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
+    &lt;div id="comments"&gt;&lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;div class="text-center"&gt; 
+     &lt;img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/section&gt; 
+  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
+   ©王福强个人版权所有, All Rights Reserved.
+  &lt;/div&gt; 
+  &lt;div class="copyright py-4 text-center text-white"&gt; 
+   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
+   &lt;/div&gt; 
+  &lt;/div&gt; 
+  &lt;script type="text/javascript"&gt;
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    &lt;/script&gt;  
+  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
+ &lt;/body&gt;
+&lt;/html&gt;</description>
+      <pubDate>Thu, 07 Jul 2022 16:00:00 GMT</pubDate>
+      <guid>http://afoo.me/posts/2022-07-08-fuck-luke-shit.html</guid>
+      <dc:date>2022-07-07T16:00:00Z</dc:date>
+    </item>
+    <item>
+      <title>同样道理，不同圈层，不同效用，不同美德</title>
+      <link>http://afoo.me/posts/2022-07-08-different-values.html</link>
+      <description>&lt;!doctype html&gt;
+&lt;html lang="zh"&gt; 
+ &lt;head&gt; 
+  &lt;meta charset="utf-8"&gt; 
+  &lt;meta name="keywords" content="同样道理，不同圈层，不同效用，不同美德 - 架构教练,架构师个人成长教练,个人成长,组织成长,个人与组织成长顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
+  &lt;meta name="description" content="同样道理，不同圈层，不同效用，不同美德 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
+  &lt;meta name="author" content="王福强"&gt; 
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
+  &lt;title&gt;同样道理，不同圈层，不同效用，不同美德 - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
+  &lt;meta name="date" content="2022-07-08"&gt; 
+  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
+  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
+  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
+  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
+  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
+  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
+  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
+  &lt;script&gt;
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    &lt;/script&gt; 
+ &lt;/head&gt; 
+ &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
+  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
+   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
+    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
+     &lt;ul class="navbar-nav ml-auto"&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的创作&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
+     &lt;/ul&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/nav&gt; 
+  &lt;section&gt; 
+   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
+    &lt;p class="lead"&gt; &lt;/p&gt;
+    &lt;h1 class="title"&gt;同样道理，不同圈层，不同效用，不同美德&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2022-07-08 &lt;/small&gt; 
+    &lt;p&gt;&lt;/p&gt; 
+    &lt;hr&gt; 
+    &lt;p&gt;其实也真没啥好说的，就好像有的人说陈春花说的那些都是空话、大道理一样，其实对于中小企业来说、对于大部分人来说，陈春花说的那些，确实没啥用。 但对于大企业、大集团来说，陈春花说的那些就有大效用了。&lt;/p&gt; 
+    &lt;p&gt;从销售角度来说，她帮忙站台，相当于是ToB销售链路上的“影响者”，所以，帮某个大机构打下某个大单，而这个单子如果华为也在竞标，那相当于伤害了华为的利益，加上陈之前又靠华为蹭过权重，那华为内部不爽就是很正常的事情。&lt;/p&gt; 
+    &lt;p&gt;从组织管理角度来说，陈春花说的那些东西对大企业来说也是有价值的，对挣扎在生存线上的SMB企业当然没太大用。&lt;/p&gt; 
+    &lt;p&gt;至于说美德，不同圈层的人真的是尊尚不同的美德。&lt;/p&gt; 
+    &lt;p&gt;做专业工种的时候，你遵循的是一万小时定律，你崇尚的是工匠精神，否则，你事情肯定做不好；&lt;/p&gt; 
+    &lt;p&gt;做生意、搞商业的时候，你要的是增长、增长再增长， 商业无关道德，只要有增长，什么问题都不再是问题；&lt;/p&gt; 
+    &lt;p&gt;为了搞流量，我应该用标题党来&lt;a href="https://afoo.me/ke"&gt;卖课&lt;/a&gt;，比如：&lt;/p&gt; 
+    &lt;ul&gt; 
+     &lt;li&gt;要升p8/p9必须知道的底层逻辑！&lt;/li&gt; 
+     &lt;li&gt;读MBA也学不到的组织逻辑！&lt;/li&gt; 
+     &lt;li&gt;进大厂也得不到的架构思维！&lt;/li&gt; 
+    &lt;/ul&gt; 
+    &lt;p&gt;引诱你的欲望，制造强化你的焦虑，我懂，但作为一个书生，受限于脸皮薄，大多数时候只是明机巧而不用…&lt;/p&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
+    &lt;hr&gt; 
+    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
+    &lt;/div&gt; 
+    &lt;div id="random_posts"&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2020-03-08-just-respect-the-professionals.html"&gt;自己不专业就别瞎bb &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2007-07-25-BF4768EE8B110260_502.html"&gt;我是一个没素质的人&lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2017-07-20-study-is-not-what-you-think.html"&gt;你知道学习是怎么一回事？你确定？ &lt;/a&gt; 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
+    &lt;div id="comments"&gt;&lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;div class="text-center"&gt; 
+     &lt;img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/section&gt; 
+  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
+   ©王福强个人版权所有, All Rights Reserved.
+  &lt;/div&gt; 
+  &lt;div class="copyright py-4 text-center text-white"&gt; 
+   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
+   &lt;/div&gt; 
+  &lt;/div&gt; 
+  &lt;script type="text/javascript"&gt;
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    &lt;/script&gt;  
+  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
+ &lt;/body&gt;
+&lt;/html&gt;</description>
+      <pubDate>Thu, 07 Jul 2022 16:00:00 GMT</pubDate>
+      <guid>http://afoo.me/posts/2022-07-08-different-values.html</guid>
+      <dc:date>2022-07-07T16:00:00Z</dc:date>
+    </item>
+    <item>
+      <title>华为与陈春花到底怎么了？</title>
+      <link>http://afoo.me/posts/2022-07-07-bubbles-of-reputation.html</link>
+      <description>&lt;!doctype html&gt;
+&lt;html lang="zh"&gt; 
+ &lt;head&gt; 
+  &lt;meta charset="utf-8"&gt; 
+  &lt;meta name="keywords" content="华为与陈春花到底怎么了？ - 架构教练,架构师个人成长教练,个人成长,组织成长,个人与组织成长顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
+  &lt;meta name="description" content="华为与陈春花到底怎么了？ - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
+  &lt;meta name="author" content="王福强"&gt; 
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
+  &lt;title&gt;华为与陈春花到底怎么了？ - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
+  &lt;meta name="date" content="2022-07-07"&gt; 
+  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
+  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
+  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
+  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
+  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
+  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
+  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
+  &lt;script&gt;
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    &lt;/script&gt; 
+ &lt;/head&gt; 
+ &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
+  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
+   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
+    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
+     &lt;ul class="navbar-nav ml-auto"&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的创作&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
+     &lt;/ul&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/nav&gt; 
+  &lt;section&gt; 
+   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
+    &lt;p class="lead"&gt; &lt;/p&gt;
+    &lt;h1 class="title"&gt;华为与陈春花到底怎么了？&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2022-07-07 &lt;/small&gt; 
+    &lt;p&gt;&lt;/p&gt; 
+    &lt;hr&gt; 
+    &lt;p&gt;看到这种声明感觉还挺突兀的，不高明：&lt;/p&gt; 
+    &lt;p&gt;&lt;img src="images/hw-cch.pic.jpg"&gt;&lt;/p&gt; 
+    &lt;p&gt;参照刘润老师的公众号内容，大体上知道了怎么回事。&lt;/p&gt; 
+    &lt;p&gt;说说个人之前肤浅的猜想…&lt;/p&gt; 
+    &lt;p&gt;从华为角度来看，华为做出这种举动显然是因为自己的权重被蹭了， 一次我可以忍，再三再四肯定不能忍，只不过，这公告水平需要提高下，比如“继续欢迎陈春花老师与上次xyz作为学者一起再次光临交流”之类，是不是好一点儿呢；）&lt;/p&gt; 
+    &lt;p&gt;从陈春花的角度来看，别人言过其实的东西，我肯定保持沉默啊，享受泡沫的红利不好吗？ 我自己只要没说过，别人怎么说，那是别人的事情，跟我个人节操一点儿关系没有啊，而且还帮我做了营销，何乐而不为呢？ 盛名难不难副有什么关系？ 又不是我自己说的… 就好像我说我是万年P8，有朋友说我水平到今天应该P11，我tmd说啥了吗？ 我肯定不会自己说我tmd是P11对不对？！&lt;/p&gt; 
+    &lt;p&gt;从盗版链条的角度来看， 其实也无非就是图点儿利，从版权的角度来看，他们肯定不地道，从商业的角度，却不能说对华为和陈春花没有益处， 盗版链条除了自己获益，其实也为双方做了传播，创造了营销价值。&lt;/p&gt; 
+    &lt;p&gt;所以我说，这个事情其实处理的并不高明，你觉得呢？ ；）&lt;/p&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
+    &lt;hr&gt; 
+    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
+    &lt;/div&gt; 
+    &lt;div id="random_posts"&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2015-03-24-java-scala-project-type-choice-principle.html"&gt;Java/Scala项目设立原则 &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2017-04-17-be-pragmatic.html"&gt;多务实， 少炫技 &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2020-05-11-techie-characters-as-entrepreneur.html"&gt;程序员创业的三个直觉性特点 &lt;/a&gt; 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
+    &lt;div id="comments"&gt;&lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;div class="text-center"&gt; 
+     &lt;img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/section&gt; 
+  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
+   ©王福强个人版权所有, All Rights Reserved.
+  &lt;/div&gt; 
+  &lt;div class="copyright py-4 text-center text-white"&gt; 
+   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
+   &lt;/div&gt; 
+  &lt;/div&gt; 
+  &lt;script type="text/javascript"&gt;
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    &lt;/script&gt;  
+  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
+ &lt;/body&gt;
+&lt;/html&gt;</description>
+      <pubDate>Wed, 06 Jul 2022 16:00:00 GMT</pubDate>
+      <guid>http://afoo.me/posts/2022-07-07-bubbles-of-reputation.html</guid>
+      <dc:date>2022-07-06T16:00:00Z</dc:date>
+    </item>
+    <item>
+      <title>二十年目睹中国ToB软件之怪现状</title>
+      <link>http://afoo.me/posts/2022-07-06-ghost-stories-of-toB-biz.html</link>
+      <description>&lt;!doctype html&gt;
+&lt;html lang="zh"&gt; 
+ &lt;head&gt; 
+  &lt;meta charset="utf-8"&gt; 
+  &lt;meta name="keywords" content="二十年目睹中国ToB软件之怪现状 - 架构教练,架构师个人成长教练,个人成长,组织成长,个人与组织成长顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
+  &lt;meta name="description" content="二十年目睹中国ToB软件之怪现状 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
+  &lt;meta name="author" content="王福强"&gt; 
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
+  &lt;title&gt;二十年目睹中国ToB软件之怪现状 - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
+  &lt;meta name="date" content="2022-07-06"&gt; 
+  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
+  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
+  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
+  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
+  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
+  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
+  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
+  &lt;script&gt;
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    &lt;/script&gt; 
+ &lt;/head&gt; 
+ &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
+  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
+   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
+    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
+     &lt;ul class="navbar-nav ml-auto"&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的创作&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
+     &lt;/ul&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/nav&gt; 
+  &lt;section&gt; 
+   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
+    &lt;p class="lead"&gt; &lt;/p&gt;
+    &lt;h1 class="title"&gt;二十年目睹中国ToB软件之怪现状&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2022-07-06 &lt;/small&gt; 
+    &lt;p&gt;&lt;/p&gt; 
+    &lt;hr&gt; 
+    &lt;ul&gt; 
+     &lt;li&gt;&lt;a href="#好看优先于实用"&gt;&lt;span class="toc-section-number"&gt;1&lt;/span&gt; 好看优先于实用&lt;/a&gt;&lt;/li&gt; 
+     &lt;li&gt;&lt;a href="#项目优先于产品"&gt;&lt;span class="toc-section-number"&gt;2&lt;/span&gt; 项目优先于产品&lt;/a&gt;&lt;/li&gt; 
+     &lt;li&gt;&lt;a href="#估值优先于现金流"&gt;&lt;span class="toc-section-number"&gt;3&lt;/span&gt; 估值优先于现金流&lt;/a&gt;&lt;/li&gt; 
+     &lt;li&gt;&lt;a href="#关系优先于能力"&gt;&lt;span class="toc-section-number"&gt;4&lt;/span&gt; 关系优先于能力&lt;/a&gt;&lt;/li&gt; 
+     &lt;li&gt;&lt;a href="#更多"&gt;&lt;span class="toc-section-number"&gt;5&lt;/span&gt; 更多…&lt;/a&gt;&lt;/li&gt; 
+    &lt;/ul&gt; 
+    &lt;hr&gt; 
+    &lt;h1 data-number="1" id="好看优先于实用"&gt;&lt;span class="header-section-number"&gt;1&lt;/span&gt; 好看优先于实用&lt;/h1&gt; 
+    &lt;p&gt;BI是什么？ Business Intelligence，商业智能，天天扯什么大数据，目的为啥？ 还不是为了商业和智能？！&lt;/p&gt; 
+    &lt;p&gt;问题是，真正到了企业，上峰只关注数据大屏好不好看、效果炫不炫，真玩数据驱动运营的又有几个？&lt;/p&gt; 
+    &lt;p&gt;眼睁睁地看着身边多家大数据起家的企业，转型设计师平台或者模板平台业务，搞鸡毛大数据啊，客户需求不在哪里，也挣不着钱，还是老老实实客户第一，冲着好看去吧！&lt;/p&gt; 
+    &lt;p&gt;降本增效？ 滚tmd犊子吧！ 客户都不关心，我tmd关心个毛线！&lt;/p&gt; 
+    &lt;h1 data-number="2" id="项目优先于产品"&gt;&lt;span class="header-section-number"&gt;2&lt;/span&gt; 项目优先于产品&lt;/h1&gt; 
+    &lt;p&gt;在&lt;a href="https://afoo.me/ke"&gt;《底层逻辑》&lt;/a&gt;的&lt;strong&gt;资源分配格局图&lt;/strong&gt;的笼罩之下，以及toB业务&lt;strong&gt;存量分配&lt;/strong&gt;的本质之下，所有ToB软件企业最终玩得不是价值创造，而是价值贡献和倒贴。如果没有融资撑着，为了生存资源更是得死命地去卷、卷、卷，舔、舔、舔，想做产品等着客户来主动预付费？ 想得美！有项目做就不错了，能做一个是一个，哪里还顾得什么长期使命、中期目标，活下去才是眼下最重要的事情。 家底儿厚的除外！&lt;/p&gt; 
+    &lt;h1 data-number="3" id="估值优先于现金流"&gt;&lt;span class="header-section-number"&gt;3&lt;/span&gt; 估值优先于现金流&lt;/h1&gt; 
+    &lt;p&gt;软件其实是一个很中后期的生意（还记得福强老师提到的LoD吗？），业务活不下去，谁tmd还关心软件做得好不好啊！&lt;/p&gt; 
+    &lt;p&gt;所以， toB软件业务意味着，基本上得企业过了生存期之后才有需求和付费动力，越靠后，越要垫“资”，这里跟海外还不一样，海外的垫“资(本)”，可以形成底层竞争力，还可以搞规模化营收，这里就只能寄希望于上市套现，所以估值比现金流重要。&lt;/p&gt; 
+    &lt;p&gt;但是，一旦周围动荡，现金流接续不上…&lt;/p&gt; 
+    &lt;p&gt;好在，大环境归大环境，总有孤勇者砥砺前行，尊重合理的商业底层逻辑。&lt;/p&gt; 
+    &lt;h1 data-number="4" id="关系优先于能力"&gt;&lt;span class="header-section-number"&gt;4&lt;/span&gt; 关系优先于能力&lt;/h1&gt; 
+    &lt;p&gt;我在&lt;a href="https://afoo.me/books.html"&gt;《技术、商业与人》&lt;/a&gt;里讲过，中国的ToB生意，&lt;code&gt;资源、关系、能力&lt;/code&gt;，顺序不能乱。&lt;/p&gt; 
+    &lt;p&gt;有资源，就相当于你有Fuck You Money，遇到不喜欢的客户完全可以不屌。&lt;/p&gt; 
+    &lt;p&gt;有关系，你才能拿到项目；&lt;/p&gt; 
+    &lt;p&gt;有能力？ 你是被选择的，排最后。&lt;/p&gt; 
+    &lt;p&gt;这是中国ToB生意的关键逻辑，我瞎说的。&lt;/p&gt; 
+    &lt;h1 data-number="5" id="更多"&gt;&lt;span class="header-section-number"&gt;5&lt;/span&gt; 更多…&lt;/h1&gt; 
+    &lt;p&gt;编不出来了，就先这样吧！ ；）&lt;/p&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
+    &lt;hr&gt; 
+    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
+    &lt;/div&gt; 
+    &lt;div id="random_posts"&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2010-07-15-choosing-cars.html"&gt;车是好车，只是哥有点儿等不急了&lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2007-03-09-movie-review-on-mentu.html"&gt;门徒，最后居然还是一个卧底 &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2011-11-20-SBT_Good_And_Bad_Configuration_Style.html"&gt;SBT 0.11.x Good And Bad Configuration Style &lt;/a&gt; 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
+    &lt;div id="comments"&gt;&lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;div class="text-center"&gt; 
+     &lt;img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/section&gt; 
+  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
+   ©王福强个人版权所有, All Rights Reserved.
+  &lt;/div&gt; 
+  &lt;div class="copyright py-4 text-center text-white"&gt; 
+   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
+   &lt;/div&gt; 
+  &lt;/div&gt; 
+  &lt;script type="text/javascript"&gt;
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    &lt;/script&gt;  
+  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
+ &lt;/body&gt;
+&lt;/html&gt;</description>
+      <pubDate>Tue, 05 Jul 2022 16:00:00 GMT</pubDate>
+      <guid>http://afoo.me/posts/2022-07-06-ghost-stories-of-toB-biz.html</guid>
+      <dc:date>2022-07-05T16:00:00Z</dc:date>
+    </item>
+    <item>
+      <title>上海某特殊部门数据泄露事件分析与启示</title>
+      <link>http://afoo.me/posts/2022-07-05-GA-data-leak-incident.html</link>
+      <description>&lt;!doctype html&gt;
+&lt;html lang="zh"&gt; 
+ &lt;head&gt; 
+  &lt;meta charset="utf-8"&gt; 
+  &lt;meta name="keywords" content="上海某特殊部门数据泄露事件分析与启示 - 架构教练,架构师个人成长教练,个人成长,组织成长,个人与组织成长顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
+  &lt;meta name="description" content="上海某特殊部门数据泄露事件分析与启示 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
+  &lt;meta name="author" content="王福强"&gt; 
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
+  &lt;title&gt;上海某特殊部门数据泄露事件分析与启示 - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
+  &lt;meta name="date" content="2022-07-05"&gt; 
+  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
+  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
+  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
+  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
+  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
+  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
+  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
+  &lt;script&gt;
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    &lt;/script&gt; 
+ &lt;/head&gt; 
+ &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
+  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
+   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
+    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
+     &lt;ul class="navbar-nav ml-auto"&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的创作&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
+     &lt;/ul&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/nav&gt; 
+  &lt;section&gt; 
+   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
+    &lt;p class="lead"&gt; &lt;/p&gt;
+    &lt;h1 class="title"&gt;上海某特殊部门数据泄露事件分析与启示&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2022-07-05 &lt;/small&gt; 
+    &lt;p&gt;&lt;/p&gt; 
+    &lt;hr&gt; 
+    &lt;ul&gt; 
+     &lt;li&gt;&lt;a href="#事件始末"&gt;&lt;span class="toc-section-number"&gt;1&lt;/span&gt; 事件始末&lt;/a&gt;&lt;/li&gt; 
+     &lt;li&gt;&lt;a href="#尝试复盘"&gt;&lt;span class="toc-section-number"&gt;2&lt;/span&gt; 尝试复盘&lt;/a&gt;&lt;/li&gt; 
+     &lt;li&gt;&lt;a href="#应对之策"&gt;&lt;span class="toc-section-number"&gt;3&lt;/span&gt; 应对之策&lt;/a&gt;&lt;/li&gt; 
+    &lt;/ul&gt; 
+    &lt;hr&gt; 
+    &lt;p&gt;这次数据泄露的数据(2022-07-03)，对于黑产来说，关键元素估计之前都有了，比如常见的三元素（姓名，身份证号，电话），这次估计只能算是一个特征补充，但泄露的数据量(23.88TB)以及发生的部门还是挺有冲击性的，所以，扶墙老师想尝试梳理和分析下过程，并贡献一些七八年前还有点儿用的经验，看对大家有没有帮助；0）&lt;/p&gt; 
+    &lt;h1 data-number="1" id="事件始末"&gt;&lt;span class="header-section-number"&gt;1&lt;/span&gt; 事件始末&lt;/h1&gt; 
+    &lt;p&gt;Sample数据看起来是ElasticSearch的备份数据，而备份则是放在某云服务的OSS（对象存储服务）上， 估计是负责项目的开发小白为了彰显自己技术“牛逼”或者其它什么不为人知的目的，TA把访问OSS服务的代码贴到了位于CSDN网站的个人博客上， 而贴的代码里明哄哄地把硬编码到代码里的accessKey也一起贴出来了，从而导致别有用心之人拿到了这批备份数据，最终以10个比特币的价格在某个地方销售。 而为了让买家信服，对方也放出来三个文件大约75K的Sample数据供潜在买家查验。&lt;/p&gt; 
+    &lt;p&gt;整个事件还原不一定就是真相，但还算说得过去吧？！ 说白了，钥匙随便扔，丢了东西，怪谁呀？！&lt;/p&gt; 
+    &lt;h1 data-number="2" id="尝试复盘"&gt;&lt;span class="header-section-number"&gt;2&lt;/span&gt; 尝试复盘&lt;/h1&gt; 
+    &lt;p&gt;如果要故障定级，那肯定P0级安全事故打不住。&lt;/p&gt; 
+    &lt;p&gt;如果要追责，那&lt;strong&gt;研发团队&lt;/strong&gt;肯定跑不了，正常来说，从上到下一起追责。&lt;/p&gt; 
+    &lt;p&gt;如果&lt;strong&gt;安全部门&lt;/strong&gt;不归技术或者研发团队管，那么安全团队也需要追究次级责任，因为没有做好关键服务和数据的流量监控，以及日常安全巡检。&lt;/p&gt; 
+    &lt;p&gt;至于有些人说运维也有责任，这个多少有点儿扯了，估计平常甩锅给运维习惯了吧，其实“正规军”机构里，运维只要保障基础设施的供应与运行平稳就可以了。这个事情，扶墙老师觉得，原则上跟运维没关系。&lt;/p&gt; 
+    &lt;h1 data-number="3" id="应对之策"&gt;&lt;span class="header-section-number"&gt;3&lt;/span&gt; 应对之策&lt;/h1&gt; 
+    &lt;p&gt;组织人来人往，水平参差不齐，这种事儿其实很难完全杜绝。&lt;/p&gt; 
+    &lt;p&gt;真要做点儿事儿，倒是可以很大程度上减少类似事件发生的概率。&lt;/p&gt; 
+    &lt;p&gt;首先，&lt;strong&gt;研发流程管理&lt;/strong&gt;需要加强，尤其是基础研发流程管理，mmp，代码审查（Code Review）你起码得做呀，做了也不至于发现不了小白把accessKey硬编码到代码里吧？ 进一步讲，你的CICD pipeline里集成下代码扫描是不是也能发现？&lt;/p&gt; 
+    &lt;p&gt;另外，&lt;strong&gt;技术管理制度&lt;/strong&gt;和&lt;strong&gt;技术文化建设&lt;/strong&gt;也得加强，丫的一点儿安全&lt;strong&gt;意识&lt;/strong&gt;都没有，怎么能把accessKey贴到外网博客呢？ 老鸟儿肯定不会这么干啊~&lt;/p&gt; 
+    &lt;p&gt;其次， 安全团队的&lt;strong&gt;日常&lt;/strong&gt;工作要做好，异常流量监控、代码扫描、日常巡检，一个都不能少啊！更多措施，比如数据分级管理与防护，能催促上的都要上吧？&lt;/p&gt; 
+    &lt;p&gt;最后， 扶墙老师想说，安全是一个持续的过程，如果不能&lt;strong&gt;体系化的规划和实施&lt;/strong&gt;，往往就是“按下葫芦起了瓢”，企业进入成长期或者繁荣期之后，就该找安全的负责人好好搞搞信息安全的事儿了，这个做老板的人得晓得 ；）&lt;/p&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
+    &lt;hr&gt; 
+    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
+    &lt;/div&gt; 
+    &lt;div id="random_posts"&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2019-03-18-body-uphold-spirit.html"&gt;精神再高贵顽强也经不起身体神殿的崩塌 &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2014-11-12-how-to-research-a-enterprise-before-investing.html"&gt;投资人怎么把一家公司研究透[摘要] &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2019-11-06-my-shallow-opinion-about-broker-saaas.html"&gt;房产中介SaaS业务之我见 &lt;/a&gt; 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
+    &lt;div id="comments"&gt;&lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;div class="text-center"&gt; 
+     &lt;img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/section&gt; 
+  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
+   ©王福强个人版权所有, All Rights Reserved.
+  &lt;/div&gt; 
+  &lt;div class="copyright py-4 text-center text-white"&gt; 
+   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
+   &lt;/div&gt; 
+  &lt;/div&gt; 
+  &lt;script type="text/javascript"&gt;
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    &lt;/script&gt;  
+  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
+ &lt;/body&gt;
+&lt;/html&gt;</description>
+      <pubDate>Mon, 04 Jul 2022 16:00:00 GMT</pubDate>
+      <guid>http://afoo.me/posts/2022-07-05-GA-data-leak-incident.html</guid>
+      <dc:date>2022-07-04T16:00:00Z</dc:date>
+    </item>
+    <item>
+      <title>或许我们并不知道什么是真正的教育！</title>
+      <link>http://afoo.me/posts/2022-06-18-education-essentials.html</link>
+      <description>&lt;!doctype html&gt;
+&lt;html lang="zh"&gt; 
+ &lt;head&gt; 
+  &lt;meta charset="utf-8"&gt; 
+  &lt;meta name="keywords" content="或许我们并不知道什么是真正的教育！ - 架构教练,架构师个人成长教练,个人成长,组织成长,个人与组织成长顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
+  &lt;meta name="description" content="或许我们并不知道什么是真正的教育！ - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
+  &lt;meta name="author" content="王福强"&gt; 
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
+  &lt;title&gt;或许我们并不知道什么是真正的教育！ - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
+  &lt;meta name="date" content="2022-06-18"&gt; 
+  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
+  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
+  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
+  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
+  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
+  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
+  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
+  &lt;script&gt;
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    &lt;/script&gt; 
+ &lt;/head&gt; 
+ &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
+  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
+   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
+    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
+     &lt;ul class="navbar-nav ml-auto"&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的创作&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
+     &lt;/ul&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/nav&gt; 
+  &lt;section&gt; 
+   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
+    &lt;p class="lead"&gt; &lt;/p&gt;
+    &lt;h1 class="title"&gt;或许我们并不知道什么是真正的教育！&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2022-06-18 &lt;/small&gt; 
+    &lt;p&gt;&lt;/p&gt; 
+    &lt;hr&gt; 
+    &lt;p&gt;既然经常被人称为“王老师”或者“扶墙老师”，作为老师，我觉得有义务说一下个人对教育的看法。高考之后，每年学校里都会“开展扔书撕书活动”，如果我们了解了这个事情的底层逻辑，那么这种现象也并非什么难以理解的事情。&lt;/p&gt; 
+    &lt;p&gt;我认为教育分四个层次，简单绘图如下：&lt;/p&gt; 
+    &lt;p&gt;&lt;img src="images/edu_edi.pic.jpg"&gt;&lt;/p&gt; 
+    &lt;p&gt;如果把教育（英文对应Education）作为水平线的化，那么，教育之下还有两层，教育之上则至少一层。&lt;/p&gt; 
+    &lt;p&gt;就像谈到管理，我们会经常讲“管理是要激发人/员工的善意”， 谈到教育，我认为教育就是发掘和启发人的潜能。&lt;/p&gt; 
+    &lt;p&gt;理想与现实往往都是两极分化。&lt;/p&gt; 
+    &lt;p&gt;理想情况下， 教育只能算基础水平，教育之上的启发（教育）才是最好的（英文对应Edification）。&lt;/p&gt; 
+    &lt;p&gt;现实却是，很多所谓的教育，往往只是披着教育的皮，做着教化的事情，甚至还有把人当动物一样的驯化的事情。&lt;/p&gt; 
+    &lt;p&gt;所以， 作为整个图景中的实体， 被教育者最好自己能够觉醒，知道自己要什么样的教育，否则，有人掏钱，有人做事，但最终会为你好吗？ 自己想想。&lt;/p&gt; 
+    &lt;p&gt;个人对于教育的态度，基本上总结如下：&lt;/p&gt; 
+    &lt;p&gt;&lt;img src="images/2022-01-10-233112100.png"&gt;&lt;/p&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
+    &lt;hr&gt; 
+    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
+    &lt;/div&gt; 
+    &lt;div id="random_posts"&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2021-05-20-marketing-and-customer-view-first.html"&gt;客户视角、业务类比与脑暴 &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-01-03-the-curious-case-of-benjamin-button.html"&gt;返老还童(The Curious Case of Benjamin Button) &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-06-10-harward-negotiating-training-note.html"&gt;Harward Negotiating Training Note &lt;/a&gt; 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
+    &lt;div id="comments"&gt;&lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;div class="text-center"&gt; 
+     &lt;img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/section&gt; 
+  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
+   ©王福强个人版权所有, All Rights Reserved.
+  &lt;/div&gt; 
+  &lt;div class="copyright py-4 text-center text-white"&gt; 
+   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
+   &lt;/div&gt; 
+  &lt;/div&gt; 
+  &lt;script type="text/javascript"&gt;
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    &lt;/script&gt;  
+  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
+ &lt;/body&gt;
+&lt;/html&gt;</description>
+      <pubDate>Fri, 17 Jun 2022 16:00:00 GMT</pubDate>
+      <guid>http://afoo.me/posts/2022-06-18-education-essentials.html</guid>
+      <dc:date>2022-06-17T16:00:00Z</dc:date>
+    </item>
+    <item>
       <title>领导要边缘化我，我该怎么办？</title>
       <link>http://afoo.me/posts/2022-05-31-ld-still-conform-to-humanality.html</link>
       <description>&lt;!doctype html&gt;
 &lt;html lang="zh"&gt; 
  &lt;head&gt; 
   &lt;meta charset="utf-8"&gt; 
-  &lt;meta name="keywords" content="领导要边缘化我，我该怎么办？ - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
+  &lt;meta name="keywords" content="领导要边缘化我，我该怎么办？ - 架构教练,架构师个人成长教练,个人成长,组织成长,个人与组织成长顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
   &lt;meta name="description" content="领导要边缘化我，我该怎么办？ - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
   &lt;meta name="author" content="王福强"&gt; 
   &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
@@ -42,7 +1089,7 @@
      &lt;ul class="navbar-nav ml-auto"&gt; 
       &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
       &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的著作&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的创作&lt;/a&gt; &lt;/li&gt; 
       &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
       &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
      &lt;/ul&gt; 
@@ -67,11 +1114,11 @@
     &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
     &lt;/div&gt; 
     &lt;div id="random_posts"&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2013-06-19-git-and-octal-escaped-filename.html"&gt;Git对非ASCII文件名的Octal Escape处理说明 &lt;/a&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2018-04-05-expect_incentive_and_opportunity_cost.html"&gt;预期， 激励与机会成本 &lt;/a&gt; 
      &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2010-08-02-photograph3.html"&gt;拍荷花2&lt;/a&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-03-03-required-rate-of-return.html"&gt;必要回报率(Required Rate Of Return) &lt;/a&gt; 
      &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2019-04-20-prove-yourself.html"&gt;你想成为什么样的人，是由这件事决定的… &lt;/a&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2007-08-23-docbook-addict.html"&gt;docbook addict &lt;/a&gt; 
      &lt;/div&gt; 
     &lt;/div&gt; 
     &lt;hr&gt; 
@@ -79,7 +1126,7 @@
     &lt;div id="comments"&gt;&lt;/div&gt; 
     &lt;hr&gt; 
     &lt;div class="text-center"&gt; 
-     &lt;img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
+     &lt;img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
     &lt;/div&gt; 
    &lt;/div&gt; 
   &lt;/section&gt; 
@@ -117,7 +1164,7 @@ gitalk.render('comments')
 &lt;html lang="zh"&gt; 
  &lt;head&gt; 
   &lt;meta charset="utf-8"&gt; 
-  &lt;meta name="keywords" content="好工具：从n8n回归吃自己的狗食 - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
+  &lt;meta name="keywords" content="好工具：从n8n回归吃自己的狗食 - 架构教练,架构师个人成长教练,个人成长,组织成长,个人与组织成长顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
   &lt;meta name="description" content="好工具：从n8n回归吃自己的狗食 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
   &lt;meta name="author" content="王福强"&gt; 
   &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
@@ -148,7 +1195,7 @@ gitalk.render('comments')
      &lt;ul class="navbar-nav ml-auto"&gt; 
       &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
       &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的著作&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的创作&lt;/a&gt; &lt;/li&gt; 
       &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
       &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
      &lt;/ul&gt; 
@@ -181,11 +1228,11 @@ gitalk.render('comments')
     &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
     &lt;/div&gt; 
     &lt;div id="random_posts"&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2016-02-24-what-defines-an-archtect.html"&gt;架构的执念 &lt;/a&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2010-06-07-chasing-freedom.html"&gt;随笔 &lt;/a&gt; 
      &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-03-22-hard-choice.html"&gt;剪不断，理还乱… &lt;/a&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2014-02-18-sometimes-just-let-it-go.html"&gt;Sometimes, Just “Let it go” &lt;/a&gt; 
      &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-02-27-movie-the-wrestler.html"&gt;看完《The Wrestler》心里挺不是滋味… &lt;/a&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2006-07-05-apply-java-reflect-and-functionj.html"&gt;反射及FunctionJ的应用（Apply Java Reflection and FunctionJ） &lt;/a&gt; 
      &lt;/div&gt; 
     &lt;/div&gt; 
     &lt;hr&gt; 
@@ -193,7 +1240,7 @@ gitalk.render('comments')
     &lt;div id="comments"&gt;&lt;/div&gt; 
     &lt;hr&gt; 
     &lt;div class="text-center"&gt; 
-     &lt;img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
+     &lt;img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
     &lt;/div&gt; 
    &lt;/div&gt; 
   &lt;/section&gt; 
@@ -223,1420 +1270,6 @@ gitalk.render('comments')
       <pubDate>Fri, 27 May 2022 16:00:00 GMT</pubDate>
       <guid>http://afoo.me/posts/2022-05-28-from-n8n-to-my-own-dogfood.html</guid>
       <dc:date>2022-05-27T16:00:00Z</dc:date>
-    </item>
-    <item>
-      <title>疫情管控之下的上海困局</title>
-      <link>http://afoo.me/posts/2022-04-16-sh-covid-disaster.html</link>
-      <description>&lt;!doctype html&gt;
-&lt;html lang="zh"&gt; 
- &lt;head&gt; 
-  &lt;meta charset="utf-8"&gt; 
-  &lt;meta name="keywords" content="疫情管控之下的上海困局 - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
-  &lt;meta name="description" content="疫情管控之下的上海困局 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
-  &lt;meta name="author" content="王福强"&gt; 
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
-  &lt;title&gt;疫情管控之下的上海困局 - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
-  &lt;meta name="date" content="2022-04-16"&gt; 
-  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
-  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
-  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
-  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
-  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
-  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
-  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
-  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
-  &lt;script&gt;
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    &lt;/script&gt; 
- &lt;/head&gt; 
- &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
-  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
-   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
-    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
-     &lt;ul class="navbar-nav ml-auto"&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的著作&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
-     &lt;/ul&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/nav&gt; 
-  &lt;section&gt; 
-   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
-    &lt;p class="lead"&gt; &lt;/p&gt;
-    &lt;h1 class="title"&gt;疫情管控之下的上海困局&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2022-04-16 &lt;/small&gt; 
-    &lt;p&gt;&lt;/p&gt; 
-    &lt;hr&gt; 
-    &lt;ul&gt; 
-     &lt;li&gt;&lt;a href="#神仙打架"&gt;&lt;span class="toc-section-number"&gt;1&lt;/span&gt; 神仙打架&lt;/a&gt;&lt;/li&gt; 
-     &lt;li&gt;&lt;a href="#百姓遭殃"&gt;&lt;span class="toc-section-number"&gt;2&lt;/span&gt; 百姓遭殃&lt;/a&gt;&lt;/li&gt; 
-    &lt;/ul&gt; 
-    &lt;hr&gt; 
-    &lt;p&gt;我觉得现在的上海困局用一句老话来说其实就足够了，那就是“神仙打架，百姓遭殃”。&lt;/p&gt; 
-    &lt;p&gt;重点是神仙打架，延伸出来的是百姓遭殃。&lt;/p&gt; 
-    &lt;h1 data-number="1" id="神仙打架"&gt;&lt;span class="header-section-number"&gt;1&lt;/span&gt; 神仙打架&lt;/h1&gt; 
-    &lt;p&gt;&lt;img src="images/2022-04-16-110333467.jpg"&gt;&lt;/p&gt; 
-    &lt;p&gt;神仙打架部分就是中央与地方的自主意识之争，地方想要自主意识，中央则要削弱甚至打掉地方的自主意识。&lt;/p&gt; 
-    &lt;p&gt;延伸一下就是政治决策还是科学决策之争：&lt;/p&gt; 
-    &lt;ul&gt; 
-     &lt;li&gt;政治决策就是人定胜天，上面什么命令，下面都要排除万难去争取胜利；&lt;/li&gt; 
-     &lt;li&gt;科学决策就是根据事实和依据&lt;strong&gt;动态的&lt;/strong&gt;改变决策和举措，该isolation的时候isolation，该降低权重的时候降低权重，而不能万年不变的一套下来；&lt;/li&gt; 
-    &lt;/ul&gt; 
-    &lt;p&gt;这两者冲突的背后隐藏的情绪是什么？ “非不能也，实不愿也”。&lt;/p&gt; 
-    &lt;p&gt;但有不愿的，也一定会有愿的，所以，各种冲突不是二元冲突，可能是三元甚至多元，因为有人也喜欢“顺势而为”，至于“为”什么，那咱就不好说了，毕竟一年可以搞几千亿营收的产业，咱不在其中。&lt;/p&gt; 
-    &lt;h1 data-number="2" id="百姓遭殃"&gt;&lt;span class="header-section-number"&gt;2&lt;/span&gt; 百姓遭殃&lt;/h1&gt; 
-    &lt;p&gt;百姓遭殃部分就更有意思了，不管从什么角度，总会存在两派观点，有的支持清零，虽然他们还饿着肚子，有的不支持清零，即使现在的封控还没有怎么影响到他们的菜篮子，当然，也有饿着肚子不支持清零或者不饿肚子支持清零的，总之就是“有错觉、有错位、有错配”，但大家还算务实，都会&lt;strong&gt;自救&lt;/strong&gt;，再苦再难，也得&lt;strong&gt;自救&lt;/strong&gt;，所以，才会有“配不上这么好的市民”之说，因为&lt;strong&gt;单纯的管控而没有服务&lt;/strong&gt;，一定是会出现怨声载道的情况，那些还没有抱怨的，只是还没有轮到自己身上而已。&lt;/p&gt; 
-    &lt;p&gt;我很赞赏那些挺身而出，为了改善民生尽自己绵薄之力之人，我也很悲悯那些老的、少的、被病痛折磨的， 所能做的，只是祝愿这段可以尽快翻篇，老百姓要的其实很简单，只是人间烟火气而已。&lt;/p&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
-    &lt;hr&gt; 
-    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
-    &lt;/div&gt; 
-    &lt;div id="random_posts"&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-02-14-something-to-say.html"&gt;杂记@2009&lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2007-03-07-enter-stock-market-again.html"&gt;重新杀入股市 &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2018-05-27-we_all_need_grow_up_independently.html"&gt;你弱你有理，只能抛弃你 &lt;/a&gt; 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
-    &lt;div id="comments"&gt;&lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;div class="text-center"&gt; 
-     &lt;img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/section&gt; 
-  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
-   ©王福强个人版权所有, All Rights Reserved.
-  &lt;/div&gt; 
-  &lt;div class="copyright py-4 text-center text-white"&gt; 
-   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
-   &lt;/div&gt; 
-  &lt;/div&gt; 
-  &lt;script type="text/javascript"&gt;
-var gitalk = new Gitalk({
-  clientID: '518a605d711883414ac0',
-  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-  repo: 'afoo.me.comments',
-  owner: 'fujohnwang',
-  admin: ['fujohnwang'],
-  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-  distractionFreeMode: false  // Facebook-like distraction free mode
-})
-
-gitalk.render('comments')
-    &lt;/script&gt;  
-  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
- &lt;/body&gt;
-&lt;/html&gt;</description>
-      <pubDate>Fri, 15 Apr 2022 16:00:00 GMT</pubDate>
-      <guid>http://afoo.me/posts/2022-04-16-sh-covid-disaster.html</guid>
-      <dc:date>2022-04-15T16:00:00Z</dc:date>
-    </item>
-    <item>
-      <title>不要因小不见大！</title>
-      <link>http://afoo.me/posts/2022-04-13-focus-on-important-things-not-trivial.html</link>
-      <description>&lt;!doctype html&gt;
-&lt;html lang="zh"&gt; 
- &lt;head&gt; 
-  &lt;meta charset="utf-8"&gt; 
-  &lt;meta name="keywords" content="不要因小不见大！ - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
-  &lt;meta name="description" content="不要因小不见大！ - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
-  &lt;meta name="author" content="王福强"&gt; 
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
-  &lt;title&gt;不要因小不见大！ - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
-  &lt;meta name="date" content="2022-04-13"&gt; 
-  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
-  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
-  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
-  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
-  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
-  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
-  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
-  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
-  &lt;script&gt;
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    &lt;/script&gt; 
- &lt;/head&gt; 
- &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
-  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
-   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
-    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
-     &lt;ul class="navbar-nav ml-auto"&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的著作&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
-     &lt;/ul&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/nav&gt; 
-  &lt;section&gt; 
-   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
-    &lt;p class="lead"&gt; &lt;/p&gt;
-    &lt;h1 class="title"&gt;不要因小不见大！&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2022-04-13 &lt;/small&gt; 
-    &lt;p&gt;&lt;/p&gt; 
-    &lt;hr&gt; 
-    &lt;p&gt;原本这个春天没有表达的欲望，最多做做技术科普（比如搞了个《架构百科》视频号），但这两天有几个事情挺有意思的，所以，说说…&lt;/p&gt; 
-    &lt;p&gt;&lt;strong&gt;大宵禁&lt;/strong&gt;已经很长时间了，空闲的时候会刷刷电影解说，毕竟，这东西可以单位时间内摄入更多信息，配合1.75倍速服用，效果更佳。 那天刷到了《捕鼠记》这部老电影，之前看过，但这次感触颇深的地方在于，因为一只小老鼠，俩兄弟搞得近乎抓狂，这tmd不就是日常很多人在做的事情吗？ 为了一些琐碎的事情，反而忘却了生活不是只有一只小老鼠，只是因为你只盯着那只小老鼠，然后整个生活就充斥成了只有一只小老鼠，最后还搞得满地鸡毛、稀里哗啦…&lt;/p&gt; 
-    &lt;p&gt;这几天有兄弟把创业搞了三年多的公司关了，嗯，你可以想到，TA自己总结也是被“疫情”干趴下了。最搞笑的是，这时候还发现有人模仿他们公司的官网，要举报还得提交各种资料。 其实，一点儿都不搞笑，也很正常， 国内这环境，做几年生意应该都有体感，很多事情没法论“是非”的。 所以，“将军赶路， 不追小兔”，虽然是在说&lt;strong&gt;目标管理&lt;/strong&gt;，但很多时候也在告诉你，有些破事儿、小事儿、烂事儿，随TA去吧，盯着烂人烂事儿，你能收获什么呢？&lt;/p&gt; 
-    &lt;p&gt;有个词儿叫“孕妇效应”，说的是你如果成了孕妇，走在街上，你会看到更多孕妇，不是因为你，这个街上就孕妇多了，而是因为你把注意力放在了孕妇身上，所以才会觉得孕妇多了。其实，街上孕妇的数量可能一直就那么个比例。&lt;/p&gt; 
-    &lt;p&gt;很多时候，越关注什么，越会&lt;strong&gt;放大&lt;/strong&gt;什么，盯着沙子，你眼里最后可能都是沙子，把注意力收一收，转移一下，这个世界很大，注意什么以及把精力投到哪里，自己才是主宰者！&lt;/p&gt; 
-    &lt;p&gt;&lt;strong&gt;别跟烂人和烂事儿过不去，最终其实都是在跟自己过不去！&lt;/strong&gt; （虽然有些时候是很令人生气）&lt;/p&gt; 
-    &lt;p&gt;如果真的过不去，那么…&lt;/p&gt; 
-    &lt;p&gt;&lt;img src="images/gebaogedechou.jpg"&gt;&lt;/p&gt; 
-    &lt;p&gt;光“&lt;strong&gt;向内求&lt;/strong&gt;”，有些时候也确实不解决问题 ;0)&lt;/p&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
-    &lt;hr&gt; 
-    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
-    &lt;/div&gt; 
-    &lt;div id="random_posts"&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2021-05-13-Qian-history.html"&gt;钱镠墓被盗背后的故事 &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-08-25-coc-in-embarrassment.html"&gt;尴尬的COC &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2013-07-10-how-to-transform-chinese-pdf-with-pandoc.html"&gt;pandoc中文pdf转换攻略 &lt;/a&gt; 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
-    &lt;div id="comments"&gt;&lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;div class="text-center"&gt; 
-     &lt;img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/section&gt; 
-  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
-   ©王福强个人版权所有, All Rights Reserved.
-  &lt;/div&gt; 
-  &lt;div class="copyright py-4 text-center text-white"&gt; 
-   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
-   &lt;/div&gt; 
-  &lt;/div&gt; 
-  &lt;script type="text/javascript"&gt;
-var gitalk = new Gitalk({
-  clientID: '518a605d711883414ac0',
-  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-  repo: 'afoo.me.comments',
-  owner: 'fujohnwang',
-  admin: ['fujohnwang'],
-  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-  distractionFreeMode: false  // Facebook-like distraction free mode
-})
-
-gitalk.render('comments')
-    &lt;/script&gt;  
-  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
- &lt;/body&gt;
-&lt;/html&gt;</description>
-      <pubDate>Tue, 12 Apr 2022 16:00:00 GMT</pubDate>
-      <guid>http://afoo.me/posts/2022-04-13-focus-on-important-things-not-trivial.html</guid>
-      <dc:date>2022-04-12T16:00:00Z</dc:date>
-    </item>
-    <item>
-      <title>给KEEBOX插上Eagle的翅膀</title>
-      <link>http://afoo.me/posts/2022-04-02-keebox-and-eagle.html</link>
-      <description>&lt;!doctype html&gt;
-&lt;html lang="zh"&gt; 
- &lt;head&gt; 
-  &lt;meta charset="utf-8"&gt; 
-  &lt;meta name="keywords" content="给KEEBOX插上Eagle的翅膀 - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
-  &lt;meta name="description" content="给KEEBOX插上Eagle的翅膀 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
-  &lt;meta name="author" content="王福强"&gt; 
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
-  &lt;title&gt;给KEEBOX插上Eagle的翅膀 - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
-  &lt;meta name="date" content="2022-04-02"&gt; 
-  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
-  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
-  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
-  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
-  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
-  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
-  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
-  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
-  &lt;script&gt;
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    &lt;/script&gt; 
- &lt;/head&gt; 
- &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
-  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
-   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
-    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
-     &lt;ul class="navbar-nav ml-auto"&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的著作&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
-     &lt;/ul&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/nav&gt; 
-  &lt;section&gt; 
-   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
-    &lt;p class="lead"&gt; &lt;/p&gt;
-    &lt;h1 class="title"&gt;给KEEBOX插上Eagle的翅膀&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2022-04-02 &lt;/small&gt; 
-    &lt;p&gt;&lt;/p&gt; 
-    &lt;hr&gt; 
-    &lt;p&gt;KEEBOX是我自己“Eat My Own Dog Food”打造的个人软件工具箱，功能上有点儿包罗万象，其中这阵子用的最多的一个功能就是全画幅海报，因为我向我的读者许诺过，每天会在读者群里发送一副海报，所以就打造了这么一个工具，样子是这样的：&lt;/p&gt; 
-    &lt;p&gt;&lt;img src="images/66631648876591_.pic_hd.jpg"&gt;&lt;/p&gt; 
-    &lt;p&gt;之前偷懒， 所有生成的海报都直接存到了文件系统，后来发现不好管理，也不好检索， 想找哪副海报的时候就得“遍历”一遍，这实在是太不符合我程序员出身的气质了，所以，我就搜索了程序员的宝库github，找OCR方案，后来用tesseract测试了下，基本可以识别图片里的文字，就简单对之前生成的所有海报逐一处理了一遍，把提取的文本写入与海报图片同名的txt文件中，并简单人工修正编辑了一番，基本完成了图片与图片信息的提取与匹配。&lt;/p&gt; 
-    &lt;p&gt;遗留图片资产的元信息问题算是解决了，接下来就是解决新海报图片的生成与管理了…&lt;/p&gt; 
-    &lt;p&gt;第一种方案延续了&lt;code&gt;.png + .txt&lt;/code&gt;的组合，KEEBOX程序在生成海报图片的同时，把文本框里的信息写入同名的txt文件作为海报图片的元信息或者说附加信息， 但这只是第一步，并没有解决图片管理与检索的问题。&lt;/p&gt; 
-    &lt;p&gt;第二种方案使用了我2019年买的商业软件&lt;a href="https://cn.eagle.cool/"&gt;Eagle&lt;/a&gt;(https://cn.eagle.cool/)，这其实更多是一个面向设计师群体的软件，当初也是之前的兄弟炼金（花名）推荐给我的，我同时又询问了之前公司的设计师之后才下单购买的。 Eagle原本就有图片的采集、管理与检索这些功能，所以，如果能够利用它的这些能力，那我就不用在KEEBOX里重新实现一般了，真是想睡觉就来枕头，Eagle同时还提供了API，这就为KEEBOX跟Eagle集成铺平了道路。&lt;/p&gt; 
-    &lt;p&gt;&lt;img src="images/66651648878855_.pic.jpg"&gt;&lt;/p&gt; 
-    &lt;p&gt;最终方案就变成了，从KEEBOX生成海报图片，然后通过Eagle API将图片放入Eagle来管理，最终需要检索图片的时候，直接走Eagle就可以了，原本这两个工具也是常年开着：&lt;/p&gt; 
-    &lt;p&gt;&lt;img src="images/66641648878452_.pic.jpg"&gt;&lt;/p&gt; 
-    &lt;p&gt;最终，我的所有读者群海报有了统一的归宿和检索入口：&lt;/p&gt; 
-    &lt;p&gt;&lt;img src="images/66601648875657_.pic_hd.jpg"&gt;&lt;/p&gt; 
-    &lt;p&gt;作为eagle的非典型用户，我觉得，如果eagle在后续版本中能把“添加注释”的默认输入框高度再调高一些就更好啦，更甚至于，如果能够集成初步的AI能力，比如OCR，将纳入eagle管理的图片中的文字自动提取并作为检索条件的一部分，那就更爽了！&lt;/p&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
-    &lt;hr&gt; 
-    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
-    &lt;/div&gt; 
-    &lt;div id="random_posts"&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2010-02-09-tx-mgt-patterns.html"&gt;Transaction Management Patterns In Brief &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2017-11-29-bomber-train-and-autopilot.html"&gt;战略轰炸机， 自动驾驶与高铁 &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-08-07-go-with-it-or-resist-it.html"&gt;顺其自然抑或因势利导 &lt;/a&gt; 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
-    &lt;div id="comments"&gt;&lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;div class="text-center"&gt; 
-     &lt;img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/section&gt; 
-  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
-   ©王福强个人版权所有, All Rights Reserved.
-  &lt;/div&gt; 
-  &lt;div class="copyright py-4 text-center text-white"&gt; 
-   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
-   &lt;/div&gt; 
-  &lt;/div&gt; 
-  &lt;script type="text/javascript"&gt;
-var gitalk = new Gitalk({
-  clientID: '518a605d711883414ac0',
-  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-  repo: 'afoo.me.comments',
-  owner: 'fujohnwang',
-  admin: ['fujohnwang'],
-  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-  distractionFreeMode: false  // Facebook-like distraction free mode
-})
-
-gitalk.render('comments')
-    &lt;/script&gt;  
-  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
- &lt;/body&gt;
-&lt;/html&gt;</description>
-      <pubDate>Fri, 01 Apr 2022 16:00:00 GMT</pubDate>
-      <guid>http://afoo.me/posts/2022-04-02-keebox-and-eagle.html</guid>
-      <dc:date>2022-04-01T16:00:00Z</dc:date>
-    </item>
-    <item>
-      <title>删除企业微信公司账号！</title>
-      <link>http://afoo.me/posts/2022-03-23-delete-wecom-account.html</link>
-      <description>&lt;!doctype html&gt;
-&lt;html lang="zh"&gt; 
- &lt;head&gt; 
-  &lt;meta charset="utf-8"&gt; 
-  &lt;meta name="keywords" content="删除企业微信公司账号！ - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
-  &lt;meta name="description" content="删除企业微信公司账号！ - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
-  &lt;meta name="author" content="王福强"&gt; 
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
-  &lt;title&gt;删除企业微信公司账号！ - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
-  &lt;meta name="date" content="2022-03-23"&gt; 
-  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
-  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
-  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
-  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
-  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
-  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
-  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
-  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
-  &lt;script&gt;
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    &lt;/script&gt; 
- &lt;/head&gt; 
- &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
-  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
-   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
-    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
-     &lt;ul class="navbar-nav ml-auto"&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的著作&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
-     &lt;/ul&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/nav&gt; 
-  &lt;section&gt; 
-   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
-    &lt;p class="lead"&gt; &lt;/p&gt;
-    &lt;h1 class="title"&gt;删除企业微信公司账号！&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2022-03-23 &lt;/small&gt; 
-    &lt;p&gt;&lt;/p&gt; 
-    &lt;hr&gt; 
-    &lt;p&gt;源于企业微信推送了一个feature，原本以为它只是给我加一个机器人，就手贱点了，导致很多人莫名其妙地被邀请加入公司(比较搞笑的是很多公司的CEO都被邀请“入职”了我司 ^_-)，既污染了公司账号，也导致很多人被骚扰，所以打算关闭这个企业账号，因为原本这个账号也不怎么用。(很多同学反映他们公司也有类似遭遇，而且也很糟心…)&lt;/p&gt; 
-    &lt;p&gt;&lt;img src="images/wecom_shit_feature_push.jpg"&gt;&lt;/p&gt; 
-    &lt;p&gt;关闭前几个准备与调研：&lt;/p&gt; 
-    &lt;ol type="1"&gt; 
-     &lt;li&gt;&lt;strong&gt;企业邮箱&lt;/strong&gt;，很多人反映腾讯客服反馈给他们的信息是，&lt;em&gt;删除企业微信账号会导致企业邮箱也失效&lt;/em&gt;；&lt;/li&gt; 
-     &lt;li&gt;之前被转为&lt;strong&gt;企业微信群&lt;/strong&gt;的微信群，删除企业账号后会不会消失？&lt;/li&gt; 
-    &lt;/ol&gt; 
-    &lt;p&gt;在请求大家加入新的微信群之后， 并且查看并备份了企业邮箱内的内容之后，开始准备删除企业账号，预留了一天时间，不同时间段提醒大家迁移到新的微信群，在24点左右开始登录企业微信web管理后台，点击&lt;code&gt;My Company -&amp;gt; Settings -&amp;gt; Delete Company&lt;/code&gt;：&lt;/p&gt; 
-    &lt;p&gt;&lt;img src="images/delete_wecom.png"&gt;&lt;/p&gt; 
-    &lt;p&gt;扫码确认删除，执行之后提示“&lt;em&gt;后台正在更新无法删除，请联系客服&lt;/em&gt;”，重试三次依然如此，看来是不希望客户删除公司账号咯~&lt;/p&gt; 
-    &lt;p&gt;又到手机端后台的Settings里，发现有删除的选项，遂执行， 可以执行成功，oh yeah！&lt;/p&gt; 
-    &lt;p&gt;执行扫尾工作， 发现：&lt;/p&gt; 
-    &lt;ol type="1"&gt; 
-     &lt;li&gt;&lt;strong&gt;企业邮箱继续可用&lt;/strong&gt;，但因为我把DNS服务也从Dnspod一并迁移了，所以，应该是不可接收邮件，进入到设置里删除原来的域名， 企业邮箱会自动生成一个随机替换的域名，同时会再次提示你添加自己的自定义域名，这个时候，就可以把新提示的MX记录加到新的DNS设置中就可以成功接收和发送邮件了。所以原则上来说，如果不像我这样彻底地一并干掉了DNS解析，那企业邮箱原则上是可以继续用的。&lt;/li&gt; 
-     &lt;li&gt;&lt;strong&gt;被转的企业微信群依然存在&lt;/strong&gt;，或许是因为我之前把管理员从原来的企业微信号替换为了个人微信号；&lt;/li&gt; 
-    &lt;/ol&gt; 
-    &lt;p&gt;所以，感觉没有传说中绑定的那么紧密，但大部分企业因为在上面已经有太多建设和投入成本，所以一般也不太敢动。&lt;/p&gt; 
-    &lt;blockquote&gt; 
-     &lt;p&gt;WARNING&lt;/p&gt; 
-     &lt;p&gt;以上只是个人的经历与观察，不代表完备的方案和建议，所以，如果各位客官也要这么干，最好自己做好预案、自行承担潜在的损失。&lt;/p&gt; 
-    &lt;/blockquote&gt; 
-    &lt;p&gt;话说回来，在整个过程中，会发现企业里系统与系统之间的状态同步还真是大问题，一般都会存在状态不一致的情况，就好比web管理后台与手机端的管理后台，状态上肯定是有不一致的地方。 当年很多人从web端爬取taobao的数据不成，转而去掏H5，也是同样的套路。&lt;/p&gt; 
-    &lt;p&gt;有时间或许可以分享下一些大集团里系统设计上的缺陷案例…&lt;/p&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
-    &lt;hr&gt; 
-    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
-    &lt;/div&gt; 
-    &lt;div id="random_posts"&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2008-11-14-am-I-too-hard-to-myself.html"&gt;是不是对自己太苛刻了？！ &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2008-09-29-headache.html"&gt;头痛欲裂 &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2017-04-07-what-u-think-may-be-not.html"&gt;很多时候你不是总结的太少，而是总结的太早 &lt;/a&gt; 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
-    &lt;div id="comments"&gt;&lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;div class="text-center"&gt; 
-     &lt;img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/section&gt; 
-  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
-   ©王福强个人版权所有, All Rights Reserved.
-  &lt;/div&gt; 
-  &lt;div class="copyright py-4 text-center text-white"&gt; 
-   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
-   &lt;/div&gt; 
-  &lt;/div&gt; 
-  &lt;script type="text/javascript"&gt;
-var gitalk = new Gitalk({
-  clientID: '518a605d711883414ac0',
-  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-  repo: 'afoo.me.comments',
-  owner: 'fujohnwang',
-  admin: ['fujohnwang'],
-  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-  distractionFreeMode: false  // Facebook-like distraction free mode
-})
-
-gitalk.render('comments')
-    &lt;/script&gt;  
-  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
- &lt;/body&gt;
-&lt;/html&gt;</description>
-      <pubDate>Tue, 22 Mar 2022 16:00:00 GMT</pubDate>
-      <guid>http://afoo.me/posts/2022-03-23-delete-wecom-account.html</guid>
-      <dc:date>2022-03-22T16:00:00Z</dc:date>
-    </item>
-    <item>
-      <title>Chrome Extension Development Cookbook</title>
-      <link>http://afoo.me/posts/2022-03-13-chrome_extension_tips_and_gotchas.html</link>
-      <description>&lt;!doctype html&gt;
-&lt;html lang="zh"&gt; 
- &lt;head&gt; 
-  &lt;meta charset="utf-8"&gt; 
-  &lt;meta name="keywords" content="Chrome Extension Development Cookbook - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
-  &lt;meta name="description" content="Chrome Extension Development Cookbook - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
-  &lt;meta name="author" content="王福强"&gt; 
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
-  &lt;title&gt;Chrome Extension Development Cookbook - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
-  &lt;meta name="date" content="2022-03-13"&gt; 
-  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
-  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
-  &lt;style type="text/css"&gt;
-    pre &gt; code.sourceCode { white-space: pre; position: relative; }
-    pre &gt; code.sourceCode &gt; span { display: inline-block; line-height: 1.25; }
-    pre &gt; code.sourceCode &gt; span:empty { height: 1.2em; }
-    code.sourceCode &gt; span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre &gt; code.sourceCode { white-space: pre-wrap; }
-    pre &gt; code.sourceCode &gt; span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code &gt; span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code &gt; span &gt; a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      {   }
-    @media screen {
-    pre &gt; code.sourceCode &gt; span &gt; a:first-child::before { text-decoration: underline; }
-    }
-    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-    code span.at { color: #7d9029; } /* Attribute */
-    code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #4070a0; } /* Char */
-    code span.cn { color: #880000; } /* Constant */
-    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-    code span.dt { color: #902000; } /* DataType */
-    code span.dv { color: #40a070; } /* DecVal */
-    code span.er { color: #ff0000; font-weight: bold; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #40a070; } /* Float */
-    code span.fu { color: #06287e; } /* Function */
-    code span.im { } /* Import */
-    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-    code span.op { color: #666666; } /* Operator */
-    code span.ot { color: #007020; } /* Other */
-    code span.pp { color: #bc7a00; } /* Preprocessor */
-    code span.sc { color: #4070a0; } /* SpecialChar */
-    code span.ss { color: #bb6688; } /* SpecialString */
-    code span.st { color: #4070a0; } /* String */
-    code span.va { color: #19177c; } /* Variable */
-    code span.vs { color: #4070a0; } /* VerbatimString */
-    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-  &lt;/style&gt; 
-  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
-  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
-  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
-  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
-  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
-  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
-  &lt;script&gt;
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    &lt;/script&gt; 
- &lt;/head&gt; 
- &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
-  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
-   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
-    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
-     &lt;ul class="navbar-nav ml-auto"&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的著作&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
-     &lt;/ul&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/nav&gt; 
-  &lt;section&gt; 
-   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
-    &lt;p class="lead"&gt; &lt;/p&gt;
-    &lt;h1 class="title"&gt;Chrome Extension Development Cookbook&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2022-03-13 &lt;/small&gt; 
-    &lt;p&gt;&lt;/p&gt; 
-    &lt;hr&gt; 
-    &lt;ul&gt; 
-     &lt;li&gt;&lt;a href="#持久化状态用localstorage吗"&gt;&lt;span class="toc-section-number"&gt;1&lt;/span&gt; 持久化状态用localStorage吗？&lt;/a&gt;&lt;/li&gt; 
-     &lt;li&gt;&lt;a href="#background.js-or-background-page"&gt;&lt;span class="toc-section-number"&gt;2&lt;/span&gt; background.js or background page&lt;/a&gt;&lt;/li&gt; 
-     &lt;li&gt;&lt;a href="#popup.html是必须的吗"&gt;&lt;span class="toc-section-number"&gt;3&lt;/span&gt; popup.html是必须的吗？&lt;/a&gt;&lt;/li&gt; 
-     &lt;li&gt;&lt;a href="#如何定义popup的长宽"&gt;&lt;span class="toc-section-number"&gt;4&lt;/span&gt; 如何定义popup的长宽？&lt;/a&gt;&lt;/li&gt; 
-     &lt;li&gt;&lt;a href="#如何居中或者自定义popup"&gt;&lt;span class="toc-section-number"&gt;5&lt;/span&gt; 如何居中或者自定义popup？&lt;/a&gt;&lt;/li&gt; 
-     &lt;li&gt;&lt;a href="#使用indexeddb总是报错说什么store找不着"&gt;&lt;span class="toc-section-number"&gt;6&lt;/span&gt; 使用indexedDB总是报错，说什么store找不着…&lt;/a&gt;&lt;/li&gt; 
-    &lt;/ul&gt; 
-    &lt;hr&gt; 
-    &lt;h1 data-number="1" id="持久化状态用localstorage吗"&gt;&lt;span class="header-section-number"&gt;1&lt;/span&gt; 持久化状态用localStorage吗？&lt;/h1&gt; 
-    &lt;p&gt;推荐用chrome.storage.sync或者chrome.storage.local， 而不是HTML5的localStorage，虽然后者更通用， 但既然是开发chrome extension，自然用chrome提供的API更贴近方案特性。&lt;/p&gt; 
-    &lt;p&gt;另外，因为chrome.storage.sync在用户没有登录的情况下会fallback去使用chrome.storage.local，所以，我觉得只要记住任何情况下都使用chrome.storage.sync就可以了：&lt;/p&gt; 
-    &lt;div class="sourceCode" id="cb1"&gt;
-     &lt;pre class="sourceCode js"&gt;&lt;code class="sourceCode javascript"&gt;&lt;span id="cb1-1"&gt;&lt;a href="#cb1-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;chrome&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;storage&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;sync&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;set&lt;/span&gt;({[key]&lt;span class="op"&gt;:&lt;/span&gt; value}&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="kw"&gt;function&lt;/span&gt; () {&lt;/span&gt;
-&lt;span id="cb1-2"&gt;&lt;a href="#cb1-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="bu"&gt;console&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;log&lt;/span&gt;(&lt;span class="vs"&gt;`done!`&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-3"&gt;&lt;a href="#cb1-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;})&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt; 
-    &lt;h1 data-number="2" id="background.js-or-background-page"&gt;&lt;span class="header-section-number"&gt;2&lt;/span&gt; background.js or background page&lt;/h1&gt; 
-    &lt;p&gt;如果只是单纯的使用background.js，写写简单的应用是可以的，但复杂点儿就不好使了，因为没法import其它的第三方库， 这个时候，就可以指定一个background page，然后在background page里引用一个background.js，在这个js里面就可以import并依赖其它类库了。&lt;/p&gt; 
-    &lt;p&gt;比如，manifest.json里可以这样定义：&lt;/p&gt; 
-    &lt;div class="sourceCode" id="cb2"&gt;
-     &lt;pre class="sourceCode json"&gt;&lt;code class="sourceCode json"&gt;&lt;span id="cb2-1"&gt;&lt;a href="#cb2-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="er"&gt;"background":&lt;/span&gt; &lt;span class="fu"&gt;{&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb2-2"&gt;&lt;a href="#cb2-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt; &lt;span class="dt"&gt;"page"&lt;/span&gt;&lt;span class="fu"&gt;:&lt;/span&gt; &lt;span class="st"&gt;"background.html"&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb2-3"&gt;&lt;a href="#cb2-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="fu"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt; 
-    &lt;p&gt;然后在background.html里引用：&lt;/p&gt; 
-    &lt;div class="sourceCode" id="cb3"&gt;
-     &lt;pre class="sourceCode html"&gt;&lt;code class="sourceCode html"&gt;&lt;span id="cb3-1"&gt;&lt;a href="#cb3-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;&amp;lt;script&lt;/span&gt;&lt;span class="ot"&gt; type=&lt;/span&gt;&lt;span class="st"&gt;"module"&lt;/span&gt;&lt;span class="ot"&gt; src=&lt;/span&gt;&lt;span class="st"&gt;"background.js"&lt;/span&gt;&lt;span class="kw"&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt; 
-    &lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;： &lt;code&gt;type="module"&lt;/code&gt;是必须的！&lt;/p&gt; 
-    &lt;h1 data-number="3" id="popup.html是必须的吗"&gt;&lt;span class="header-section-number"&gt;3&lt;/span&gt; popup.html是必须的吗？&lt;/h1&gt; 
-    &lt;div class="sourceCode" id="cb4"&gt;
-     &lt;pre class="sourceCode json"&gt;&lt;code class="sourceCode json"&gt;&lt;span id="cb4-1"&gt;&lt;a href="#cb4-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="er"&gt;"action":&lt;/span&gt; &lt;span class="fu"&gt;{&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb4-2"&gt;&lt;a href="#cb4-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="dt"&gt;"default_icon"&lt;/span&gt;&lt;span class="fu"&gt;:&lt;/span&gt; &lt;span class="st"&gt;"icon.jpg"&lt;/span&gt;&lt;span class="fu"&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb4-3"&gt;&lt;a href="#cb4-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="dt"&gt;"default_popup"&lt;/span&gt;&lt;span class="fu"&gt;:&lt;/span&gt; &lt;span class="st"&gt;"index.html"&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb4-4"&gt;&lt;a href="#cb4-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="fu"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt; 
-    &lt;p&gt;&lt;strong&gt;不是&lt;/strong&gt;。&lt;/p&gt; 
-    &lt;p&gt;popup.html背后对应的其实是action的处理，并非action一定要关联一个popup.html，但一旦有了popup.html，则action的click事件就不起作用了(It’s possible to install a click handler for when the user clicks the action item. However, this won’t fire if the action has a popup (default or otherwise).)。&lt;/p&gt; 
-    &lt;p&gt;所以，我们也可以不提供popup.html，而是通过(在background.js里)处理action事件来自定义任何逻辑。：&lt;/p&gt; 
-    &lt;div class="sourceCode" id="cb5"&gt;
-     &lt;pre class="sourceCode js"&gt;&lt;code class="sourceCode javascript"&gt;&lt;span id="cb5-1"&gt;&lt;a href="#cb5-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;chrome&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;action&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;onClicked&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;addListener&lt;/span&gt;(&lt;span class="kw"&gt;function&lt;/span&gt;(tab) {&lt;/span&gt;
-&lt;span id="cb5-2"&gt;&lt;a href="#cb5-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  chrome&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;action&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;setTitle&lt;/span&gt;({&lt;span class="dt"&gt;tabId&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; tab&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;id&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="dt"&gt;title&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="st"&gt;"You are on tab:"&lt;/span&gt; &lt;span class="op"&gt;+&lt;/span&gt; tab&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;id&lt;/span&gt;})&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb5-3"&gt;&lt;a href="#cb5-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="co"&gt;// or open a new window： https://stackoverflow.com/questions/5345435/pop-up-window-center-screen&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb5-4"&gt;&lt;a href="#cb5-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="kw"&gt;var&lt;/span&gt; w &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="dv"&gt;440&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb5-5"&gt;&lt;a href="#cb5-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="kw"&gt;var&lt;/span&gt; h &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="dv"&gt;220&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb5-6"&gt;&lt;a href="#cb5-6" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="kw"&gt;var&lt;/span&gt; left &lt;span class="op"&gt;=&lt;/span&gt; (&lt;span class="bu"&gt;screen&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;width&lt;/span&gt;&lt;span class="op"&gt;/&lt;/span&gt;&lt;span class="dv"&gt;2&lt;/span&gt;)&lt;span class="op"&gt;-&lt;/span&gt;(w&lt;span class="op"&gt;/&lt;/span&gt;&lt;span class="dv"&gt;2&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb5-7"&gt;&lt;a href="#cb5-7" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="kw"&gt;var&lt;/span&gt; top &lt;span class="op"&gt;=&lt;/span&gt; (&lt;span class="bu"&gt;screen&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;height&lt;/span&gt;&lt;span class="op"&gt;/&lt;/span&gt;&lt;span class="dv"&gt;2&lt;/span&gt;)&lt;span class="op"&gt;-&lt;/span&gt;(h&lt;span class="op"&gt;/&lt;/span&gt;&lt;span class="dv"&gt;2&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt; &lt;/span&gt;
-&lt;span id="cb5-8"&gt;&lt;a href="#cb5-8" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id="cb5-9"&gt;&lt;a href="#cb5-9" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  chrome&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;windows&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;create&lt;/span&gt;({&lt;span class="st"&gt;'url'&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="st"&gt;'redirect.html'&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;'type'&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="st"&gt;'popup'&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;'width'&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; w&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;'height'&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; h&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;'left'&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; left&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;'top'&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; top} &lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="kw"&gt;function&lt;/span&gt;(&lt;span class="bu"&gt;window&lt;/span&gt;) {})&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb5-10"&gt;&lt;a href="#cb5-10" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;})&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt; 
-    &lt;p&gt;类似的道理，command（快捷键）的处理也可以这样处理：&lt;/p&gt; 
-    &lt;div class="sourceCode" id="cb6"&gt;
-     &lt;pre class="sourceCode js"&gt;&lt;code class="sourceCode javascript"&gt;&lt;span id="cb6-1"&gt;&lt;a href="#cb6-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;chrome&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;commands&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;onCommand&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;addListener&lt;/span&gt;(command &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; {&lt;/span&gt;
-&lt;span id="cb6-2"&gt;&lt;a href="#cb6-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  chrome&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;tabs&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;query&lt;/span&gt;({&lt;span class="dt"&gt;currentWindow&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="kw"&gt;true&lt;/span&gt;}&lt;span class="op"&gt;,&lt;/span&gt; tabs &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; {&lt;/span&gt;
-&lt;span id="cb6-3"&gt;&lt;a href="#cb6-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;      &lt;span class="op"&gt;...&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb6-4"&gt;&lt;a href="#cb6-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  })&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb6-5"&gt;&lt;a href="#cb6-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;})&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt; 
-    &lt;h1 data-number="4" id="如何定义popup的长宽"&gt;&lt;span class="header-section-number"&gt;4&lt;/span&gt; 如何定义popup的长宽？&lt;/h1&gt; 
-    &lt;div class="sourceCode" id="cb7"&gt;
-     &lt;pre class="sourceCode html"&gt;&lt;code class="sourceCode html"&gt;&lt;span id="cb7-1"&gt;&lt;a href="#cb7-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;&amp;lt;body&lt;/span&gt;&lt;span class="ot"&gt; style=&lt;/span&gt;&lt;span class="st"&gt;"width:600px; height:580px"&lt;/span&gt;&lt;span class="kw"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb7-2"&gt;&lt;a href="#cb7-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt; 
-    &lt;h1 data-number="5" id="如何居中或者自定义popup"&gt;&lt;span class="header-section-number"&gt;5&lt;/span&gt; 如何居中或者自定义popup？&lt;/h1&gt; 
-    &lt;p&gt;自定义处理action事件，然后有两种方式：&lt;/p&gt; 
-    &lt;ol type="1"&gt; 
-     &lt;li&gt;chrome.window.create(top, left, url)&lt;/li&gt; 
-     &lt;li&gt;在Listener中查询当前activeTab，在其基础上注入contentScript然后唤起一个Modal dialog&lt;/li&gt; 
-    &lt;/ol&gt; 
-    &lt;p&gt;第一种方式会有窗口的边框， 要自定义的彻底，第二种是推荐的做法。&lt;/p&gt; 
-    &lt;h1 data-number="6" id="使用indexeddb总是报错说什么store找不着"&gt;&lt;span class="header-section-number"&gt;6&lt;/span&gt; 使用indexedDB总是报错，说什么store找不着…&lt;/h1&gt; 
-    &lt;p&gt;要在chrome extension里使用IndexedDB，必须在manifest.json里加上&lt;code&gt;unlimitedStorage&lt;/code&gt;这个permission！！！（老的文档可能会告诉你不需要加任何东西）&lt;/p&gt; 
-    &lt;div class="sourceCode" id="cb8"&gt;
-     &lt;pre class="sourceCode json"&gt;&lt;code class="sourceCode json"&gt;&lt;span id="cb8-1"&gt;&lt;a href="#cb8-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="fu"&gt;{&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb8-2"&gt;&lt;a href="#cb8-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="er"&gt;...&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb8-3"&gt;&lt;a href="#cb8-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="dt"&gt;"permissions"&lt;/span&gt;&lt;span class="fu"&gt;:&lt;/span&gt; &lt;span class="ot"&gt;[&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb8-4"&gt;&lt;a href="#cb8-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="st"&gt;"storage"&lt;/span&gt;&lt;span class="ot"&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb8-5"&gt;&lt;a href="#cb8-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="st"&gt;"unlimitedStorage"&lt;/span&gt;&lt;span class="ot"&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb8-6"&gt;&lt;a href="#cb8-6" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="er"&gt;...&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb8-7"&gt;&lt;a href="#cb8-7" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="ot"&gt;]&lt;/span&gt;&lt;span class="fu"&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb8-8"&gt;&lt;a href="#cb8-8" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="er"&gt;...&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb8-9"&gt;&lt;a href="#cb8-9" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="fu"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
-    &lt;hr&gt; 
-    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
-    &lt;/div&gt; 
-    &lt;div id="random_posts"&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-12-26-dependency-inject-extension-in-spring.html"&gt;扩展Spring的依赖注入行为两例 &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-11-04-shy3_best_practice.html"&gt;关于钱磊在Shy3框架中使用的“动态URL”功能的小记 &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2011-06-01-book_digest_from_scalability_rules.html"&gt;book_digest_from_scalability_rules &lt;/a&gt; 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
-    &lt;div id="comments"&gt;&lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;div class="text-center"&gt; 
-     &lt;img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/section&gt; 
-  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
-   ©王福强个人版权所有, All Rights Reserved.
-  &lt;/div&gt; 
-  &lt;div class="copyright py-4 text-center text-white"&gt; 
-   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
-   &lt;/div&gt; 
-  &lt;/div&gt; 
-  &lt;script type="text/javascript"&gt;
-var gitalk = new Gitalk({
-  clientID: '518a605d711883414ac0',
-  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-  repo: 'afoo.me.comments',
-  owner: 'fujohnwang',
-  admin: ['fujohnwang'],
-  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-  distractionFreeMode: false  // Facebook-like distraction free mode
-})
-
-gitalk.render('comments')
-    &lt;/script&gt;  
-  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
- &lt;/body&gt;
-&lt;/html&gt;</description>
-      <pubDate>Sat, 12 Mar 2022 16:00:00 GMT</pubDate>
-      <guid>http://afoo.me/posts/2022-03-13-chrome_extension_tips_and_gotchas.html</guid>
-      <dc:date>2022-03-12T16:00:00Z</dc:date>
-    </item>
-    <item>
-      <title>Svelte with tailwind and daisyui</title>
-      <link>http://afoo.me/posts/2022-03-09-svelte_with_tailwind_and_daisyui.html</link>
-      <description>&lt;!doctype html&gt;
-&lt;html lang="zh"&gt; 
- &lt;head&gt; 
-  &lt;meta charset="utf-8"&gt; 
-  &lt;meta name="keywords" content="Svelte with tailwind and daisyui - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
-  &lt;meta name="description" content="Svelte with tailwind and daisyui - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
-  &lt;meta name="author" content="王福强"&gt; 
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
-  &lt;title&gt;Svelte with tailwind and daisyui - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
-  &lt;meta name="date" content="2022-03-09"&gt; 
-  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
-  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
-  &lt;style type="text/css"&gt;
-    pre &gt; code.sourceCode { white-space: pre; position: relative; }
-    pre &gt; code.sourceCode &gt; span { display: inline-block; line-height: 1.25; }
-    pre &gt; code.sourceCode &gt; span:empty { height: 1.2em; }
-    code.sourceCode &gt; span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre &gt; code.sourceCode { white-space: pre-wrap; }
-    pre &gt; code.sourceCode &gt; span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code &gt; span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code &gt; span &gt; a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      {   }
-    @media screen {
-    pre &gt; code.sourceCode &gt; span &gt; a:first-child::before { text-decoration: underline; }
-    }
-    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-    code span.at { color: #7d9029; } /* Attribute */
-    code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #4070a0; } /* Char */
-    code span.cn { color: #880000; } /* Constant */
-    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-    code span.dt { color: #902000; } /* DataType */
-    code span.dv { color: #40a070; } /* DecVal */
-    code span.er { color: #ff0000; font-weight: bold; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #40a070; } /* Float */
-    code span.fu { color: #06287e; } /* Function */
-    code span.im { } /* Import */
-    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-    code span.op { color: #666666; } /* Operator */
-    code span.ot { color: #007020; } /* Other */
-    code span.pp { color: #bc7a00; } /* Preprocessor */
-    code span.sc { color: #4070a0; } /* SpecialChar */
-    code span.ss { color: #bb6688; } /* SpecialString */
-    code span.st { color: #4070a0; } /* String */
-    code span.va { color: #19177c; } /* Variable */
-    code span.vs { color: #4070a0; } /* VerbatimString */
-    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-  &lt;/style&gt; 
-  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
-  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
-  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
-  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
-  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
-  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
-  &lt;script&gt;
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    &lt;/script&gt; 
- &lt;/head&gt; 
- &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
-  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
-   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
-    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
-     &lt;ul class="navbar-nav ml-auto"&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的著作&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
-     &lt;/ul&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/nav&gt; 
-  &lt;section&gt; 
-   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
-    &lt;p class="lead"&gt; &lt;/p&gt;
-    &lt;h1 class="title"&gt;Svelte with tailwind and daisyui&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2022-03-09 &lt;/small&gt; 
-    &lt;p&gt;&lt;/p&gt; 
-    &lt;hr&gt; 
-    &lt;p&gt;要在svelte里使用tailwind和daisyui， 首先我们要安装依赖：&lt;/p&gt; 
-    &lt;div class="sourceCode" id="cb1"&gt;
-     &lt;pre class="sourceCode bash"&gt;&lt;code class="sourceCode bash"&gt;&lt;span id="cb1-1"&gt;&lt;a href="#cb1-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="ex"&gt;npx&lt;/span&gt; degit sveltejs/template __prj__&lt;/span&gt;
-&lt;span id="cb1-2"&gt;&lt;a href="#cb1-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="ex"&gt;npm&lt;/span&gt; install -D tailwindcss daisyui postcss autoprefixer svelte-preprocess&lt;/span&gt;
-&lt;span id="cb1-3"&gt;&lt;a href="#cb1-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="ex"&gt;npm&lt;/span&gt; install&lt;/span&gt;
-&lt;span id="cb1-4"&gt;&lt;a href="#cb1-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="ex"&gt;npx&lt;/span&gt; tailwindcss init&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt; 
-    &lt;p&gt;然后我们开始配置…&lt;/p&gt; 
-    &lt;p&gt;配置tailwind.config.js(这个文件已经由&lt;code&gt;npx tailwindcss init&lt;/code&gt;创建):&lt;/p&gt; 
-    &lt;div class="sourceCode" id="cb2"&gt;
-     &lt;pre class="sourceCode js"&gt;&lt;code class="sourceCode javascript"&gt;&lt;span id="cb2-1"&gt;&lt;a href="#cb2-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;module&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;exports&lt;/span&gt; &lt;span class="op"&gt;=&lt;/span&gt; {&lt;/span&gt;
-&lt;span id="cb2-2"&gt;&lt;a href="#cb2-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="dt"&gt;content&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; [&lt;span class="st"&gt;'./src/**/*.{svelte,js,ts}'&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;'./public/index.html'&lt;/span&gt;]&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb2-3"&gt;&lt;a href="#cb2-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="dt"&gt;plugins&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; [&lt;span class="pp"&gt;require&lt;/span&gt;(&lt;span class="st"&gt;'daisyui'&lt;/span&gt;)]&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb2-4"&gt;&lt;a href="#cb2-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="dt"&gt;future&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; {&lt;/span&gt;
-&lt;span id="cb2-5"&gt;&lt;a href="#cb2-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="dt"&gt;purgeLayersByDefault&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="kw"&gt;true&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb2-6"&gt;&lt;a href="#cb2-6" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="dt"&gt;removeDeprecatedGapUtilities&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="kw"&gt;true&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb2-7"&gt;&lt;a href="#cb2-7" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    }&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb2-8"&gt;&lt;a href="#cb2-8" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="dt"&gt;purge&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; {&lt;/span&gt;
-&lt;span id="cb2-9"&gt;&lt;a href="#cb2-9" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="dt"&gt;content&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; [&lt;span class="st"&gt;'./src/**/*.{svelte,js,ts}'&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;'./public/index.html'&lt;/span&gt;]&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb2-10"&gt;&lt;a href="#cb2-10" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="dt"&gt;enabled&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="kw"&gt;true&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb2-11"&gt;&lt;a href="#cb2-11" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    }&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb2-12"&gt;&lt;a href="#cb2-12" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;}&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt; 
-    &lt;p&gt;配置rollup.config.js：&lt;/p&gt; 
-    &lt;div class="sourceCode" id="cb3"&gt;
-     &lt;pre class="sourceCode js"&gt;&lt;code class="sourceCode javascript"&gt;&lt;span id="cb3-1"&gt;&lt;a href="#cb3-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="im"&gt;import&lt;/span&gt; sveltePreprocess &lt;span class="im"&gt;from&lt;/span&gt; &lt;span class="st"&gt;'svelte-preprocess'&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb3-2"&gt;&lt;a href="#cb3-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="op"&gt;...&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb3-3"&gt;&lt;a href="#cb3-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id="cb3-4"&gt;&lt;a href="#cb3-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;plugins&lt;span class="op"&gt;:&lt;/span&gt; [&lt;/span&gt;
-&lt;span id="cb3-5"&gt;&lt;a href="#cb3-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="fu"&gt;svelte&lt;/span&gt;({&lt;/span&gt;
-&lt;span id="cb3-6"&gt;&lt;a href="#cb3-6" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="dt"&gt;preprocess&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="fu"&gt;sveltePreprocess&lt;/span&gt;({&lt;/span&gt;
-&lt;span id="cb3-7"&gt;&lt;a href="#cb3-7" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;                &lt;span class="dt"&gt;sourceMap&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="op"&gt;!&lt;/span&gt;production&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb3-8"&gt;&lt;a href="#cb3-8" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;                &lt;span class="dt"&gt;postcss&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; {&lt;/span&gt;
-&lt;span id="cb3-9"&gt;&lt;a href="#cb3-9" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;                    &lt;span class="dt"&gt;plugins&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; [&lt;span class="pp"&gt;require&lt;/span&gt;(&lt;span class="st"&gt;'tailwindcss'&lt;/span&gt;)()&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="pp"&gt;require&lt;/span&gt;(&lt;span class="st"&gt;'autoprefixer'&lt;/span&gt;)()]&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb3-10"&gt;&lt;a href="#cb3-10" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;                }&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb3-11"&gt;&lt;a href="#cb3-11" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            })&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb3-12"&gt;&lt;a href="#cb3-12" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="op"&gt;...&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb3-13"&gt;&lt;a href="#cb3-13" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        })&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb3-14"&gt;&lt;a href="#cb3-14" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="op"&gt;...&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt; 
-    &lt;p&gt;最后，在顶层的.svelte文件（比如App.svelte）里添加如下内容：&lt;/p&gt; 
-    &lt;div class="sourceCode" id="cb4"&gt;
-     &lt;pre class="sourceCode html"&gt;&lt;code class="sourceCode html"&gt;&lt;span id="cb4-1"&gt;&lt;a href="#cb4-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;&amp;lt;style&lt;/span&gt;&lt;span class="ot"&gt; lang=&lt;/span&gt;&lt;span class="st"&gt;"postcss"&lt;/span&gt;&lt;span class="ot"&gt; global&lt;/span&gt;&lt;span class="kw"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb4-2"&gt;&lt;a href="#cb4-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="im"&gt;@tailwind&lt;/span&gt; base&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb4-3"&gt;&lt;a href="#cb4-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="im"&gt;@tailwind&lt;/span&gt; components&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb4-4"&gt;&lt;a href="#cb4-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="im"&gt;@tailwind&lt;/span&gt; utilities&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb4-5"&gt;&lt;a href="#cb4-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;&amp;lt;/style&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt; 
-    &lt;p&gt;好啦，直接像往常那样&lt;code&gt;npm run dev&lt;/code&gt;就可以开玩了，svelte配合上tailwind和daisyui，绝配！&lt;/p&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
-    &lt;hr&gt; 
-    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
-    &lt;/div&gt; 
-    &lt;div id="random_posts"&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2007-10-09-before-going-home.html"&gt;回家之前 &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2021-09-27-dillema-of-processes.html"&gt;流程悖论 &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2012-04-09-playing-bittorrent-with-ttorrent.html"&gt;“Playing BitTorrent with ttorrent” &lt;/a&gt; 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
-    &lt;div id="comments"&gt;&lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;div class="text-center"&gt; 
-     &lt;img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/section&gt; 
-  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
-   ©王福强个人版权所有, All Rights Reserved.
-  &lt;/div&gt; 
-  &lt;div class="copyright py-4 text-center text-white"&gt; 
-   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
-   &lt;/div&gt; 
-  &lt;/div&gt; 
-  &lt;script type="text/javascript"&gt;
-var gitalk = new Gitalk({
-  clientID: '518a605d711883414ac0',
-  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-  repo: 'afoo.me.comments',
-  owner: 'fujohnwang',
-  admin: ['fujohnwang'],
-  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-  distractionFreeMode: false  // Facebook-like distraction free mode
-})
-
-gitalk.render('comments')
-    &lt;/script&gt;  
-  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
- &lt;/body&gt;
-&lt;/html&gt;</description>
-      <pubDate>Tue, 08 Mar 2022 16:00:00 GMT</pubDate>
-      <guid>http://afoo.me/posts/2022-03-09-svelte_with_tailwind_and_daisyui.html</guid>
-      <dc:date>2022-03-08T16:00:00Z</dc:date>
-    </item>
-    <item>
-      <title>从Threejs到Svelte-Cubed</title>
-      <link>http://afoo.me/posts/2022-03-07-intro-svelte-cubed.html</link>
-      <description>&lt;!doctype html&gt;
-&lt;html lang="zh"&gt; 
- &lt;head&gt; 
-  &lt;meta charset="utf-8"&gt; 
-  &lt;meta name="keywords" content="从Threejs到Svelte-Cubed - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
-  &lt;meta name="description" content="从Threejs到Svelte-Cubed - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
-  &lt;meta name="author" content="王福强"&gt; 
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
-  &lt;title&gt;从Threejs到Svelte-Cubed - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
-  &lt;meta name="date" content="2022-03-07"&gt; 
-  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
-  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
-  &lt;style type="text/css"&gt;
-    pre &gt; code.sourceCode { white-space: pre; position: relative; }
-    pre &gt; code.sourceCode &gt; span { display: inline-block; line-height: 1.25; }
-    pre &gt; code.sourceCode &gt; span:empty { height: 1.2em; }
-    code.sourceCode &gt; span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre &gt; code.sourceCode { white-space: pre-wrap; }
-    pre &gt; code.sourceCode &gt; span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code &gt; span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code &gt; span &gt; a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      {   }
-    @media screen {
-    pre &gt; code.sourceCode &gt; span &gt; a:first-child::before { text-decoration: underline; }
-    }
-    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-    code span.at { color: #7d9029; } /* Attribute */
-    code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #4070a0; } /* Char */
-    code span.cn { color: #880000; } /* Constant */
-    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-    code span.dt { color: #902000; } /* DataType */
-    code span.dv { color: #40a070; } /* DecVal */
-    code span.er { color: #ff0000; font-weight: bold; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #40a070; } /* Float */
-    code span.fu { color: #06287e; } /* Function */
-    code span.im { } /* Import */
-    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-    code span.op { color: #666666; } /* Operator */
-    code span.ot { color: #007020; } /* Other */
-    code span.pp { color: #bc7a00; } /* Preprocessor */
-    code span.sc { color: #4070a0; } /* SpecialChar */
-    code span.ss { color: #bb6688; } /* SpecialString */
-    code span.st { color: #4070a0; } /* String */
-    code span.va { color: #19177c; } /* Variable */
-    code span.vs { color: #4070a0; } /* VerbatimString */
-    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-  &lt;/style&gt; 
-  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
-  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
-  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
-  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
-  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
-  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
-  &lt;script&gt;
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    &lt;/script&gt; 
- &lt;/head&gt; 
- &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
-  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
-   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
-    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
-     &lt;ul class="navbar-nav ml-auto"&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的著作&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
-     &lt;/ul&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/nav&gt; 
-  &lt;section&gt; 
-   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
-    &lt;p class="lead"&gt; &lt;/p&gt;
-    &lt;h1 class="title"&gt;从Threejs到Svelte-Cubed&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2022-03-07 &lt;/small&gt; 
-    &lt;p&gt;&lt;/p&gt; 
-    &lt;hr&gt; 
-    &lt;p&gt;数字世界如果继续升级换代， 3D的普及应该是一个大的方向，2021年开始火热的元宇宙概念，其实也是3D继续一展拳脚的地方，当然， 配合AI、云计算等基础设施，可以进一步丰富3D世界的建设与绚丽。&lt;/p&gt; 
-    &lt;p&gt;要构建3D世界，已经有很多作业工具可以选用，毕竟， 3D建模也不是什么新鲜的事务了，传统的3D建模工具基于系统的能力， 新一代的3D建模工具则直接基于Web，那基于Web构建3D世界，依赖的主要是什么呢？ 答案是WebGL（2022年可以关注WebGPU），而WebGL则是基于OpenGL等系统级API构建， 而传统的工具恰恰都是基于OpenGL这些API构建的。&lt;/p&gt; 
-    &lt;p&gt;WebGL使用称之为GLSL的编程语言编写图形渲染程序 &lt;a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;，这些程序一般成为shader(s)，它们一般会被交给GPU去执行。编写GLSL不是什么赏心悦目的事情，大部分情况， 除非需要工业级精细和精密建模需要，我们一般会选择使用threejs来编写WebGL程序，我们可以把threejs理解成js当年的jquery， 它可以极大简化编写WebGL程序的难度。&lt;/p&gt; 
-    &lt;p&gt;一个threejs程序通常由以下几个部分组成：&lt;/p&gt; 
-    &lt;p&gt;&lt;img src="images/threejs_concepts.png"&gt;&lt;/p&gt; 
-    &lt;p&gt;Meshes以下我们都可以理解成组成3D实体的部件， 一个Mesh通常由一个Geometry+一个或者多个Materials组成。&lt;/p&gt; 
-    &lt;p&gt;所有的Meshes添加到Scene组成一个SceneGraph然后跟Camera一起通过Renderer渲染到DOM的某个Canvas上。&lt;/p&gt; 
-    &lt;p&gt;空说无凭，让我Show you code：&lt;/p&gt; 
-    &lt;div class="sourceCode" id="cb1"&gt;
-     &lt;pre class="sourceCode html"&gt;&lt;code class="sourceCode html"&gt;&lt;span id="cb1-1"&gt;&lt;a href="#cb1-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="dt"&gt;&amp;lt;!DOCTYPE &lt;/span&gt;html&lt;span class="dt"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-2"&gt;&lt;a href="#cb1-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;&amp;lt;html&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-3"&gt;&lt;a href="#cb1-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;&amp;lt;head&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-4"&gt;&lt;a href="#cb1-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="kw"&gt;&amp;lt;meta&lt;/span&gt;&lt;span class="ot"&gt; charset=&lt;/span&gt;&lt;span class="st"&gt;"utf-8"&lt;/span&gt;&lt;span class="kw"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-5"&gt;&lt;a href="#cb1-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="kw"&gt;&amp;lt;title&amp;gt;&lt;/span&gt;My first three.js app&lt;span class="kw"&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-6"&gt;&lt;a href="#cb1-6" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="kw"&gt;&amp;lt;style&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-7"&gt;&lt;a href="#cb1-7" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            body { &lt;span class="kw"&gt;margin&lt;/span&gt;: &lt;span class="dv"&gt;0&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt; }&lt;/span&gt;
-&lt;span id="cb1-8"&gt;&lt;a href="#cb1-8" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="kw"&gt;&amp;lt;/style&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-9"&gt;&lt;a href="#cb1-9" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="kw"&gt;&amp;lt;script&lt;/span&gt;&lt;span class="ot"&gt; src=&lt;/span&gt;&lt;span class="st"&gt;"three.js"&lt;/span&gt;&lt;span class="kw"&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-10"&gt;&lt;a href="#cb1-10" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;&amp;lt;/head&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-11"&gt;&lt;a href="#cb1-11" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;&amp;lt;body&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-12"&gt;&lt;a href="#cb1-12" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="kw"&gt;&amp;lt;script&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-13"&gt;&lt;a href="#cb1-13" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="kw"&gt;const&lt;/span&gt; scene &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="kw"&gt;new&lt;/span&gt; THREE&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;Scene&lt;/span&gt;()&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-14"&gt;&lt;a href="#cb1-14" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="kw"&gt;const&lt;/span&gt; camera &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="kw"&gt;new&lt;/span&gt; THREE&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;PerspectiveCamera&lt;/span&gt;( &lt;span class="dv"&gt;75&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="bu"&gt;window&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;innerWidth&lt;/span&gt; &lt;span class="op"&gt;/&lt;/span&gt; &lt;span class="bu"&gt;window&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;innerHeight&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="fl"&gt;0.1&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="dv"&gt;1000&lt;/span&gt; )&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-15"&gt;&lt;a href="#cb1-15" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="kw"&gt;const&lt;/span&gt; renderer &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="kw"&gt;new&lt;/span&gt; THREE&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;WebGLRenderer&lt;/span&gt;({&lt;span class="dt"&gt;antialias&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="kw"&gt;true&lt;/span&gt;})&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-16"&gt;&lt;a href="#cb1-16" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            renderer&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;setSize&lt;/span&gt;( &lt;span class="bu"&gt;window&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;innerWidth&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="bu"&gt;window&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;innerHeight&lt;/span&gt; )&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-17"&gt;&lt;a href="#cb1-17" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="bu"&gt;document&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;body&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;appendChild&lt;/span&gt;( renderer&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;domElement&lt;/span&gt; )&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-18"&gt;&lt;a href="#cb1-18" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;/span&gt;
-&lt;span id="cb1-19"&gt;&lt;a href="#cb1-19" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="kw"&gt;const&lt;/span&gt; geometry &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="kw"&gt;new&lt;/span&gt; THREE&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;ConeGeometry&lt;/span&gt;(&lt;span class="dv"&gt;3&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt;&lt;span class="dv"&gt;3&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt;&lt;span class="dv"&gt;3&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-20"&gt;&lt;a href="#cb1-20" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="kw"&gt;const&lt;/span&gt; material &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="kw"&gt;new&lt;/span&gt; THREE&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;MeshNormalMaterial&lt;/span&gt;( { &lt;span class="dt"&gt;color&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="bn"&gt;0x3883F8&lt;/span&gt; } )&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-21"&gt;&lt;a href="#cb1-21" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="kw"&gt;const&lt;/span&gt; cube&lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="kw"&gt;new&lt;/span&gt; THREE&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;Mesh&lt;/span&gt;( geometry&lt;span class="op"&gt;,&lt;/span&gt; [material&lt;span class="op"&gt;,&lt;/span&gt;material] )&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-22"&gt;&lt;a href="#cb1-22" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            scene&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;add&lt;/span&gt;( cube )&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-23"&gt;&lt;a href="#cb1-23" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id="cb1-24"&gt;&lt;a href="#cb1-24" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            camera&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;position&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;z&lt;/span&gt; &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="dv"&gt;5&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-25"&gt;&lt;a href="#cb1-25" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id="cb1-26"&gt;&lt;a href="#cb1-26" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="kw"&gt;const&lt;/span&gt; light &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="kw"&gt;new&lt;/span&gt; THREE&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;AmbientLight&lt;/span&gt;( &lt;span class="bn"&gt;0x404040&lt;/span&gt; )&lt;span class="op"&gt;;&lt;/span&gt; &lt;span class="co"&gt;// soft white light&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-27"&gt;&lt;a href="#cb1-27" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            scene&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;add&lt;/span&gt;( light )&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-28"&gt;&lt;a href="#cb1-28" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id="cb1-29"&gt;&lt;a href="#cb1-29" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="kw"&gt;var&lt;/span&gt; pointLight &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="kw"&gt;new&lt;/span&gt; THREE&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;PointLight&lt;/span&gt;( &lt;span class="bn"&gt;0xffffff&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="dv"&gt;1&lt;/span&gt; )&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-30"&gt;&lt;a href="#cb1-30" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            pointLight&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;position&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;set&lt;/span&gt;( &lt;span class="dv"&gt;25&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="dv"&gt;50&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="dv"&gt;25&lt;/span&gt; )&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-31"&gt;&lt;a href="#cb1-31" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            scene&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;add&lt;/span&gt;( pointLight )&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-32"&gt;&lt;a href="#cb1-32" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id="cb1-33"&gt;&lt;a href="#cb1-33" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="kw"&gt;function&lt;/span&gt; &lt;span class="fu"&gt;animate&lt;/span&gt;() {&lt;/span&gt;
-&lt;span id="cb1-34"&gt;&lt;a href="#cb1-34" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;                &lt;span class="fu"&gt;requestAnimationFrame&lt;/span&gt;( animate )&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-35"&gt;&lt;a href="#cb1-35" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;                &lt;/span&gt;
-&lt;span id="cb1-36"&gt;&lt;a href="#cb1-36" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;                cube&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;rotation&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;y&lt;/span&gt; &lt;span class="op"&gt;+=&lt;/span&gt; &lt;span class="fl"&gt;0.01&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-37"&gt;&lt;a href="#cb1-37" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;                renderer&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;render&lt;/span&gt;( scene&lt;span class="op"&gt;,&lt;/span&gt; camera )&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-38"&gt;&lt;a href="#cb1-38" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            }&lt;/span&gt;
-&lt;span id="cb1-39"&gt;&lt;a href="#cb1-39" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="fu"&gt;animate&lt;/span&gt;()&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-40"&gt;&lt;a href="#cb1-40" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="kw"&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-41"&gt;&lt;a href="#cb1-41" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-42"&gt;&lt;a href="#cb1-42" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt; 
-    &lt;p&gt;如果我打开这个页面，就可以看到一个旋转的三角了（当然，你也可以点击下面的图片&lt;a href="https://afoo.me/demo/threejs/"&gt;直接看效果&lt;/a&gt;）：&lt;/p&gt; 
-    &lt;p&gt;&lt;a href="https://afoo.me/demo/threejs/"&gt;&lt;img src="images/63141646660058_.pic.jpg"&gt;&lt;/a&gt;&lt;/p&gt; 
-    &lt;p&gt;这虽然是最简单的threejs程序了，但依然有很多概念需要理解，比如我们向Scene了添加了Light， 我们把Camera的位置重新设置， 我们通过requestAnimationFrame来调度渲染等。&lt;/p&gt; 
-    &lt;p&gt;不过，一旦理解了threejs的基础概念和API支持，再使用svelte-cubed来开发就更加方便了。&lt;/p&gt; 
-    &lt;p&gt;svelte-cubed是svelte框架 &lt;a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;作者Rich Harris开发的实验性类库（当前状态）， 它延续了svelte的理念，通过声明式(declaritive)组件的方式来构建threejs应用，比如，上面的demo通过svelte-cubed重构之后就很简单了：&lt;/p&gt; 
-    &lt;div class="sourceCode" id="cb2"&gt;
-     &lt;pre class="sourceCode html"&gt;&lt;code class="sourceCode html"&gt;&lt;span id="cb2-1"&gt;&lt;a href="#cb2-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;import * as THREE from 'three';&lt;/span&gt;
-&lt;span id="cb2-2"&gt;&lt;a href="#cb2-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;import * as SC from 'svelte-cubed';&lt;/span&gt;
-&lt;span id="cb2-3"&gt;&lt;a href="#cb2-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id="cb2-4"&gt;&lt;a href="#cb2-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;&amp;lt;SC.Canvas&lt;/span&gt;&lt;span class="ot"&gt; antialias background=&lt;/span&gt;&lt;span class="st"&gt;{new&lt;/span&gt;&lt;span class="ot"&gt; THREE.Color&lt;/span&gt;&lt;span class="er"&gt;('papayawhip')}&lt;/span&gt;&lt;span class="ot"&gt; shadows fog=&lt;/span&gt;&lt;span class="st"&gt;{new&lt;/span&gt;&lt;span class="ot"&gt; THREE.FogExp2&lt;/span&gt;&lt;span class="er"&gt;('papayawhip',&lt;/span&gt; &lt;span class="er"&gt;0.1)}&lt;/span&gt;&lt;span class="kw"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb2-5"&gt;&lt;a href="#cb2-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="kw"&gt;&amp;lt;SC.Mesh&lt;/span&gt;&lt;span class="ot"&gt; geometry=&lt;/span&gt;&lt;span class="st"&gt;{new&lt;/span&gt;&lt;span class="ot"&gt; THREE.ConeGeometry&lt;/span&gt;&lt;span class="er"&gt;()}&lt;/span&gt;&lt;span class="ot"&gt; position=&lt;/span&gt;&lt;span class="st"&gt;{[3,&lt;/span&gt; &lt;span class="er"&gt;3,&lt;/span&gt; &lt;span class="er"&gt;3]}&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb2-6"&gt;&lt;a href="#cb2-6" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="ot"&gt;             material=&lt;/span&gt;&lt;span class="st"&gt;{new&lt;/span&gt;&lt;span class="ot"&gt; THREE.MeshNormalMaterial&lt;/span&gt;&lt;span class="er"&gt;({&lt;/span&gt;&lt;span class="ot"&gt; color:&lt;/span&gt; &lt;span class="er"&gt;0x3883F8&lt;/span&gt; &lt;span class="er"&gt;})}&lt;/span&gt;&lt;span class="kw"&gt;/&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb2-7"&gt;&lt;a href="#cb2-7" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;&amp;lt;SC.PerspectiveCamera&lt;/span&gt;&lt;span class="ot"&gt; position=&lt;/span&gt;&lt;span class="st"&gt;{[0,&lt;/span&gt; &lt;span class="er"&gt;0,&lt;/span&gt; &lt;span class="er"&gt;5]}&lt;/span&gt;&lt;span class="kw"&gt;/&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb2-8"&gt;&lt;a href="#cb2-8" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;&amp;lt;SC.OrbitControls&lt;/span&gt;&lt;span class="ot"&gt; enableZoom=&lt;/span&gt;&lt;span class="st"&gt;{true}&lt;/span&gt;&lt;span class="ot"&gt; maxPolarAngle=&lt;/span&gt;&lt;span class="st"&gt;{Math.PI&lt;/span&gt;&lt;span class="ot"&gt; *&lt;/span&gt; &lt;span class="er"&gt;0.51}&lt;/span&gt;&lt;span class="kw"&gt;/&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb2-9"&gt;&lt;a href="#cb2-9" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;&amp;lt;SC.AmbientLight&lt;/span&gt;&lt;span class="ot"&gt; intensity=&lt;/span&gt;&lt;span class="st"&gt;{0.6}&lt;/span&gt;&lt;span class="kw"&gt;/&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb2-10"&gt;&lt;a href="#cb2-10" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;&amp;lt;SC.PointLight&lt;/span&gt; &lt;span class="er"&gt;...&lt;/span&gt;&lt;span class="kw"&gt;/&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb2-11"&gt;&lt;a href="#cb2-11" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;&amp;lt;/SC.Canvas&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt; 
-    &lt;p&gt;附带着，通过引入一行&lt;code&gt;&amp;lt;SC.OrbitControls enableZoom={true}/&amp;gt;&lt;/code&gt;我们就可以通过鼠标与3D实体和场景进行交互 &lt;a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"&gt;&lt;sup&gt;3&lt;/sup&gt;&lt;/a&gt;。&lt;/p&gt; 
-    &lt;p&gt;另一个好处就是，借着Svelte的编译，我们顺道还完成了treeshaking，把不需要的js依赖去除掉了，用户加载的资源更少，自然也就更快。&lt;/p&gt; 
-    &lt;p&gt;没骗你吧？ svelte-cubed是不是让threejs更简单？&lt;/p&gt; 
-    &lt;p&gt;当然，svelte-cubed因为还是在试验期，不够成熟和完善，所以，文档方面完成度也不高，很多组件如果要深入了解只能自己读代码，但个人感觉理念很好，期望它能尽快完善起来啦~&lt;/p&gt; 
-    &lt;section class="footnotes" role="doc-endnotes"&gt; 
-     &lt;hr&gt; 
-     &lt;ol&gt; 
-      &lt;li id="fn1" role="doc-endnote"&gt;&lt;p&gt;GLSL全称为Open&lt;strong&gt;GL&lt;/strong&gt; &lt;strong&gt;S&lt;/strong&gt;hading &lt;strong&gt;L&lt;/strong&gt;anguage&lt;a href="#fnref1" class="footnote-back" role="doc-backlink"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt; 
-      &lt;li id="fn2" role="doc-endnote"&gt;&lt;p&gt;啥？你不知道svelte框架是啥？那我就不得不王婆卖瓜了，可以看看我写的&lt;a href="https://afoo.me/books.html"&gt;Simple Svelte&lt;/a&gt;&lt;a href="#fnref2" class="footnote-back" role="doc-backlink"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt; 
-      &lt;li id="fn3" role="doc-endnote"&gt;&lt;p&gt;&lt;a href="https://keevol.cn/cubed/index.html"&gt;这里&lt;/a&gt;有一个使用svelte-cubed开发的简单3D应用&lt;a href="#fnref3" class="footnote-back" role="doc-backlink"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt; 
-     &lt;/ol&gt; 
-    &lt;/section&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
-    &lt;hr&gt; 
-    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
-    &lt;/div&gt; 
-    &lt;div id="random_posts"&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2008-04-05-also-about-movies.html"&gt;达伦谈电影&lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2020-10-25-saas-evolution-path.html"&gt;我对SaaS产品研发的些许观点分享 &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2019-12-19-about-value-to-everyone.html"&gt;价值与公平 &lt;/a&gt; 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
-    &lt;div id="comments"&gt;&lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;div class="text-center"&gt; 
-     &lt;img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/section&gt; 
-  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
-   ©王福强个人版权所有, All Rights Reserved.
-  &lt;/div&gt; 
-  &lt;div class="copyright py-4 text-center text-white"&gt; 
-   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
-   &lt;/div&gt; 
-  &lt;/div&gt; 
-  &lt;script type="text/javascript"&gt;
-var gitalk = new Gitalk({
-  clientID: '518a605d711883414ac0',
-  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-  repo: 'afoo.me.comments',
-  owner: 'fujohnwang',
-  admin: ['fujohnwang'],
-  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-  distractionFreeMode: false  // Facebook-like distraction free mode
-})
-
-gitalk.render('comments')
-    &lt;/script&gt;  
-  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
- &lt;/body&gt;
-&lt;/html&gt;</description>
-      <pubDate>Sun, 06 Mar 2022 16:00:00 GMT</pubDate>
-      <guid>http://afoo.me/posts/2022-03-07-intro-svelte-cubed.html</guid>
-      <dc:date>2022-03-06T16:00:00Z</dc:date>
-    </item>
-    <item>
-      <title>我的PKM理念与Keenotes产品实践</title>
-      <link>http://afoo.me/posts/2022-02-15-keenotes-and-PKM.html</link>
-      <description>&lt;!doctype html&gt;
-&lt;html lang="zh"&gt; 
- &lt;head&gt; 
-  &lt;meta charset="utf-8"&gt; 
-  &lt;meta name="keywords" content="我的PKM理念与Keenotes产品实践 - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
-  &lt;meta name="description" content="我的PKM理念与Keenotes产品实践 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
-  &lt;meta name="author" content="王福强"&gt; 
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
-  &lt;title&gt;我的PKM理念与Keenotes产品实践 - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
-  &lt;meta name="date" content="2022-02-15"&gt; 
-  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
-  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
-  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
-  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
-  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
-  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
-  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
-  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
-  &lt;script&gt;
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    &lt;/script&gt; 
- &lt;/head&gt; 
- &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
-  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
-   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
-    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
-     &lt;ul class="navbar-nav ml-auto"&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的著作&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
-     &lt;/ul&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/nav&gt; 
-  &lt;section&gt; 
-   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
-    &lt;p class="lead"&gt; &lt;/p&gt;
-    &lt;h1 class="title"&gt;我的PKM理念与Keenotes产品实践&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2022-02-15 &lt;/small&gt; 
-    &lt;p&gt;&lt;/p&gt; 
-    &lt;hr&gt; 
-    &lt;p&gt;&lt;img src="images/PKMachineGun.jpg"&gt;&lt;/p&gt; 
-    &lt;p&gt;此PKM非彼PKM，企业有KB（Knowledge Base）， 个人有PKM（Personal Knowledge Management），我之前一篇’&lt;a href="https://afoo.me/posts/2021-07-25-pkm-and-real-words.html"&gt;也谈谈知识管理与真实&lt;/a&gt;’里已经提到过， 我对笔记工具(Note Tools)的要求有三点：&lt;/p&gt; 
-    &lt;ul&gt; 
-     &lt;li&gt;&lt;strong&gt;访问快&lt;/strong&gt;&lt;/li&gt; 
-     &lt;li&gt;&lt;strong&gt;启动快&lt;/strong&gt;&lt;/li&gt; 
-     &lt;li&gt;&lt;strong&gt;够持久&lt;/strong&gt;&lt;/li&gt; 
-    &lt;/ul&gt; 
-    &lt;p&gt;这是整个&lt;strong&gt;知识管理体系&lt;/strong&gt;的第一环，Note或者说闪念只是快速全量输入，类似于数据仓库里的ODS层（哈哈，有点儿太技术了，非技术人员可以忽略这个类比），有了原始语料，我们才可以对它们做回顾、重新组织， 然后再输出更有价值的文字和内容。&lt;/p&gt; 
-    &lt;p&gt;我之前讲过一个理念，&lt;strong&gt;你可以不用持续输出，但你一定得持续沉淀&lt;/strong&gt;（或者说持续输入然后沉淀）。&lt;/p&gt; 
-    &lt;p&gt;&lt;strong&gt;Note层&lt;/strong&gt;其实就是持续沉淀的那一环，这一环要做好，其实就有很多点需要考虑，比如&lt;strong&gt;信息分级输入&lt;/strong&gt;， 毕竟， 不同分类、不同敏感度、不同来源的信息如果不加以区分，后期很容易一团浆糊没法用，那么，输入的价值也就大大折扣了。&lt;/p&gt; 
-    &lt;p&gt;为了对信息输入提供不同的分级支持，我在打造KeeNotes的时候提供了多个输入端，这些输入端是以信息敏感度的高低进行排布的：&lt;/p&gt; 
-    &lt;ol type="1"&gt; 
-     &lt;li&gt;&lt;strong&gt;Slack + Outgoing Web Hook&lt;/strong&gt;, 摘录，非原创内容的收录，信息敏感度最低；&lt;/li&gt; 
-     &lt;li&gt;&lt;strong&gt;微信公众号入口&lt;/strong&gt;，最常用的入口，信息敏感度中低； 
-      &lt;ul&gt; 
-       &lt;li&gt;&lt;strong&gt;飞书入口&lt;/strong&gt;，类似微信公众号入口， 地位对等，只是使用习惯和频度上的差别；&lt;/li&gt; 
-      &lt;/ul&gt;&lt;/li&gt; 
-     &lt;li&gt;&lt;strong&gt;Keenotes Android版&lt;/strong&gt;， 信息敏感度高，使用频度低；&lt;/li&gt; 
-    &lt;/ol&gt; 
-    &lt;p&gt;另外， 桌面端也有三个入口，分别是：&lt;/p&gt; 
-    &lt;ol type="1"&gt; 
-     &lt;li&gt;&lt;strong&gt;KeeNotes Web版&lt;/strong&gt;， 基于Svelte &lt;a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;的打造的本地web应用；&lt;/li&gt; 
-     &lt;li&gt;&lt;strong&gt;KeeNotes Desktop版&lt;/strong&gt;，原来开源，但因为需要申请软著，所以撤回；&lt;/li&gt; 
-     &lt;li&gt;&lt;strong&gt;Keebox入口&lt;/strong&gt;， Keebox是个人桌面工具， 也提供了Keenote的输入入口；&lt;/li&gt; 
-    &lt;/ol&gt; 
-    &lt;p&gt;所有桌面版因为不依托其它平台，所以， 信息敏感度可以不关注区分。&lt;/p&gt; 
-    &lt;p&gt;所有输入端的内容都会统一交给frontier服务器与后端存储服务，这些服务通过私有VPN相互关联，保证信息通路的绝对安全，最终保证信息落地到私有存储。&lt;/p&gt; 
-    &lt;p&gt;这是PKM第一环的整个链路与工具产品实践。&lt;/p&gt; 
-    &lt;p&gt;PKM的第二环是回顾，每周一会通过自建的推送助手发送消息提醒我对上一周的碎片化思考进行回顾，&lt;strong&gt;记忆曲线&lt;/strong&gt;的“干活”，各位看官应该懂的吧？ ；）&lt;/p&gt; 
-    &lt;p&gt;&lt;img src="images/60561644906134_.pic.jpg"&gt;&lt;/p&gt; 
-    &lt;p&gt;PKM的第三环即&lt;strong&gt;组织整理输出&lt;/strong&gt;， 这个就不做过多赘述了， 包括这篇就是这个环节的产出， 通过&lt;strong&gt;Markdown+Pandoc+Git&lt;/strong&gt;管理的纯文本“源代码”，输出格式根据平台和渠道而异。&lt;/p&gt; 
-    &lt;p&gt;就这些，各位看官有什么更好的实践吗？ 欢迎留言分享~&lt;/p&gt; 
-    &lt;section class="footnotes" role="doc-endnotes"&gt; 
-     &lt;hr&gt; 
-     &lt;ol&gt; 
-      &lt;li id="fn1" role="doc-endnote"&gt;&lt;p&gt;如果你不知道svelte是什么，那么我就王婆卖瓜，顺道兜售下自己写的Simple Svelte ；）&lt;a href="#fnref1" class="footnote-back" role="doc-backlink"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt; 
-     &lt;/ol&gt; 
-    &lt;/section&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
-    &lt;hr&gt; 
-    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
-    &lt;/div&gt; 
-    &lt;div id="random_posts"&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2020-06-05-books-rec-from-ceo.html"&gt;CEO们都在读什么书 &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2020-06-08-my-consulting-methodology.html"&gt;向前看 &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2021-03-10-frontend-potential-trends-in-2021.html"&gt;2021年几个值得关注的小众前端技术趋势 &lt;/a&gt; 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
-    &lt;div id="comments"&gt;&lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;div class="text-center"&gt; 
-     &lt;img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/section&gt; 
-  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
-   ©王福强个人版权所有, All Rights Reserved.
-  &lt;/div&gt; 
-  &lt;div class="copyright py-4 text-center text-white"&gt; 
-   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
-   &lt;/div&gt; 
-  &lt;/div&gt; 
-  &lt;script type="text/javascript"&gt;
-var gitalk = new Gitalk({
-  clientID: '518a605d711883414ac0',
-  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-  repo: 'afoo.me.comments',
-  owner: 'fujohnwang',
-  admin: ['fujohnwang'],
-  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-  distractionFreeMode: false  // Facebook-like distraction free mode
-})
-
-gitalk.render('comments')
-    &lt;/script&gt;  
-  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
- &lt;/body&gt;
-&lt;/html&gt;</description>
-      <pubDate>Mon, 14 Feb 2022 16:00:00 GMT</pubDate>
-      <guid>http://afoo.me/posts/2022-02-15-keenotes-and-PKM.html</guid>
-      <dc:date>2022-02-14T16:00:00Z</dc:date>
-    </item>
-    <item>
-      <title>KEEVOL如何辨识企业</title>
-      <link>http://afoo.me/posts/2022-02-15-enterprises-in-my-eyes.html</link>
-      <description>&lt;!doctype html&gt;
-&lt;html lang="zh"&gt; 
- &lt;head&gt; 
-  &lt;meta charset="utf-8"&gt; 
-  &lt;meta name="keywords" content="KEEVOL如何辨识企业 - architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
-  &lt;meta name="description" content="KEEVOL如何辨识企业 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
-  &lt;meta name="author" content="王福强"&gt; 
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
-  &lt;title&gt;KEEVOL如何辨识企业 - 扶墙老师说：一个架构士的思考与沉淀&lt;/title&gt; 
-  &lt;meta name="date" content="2022-02-15"&gt; 
-  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
-  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
-  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
-  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
-  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
-  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
-  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
-  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; &lt;!--    &lt;link href="/ivy.css" rel="stylesheet"&gt;--&gt; &lt;!-- 百度统计 --&gt; 
-  &lt;script&gt;
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    &lt;/script&gt; 
- &lt;/head&gt; 
- &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
-  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
-   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;福强说 &lt;small&gt;一个&lt;b&gt;架构士&lt;/b&gt;的思考与沉淀&lt;/small&gt; &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
-    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
-     &lt;ul class="navbar-nav ml-auto"&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;个人简介&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;个人博客&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;我的著作&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
-     &lt;/ul&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/nav&gt; 
-  &lt;section&gt; 
-   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
-    &lt;p class="lead"&gt; &lt;/p&gt;
-    &lt;h1 class="title"&gt;KEEVOL如何辨识企业&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt;2022-02-15 &lt;/small&gt; 
-    &lt;p&gt;&lt;/p&gt; 
-    &lt;hr&gt; 
-    &lt;ul&gt; 
-     &lt;li&gt;&lt;a href="#明星企业"&gt;&lt;span class="toc-section-number"&gt;1&lt;/span&gt; 明星企业&lt;/a&gt;&lt;/li&gt; 
-     &lt;li&gt;&lt;a href="#腰部企业"&gt;&lt;span class="toc-section-number"&gt;2&lt;/span&gt; 腰部企业&lt;/a&gt;&lt;/li&gt; 
-     &lt;li&gt;&lt;a href="#生存线上的企业"&gt;&lt;span class="toc-section-number"&gt;3&lt;/span&gt; 生存线上的企业&lt;/a&gt;&lt;/li&gt; 
-     &lt;li&gt;&lt;a href="#小结"&gt;&lt;span class="toc-section-number"&gt;4&lt;/span&gt; 小结&lt;/a&gt;&lt;/li&gt; 
-    &lt;/ul&gt; 
-    &lt;hr&gt; 
-    &lt;p&gt;在KEEVOL眼里，企业可以根据三个维度来大体上做个度量，KEEVOL称之为&lt;strong&gt;企业三元素&lt;/strong&gt;：&lt;/p&gt; 
-    &lt;p&gt;&lt;img src="images/troika_of_enterprise.png"&gt;&lt;/p&gt; 
-    &lt;p&gt;当然， 你把它们扩展成常用的雷达图也是可以的，但KEEVOL更喜欢“三(3)”这个数字，所以， let it be。&lt;/p&gt; 
-    &lt;h1 data-number="1" id="明星企业"&gt;&lt;span class="header-section-number"&gt;1&lt;/span&gt; 明星企业&lt;/h1&gt; 
-    &lt;p&gt;所有三个元素都做得很好的企业，算作是明星企业，都有谁，咱就不一一列举了，他们的品牌和流量应该已经教育好大家了。&lt;/p&gt; 
-    &lt;h1 data-number="2" id="腰部企业"&gt;&lt;span class="header-section-number"&gt;2&lt;/span&gt; 腰部企业&lt;/h1&gt; 
-    &lt;p&gt;一般&lt;strong&gt;流量&lt;/strong&gt;做好的企业都饿不死，这里的流量不单单指C端业务，也指B端的商务关系与销售资源， 能把流量做到八九十分， &lt;strong&gt;组织和运营&lt;/strong&gt;以及&lt;strong&gt;信息和系统&lt;/strong&gt;这些元素只要分数过得去，一般都还可以。&lt;/p&gt; 
-    &lt;p&gt;&lt;strong&gt;获客能力是企业的核心能力&lt;/strong&gt;，有些行业的获客就算是&lt;code&gt;资本狂烧+组织狂招&lt;/code&gt;都是无法短期就能出效果的， 尤其是不能跟在这些行业里已经沉淀了二三十年的企业比，这些企业就算组织很烂，信息和系统很烂，而你信息和系统很强很超前，都无法跟它们抗衡，不信你可以问问这些年要进入某些传统行业的互联网人出来搞的企业带头人。&lt;/p&gt; 
-    &lt;p&gt;(90+, 60, 60)的组合会靠资源上的优势完胜(50, 80, 90)的组合。&lt;/p&gt; 
-    &lt;h1 data-number="3" id="生存线上的企业"&gt;&lt;span class="header-section-number"&gt;3&lt;/span&gt; 生存线上的企业&lt;/h1&gt; 
-    &lt;p&gt;为什么商战要分类分阶段？ 就是因为生存线上的企业只能先打游击战，这是无法越过的一个过程。&lt;/p&gt; 
-    &lt;p&gt;生存线上的企业，三元素往往都低于及格线，这是结果，也是状态，就看能不能通过打破一点的及格线从而把整体拉起来。&lt;/p&gt; 
-    &lt;p&gt;但难就难在，越是在这个阶段和状态的企业，往往越是雪上加霜的状态（还记得我经常挂在嘴边的“雪锦霜花定律”吗？），能爬出来的都是奇迹+运气。&lt;/p&gt; 
-    &lt;h1 data-number="4" id="小结"&gt;&lt;span class="header-section-number"&gt;4&lt;/span&gt; 小结&lt;/h1&gt; 
-    &lt;p&gt;企业三元素是KEEVOL总结的一个方法论工具，希望对于我们理解市场上各式各样的企业能有所帮助。&lt;/p&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
-    &lt;hr&gt; 
-    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
-    &lt;/div&gt; 
-    &lt;div id="random_posts"&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2021-10-02-you-get-what-you-advocate.html"&gt;提倡什么得到什么 &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2019-03-18-body-uphold-spirit.html"&gt;精神再高贵顽强也经不起身体神殿的崩塌 &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2021-12-10-log4j-shit-happens.html"&gt;Shit Happens: log4j 0day灾难始末 &lt;/a&gt; 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;img src="/images/zanshang.jpg" width="300/"&gt; 
-    &lt;div id="comments"&gt;&lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;div class="text-center"&gt; 
-     &lt;img src="/images/mp_footer.jpeg" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/section&gt; 
-  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
-   ©王福强个人版权所有, All Rights Reserved.
-  &lt;/div&gt; 
-  &lt;div class="copyright py-4 text-center text-white"&gt; 
-   &lt;div class="container"&gt; &lt;small&gt;Copyright © 王福强个人版权所有 - Since 2004&lt;/small&gt; 
-   &lt;/div&gt; 
-  &lt;/div&gt; 
-  &lt;script type="text/javascript"&gt;
-var gitalk = new Gitalk({
-  clientID: '518a605d711883414ac0',
-  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-  repo: 'afoo.me.comments',
-  owner: 'fujohnwang',
-  admin: ['fujohnwang'],
-  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-  distractionFreeMode: false  // Facebook-like distraction free mode
-})
-
-gitalk.render('comments')
-    &lt;/script&gt;  
-  &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; 
- &lt;/body&gt;
-&lt;/html&gt;</description>
-      <pubDate>Mon, 14 Feb 2022 16:00:00 GMT</pubDate>
-      <guid>http://afoo.me/posts/2022-02-15-enterprises-in-my-eyes.html</guid>
-      <dc:date>2022-02-14T16:00:00Z</dc:date>
     </item>
   </channel>
 </rss>

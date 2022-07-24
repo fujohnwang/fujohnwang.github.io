@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="借着WPS的困境讲讲三种维度的架构 - 架构教练,架构师个人成长教练,个人成长,组织成长,个人与组织成长顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="借着WPS的困境讲讲三种维度的架构 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>借着WPS的困境讲讲三种维度的架构 - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2022-07-13"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">借着WPS的困境讲讲三种维度的架构</h1> <small> <h3 class="author">王福强</h3>2022-07-13 </small> 
+    <p></p> 
+    <hr> 
+    <ul> 
+     <li><a href="#背景"><span class="toc-section-number">1</span> 背景</a></li> 
+     <li><a href="#信息监管架构"><span class="toc-section-number">2</span> 信息监管架构</a></li> 
+     <li><a href="#商业架构"><span class="toc-section-number">3</span> 商业架构</a></li> 
+     <li><a href="#技术架构"><span class="toc-section-number">4</span> 技术架构</a></li> 
+     <li><a href="#怎么办"><span class="toc-section-number">5</span> 怎么办</a></li> 
+    </ul> 
+    <hr> 
+    <h1 data-number="1" id="背景"><span class="header-section-number">1</span> 背景</h1> 
+    <p>有人反映自己通过WPS写的文档被锁定，还有的说自己本地文件被删：</p> 
+    <p><img src="images/2022-07-13-18-13-27.jpg"></p> 
+    <p>金山就此也辟谣了：</p> 
+    <p><img src="images/2022-07-13-18-15-53.jpg"></p> 
+    <p>我相信，这个辟谣的可信度还是可以的，应该还是合规性问题，而不是随意删除文件，如果是随意删除文件，那就涉及到破坏用户数据了，这个，破坏计算机系统罪不知道适用不适用啊；）</p> 
+    <p>实际上，之前很多用户反映，什么云文档啦或者什么云音乐啦，要么会查看用户的云文档内容，或者删除/锁定用户本地的音乐文件，其实这些都属于合规性问题，你骂企业是没有用的，企业要合法经营，也得遵守所在国家的法律框架不是？</p> 
+    <p><img src="images/2022-07-13-18-25-01.jpg"></p> 
+    <p>由此，我们倒是可以引申出三种维度的架构问题…</p> 
+    <h1 data-number="2" id="信息监管架构"><span class="header-section-number">2</span> 信息监管架构</h1> 
+    <p>我们先抛开道德感不论，在一个有信息监管需要的地方，设计一套行之有效的监管实施架构最有效的方式就是法律，付诸于法律背后的神秘力量，然后展开到区域和实体的实施，这是更大力度的架构，也是我们首先要关注的架构设计。</p> 
+    <p>至于记者证啦，搞搞活动啦，都只是属于运营的一部分。</p> 
+    <p>企业作为监管架构下的某个实体，在框架设计的约束下运转。</p> 
+    <h1 data-number="3" id="商业架构"><span class="header-section-number">3</span> 商业架构</h1> 
+    <p>WPS的产品最早是单机产品，甚至于还是DOS时代的产物：</p> 
+    <p><img src="images/2022-07-13-18-31-15.jpg"></p> 
+    <p>但单机产品有个最头疼的问题，尤其是在我们这片土地上： <strong>盗版</strong>。</p> 
+    <p>所以，随着网络的普及以及SaaS模式的出现，各大软件厂商逐渐将产品形态从单机转向云和SaaS模式，当然有办公协调层面的考虑，但从商业模式或者商业架构上考虑，SaaS模式带来的好处不单单是天然反盗版（因为缺乏信任，只能核心资产上收），更主要的是，从厂商的角度，可以年年收租金，月月都有现金流。</p> 
+    <p>如果说过去用户可以通过付费买断软件的所有权，那么，今天用户只能通过付费买软件的使用权。 这就是<strong>SaaS产品和商业模式的本质： 租</strong>！</p> 
+    <h1 data-number="4" id="技术架构"><span class="header-section-number">4</span> 技术架构</h1> 
+    <p>现在让我们把视线落到大家认知里最常见的架构，也就是“技术架构”上来，如果让你作为架构师来设计像WPS这样云产品的技术架构，你会怎么设计？</p> 
+    <p>是云+端等量同步吗？ 还是云为主，端为辅？ 甚至直接通过浏览器+云的模式，把所有核心职能都上收到云上？</p> 
+    <p>如果要检测用户的文档内容是否符合合规要求，我们是在云端直接扫描呢？ 还是像当年杀毒软件那样，把病毒库下发到用户电脑端执行？ 要锁定不合规的文件，我们是云端直接权限控制，还是做指令下发？</p> 
+    <p>好啦，留着些问题给大家去思考吧，毕竟，我们不是WPS的架构师；）</p> 
+    <h1 data-number="5" id="怎么办"><span class="header-section-number">5</span> 怎么办</h1> 
+    <p>这或许才是大家最为关心的，是的，就算了解了这些， 我们应该怎么办呢？</p> 
+    <p>至少有两条路，至于路怎么走，当然你自己看着办咯~</p> 
+    <p><strong>要么，合规化操作</strong>。</p> 
+    <p>比如那天华章的杨福川就做过出版行业使用WPS的实践和经验，其中就有提醒作者在内容创作过程中要注意的合规性问题。</p> 
+    <p><strong>要么，选择其它产品</strong>。</p> 
+    <p>至少有三类产品可以作为替代品：</p> 
+    <ol type="1"> 
+     <li><strong>Offic类替代品</strong>：这类替代品主要是为了那些习惯了使用office的人群（当然，前提是可以寻求这类替代品），比如退回到某个老版本的微软office，或者选择像LibreOffice这样的开源产品；</li> 
+     <li><strong>Block Editor类替代品</strong>： 基于块（Block）的编辑器现在也发展的很成熟了，比如Notion，如果你能习惯这类内容编辑器，这也是一类不错的替代品选择；</li> 
+     <li><strong>Markdown类替代品</strong>： 这个就比较geek了，偏纯文本，对于非程序员用户极其不友好，不推荐普通大众使用，虽然我现在日常最多的就是用这种方式，这个我之前讲过（git + markdown + pandoc）；</li> 
+    </ol> 
+    <p>好啦，GL &amp; HF，今天就这样吧！</p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2022-01-19-kenghuo-habit-momentum.html">坑获：用户的习惯岂是你想改就能改 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2010-02-18-spring-festval.html">大年三十 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2018-10-26-thinking_upgrade.html">王福强：让升级思维指引行业方向的选择 </a> 
+     </div> 
+    </div> 
+    <hr> 
+    <img src="/images/zanshang.jpg" width="300/"> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> 
+     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©王福强个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>
