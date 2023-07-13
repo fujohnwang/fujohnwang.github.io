@@ -6,7 +6,7 @@
   <meta name="description" content="Head First The Big Picture Of DNS - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-  <title>Head First The Big Picture Of DNS - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <title>Head First The Big Picture Of DNS -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
@@ -14,26 +14,35 @@
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
-  <script>
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    </script> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
  </head> 
  <body id="page-top"> <!-- Navigation --> 
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
     <div class="collapse navbar-collapse" id="navbarResponsive"> 
      <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
      </ul> 
     </div> 
@@ -42,29 +51,12 @@
   <section> 
    <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
     <p class="lead"> </p>
-    <h1 class="title">Head First The Big Picture Of DNS</h1> <small> <h3 class="author">王福强</h3> </small> 
+    <h1 class="title">Head First The Big Picture Of DNS</h1> <small> <h3 class="author">王福强</h3> 
+     <div style="text-align: left;"></div> </small> 
     <p></p> 
     <hr> 
-    <ul> 
-     <li><a href="#dns基本概念铺垫"><span class="toc-section-number">1</span> DNS基本概念铺垫</a></li> 
-     <li><a href="#dns生态体系中牵扯的机构及其职能"><span class="toc-section-number">2</span> DNS生态体系中牵扯的机构及其职能</a></li> 
-     <li><a href="#典型流程和基础设施说明"><span class="toc-section-number">3</span> 典型流程和基础设施说明</a> 
-      <ul> 
-       <li><a href="#域名注册商与dns-server"><span class="toc-section-number">3.1</span> 域名注册商与DNS Server</a></li> 
-       <li><a href="#域名的记录类型record-types-of-domain-names"><span class="toc-section-number">3.2</span> 域名的记录类型(record types of domain names)</a></li> 
-      </ul></li> 
-     <li><a href="#更多域名与ip的故事"><span class="toc-section-number">4</span> 更多域名与IP的故事</a> 
-      <ul> 
-       <li><a href="#一个域名对应多个ip"><span class="toc-section-number">4.1</span> 一个域名对应多个IP</a></li> 
-       <li><a href="#多个域名对应一个ip"><span class="toc-section-number">4.2</span> 多个域名对应一个IP</a></li> 
-       <li><a href="#多个域名对应多个ip"><span class="toc-section-number">4.3</span> 多个域名对应多个IP</a></li> 
-      </ul></li> 
-     <li><a href="#dynamic-dns"><span class="toc-section-number">5</span> Dynamic DNS</a></li> 
-     <li><a href="#参考资料"><span class="toc-section-number">6</span> 参考资料</a></li> 
-    </ul> 
-    <hr> 
     <p>学术不精，平日多有耳闻却又熟视无睹， 借资料大扫荡之机，重新梳理整个DNS体系的大图景，以期将来有据可查可参可考…</p> 
-    <h1 data-number="1" id="dns基本概念铺垫"><span class="header-section-number">1</span> DNS基本概念铺垫</h1> 对以下域名进行解剖： 
+    <h1 id="dns基本概念铺垫">DNS基本概念铺垫</h1> 对以下域名进行解剖： 
     <pre>www.howstuffworks.com
 </pre> 
     <ul> 
@@ -72,7 +64,7 @@
      <li>howstuffworks: 二级域名部分</li> 
      <li>www: 主机(host)部分</li> 
     </ul> 
-    <h1 data-number="2" id="dns生态体系中牵扯的机构及其职能"><span class="header-section-number">2</span> DNS生态体系中牵扯的机构及其职能</h1> 
+    <h1 id="dns生态体系中牵扯的机构及其职能">DNS生态体系中牵扯的机构及其职能</h1> 
     <p>顶级域名/一级域名由IANA<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>统一进行管理和分配， 这些顶级域名/一级域名包括我们耳熟能详的：</p> 
     <ol type="1"> 
      <li>.com</li> 
@@ -84,7 +76,7 @@
     <p>“These top-level domains are controlled by the IANA in what’s called the Root Zone Database”</p> 
     <p>二级域名归属于相应的一级页面下面， 二级域名由域名注册商(registrar)进行分配， 每个域名注册商可以获取一个或者多个一级域名下二级域名的注册权，比如registrar1只能负责.com下二级域名的注册，而registrar2则可以负责.net, .org多个一级域名下二级域名的注册。 每个域名注册商在用户注册/申请二级域名的时候，需要跟ICANN的InterNIC服务进行交互，该服务将保证同一顶级域名下的二级域名的唯一性， 注册成功的二级域名将入whois database.</p> 
     <p>Network Solutions, Inc.&nbsp;(NSI) was one of the first registrars, and today companies like GoDaddy.com offer domain registration in addition to many other Web site and domain management services.</p> 
-    <h1 data-number="3" id="典型流程和基础设施说明"><span class="header-section-number">3</span> 典型流程和基础设施说明</h1> 
+    <h1 id="典型流程和基础设施说明">典型流程和基础设施说明</h1> 
     <p>当我们在浏览器中输入域名进行服务访问的时候，浏览器会调用相应的系统程序，比如gethostname或者getaddrinfo等，来进行DNS查询，以便找到域名对应的服务器的IP地址是多少，在拿到相应的IP地址之后再发送服务请求进行访问。</p> 
     <p>那到哪里去查询域名信息与IP地址的映射关系那？ 一般情况下， 我们可以在网络设置里选择手动添加DNS Server地址或者通过DHCP(Dynamic Host Configuration Protocol)自动从ISP获得相应的DNS Server地址。</p> 
     <blockquote> 
@@ -101,14 +93,14 @@ $ nslookup -debug redhat.com  // Enabling debug mode using -debug
 </pre> 
     <p>我们可以通过type参数指定要查询的域名相关信息，见上例， 其中，如果不指定type则默认返回A记录(A Record)对应的信息， 简单来讲就是域名与IP地址的对应信息。关于nslookup使用的更多信息可以参考<a href="http://www.thegeekstuff.com/2012/07/nslookup-examples/" class="uri">http://www.thegeekstuff.com/2012/07/nslookup-examples/</a></p> 
     <p>如果是在MacOS X系统下， 除了使用命令行形式的nslookup命令，也可以使用/Application/Utilities/Network Utility图形化工具来达成相同的目的。</p> 
-    <h2 data-number="3.1" id="域名注册商与dns-server"><span class="header-section-number">3.1</span> 域名注册商与DNS Server</h2> 
+    <h2 id="域名注册商与dns-server">域名注册商与DNS Server</h2> 
     <p>如果我们在某个域名注册商处注册了一个域名， 一般情况下， 域名注册商会有相应的DNS服务让我们来指定注册成功后的域名应该绑定到哪个IP地址上， 即域名注册商会有相应的DNS Server对外提供服务，该DNS Server被认为是authoritive的，原则上，它是应该在Root DNS Server是有在册记录的^_^， 只有这样，当查询应用程序访问和查询我们注册的域名的时候， 才能通过Root DNS Server的查询结果告知发起查询的DNS Server到注册商的DNS Server上来查询到对应的结果。</p> 
     <p>域名注册商的DNS Server或许不错，不过，我们也可以不使用域名注册商提供的DNS Server， 比如DNSPod的口碑不错又是免费的，我们想使用DNSPod的服务，那么，我们就可以通过域名注册商的后台管理程序，将域名的解析权转给DNSPod的DNS Server来处理， 而在DNSPod的后台管理程序中设置相应的A记录啦，CNAME记录啦， 等等。</p> 
     <blockquote> 
      <p>NOTE</p> DNS Server一般运行BIND软件对外提供服务。 
     </blockquote> 
     <p>那A记录， CNAME之类到底有哪些，又都代表什么意思那？</p> 
-    <h2 data-number="3.2" id="域名的记录类型record-types-of-domain-names"><span class="header-section-number">3.2</span> 域名的记录类型(record types of domain names)</h2> 
+    <h2 id="域名的记录类型record-types-of-domain-names">域名的记录类型(record types of domain names)</h2> 
     <ol type="1"> 
      <li>Host(A Record) 
       <ul> 
@@ -132,20 +124,20 @@ $ nslookup -debug redhat.com  // Enabling debug mode using -debug
       </ul></li> 
     </ol> 
     <p>这里是来自DNSPod的通俗解释： <img src="images/dns_records_type_explained_by_dnspod.png" alt="dns_records_type_explained_by_dnspod"></p> 
-    <h1 data-number="4" id="更多域名与ip的故事"><span class="header-section-number">4</span> 更多域名与IP的故事</h1> 
+    <h1 id="更多域名与ip的故事">更多域名与IP的故事</h1> 
     <p>一个域名对应一个IP， 这个就不需要多说了吧？ 在域名的A记录中指定对应的IP就行了。</p> 
-    <h2 data-number="4.1" id="一个域名对应多个ip"><span class="header-section-number">4.1</span> 一个域名对应多个IP</h2> 
+    <h2 id="一个域名对应多个ip">一个域名对应多个IP</h2> 
     <p>大型网站一个域名后面通常都会有多台服务器提供相应服务，而且往往会在DNS层面做负载均衡，这种情况下，需要设置一个域名对应到多个IP。</p> 
     <p>根据实现的不同，配置方式可以是不同的，比如在BIND中，是可以在一条A记录中指定一个对应的IP列表。</p> 
-    <h2 data-number="4.2" id="多个域名对应一个ip"><span class="header-section-number">4.2</span> 多个域名对应一个IP</h2> 
+    <h2 id="多个域名对应一个ip">多个域名对应一个IP</h2> 
     <p>如果一台服务器上起了多个服务，而又想使用不同的域名来访问这些不同的服务，那么， 就会需要设置多个域名对应一个IP。</p> 
     <p>一般情况下，只要设置不同域名的A记录指向这台服务器的IP就可以了。</p> 
     <blockquote> 
      <p>一台服务器上的多个服务一般跑在不同的端口上， 在访问的时候，在域名后指定端口即可，不需要在DNS配置中指定。</p> 当然，像在DNSPod中，也可以IP和端口一起指定， 参考https://support.dnspod.cn/Kb/showarticle/tsid/35/。 
     </blockquote> 
-    <h2 data-number="4.3" id="多个域名对应多个ip"><span class="header-section-number">4.3</span> 多个域名对应多个IP</h2> 
+    <h2 id="多个域名对应多个ip">多个域名对应多个IP</h2> 
     <p>有了上面几个故事，这里还需要再细说嘛？</p> 
-    <h1 data-number="5" id="dynamic-dns"><span class="header-section-number">5</span> Dynamic DNS</h1> 
+    <h1 id="dynamic-dns">Dynamic DNS</h1> 
     <p>对于没有静态IP(static ip)的机器来说， 如果想一直让外部通过固定的域名访问，通常需要Dynamic DNS服务支持。</p> 
     <p>原则上与一般意义上的DNS没有太大差别，唯一多出来的一个装备是， 在拥有动态IP的本地机器上需要安装一个软件或者脚本 - dynamic DNS client，可以检测本地机器的IP变更，然后将变更通知DynamicDNS服务器去更新相应zone file中的A记录。</p> 
     <figure> 
@@ -155,7 +147,7 @@ $ nslookup -debug redhat.com  // Enabling debug mode using -debug
      </figcaption> 
     </figure> 
     <p>Dynamic DNS中更新频率<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>以及其它DNS服务的更新传播速度决定了本地机器上的服务的可持续性和可用性。</p> 
-    <h1 data-number="6" id="参考资料"><span class="header-section-number">6</span> 参考资料</h1> 
+    <h1 id="参考资料">参考资料</h1> 
     <ol type="1"> 
      <li>《用TCP/IP进行网际互连 - 第一卷》</li> 
      <li><a href="http://computer.howstuffworks.com/dns.htm">How Domain Name Servers Work</a></li> 
@@ -175,30 +167,39 @@ $ nslookup -debug redhat.com  // Enabling debug mode using -debug
      </ol> 
     </section> <!--          </div>--> <!--        </div>--> 
     <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
+    <hr> 
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2010-01-04-make-judgement-only-when-u-know-it-properly.html">When people meet something they don’t know at first time </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2007-09-21-whats-wrong-with-me.html">What’s wrong with me? </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2006-00-00-configure-log4j-programmatically.html">在程序中动态配置log4j(configure Log4j Programmatically) </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2007-09-28-thoughts-on-bestwiz-fx-products.html">Bestwiz FX产品化路上的建议 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2022-04-16-sh-covid-disaster.html">疫情管控之下的上海困局 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2020-06-05-books-rec-from-ceo.html">CEO们都在读什么书 </a> 
      </div> 
     </div> 
-    <hr> 
-    <img src="/images/zanshang.jpg" width="300/"> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <div id="comments"></div> 
     <hr> 
-    <div class="text-center"> 
-     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
     </div> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
-   ©王福强个人版权所有, All Rights Reserved.
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
   </div> 
   <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
    </div> 
   </div> 
   <script type="text/javascript">
@@ -213,7 +214,16 @@ var gitalk = new Gitalk({
 })
 
 gitalk.render('comments')
-    </script>  
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
  </body>
 </html>

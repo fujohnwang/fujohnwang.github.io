@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="不知道Stable Diffusion Web UI应该怎么选？ 看这一篇就够了！ - 架构教练,架构师个人成长教练,个人成长,组织成长,个人与组织成长顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="不知道Stable Diffusion Web UI应该怎么选？ 看这一篇就够了！ - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>不知道Stable Diffusion Web UI应该怎么选？ 看这一篇就够了！ -王福强的个人博客：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2023-04-29"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">不知道Stable Diffusion Web UI应该怎么选？ 看这一篇就够了！</h1> <small> <h3 class="author">王福强</h3> 
+     <div style="text-align: left;">
+      2023-04-29
+     </div> </small> 
+    <p></p> 
+    <hr> 
+    <blockquote> 
+     <p>不想看文字？ 视频在这里：<a href="https://www.youtube.com/watch?v=8tWR2zn23Pc" class="uri">https://www.youtube.com/watch?v=8tWR2zn23Pc</a></p> 
+    </blockquote> 
+    <p>Stable Diffusion是当下AI绘画开源领域里（文字生成图片）最火的模型了，但是，从底层写python代码调用Stable Diffusion，对于大多数人来讲难度有些大，所以，如果有一种应用，可以让我们简单输入文字，然后点一点就可以出图，那是不是就像是“困来就来枕头”那般爽呢？你还别说，真有，今天扶墙老师就给大家系统化地梳理一下有哪些好的Stable Diffusion Web UI产品。</p> 
+    <h1 id="automatic1111-stable-diffusion-webui">Automatic1111 Stable Diffusion WebUI</h1> 
+    <p>这是现在使用最广的一个Stable Diffusion Web UI，功能全，可扩展性还强，几乎所有的媒体和视频教程都有它的身影，要玩Stable Diffusion，它是起步门槛最低的选项。 对于素人来说，墙裂推荐。</p> 
+    <p><img src="images/2023-04-29-18-33-57.jpg"></p> 
+    <h2 id="anapnoe-stable-diffusion-webui-ux">Anapnoe Stable Diffusion WebUI-UX</h2> 
+    <p>属于Automatic1111 Stable Diffusion WebUI的一个分叉（Fork），提供了更加清爽的UI界面：</p> 
+    <p><img src="images/2023-04-29-18-18-03.jpg"></p> 
+    <h2 id="vladmandic-stable-diffusion-webui">Vladmandic Stable Diffusion WebUI</h2> 
+    <p>一般简称Vlad WebUI，也是属于Automatic1111 Stable Diffusion WebUI的一个分叉（Fork），同样是在UI和风格上做了调整，长这个样子：</p> 
+    <p><img src="images/2023-04-29-18-19-32.jpg"></p> 
+    <h2 id="cagliostro-colab-ui">Cagliostro Colab UI</h2> 
+    <p>这个确切地说，不能跟以上算作一类，它只是提供了Colab Notebook，让大家可以更简单的运行Automatic1111 Stable Diffusion WebUI或者Anapnoe Stable Diffusion WebUI-UX</p> 
+    <h1 id="invokeai">InvokeAI</h1> 
+    <p>另一种开源的Stable Diffusion Web UI类产品，长这个样子：</p> 
+    <p><img src="images/2023-04-29-18-22-26.jpg"></p> 
+    <h1 id="sygil-webui">Sygil WebUI</h1> 
+    <p>长这个样子：</p> 
+    <p><img src="images/2023-04-29-18-23-42.jpg"></p> 
+    <h1 id="comfyui">ComfyUI</h1> 
+    <p>入门门槛比较高的一种Stable Diffusion Web UI产品，通过flow的形式构建文字生成图片的执行流程，对于理解Stable Diffusion模型有很大的帮助，在特殊场景下，可以加快迭代与重用过程，它一般长这个样子：</p> 
+    <p><img src="images/2023-04-29-18-25-09.jpg"></p> 
+    <h1 id="小结">小结</h1> 
+    <p>最后，对以上产品做个梳理小结：</p> 
+    <p><img src="images/2023-04-29-18-26-00.jpg"></p> 
+    <p>对于大多数同学来说，选择Automatic1111 Stable Diffusion WebUI入门是比较合理的，写这篇文字也是因为之前有同学买了「<a href="https://wfq.gumroad.com/l/fb">扶墙老师讲Stable Diffusion系列</a>」的第三部分ComfyUI，发现从搭建环境到可以运行起来，对于没有技术基础的同学来说还是有很大的门槛效应，所以，不建议一上来就用ComfyUI，更建议从Automatic1111 Stable Diffusion WebUI或者其它几个常规UI设计的产品起步，等有一定的经验和理解力之后，再去接触ComfyUI，当然，到时候也欢迎看看「<a href="https://wfq.gumroad.com/l/fb">扶墙老师讲Stable Diffusion系列</a>」，其中包含了从入门到精通的精品内容，比如：</p> 
+    <ol type="1"> 
+     <li><a href="https://www.youtube.com/watch?v=D7hzPVo_leI">《Stable Diffusion入门》</a></li> 
+     <li><a href="https://wfq.gumroad.com/l/sd2">《Stable Diffusion进阶》</a></li> 
+     <li><a href="https://wfq.gumroad.com/l/comfyui">《ComfyUI从入门到精通》</a></li> 
+     <li><a href="https://wfq.gumroad.com/l/lora">《LoRA模型训练实操》</a></li> 
+    </ol> 
+    <p>Have Fun～</p> 
+    <hr> 
+    <p>补充@2023-04-30:</p> 
+    <p><a href="https://github.com/ddPn08/Radiata">Radiata</a>是一个新的StableDiffusion UI，基于diffusers和<a href="https://deepfloyd.ai/deepfloyd-if">DeepFloyd IF</a>模型开发，使用TensorRT加速。如果想要更详细的了解，可以看看福强老师的<a href="https://youtu.be/yXInC23J0Qk">解读</a>：</p> 
+    <blockquote> 
+     <p>StableDiffusion Web UI又添一员猛将Radiata,那么,它有什么特殊之处呢? #扶墙老师讲StableDiffusion系列 <a href="https://youtu.be/yXInC23J0Qk" class="uri">https://youtu.be/yXInC23J0Qk</a> 来自 <span class="citation" data-cites="YouTube">@YouTube</span></p> 
+    </blockquote> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2007-07-07-great-minds-think-alike.html">Great minds think alike </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2011-06-23-a-custom-cfg-impl-with-scala.html">一个简单的自定义配置格式的Scala实现 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2020-07-09-expensive-software.html">太多人对互联网的重投入一无所知 </a> 
+     </div> 
+    </div> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

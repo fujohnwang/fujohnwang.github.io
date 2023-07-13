@@ -6,13 +6,14 @@
   <meta name="description" content="pandoc中文pdf转换攻略 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-  <title>pandoc中文pdf转换攻略 - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <title>pandoc中文pdf转换攻略 -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
   <style type="text/css">
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -78,26 +79,35 @@
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
-  <script>
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    </script> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
  </head> 
  <body id="page-top"> <!-- Navigation --> 
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
     <div class="collapse navbar-collapse" id="navbarResponsive"> 
      <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
      </ul> 
     </div> 
@@ -106,18 +116,19 @@
   <section> 
    <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
     <p class="lead"> </p>
-    <h1 class="title">pandoc中文pdf转换攻略</h1> <small> <h3 class="author">王福强</h3> </small> 
+    <h1 class="title">pandoc中文pdf转换攻略</h1> <small> <h3 class="author">王福强</h3> 
+     <div style="text-align: left;"></div> </small> 
     <p></p> 
     <hr> 
     <p>按照pandoc官方网站说明，下载<a href="http://www.tug.org/mactex/morepackages.html">BasicTex</a>以及MacTeX-Additions， 不管三七二十一，一并装了，才占用几百M，在这个年月，“洒洒水”啦~</p> 
     <p>装完后，运行<code>pandoc --latex-engine=xelatex -V mainfont=Hei 统一投放平台规划与设想.md -o tek.pdf</code>, 发现tnd不给换行，太长的行直接截断，好啦，第一个症状出现了…</p> 
     <p>遂Google之， 发现了这篇<a href="https://groups.google.com/forum/#!topic/pandoc-discuss/GIy4crum8II" class="uri">https://groups.google.com/forum/#!topic/pandoc-discuss/GIy4crum8II</a>, 但貌似还是没有答案，也不知道纠结了多久，在pandoc官网导航栏里，点了[<a href="https://github.com/jgm/pandoc/wiki/Pandoc-Extras">Extras</a>], 寻摸， 突然发现接近页尾的地方有中文翻译的pandoc文档项目，有转换时用的命令行说明以及其他几个文档，点进<a href="https://github.com/tzengyuxio/pages/blob/gh-pages/pandoc/convert.sh" class="uri">https://github.com/tzengyuxio/pages/blob/gh-pages/pandoc/convert.sh</a>,发现如下命令赫然在目:</p> 
     <div class="sourceCode" id="cb1">
-     <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pandoc</span> pandoc.markdown -o pandoc-zhtw.pdf --toc --smart --template=pm-template --latex-engine=xelatex -V mainfont=<span class="st">'LiHei Pro'</span></span></code></pre>
+     <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pandoc</span> pandoc.markdown <span class="at">-o</span> pandoc-zhtw.pdf <span class="at">--toc</span> <span class="at">--smart</span> <span class="at">--template</span><span class="op">=</span>pm-template <span class="at">--latex-engine</span><span class="op">=</span>xelatex <span class="at">-V</span> mainfont=<span class="st">'LiHei Pro'</span></span></code></pre>
     </div> 
     <p>哈哈， 太爽了， 马上<code>git clone</code>这个项目到本地，查看输出的pdf，发现格式完全没有问题，我直接把模板拿过来用不就搞定了嘛，so:</p> 
     <div class="sourceCode" id="cb2">
-     <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pandoc</span> --latex-engine=xelatex -V mainfont=<span class="st">'LiHei Pro'</span> --template=pm-template 统一投放平台规划与设想.md -o tek.pdf</span></code></pre>
+     <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pandoc</span> <span class="at">--latex-engine</span><span class="op">=</span>xelatex <span class="at">-V</span> mainfont=<span class="st">'LiHei Pro'</span> <span class="at">--template</span><span class="op">=</span>pm-template 统一投放平台规划与设想.md <span class="at">-o</span> tek.pdf</span></code></pre>
     </div> 
     <p>But， Shit happens…</p> 
     <pre>pandoc: Error producing PDF from TeX source.
@@ -148,7 +159,7 @@ l.65 \setlength
      <li>安装BasicTex;</li> 
      <li>把<a href="https://github.com/tzengyuxio/pages" class="uri">https://github.com/tzengyuxio/pages</a>项目中的pm-template.latex模板提前弄下来，将LiHei Pro字体改为黑体或者其它完全支持中文的字体；</li> 
      <li>使用tlmgr包管理器把titling.sty和lastpage.sty两个依赖装上；</li> 
-     <li>运行pandoc生成pdf， 当然，不要忘了要使用到第二步更改过的template文件，并指定“–latex-engine=xelatex -V mainfont=Hei”</li> 
+     <li>运行pandoc生成pdf， 当然，不要忘了要使用到第二步更改过的template文件，并指定”–latex-engine=xelatex -V mainfont=Hei”</li> 
     </ol> 
     <p>仅此文献给那些依然为相似问题而苦恼的兄弟姐妹们， 如果可以，记得请我吃饭，比如海宝同学，哈哈哈</p> 
     <hr> 
@@ -161,30 +172,39 @@ sudo cp Downloads/CJKfntef.sty ~/Library/texmf/tex/latex/local
      <p>MMD， pandoc的markdown中如果插入图片的话，经常报错， 这个时候，检查一下图片是否是gif格式，如果是，那么将其转成png格式， 这真是一个大坑，老子耗费了差不多一天的时间来解决这个问题， 因为报错信息基本没参考价值， 就各种google， 各种装依赖尝试， 各种改模板，总之各种折腾， 最后是通过先转成latex中间格式，然后再使用xelatex从latex格式转pdf的log中才瞅出些许端倪，然后将gif改成png格式之后， 哇啦， 顺利通关！</p> 
     </blockquote> <!--          </div>--> <!--        </div>--> 
     <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
+    <hr> 
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2010-11-24-understanding_sbt_in_my_way.html">Understanding SBT In My Way </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2022-02-09-why-ali-is-hard-to-rise-again.html">为什么我认为阿里很难再起飞 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2021-10-27-2Bmarket-dilemma.html">PPT、专利与白嫖 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2023-05-21-stable-diffusion-inpainting-course-releases.html">扶墙老师讲Stable Diffusion系列第6部：「Inpainting详解与实操」全新上线 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2006-09-04-Intro-to-an-excel-template-engine.html">Introduction 2 an excel template engine </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2021-10-07-why-my-team-sucks-on-achievement.html">项目延期、团队散漫怎么办？ </a> 
      </div> 
     </div> 
-    <hr> 
-    <img src="/images/zanshang.jpg" width="300/"> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <div id="comments"></div> 
     <hr> 
-    <div class="text-center"> 
-     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
     </div> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
-   ©王福强个人版权所有, All Rights Reserved.
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
   </div> 
   <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
    </div> 
   </div> 
   <script type="text/javascript">
@@ -199,7 +219,16 @@ var gitalk = new Gitalk({
 })
 
 gitalk.render('comments')
-    </script>  
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
  </body>
 </html>

@@ -6,13 +6,14 @@
   <meta name="description" content="使用反射（Reflection）改进项目代码架构 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-  <title>使用反射（Reflection）改进项目代码架构 - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <title>使用反射（Reflection）改进项目代码架构 -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
   <style type="text/css">
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -78,26 +79,35 @@
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
-  <script>
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    </script> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
  </head> 
  <body id="page-top"> <!-- Navigation --> 
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
     <div class="collapse navbar-collapse" id="navbarResponsive"> 
      <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
      </ul> 
     </div> 
@@ -117,84 +127,84 @@
     <div class="sourceCode" id="cb1">
      <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// combo Init</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">Matcher</span> matcher = <span class="bu">Pattern</span>.<span class="fu">compile</span>(<span class="st">"^create(.*)$"</span>).<span class="fu">matcher</span>(<span class="st">""</span>);</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">Matcher</span> matcher <span class="op">=</span> <span class="bu">Pattern</span><span class="op">.</span><span class="fu">compile</span><span class="op">(</span><span class="st">"^create(.*)$"</span><span class="op">).</span><span class="fu">matcher</span><span class="op">(</span><span class="st">""</span><span class="op">);</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">Class</span> clazz = BarcodeFactory.<span class="fu">class</span>;</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">Class</span> clazz <span class="op">=</span> BarcodeFactory<span class="op">.</span><span class="fu">class</span><span class="op">;</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">Method</span>[] methods = clazz.<span class="fu">getMethods</span>();</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">Method</span><span class="op">[]</span> methods <span class="op">=</span> clazz<span class="op">.</span><span class="fu">getMethods</span><span class="op">();</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span>(<span class="dt">int</span> i=<span class="dv">0</span>;i&lt;methods.<span class="fu">length</span>;i++)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i<span class="op">=</span><span class="dv">0</span><span class="op">;</span>i<span class="op">&lt;</span>methods<span class="op">.</span><span class="fu">length</span><span class="op">;</span>i<span class="op">++)</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>       matcher.<span class="fu">reset</span>(methods[i].<span class="fu">getName</span>());</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>       matcher<span class="op">.</span><span class="fu">reset</span><span class="op">(</span>methods<span class="op">[</span>i<span class="op">].</span><span class="fu">getName</span><span class="op">());</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>       <span class="kw">if</span>(matcher.<span class="fu">matches</span>())</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>       <span class="cf">if</span><span class="op">(</span>matcher<span class="op">.</span><span class="fu">matches</span><span class="op">())</span></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>       {</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>       <span class="op">{</span></span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>              <span class="kw">this</span>.<span class="fu">cmbType</span>.<span class="fu">add</span>(matcher.<span class="fu">group</span>(<span class="dv">1</span>));</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>              <span class="kw">this</span><span class="op">.</span><span class="fu">cmbType</span><span class="op">.</span><span class="fu">add</span><span class="op">(</span>matcher<span class="op">.</span><span class="fu">group</span><span class="op">(</span><span class="dv">1</span><span class="op">));</span></span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>       }</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>       <span class="op">}</span></span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>}</span></code></pre>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
     </div> 
     <p>界面初始化完成之后，最主要的就是按钮的事件处理。检验等暂且不提，我先说我的实现思路，从Text中提取输入，从列表框中提取条码类型名称，然后根据条码名称判断应该调用BarcodeFactory的什么方法，最后生成条码图片并输出。不知道大家是否想过，即使知道了条码类型名称，那么如何调用BarcodeFactory的相应方法那？！（对于guru来说固然小儿科，但是以上只是为了提供思路，问题固然简单，依然需要表达清楚，不是吗？！）OK，答案就是反射（Reflection）。 我们通过循环便利BarcodeFactory的所有方法，在循环中会根据正则表达式来判断那个方面名称中可以find到条码类型名称形式的pattern，如果find（）方法返回true，我们就可以直接调用，进行后继处理后直接返回了，请看如下代码片断：</p> 
     <div class="sourceCode" id="cb2">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Class</span> clazz = BarcodeFactory.<span class="fu">class</span>;</span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Class</span> clazz <span class="op">=</span> BarcodeFactory<span class="op">.</span><span class="fu">class</span><span class="op">;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">Method</span>[] methods = clazz.<span class="fu">getMethods</span>();</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">Method</span><span class="op">[]</span> methods <span class="op">=</span> clazz<span class="op">.</span><span class="fu">getMethods</span><span class="op">();</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span>(<span class="dt">int</span> i=<span class="dv">0</span>;i&lt;methods.<span class="fu">length</span>;i++){</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Method</span> m = methods[i];</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i<span class="op">=</span><span class="dv">0</span><span class="op">;</span>i<span class="op">&lt;</span>methods<span class="op">.</span><span class="fu">length</span><span class="op">;</span>i<span class="op">++){</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Method</span> m <span class="op">=</span> methods<span class="op">[</span>i<span class="op">];</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Matcher</span> matcher = <span class="bu">Pattern</span>.<span class="fu">compile</span>(type+<span class="st">"$"</span>).<span class="fu">matcher</span>(m.<span class="fu">getName</span>());</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Matcher</span> matcher <span class="op">=</span> <span class="bu">Pattern</span><span class="op">.</span><span class="fu">compile</span><span class="op">(</span>type<span class="op">+</span><span class="st">"$"</span><span class="op">).</span><span class="fu">matcher</span><span class="op">(</span>m<span class="op">.</span><span class="fu">getName</span><span class="op">());</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span>(matcher.<span class="fu">find</span>()){</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>matcher<span class="op">.</span><span class="fu">find</span><span class="op">()){</span></span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">StringBuffer</span> filename = <span class="kw">new</span> <span class="bu">StringBuffer</span>();</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        filename.<span class="fu">append</span>(<span class="bu">System</span>.<span class="fu">getProperty</span>(<span class="st">"user.dir"</span>));</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        filename.<span class="fu">append</span>(<span class="bu">File</span>.<span class="fu">separator</span>);</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        filename.<span class="fu">append</span>(<span class="st">"data"</span>);</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        filename.<span class="fu">append</span>(<span class="bu">File</span>.<span class="fu">separator</span>);</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        filename.<span class="fu">append</span>(type);</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        filename.<span class="fu">append</span>(<span class="st">".jpg"</span>);</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">StringBuffer</span> filename <span class="op">=</span> <span class="kw">new</span> <span class="bu">StringBuffer</span><span class="op">();</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        filename<span class="op">.</span><span class="fu">append</span><span class="op">(</span><span class="bu">System</span><span class="op">.</span><span class="fu">getProperty</span><span class="op">(</span><span class="st">"user.dir"</span><span class="op">));</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        filename<span class="op">.</span><span class="fu">append</span><span class="op">(</span><span class="bu">File</span><span class="op">.</span><span class="fu">separator</span><span class="op">);</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        filename<span class="op">.</span><span class="fu">append</span><span class="op">(</span><span class="st">"data"</span><span class="op">);</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        filename<span class="op">.</span><span class="fu">append</span><span class="op">(</span><span class="bu">File</span><span class="op">.</span><span class="fu">separator</span><span class="op">);</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        filename<span class="op">.</span><span class="fu">append</span><span class="op">(</span>type<span class="op">);</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        filename<span class="op">.</span><span class="fu">append</span><span class="op">(</span><span class="st">".jpg"</span><span class="op">);</span></span>
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        Barcode barcode = (Barcode)m.<span class="fu">invoke</span>(clazz,<span class="kw">new</span> <span class="bu">Object</span>[]{input});</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        out = <span class="kw">new</span> <span class="bu">FileOutputStream</span>(filename.<span class="fu">toString</span>());</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        BarcodeImageHandler.<span class="fu">outputBarcodeAsJPEGImage</span>(barcode, out);</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        Barcode barcode <span class="op">=</span> <span class="op">(</span>Barcode<span class="op">)</span>m<span class="op">.</span><span class="fu">invoke</span><span class="op">(</span>clazz<span class="op">,</span><span class="kw">new</span> <span class="bu">Object</span><span class="op">[]{</span>input<span class="op">});</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        out <span class="op">=</span> <span class="kw">new</span> <span class="bu">FileOutputStream</span><span class="op">(</span>filename<span class="op">.</span><span class="fu">toString</span><span class="op">());</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        BarcodeImageHandler<span class="op">.</span><span class="fu">outputBarcodeAsJPEGImage</span><span class="op">(</span>barcode<span class="op">,</span> out<span class="op">);</span></span>
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        MessageBox msg = <span class="kw">new</span> <span class="fu">MessageBox</span>(BarCodeGenerator.<span class="fu">this</span>.<span class="fu">getShell</span>(),SWT.<span class="fu">APPLICATION_MODAL</span>|SWT.<span class="fu">ICON_INFORMATION</span>);</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        msg.<span class="fu">setText</span>(<span class="st">"Message"</span>);</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>        msg.<span class="fu">setMessage</span>(<span class="st">"Barcode generated Successfully into data directory!</span><span class="sc">\n</span><span class="st">["</span>+filename.<span class="fu">toString</span>()+<span class="st">"]"</span>);</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>        msg.<span class="fu">open</span>();</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        MessageBox msg <span class="op">=</span> <span class="kw">new</span> <span class="fu">MessageBox</span><span class="op">(</span>BarCodeGenerator<span class="op">.</span><span class="fu">this</span><span class="op">.</span><span class="fu">getShell</span><span class="op">(),</span>SWT<span class="op">.</span><span class="fu">APPLICATION_MODAL</span><span class="op">|</span>SWT<span class="op">.</span><span class="fu">ICON_INFORMATION</span><span class="op">);</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        msg<span class="op">.</span><span class="fu">setText</span><span class="op">(</span><span class="st">"Message"</span><span class="op">);</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>        msg<span class="op">.</span><span class="fu">setMessage</span><span class="op">(</span><span class="st">"Barcode generated Successfully into data directory!</span><span class="sc">\n</span><span class="st">["</span><span class="op">+</span>filename<span class="op">.</span><span class="fu">toString</span><span class="op">()+</span><span class="st">"]"</span><span class="op">);</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>        msg<span class="op">.</span><span class="fu">open</span><span class="op">();</span></span>
 <span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span>;</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>}</span></code></pre>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
     </div> 
     <p>OK，以上就是条码生产程序的说明，以此为基点，我想自我检讨一下，因为相对于上面的实现来说，我为报表模块所做的最终集成实在是太糟糕了（因为牵扯到目前开发的系统，所以此处略去不相关的内容，只对技术点进行说明）</p> 
     <p>首先，报表有许多种，20甚至30种都有可能，然后根据不同的类型，调用不同的对话框，最终根据输入的条件生成excel报表。刚开始我给出了一个接口，不如IReportGenerator,该接口给出了一个generate（）的通用方法以及setXXX（）方法（用来设置报表生成条件），然后告知大家在自己的报表实现类中implements这个接口；同时，我也给出了一个类型安全的枚举类，比如EReportType，用来保存和区分报表类型。在此基础上，用户选择了要生产的报表类型之后，我就可以调用条件输入对话框，传入相应的枚举类，然后在用户点击OK之后，就会判断枚举类的类型，然后根据这个类型来初始化相应的IReportGenerator实现类，最终直接调用generator.generate()方法就可以了。</p> 
     <p>现在，看我的实现，你就会发现最ugly的实现是什么样子的，呵呵</p> 
     <div class="sourceCode" id="cb3">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>EReportType type;</span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>EReportType type<span class="op">;</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>IReportGenerator generator;</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>IReportGenerator generator<span class="op">;</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Other jobs to do</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>…</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>If（EReportType. TYPE1 == type）{</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        generator = <span class="kw">new</span> <span class="fu">SampleGenerator1</span>();</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>}<span class="kw">else</span> <span class="kw">if</span>(EReportType. TYPE2 == type){</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        generator = <span class="kw">new</span> <span class="fu">SampleGenerator2</span>();</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>}<span class="kw">else</span> <span class="kw">if</span>(EReportType.<span class="fu">TYPE3</span> == type){</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        generator = <span class="kw">new</span> <span class="fu">SampleGenerator3</span>();</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>}<span class="kw">else</span> <span class="kw">if</span>(…){</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>If（EReportType<span class="op">.</span> <span class="fu">TYPE1</span> <span class="op">==</span> type）<span class="op">{</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        generator <span class="op">=</span> <span class="kw">new</span> <span class="fu">SampleGenerator1</span><span class="op">();</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span><span class="cf">else</span> <span class="cf">if</span><span class="op">(</span>EReportType<span class="op">.</span> <span class="fu">TYPE2</span> <span class="op">==</span> type<span class="op">){</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        generator <span class="op">=</span> <span class="kw">new</span> <span class="fu">SampleGenerator2</span><span class="op">();</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span><span class="cf">else</span> <span class="cf">if</span><span class="op">(</span>EReportType<span class="op">.</span><span class="fu">TYPE3</span> <span class="op">==</span> type<span class="op">){</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        generator <span class="op">=</span> <span class="kw">new</span> <span class="fu">SampleGenerator3</span><span class="op">();</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span><span class="cf">else</span> <span class="cf">if</span><span class="op">(</span>…<span class="op">){</span></span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>…<span class="co">// other operations</span></span>
 <span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>generator.<span class="fu">generate</span>();</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>generator<span class="op">.</span><span class="fu">generate</span><span class="op">();</span></span>
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>…<span class="co">// left operations</span></span></code></pre>
     </div> 
@@ -202,60 +212,60 @@
     <p>为了可以更清楚地说明我的意图，我将分2步来实施这次重构：</p> 
     <p>第一步，我们将不同IReportGenerato接口的实现类移出来，放到一个Map中，Map的key暂时定为EReportType的所有枚举值，而相应的value就直接是key所指定的枚举类的报表实现的class name。</p> 
     <div class="sourceCode" id="cb4">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>rptMapping.<span class="fu">put</span>(EReportType.<span class="fu">TYPE1</span>,com.<span class="fu">darrenstudio</span>.<span class="fu">report</span>.<span class="fu">SampleReport1</span>.<span class="fu">class</span>);</span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>rptMapping<span class="op">.</span><span class="fu">put</span><span class="op">(</span>EReportType<span class="op">.</span><span class="fu">TYPE1</span><span class="op">,</span>com<span class="op">.</span><span class="fu">darrenstudio</span><span class="op">.</span><span class="fu">report</span><span class="op">.</span><span class="fu">SampleReport1</span><span class="op">.</span><span class="fu">class</span><span class="op">);</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>…<span class="co">// others</span></span></code></pre>
     </div> 
     <p>(Map实现可以参考使用commons collection提供的实现类)</p> 
     <p>这样，所有的映射都放到了这个Map之中，在我们的对话框OK按钮按下之后，我们就可以直接以这样的方式来实现：</p> 
     <div class="sourceCode" id="cb5">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>EReportType type;</span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>EReportType type<span class="op">;</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>IReportGenerator generator;</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>IReportGenerator generator<span class="op">;</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Other jobs to do</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>…</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="bu">Class</span> clazz = (<span class="bu">Class</span>)<span class="fu">getReportMapping</span>().<span class="fu">get</span>(type);</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="bu">Class</span> clazz <span class="op">=</span> <span class="op">(</span><span class="bu">Class</span><span class="op">)</span><span class="fu">getReportMapping</span><span class="op">().</span><span class="fu">get</span><span class="op">(</span>type<span class="op">);</span></span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>generator = (IReportGenerator)clazz.<span class="fu">newInstance</span>();</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>generator <span class="op">=</span> <span class="op">(</span>IReportGenerator<span class="op">)</span>clazz<span class="op">.</span><span class="fu">newInstance</span><span class="op">();</span></span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>generator.<span class="fu">generate</span>();</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>generator<span class="op">.</span><span class="fu">generate</span><span class="op">();</span></span>
 <span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>…<span class="co">// left works</span></span></code></pre>
     </div> 
     <p>怎么样？！这样是不是简洁多了那？！并且可维护性也有所提高，添加新的报表类型的时候，只要在Mapping的Map中添加新的key-value就可以了。但是这还不能算最好的结构，因为，在添加新的key-value的时候，我们需要修改代码！所以让我们更进一步！！！</p> 
     <p>第二步，我们把上面的映射拿出来，放到一个properties映射文件中，</p> 
     <div class="sourceCode" id="cb6">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>EReportType.<span class="fu">TYPE1</span> = com.<span class="fu">darrenstudio</span>.<span class="fu">report</span>.<span class="fu">SampleReport1</span>.<span class="fu">class</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>EReportType.<span class="fu">TYPE2</span> = com.<span class="fu">darrenstudio</span>.<span class="fu">report</span>.<span class="fu">SampleReport2</span>.<span class="fu">class</span></span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>EReportType<span class="op">.</span><span class="fu">TYPE1</span> <span class="op">=</span> com<span class="op">.</span><span class="fu">darrenstudio</span><span class="op">.</span><span class="fu">report</span><span class="op">.</span><span class="fu">SampleReport1</span><span class="op">.</span><span class="fu">class</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>EReportType<span class="op">.</span><span class="fu">TYPE2</span> <span class="op">=</span> com<span class="op">.</span><span class="fu">darrenstudio</span><span class="op">.</span><span class="fu">report</span><span class="op">.</span><span class="fu">SampleReport2</span><span class="op">.</span><span class="fu">class</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>…</span></code></pre>
     </div> 
     <p>之后，我们把配置文件的内容读进来：</p> 
     <div class="sourceCode" id="cb7">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Properties</span> prop = <span class="kw">new</span> <span class="bu">Properties</span>();</span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Properties</span> prop <span class="op">=</span> <span class="kw">new</span> <span class="bu">Properties</span><span class="op">();</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">InputStream</span> ins = XXX.<span class="fu">class</span>.<span class="fu">getResourceAsStream</span>(“xx.<span class="fu">properties</span>”);</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">InputStream</span> ins <span class="op">=</span> XXX<span class="op">.</span><span class="fu">class</span><span class="op">.</span><span class="fu">getResourceAsStream</span><span class="op">(</span>“xx<span class="op">.</span><span class="fu">properties</span>”<span class="op">);</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>prop.<span class="fu">load</span>(ins);</span></code></pre>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>prop<span class="op">.</span><span class="fu">load</span><span class="op">(</span>ins<span class="op">);</span></span></code></pre>
     </div> 
     <p>万事俱备之后，以下的重构后的代码就出现了：</p> 
     <div class="sourceCode" id="cb8">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>EReportType type;</span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>EReportType type<span class="op">;</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>IReportGenerator generator;</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>IReportGenerator generator<span class="op">;</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Other jobs to do</span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>…</span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> clazzName = prop.<span class="fu">getProperty</span>(“type的class name”);</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> clazzName <span class="op">=</span> prop<span class="op">.</span><span class="fu">getProperty</span><span class="op">(</span>“type的class name”<span class="op">);</span></span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="bu">Class</span> clazz = <span class="bu">Class</span>.<span class="fu">forName</span>（clazzName）;</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="bu">Class</span> clazz <span class="op">=</span> <span class="bu">Class</span><span class="op">.</span><span class="fu">forName</span>（clazzName）<span class="op">;</span></span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>generator = (IReportGenerator)clazz.<span class="fu">newInstance</span>();</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>generator <span class="op">=</span> <span class="op">(</span>IReportGenerator<span class="op">)</span>clazz<span class="op">.</span><span class="fu">newInstance</span><span class="op">();</span></span>
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>generator.<span class="fu">generate</span>();</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>generator<span class="op">.</span><span class="fu">generate</span><span class="op">();</span></span>
 <span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>…<span class="co">// left works</span></span></code></pre>
     </div> 
@@ -264,30 +274,39 @@
     <p>综上，如果在系统的实现中适当的使用java语言的反射（Reflection）机制，我们可以极大改进代码架构。但是，因为反射本身的原因，其使用的场合在使用的时候也需权衡。</p> 
     <p>王福强(Darren.Wang)于2005年6月27日</p> <!--          </div>--> <!--        </div>--> 
     <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
+    <hr> 
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2020-05-05-generic-vs-specific-thoughts-and-products.html">谈谈不同思路下造就的不同产品与公司形态 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2013-12-06-snowboard_basics.html">learn snowboarding </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2019-07-21-tek-matters-but-commercial-goal-more-important.html">技术不是决定商业成败的唯一因素 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2017-05-04-what-makes-an-architect.html">架构师不是你想的那样 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2020-07-07-worms-is-slow-but-never-stop.html">青虫的故事 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2010-02-18-got-cheated.html">今天,你被宰了吗? </a> 
      </div> 
     </div> 
-    <hr> 
-    <img src="/images/zanshang.jpg" width="300/"> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <div id="comments"></div> 
     <hr> 
-    <div class="text-center"> 
-     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
     </div> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
-   ©王福强个人版权所有, All Rights Reserved.
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
   </div> 
   <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
    </div> 
   </div> 
   <script type="text/javascript">
@@ -302,7 +321,16 @@ var gitalk = new Gitalk({
 })
 
 gitalk.render('comments')
-    </script>  
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
  </body>
 </html>

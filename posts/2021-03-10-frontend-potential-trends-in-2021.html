@@ -6,7 +6,7 @@
   <meta name="description" content="2021年几个值得关注的小众前端技术趋势 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-  <title>2021年几个值得关注的小众前端技术趋势 - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <title>2021年几个值得关注的小众前端技术趋势 -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <meta name="date" content="2021-03-10"> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
@@ -14,6 +14,7 @@
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -79,26 +80,35 @@
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
-  <script>
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    </script> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
  </head> 
  <body id="page-top"> <!-- Navigation --> 
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
     <div class="collapse navbar-collapse" id="navbarResponsive"> 
      <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
      </ul> 
     </div> 
@@ -107,18 +117,14 @@
   <section> 
    <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
     <p class="lead"> </p>
-    <h1 class="title">2021年几个值得关注的小众前端技术趋势</h1> <small> <h3 class="author">王福强</h3>2021-03-10 </small> 
+    <h1 class="title">2021年几个值得关注的小众前端技术趋势</h1> <small> <h3 class="author">王福强</h3> 
+     <div style="text-align: left;">
+      2021-03-10
+     </div> </small> 
     <p></p> 
     <hr> 
-    <ul> 
-     <li><a href="#svelte3"><span class="toc-section-number">1</span> Svelte3</a></li> 
-     <li><a href="#tailwindcss"><span class="toc-section-number">2</span> TailwindCSS</a></li> 
-     <li><a href="#wasmweb-assembly"><span class="toc-section-number">3</span> WASM（Web Assembly）</a></li> 
-     <li><a href="#小结"><span class="toc-section-number">4</span> 小结</a></li> 
-    </ul> 
-    <hr> 
     <p>这些前端技术已经早就展露头角，但与当前大规模应用的前端技术相比，则还处于相对小众阶段， 有望继续发扬光大，所以才在这里跟大家分享一下…</p> 
-    <h1 data-number="1" id="svelte3"><span class="header-section-number">1</span> Svelte3</h1> 
+    <h1 id="svelte3">Svelte3</h1> 
     <p>Svelte3的小众是相对于现在前端技术的三大巨头React、Vue和Angular来说的，但从我们对Svelte3的调研和实践上看，Svelte3将有可能跻身前三，成为更多前端技术人员的最爱。</p> 
     <p>Svelte3拥有现代前端开发的必要支持， 比如：</p> 
     <ol type="1"> 
@@ -142,48 +148,57 @@
       <img src="images/keenotes-with-svelte3.jpg" alt="keenotes with svelte3">
      </figcaption> 
     </figure> 
-    <h1 data-number="2" id="tailwindcss"><span class="header-section-number">2</span> TailwindCSS</h1> 
+    <h1 id="tailwindcss">TailwindCSS</h1> 
     <p>是的， TailWindCSS， 现在提可能算是“起个大早赶了个晚集”， 但我们认为TailwindCSS将在2021年继续扩大战场，就好像后端的Vertx将逐步蚕食传统的Spring/SpringBoot的市场， TailwindCSS的出现应该会逐步蚕食Bootstrap的市场以及其它CSS实践。</p> 
     <p>TailwindCSS既有预设的classes，也可以自定义扩展，更可以与现有框架和前端开发工具集成，比如postcss。</p> 
     <p>svelte3也可以与TailwindCSS很好的集成，深度集成可以通过postcss， 如果初步尝试，则可以直接：</p> 
     <div class="sourceCode" id="cb1">
      <pre class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;svelte:head&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">'stylesheet'</span><span class="ot"> href=</span><span class="st">'https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css'</span><span class="kw">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;link</span> <span class="er">rel</span><span class="ot">=</span><span class="st">'stylesheet'</span> <span class="er">href</span><span class="ot">=</span><span class="st">'https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css'</span><span class="kw">&gt;</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/svelte:head&gt;</span></span></code></pre>
     </div> 
     <p>这种方式依然可以获得按需大小的bundles，如果不介意这些，你当然也可以更加快糙猛地直接在index.html里直接引用tailwind.min.css，只不过2M+的大小，使用的时候还是得掂量掂量。</p> 
-    <h1 data-number="3" id="wasmweb-assembly"><span class="header-section-number">3</span> WASM（Web Assembly）</h1> 
+    <h1 id="wasmweb-assembly">WASM（Web Assembly）</h1> 
     <p>我们在介绍前端开发史的时候，有同学提到他们在使用wasm开发应用并且也开发了自己的wasm框架，所以，我觉得wasm也确实可以提及一下，毕竟也确实有很多应用已经迁移到wasm并且成功运行，比如传统的pc游戏doom、diablo等。</p> 
     <p><img src="images/diablo.png"></p> 
     <p>wasm的好处是，各个语言生态只要提供了相应的transpiler基本上都可以让相应语言生态的开发人员更高效地开发基于wasm技术的前端应用。</p> 
     <p>鉴于wasm的特点， 估计会在游戏、工具等场合发挥更大的作用， 但我们依然认为wasm还是处于比较小众的位置，只不过将来有可能会有更大的发展。</p> 
-    <h1 data-number="4" id="小结"><span class="header-section-number">4</span> 小结</h1> 
+    <h1 id="小结">小结</h1> 
     <p>以上就是我们为大家介绍的2021年几个小众但值得大家关注的前端技术方向，也欢迎大家留言分享自己认为优秀但还比较小众的前端技术。</p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
     <hr> 
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2015-09-15-qiang-mai-touring.html">清迈, 刷我滴卡 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2012-04-09-playing-bittorrent-with-ttorrent.html">“Playing BitTorrent with ttorrent” </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2015-04-22-ops-platform-recruit-jd.html">运维支撑平台高级开发工程师招聘JD</a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2010-04-06-smilence.html">很是哭笑不得… </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2007-10-09-before-going-home.html">回家之前 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2010-03-17-travel-to-nanjing.html">南京南京南京~ </a> 
      </div> 
     </div> 
-    <hr> 
-    <img src="/images/zanshang.jpg" width="300/"> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <div id="comments"></div> 
     <hr> 
-    <div class="text-center"> 
-     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
     </div> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
-   ©王福强个人版权所有, All Rights Reserved.
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
   </div> 
   <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
    </div> 
   </div> 
   <script type="text/javascript">
@@ -198,7 +213,16 @@ var gitalk = new Gitalk({
 })
 
 gitalk.render('comments')
-    </script>  
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
  </body>
 </html>

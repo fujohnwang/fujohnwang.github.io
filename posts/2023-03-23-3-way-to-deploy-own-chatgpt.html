@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="部署属于自己的ChatGPT的三种方式 - 架构教练,架构师个人成长教练,个人成长,组织成长,个人与组织成长顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="部署属于自己的ChatGPT的三种方式 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>部署属于自己的ChatGPT的三种方式 -王福强的个人博客：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2023-03-23"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">部署属于自己的ChatGPT的三种方式</h1> <small> <h3 class="author">王福强</h3> 
+     <div style="text-align: left;">
+      2023-03-23
+     </div> </small> 
+    <p></p> 
+    <hr> 
+    <p>什么？ 时至今日你还不知道ChatGPT是啥？ 好吧，那也没关系，毕竟，OpenAI把大陆和香港都给封禁了（或者说没有开放服务），现在很多人也只是通过各种奇技淫巧才能用得上，没听说过也情有可原：）</p> 
+    <p>假如你很想体验一下ChatGPT，却又不知道怎么打通道、建账号甚至让它Take your money，那也可以考虑自己建一套（build your own self-hosted chatgpt），今天，扶墙老师就为大家介绍三种自己搭建自用ChatGPT的方法…</p> 
+    <h1 id="llama">LLaMA</h1> 
+    <p><a href="https://github.com/facebookresearch/llama">LLaMA</a> <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>是Meta公司（也就是原facebook公司）开源的大语言模型（LLM, Large Language Model），社区在其基础之上搞了个项目，叫<a href="https://github.com/cocktailpeanut/dalai">dalai</a> <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> ，让我们可以很方便地就可以进行本地化部署，没有高端GPU也没关系，普通笔记本都能跑：</p> 
+    <p><img src="images/2023-03-23-16-40-12.png"></p> 
+    <p>甚至于还有人搞了个项目叫<a href="https://github.com/tloen/alpaca-lora">alpaca-lora</a> <a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>，让你在树莓派上都能跑LLaMA。</p> 
+    <p>但说实话，扶墙老师试过之后，感觉效果上跟真正的ChatGPT还是有些差距的。</p> 
+    <p>好在，我们还有第二种方式…</p> 
+    <blockquote> 
+     <p>[!NOTE]</p> 
+     <p>LLaMA一般称之为“美洲鸵”，虽然发音上跟某和尚很相近 <sup>-</sup></p> 
+    </blockquote> 
+    <h1 id="alpaca">Alpaca</h1> 
+    <p><a href="https://crfm.stanford.edu/2023/03/13/alpaca.html">Alpaca</a> <a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>是“羊驼”， 它是斯坦福大学在LLaMA模型基础上结合175个指令任务（instruction tasks）做fine-tuning训练出来的大语言模型：</p> 
+    <p><img src="images/2023-03-23-16-46-36.png"></p> 
+    <p>效果上要比LLaMA好很多，但，你懂得，人家是英文语料…</p> 
+    <p>自己部署倒也是简单，开源社区就是这么强大， 有人搞了个<a href="https://github.com/antimatter15/alpaca.cpp">alpaca.cpp</a> <a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>， 单机跑，一点儿问题没有。</p> 
+    <h1 id="chatglm">ChatGLM</h1> 
+    <p><a href="https://github.com/THUDM/ChatGLM-6B">ChatGLM</a> <a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>是清华大学搞的中英文双语模型，如果说前面都是英文语系的优化，那么ChatGLM则是侧重于针对中文预料的训练，在本机跑个低配版本，内存只要6G就可以了。</p> 
+    <p>对于中文场景的自部署大语言模型，ChatGLM绝对值得一试啊！</p> 
+    <h1 id="后话">后话</h1> 
+    <p>当然，要说效果，其实上面三种模型都不如ChatGPT，就算是Google新出的Bard，据说也是差强人意，所以，有条件，还是推荐大家首选ChatGPT，实在被卡脖子了，那自己尝试部署一个属于自己的大语言模型，也是一种不错的选择。</p> 
+    <p><code>GL &amp; HF</code></p> 
+    <hr> 
+    <p>Updated@2023-04-24:</p> 
+    <p>类似GPT4多模特能力的新模型<a href="https://llava-vl.github.io/">LLaVA</a>发布，全称Large Language and Vision Assistant，是由威斯康星大学麦迪逊分校、微软研究院和哥伦比亚大学研究者共同发布的多模态大模型。 反正你记着，只要是看图说话类的，现在都是(X)LIP做基础，然后配合LLM生成自然语言内容。</p> 
+    <section class="footnotes" role="doc-endnotes"> 
+     <hr> 
+     <ol> 
+      <li id="fn1" role="doc-endnote"><p>https://github.com/facebookresearch/llama<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+      <li id="fn2" role="doc-endnote"><p>https://github.com/cocktailpeanut/dalai, 这个名字起的在大陆有点儿敏感…<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+      <li id="fn3" role="doc-endnote"><p>https://github.com/tloen/alpaca-lora<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+      <li id="fn4" role="doc-endnote"><p>https://crfm.stanford.edu/2023/03/13/alpaca.html<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+      <li id="fn5" role="doc-endnote"><p>https://github.com/antimatter15/alpaca.cpp<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+      <li id="fn6" role="doc-endnote"><p>https://github.com/THUDM/ChatGLM-6B<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+     </ol> 
+    </section> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2007-04-27-sign-on-sth.html">感慨一下 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2023-04-20-truthgpt-minigpt-and-stableLM.html">truthgpt、MiniGPT和StableLM </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2013-04-14-head_first_big_picture_of_dns.html">Head First The Big Picture Of DNS </a> 
+     </div> 
+    </div> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

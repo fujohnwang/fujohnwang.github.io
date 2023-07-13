@@ -6,7 +6,7 @@
   <meta name="description" content="在SBT中如何mvn dependency:tree - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-  <title>在SBT中如何mvn dependency:tree - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <title>在SBT中如何mvn dependency:tree -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <meta name="date" content="2015-06-15"> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
@@ -14,6 +14,7 @@
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -79,26 +80,35 @@
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
-  <script>
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    </script> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
  </head> 
  <body id="page-top"> <!-- Navigation --> 
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
     <div class="collapse navbar-collapse" id="navbarResponsive"> 
      <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
      </ul> 
     </div> 
@@ -107,55 +117,62 @@
   <section> 
    <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
     <p class="lead"> </p>
-    <h1 class="title">在SBT中如何<code>mvn dependency:tree</code></h1> <small> <h3 class="author">FuqiangWang - fujohnwang AT gmail DOTA com</h3>2015-06-15 </small> 
+    <h1 class="title">在SBT中如何<code>mvn dependency:tree</code></h1> <small> <h3 class="author">FuqiangWang - fujohnwang AT gmail DOTA com</h3> 
+     <div style="text-align: left;">
+      2015-06-15
+     </div> </small> 
     <p></p> 
     <hr> 
-    <ul> 
-     <li><a href="#快速答案"><span class="toc-section-number">1</span> 快速答案</a></li> 
-     <li><a href="#如何使用"><span class="toc-section-number">2</span> 如何使用？</a></li> 
-    </ul> 
-    <hr> 
-    <h1 data-number="1" id="快速答案"><span class="header-section-number">1</span> 快速答案</h1> 
+    <h1 id="快速答案">快速答案</h1> 
     <p>使用<a href="https://github.com/jrudolph/sbt-dependency-graph">sbt-dependency-graph</a>插件！</p> 
-    <h1 data-number="2" id="如何使用"><span class="header-section-number">2</span> 如何使用？</h1> 
+    <h1 id="如何使用">如何使用？</h1> 
     <p>我想项目的README中已经说明的很清楚了，所以，这里我只是简单复述一下…</p> 
     <p>一般情况下，扶墙老师更愿意将项目相关的配置都“内聚”到项目自己的配置中， 不过， 其实像依赖分析这种关注点， 一个它不是项目的功能依赖， 另外一个，它又是很通用的功能，所以， 最合适的做法就是把它配置成global的plugins。</p> 
     <p>在SBT 0.13.x中，<code>~/.sbt/0.13/plugins/</code>目录可以认为是一个标准的SBT项目， 这个项目的配置文件中配置的插件即认为是全局的global plugins， 所以我们在<code>~/.sbt/0.13/plugins/plugins.sbt</code>中添加如下配置：</p> 
     <div class="sourceCode" id="cb1">
-     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">addSbtPlugin</span>(<span class="st">"net.virtual-void"</span> % <span class="st">"sbt-dependency-graph"</span> % <span class="st">"0.7.5"</span>)</span></code></pre>
+     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">addSbtPlugin</span><span class="op">(</span><span class="st">"net.virtual-void"</span> <span class="op">%</span> <span class="st">"sbt-dependency-graph"</span> <span class="op">%</span> <span class="st">"0.7.5"</span><span class="op">)</span></span></code></pre>
     </div> 
     <p>一般的插件，这样就OK了，但是sbt-dependency-graph插件还有点儿设置需要配置，所以，还要在<code>~/.sbt/0.13/global.sbt</code>中添加如下内容：</p> 
     <div class="sourceCode" id="cb2">
-     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>net.<span class="fu">virtualvoid</span>.<span class="fu">sbt</span>.<span class="fu">graph</span>.<span class="fu">Plugin</span>.<span class="fu">graphSettings</span></span></code></pre>
+     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>net<span class="op">.</span>virtualvoid<span class="op">.</span>sbt<span class="op">.</span>graph<span class="op">.</span>Plugin<span class="op">.</span>graphSettings</span></code></pre>
     </div> 
     <p>以上两步都搞定之后，就可以执行如下命令来分析当前项目的依赖关系了：</p> 
     <pre><code>sbt dependency-graph </code></pre> 
     <p>当然， sbt-dependency-graph还有其它功能特性， 比如将依赖分析结果导出为.graphml文件然后在yEd中打开查看这样的功能， 更多可以参考项目的README说明。</p> <!--          </div>--> <!--        </div>--> 
     <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
+    <hr> 
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2005-08-10-improve-datasources-swap-solution.html">对双数据源互换实现的改进（improve to 2</a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2017-09-06-be-nice-to-your-staffs.html">对员工好的公司到底是死是活 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2013-12-01-idea-on-fx-startup.html">关于以外汇交易平台为核心的创业公司的设想 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2020-01-12-cost-of-cognition-upgrade.html">认知的成本 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2022-03-09-svelte_with_tailwind_and_daisyui.html">Svelte with tailwind and daisyui </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2021-09-09-java-gui-evolution.html">Java图形化技术发展简史(A Brief History of Java GUI) </a> 
      </div> 
     </div> 
-    <hr> 
-    <img src="/images/zanshang.jpg" width="300/"> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <div id="comments"></div> 
     <hr> 
-    <div class="text-center"> 
-     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
     </div> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
-   ©王福强个人版权所有, All Rights Reserved.
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
   </div> 
   <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
    </div> 
   </div> 
   <script type="text/javascript">
@@ -170,7 +187,16 @@ var gitalk = new Gitalk({
 })
 
 gitalk.render('comments')
-    </script>  
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
  </body>
 </html>

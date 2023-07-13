@@ -6,7 +6,7 @@
   <meta name="description" content="我为什么不喜欢子项目或者子模块的概念 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-  <title>我为什么不喜欢子项目或者子模块的概念 - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <title>我为什么不喜欢子项目或者子模块的概念 -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <meta name="date" content="2015-02-04"> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
@@ -15,26 +15,35 @@
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
-  <script>
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    </script> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
  </head> 
  <body id="page-top"> <!-- Navigation --> 
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
     <div class="collapse navbar-collapse" id="navbarResponsive"> 
      <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
      </ul> 
     </div> 
@@ -43,16 +52,14 @@
   <section> 
    <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
     <p class="lead"> </p>
-    <h1 class="title">我为什么不喜欢子项目或者子模块的概念</h1> <small> <h3 class="author">王福强</h3>2015-02-04 </small> 
+    <h1 class="title">我为什么不喜欢子项目或者子模块的概念</h1> <small> <h3 class="author">王福强</h3> 
+     <div style="text-align: left;">
+      2015-02-04
+     </div> </small> 
     <p></p> 
     <hr> 
-    <ul> 
-     <li><a href="#个体独立性"><span class="toc-section-number">1</span> 个体独立性</a></li> 
-     <li><a href="#版本个异性"><span class="toc-section-number">2</span> 版本个异性</a></li> 
-    </ul> 
-    <hr> 
     <p>发现大部分人愿意使用Maven的modules来管理多个项目的组织结构， 这或许是Maven的最佳实践提倡的，也或许是开发人员为了开发阶段可以集中管理这些项目相关的关注点， 当然，大范围出现这种现象，可能更多是不加思考的copy（比如原来有人用jredis的时候使用了Jedis而不是JedisPool，那么， 后面的人再参考代码的时候也会复制这种不恰当的API理解和实践）， 从我个人来讲， 我其实更愿意让每个项目都是独立的， 那么为什么那？</p> 
-    <h1 data-number="1" id="个体独立性"><span class="header-section-number">1</span> 个体独立性</h1> 
+    <h1 id="个体独立性">个体独立性</h1> 
     <p>项目应该是一个可以独立发布的粒度， 它应该是独立的实体：</p> 
     <ol type="1"> 
      <li>如果某些功能只是最终发布实体的一个组合部分，那么，使用package粒度就可以了，设置modules反而是多此一举；</li> 
@@ -61,7 +68,7 @@
     <p>但你会讲，很多时候， 就算设置为多个项目，可这些项目会因某种因素有所关联，我想集中管理， 所以我才会设置一个parent的project，然后把子的modules或者project包含在这个parent的project下面， 原则上， parent project的概念其实对你我来说一个目录就足够了，最常见的就是你的workspace目录， 下面包含和管理了project这个概念的一批实体。</p> 
     <p>所以， 即使是使用parent + modules的结构来管理一批项目， 我更倾向于parent和modules的项目目录是并列的，而不是包含的关系。</p> 
     <p>但parent + modules的结构其实还有其它不合适的地方…</p> 
-    <h1 data-number="2" id="版本个异性"><span class="header-section-number">2</span> 版本个异性</h1> 
+    <h1 id="版本个异性">版本个异性</h1> 
     <p>使用parent+modules的一个好处是， 我们只要在parent项目设置一个版本号，然后让modules继承就好了， 所谓版本一致性是也。 可是，这种版本一致性的考虑很多时候在实践的过程中却是一种pains in the neck，比如， 针对一个服务的项目设置，我们可以有两种项目设置结构的选择：</p> 
     <pre>(d) xxservice
     - (d) api
@@ -76,30 +83,39 @@
     <p>那么，是不是使用workspace下管理多个并行的project的方式就一定比parent + modules的形式更好那？ 也不尽然，起码开发期间你可能要同时在多个project之间切换，但从整个开发-测试-部署-运行的pipeline来说， 我更倾向于采用第二种项目设置结构： api和impl独立开发和发布， 依赖关系通过maven（或者sbt等工具进行版本化关联管理）， impl的更新对api的依赖者来说尽量透明，模块化的治理粒度从各个层面都有清晰的区分。</p> 
     <p>嗯，就先扯这么些吧！</p> <!--          </div>--> <!--        </div>--> 
     <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
+    <hr> 
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2019-12-20-saas-evolution-path.html">SaaS编年史之技术视角观察 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2021-08-09-digital-transformation-and-upgrade.html">数字化升级与转型需要知道的几个问题！ </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2013-08-11-meet-with-dengcaoyuan.html">邓草原散记 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2010-07-02-setup-multi-repo-of-svn.html">Setup multiple subversion repositories on Mac </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2011-10-05-how_to_write_a_sbt_plugin.html">How to write a SBT 0.10+ plugin? </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2015-02-17-my-actor-practice-advices.html">Practice Advices On Design and Impl. with Actor Model </a> 
      </div> 
     </div> 
-    <hr> 
-    <img src="/images/zanshang.jpg" width="300/"> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <div id="comments"></div> 
     <hr> 
-    <div class="text-center"> 
-     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
     </div> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
-   ©王福强个人版权所有, All Rights Reserved.
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
   </div> 
   <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
    </div> 
   </div> 
   <script type="text/javascript">
@@ -114,7 +130,16 @@ var gitalk = new Gitalk({
 })
 
 gitalk.render('comments')
-    </script>  
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
  </body>
 </html>

@@ -4,81 +4,52 @@
 
 [关于我是谁](whoami.html)
 
-# 个人创作
-
+# [书籍与电子出版物](https://afoo.me/books.html)
 <https://afoo.me/books.html>
 
-# 在线课程
+# [在线课程](https://afoo.me/ke)
 
-## [扶墙生长：认知成长课堂](https://afoo.me/ke)
+- [福强AI学堂](https://edu.afoo.me) ^^^^^
+- [扶墙生长：认知成长课堂](https://afoo.me/ke)
+- [管理者入门与进阶课程](https://afoo.me/ke)
+- [架构师进阶成长训练营](https://afoo.me/ke)
+  - [架构师成长训练营](https://afoo.me/ke#4ct3VF) 之 [微服务架构设计模式](https://wfq.gumroad.com/l/lftft)课程
 
-整个系列课程的整体介绍[看这里](https://afoo.me/ke)
+> 微服务虽然口号上喊着“微”，但"微"的前提确是需要一些列复杂的基础服务作为前提，本人亲历了服务从1个单体拆分到100多个微服务的过程，如今回过头来看自己过去3年所做的事情使用微服务模式经常范的错误基本都范过了，《微服务架构设计模式》是一本非常好的入门微服务的教材，福强老师选取书中较有参考意义的几个模式为讲述的重点，以开发-部署-运行-运维几大关键环节为脉络，讲述了实施微服务所需要的能力和注意事项，描绘了一个全景图，并在过程中讲述了自身实践经验和感受，给我很深的启发和指导，微服务是复杂的，偏向工程实践的，需要人力财力等资源到达定程度才能为自身带来效益，最后祝大家能在微服务模式下玩的开心😊   
+> --- G上市公司高级研发经理，吴ChB
 
-### [底层逻辑](https://mianbaoduo.com/o/bread/mbd-YpuYlp1v)
-
-理解底层逻辑，方能决策自如。
-
-### [组织逻辑](https://mianbaoduo.com/o/bread/mbd-YpuZk55y)
-
-理解组织逻辑，方能理解企业。
-
-市面上唯一**体系化**讲明白组织与组织管理底层逻辑的线上课程。
-
-### [产品思维](https://mianbaoduo.com/o/bread/Ypuakppp)
-
-理念性的产品思维分享与案例回顾。
-
-不是面向产品助理、产品经理等群体，更多还是面向企业中高层领导者。
-
-### [架构思维](https://mianbaoduo.com/o/bread/Ypuak5Zw)
-
-什么是架构思维？ 
-
-架构解决什么问题或者说解决什么阶段的问题？
-
-架构好坏决定了什么关键痛点？
-
-另外， 好的架构应该怎么做？ 都有哪些好的架构原则与实践？
-
-这堂「架构思维」课或许可以给你些许启发！
-
-
-### [做事逻辑](https://mianbaoduo.com/o/bread/Ypubl5hx) 
-
-自古深情留不住，唯有套路得人心。
-与其埋头苦干，不如学习前人的智慧，聪明地干， **Work smart, not hard**. 
-
-1. Tag it
-2. Sort it
-3. Log it
-4. Chain it
-5. Break it
-6. Composite it
-7. Frame it
-8. Slice it
-9. Compare it
-
-### [辩证思考](https://mianbaoduo.com/o/bread/YpyTmJlx)
-
-任何事情都是一体两面， 与其简单粗暴的二分，不如就事论事的it depends.
-世事无绝对，如果你要追求的是真相和清醒，那么，你就注定要冥思苦想，洞明世事。
-
-
-
-## [架构师进阶成长训练营](https://afoo.me/ke)
-
-<https://afoo.me/ke>
-
-## [管理者入门与进阶课程](https://afoo.me/ke)
-
-<https://afoo.me/ke>
-
-# 私人定制：一对一咨询与辅导
+# [私人定制：一对一咨询与辅导](https://afoo.me/ama)
 
 [了解更多详情 👉 https://afoo.me/ask](https://afoo.me/ask)
+
+<https://fuqiang.circleo.me/>
 
 > NOTE
 > 
 > 企业咨询业务[请移步](https://keevol.cn) -> <https://keevol.cn>
 > 
 > [面向企业的内部培训](https://keepoints.feishu.cn/docs/doccnRcplsIfpeahsUsTrFLOwgN)也欢迎个人垂询，满足最少人数之后，也可以公开课的形式提供服务。
+
+# [高端付费交流群](https://discord.gg/tV6sWdxv)
+
+高端付费交流群内部提供高质量的讨论与分享。
+
+- 扶墙老师付费读者群 入群条件
+  -  200元 红包 (一次性，非订阅制）
+- 如何加入？
+  - 加微信：fqfqww，注明“付费群”
+
+
+
+# [付费会员](https://wfq.gumroad.com/l/fb)
+
+会员福利包括：
+
+1. 提供持续的原创视频内容更新；
+2. 在线一对一咨询（订阅周期内）；
+
+点击链接了解更多详情：<https://wfq.gumroad.com/l/fb>
+
+--- 
+
+![](images/11278-bird.gif)

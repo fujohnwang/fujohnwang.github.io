@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="LLM框架与应用要解决的问题的本质 - 架构教练,架构师个人成长教练,个人成长,组织成长,个人与组织成长顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="LLM框架与应用要解决的问题的本质 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>LLM框架与应用要解决的问题的本质 -王福强的个人博客：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2023-06-28"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">LLM框架与应用要解决的问题的本质</h1> <small> <h3 class="author">王福强</h3> 
+     <div style="text-align: left;">
+      2023-06-28
+     </div> </small> 
+    <p></p> 
+    <hr> 
+    <p>做了三期有关LLM Orchestration框架与应用设计与开发的节目:</p> 
+    <ol type="1"> 
+     <li><a href="https://youtu.be/H5lSlWjOePo">LangChain极简揭秘</a>(https://youtu.be/H5lSlWjOePo)</li> 
+     <li><a href="https://youtu.be/OvNey1tAGJE">Semantic Kernel极速揭秘</a>(https://youtu.be/OvNey1tAGJE)</li> 
+     <li><a href="https://youtu.be/3km1LznvqvY">ChatGPT with Scala</a>(https://youtu.be/3km1LznvqvY)</li> 
+    </ol> 
+    <p>如果我们做个简单回顾的话，其实可以发现，这些框架和应用设计开发的模式无法就是按照三阶段递进的思路进行，这三个阶段我简单这样划分：</p> 
+    <ol type="1"> 
+     <li>LLM外部化组合协调</li> 
+     <li>LLM内部化分解与组合协调</li> 
+     <li>对LLM增强的外部化能力整合与协调</li> 
+    </ol> 
+    <p>而且，这三个阶段有一条唯一的主线， 那就是Prompt Engineering。 所有的能力“召唤”其实都是通过Prompt进行的，但如何挖掘Prompt的潜力，这就是Prompt Engineering的主战场了，Prompt Engineering探索出来的思路和方法，最终变成日常使用的一些prompt技巧（tips&amp;tricks）。</p> 
+    <h1 id="llm外部化组合协调">LLM外部化组合协调</h1> 
+    <p>通过程序去调用LLM（传入prompt作为输入），然后把返回的结果再作为输入传给下一个LLM，这样的组合协调是在LLM之外进行的，所以，我称这种方式是“LLM外部化组合协调”， LangChain里的Chain，Semantic Kernel里的Functions，甚至作为一般化手段的Scala通过API去调用ChatGPT，其实都是“LLM外部化组合协调”的方式。</p> 
+    <h1 id="llm内部化分解与组合协调">LLM内部化分解与组合协调</h1> 
+    <p>对于复杂的任务来说，我们需要通过一些prompt的技巧让LLM可以在模型内部做退到（reasoning）， 常见的方法或者技巧有CoT（Chain of thought）以及ToT（Tree of Thought）甚至ReAct（Reasoning + Actions）。</p> 
+    <p>但这种方式有个弊端，那就是它再怎么自动化，再怎么“智能”，它都是在一个相对封闭的环境中进行的，也就是说，模型的版本和参数限定了它的边界，无论如何将复杂系统做分解（Task Decomposition），都只是在一个相对封闭的环境里做“内循环”，有些时候，这样玩其实就是无解。</p> 
+    <p>所以，我们亟待寻求其它方式来解决这个问题，那就是…</p> 
+    <h1 id="对llm增强的外部化能力整合与协调">对LLM增强的外部化能力整合与协调</h1> 
+    <p>这种方式寻求LLM之外的能力介入来增强LLM的能力，常用的方式有：</p> 
+    <ol type="1"> 
+     <li>Program-aided LM</li> 
+     <li>Tool argumented LM</li> 
+    </ol> 
+    <p>ChatGPT的plugins机制，其实就是这样的玩法，LangChain的Tool/Toolkit、SemanticKernel的Native Functions，也都是属于这一类。</p> 
+    <p>通过引入外部的程序和工具来增强原有大语言模型， 从而让基于大语言模型的应用拥有更为灵活的调度协调能力，当然，更总要的是，可以与外界环境进行实时的通信，从而无缝的融入现有的环境和生态当中。</p> 
+    <p>LangChain的Agent和Semantic的Planner以及像AutoGPT等项目和功能，它们都属于这一类，而且通常会采用一种叫MRKL的架构来构建，本质上来说，它们有了<code>任务分解</code> + <code>外部能力调用</code>两种能力的加持。</p> 
+    <p><img src="images/llm_orchestration_and_agent_decomposition.jpg"> OK, 那以上就是对前面三期节目的小结，希望对大家有帮助。</p> 
+    <p>想要了解更多AI、AGI以及AIGC的干货内容，也欢迎来<a href="https://edu.afoo.me" class="uri">https://edu.afoo.me</a>看看或者加入<a href="https://t.zsxq.com/0dI3ZA0sL">「为AI疯狂」知识星球</a>(https://t.zsxq.com/0dI3ZA0sL)。</p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2018-03-27-write-a-book-with-pandoc.html">扶墙老师教你如何用pandoc写一本书 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2021-01-14-open_pandoc_ebook_scaffolding.html">开源啦~ 开源啦~ 有自己出版电子书需求的同学欢迎自取~ </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2017-04-26-ending-is-the-new-beginning.html">好聚好散是最好的结局和起点 </a> 
+     </div> 
+    </div> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

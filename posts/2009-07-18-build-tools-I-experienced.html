@@ -6,7 +6,7 @@
   <meta name="description" content="数数自己经历过的几种项目构建工具 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-  <title>数数自己经历过的几种项目构建工具 - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <title>数数自己经历过的几种项目构建工具 -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
@@ -14,26 +14,35 @@
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
-  <script>
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    </script> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
  </head> 
  <body id="page-top"> <!-- Navigation --> 
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
     <div class="collapse navbar-collapse" id="navbarResponsive"> 
      <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
      </ul> 
     </div> 
@@ -45,21 +54,12 @@
     <h1 class="title">数数自己经历过的几种项目构建工具</h1> 
     <p></p> 
     <hr> 
-    <ul> 
-     <li><a href="#ant先行"><span class="toc-section-number">1</span> ANT先行</a></li> 
-     <li><a href="#eclipse那囊括一切的宽广胸怀"><span class="toc-section-number">2</span> Eclipse那囊括一切的宽广胸怀</a></li> 
-     <li><a href="#集中式依赖管理时代"><span class="toc-section-number">3</span> 集中式依赖管理时代</a></li> 
-     <li><a href="#antivy组合"><span class="toc-section-number">4</span> ANT+IVY组合</a></li> 
-     <li><a href="#后话"><span class="toc-section-number">5</span> 后话</a></li> 
-     <li><a href="#后后话"><span class="toc-section-number">6</span> 后后话</a></li> 
-    </ul> 
-    <hr> 
     <p>一提到项目构建， 对于Java开发人员来说， 最先跃入脑海的自然当属ANT， 所以， 就先从俺ANT的经历开始…</p> 
-    <h1 data-number="1" id="ant先行"><span class="header-section-number">1</span> ANT先行</h1> 
+    <h1 id="ant先行">ANT先行</h1> 
     <p>要说当年我的那个ANT用法，真的不是啥名门正派的用法，更多的是为了避免过多的重复劳动而已， 不过，这应该也算是ANT存在的一种意义吧，呵呵</p> 
     <p>当年CREDIT发行的时候采用可以单独运行的exe形式， 所以， 每次发行的时候，需要使用IntallAnywhere打包并制作安装文件， 安装文件的结构以及针对不同安装版本和环境的配置文件的准备工作， 如果每次都来一遍，会很费劲，所以，就写了个ANT脚本来做这些事情， 这样， 每次ant release之后，直接从InstallAnywhere里把构建好的安装目录结构和相关文件导入，然后点击制作安装文件就OK了 <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> 。</p> 
     <p>所以，你看，我的ANT经历并不是真正意义上的那种项目构建和管理经历，更多的是为了用它来简化日常的工作，至于你什么dailybuild， 集成测试啥的，那个时候（4，5年前）不上也没人说你水平菜，呵呵</p> 
-    <h1 data-number="2" id="eclipse那囊括一切的宽广胸怀"><span class="header-section-number">2</span> Eclipse那囊括一切的宽广胸怀</h1> 
+    <h1 id="eclipse那囊括一切的宽广胸怀">Eclipse那囊括一切的宽广胸怀</h1> 
     <p>如果整个项目组或者整个公司都使用Eclipse进行开发的话，那么，下面这样的过程说不定你就会感觉很熟悉了。（下面更多提及项目的依赖管理，至于项目的building以及生命周期管理之类， 略去不表吧，整个话题会不完整，所以，只是会简单提及一下）</p> 
     <p>Eclipse有自己的builder体系， 所以， 不用ANT， 直接使用Eclipse的builder体系来完成项目的构建， 管理得当，也很不错的，起码我认为是， 在那套生态体系下的生活经历让我深信不疑，呵呵</p> 
     <p>在Eclipse里管理项目的依赖关系通常有两种方式。第一种方式就是创建本地依赖库， 让各个项目直接依赖本地依赖库。 如果单人单机开发，这种方式是合适的，可一旦推广到多人多机， 那就来问题了：</p> 
@@ -75,18 +75,18 @@
      <li>针对每个依赖的各方类库没有合适的版本管理机制，比如这个项目依赖hibernate2.x，而另一个可能依赖hibernate3.x， 当合并两个项目发布的时候， 可能因为这种依赖类库详细版本信息的缺失，造成问题；</li> 
     </ul> 
     <p>看来， 第二种方式也不完美啊， 不过，没关系，发现问题是好事儿，解决掉他们就好了！</p> 
-    <h1 data-number="3" id="集中式依赖管理时代"><span class="header-section-number">3</span> 集中式依赖管理时代</h1> 
+    <h1 id="集中式依赖管理时代">集中式依赖管理时代</h1> 
     <p>解决冗余问题一直都是我们为之奋斗的目标， 为了解决以上依赖管理过程中出现的种种问题， 我们现在要寻求一种集中式的依赖管理方式。这里面最为业界称道的当属Maven啦， 不过，我倒是乐意顺道再提及一个花旗内部使用的XENV， 它也是用来完成类似任务的。</p> 
     <p>Maven和XENV都采用集中中央依赖库的方式来管理依赖关系， 这样， 各个项目只要通过统一的依赖描述文件来指定自己需要的依赖就可以， 而不用自己来管理真正的依赖库，因为所有的项目都使用同一个中央依赖库， 所以即使各个项目中有相同的依赖， 也不会出现依赖冗余的问题。</p> 
     <p>在这里想对maven和xenv各自的特性多唠叨几句。Maven在集中式依赖管理时代属于比较典型的产品， 它不但支持传递的依赖关系管理， 而且支持本地的依赖缓存， 其它像插件化管理， profiles支持等等，整体上来说，比较成熟。 xevn属于花旗内部的一个依赖管理和项目构建环境， 这个环境以unix环境下的开发为出发点， 对项目构建的生命周期管理比较完备， 有完备的代码提交和审查机制， 不过，它没有本地的依赖缓存功能， 这在具体开发过程中会造成一定的不便，比如， 中央库的服务器和开发人员处于统一局域网内，那网络延迟还可以接受， 一旦网络跨度达到跨洲， 那网络延迟就会让基于xenv的依赖管理变得不可忍受， 这时候， 如果有本地依赖缓存库的支持，情况就会很好。 为了缓解这种情况，我看到的是，采用了eclipse中各自建立本地依赖库的方式， 至于缺点，我想就不用再说了。 另外， maven支持依赖库的版本管理，xenv没有。</p> 
-    <h1 data-number="4" id="antivy组合"><span class="header-section-number">4</span> ANT+IVY组合</h1> 
+    <h1 id="antivy组合">ANT+IVY组合</h1> 
     <p>Maven的理念和实现方式跟ANT有很大的不同， 所以， 从ANT到Maven的迁移成本还是不小的。如果你不想迁移，却依然想要享受到maven类似的中央依赖库功能，那么可以考虑ANT+IVY这一魅力组合。</p> 
-    <p>IVY提供了类似Maven的中央依赖库依赖管理方式（通常是直接用Maven的某些中央依赖库），使用Ivy，你同样只需要为每个项目提供相应的依赖描述文件， 之后， Ivy将通过settings.xml的描述信息，到某个中央依赖库为你的项目抓取相应的依赖，基本上跟Maven类似的做法， 只不过， 借用了Maven的“骨肉”， 用ANT支撑一下， 也成了一套比较有特色的解决方案。</p> 
+    <p>IVY提供了类似Maven的中央依赖库依赖管理方式（通常是直接用Maven的某些中央依赖库），使用Ivy，你同样只需要为每个项目提供相应的依赖描述文件， 之后， Ivy将通过settings.xml的描述信息，到某个中央依赖库为你的项目抓取相应的依赖，基本上跟Maven类似的做法， 只不过， 借用了Maven的“骨肉 ”， 用ANT支撑一下， 也成了一套比较有特色的解决方案。</p> 
     <p>Spring3的构建和依赖管理采用的就是IVY+ANT的组合方式。</p> 
-    <h1 data-number="5" id="后话"><span class="header-section-number">5</span> 后话</h1> 
+    <h1 id="后话">后话</h1> 
     <p>基本上也就是些鸡毛蒜皮的回忆文字， 当初Maven1的年代，对这东西还真没啥好的印象，现在PT用Maven2来管理所有的项目构建和依赖管理， 我也只能入乡随俗了， 故此，把之前的和现在的东西扒拉一下，聚成这篇文字， 算作纪念吧！</p> 
     <p>PS. 像Make， Rake之类的， 零星玩过的就飘过吧</p> 
-    <h1 data-number="6" id="后后话"><span class="header-section-number">6</span> 后后话</h1> 
+    <h1 id="后后话">后后话</h1> 
     <p>2014-07-26， 重新整理这篇博客到本地基于markdown格式的文本的时候， 现阶段Maven3, Gradle, SBT等构建工具更是各领风骚啊~</p> 
     <section class="footnotes" role="doc-endnotes"> 
      <hr> 
@@ -95,30 +95,39 @@
      </ol> 
     </section> <!--          </div>--> <!--        </div>--> 
     <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
+    <hr> 
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2011-11-20-SBT_Good_And_Bad_Configuration_Style.html">SBT 0.11.x Good And Bad Configuration Style </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2023-03-14-maven3-trap.html">Maven3与Maven2的不兼容问题 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2018-07-25-i-am-a-bottle.html">我是一只虚脱的瓶子 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2021-03-28-springcloud-vs-k8s.html">SpringCloud与K8S谁与争锋？ </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2014-05-22-what-u-know-about-seo-is-wrong.html">N个对SEO的错误认知 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2023-05-23-latent_couple_course_is_available.html">Latent Couple与组合式生成 </a> 
      </div> 
     </div> 
-    <hr> 
-    <img src="/images/zanshang.jpg" width="300/"> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <div id="comments"></div> 
     <hr> 
-    <div class="text-center"> 
-     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
     </div> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
-   ©王福强个人版权所有, All Rights Reserved.
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
   </div> 
   <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
    </div> 
   </div> 
   <script type="text/javascript">
@@ -133,7 +142,16 @@ var gitalk = new Gitalk({
 })
 
 gitalk.render('comments')
-    </script>  
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
  </body>
 </html>

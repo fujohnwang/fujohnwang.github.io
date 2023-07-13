@@ -2,8 +2,6 @@
 % 王福强
 % 2018-06-16
 
-- [除了图书之外的其它产品和服务](private_products_and_services.html)
-- [福强的付费文章合集](pay-for-read-index.html)
 
 # 《Spring揭秘》
 
@@ -25,7 +23,6 @@
 
 **购买渠道**
 
-- [去面包多购买](https://mianbaoduo.com/o/fgg)
 - [去Gumroad购买](https://gumroad.com/l/BRmvgb)
 
 ---
@@ -44,8 +41,6 @@
 
 **购买渠道**
 
-<!-- - [直接购买](https://afoo.me/afpay/?id=tbh) -->
-- [去面包多购买](https://mianbaoduo.com/o/fgg)
 - [去Gumroad购买](https://gum.co/uLPkW)
 
 
@@ -55,6 +50,10 @@
 
 
 # 《技术、商业与人(II)》
+
+作者2022年对技术、商业与人的思考文集(比如像“AI为什么替代不了人”这种问题都可以在其中寻找到答案)：
+
+👉👉👉 [去Gumroad购买](https://wfq.gumroad.com/l/tek_biz_h_2)
 
 如若要试读，可以关注公众号：'福强'，然后点击菜单选择“试读尝鲜” ^-^
 
@@ -71,17 +70,17 @@
 - 该怎么领导队伍向前跑？
 - 该怎么提升士气和团队氛围？
 
-或许《极简管理科》能给你一些启示...
+或许《极简管理课》能给你一些启示...
 
 **面向读者**
 
 - 新晋管理者
 - 团队leaders
-- CTOs
+- CTO
+- CEO
 
 **购买渠道**
 
-- [去面包多购买](https://mianbaoduo.com/o/bread/YZ2WlZdq)
 - [去Gumroad购买](https://gum.co/fANOaE)
 
 ---
@@ -90,9 +89,9 @@
 
 > NOTE
 > 
-> 实际上，本书中所提及的内容并非普遍适用，甚至可以说对于大部分中国企业来说并不适用，只有你个人追求进取而且企业自身也追求进取的情况下，本书中的内容或许才有价值。
+> 实际上，本书中所提及的内容并非普遍适用，甚至可以说对于大部分中国企业来说并不适用，只有你个人追求进取、而且企业自身也追求进取的情况下，本书中的内容或许才有参考价值。
 > 
-<!-- [![](images/mgt_talk_cover.jpg)](https://youtu.be/tIPwf7KKinc) -->
+
 
 # 《坑获》
 
@@ -108,7 +107,7 @@
 
 **购买渠道**
 
-- [Gumroad Sale **Only**](https://wfq.gumroad.com/l/kenghuo)
+- [去Gumroad购买](https://wfq.gumroad.com/l/kenghuo)
 
 
 # [《Simple Svelte: A Frontend Book From A Backend Developer》](https://wfq.gumroad.com/l/simple_svelte) ^[Simple Svelte is a pure English Tech book for Svelte 3.]
@@ -133,8 +132,7 @@ Grab the **FREE** trial chapters:
 
 **Buy Now**!
 
-- [Buy on Gumroad](https://wfq.gumroad.com/l/simple_svelte), 19.99美金
-<!-- - [去面包多购买](https://mianbaoduo.com/o/bread/YpeTkp1s), 10.24元 -->
+- [Buy on Gumroad](https://wfq.gumroad.com/l/simple_svelte), 10.24美金
 
 ---
 
@@ -142,38 +140,26 @@ If you want to get a feel for the sample SPA, play with [keeposter](https://post
 
 
 
-# [《福鱼画册》](https://wfq.gumroad.com/l/wKzbp) ^免费(free_of_charge)^
-
-作者个人的思考点滴与金句汇集成此一画册。
-
-[点击链接](https://wfq.gumroad.com/l/wKzbp)免费获取。
-
-# [福强海报2021合集](https://wfq.gumroad.com/l/fqhb2021) 
-
-付费读者群专属海报2021年合集
-
-[点击获取](https://wfq.gumroad.com/l/fqhb2021)
-
 # 购买渠道与支付方式
 
 BTW. 你永远可以通过邮箱`i AT afoo DOT me`联系到我。
 
-## [Gumroad](https://wfq.gumroad.com/)
+[所有上架电子书都可以在Gumroad访问获取](https://wfq.gumroad.com/) ，国内不销售。
 
-[所有上架电子书都可以在Gumroad访问获取](https://wfq.gumroad.com/l) 
-
-> **gumroad是购买后直接在gumroad网站下载获取本书，不是通过邮件发送，发现有的同学有疑惑，所以这里提醒一下**
+> **gumroad是购买后直接在gumroad网站上 下载获取电子书或者视频、课件等物料，不是通过邮件发送，发现有的同学有疑惑，所以这里提醒一下**
 
 ![](images/books_list_on_gumroad.jpg)
 
-## [面包多](https://mianbaoduo.com/o/fgg)
-
-国内在面包多平台也有[部分上架](https://mianbaoduo.com/o/fgg)
-
-![](images/mianbaoduo_list.png)
 
 
 
+# 其它
+
+- [福强AI学堂](https://edu.afoo.me)
+  - 加入 [「为AI疯狂」星球](https://t.zsxq.com/0dI3ZA0sL) 领取AI学堂所有内容！
+- [福报](https://wfq.gumroad.com/l/fb)
+- [除了图书之外的其它产品和服务](private_products_and_services.html)
+- [福强的付费文章合集](pay-for-read-index.html)
 
 
 

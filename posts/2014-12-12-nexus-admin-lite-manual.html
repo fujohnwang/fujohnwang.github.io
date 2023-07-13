@@ -6,13 +6,14 @@
   <meta name="description" content="Nexus Maven Repository Manager管理手册 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-  <title>Nexus Maven Repository Manager管理手册 - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <title>Nexus Maven Repository Manager管理手册 -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
   <style type="text/css">
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -78,26 +79,35 @@
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
-  <script>
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    </script> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
  </head> 
  <body id="page-top"> <!-- Navigation --> 
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
     <div class="collapse navbar-collapse" id="navbarResponsive"> 
      <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
      </ul> 
     </div> 
@@ -106,30 +116,12 @@
   <section> 
    <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
     <p class="lead"> </p>
-    <h1 class="title">Nexus Maven Repository Manager管理手册</h1> <small> <h3 class="author">王福强</h3> </small> 
+    <h1 class="title">Nexus Maven Repository Manager管理手册</h1> <small> <h3 class="author">王福强</h3> 
+     <div style="text-align: left;"></div> </small> 
     <p></p> 
     <hr> 
-    <ul> 
-     <li><a href="#配置"><span class="toc-section-number">1</span> 配置</a> 
-      <ul> 
-       <li><a href="#服务端口和访问路径"><span class="toc-section-number">1.1</span> 服务端口和访问路径</a></li> 
-       <li><a href="#启动参数调整"><span class="toc-section-number">1.2</span> 启动参数调整</a></li> 
-       <li><a href="#监控"><span class="toc-section-number">1.3</span> 监控</a></li> 
-      </ul></li> 
-     <li><a href="#启动"><span class="toc-section-number">2</span> 启动</a></li> 
-     <li><a href="#常见问题"><span class="toc-section-number">3</span> 常见问题</a> 
-      <ul> 
-       <li><a href="#访问maven-metadata.xml慢"><span class="toc-section-number">3.1</span> 访问maven-metadata.xml慢</a> 
-        <ul> 
-         <li><a href="#原因描述"><span class="toc-section-number">3.1.1</span> 原因描述</a></li> 
-         <li><a href="#解决方案"><span class="toc-section-number">3.1.2</span> 解决方案</a></li> 
-        </ul></li> 
-      </ul></li> 
-     <li><a href="#httpcentral是怎么回事"><span class="toc-section-number">4</span> http://central是怎么回事？</a></li> 
-    </ul> 
-    <hr> 
-    <h1 data-number="1" id="配置"><span class="header-section-number">1</span> 配置</h1> 
-    <h2 data-number="1.1" id="服务端口和访问路径"><span class="header-section-number">1.1</span> 服务端口和访问路径</h2> 
+    <h1 id="配置">配置</h1> 
+    <h2 id="服务端口和访问路径">服务端口和访问路径</h2> 
     <p>${NEXUS}/conf/nexus.properties配置文件中可以调整如下选项：</p> 
     <ol type="1"> 
      <li>nexus的访问端口，默认8081</li> 
@@ -138,7 +130,7 @@
      <li>nexus运行期间数据，包括repo的路径等</li> 
     </ol> 
     <p>一般情况下不需要修改该配置文件，使用默认项即可， 除非端口被占用，换换绑定端口。</p> 
-    <h2 data-number="1.2" id="启动参数调整"><span class="header-section-number">1.2</span> 启动参数调整</h2> 
+    <h2 id="启动参数调整">启动参数调整</h2> 
     <p>nexus的默认JVM参数设置的比较小，生产环境下基本不够用，经常OOM, permGen爆掉等情况，所以，需要调整默认的JVM参数。</p> 
     <p>启动参数等调整需要修改$NEXUS_HOME/bin/jsw/conf/目录下的wrapper.conf文件， <em>wrapper.java.initmemory</em>和<em>wrapper.java.maxmemory</em>是设置heap size的快捷配置项， 但最大只能设置4G，即使设置&gt;4G，启动的时候依然是4G， 如果要使用更大的heap，需要通过<strong>wrapper.java.additional.{sequence}</strong>配置项， 比如：</p> 
     <pre>wrapper.java.additional.1=-XX:MaxPermSize=512M
@@ -154,7 +146,7 @@ wrapper.java.additional.6=-Xmx16G
      <p>我们使用wrapper.java.additional配置项来设置JVM的heap size， 切记把原来的<em>wrapper.java.initmemory</em>和<em>wrapper.java.maxmemory</em>注释掉！！！</p> 
     </blockquote> 
     <p>这里，我们主要是对JVM的PermSize和heap size进行了调整， 如果有必要，可以添加其他更多JVM配置。</p> 
-    <h2 data-number="1.3" id="监控"><span class="header-section-number">1.3</span> 监控</h2> 
+    <h2 id="监控">监控</h2> 
     <p>第一步，在${NEXUS_HOME}/bin/jsw/conf/目录下的wrapper.conf文件中添加：</p> 
     <pre>wrapper.app.parameter.3=./conf/jetty-jmx.xml
 </pre> 
@@ -162,89 +154,98 @@ wrapper.java.additional.6=-Xmx16G
     <pre>jmx-host=192.168.3.190jmx-port=1099
 </pre> 
     <p>监控端口开放之后，通过jvisualvm或者jconsole直接连接监控即可。</p> 
-    <h1 data-number="2" id="启动"><span class="header-section-number">2</span> 启动</h1> 
+    <h1 id="启动">启动</h1> 
     <p>The startup script <strong>nexus</strong> supports the common service commands start, stop, restart, status, console and dump.</p> 
     <div class="sourceCode" id="cb1">
      <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./bin/nexus</span> start</span></code></pre>
     </div> 
-    <h1 data-number="3" id="常见问题"><span class="header-section-number">3</span> 常见问题</h1> 
-    <h2 data-number="3.1" id="访问maven-metadata.xml慢"><span class="header-section-number">3.1</span> 访问maven-metadata.xml慢</h2> 
-    <h3 data-number="3.1.1" id="原因描述"><span class="header-section-number">3.1.1</span> 原因描述</h3> 
+    <h1 id="常见问题">常见问题</h1> 
+    <h2 id="访问maven-metadata.xml慢">访问maven-metadata.xml慢</h2> 
+    <h3 id="原因描述">原因描述</h3> 
     <ol type="1"> 
      <li><a href="http://maven.40175.n5.nabble.com/Getting-maven-metadata-xml-for-a-group-very-slow-td5768650.html" class="uri">http://maven.40175.n5.nabble.com/Getting-maven-metadata-xml-for-a-group-very-slow-td5768650.html</a></li> 
      <li><a href="https://support.sonatype.com/entries/25884097-Troubleshooting-slow-maven-metadata-xml-download-speeds" class="uri">https://support.sonatype.com/entries/25884097-Troubleshooting-slow-maven-metadata-xml-download-speeds</a></li> 
     </ol> 
-    <h3 data-number="3.1.2" id="解决方案"><span class="header-section-number">3.1.2</span> 解决方案</h3> 
+    <h3 id="解决方案">解决方案</h3> 
     <p>通过设置routing可以缓解<a href="http://books.sonatype.com/nexus-book/reference/confignx-sect-managing-routes.html" class="uri">http://books.sonatype.com/nexus-book/reference/confignx-sect-managing-routes.html</a></p> 
     <p>即指定哪些group或者artifact的元信息要指向哪个remote repo，这样nexus可以更快的找到这些元信息，而不用都扫一遍，都扫一遍的代价就是，遇到慢的remote repo，整体反应就是僵死。 默认nexus没有添加详细的routing信息。</p> 
     <pre>.*/org/apache/maven/.*     -&gt; Central
 </pre> 
-    <h1 data-number="4" id="httpcentral是怎么回事"><span class="header-section-number">4</span> http://central是怎么回事？</h1> 
+    <h1 id="httpcentral是怎么回事">http://central是怎么回事？</h1> 
     <div class="sourceCode" id="cb2">
-     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;settings&gt;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;mirrors&gt;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;mirror&gt;</span></span>
+     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">settings</span>&gt;</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">mirrors</span>&gt;</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">mirror</span>&gt;</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>      <span class="co">&lt;!--This sends everything else to /public --&gt;</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;id&gt;</span>nexus<span class="kw">&lt;/id&gt;</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;mirrorOf&gt;</span>*<span class="kw">&lt;/mirrorOf&gt;</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;url&gt;</span>http://localhost:8081/nexus/content/groups/public<span class="kw">&lt;/url&gt;</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/mirror&gt;</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;/mirrors&gt;</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;profiles&gt;</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;profile&gt;</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;id&gt;</span>nexus<span class="kw">&lt;/id&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">id</span>&gt;nexus&lt;/<span class="kw">id</span>&gt;</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">mirrorOf</span>&gt;*&lt;/<span class="kw">mirrorOf</span>&gt;</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">url</span>&gt;http://localhost:8081/nexus/content/groups/public&lt;/<span class="kw">url</span>&gt;</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">mirror</span>&gt;</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">mirrors</span>&gt;</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">profiles</span>&gt;</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">profile</span>&gt;</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">id</span>&gt;nexus&lt;/<span class="kw">id</span>&gt;</span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>      <span class="co">&lt;!--Enable snapshots for the built in central repo to direct --&gt;</span></span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>      <span class="co">&lt;!--all requests to nexus via the mirror --&gt;</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;repositories&gt;</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;repository&gt;</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>          <span class="kw">&lt;id&gt;</span>central<span class="kw">&lt;/id&gt;</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>          <span class="kw">&lt;url&gt;</span>http://central<span class="kw">&lt;/url&gt;</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>          <span class="kw">&lt;releases&gt;&lt;enabled&gt;</span>true<span class="kw">&lt;/enabled&gt;&lt;/releases&gt;</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>          <span class="kw">&lt;snapshots&gt;&lt;enabled&gt;</span>true<span class="kw">&lt;/enabled&gt;&lt;/snapshots&gt;</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;/repository&gt;</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;/repositories&gt;</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>     <span class="kw">&lt;pluginRepositories&gt;</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;pluginRepository&gt;</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>          <span class="kw">&lt;id&gt;</span>central<span class="kw">&lt;/id&gt;</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>          <span class="kw">&lt;url&gt;</span>http://central<span class="kw">&lt;/url&gt;</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>          <span class="kw">&lt;releases&gt;&lt;enabled&gt;</span>true<span class="kw">&lt;/enabled&gt;&lt;/releases&gt;</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>          <span class="kw">&lt;snapshots&gt;&lt;enabled&gt;</span>true<span class="kw">&lt;/enabled&gt;&lt;/snapshots&gt;</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;/pluginRepository&gt;</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;/pluginRepositories&gt;</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/profile&gt;</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;/profiles&gt;</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;activeProfiles&gt;</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">repositories</span>&gt;</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">repository</span>&gt;</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">id</span>&gt;central&lt;/<span class="kw">id</span>&gt;</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">url</span>&gt;http://central&lt;/<span class="kw">url</span>&gt;</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">releases</span>&gt;&lt;<span class="kw">enabled</span>&gt;true&lt;/<span class="kw">enabled</span>&gt;&lt;/<span class="kw">releases</span>&gt;</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">snapshots</span>&gt;&lt;<span class="kw">enabled</span>&gt;true&lt;/<span class="kw">enabled</span>&gt;&lt;/<span class="kw">snapshots</span>&gt;</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">repository</span>&gt;</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">repositories</span>&gt;</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>     &lt;<span class="kw">pluginRepositories</span>&gt;</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">pluginRepository</span>&gt;</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">id</span>&gt;central&lt;/<span class="kw">id</span>&gt;</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">url</span>&gt;http://central&lt;/<span class="kw">url</span>&gt;</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">releases</span>&gt;&lt;<span class="kw">enabled</span>&gt;true&lt;/<span class="kw">enabled</span>&gt;&lt;/<span class="kw">releases</span>&gt;</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">snapshots</span>&gt;&lt;<span class="kw">enabled</span>&gt;true&lt;/<span class="kw">enabled</span>&gt;&lt;/<span class="kw">snapshots</span>&gt;</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">pluginRepository</span>&gt;</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">pluginRepositories</span>&gt;</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">profile</span>&gt;</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">profiles</span>&gt;</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">activeProfiles</span>&gt;</span>
 <span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    <span class="co">&lt;!--make the profile active all the time --&gt;</span></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;activeProfile&gt;</span>nexus<span class="kw">&lt;/activeProfile&gt;</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;/activeProfiles&gt;</span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/settings&gt;</span></span></code></pre>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">activeProfile</span>&gt;nexus&lt;/<span class="kw">activeProfile</span>&gt;</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">activeProfiles</span>&gt;</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">settings</span>&gt;</span></code></pre>
     </div> 
     <p>settings.xml文件中， profile元素下配置的<strong>http://central</strong>是一个bogus URL, 会被mirror配置的URL覆盖， 指向mirror指定的url。 其实， 直接写具体的URL也是可以的。</p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
     <hr> 
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2020-04-21-goldratt-toc.html">从震南推荐给我一本书开始… </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2021-03-09-long-term-strategy.html">谈谈‘长期主义’ </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2007-11-03-BF4768EE8B110260_682.html">《奋斗》</a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2013-03-25-about_startup.html">about startup </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2011-04-29-simple_introduction_on_akka_actor.html">Simple Introduction On Akka Actor </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2007-07-02-how-time-flies.html">How Time Flies… </a> 
      </div> 
     </div> 
-    <hr> 
-    <img src="/images/zanshang.jpg" width="300/"> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <div id="comments"></div> 
     <hr> 
-    <div class="text-center"> 
-     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
     </div> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
-   ©王福强个人版权所有, All Rights Reserved.
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
   </div> 
   <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
    </div> 
   </div> 
   <script type="text/javascript">
@@ -259,7 +260,16 @@ var gitalk = new Gitalk({
 })
 
 gitalk.render('comments')
-    </script>  
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
  </body>
 </html>

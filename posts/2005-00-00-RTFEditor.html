@@ -6,7 +6,7 @@
   <meta name="description" content="RTFEditor的相关总结 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-  <title>RTFEditor的相关总结 - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <title>RTFEditor的相关总结 -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
@@ -14,26 +14,35 @@
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
-  <script>
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    </script> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
  </head> 
  <body id="page-top"> <!-- Navigation --> 
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
     <div class="collapse navbar-collapse" id="navbarResponsive"> 
      <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
      </ul> 
     </div> 
@@ -42,13 +51,14 @@
   <section> 
    <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
     <p class="lead"> </p>
-    <h1 class="title">RTFEditor的相关总结</h1> <small> <h3 class="author">FuqiangWang</h3> </small> 
+    <h1 class="title">RTFEditor的相关总结</h1> <small> <h3 class="author">FuqiangWang</h3> 
+     <div style="text-align: left;"></div> </small> 
     <p></p> 
     <hr> 
     <blockquote> 
      <p>2014年从msn space存档中重新恢复出来！</p> 
     </blockquote> 
-    <pre><p>这几天一直在为livedoor finance系统的一个有关客户信息编辑管理模块瞎忙活，呵呵，做做investigation，写写demo，不知不觉中，这个demo就跟一个编辑器差不多了，呵呵，好像比某些还没做完善的编辑器要够用的多， 不过，现在的东西还有些许限制，但是大体上都可以了，字体，大小，对齐，打印，搜索，等等等等。 罗列些许code如下，以记历程（没有refactor，所以，某些code可能看起来很丑陋，hoho）： 【1】Printer准备部分代码片断： SmartJPrint.setLicenseKey(“ATEU-QRZB-4FA5-41FD”; printer = new AtDocumentPrinter(); //init page header and footer printer.setPageHeaderFooterListener(new PageHeaderFooterListener(){ int pageCount = 0; public void setPageHeaderAndFooter(PageHeaderFooterRenderer r) { AtHeaderFooterElement header = new AtHeaderFooterElement("“,new Font(”Times New Roman",Font.BOLD,20),Color.RED,Color.blue,true,1);</p>
+    <pre><p>这几天一直在为livedoor finance系统的一个有关客户信息编辑管理模块瞎忙活，呵呵，做做investigation，写写demo，不知不觉中，这个demo就跟一个编辑器差不多了，呵呵，好像比某些还没做完善的编辑器要够用的多， 不过，现在的东西还有些许限制，但是大体上都可以了，字体，大小，对齐，打印，搜索，等等等等。 罗列些许code如下，以记历程（没有refactor，所以，某些code可能看起来很丑陋，hoho）： 【1】Printer准备部分代码片断： SmartJPrint.setLicenseKey(“ATEU-QRZB-4FA5-41FD”; printer = new AtDocumentPrinter(); //init page header and footer printer.setPageHeaderFooterListener(new PageHeaderFooterListener(){ int pageCount = 0; public void setPageHeaderAndFooter(PageHeaderFooterRenderer r) { AtHeaderFooterElement header = new AtHeaderFooterElement(““,new Font(”Times New Roman”,Font.BOLD,20),Color.RED,Color.blue,true,1);</p>
 <pre><code>           AtHeaderFooterElement footer = new AtHeaderFooterElement("Page "+r.getPageNumber()+"/"+r.getTotalPageCount(),new Font("Times New Roman",Font.BOLD,20),Color.RED,Color.blue,true,1);
             if(r.getPageNumber()==1)
             {
@@ -59,7 +69,7 @@
         }
     });
     printer.setPreviewPaneSize(new Dimension(800,600));</code></pre>
-<p>【2】初始化系统字体部分，呵呵，没有做过之前，估计会在这个问题上困扰很久哦，总不能就硬编码每一种字体吧！ private void initFontAndSize() { // init fonts java.awt.GraphicsEnvironment gEnv = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment(); String[] fonts = gEnv.getAvailableFontFamilyNames(); for(int i=0;i&lt;fonts.length;i++) { this.fontCombo.addItem("“+fonts[i]); } //———-init font size—————— for (int i = 6; i &lt;= 100; i = i + 2) this.sizeCombo.addItem(”" + i);</p>
+<p>【2】初始化系统字体部分，呵呵，没有做过之前，估计会在这个问题上困扰很久哦，总不能就硬编码每一种字体吧！ private void initFontAndSize() { // init fonts java.awt.GraphicsEnvironment gEnv = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment(); String[] fonts = gEnv.getAvailableFontFamilyNames(); for(int i=0;i&lt;fonts.length;i++) { this.fontCombo.addItem(““+fonts[i]); } //———-init font size—————— for (int i = 6; i &lt;= 100; i = i + 2) this.sizeCombo.addItem(”” + i);</p>
 <pre><code>   sizeCombo.setSelectedItem("12";
     //sizeCombo.setEditable(true);
 }</code></pre>
@@ -98,34 +108,43 @@
     // Bind the redo action to ctl-Y
     editor.getInputMap().put(KeyStroke.getKeyStroke("control Y", "Redo";
 }</code></pre>
-<p>另外，如果有redo和undo按钮，也需要为按钮添加action，比如，redo按钮需要 redoButton.setAction(new AbstractAction(“Redo” { public void actionPerformed(ActionEvent evt) { try { if (manager.canRedo()) { manager.redo(); } } catch (CannotRedoException e) { } } } ; 【4】插入图片或者component等都很easy，因为JTextPane都提供了支持，这里就不多说了，查API ref就可以； 【5】Save，SaveAs和Open等存在一定的问题，因为Jdk提供的RTFEditorKit实际上实现的功能不全，虽然他能够正确保存文件为RTF格式，而且，其他RTF编辑器也可以读取他的文件，他同样可以读取其他RTF编辑器的RTF文件，但是问题是，使用他提供的read和write方法来Open和Save文件的时候，他不能对图片等进行正确的保存，所以，在我们的系统中，这是不允许的；最终我们选择了sun提供的对象流序列化方式，以对象流对文件进行保存和打开，虽然这种形式保存的文件不通用，（即使你保存文件为后缀的rtf，其他编辑器同样不能正确读取）但是，相对于我们的系统，这已经足够了，因为现在可以正确保存文件内容并打印。这部分的打开保存代码太长，放在这片blog的后续章节中附上。 【6】search部分的功能我这里的demo以较为简单的逻辑实现，更全面的实现在徐敬琪那里实现，实现估计也挺麻烦的，补贴了，also附录到下一篇。 【7】设置字体，字体大小，颜色等，原理相同，都是使用StyleConstants和XXAttibuteSet来处理，这里贴一下颜色的设置吧： Color color = JColorChooser.showDialog(this,"",Color.BLUE); if(color==null) return; //editor.setBackground(color); int start = editor.getSelectionStart(); int end = editor.getSelectionEnd(); SimpleAttributeSet sset = new SimpleAttributeSet(); StyleConstants.setForeground(sset,color); if(start!=end) { editor.getStyledDocument().setCharacterAttributes(start,end-start,sset,false); } else { StyleConstants.setForeground(kit.getInputAttributes(),color); } 【8】打印，有许多解决方案，jdk1.2提供的打印模型，jdk1.4新提供的Java Print Service，以及SWT提供的打印功能等，但是，因为时间较为紧张，没有过多时间去研读文档，所以，直接找了一个类库解决打印和打印预览问题。 void printButton_actionPerformed(ActionEvent e) { printer.print(editor,PageNoPainter.LOWER_CENTER); } void browerButton_actionPerformed(ActionEvent e) { //do Printing Preview job here //printer.preview(editor,PageNoPainter.LOWER_RIGHT,false); printer.preview(editor,PageNoPainter.LOWER_CENTER,this); //——————————————————————- //Custom the preview buttons on the preview Frame //——————————————————————- // You must invoke the printer’s getPreviewWindow() method after its // preview() method has been invoked, otherwise, the getPreviewWindow() // method will return null. As a result ,a NULLPointerException will occour. //——————————————————————- AtPreviewFrame previewWin = printer.getPreviewWindow(); previewWin.setPreviewButtonVisible(AtPreviewFrame.PDF_BUTTON,false); previewWin.setPreviewButtonVisible(AtPreviewFrame.HELP_BUTTON,false);</p>
+<p>另外，如果有redo和undo按钮，也需要为按钮添加action，比如，redo按钮需要 redoButton.setAction(new AbstractAction(“Redo” { public void actionPerformed(ActionEvent evt) { try { if (manager.canRedo()) { manager.redo(); } } catch (CannotRedoException e) { } } } ; 【4】插入图片或者component等都很easy，因为JTextPane都提供了支持，这里就不多说了，查API ref就可以； 【5】Save，SaveAs和Open等存在一定的问题，因为Jdk提供的RTFEditorKit实际上实现的功能不全，虽然他能够正确保存文件为RTF格式，而且，其他RTF编辑器也可以读取他的文件，他同样可以读取其他RTF编辑器的RTF文件，但是问题是，使用他提供的read和write方法来Open和Save文件的时候，他不能对图片等进行正确的保存，所以，在我们的系统中，这是不允许的；最终我们选择了sun提供的对象流序列化方式，以对象流对文件进行保存和打开，虽然这种形式保存的文件不通用，（即使你保存文件为后缀的rtf，其他编辑器同样不能正确读取）但是，相对于我们的系统，这已经足够了，因为现在可以正确保存文件内容并打印。这部分的打开保存代码太长，放在这片blog的后续章节中附上。 【6】search部分的功能我这里的demo以较为简单的逻辑实现，更全面的实现在徐敬琪那里实现，实现估计也挺麻烦的，补贴了，also附录到下一篇。 【7】设置字体，字体大小，颜色等，原理相同，都是使用StyleConstants和XXAttibuteSet来处理，这里贴一下颜色的设置吧： Color color = JColorChooser.showDialog(this,““,Color.BLUE); if(color==null) return; //editor.setBackground(color); int start = editor.getSelectionStart(); int end = editor.getSelectionEnd(); SimpleAttributeSet sset = new SimpleAttributeSet(); StyleConstants.setForeground(sset,color); if(start!=end) { editor.getStyledDocument().setCharacterAttributes(start,end-start,sset,false); } else { StyleConstants.setForeground(kit.getInputAttributes(),color); } 【8】打印，有许多解决方案，jdk1.2提供的打印模型，jdk1.4新提供的Java Print Service，以及SWT提供的打印功能等，但是，因为时间较为紧张，没有过多时间去研读文档，所以，直接找了一个类库解决打印和打印预览问题。 void printButton_actionPerformed(ActionEvent e) { printer.print(editor,PageNoPainter.LOWER_CENTER); } void browerButton_actionPerformed(ActionEvent e) { //do Printing Preview job here //printer.preview(editor,PageNoPainter.LOWER_RIGHT,false); printer.preview(editor,PageNoPainter.LOWER_CENTER,this); //——————————————————————- //Custom the preview buttons on the preview Frame //——————————————————————- // You must invoke the printer’s getPreviewWindow() method after its // preview() method has been invoked, otherwise, the getPreviewWindow() // method will return null. As a result ,a NULLPointerException will occour. //——————————————————————- AtPreviewFrame previewWin = printer.getPreviewWindow(); previewWin.setPreviewButtonVisible(AtPreviewFrame.PDF_BUTTON,false); previewWin.setPreviewButtonVisible(AtPreviewFrame.HELP_BUTTON,false);</p>
 } －－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－ ok，以上就先写这么些吧，待续Save，OPen等长代码篇。
 </pre> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
     <hr> 
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2017-09-22-wedding-journal-2.html">婚礼筹备曲续 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2020-10-25-saas-evolution-path.html">我对SaaS产品研发的些许观点分享 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2010-09-13-its-a-loooong-day.html">It's a looooong day</a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2011-06-01-book_digest_from_scalability_rules.html">book_digest_from_scalability_rules </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2019-07-11-stable-is-everything.html">稳定压倒一切 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2010-02-18-spring-festval.html">大年三十 </a> 
      </div> 
     </div> 
-    <hr> 
-    <img src="/images/zanshang.jpg" width="300/"> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <div id="comments"></div> 
     <hr> 
-    <div class="text-center"> 
-     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
     </div> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
-   ©王福强个人版权所有, All Rights Reserved.
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
   </div> 
   <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
    </div> 
   </div> 
   <script type="text/javascript">
@@ -140,7 +159,16 @@ var gitalk = new Gitalk({
 })
 
 gitalk.render('comments')
-    </script>  
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
  </body>
 </html>

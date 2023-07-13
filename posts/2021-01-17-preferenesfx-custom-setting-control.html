@@ -6,7 +6,7 @@
   <meta name="description" content="PreferencesFX自定义Setting的实现案例 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-  <title>PreferencesFX自定义Setting的实现案例 - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <title>PreferencesFX自定义Setting的实现案例 -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <meta name="date" content="2021-01-17"> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
@@ -14,6 +14,7 @@
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -79,26 +80,35 @@
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
-  <script>
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    </script> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
  </head> 
  <body id="page-top"> <!-- Navigation --> 
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
     <div class="collapse navbar-collapse" id="navbarResponsive"> 
      <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
      </ul> 
     </div> 
@@ -107,7 +117,10 @@
   <section> 
    <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
     <p class="lead"> </p>
-    <h1 class="title">PreferencesFX自定义Setting的实现案例</h1> <small> <h3 class="author">王福强</h3>2021-01-17 </small> 
+    <h1 class="title">PreferencesFX自定义Setting的实现案例</h1> <small> <h3 class="author">王福强</h3> 
+     <div style="text-align: left;">
+      2021-01-17
+     </div> </small> 
     <p></p> 
     <hr> 
     <p>PreferencesFX其实对常见类型的Setting有默认支持，比如字符串，数字，选择列表等， 甚至于也支持File/Directory类型的Setting， 允许我们使用FileChooser来选择和设定对应的Setting状态与展示， 但是，这几天想添加一个字体的Setting配置项， 发现默认的搞不定，但还想继续沿用PreferencesFX的基础设施，所以研究了下如何自定义PreferencesFX的Setting。</p> 
@@ -119,134 +132,143 @@
     <p>首先，我们的Font类型的自定义Setting在展示的时候， 预期的展示是这样的： 一个TextField作为字体类型， 大小和风格的选择结果展示， 一个Button， 当点击的时候，则打开一个字体选择对话框（我们使用ControlsFX的DialogSeletorDialog）， 用户选择了相应字体之后， 则将所选择的字体信息格式化之后设置给TextField并更新对应的Property， 至于Setting的显示名称，则直接使用传入的description即可。</p> 
     <p>在这个前提下，我们首先得先定义一个SimpleControl， 下面是我们的实现：</p> 
     <div class="sourceCode" id="cb1">
-     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">package</span> com.<span class="fu">keevol</span>.<span class="fu">keenotes</span>.<span class="fu">desk</span>.<span class="fu">settings</span></span>
+     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">package</span> com<span class="op">.</span>keevol<span class="op">.</span>keenotes<span class="op">.</span>desk<span class="op">.</span>settings</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> com.<span class="fu">dlsc</span>.<span class="fu">formsfx</span>.<span class="fu">model</span>.<span class="fu">structure</span>.<span class="fu">StringField</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> com.<span class="fu">dlsc</span>.<span class="fu">preferencesfx</span>.<span class="fu">formsfx</span>.<span class="fu">view</span>.<span class="fu">controls</span>.<span class="fu">SimpleControl</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> com.<span class="fu">keevol</span>.<span class="fu">keenotes</span>.<span class="fu">desk</span>.<span class="fu">utils</span>.<span class="fu">FontStringConverter</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> javafx.<span class="fu">geometry</span>.<span class="fu">Insets</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> javafx.<span class="fu">scene</span>.<span class="fu">control</span>.{Button, TextField}</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> javafx.<span class="fu">scene</span>.<span class="fu">layout</span>.{HBox, Priority, StackPane}</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> javafx.<span class="fu">scene</span>.<span class="fu">text</span>.<span class="fu">Font</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> org.<span class="fu">controlsfx</span>.<span class="fu">dialog</span>.<span class="fu">FontSelectorDialog</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> com<span class="op">.</span>dlsc<span class="op">.</span>formsfx<span class="op">.</span>model<span class="op">.</span>structure<span class="op">.</span>StringField</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> com<span class="op">.</span>dlsc<span class="op">.</span>preferencesfx<span class="op">.</span>formsfx<span class="op">.</span>view<span class="op">.</span>controls<span class="op">.</span>SimpleControl</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> com<span class="op">.</span>keevol<span class="op">.</span>keenotes<span class="op">.</span>desk<span class="op">.</span>utils<span class="op">.</span>FontStringConverter</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> javafx<span class="op">.</span>geometry<span class="op">.</span>Insets</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> javafx<span class="op">.</span>scene<span class="op">.</span>control<span class="op">.{</span>Button<span class="op">,</span> TextField<span class="op">}</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> javafx<span class="op">.</span>scene<span class="op">.</span>layout<span class="op">.{</span>HBox<span class="op">,</span> Priority<span class="op">,</span> StackPane<span class="op">}</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> javafx<span class="op">.</span>scene<span class="op">.</span>text<span class="op">.</span>Font</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> org<span class="op">.</span>controlsfx<span class="op">.</span>dialog<span class="op">.</span>FontSelectorDialog</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> a custom simple control for font with foot chooser</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a> <span class="co">* </span><span class="an">@author </span>fq<span class="co">@</span>keevol<span class="co">.</span>com</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"> * @</span>author fq<span class="co">@</span>keevol<span class="co">.</span>com</span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a> <span class="co">*/</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SimpleFontControl <span class="kw">extends</span> SimpleControl[StringField, StackPane] {</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SimpleFontControl <span class="kw">extends</span> SimpleControl<span class="op">[</span>StringField<span class="op">,</span> StackPane<span class="op">]</span> <span class="op">{</span></span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> textField: TextField = _</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> fontChooseButton: Button = _</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> textField<span class="op">:</span> TextField <span class="op">=</span> _</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> fontChooseButton<span class="op">:</span> Button <span class="op">=</span> _</span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="kw">val</span> fontStringConverter = <span class="kw">new</span> <span class="fu">FontStringConverter</span>()</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="kw">val</span> fontStringConverter <span class="op">=</span> <span class="kw">new</span> <span class="fu">FontStringConverter</span><span class="op">()</span></span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="kw">override</span> <span class="kw">def</span> <span class="fu">initializeParts</span>(): Unit = {</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">super</span>.<span class="fu">initializeParts</span>()</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="kw">override</span> <span class="kw">def</span> <span class="fu">initializeParts</span><span class="op">():</span> <span class="bu">Unit</span> <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">super</span><span class="op">.</span><span class="fu">initializeParts</span><span class="op">()</span></span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    node = <span class="kw">new</span> <span class="fu">StackPane</span>()</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    node <span class="op">=</span> <span class="kw">new</span> <span class="fu">StackPane</span><span class="op">()</span></span>
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    textField = <span class="kw">new</span> TextField()</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    textField.<span class="fu">setEditable</span>(<span class="kw">false</span>)</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    fontChooseButton = <span class="kw">new</span> Button(<span class="st">"Choose Font"</span>)</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    fontChooseButton.<span class="fu">setOnAction</span>(e =&gt; {</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>      <span class="kw">val</span> dialog = <span class="kw">new</span> <span class="fu">FontSelectorDialog</span>(Font.<span class="fu">getDefault</span>)</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>      <span class="kw">val</span> p = dialog.<span class="fu">showAndWait</span>()</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>      <span class="kw">if</span> (p.<span class="fu">isPresent</span>) {</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> font = p.<span class="fu">get</span>()</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>        <span class="fu">println</span>(<span class="st">"font.toString: "</span> + font.<span class="fu">toString</span>)</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>        textField.<span class="fu">setText</span>(fontStringConverter.<span class="fu">toString</span>(font))</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>        field.<span class="fu">valueProperty</span>().<span class="fu">set</span>(fontStringConverter.<span class="fu">toString</span>(font)) </span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>        field.<span class="fu">persist</span>()  <span class="co">// 更新persistentValue（persistentValue和value是两个property）</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    textField.<span class="fu">setText</span>(field.<span class="fu">getValue</span>)</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> hbox = <span class="kw">new</span> <span class="fu">HBox</span>(<span class="dv">10</span>)</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>    hbox.<span class="fu">setPadding</span>(<span class="kw">new</span> Insets(<span class="dv">3</span>))</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>    hbox.<span class="fu">getChildren</span>.<span class="fu">addAll</span>(textField, fontChooseButton)</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>    HBox.<span class="fu">setHgrow</span>(textField, Priority.<span class="fu">ALWAYS</span>)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    textField <span class="op">=</span> <span class="kw">new</span> <span class="fu">TextField</span><span class="op">()</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    textField<span class="op">.</span><span class="fu">setEditable</span><span class="op">(</span><span class="kw">false</span><span class="op">)</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    fontChooseButton <span class="op">=</span> <span class="kw">new</span> <span class="fu">Button</span><span class="op">(</span><span class="st">"Choose Font"</span><span class="op">)</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    fontChooseButton<span class="op">.</span><span class="fu">setOnAction</span><span class="op">(</span>e <span class="op">=&gt;</span> <span class="op">{</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>      <span class="kw">val</span> dialog <span class="op">=</span> <span class="kw">new</span> <span class="fu">FontSelectorDialog</span><span class="op">(</span>Font<span class="op">.</span>getDefault<span class="op">)</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>      <span class="kw">val</span> p <span class="op">=</span> dialog<span class="op">.</span><span class="fu">showAndWait</span><span class="op">()</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> <span class="op">(</span>p<span class="op">.</span>isPresent<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> font <span class="op">=</span> p<span class="op">.</span><span class="fu">get</span><span class="op">()</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>        <span class="fu">println</span><span class="op">(</span><span class="st">"font.toString: "</span> <span class="op">+</span> font<span class="op">.</span>toString<span class="op">)</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>        textField<span class="op">.</span><span class="fu">setText</span><span class="op">(</span>fontStringConverter<span class="op">.</span><span class="fu">toString</span><span class="op">(</span>font<span class="op">))</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>        field<span class="op">.</span><span class="fu">valueProperty</span><span class="op">().</span><span class="fu">set</span><span class="op">(</span>fontStringConverter<span class="op">.</span><span class="fu">toString</span><span class="op">(</span>font<span class="op">))</span> </span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>        field<span class="op">.</span><span class="fu">persist</span><span class="op">()</span>  <span class="co">// 更新persistentValue（persistentValue和value是两个property）</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>      <span class="op">}</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    <span class="op">})</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    textField<span class="op">.</span><span class="fu">setText</span><span class="op">(</span>field<span class="op">.</span>getValue<span class="op">)</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> hbox <span class="op">=</span> <span class="kw">new</span> <span class="fu">HBox</span><span class="op">(</span><span class="dv">10</span><span class="op">)</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>    hbox<span class="op">.</span><span class="fu">setPadding</span><span class="op">(</span><span class="kw">new</span> <span class="fu">Insets</span><span class="op">(</span><span class="dv">3</span><span class="op">))</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>    hbox<span class="op">.</span>getChildren<span class="op">.</span><span class="fu">addAll</span><span class="op">(</span>textField<span class="op">,</span> fontChooseButton<span class="op">)</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>    HBox<span class="op">.</span><span class="fu">setHgrow</span><span class="op">(</span>textField<span class="op">,</span> Priority<span class="op">.</span>ALWAYS<span class="op">)</span></span>
 <span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>    node.<span class="fu">getChildren</span>.<span class="fu">add</span>(hbox)</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>    node<span class="op">.</span>getChildren<span class="op">.</span><span class="fu">add</span><span class="op">(</span>hbox<span class="op">)</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
 <span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>  <span class="kw">override</span> <span class="kw">def</span> <span class="fu">layoutParts</span>(): Unit = {</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>  <span class="kw">override</span> <span class="kw">def</span> <span class="fu">layoutParts</span><span class="op">():</span> <span class="bu">Unit</span> <span class="op">=</span> <span class="op">{</span></span>
 <span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>}</span></code></pre>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
     </div> 
     <p>SimpleControl的几个override的方法，原则上<code>layoutParts()</code>是必需的， 但我们图省事，直接把逻辑合并到了initializeParts()方法中（即组件的初始化和layout以及状态管理都放一起了），而且，我们的SimpleFontControl实际上是单向的数据状态更新（使用FontSelectorDialog单向选择并更新设置项），所以实现上就更加简单粗暴了。</p> 
     <p>因为Font和String类型差异，我们将Font到String的格式化逻辑以及从String创建Font的逻辑抽象封装到了FontStringConverter（一个StringConverter实现）：</p> 
     <div class="sourceCode" id="cb2">
-     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">package</span> com.<span class="fu">keevol</span>.<span class="fu">keenotes</span>.<span class="fu">desk</span>.<span class="fu">utils</span></span>
+     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">package</span> com<span class="op">.</span>keevol<span class="op">.</span>keenotes<span class="op">.</span>desk<span class="op">.</span>utils</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> javafx.<span class="fu">scene</span>.<span class="fu">text</span>.{Font, FontWeight}</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> javafx.<span class="fu">util</span>.<span class="fu">StringConverter</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> org.<span class="fu">apache</span>.<span class="fu">commons</span>.<span class="fu">lang3</span>.<span class="fu">StringUtils</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> javafx<span class="op">.</span>scene<span class="op">.</span>text<span class="op">.{</span>Font<span class="op">,</span> FontWeight<span class="op">}</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> javafx<span class="op">.</span>util<span class="op">.</span>StringConverter</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> org<span class="op">.</span>apache<span class="op">.</span>commons<span class="op">.</span>lang3<span class="op">.</span>StringUtils</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> FontStringConverter <span class="kw">extends</span> StringConverter[Font] {</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">override</span> <span class="kw">def</span> <span class="fu">toString</span>(font: Font): String = s<span class="st">"${font.getFamily}, ${font.getSize}, ${font.getStyle}"</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> FontStringConverter <span class="kw">extends</span> StringConverter<span class="op">[</span>Font<span class="op">]</span> <span class="op">{</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">override</span> <span class="kw">def</span> <span class="fu">toString</span><span class="op">(</span>font<span class="op">:</span> Font<span class="op">):</span> String <span class="op">=</span> <span class="ss">s"${</span>font<span class="op">.</span>getFamily<span class="ss">}</span><span class="st">, </span><span class="ss">${</span>font<span class="op">.</span>getSize<span class="ss">}</span><span class="st">, </span><span class="ss">${</span>font<span class="op">.</span>getStyle<span class="ss">}"</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">override</span> <span class="kw">def</span> <span class="fu">fromString</span>(fontString: String): Font = {</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> fontFamily = StringUtils.<span class="fu">substringBefore</span>(fontString, <span class="st">","</span>)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> fontSize = StringUtils.<span class="fu">substringBetween</span>(fontString, <span class="st">", "</span>, <span class="st">", "</span>)</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> fontStyle = StringUtils.<span class="fu">substringAfterLast</span>(fontString, <span class="st">", "</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">override</span> <span class="kw">def</span> <span class="fu">fromString</span><span class="op">(</span>fontString<span class="op">:</span> String<span class="op">):</span> Font <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> fontFamily <span class="op">=</span> StringUtils<span class="op">.</span><span class="fu">substringBefore</span><span class="op">(</span>fontString<span class="op">,</span> <span class="st">","</span><span class="op">)</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> fontSize <span class="op">=</span> StringUtils<span class="op">.</span><span class="fu">substringBetween</span><span class="op">(</span>fontString<span class="op">,</span> <span class="st">", "</span><span class="op">,</span> <span class="st">", "</span><span class="op">)</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> fontStyle <span class="op">=</span> StringUtils<span class="op">.</span><span class="fu">substringAfterLast</span><span class="op">(</span>fontString<span class="op">,</span> <span class="st">", "</span><span class="op">)</span></span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> f = <span class="kw">if</span> (StringUtils.<span class="fu">contains</span>(fontStyle.<span class="fu">toLowerCase</span>, <span class="st">"bold"</span>)) {</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>      Font.<span class="fu">font</span>(fontFamily, FontWeight.<span class="fu">BOLD</span>, fontSize.<span class="fu">toDouble</span>)</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    } <span class="kw">else</span> {</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>      Font.<span class="fu">font</span>(fontFamily, fontSize.<span class="fu">toDouble</span>)</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> f <span class="op">=</span> <span class="cf">if</span> <span class="op">(</span>StringUtils<span class="op">.</span><span class="fu">contains</span><span class="op">(</span>fontStyle<span class="op">.</span>toLowerCase<span class="op">,</span> <span class="st">"bold"</span><span class="op">))</span> <span class="op">{</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>      Font<span class="op">.</span><span class="fu">font</span><span class="op">(</span>fontFamily<span class="op">,</span> FontWeight<span class="op">.</span>BOLD<span class="op">,</span> fontSize<span class="op">.</span>toDouble<span class="op">)</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>      Font<span class="op">.</span><span class="fu">font</span><span class="op">(</span>fontFamily<span class="op">,</span> fontSize<span class="op">.</span>toDouble<span class="op">)</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    f</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>}</span></code></pre>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
     </div> 
     <p>有了这些之后， 我们就可以添加Font类型的自定义Setting到PreferencesFX了：</p> 
     <div class="sourceCode" id="cb3">
-     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> fontProperty = <span class="kw">new</span> <span class="fu">SimpleStringProperty</span>(<span class="st">"Serif"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Setting.<span class="fu">of</span>(<span class="st">"Font"</span>, Field.<span class="fu">ofStringType</span>(fontProperty).<span class="fu">render</span>(<span class="kw">new</span> <span class="fu">SimpleFontControl</span>()), fontProperty)</span></code></pre>
+     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> fontProperty <span class="op">=</span> <span class="kw">new</span> <span class="fu">SimpleStringProperty</span><span class="op">(</span><span class="st">"Serif"</span><span class="op">)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="op">...</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Setting<span class="op">.</span><span class="fu">of</span><span class="op">(</span><span class="st">"Font"</span><span class="op">,</span> Field<span class="op">.</span><span class="fu">ofStringType</span><span class="op">(</span>fontProperty<span class="op">).</span><span class="fu">render</span><span class="op">(</span><span class="kw">new</span> <span class="fu">SimpleFontControl</span><span class="op">()),</span> fontProperty<span class="op">)</span></span></code></pre>
     </div> 
     <p>现在， 我们的主程序就可以基于这个Setting做初始化了：</p> 
     <div class="sourceCode" id="cb4">
-     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">val</span> conv = <span class="kw">new</span> <span class="fu">FontStringConverter</span>()</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  ...</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">tile</span>(channel: String, content: String, dt: Date = <span class="kw">new</span> Date()) = {</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> card = <span class="kw">new</span> KeeNoteCard</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    card.<span class="fu">title</span>.<span class="fu">setText</span>(channel + s<span class="st">"@${DateFormatUtils.format(dt, "</span>yyyy-MM-dd HH:mm:ss<span class="st">")}"</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    card.<span class="fu">content</span>.<span class="fu">setText</span>(content)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    card.<span class="fu">content</span>.<span class="fu">setFont</span>(conv.<span class="fu">fromString</span>(settings.<span class="fu">fontProperty</span>.<span class="fu">get</span>())) <span class="co">// for init</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    Bindings.<span class="fu">bindBidirectional</span>(settings.<span class="fu">fontProperty</span>, card.<span class="fu">content</span>.<span class="fu">fontProperty</span>(), conv) <span class="co">// for latter update</span></span>
+     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">val</span> conv <span class="op">=</span> <span class="kw">new</span> <span class="fu">FontStringConverter</span><span class="op">()</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">tile</span><span class="op">(</span>channel<span class="op">:</span> String<span class="op">,</span> content<span class="op">:</span> String<span class="op">,</span> dt<span class="op">:</span> Date <span class="op">=</span> <span class="kw">new</span> <span class="fu">Date</span><span class="op">())</span> <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> card <span class="op">=</span> <span class="kw">new</span> KeeNoteCard</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    card<span class="op">.</span>title<span class="op">.</span><span class="fu">setText</span><span class="op">(</span>channel <span class="op">+</span> <span class="ss">s"</span><span class="st">@</span><span class="ss">${</span>DateFormatUtils<span class="op">.</span><span class="fu">format</span><span class="op">(</span>dt<span class="op">,</span> <span class="st">"yyyy-MM-dd HH:mm:ss"</span><span class="op">)</span><span class="ss">}"</span><span class="op">)</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    card<span class="op">.</span>content<span class="op">.</span><span class="fu">setText</span><span class="op">(</span>content<span class="op">)</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    card<span class="op">.</span>content<span class="op">.</span><span class="fu">setFont</span><span class="op">(</span>conv<span class="op">.</span><span class="fu">fromString</span><span class="op">(</span>settings<span class="op">.</span>fontProperty<span class="op">.</span><span class="fu">get</span><span class="op">()))</span> <span class="co">// for init</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    Bindings<span class="op">.</span><span class="fu">bindBidirectional</span><span class="op">(</span>settings<span class="op">.</span>fontProperty<span class="op">,</span> card<span class="op">.</span>content<span class="op">.</span><span class="fu">fontProperty</span><span class="op">(),</span> conv<span class="op">)</span> <span class="co">// for latter update</span></span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    card</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span></code></pre>
     </div> 
     <p>card.content是一个Label，所以它的fontProperty()就是Font类型的ObjectProperty, 因为与Settings中的fontProperty（SimpleStringProperty类型）类型不同，所以我们使用了Bindings.bindBidirectional配合FontStringConverter完成了设定与应用组件之间的状态绑定。</p> 
     <p>当然，这种方法不一定是最好或者最符合PreferencesFX设计哲学的方式， 但却是最符合我编码胃口的方式，起码SimpleFontControl和FontStringConverter把通用逻辑都封装的差不多了。</p> <!--          </div>--> <!--        </div>--> 
     <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
+    <hr> 
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2013-06-25-logging-framework-explained.html">Logging Framework Explained (afoo.me) </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2014-12-12-understanding-launch-daemons-of-macosx.html">了解LaunchDaemons </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2010-02-09-tx-mgt-patterns.html">Transaction Management Patterns In Brief </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2010-06-19-go-hospital.html">终于中招了 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2019-03-27-growth_is_by_self_first.html">员工关怀做成这样，员工想离职都难！ </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2007-07-25-BF4768EE8B110260_502.html">我是一个没素质的人</a> 
      </div> 
     </div> 
-    <hr> 
-    <img src="/images/zanshang.jpg" width="300/"> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <div id="comments"></div> 
     <hr> 
-    <div class="text-center"> 
-     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
     </div> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
-   ©王福强个人版权所有, All Rights Reserved.
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
   </div> 
   <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
    </div> 
   </div> 
   <script type="text/javascript">
@@ -261,7 +283,16 @@ var gitalk = new Gitalk({
 })
 
 gitalk.render('comments')
-    </script>  
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
  </body>
 </html>

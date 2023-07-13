@@ -6,13 +6,14 @@
   <meta name="description" content="ClassWorking With Spring Framework - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-  <title>ClassWorking With Spring Framework - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <title>ClassWorking With Spring Framework -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
   <style type="text/css">
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -78,26 +79,35 @@
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
-  <script>
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    </script> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
  </head> 
  <body id="page-top"> <!-- Navigation --> 
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
     <div class="collapse navbar-collapse" id="navbarResponsive"> 
      <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
      </ul> 
     </div> 
@@ -109,27 +119,14 @@
     <h1 class="title">ClassWorking With Spring Framework</h1> 
     <p></p> 
     <hr> 
-    <ul> 
-     <li><a href="#classworking-utilities-in-spring-framework"><span class="toc-section-number">1</span> ClassWorking Utilities In Spring Framework</a> 
-      <ul> 
-       <li><a href="#org.springframework.core.genericcollectiontyperesolver"><span class="toc-section-number">1.1</span> org.springframework.core.GenericCollectionTypeResolver</a></li> 
-       <li><a href="#org.springframework.core.annotation.annotationutils"><span class="toc-section-number">1.2</span> org.springframework.core.annotation.AnnotationUtils</a></li> 
-       <li><a href="#org.springframework.util.classutils"><span class="toc-section-number">1.3</span> org.springframework.util.ClassUtils</a></li> 
-       <li><a href="#org.springframework.util.methodinvoker"><span class="toc-section-number">1.4</span> org.springframework.util.MethodInvoker</a></li> 
-       <li><a href="#org.springframework.util.reflectionutils"><span class="toc-section-number">1.5</span> org.springframework.util.ReflectionUtils</a></li> 
-      </ul></li> 
-     <li><a href="#取得方法参数名称"><span class="toc-section-number">2</span> 取得方法参数名称</a></li> 
-     <li><a href="#classpath-auto-scanning-功能"><span class="toc-section-number">3</span> classpath auto scanning 功能</a></li> 
-    </ul> 
-    <hr> 
-    <h1 data-number="1" id="classworking-utilities-in-spring-framework"><span class="header-section-number">1</span> ClassWorking Utilities In Spring Framework</h1> 
-    <h2 data-number="1.1" id="org.springframework.core.genericcollectiontyperesolver"><span class="header-section-number">1.1</span> org.springframework.core.GenericCollectionTypeResolver</h2> 
+    <h1 id="classworking-utilities-in-spring-framework">ClassWorking Utilities In Spring Framework</h1> 
+    <h2 id="org.springframework.core.genericcollectiontyperesolver">org.springframework.core.GenericCollectionTypeResolver</h2> 
     <blockquote> 
      <p>Helper class for determining element types of collections and maps. Mainly intended for usage within the framework, determining the target type of values to be added to a collection or map (to be able to attempt type conversion if appropriate). Only usable on Java 5. Use an appropriate JdkVersion check before calling this class, if a fallback for JDK 1.4 is desirable.</p> 
     </blockquote> 
     <p>从javadoc中的说明就可以猜到，像getCollectionType(), getMapKeyType()和getMapValueType()之类的常用方法， 在这个类里是不会缺的。</p> 
     <p>org.springframework.core.GenericTypeResolver跟GenericCollectionTypeResolver类似， 只不过， 现在不是针对Collection类型， 而是针对一般的Generic类。</p> 
-    <h2 data-number="1.2" id="org.springframework.core.annotation.annotationutils"><span class="header-section-number">1.2</span> org.springframework.core.annotation.AnnotationUtils</h2> 
+    <h2 id="org.springframework.core.annotation.annotationutils">org.springframework.core.annotation.AnnotationUtils</h2> 
     <p>AnnotationUtils填补了默认的反射API中有关Annotation相关的几个功能，比如， 使用默认的反射API你只能读取当前class上的Annotation，而通过AnnotationUtils， 我们则可以获取当前class继承层次上的所有标注的Annotation， 更多信息可以参考该类的Javadoc.</p> 
     <pre>Tip
 
@@ -145,16 +142,16 @@
 
 结合以上信息， 也就不难想到为什么Spring会倡导将Transactional之类的Annotation标注在具体的实现类上，而不是Interface之上了。
 </pre> 
-    <h2 data-number="1.3" id="org.springframework.util.classutils"><span class="header-section-number">1.3</span> org.springframework.util.ClassUtils</h2> 
+    <h2 id="org.springframework.util.classutils">org.springframework.util.ClassUtils</h2> 
     <p>在 org.apache.commons.lang.ClassUtils存在的前提下，有重新发明轮子之嫌， 不过， 还是有一些补足的， 用与不用完全看你个人口味啦。不过，千万别跟我提“绑定到XX框架”这样的论调， 除非你真的能够像古代那样做个自给自足的隐士！</p> 
-    <h2 data-number="1.4" id="org.springframework.util.methodinvoker"><span class="header-section-number">1.4</span> org.springframework.util.MethodInvoker</h2> 
+    <h2 id="org.springframework.util.methodinvoker">org.springframework.util.MethodInvoker</h2> 
     <blockquote> 
      <p>Helper class that allows for specifying a method to invoke in a declarative fashion, be it static or non-static. Usage: Specify “targetClass”/“targetMethod” or “targetObject”/“targetMethod”, optionally specify arguments, prepare the invoker. Afterwards, you may invoke the method any number of times, obtaining the invocation result. Typically not used directly but via its subclasses MethodInvokingFactoryBean and MethodInvokingJobDetailFactoryBean.</p> 
     </blockquote> 
     <p>主要适用于对某个确定的方法调用多次的场景， 如果每次都是调用不同的对象上的不同的方法的话， 需要提供多个该类的实例。 如果是在Spring容器内使用的话， 大多数时候会是使用MethodInvokingFactoryBean或者MethodInvokingJobDetailFactoryBean这样的子类。</p> 
-    <h2 data-number="1.5" id="org.springframework.util.reflectionutils"><span class="header-section-number">1.5</span> org.springframework.util.ReflectionUtils</h2> 
+    <h2 id="org.springframework.util.reflectionutils">org.springframework.util.ReflectionUtils</h2> 
     <p>这个类主要对Java ReflectionAPI进行了封装， 虽然它的javadoc中声明仅限于框架内部使用，不过如果你不介意的话， 也可以拿来一用吧！不过，后果自负，哈</p> 
-    <h1 data-number="2" id="取得方法参数名称"><span class="header-section-number">2</span> 取得方法参数名称</h1> 
+    <h1 id="取得方法参数名称">取得方法参数名称</h1> 
     <p>通过Java标准Reflection API是取不到方法参数的名称的，要达到这个目的，除了可以通过读取class文件中的debug信息（可能在compile的时候没有启用）， 也可以使用类似ASM这样的类库获得， 不过， Spring framework中已经对读取方法参数名称这一功能进行了抽象和实现，我们可以直接拿过来用， 这一抽象接口为org.springframework.core.ParameterNameDiscoverer。</p> 
     <p>ParameterNameDiscoverer主要有三个实现类：</p> 
     <ol type="1"> 
@@ -175,65 +172,74 @@
     <p>AspectJAdviceParameterNameDiscoverer主要用于集成了AspectJ的SpringAOP Advice实现类， 通过它的Javadoc可以获得进一步的详细信息。</p> 
     <p>以下是LocalVariableTableParameterNameDiscoverer和ParaNamer的简单使用代码示例：</p> 
     <div class="sourceCode" id="cb1">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Class</span>&lt;SubscriptionServiceImpl&gt; clazz = SubscriptionServiceImpl.<span class="fu">class</span>;</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Method</span> method = ReflectionUtils.<span class="fu">findMethod</span>(clazz, <span class="st">"listAllSubscription"</span>,<span class="kw">new</span> <span class="bu">Class</span>&lt;?&gt;[]{<span class="bu">String</span>.<span class="fu">class</span>, <span class="bu">Integer</span>.<span class="fu">class</span>,<span class="bu">Date</span>.<span class="fu">class</span>,<span class="bu">Date</span>.<span class="fu">class</span>} );</span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Class</span><span class="op">&lt;</span>SubscriptionServiceImpl<span class="op">&gt;</span> clazz <span class="op">=</span> SubscriptionServiceImpl<span class="op">.</span><span class="fu">class</span><span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Method</span> method <span class="op">=</span> ReflectionUtils<span class="op">.</span><span class="fu">findMethod</span><span class="op">(</span>clazz<span class="op">,</span> <span class="st">"listAllSubscription"</span><span class="op">,</span><span class="kw">new</span> <span class="bu">Class</span><span class="op">&lt;?&gt;[]{</span><span class="bu">String</span><span class="op">.</span><span class="fu">class</span><span class="op">,</span> <span class="bu">Integer</span><span class="op">.</span><span class="fu">class</span><span class="op">,</span><span class="bu">Date</span><span class="op">.</span><span class="fu">class</span><span class="op">,</span><span class="bu">Date</span><span class="op">.</span><span class="fu">class</span><span class="op">}</span> <span class="op">);</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>ParameterNameDiscoverer pmDiscoverer = <span class="kw">new</span> <span class="fu">LocalVariableTableParameterNameDiscoverer</span>();</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span>[] parameterNames = pmDiscoverer.<span class="fu">getParameterNames</span>(method);</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>ParameterNameDiscoverer pmDiscoverer <span class="op">=</span> <span class="kw">new</span> <span class="fu">LocalVariableTableParameterNameDiscoverer</span><span class="op">();</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span><span class="op">[]</span> parameterNames <span class="op">=</span> pmDiscoverer<span class="op">.</span><span class="fu">getParameterNames</span><span class="op">(</span>method<span class="op">);</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">//        BytecodeReadingParanamer reader = new BytecodeReadingParanamer();</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">//        String[] parameterNames = reader.lookupParameterNames(method);</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span>(<span class="bu">String</span> parameterName : parameterNames)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(parameterName);</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>}    </span></code></pre>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span><span class="op">(</span><span class="bu">String</span> parameterName <span class="op">:</span> parameterNames<span class="op">)</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>parameterName<span class="op">);</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>    </span></code></pre>
     </div> 
-    <h1 data-number="3" id="classpath-auto-scanning-功能"><span class="header-section-number">3</span> classpath auto scanning 功能</h1> 
+    <h1 id="classpath-auto-scanning-功能">classpath auto scanning 功能</h1> 
     <p>我们知道，Spring2.5之后引入了类路径的自动扫描功能，Spring框架为这一功能提供了很好的扩展点，我们可以通过BeanNameGenerator或者自定义的org.springframework.core.type.filter.TypeFilter来定制自动扫描的行为， 比如：</p> 
     <div class="sourceCode" id="cb2">
-     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;context:component-scan</span><span class="ot"> base-package=</span><span class="st">"..."</span><span class="ot"> name-generator=</span><span class="st">".."</span><span class="kw">&gt;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;context:exclude-filter</span><span class="ot"> type=</span><span class="st">"annotation"</span><span class="ot"> expression=</span><span class="st">"..."</span><span class="kw">/&gt;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;context:include-filter</span><span class="ot"> type=</span><span class="st">"annotation"</span><span class="ot"> expression=</span><span class="st">"..."</span><span class="kw">/&gt;</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a> <span class="kw">&lt;/context:component-scan&gt;</span></span></code></pre>
+     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">context:component-scan</span><span class="ot"> base-package=</span><span class="st">"..."</span><span class="ot"> name-generator=</span><span class="st">".."</span>&gt;</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">context:exclude-filter</span><span class="ot"> type=</span><span class="st">"annotation"</span><span class="ot"> expression=</span><span class="st">"..."</span>/&gt;</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">context:include-filter</span><span class="ot"> type=</span><span class="st">"annotation"</span><span class="ot"> expression=</span><span class="st">"..."</span>/&gt;</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a> &lt;/<span class="kw">context:component-scan</span>&gt;</span></code></pre>
     </div> 
     <p>除此之外，我们实际上还可以较为独立的形式来使用Spring框架提供的这一类路径自动扫描功能，或者说， class的元数据信息读取功能。 这一功能的核心类为MetadataReader， 以下代码给出了使用这一核心类的简单示例代码：</p> 
     <div class="sourceCode" id="cb3">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ResourcePatternResolver resourcePatternResolver = <span class="kw">new</span> <span class="fu">PathMatchingResourcePatternResolver</span>();</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>MetadataReaderFactory metadataReaderFactory = <span class="kw">new</span> <span class="fu">CachingMetadataReaderFactory</span>(resourcePatternResolver);</span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ResourcePatternResolver resourcePatternResolver <span class="op">=</span> <span class="kw">new</span> <span class="fu">PathMatchingResourcePatternResolver</span><span class="op">();</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>MetadataReaderFactory metadataReaderFactory <span class="op">=</span> <span class="kw">new</span> <span class="fu">CachingMetadataReaderFactory</span><span class="op">(</span>resourcePatternResolver<span class="op">);</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">// or new SimpleMetadataReaderFactory()</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>MetadataReader reader = metadataReaderFactory.<span class="fu">getMetadataReader</span>(<span class="st">"cn/spring21/code/samples/spring/controller/SimpleController"</span>);</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>AnnotationMetadata annotationMD = reader.<span class="fu">getAnnotationMetadata</span>();</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>ClassMetadata clazzMD = reader.<span class="fu">getClassMetadata</span>();</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(annotationMD.<span class="fu">hasAnnotation</span>(<span class="st">"org.springframework.stereotype.Component"</span>));</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(clazzMD.<span class="fu">getClassName</span>());</span></code></pre>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>MetadataReader reader <span class="op">=</span> metadataReaderFactory<span class="op">.</span><span class="fu">getMetadataReader</span><span class="op">(</span><span class="st">"cn/spring21/code/samples/spring/controller/SimpleController"</span><span class="op">);</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>AnnotationMetadata annotationMD <span class="op">=</span> reader<span class="op">.</span><span class="fu">getAnnotationMetadata</span><span class="op">();</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>ClassMetadata clazzMD <span class="op">=</span> reader<span class="op">.</span><span class="fu">getClassMetadata</span><span class="op">();</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>annotationMD<span class="op">.</span><span class="fu">hasAnnotation</span><span class="op">(</span><span class="st">"org.springframework.stereotype.Component"</span><span class="op">));</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>clazzMD<span class="op">.</span><span class="fu">getClassName</span><span class="op">());</span></span></code></pre>
     </div> 
     <p>ResourcePatternResolver主要用于加载相应的Resources， 这里就是class文件， MetadataReaderFactory用于构造相应的MetadataReader，它有两个实现类，即SimpleMetadataReaderFactory和CachingMetadataReaderFactory。通过相应MetadataReaderFactory实现类获得可用的MetadataReader之后，就可以根据MetadataReader的getAnnotationMetadata()和getClassMetadata()返回的值对象来提取自己需要的信息了。</p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
     <hr> 
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2013-04-23-transfer-file-with-nc-and-tar.html">使用nc或者结合tar进行文件传输 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2013-09-29-scala-package-object-quick-reference.html">scala package object quick reference </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2021-05-16-love-death-robots2-in-my-eyes.html">扶墙短评《Love、Death+Robots 2》 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2023-03-26-chatgpt-pros-and-cons.html">朱啸虎对ChatGPT的观点和判断对不对? </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2009-04-08-cyclicbarrier-and-countdownlatch-tutorial.html">我爱J普 之 CyclicBarrier And CountDownLatch Tutorial </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2020-07-23-intension-economy-unfinished.html">《意愿经济》为啥没坚持读完… </a> 
      </div> 
     </div> 
-    <hr> 
-    <img src="/images/zanshang.jpg" width="300/"> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <div id="comments"></div> 
     <hr> 
-    <div class="text-center"> 
-     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
     </div> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
-   ©王福强个人版权所有, All Rights Reserved.
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
   </div> 
   <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
    </div> 
   </div> 
   <script type="text/javascript">
@@ -248,7 +254,16 @@ var gitalk = new Gitalk({
 })
 
 gitalk.render('comments')
-    </script>  
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
  </body>
 </html>

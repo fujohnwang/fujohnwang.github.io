@@ -6,13 +6,14 @@
   <meta name="description" content="对双数据源互换实现的改进（improve to 2-dataSource swapping） - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-  <title>对双数据源互换实现的改进（improve to 2-dataSource swapping） - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <title>对双数据源互换实现的改进（improve to 2-dataSource swapping） -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
   <style type="text/css">
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -78,26 +79,35 @@
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
-  <script>
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    </script> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
  </head> 
  <body id="page-top"> <!-- Navigation --> 
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
     <div class="collapse navbar-collapse" id="navbarResponsive"> 
      <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
      </ul> 
     </div> 
@@ -106,7 +116,8 @@
   <section> 
    <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
     <p class="lead"> </p>
-    <h1 class="title">对双数据源互换实现的改进（improve to 2-dataSource swapping）</h1> <small> <h3 class="author">FuqiangWang</h3> </small> 
+    <h1 class="title">对双数据源互换实现的改进（improve to 2-dataSource swapping）</h1> <small> <h3 class="author">FuqiangWang</h3> 
+     <div style="text-align: left;"></div> </small> 
     <p></p> 
     <hr> 
     <blockquote> 
@@ -117,67 +128,76 @@
     <p>当时是使用了Spring提供的org.springframework.jdbc.datasource.DelegatingDataSource类，使他拥有两个数据源的引用，默认的targetDataSource指向第一个数据源，当ThrowsAdvice捕获异常之后，重新替换掉targetDataSource指向的数据源引用。我不确定这种方式是否是最好的，但是好像某些情况下不是很可靠，所以，后来改为了以下的实现形式：</p> 
     <p>现在我们采用Spring提供的org.springframework.aop.target.HotSwappableTargetSource类，构造的时候就直接让其默认为第一个数据源，bean的配置类似于：</p> 
     <div class="sourceCode" id="cb1">
-     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;bean</span><span class="ot"> id=</span><span class="st">"hotSwapTarget"</span><span class="ot"> class=</span><span class="st">"org.springframework.aop.target.HotSwappableTargetSource"</span><span class="kw">&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;constructor-arg&gt;&lt;ref</span><span class="ot"> bean=</span><span class="st">"dataSourcePrimary"</span><span class="kw">/&gt;&lt;/constructor-arg&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/bean&gt;</span></span></code></pre>
+     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">bean</span><span class="ot"> id=</span><span class="st">"hotSwapTarget"</span><span class="ot"> class=</span><span class="st">"org.springframework.aop.target.HotSwappableTargetSource"</span>&gt;</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">constructor-arg</span>&gt;&lt;<span class="kw">ref</span><span class="ot"> bean=</span><span class="st">"dataSourcePrimary"</span>/&gt;&lt;/<span class="kw">constructor-arg</span>&gt;</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">bean</span>&gt;</span></code></pre>
     </div> 
     <p>有了TargetSource之后，我们就可以使用ProxyFactoryBean将其包装起来，给外层引用了，但是在这之前，我们要实现我们的主要功能，即某一个数据源崩溃之后，我们要马上切换到可用的数据源:</p> 
     <div class="sourceCode" id="cb2">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>targetSource.<span class="fu">swap</span>(isPrimaryUsed?slave:primary);</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>isPrimaryUsed = !isPrimaryUsed;</span></code></pre>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>targetSource<span class="op">.</span><span class="fu">swap</span><span class="op">(</span>isPrimaryUsed<span class="op">?</span>slave<span class="op">:</span>primary<span class="op">);</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>isPrimaryUsed <span class="op">=</span> <span class="op">!</span>isPrimaryUsed<span class="op">;</span></span></code></pre>
     </div> 
     <p>这样，我们所有需要准备的都ok了，最后要做的就是组装TargetSource和Advice了。下面就简单得罗列部分配置，或许更能帮助大家了解SpringAop的使用：</p> 
     <div class="sourceCode" id="cb3">
-     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;bean</span><span class="ot"> id=</span><span class="st">"swapThrowsAdvice"</span><span class="ot"> class=</span><span class="st">"com.livedoor.finance.credit.ivr.aspects.SwapSourceThrowsAdvice"</span><span class="kw">&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;property</span><span class="ot"> name=</span><span class="st">"primary"</span><span class="kw">&gt;&lt;ref</span><span class="ot"> bean=</span><span class="st">"dataSourcePrimary"</span><span class="kw">/&gt;&lt;/property&gt;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;property</span><span class="ot"> name=</span><span class="st">"slave"</span><span class="kw">&gt;&lt;ref</span><span class="ot"> bean=</span><span class="st">"dataSourceSecondary"</span><span class="kw">/&gt;&lt;/property&gt;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;property</span><span class="ot"> name=</span><span class="st">"targetSource"</span><span class="kw">&gt;&lt;ref</span><span class="ot"> bean=</span><span class="st">"hotSwapTarget"</span><span class="kw">/&gt;&lt;/property&gt;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/bean&gt;</span></span>
+     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">bean</span><span class="ot"> id=</span><span class="st">"swapThrowsAdvice"</span><span class="ot"> class=</span><span class="st">"com.livedoor.finance.credit.ivr.aspects.SwapSourceThrowsAdvice"</span>&gt;</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"primary"</span>&gt;&lt;<span class="kw">ref</span><span class="ot"> bean=</span><span class="st">"dataSourcePrimary"</span>/&gt;&lt;/<span class="kw">property</span>&gt;</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"slave"</span>&gt;&lt;<span class="kw">ref</span><span class="ot"> bean=</span><span class="st">"dataSourceSecondary"</span>/&gt;&lt;/<span class="kw">property</span>&gt;</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"targetSource"</span>&gt;&lt;<span class="kw">ref</span><span class="ot"> bean=</span><span class="st">"hotSwapTarget"</span>/&gt;&lt;/<span class="kw">property</span>&gt;</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">bean</span>&gt;</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;bean</span><span class="ot"> id=</span><span class="st">"swapThrowsAdvisor"</span><span class="ot"> class=</span><span class="st">"org.springframework.aop.support.RegexpMethodPointcutAdvisor"</span><span class="kw">&gt;</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;property</span><span class="ot"> name=</span><span class="st">"advice"</span><span class="kw">&gt;&lt;ref</span><span class="ot"> local=</span><span class="st">"swapThrowsAdvice"</span><span class="kw">/&gt;&lt;/property&gt;</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;property</span><span class="ot"> name=</span><span class="st">"pattern"</span><span class="kw">&gt;&lt;value&gt;</span>.*getConnection.*<span class="kw">&lt;/value&gt;&lt;/property&gt;</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/bean&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">bean</span><span class="ot"> id=</span><span class="st">"swapThrowsAdvisor"</span><span class="ot"> class=</span><span class="st">"org.springframework.aop.support.RegexpMethodPointcutAdvisor"</span>&gt;</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"advice"</span>&gt;&lt;<span class="kw">ref</span><span class="ot"> local=</span><span class="st">"swapThrowsAdvice"</span>/&gt;&lt;/<span class="kw">property</span>&gt;</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"pattern"</span>&gt;&lt;<span class="kw">value</span>&gt;.*getConnection.*&lt;/<span class="kw">value</span>&gt;&lt;/<span class="kw">property</span>&gt;</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">bean</span>&gt;</span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;bean</span><span class="ot"> id=</span><span class="st">"dataSource"</span><span class="ot"> class=</span><span class="st">"org.springframework.aop.framework.ProxyFactoryBean"</span><span class="kw">&gt;</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;property</span><span class="ot"> name=</span><span class="st">"targetSource"</span><span class="kw">&gt;</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;ref</span><span class="ot"> bean=</span><span class="st">"hotSwapTarget"</span><span class="kw">/&gt;</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/property&gt;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">bean</span><span class="ot"> id=</span><span class="st">"dataSource"</span><span class="ot"> class=</span><span class="st">"org.springframework.aop.framework.ProxyFactoryBean"</span>&gt;</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"targetSource"</span>&gt;</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">ref</span><span class="ot"> bean=</span><span class="st">"hotSwapTarget"</span>/&gt;</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">property</span>&gt;</span>
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;property</span><span class="ot"> name=</span><span class="st">"interceptorNames"</span><span class="kw">&gt;</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;list&gt;</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;value&gt;</span>swapThrowsAdvisor<span class="kw">&lt;/value&gt;</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;/list&gt;</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/property&gt;</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/bean&gt;</span></span></code></pre>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"interceptorNames"</span>&gt;</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">list</span>&gt;</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">value</span>&gt;swapThrowsAdvisor&lt;/<span class="kw">value</span>&gt;</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">list</span>&gt;</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">property</span>&gt;</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">bean</span>&gt;</span></code></pre>
     </div> 
     <p>这样，最终外层所引用的dataSource就可以在某个数据源崩溃之后，直接切换到可用的备用数据源，而这些都在Proxy内部屏蔽掉了，客户端无需关心这些。</p> 
     <p>好了，今天就扯这些，呵呵</p> <!--          </div>--> <!--        </div>--> 
     <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
+    <hr> 
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2021-08-16-idea-is-easy-make-it-happen-is-hard.html">为什么只有想法还远远不够？ </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2009-08-24-classwork-with-springframework.html">ClassWorking With Spring Framework </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2005-00-00-jbossaop-with-ant-build.html">有关JbossAop编译部署的ant脚本！ </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2021-01-24-what-is-an-org.html">说说组织这东西 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2013-07-10-how-to-transform-chinese-pdf-with-pandoc.html">pandoc中文pdf转换攻略 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2009-04-08-cyclicbarrier-and-countdownlatch-tutorial.html">我爱J普 之 CyclicBarrier And CountDownLatch Tutorial </a> 
      </div> 
     </div> 
-    <hr> 
-    <img src="/images/zanshang.jpg" width="300/"> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <div id="comments"></div> 
     <hr> 
-    <div class="text-center"> 
-     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
     </div> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
-   ©王福强个人版权所有, All Rights Reserved.
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
   </div> 
   <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
    </div> 
   </div> 
   <script type="text/javascript">
@@ -192,7 +212,16 @@ var gitalk = new Gitalk({
 })
 
 gitalk.render('comments')
-    </script>  
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
  </body>
 </html>

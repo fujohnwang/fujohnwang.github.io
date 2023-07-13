@@ -6,7 +6,7 @@
   <meta name="description" content="使用consul和又拍云slardar构建API网关 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-  <title>使用consul和又拍云slardar构建API网关 - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <title>使用consul和又拍云slardar构建API网关 -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <meta name="date" content="2017-01-28"> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
@@ -15,26 +15,35 @@
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
-  <script>
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    </script> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
  </head> 
  <body id="page-top"> <!-- Navigation --> 
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
     <div class="collapse navbar-collapse" id="navbarResponsive"> 
      <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
      </ul> 
     </div> 
@@ -43,50 +52,31 @@
   <section> 
    <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
     <p class="lead"> </p>
-    <h1 class="title">使用consul和又拍云slardar构建API网关</h1> <small> <h3 class="author">王福强 - fujohnwang AT gmail DOTA com</h3>2017-01-28 </small> 
+    <h1 class="title">使用consul和又拍云slardar构建API网关</h1> <small> <h3 class="author">王福强 - fujohnwang AT gmail DOTA com</h3> 
+     <div style="text-align: left;">
+      2017-01-28
+     </div> </small> 
     <p></p> 
     <hr> 
-    <ul> 
-     <li><a href="#基本概念介绍"><span class="toc-section-number">1</span> 基本概念介绍</a></li> 
-     <li><a href="#潜在预选方案"><span class="toc-section-number">2</span> 潜在预选方案</a> 
-      <ul> 
-       <li><a href="#应用层方案"><span class="toc-section-number">2.1</span> 应用层方案</a></li> 
-       <li><a href="#增强现有基础设施方案"><span class="toc-section-number">2.2</span> 增强现有基础设施方案</a></li> 
-       <li><a href="#最终选择"><span class="toc-section-number">2.3</span> 最终选择</a></li> 
-      </ul></li> 
-     <li><a href="#方案设计与实施"><span class="toc-section-number">3</span> 方案设计与实施</a> 
-      <ul> 
-       <li><a href="#安装和启动consul"><span class="toc-section-number">3.1</span> 安装和启动consul</a></li> 
-       <li><a href="#安装和启动slardar"><span class="toc-section-number">3.2</span> 安装和启动slardar</a></li> 
-      </ul></li> 
-     <li><a href="#管理与运维"><span class="toc-section-number">4</span> 管理与运维</a></li> 
-     <li><a href="#todo"><span class="toc-section-number">5</span> TODO</a></li> 
-     <li><a href="#附加说明"><span class="toc-section-number">6</span> 附加说明</a> 
-      <ul> 
-       <li><a href="#slardarnginx启动错误"><span class="toc-section-number">6.1</span> slardar/nginx启动错误</a></li> 
-       <li><a href="#接入网关lb-gateway-vs.-api-gateway"><span class="toc-section-number">6.2</span> 接入网关(LB Gateway) VS. API Gateway</a></li> 
-      </ul></li> 
-    </ul> 
-    <hr> 
-    <h1 data-number="1" id="基本概念介绍"><span class="header-section-number">1</span> 基本概念介绍</h1> 
+    <h1 id="基本概念介绍">基本概念介绍</h1> 
     <p>对于横切关注点来说， J2EE时代的servlet Filter是很典型的落地方式。 但是随着微服务理念的流行， 即使将Filter作为“挂结点”而将核心关注点实现逻辑剥离为单独服务的做法也不是做彻底的微服务实践方式， 因为Filter一般情况下还是会随着web层业务应用一起部署， 关注点剥离不彻底， 更新， 维护相互影响，所以， API网关的做法就应运而生了。</p> 
     <p>将所有横切关注点独立开发和部署为前置系统， 作为后端所有微服务和API的访问入口， 对微服务和API进行审计，流控， 监控，计费等， 这样的前置系统就称为API网关(API Gateway)。</p> 
-    <h1 data-number="2" id="潜在预选方案"><span class="header-section-number">2</span> 潜在预选方案</h1> 
-    <h2 data-number="2.1" id="应用层方案"><span class="header-section-number">2.1</span> 应用层方案</h2> 
+    <h1 id="潜在预选方案">潜在预选方案</h1> 
+    <h2 id="应用层方案">应用层方案</h2> 
     <p>最有名的当然是Netflix的zuul， 但这不意味着这种方案就最适合你， 比如Netfilx是因为使用AWS，对基础设施把控有限， 所以才不得不在应用层做了zuul这样的方案，如果通盘考虑， 这种方案不是最合适或者说最有的方案。</p> 
     <p>但如果自己的团队对整体技术设施把控有限，且团队结构不完善，应用层方案也可能是最适合你的“快糙猛”最佳方案。</p> 
-    <h2 data-number="2.2" id="增强现有基础设施方案"><span class="header-section-number">2.2</span> 增强现有基础设施方案</h2> 
+    <h2 id="增强现有基础设施方案">增强现有基础设施方案</h2> 
     <p>最典型的就是使用nginx + lua方案， 也是扶墙老师认为最合适的方案。</p> 
     <p><a href="http://openresty.org/">OpenResty</a>和<a href="https://getkong.org/">Kong</a>是比较成熟的可选方案， 不过Kong使用Postgres或者Cassandra， 国内公司估计选择这俩货的不多。 但Kong的HTTP API设计还是很不错的， 👍</p> 
     <p>至于OpenResty， 如果有lua高手，可以完全把控，那也是正选， 可惜扶墙老师和团队都不是此中能手， 没法很好的把控，而OpenResty又是一个比较通用的方案，不像Kong那样是特定的API Gateway方案，所以，无法把控的情况下，暂且不考虑之。</p> 
-    <h2 data-number="2.3" id="最终选择"><span class="header-section-number">2.3</span> 最终选择</h2> 
+    <h2 id="最终选择">最终选择</h2> 
     <p>去年又拍云在深圳组织了一次OpenResty的大会， 在跟又拍云的同学要来相关slides浏览学习的时候，发现了又拍云提供的slardar是一个比较合适的选择，主要是：</p> 
     <ol type="1"> 
      <li>配合consul使用，虽然扶墙老师是Java出身， 选择zookeeper会是更加自然的选择，但作为新锐派，又有之前不二的压测结果支撑， 我现在更加倾向于使用consul了；</li> 
      <li>良好的HTTP API支持， 可以动态管理upstreams， 这也意味着我们可以通过发布平台或者胶水系统无缝的实现服务注册和发现， 对服务的访问方透明；</li> 
     </ol> 
     <p>另外就是， 跟又拍云的同学可以联系配合，有问题可以协助解决，所以最终选择了slardar！</p> 
-    <h1 data-number="3" id="方案设计与实施"><span class="header-section-number">3</span> 方案设计与实施</h1> 
+    <h1 id="方案设计与实施">方案设计与实施</h1> 
     <p><img src="images/slardar-consul.png"></p> 
     <p>整个方案的Big Picture如上：</p> 
     <ol type="1"> 
@@ -96,12 +86,12 @@
      <li>slardar获取到相应的upstreams信息更新， 则动态变更nginx内部的upstreams分发配置，从而将流量路由和分发到对应的API和微服务实例结点；</li> 
     </ol> 
     <p>将以上注册和发现逻辑通过脚本或者统一的发布部署平台固化后，就可以实现透明的服务访问和扩展。</p> 
-    <h2 data-number="3.1" id="安装和启动consul"><span class="header-section-number">3.1</span> 安装和启动consul</h2> 
+    <h2 id="安装和启动consul">安装和启动consul</h2> 
     <p>mac上安装consul很简单， 直接<code>brew install consul</code>。</p> 
     <p>因为是本地的原型系统，所以， 我们使用如下命令启动一个consul server结点：</p> 
     <pre><code>consul agent -server -data-dir ~/consul.datastore -bind=172.20.10.5 -bootstrap-expect=1</code></pre> 
     <p>如果是生产环境， 最好将-bootstrap-expect的数量设置为3或者5，以便consul集群有一定的fault tolerance能力。</p> 
-    <h2 data-number="3.2" id="安装和启动slardar"><span class="header-section-number">3.2</span> 安装和启动slardar</h2> 
+    <h2 id="安装和启动slardar">安装和启动slardar</h2> 
     <p><a href="https://github.com/upyun/slardar">Slardar项目</a>的README.md有很相近的安装和配置说明， 我们选择源码编译安装：</p> 
     <pre><code>git clone https://github.com/upyun/slardar.git
 cd slardar
@@ -115,7 +105,7 @@ make install</code></pre>
     <blockquote> 
      <p>要关闭，执行<code>/usr/local/slardar/nginx/sbin/nginx -s stop</code></p> 
     </blockquote> 
-    <h1 data-number="4" id="管理与运维"><span class="header-section-number">4</span> 管理与运维</h1> 
+    <h1 id="管理与运维">管理与运维</h1> 
     <p>slardar默认的HTTP管理API端口是1995， 而nginx的对外服务端口是8080， 如果愿意，我们可以通过变更<code>/usr/local/slardar/nginx/conf/slardar/service.conf</code>将8080修改为80端口。</p> 
     <p>默认情况下，我们没有配置任何的域名与upstreams映射信息，所以访问localhost会返回502 Bad Gateway。</p> 
     <p>演示用， 我们启动一个mkdocs文档服务：</p> 
@@ -129,10 +119,10 @@ INFO    -  Cleaning site directory
     <pre><code>➜  ~ curl 127.0.0.1:1995/upstream/localhost -d '{"servers":[{"host":"127.0.0.1", "port": 8000}]}'
 {"status":200}%</code></pre> 
     <p>现在访问<code>http://localhost</code>(而不是<code>http://localhost:8000</code>)就可以直接访问到这个mkdocs服务啦， 如果愿意，我们可以启动多个mkdocs文档服务结点，并均注册为localhost的upstreams结点。</p> 
-    <h1 data-number="5" id="todo"><span class="header-section-number">5</span> TODO</h1> 
+    <h1 id="todo">TODO</h1> 
     <p>目前为止， slardar和consul更多只是作为服务注册和发现的基础设施（接入网关）， 要让slardar作为API Gateway进行服务， 还需要更多lua编程， 此为后话， stay tuned~</p> 
-    <h1 data-number="6" id="附加说明"><span class="header-section-number">6</span> 附加说明</h1> 
-    <h2 data-number="6.1" id="slardarnginx启动错误"><span class="header-section-number">6.1</span> slardar/nginx启动错误</h2> 
+    <h1 id="附加说明">附加说明</h1> 
+    <h2 id="slardarnginx启动错误">slardar/nginx启动错误</h2> 
     <pre><code>➜  nginx sudo /usr/local/slardar/nginx/sbin/nginx
 nginx: [error] [lua] consul.lua:39: get_servers(): get config from http://127.0.0.1:8500/v1/kv/config/slardar/upstreams?keys failed
 nginx: [error] [lua] consul.lua:60: get_script_blocking(): get config from http://127.0.0.1:8500/v1/kv/config/slardar/lua/?keys failed
@@ -140,33 +130,42 @@ nginx: [warn] [lua] load.lua:234: no code in consul</code></pre>
     <blockquote> 
      <p>这个错误不影响slardar/nginx的启动， 原因和如何消弭这里不做说明。</p> 
     </blockquote> 
-    <h2 data-number="6.2" id="接入网关lb-gateway-vs.-api-gateway"><span class="header-section-number">6.2</span> 接入网关(LB Gateway) VS. API Gateway</h2> 
+    <h2 id="接入网关lb-gateway-vs.-api-gateway">接入网关(LB Gateway) VS. API Gateway</h2> 
     <p>接入网关更多负责接入层的流量负载均衡和路由， 而API Gateway做得不仅仅只是一个LB或者路由的事情。 API Gateway可以附加更多像审计，计费， 监控，安全防控等各种功能关注点。</p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
     <hr> 
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2014-06-07-troika.html">新时代的三个臭皮匠顶个诸葛亮 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2005-06-18-explore-struts--web-framework.html">Struts实现探索 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2008-07-13-movie-chibi.html">赤壁之略懂 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2009-08-07-go-with-it-or-resist-it.html">顺其自然抑或因势利导 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2005-00-00-InstallAnywhere-gotchas.html">有关InstallAnyWhere的几个问题 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2016-01-30-the-team-I-would-like-to-dedicate.html">我所希望并为之奋斗的团队 </a> 
      </div> 
     </div> 
-    <hr> 
-    <img src="/images/zanshang.jpg" width="300/"> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <div id="comments"></div> 
     <hr> 
-    <div class="text-center"> 
-     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
     </div> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
-   ©王福强个人版权所有, All Rights Reserved.
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
   </div> 
   <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
    </div> 
   </div> 
   <script type="text/javascript">
@@ -181,7 +180,16 @@ var gitalk = new Gitalk({
 })
 
 gitalk.render('comments')
-    </script>  
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
  </body>
 </html>

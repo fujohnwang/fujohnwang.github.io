@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="生成艺术二维码的三种套路 - 架构教练,架构师个人成长教练,个人成长,组织成长,个人与组织成长顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="生成艺术二维码的三种套路 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>生成艺术二维码的三种套路 -王福强的个人博客：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2023-07-05"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
+ </head> 
+ <body id="page-top"> <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">生成艺术二维码的三种套路</h1> <small> <h3 class="author">王福强</h3> 
+     <div style="text-align: left;">
+      2023-07-05
+     </div> </small> 
+    <p></p> 
+    <hr> 
+    <p>啥？ 艺术二维码你还没听说？ 其实就是随着AIGC尤其是Stable Diffusion的兴起而出现的一种新的二维码形式，像下面这样（效果有比这惊艳太多的），既像二维码，又与生成的图片合二为一融为一体：</p> 
+    <p><img src="images/2023-07-05-23-23-53.jpg"></p> 
+    <p><strong>第一种套路</strong> 是直接用网上别人搞的SaaS，比如Huggingface上别人开放的<a href="https://huggingface.co/spaces/huggingface-projects/QR-code-AI-art-generator">demo space</a>， 或者加入别人提供的Discord服务器，这个就比较多了，各位感兴趣自己搜下；）</p> 
+    <p><strong>第二种套路</strong> 当然就是走我们大名鼎鼎的Stable Diffusion了，只不过， 走Stable Diffusion其实也有至少两种套路：</p> 
+    <ol type="1"> 
+     <li><a href="https://stable-diffusion-art.com/qr-code/">img2img + controlnet</a></li> 
+     <li>controlnet + controlnet</li> 
+    </ol> 
+    <p>现在用的最多的是第二种，也就是两个controlnet串联， 第一个一般用<a href="https://huggingface.co/ioclab/ioc-controlnet/blob/main/models/control_v1p_sd15_brightness.safetensors">brightness</a>这个control net，主要用来调节颜色或者重新着色， 第二个一般用tile这个controlnet，目的是增减细节，这个特性在 <a href="https://edu.afoo.me/">扶墙老师讲Stable Diffusion系列（5）- 深入浅出ControlNet</a> 里提到过。</p> 
+    <p>通过在两个controlnet的控制权重与范围这两个或者一个参数之间平衡，就可以生成融合了生成图像的二维码了，只不过这个试错的过程通常比较耗费时间，所以，大家如果要自己玩，最好先去搜一下前面别人实验之后的参数值做参考，否则，自己从头试错，有些时候还是挺有挫败感的，比如，<a href="https://keepoints.feishu.cn/docx/ZxMndkpwRoongpxAUcbcUn9xnad">这里就是很多残次品</a>(https://keepoints.feishu.cn/docx/ZxMndkpwRoongpxAUcbcUn9xnad)，而这也是只是几百张里挑出来的好看点儿的，但依然不能扫成功，要从生成结果中筛选出既漂亮（有创意性）还能扫码成功（有识别度）的，那就更是难上加难了。</p> 
+    <p><strong>第三种套路</strong> 其实有点儿勉强，原因是我在用自己脚本启动和执行Automatic1111 Stable Diffusion WebUI的时候，其实brightness这个controlnet的模型报错：</p> 
+    <pre><code>Total progress: 100% 20/20 [00:03&lt;00:00,  6.53it/s]
+2023-07-05 06:18:14,882 - ControlNet - INFO - Loading model: control_v1p_sd15_brightness [e3b0c442]
+*** Error running process: /content/stable-diffusion-webui/extensions/sd-webui-controlnet/scripts/controlnet.py
+    Traceback (most recent call last):
+      File "/content/stable-diffusion-webui/modules/scripts.py", line 474, in process
+        script.process(p, *script_args)
+      File "/content/stable-diffusion-webui/extensions/sd-webui-controlnet/scripts/controlnet.py", line 742, in process
+        model_net = Script.load_control_model(p, unet, unit.model, unit.low_vram)
+      File "/content/stable-diffusion-webui/extensions/sd-webui-controlnet/scripts/controlnet.py", line 303, in load_control_model
+        model_net = Script.build_control_model(p, unet, model, lowvram)
+      File "/content/stable-diffusion-webui/extensions/sd-webui-controlnet/scripts/controlnet.py", line 331, in build_control_model
+        state_dict = load_state_dict(model_path)
+      File "/content/stable-diffusion-webui/extensions/sd-webui-controlnet/scripts/utils.py", line 20, in load_state_dict
+        state_dict = safetensors.torch.load_file(ckpt_path, device=location)
+      File "/usr/local/lib/python3.10/dist-packages/safetensors/torch.py", line 259, in load_file
+        with safe_open(filename, framework="pt", device=device) as f:
+    safetensors_rust.SafetensorError: Error while deserializing header: HeaderTooLarge</code></pre> 
+    <p>所以我就绕行了， 转而去启动了comfyui，然后挂了两个controlnet的方式，搞了一批艺术二维码，至于思路，那还是brightness这个controlnet加上tile这个controlnet的思路，毕竟，只要知其然知其所以然了，用啥都只是工具不是？！</p> 
+    <hr> 
+    <p>最后做个广告，<strong>如果你对Stable Diffusion如何创作感兴趣</strong>，欢迎加入「为AI疯狂」知识星球同时获得 <a href="https://edu.afoo.me" class="uri">https://edu.afoo.me</a> <strong>上千分钟</strong>的精品内容访问特权，其中包含了体系化的Stable Diffusion系列课程以及ChatGPT和大语言模型等前沿AI内容。</p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2014-04-26-weak-horse-effect.html">瘦马效应 #What’s in a story# </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2009-12-07-java-reflection-with-dsl.html">Using Java Reflection In a DSL</a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2009-03-30-just-a-weekend.html">周日杂记 </a> 
+     </div> 
+    </div> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

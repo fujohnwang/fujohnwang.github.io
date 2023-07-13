@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="zh"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="中国企业自建GPT服务的三款开源可商用模型 - 架构教练,架构师个人成长教练,个人成长,组织成长,个人与组织成长顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="中国企业自建GPT服务的三款开源可商用模型 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>中国企业自建GPT服务的三款开源可商用模型 - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2023-04-22"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
+  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
+  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+    </script> <!-- Google Ads -->
+ </head>
+ <body id="page-top">
+   /* 
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3687639021943715" crossorigin="anonymous"></script> */   <!-- Navigation --> 
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+    <div class="collapse navbar-collapse" id="navbarResponsive"> 
+     <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
+     </ul> 
+    </div> 
+   </div> 
+  </nav> 
+  <section> 
+   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
+    <p class="lead"> </p>
+    <h1 class="title">中国企业自建GPT服务的三款开源可商用模型</h1> <small> <h3 class="author">王福强</h3>2023-04-22 </small> 
+    <p></p> 
+    <hr> 
+    <ul> 
+     <li><a href="#chatglm"><span class="toc-section-number">1</span> ChatGLM</a></li> 
+     <li><a href="#vicuna"><span class="toc-section-number">2</span> Vicuna</a></li> 
+     <li><a href="#dolly-2.0"><span class="toc-section-number">3</span> Dolly 2.0</a></li> 
+     <li><a href="#后话"><span class="toc-section-number">4</span> 后话</a></li> 
+    </ul> 
+    <hr> 
+    <p>AI狂热至今，很多董事长都在敦促团队搞GPT，但怎么搞、模型怎么选、应该如何落地（甚至没有团队的还得考虑如何搭建团队），很多高管估计还在懵逼中，好消息是，扶墙老师让你扶，今天特意为你介绍三种已经开源并且可以商用的GPT模型，起码，选型上耗费的时间可以省不少，还不一起来看一下？！</p> 
+    <h1 data-number="1" id="chatglm"><span class="header-section-number">1</span> ChatGLM</h1> 
+    <p>这个项目扶墙老师已经不止一次推荐过了，关键词是：</p> 
+    <ul> 
+     <li>清华大学</li> 
+     <li>中文</li> 
+     <li>口碑</li> 
+    </ul> 
+    <p>搭配LlamaIndex与合适的vector store，构建企业内部GPT服务，so easy，“妈妈再也不用担心我的学习”，哦，台词错了，“老板再也不用担心数据泄漏”</p> 
+    <h1 data-number="2" id="vicuna"><span class="header-section-number">2</span> Vicuna</h1> 
+    <p>属于骆驼家族中的一员（其它成员还包括 LLaMa 和 Alpaca），关键词是：</p> 
+    <ul> 
+     <li>90%</li> 
+     <li>ChatGPT validate</li> 
+    </ul> 
+    <blockquote> 
+     <p>讲个额外知识点，外汇交易里有一种玩法叫follow trade，意思是你只要跟着全场最牛逼的头部交易员（traders）做交易就可以了，只要他们赚钱，你也会跟着赚钱，毕竟，人家是专业的，而且是top Vicuna其实就是跟着ChatGPT“做交易”， 效果自然不会差；）</p> 
+    </blockquote> 
+    <h1 data-number="3" id="dolly-2.0"><span class="header-section-number">3</span> Dolly 2.0</h1> 
+    <p>Databricks新开源的大语言模型Dolly 2.0，在全厂五千多名员工的通力调教下，效果据说不错，某公司已经上了，董事长反映效果不错，各位看官要不也试试？！</p> 
+    <h1 data-number="4" id="后话"><span class="header-section-number">4</span> 后话</h1> 
+    <p>公司内部服务其实还好啦，要是外部用，嘿嘿，你懂的，记得做“合规”哈，否则除了啥幺蛾子可跟扶墙老师没关系，别说是我“教唆”的；）</p> 
+    <p>另外，如果你对ChatGPT底层原理感兴趣，也欢迎看看扶墙老师的<a href="https://wfq.gumroad.com/l/ilxdh">《讲透ChatGPT》</a>(https://wfq.gumroad.com/l/ilxdh) 😉</p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2009-04-20-mess-vs-in-order.html">杂草丛生 VS 整洁有序 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2010-03-30-isolation-architecture-practice.html">Simple, Yet Powerful系列之“隔离” </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2008-07-30-记远去的那份情怀.html">记远去的那份情怀 </a> 
+     </div> 
+    </div> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
+    <div id="comments"></div> 
+    <hr> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
+    </div> 
+   </div> 
+  </section> 
+  <div style="color:white; visibility: collapse; height: 0;">
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
+  </div> 
+  <div class="copyright py-4 text-center text-white"> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
+   </div> 
+  </div> 
+  <script type="text/javascript">
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
+  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+ </body>
+</html>

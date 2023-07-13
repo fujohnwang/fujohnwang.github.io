@@ -6,13 +6,14 @@
   <meta name="description" content="《Scala For The Impatient》琐碎记录 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-  <title>《Scala For The Impatient》琐碎记录 - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <title>《Scala For The Impatient》琐碎记录 -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
   <style type="text/css">
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -78,26 +79,35 @@
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
-  <script>
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    </script> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
  </head> 
  <body id="page-top"> <!-- Navigation --> 
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
     <div class="collapse navbar-collapse" id="navbarResponsive"> 
      <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
      </ul> 
     </div> 
@@ -106,69 +116,55 @@
   <section> 
    <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
     <p class="lead"> </p>
-    <h1 class="title">《Scala For The Impatient》琐碎记录</h1> <small> <h3 class="author">王福强</h3> </small> 
+    <h1 class="title">《Scala For The Impatient》琐碎记录</h1> <small> <h3 class="author">王福强</h3> 
+     <div style="text-align: left;"></div> </small> 
     <p></p> 
     <hr> 
-    <ul> 
-     <li><a href="#关于在repl里粘贴多行代码的问题"><span class="toc-section-number">1</span> 关于在REPL里粘贴多行代码的问题</a></li> 
-     <li><a href="#关于break语句"><span class="toc-section-number">2</span> 关于break语句</a></li> 
-     <li><a href="#变长参数的你来我往"><span class="toc-section-number">3</span> 变长参数的你来我往</a></li> 
-     <li><a href="#getters和setters"><span class="toc-section-number">4</span> getters和setters</a></li> 
-     <li><a href="#private与privatethis"><span class="toc-section-number">5</span> private与private[this]</a></li> 
-     <li><a href="#多trait与继承的解读"><span class="toc-section-number">6</span> 多Trait与继承的解读</a></li> 
-     <li><a href="#extractor---unapply"><span class="toc-section-number">7</span> extractor - unapply</a></li> 
-     <li><a href="#specialized注解"><span class="toc-section-number">8</span> <span class="citation" data-cites="specialized注解">@specialized注解</span></a></li> 
-     <li><a href="#类型界定"><span class="toc-section-number">9</span> 类型界定</a> 
-      <ul> 
-       <li><a href="#与-的恩怨"><span class="toc-section-number">9.1</span> &lt;: 与 &lt;%的恩怨</a></li> 
-      </ul></li> 
-    </ul> 
-    <hr> 
     <p>感谢宏江借我这本书，现在可以当“闲书”来零散时间做消遣 ：）</p> 
-    <h1 data-number="1" id="关于在repl里粘贴多行代码的问题"><span class="header-section-number">1</span> 关于在REPL里粘贴多行代码的问题</h1> 书中说到，使用粘贴模式即可解决， 即在命令中先键入： 
+    <h1 id="关于在repl里粘贴多行代码的问题">关于在REPL里粘贴多行代码的问题</h1> 书中说到，使用粘贴模式即可解决， 即在命令中先键入： 
     <pre>:paste
 </pre> 
     <p>然后粘贴代码，完成后，键入CTRL+D即可， 这样，就可以避免REPL提前短视的来提前evaluate跨行的scala代码。</p> 
-    <h1 data-number="2" id="关于break语句"><span class="header-section-number">2</span> 关于break语句</h1> 
+    <h1 id="关于break语句">关于break语句</h1> 
     <p>scala里面没有啦，不过有三种alternatives可供选择。 使用boolean变量+while循环那，还好，对Java开发者来说其实很自家style啦， 不过，写多了scala，除非迫不得已其实不想多声明一个变量的； 使用scala.util.control.Breaks嘛， 也用过， 肯定不爽啦，而且貌似某次偶还遇到过灵异事件，哈； 最后那，是我觉得比较好的方式， 就是单独为循环结构声明一个方法，然后通过这个单独方法+return的方式来完成同样的功能。</p> 
     <p>当然啦，“萝卜白菜各有所爱”嘛，各位看官自己定夺啦，俺只是这里多嘴几句罢了（这里读liao）～</p> 
-    <h1 data-number="3" id="变长参数的你来我往"><span class="header-section-number">3</span> 变长参数的你来我往</h1> 
+    <h1 id="变长参数的你来我往">变长参数的你来我往</h1> 
     <div class="sourceCode" id="cb1">
-     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">recur</span>(args:Int*) : Int = <span class="kw">if</span>(args.<span class="fu">length</span> == <span class="dv">0</span>) <span class="dv">0</span> <span class="kw">else</span> args.<span class="fu">head</span> + <span class="fu">recur</span>(args.<span class="fu">tail</span>:_*)</span></code></pre>
+     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">recur</span><span class="op">(</span>args<span class="op">:</span><span class="bu">Int</span><span class="op">*)</span> <span class="op">:</span> <span class="bu">Int</span> <span class="op">=</span> <span class="cf">if</span><span class="op">(</span>args<span class="op">.</span>length <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="dv">0</span> <span class="cf">else</span> args<span class="op">.</span>head <span class="op">+</span> <span class="fu">recur</span><span class="op">(</span>args<span class="op">.</span>tail<span class="op">:</span>_<span class="op">*)</span></span></code></pre>
     </div> 
     <p>如果方法声明的是变长参数， 比如Int*这种类型，那么可以以recur(1,1,3,4)之类的形式来调用它，但如果原来就有一组值想作为参数来调用变长参数方法，则需要将这组值先展开，即valueSeq:_*的形式，个人老tnd忘，遂mark下～</p> 
-    <h1 data-number="4" id="getters和setters"><span class="header-section-number">4</span> getters和setters</h1> 
+    <h1 id="getters和setters">getters和setters</h1> 
     <p>有两种方式可供选择，第一种：</p> 
     <div class="sourceCode" id="cb2">
-     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">private</span> <span class="kw">var</span> privateAge = <span class="dv">0</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> age = privateAge</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> age_=(newAge:Int) {</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    privateAge = newAge</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre>
+     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">private</span> <span class="kw">var</span> privateAge <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> age <span class="op">=</span> privateAge</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> age_<span class="op">=(</span>newAge<span class="op">:</span><span class="bu">Int</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    privateAge <span class="op">=</span> newAge</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
     </div> 
     <p>这种是scala独有的，不过，一般情况下不需要自己声明，直接声明一个var变量age，编译器自动回帮我们生成这些方法。</p> 
     <blockquote>
       age_=方法编译为字节码后，名称是age_$eq(…), 因为Java里=不能包含在方法名声明中。 
     </blockquote> 
     <p>第二种，使用@BeanProperty这个annnotation来标注我们想为其生成setters和getters方法的变量，不过，这种方式生成的setters和getters方法则跟JavaBean中的setters和getters是一样的命名风格咯，即setAge(age:Int)和getAge()这样的形式，跟传统Java框架，比如Spring来编码的时候，通常使用这种方式更多一些。</p> 
-    <h1 data-number="5" id="private与privatethis"><span class="header-section-number">5</span> private与private[this]</h1> 
+    <h1 id="private与privatethis">private与private[this]</h1> 
     <div class="sourceCode" id="cb3">
-     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Counter{</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">private</span> <span class="kw">var</span> value = <span class="dv">0</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">isLess</span>(other:Counter) = value &lt; other.<span class="fu">value</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre>
+     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Counter<span class="op">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">private</span> <span class="kw">var</span> value <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">isLess</span><span class="op">(</span>other<span class="op">:</span>Counter<span class="op">)</span> <span class="op">=</span> value <span class="op">&lt;</span> other<span class="op">.</span>value</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
     </div> 
     <p>如果只声明为private，则同一个类所有的对象都可以访问， 而如果声明为<code>private[this] var value = 0</code>的形式，则只有当前对象可以访问，像other.value则废废了。</p> 
-    <h1 data-number="6" id="多trait与继承的解读"><span class="header-section-number">6</span> 多Trait与继承的解读</h1> 
+    <h1 id="多trait与继承的解读">多Trait与继承的解读</h1> 
     <div class="sourceCode" id="cb4">
      <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> A <span class="kw">extends</span> B <span class="kw">with</span> C <span class="kw">with</span> D <span class="kw">with</span> E </span></code></pre>
     </div> 
     <p>应做类似如下形式解读：</p> 
     <div class="sourceCode" id="cb5">
-     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> A <span class="kw">extends</span> (B <span class="kw">with</span> C <span class="kw">with</span> D <span class="kw">with</span> E)</span></code></pre>
+     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> A <span class="kw">extends</span> <span class="op">(</span>B <span class="kw">with</span> C <span class="kw">with</span> D <span class="kw">with</span> E<span class="op">)</span></span></code></pre>
     </div> 
     <p>即还是单一继承，多个traits组合成一个复合类型作为A的父类！</p> 
-    <h1 data-number="7" id="extractor---unapply"><span class="header-section-number">7</span> extractor - unapply</h1> 
+    <h1 id="extractor---unapply">extractor - unapply</h1> 
     <p>返回三种形式</p> 
     <ol type="1"> 
      <li>一种是包含了目标类型的Option</li> 
@@ -176,53 +172,62 @@
      <li>unapplySeq[Option[T]], 用于匹配长度的值序列</li> 
     </ol> 
     <div class="sourceCode" id="cb6">
-     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">object</span> Ex{</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">unapply</span>(input:T) : Option[S] = <span class="kw">if</span>(<span class="kw">true</span>) Some(S) <span class="kw">else</span> None</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">unapply</span>(input:T) : Boolean = input.<span class="fu">matched</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>}</span>
+     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">object</span> Ex<span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">unapply</span><span class="op">(</span>input<span class="op">:</span>T<span class="op">)</span> <span class="op">:</span> <span class="bu">Option</span><span class="op">[</span>S<span class="op">]</span> <span class="op">=</span> <span class="cf">if</span><span class="op">(</span><span class="kw">true</span><span class="op">)</span> <span class="bu">Some</span><span class="op">(</span>S<span class="op">)</span> <span class="cf">else</span> <span class="bu">None</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">unapply</span><span class="op">(</span>input<span class="op">:</span>T<span class="op">)</span> <span class="op">:</span> Boolean <span class="op">=</span> input<span class="op">.</span>matched</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="fu">Ex</span>(s) = input <span class="co">// == Ex.unapply(input) </span></span></code></pre>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="fu">Ex</span><span class="op">(</span>s<span class="op">)</span> <span class="op">=</span> input <span class="co">// == Ex.unapply(input) </span></span></code></pre>
     </div> 
-    <h1 data-number="8" id="specialized注解"><span class="header-section-number">8</span> <span class="citation" data-cites="specialized注解">@specialized注解</span></h1> 
+    <h1 id="specialized注解"><span class="citation" data-cites="specialized注解">@specialized注解</span></h1> 
     <div class="sourceCode" id="cb7">
-     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> methodName[T](x:T, y:T) = ...</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> methodName[@specialized T](x:T, y:T) = ...</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> methodName[@<span class="fu">specialized</span>(Long, Int) T](x:T, y:T) = ...</span></code></pre>
+     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> methodName<span class="op">[</span>T<span class="op">](</span>x<span class="op">:</span>T<span class="op">,</span> y<span class="op">:</span>T<span class="op">)</span> <span class="op">=</span> <span class="op">...</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> methodName<span class="op">[</span>@specialized T<span class="op">](</span>x<span class="op">:</span>T<span class="op">,</span> y<span class="op">:</span>T<span class="op">)</span> <span class="op">=</span> <span class="op">...</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> methodName<span class="op">[</span>@<span class="fu">specialized</span><span class="op">(</span>Long<span class="op">,</span> <span class="bu">Int</span><span class="op">)</span> T<span class="op">](</span>x<span class="op">:</span>T<span class="op">,</span> y<span class="op">:</span>T<span class="op">)</span> <span class="op">=</span> <span class="op">...</span></span></code></pre>
     </div> 
     <p>如果T是基本类型，比如Int，Long等，如果没加@specialized，则参数将被打包成java.lang.Integer等Wrapper类型， 这有些不太高效，因为需要打包解包，甚至消耗不必要的内存甚至导致不必要的gc。 使用@specialized将让编译器为我们生成一系列重载的方法，分别对应原生类型参数。</p> 
-    <h1 data-number="9" id="类型界定"><span class="header-section-number">9</span> 类型界定</h1> 
-    <h2 data-number="9.1" id="与-的恩怨"><span class="header-section-number">9.1</span> &lt;: 与 &lt;%的恩怨</h2> 
+    <h1 id="类型界定">类型界定</h1> 
+    <h2 id="与-的恩怨">&lt;: 与 &lt;%的恩怨</h2> 
     <p>&lt;: 用于一般类型之间的继承关系， 但如果要界定的类型与上界类型之间没有继承关系，则可以通过implicit conversion来解决，如果存在implicit conversion，也是可以进行界定的，这个时候就使用&lt;%， 即view bound</p> 
     <div class="sourceCode" id="cb8">
-     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Pair[T &lt;: Comparable[T]]</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Pair[T &lt;% Comparable[T]]</span></code></pre>
+     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> <span class="bu">Pair</span><span class="op">[</span>T <span class="op">&lt;:</span> Comparable<span class="op">[</span>T<span class="op">]]</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> <span class="bu">Pair</span><span class="op">[</span>T <span class="op">&lt;%</span> Comparable<span class="op">[</span>T<span class="op">]]</span></span></code></pre>
     </div> 
     <p>前者对Int类型来说不能编译通过，因为Scala里的Int不是Comparable[Int]的子类，不过RichInt是，而且有相应的从Int到RIchInt的implict conversion，所以第二种形式可以。</p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
     <hr> 
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2014-06-07-troika.html">新时代的三个臭皮匠顶个诸葛亮 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2007-12-19-BF4768EE8B110260_707.html">投名状</a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2013-06-19-git-and-octal-escaped-filename.html">Git对非ASCII文件名的Octal Escape处理说明 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2021-05-20-marketing-and-customer-view-first.html">客户视角、业务类比与脑暴 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2019-11-28-know-others-know-yourself.html">不裸聊的裸心 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2013-03-25-about_startup.html">about startup </a> 
      </div> 
     </div> 
-    <hr> 
-    <img src="/images/zanshang.jpg" width="300/"> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <div id="comments"></div> 
     <hr> 
-    <div class="text-center"> 
-     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
     </div> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
-   ©王福强个人版权所有, All Rights Reserved.
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
   </div> 
   <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
    </div> 
   </div> 
   <script type="text/javascript">
@@ -237,7 +242,16 @@ var gitalk = new Gitalk({
 })
 
 gitalk.render('comments')
-    </script>  
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
  </body>
 </html>

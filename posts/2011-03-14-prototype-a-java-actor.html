@@ -6,13 +6,14 @@
   <meta name="description" content="Prototyping An Actor In Java - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-  <title>Prototyping An Actor In Java - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <title>Prototyping An Actor In Java -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
   <style type="text/css">
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -78,26 +79,35 @@
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
-  <script>
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    </script> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
  </head> 
  <body id="page-top"> <!-- Navigation --> 
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
     <div class="collapse navbar-collapse" id="navbarResponsive"> 
      <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
      </ul> 
     </div> 
@@ -109,17 +119,6 @@
     <h1 class="title">Prototyping An Actor In Java</h1> 
     <p></p> 
     <hr> 
-    <ul> 
-     <li><a href="#actor-with-same-instance-reference-of-actionfailed"><span class="toc-section-number">1</span> Actor with Same Instance Reference of Action(Failed)</a></li> 
-     <li><a href="#actor-with-prototype-scope-actionworkable"><span class="toc-section-number">2</span> Actor With Prototype Scope Action(Workable)</a></li> 
-     <li><a href="#actor-with-state-copy-between-prototype-scope-actions"><span class="toc-section-number">3</span> Actor With State Copy Between Prototype Scope Actions</a></li> 
-     <li><a href="#raw-thread-based-actor-prototyping-workable"><span class="toc-section-number">4</span> Raw Thread Based Actor Prototyping (Workable)</a> 
-      <ul> 
-       <li><a href="#another-version"><span class="toc-section-number">4.1</span> Another Version</a></li> 
-      </ul></li> 
-     <li><a href="#conclusion"><span class="toc-section-number">5</span> Conclusion</a></li> 
-    </ul> 
-    <hr> 
     <p>I have always try to implement an actor like the ones of Erlang or Scala in java, and had tried several times with different strategies. The former attempts seems naive, and I will not demonstrate it here, but the ideas from those naive prototypes still hold. Note</p> 
     <pre>    * I hope you know something about the actor model before continuing to read this.
     * We mainly focus on "fire-and-get" pattern, the "fire-and-forget" pattern is much easier to implement.
@@ -127,61 +126,61 @@
 </pre> 
     <p>Before start, we need to make something clear. In Java, the concurrency is modeled in Task-Based Concurrency, We run different logic which is modeled as tasks to run in parallel. But The actor is different, it belongs to the category of Data-Based Concurrency, to bridge the differences between this two concurrency models, I will declare an interface to confine the process logic into it:</p> 
     <div class="sourceCode" id="cb1">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">interface</span> ActorClosure&lt;T&gt; <span class="kw">extends</span> <span class="bu">Runnable</span> {</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>     <span class="dt">void</span> <span class="fu">sinkEvent</span>(T event);</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">interface</span> ActorClosure<span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="kw">extends</span> <span class="bu">Runnable</span> <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>     <span class="dt">void</span> <span class="fu">sinkEvent</span><span class="op">(</span>T event<span class="op">);</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
     </div> 
     <p>ActorClosure will accept different events each time but run them one by one with same process logic. That’s why a sinkeEvent() method is declared.</p> 
     <p>Besides, we also give out an stub for our demonstration:</p> 
     <div class="sourceCode" id="cb2">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> ActorClosureStub <span class="kw">implements</span> ActorClosure&lt;<span class="bu">String</span>&gt; {</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> event;</span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> ActorClosureStub <span class="kw">implements</span> ActorClosure<span class="op">&lt;</span><span class="bu">String</span><span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> event<span class="op">;</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">run</span>() {</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">try</span> {</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>            <span class="bu">TimeUnit</span>.<span class="fu">SECONDS</span>.<span class="fu">sleep</span>(<span class="dv">5</span>);</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        } <span class="kw">catch</span> (<span class="bu">InterruptedException</span> e) {</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">run</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>            <span class="bu">TimeUnit</span><span class="op">.</span><span class="fu">SECONDS</span><span class="op">.</span><span class="fu">sleep</span><span class="op">(</span><span class="dv">5</span><span class="op">);</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">InterruptedException</span> e<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>         <span class="co">// log the exception</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>            <span class="kw">return</span>;</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">"received event:"</span> + event);</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">sinkEvent</span>(<span class="bu">String</span> event) {</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span>.<span class="fu">event</span> = event;</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>}</span></code></pre>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"received event:"</span> <span class="op">+</span> event<span class="op">);</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">sinkEvent</span><span class="op">(</span><span class="bu">String</span> event<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">event</span> <span class="op">=</span> event<span class="op">;</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
     </div> 
     <p>OK, background is done, let’s start with our java actor prototyping play…</p> 
-    <h1 data-number="1" id="actor-with-same-instance-reference-of-actionfailed"><span class="header-section-number">1</span> Actor with Same Instance Reference of Action(Failed)</h1> 
+    <h1 id="actor-with-same-instance-reference-of-actionfailed">Actor with Same Instance Reference of Action(Failed)</h1> 
     <p>Since each event that send to the actor should be processed by one processing logic, At first, we will just let our actor to use only one ActorClosure to process all of the events that’s sent to it. So below is the code :</p> 
     <div class="sourceCode" id="cb3">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> FailedActorWithSameReference {</span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> FailedActorWithSameReference <span class="op">{</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">ExecutorService</span>      scheduler = <span class="bu">Executors</span>.<span class="fu">newFixedThreadPool</span>(<span class="dv">1</span>);</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> ActorClosure&lt;<span class="bu">String</span>&gt; action    = <span class="kw">new</span> <span class="fu">ActorClosureStub</span>();</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">ExecutorService</span>      scheduler <span class="op">=</span> <span class="bu">Executors</span><span class="op">.</span><span class="fu">newFixedThreadPool</span><span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> ActorClosure<span class="op">&lt;</span><span class="bu">String</span><span class="op">&gt;</span> action    <span class="op">=</span> <span class="kw">new</span> <span class="fu">ActorClosureStub</span><span class="op">();</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Future</span>&lt;?&gt; <span class="fu">bang</span>(<span class="bu">String</span> event) <span class="kw">throws</span> <span class="bu">InterruptedException</span> {</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        action.<span class="fu">sinkEvent</span>(event);</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> scheduler.<span class="fu">submit</span>(action, <span class="kw">null</span>);</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Future</span><span class="op">&lt;?&gt;</span> <span class="fu">bang</span><span class="op">(</span><span class="bu">String</span> event<span class="op">)</span> <span class="kw">throws</span> <span class="bu">InterruptedException</span> <span class="op">{</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        action<span class="op">.</span><span class="fu">sinkEvent</span><span class="op">(</span>event<span class="op">);</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> scheduler<span class="op">.</span><span class="fu">submit</span><span class="op">(</span>action<span class="op">,</span> <span class="kw">null</span><span class="op">);</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">terminate</span>() {</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        scheduler.<span class="fu">shutdown</span>();</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">terminate</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        scheduler<span class="op">.</span><span class="fu">shutdown</span><span class="op">();</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(<span class="bu">String</span>[] args) <span class="kw">throws</span> <span class="bu">Exception</span> {</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        FailedActorWithSameReference actor = <span class="kw">new</span> <span class="fu">FailedActorWithSameReference</span>();</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Future</span>&lt;?&gt; f1 = actor.<span class="fu">bang</span>(<span class="st">"a"</span>);</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Future</span>&lt;?&gt; f2 = actor.<span class="fu">bang</span>(<span class="st">"b"</span>);</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        f1.<span class="fu">get</span>();</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>        f2.<span class="fu">get</span>();</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>        actor.<span class="fu">terminate</span>();</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>}</span></code></pre>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="kw">throws</span> <span class="bu">Exception</span> <span class="op">{</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        FailedActorWithSameReference actor <span class="op">=</span> <span class="kw">new</span> <span class="fu">FailedActorWithSameReference</span><span class="op">();</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Future</span><span class="op">&lt;?&gt;</span> f1 <span class="op">=</span> actor<span class="op">.</span><span class="fu">bang</span><span class="op">(</span><span class="st">"a"</span><span class="op">);</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Future</span><span class="op">&lt;?&gt;</span> f2 <span class="op">=</span> actor<span class="op">.</span><span class="fu">bang</span><span class="op">(</span><span class="st">"b"</span><span class="op">);</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        f1<span class="op">.</span><span class="fu">get</span><span class="op">();</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>        f2<span class="op">.</span><span class="fu">get</span><span class="op">();</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>        actor<span class="op">.</span><span class="fu">terminate</span><span class="op">();</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
     </div> 
     <p>In fact, no need to run this piece of code, we can see that it won’t work properly, why? Because we didn’t handle the concurrency operation on the ActorClosure properly, the latter bang(!) will replace or corrupt the state in the ActorClosure, If you run the above piece of code, it will print “b” twice, but we do expect “a” and “b” in sequence. But the problem really is the bad concurrency control on ActorClosure? No, If we add concurrency control on ActorClosure, then we go wrong way in the process of modeling an actor.</p> 
     <p>So, no concurrency control on ActorClosure, how to avoid the state corruption?</p> 
-    <h1 data-number="2" id="actor-with-prototype-scope-actionworkable"><span class="header-section-number">2</span> Actor With Prototype Scope Action(Workable)</h1> 
+    <h1 id="actor-with-prototype-scope-actionworkable">Actor With Prototype Scope Action(Workable)</h1> 
     <p>We of course can allocate a new ActorClosure instance for each event, in this way, the state of ActorClosures and their events will be confined into their own boundary without leak and interference.</p> 
     <p>With this in mind, we got code piece below:</p> 
     <div class="sourceCode" id="cb4">
@@ -192,80 +191,80 @@
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> of the actor<span class="co">,</span> maybe we should introduce some copy mechanism to complement</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> this<span class="co">.</span></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> </span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="an">@author </span>fujohnwang</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="an">@since </span><span class="co">1.0</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="co">@</span>author fujohnwang</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="co">@</span>since <span class="co">1.0</span></span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a> <span class="co">*/</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> ActorWithPrototypeScopeActionClosure {</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> ActorWithPrototypeScopeActionClosure <span class="op">{</span></span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">ExecutorService</span>                       scheduler  = <span class="bu">Executors</span>.<span class="fu">newFixedThreadPool</span>(<span class="dv">1</span>);</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">ExecutorService</span>                       scheduler  <span class="op">=</span> <span class="bu">Executors</span><span class="op">.</span><span class="fu">newFixedThreadPool</span><span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">Class</span>&lt;? <span class="kw">extends</span> ActorClosure&lt;<span class="bu">String</span>&gt;&gt; actionType = ActorClosureStub.<span class="fu">class</span>;</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">Class</span><span class="op">&lt;?</span> <span class="kw">extends</span> ActorClosure<span class="op">&lt;</span><span class="bu">String</span><span class="op">&gt;&gt;</span> actionType <span class="op">=</span> ActorClosureStub<span class="op">.</span><span class="fu">class</span><span class="op">;</span></span>
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Future</span>&lt;?&gt; <span class="fu">bang</span>(<span class="bu">String</span> e) <span class="kw">throws</span> <span class="bu">Exception</span> {</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        ActorClosure&lt;<span class="bu">String</span>&gt; action = actionType.<span class="fu">newInstance</span>();</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        action.<span class="fu">sinkEvent</span>(e);</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> scheduler.<span class="fu">submit</span>(action, <span class="kw">null</span>);</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Future</span><span class="op">&lt;?&gt;</span> <span class="fu">bang</span><span class="op">(</span><span class="bu">String</span> e<span class="op">)</span> <span class="kw">throws</span> <span class="bu">Exception</span> <span class="op">{</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        ActorClosure<span class="op">&lt;</span><span class="bu">String</span><span class="op">&gt;</span> action <span class="op">=</span> actionType<span class="op">.</span><span class="fu">newInstance</span><span class="op">();</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        action<span class="op">.</span><span class="fu">sinkEvent</span><span class="op">(</span>e<span class="op">);</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> scheduler<span class="op">.</span><span class="fu">submit</span><span class="op">(</span>action<span class="op">,</span> <span class="kw">null</span><span class="op">);</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">setActionType</span>(<span class="bu">Class</span>&lt;? <span class="kw">extends</span> ActorClosure&lt;<span class="bu">String</span>&gt;&gt; actionType) {</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span>.<span class="fu">actionType</span> = actionType;</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">setActionType</span><span class="op">(</span><span class="bu">Class</span><span class="op">&lt;?</span> <span class="kw">extends</span> ActorClosure<span class="op">&lt;</span><span class="bu">String</span><span class="op">&gt;&gt;</span> actionType<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">actionType</span> <span class="op">=</span> actionType<span class="op">;</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Class</span>&lt;? <span class="kw">extends</span> ActorClosure&lt;<span class="bu">String</span>&gt;&gt; <span class="fu">getActionType</span>() {</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> actionType;</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Class</span><span class="op">&lt;?</span> <span class="kw">extends</span> ActorClosure<span class="op">&lt;</span><span class="bu">String</span><span class="op">&gt;&gt;</span> <span class="fu">getActionType</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> actionType<span class="op">;</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">terminate</span>() {</span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>        scheduler.<span class="fu">shutdown</span>();</span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">terminate</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>        scheduler<span class="op">.</span><span class="fu">shutdown</span><span class="op">();</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(<span class="bu">String</span>[] args) <span class="kw">throws</span> <span class="bu">Exception</span> {</span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>        ActorWithPrototypeScopeActionClosure actor = <span class="kw">new</span> <span class="fu">ActorWithPrototypeScopeActionClosure</span>();</span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Future</span>&lt;?&gt; f1 = actor.<span class="fu">bang</span>(<span class="st">"a"</span>);</span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Future</span>&lt;?&gt; f2 = actor.<span class="fu">bang</span>(<span class="st">"b"</span>);</span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Future</span>&lt;?&gt; f3 = actor.<span class="fu">bang</span>(<span class="st">"c"</span>);</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="kw">throws</span> <span class="bu">Exception</span> <span class="op">{</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>        ActorWithPrototypeScopeActionClosure actor <span class="op">=</span> <span class="kw">new</span> <span class="fu">ActorWithPrototypeScopeActionClosure</span><span class="op">();</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Future</span><span class="op">&lt;?&gt;</span> f1 <span class="op">=</span> actor<span class="op">.</span><span class="fu">bang</span><span class="op">(</span><span class="st">"a"</span><span class="op">);</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Future</span><span class="op">&lt;?&gt;</span> f2 <span class="op">=</span> actor<span class="op">.</span><span class="fu">bang</span><span class="op">(</span><span class="st">"b"</span><span class="op">);</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Future</span><span class="op">&lt;?&gt;</span> f3 <span class="op">=</span> actor<span class="op">.</span><span class="fu">bang</span><span class="op">(</span><span class="st">"c"</span><span class="op">);</span></span>
 <span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>        f3.<span class="fu">get</span>();</span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>        f2.<span class="fu">get</span>();</span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>        f1.<span class="fu">get</span>();</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>        f3<span class="op">.</span><span class="fu">get</span><span class="op">();</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>        f2<span class="op">.</span><span class="fu">get</span><span class="op">();</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>        f1<span class="op">.</span><span class="fu">get</span><span class="op">();</span></span>
 <span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>        actor.<span class="fu">terminate</span>();</span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>}</span></code></pre>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>        actor<span class="op">.</span><span class="fu">terminate</span><span class="op">();</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
     </div> 
     <p>If we run the above piece of code, the result will be as we expected. Seems it work, but wait, it’s not perfect. Why? (Why again ha?) Since we wrap each event(the data) into a ActorClosureStub instance(the task), we lost the smooth timeline state of the processsing. Simply put, the ActorClosureStub runs first has no correlation with other ActorClosureStubs. But in actor’s semantics, they should be one. So although this prototyping seems work, but it still have improvement space.</p> 
-    <h1 data-number="3" id="actor-with-state-copy-between-prototype-scope-actions"><span class="header-section-number">3</span> Actor With State Copy Between Prototype Scope Actions</h1> 
+    <h1 id="actor-with-state-copy-between-prototype-scope-actions">Actor With State Copy Between Prototype Scope Actions</h1> 
     <p>So I hope to copy the state between each ActorClosure after they run, in this way, the 1st ActorClosure will pass its state to the 2nd ActorClosure before the 2nd ActorClosure will run, and the 2nd ActorClosure will pass its state to the 3rd ActorClosure before the 3rd ActorClosure will run, and so on.</p> 
     <p>To make this happen, we can recall the hooks the ThreadPoolExecutor has, e.g.&nbsp;afterExecute(), beforeExecute(), furthermore, we can even directly override the execute() of it. Anyway, we can write such-alike code:</p> 
     <div class="sourceCode" id="cb5">
      <pre class="sourceCode java"><code class="sourceCode java"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> Although we seek to extend <span class="an">{@link </span>ActorWithPrototypeScopeActionClosure<span class="an">}</span> to</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> Although we seek to extend <span class="co">{@</span>link ActorWithPrototypeScopeActionClosure<span class="co">}</span> to</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> enable state copy between the action closures<span class="co">,</span> BUT it seems that the Executor</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> implementation doesn<span class="co">'</span>t allow us to go this way<span class="co">.</span><span class="kw">&lt;br&gt;</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> This Actor DOESN<span class="co">'</span>T Work<span class="co">!!!!</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> </span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="an">@author </span>fujohnwang</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="an">@since </span><span class="co">1.0</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="co">@</span>author fujohnwang</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="co">@</span>since <span class="co">1.0</span></span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a> <span class="co">*/</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> ActorWithStateCopy {</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> ActorWithStateCopy <span class="op">{</span></span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> ActorClosure&lt;<span class="bu">String</span>&gt;                           lastClosure;</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> ActionClosureStateCopier&lt;ActorClosure&lt;<span class="bu">String</span>&gt;&gt; stateCopier = <span class="kw">new</span> ActionClosureStateCopier&lt;ActorClosure&lt;<span class="bu">String</span>&gt;&gt;() {</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                                                                           <span class="kw">public</span> <span class="dt">void</span> <span class="fu">copy</span>(ActorClosure&lt;<span class="bu">String</span>&gt; from,</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>                                                                                            ActorClosure&lt;<span class="bu">String</span>&gt; to) {</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>                                                                               <span class="bu">System</span>.<span class="fu">out</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>                                                                                       .<span class="fu">println</span>(<span class="st">"do copy if necessary"</span>);</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>                                                                           }</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> ActorClosure<span class="op">&lt;</span><span class="bu">String</span><span class="op">&gt;</span>                           lastClosure<span class="op">;</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> ActionClosureStateCopier<span class="op">&lt;</span>ActorClosure<span class="op">&lt;</span><span class="bu">String</span><span class="op">&gt;&gt;</span> stateCopier <span class="op">=</span> <span class="kw">new</span> ActionClosureStateCopier<span class="op">&lt;</span>ActorClosure<span class="op">&lt;</span><span class="bu">String</span><span class="op">&gt;&gt;()</span> <span class="op">{</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                                                                           <span class="kw">public</span> <span class="dt">void</span> <span class="fu">copy</span><span class="op">(</span>ActorClosure<span class="op">&lt;</span><span class="bu">String</span><span class="op">&gt;</span> from<span class="op">,</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>                                                                                            ActorClosure<span class="op">&lt;</span><span class="bu">String</span><span class="op">&gt;</span> to<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>                                                                               <span class="bu">System</span><span class="op">.</span><span class="fu">out</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>                                                                                       <span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"do copy if necessary"</span><span class="op">);</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>                                                                           <span class="op">}</span></span>
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>                                                                       };</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>                                                                       <span class="op">};</span></span>
 <span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">ExecutorService</span>                                scheduler   = <span class="kw">new</span> <span class="bu">ThreadPoolExecutor</span>(</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>                                                                               <span class="dv">1</span>,</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>                                                                               <span class="dv">1</span>,</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>                                                                               <span class="dv">60</span>,</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>                                                                               <span class="bu">TimeUnit</span>.<span class="fu">SECONDS</span>,</span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>                                                                               <span class="kw">new</span> <span class="bu">ArrayBlockingQueue</span>&lt;<span class="bu">Runnable</span>&gt;(</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>                                                                                       <span class="dv">10</span>)) {</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">ExecutorService</span>                                scheduler   <span class="op">=</span> <span class="kw">new</span> <span class="bu">ThreadPoolExecutor</span><span class="op">(</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>                                                                               <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>                                                                               <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>                                                                               <span class="dv">60</span><span class="op">,</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>                                                                               <span class="bu">TimeUnit</span><span class="op">.</span><span class="fu">SECONDS</span><span class="op">,</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>                                                                               <span class="kw">new</span> <span class="bu">ArrayBlockingQueue</span><span class="op">&lt;</span><span class="bu">Runnable</span><span class="op">&gt;(</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>                                                                                       <span class="dv">10</span><span class="op">))</span> <span class="op">{</span></span>
 <span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="co">//                                                                           @Override</span></span>
 <span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="co">//                                                                           protected void afterExecute(Runnable arg0,</span></span>
@@ -281,297 +280,306 @@
 <span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="co">//                                                                                       arg0, arg1);</span></span>
 <span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="co">//                                                                           }</span></span>
 <span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>                                                                           <span class="at">@SuppressWarnings</span>(<span class="st">"unchecked"</span>)</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>                                                                           <span class="at">@SuppressWarnings</span><span class="op">(</span><span class="st">"unchecked"</span><span class="op">)</span></span>
 <span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>                                                                           <span class="at">@Override</span></span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>                                                                           <span class="kw">public</span> <span class="dt">void</span> <span class="fu">execute</span>(<span class="bu">Runnable</span> command) {</span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>                                                                               ActorClosure&lt;<span class="bu">String</span>&gt; r = (ActorClosure&lt;<span class="bu">String</span>&gt;) command;</span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>                                                                               <span class="kw">if</span> (lastClosure != <span class="kw">null</span></span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>                                                                                       &amp;&amp; stateCopier != <span class="kw">null</span>) {</span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>                                                                                   <span class="bu">System</span>.<span class="fu">out</span></span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>                                                                                           .<span class="fu">println</span>(<span class="st">"copy state before executing"</span>);</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>                                                                           <span class="kw">public</span> <span class="dt">void</span> <span class="fu">execute</span><span class="op">(</span><span class="bu">Runnable</span> command<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>                                                                               ActorClosure<span class="op">&lt;</span><span class="bu">String</span><span class="op">&gt;</span> r <span class="op">=</span> <span class="op">(</span>ActorClosure<span class="op">&lt;</span><span class="bu">String</span><span class="op">&gt;)</span> command<span class="op">;</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>                                                                               <span class="cf">if</span> <span class="op">(</span>lastClosure <span class="op">!=</span> <span class="kw">null</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>                                                                                       <span class="op">&amp;&amp;</span> stateCopier <span class="op">!=</span> <span class="kw">null</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>                                                                                   <span class="bu">System</span><span class="op">.</span><span class="fu">out</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>                                                                                           <span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"copy state before executing"</span><span class="op">);</span></span>
 <span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>                                                                                   stateCopier</span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>                                                                                           .<span class="fu">copy</span>(lastClosure,</span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>                                                                                                   r);</span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>                                                                               }</span>
-<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>                                                                               <span class="kw">super</span>.<span class="fu">execute</span>(r);</span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>                                                                                           <span class="op">.</span><span class="fu">copy</span><span class="op">(</span>lastClosure<span class="op">,</span></span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>                                                                                                   r<span class="op">);</span></span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>                                                                               <span class="op">}</span></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>                                                                               <span class="kw">super</span><span class="op">.</span><span class="fu">execute</span><span class="op">(</span>r<span class="op">);</span></span>
 <span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>                                                                               lastClosure = r;</span>
-<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>                                                                           }</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>                                                                               lastClosure <span class="op">=</span> r<span class="op">;</span></span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>                                                                           <span class="op">}</span></span>
 <span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>                                                                       };</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>                                                                       <span class="op">};</span></span>
 <span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">Class</span>&lt;? <span class="kw">extends</span> ActorClosure&lt;<span class="bu">String</span>&gt;&gt;          actionType  = ActorClosureStub.<span class="fu">class</span>;</span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">Class</span><span class="op">&lt;?</span> <span class="kw">extends</span> ActorClosure<span class="op">&lt;</span><span class="bu">String</span><span class="op">&gt;&gt;</span>          actionType  <span class="op">=</span> ActorClosureStub<span class="op">.</span><span class="fu">class</span><span class="op">;</span></span>
 <span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Future</span>&lt;?&gt; <span class="fu">bang</span>(<span class="bu">String</span> e) <span class="kw">throws</span> <span class="bu">Exception</span> {</span>
-<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>        ActorClosure&lt;<span class="bu">String</span>&gt; action = actionType.<span class="fu">newInstance</span>();</span>
-<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>        action.<span class="fu">sinkEvent</span>(e);</span>
-<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> scheduler.<span class="fu">submit</span>(action, <span class="kw">null</span>);</span>
-<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Future</span><span class="op">&lt;?&gt;</span> <span class="fu">bang</span><span class="op">(</span><span class="bu">String</span> e<span class="op">)</span> <span class="kw">throws</span> <span class="bu">Exception</span> <span class="op">{</span></span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>        ActorClosure<span class="op">&lt;</span><span class="bu">String</span><span class="op">&gt;</span> action <span class="op">=</span> actionType<span class="op">.</span><span class="fu">newInstance</span><span class="op">();</span></span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>        action<span class="op">.</span><span class="fu">sinkEvent</span><span class="op">(</span>e<span class="op">);</span></span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> scheduler<span class="op">.</span><span class="fu">submit</span><span class="op">(</span>action<span class="op">,</span> <span class="kw">null</span><span class="op">);</span></span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">setActionType</span>(<span class="bu">Class</span>&lt;? <span class="kw">extends</span> ActorClosure&lt;<span class="bu">String</span>&gt;&gt; actionType) {</span>
-<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span>.<span class="fu">actionType</span> = actionType;</span>
-<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">setActionType</span><span class="op">(</span><span class="bu">Class</span><span class="op">&lt;?</span> <span class="kw">extends</span> ActorClosure<span class="op">&lt;</span><span class="bu">String</span><span class="op">&gt;&gt;</span> actionType<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">actionType</span> <span class="op">=</span> actionType<span class="op">;</span></span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Class</span>&lt;? <span class="kw">extends</span> ActorClosure&lt;<span class="bu">String</span>&gt;&gt; <span class="fu">getActionType</span>() {</span>
-<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> actionType;</span>
-<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Class</span><span class="op">&lt;?</span> <span class="kw">extends</span> ActorClosure<span class="op">&lt;</span><span class="bu">String</span><span class="op">&gt;&gt;</span> <span class="fu">getActionType</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> actionType<span class="op">;</span></span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">terminate</span>() {</span>
-<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>        scheduler.<span class="fu">shutdown</span>();</span>
-<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">terminate</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>        scheduler<span class="op">.</span><span class="fu">shutdown</span><span class="op">();</span></span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>    <span class="co">/**</span></span>
-<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a>     <span class="co">* </span><span class="an">@param args</span></span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a><span class="co">     * @</span>param args</span>
 <span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>     <span class="co">*/</span></span>
-<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(<span class="bu">String</span>[] args) <span class="kw">throws</span> <span class="bu">Exception</span> {</span>
-<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>        ActorWithStateCopy actor = <span class="kw">new</span> <span class="fu">ActorWithStateCopy</span>();</span>
-<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Future</span>&lt;?&gt; f1 = actor.<span class="fu">bang</span>(<span class="st">"a"</span>);</span>
-<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Future</span>&lt;?&gt; f2 = actor.<span class="fu">bang</span>(<span class="st">"b"</span>);</span>
-<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Future</span>&lt;?&gt; f3 = actor.<span class="fu">bang</span>(<span class="st">"c"</span>);</span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="kw">throws</span> <span class="bu">Exception</span> <span class="op">{</span></span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>        ActorWithStateCopy actor <span class="op">=</span> <span class="kw">new</span> <span class="fu">ActorWithStateCopy</span><span class="op">();</span></span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Future</span><span class="op">&lt;?&gt;</span> f1 <span class="op">=</span> actor<span class="op">.</span><span class="fu">bang</span><span class="op">(</span><span class="st">"a"</span><span class="op">);</span></span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Future</span><span class="op">&lt;?&gt;</span> f2 <span class="op">=</span> actor<span class="op">.</span><span class="fu">bang</span><span class="op">(</span><span class="st">"b"</span><span class="op">);</span></span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Future</span><span class="op">&lt;?&gt;</span> f3 <span class="op">=</span> actor<span class="op">.</span><span class="fu">bang</span><span class="op">(</span><span class="st">"c"</span><span class="op">);</span></span>
 <span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a>        f3.<span class="fu">get</span>();</span>
-<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a>        f2.<span class="fu">get</span>();</span>
-<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a>        f1.<span class="fu">get</span>();</span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a>        f3<span class="op">.</span><span class="fu">get</span><span class="op">();</span></span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a>        f2<span class="op">.</span><span class="fu">get</span><span class="op">();</span></span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a>        f1<span class="op">.</span><span class="fu">get</span><span class="op">();</span></span>
 <span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a>        actor.<span class="fu">terminate</span>();</span>
-<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a>        actor<span class="op">.</span><span class="fu">terminate</span><span class="op">();</span></span>
+<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a>}</span></code></pre>
+<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
     </div> 
     <p>Let’s run the code. Oops, something goes wrong:</p> 
     <div class="sourceCode" id="cb6">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Exception</span> in thread <span class="st">"main"</span> java.<span class="fu">lang</span>.<span class="fu">ClassCastException</span>: java.<span class="fu">util</span>.<span class="fu">concurrent</span>.<span class="fu">FutureTask</span> cannot be cast to cn.<span class="fu">spring21</span>.<span class="fu">sandbox</span>.<span class="fu">actor</span>.<span class="fu">ActorClosure</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a> at cn.<span class="fu">spring21</span>.<span class="fu">sandbox</span>.<span class="fu">actor</span>.<span class="fu">ActorWithStateCopy</span>$<span class="fl">2.</span><span class="fu">execute</span>(ActorWithStateCopy.<span class="fu">java</span>:<span class="dv">55</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a> at java.<span class="fu">util</span>.<span class="fu">concurrent</span>.<span class="fu">AbstractExecutorService</span>.<span class="fu">submit</span>(<span class="bu">AbstractExecutorService</span>.<span class="fu">java</span>:<span class="dv">85</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a> at cn.<span class="fu">spring21</span>.<span class="fu">sandbox</span>.<span class="fu">actor</span>.<span class="fu">ActorWithStateCopy</span>.<span class="fu">bang</span>(ActorWithStateCopy.<span class="fu">java</span>:<span class="dv">76</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a> at cn.<span class="fu">spring21</span>.<span class="fu">sandbox</span>.<span class="fu">actor</span>.<span class="fu">ActorWithStateCopy</span>.<span class="fu">main</span>(ActorWithStateCopy.<span class="fu">java</span>:<span class="dv">96</span>) </span></code></pre>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Exception</span> in thread <span class="st">"main"</span> java<span class="op">.</span><span class="fu">lang</span><span class="op">.</span><span class="fu">ClassCastException</span><span class="op">:</span> java<span class="op">.</span><span class="fu">util</span><span class="op">.</span><span class="fu">concurrent</span><span class="op">.</span><span class="fu">FutureTask</span> cannot be cast to cn<span class="op">.</span><span class="fu">spring21</span><span class="op">.</span><span class="fu">sandbox</span><span class="op">.</span><span class="fu">actor</span><span class="op">.</span><span class="fu">ActorClosure</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a> at cn<span class="op">.</span><span class="fu">spring21</span><span class="op">.</span><span class="fu">sandbox</span><span class="op">.</span><span class="fu">actor</span><span class="op">.</span><span class="fu">ActorWithStateCopy</span>$<span class="fl">2.</span><span class="fu">execute</span><span class="op">(</span>ActorWithStateCopy<span class="op">.</span><span class="fu">java</span><span class="op">:</span><span class="dv">55</span><span class="op">)</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a> at java<span class="op">.</span><span class="fu">util</span><span class="op">.</span><span class="fu">concurrent</span><span class="op">.</span><span class="fu">AbstractExecutorService</span><span class="op">.</span><span class="fu">submit</span><span class="op">(</span><span class="bu">AbstractExecutorService</span><span class="op">.</span><span class="fu">java</span><span class="op">:</span><span class="dv">85</span><span class="op">)</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a> at cn<span class="op">.</span><span class="fu">spring21</span><span class="op">.</span><span class="fu">sandbox</span><span class="op">.</span><span class="fu">actor</span><span class="op">.</span><span class="fu">ActorWithStateCopy</span><span class="op">.</span><span class="fu">bang</span><span class="op">(</span>ActorWithStateCopy<span class="op">.</span><span class="fu">java</span><span class="op">:</span><span class="dv">76</span><span class="op">)</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a> at cn<span class="op">.</span><span class="fu">spring21</span><span class="op">.</span><span class="fu">sandbox</span><span class="op">.</span><span class="fu">actor</span><span class="op">.</span><span class="fu">ActorWithStateCopy</span><span class="op">.</span><span class="fu">main</span><span class="op">(</span>ActorWithStateCopy<span class="op">.</span><span class="fu">java</span><span class="op">:</span><span class="dv">96</span><span class="op">)</span> </span></code></pre>
     </div> 
     <p>See the problem? Wow, ThreadPoolExecutor really do some dirty things there, and I tries to bypass it but finally, I found I couldn’t :-(</p> 
-    <h1 data-number="4" id="raw-thread-based-actor-prototyping-workable"><span class="header-section-number">4</span> Raw Thread Based Actor Prototyping (Workable)</h1> 
+    <h1 id="raw-thread-based-actor-prototyping-workable">Raw Thread Based Actor Prototyping (Workable)</h1> 
     <p>I fall back to a raw thread solution for the actor. The final code is listed here:</p> 
     <div class="sourceCode" id="cb7">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> ImprovedThreadBasedActor&lt;T&gt; <span class="kw">extends</span> <span class="bu">Thread</span> {</span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> ImprovedThreadBasedActor<span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="kw">extends</span> <span class="bu">Thread</span> <span class="op">{</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">static</span> <span class="dt">final</span> <span class="bu">Logger</span>            logger  = LoggerFactory</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                                                           .<span class="fu">getLogger</span>(ImprovedThreadBasedActor.<span class="fu">class</span>);</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">static</span> <span class="dt">final</span> <span class="bu">Logger</span>            logger  <span class="op">=</span> LoggerFactory</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                                                           <span class="op">.</span><span class="fu">getLogger</span><span class="op">(</span>ImprovedThreadBasedActor<span class="op">.</span><span class="fu">class</span><span class="op">);</span></span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">BlockingQueue</span>&lt;EventWrapper&lt;T&gt;&gt; mailbox;</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">volatile</span> <span class="dt">boolean</span>               running = <span class="kw">true</span>;</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> ActorClosure&lt;T&gt;                action;</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">BlockingQueue</span><span class="op">&lt;</span>EventWrapper<span class="op">&lt;</span>T<span class="op">&gt;&gt;</span> mailbox<span class="op">;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">volatile</span> <span class="dt">boolean</span>               running <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> ActorClosure<span class="op">&lt;</span>T<span class="op">&gt;</span>                action<span class="op">;</span></span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="fu">ImprovedThreadBasedActor</span>(ActorClosure&lt;T&gt; action) {</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span>(action, <span class="dv">100</span>);</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="fu">ImprovedThreadBasedActor</span><span class="op">(</span>ActorClosure<span class="op">&lt;</span>T<span class="op">&gt;</span> action<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">(</span>action<span class="op">,</span> <span class="dv">100</span><span class="op">);</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="fu">ImprovedThreadBasedActor</span>(ActorClosure&lt;T&gt; action, <span class="dt">int</span> mailboxSize) {</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        Validate.<span class="fu">notNull</span>(action);</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="fu">ImprovedThreadBasedActor</span><span class="op">(</span>ActorClosure<span class="op">&lt;</span>T<span class="op">&gt;</span> action<span class="op">,</span> <span class="dt">int</span> mailboxSize<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        Validate<span class="op">.</span><span class="fu">notNull</span><span class="op">(</span>action<span class="op">);</span></span>
 <span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        mailbox = <span class="kw">new</span> <span class="bu">ArrayBlockingQueue</span>&lt;EventWrapper&lt;T&gt;&gt;(mailboxSize &lt;= <span class="dv">0</span> ? <span class="dv">100</span> : mailboxSize);</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span>.<span class="fu">action</span> = action;</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        mailbox <span class="op">=</span> <span class="kw">new</span> <span class="bu">ArrayBlockingQueue</span><span class="op">&lt;</span>EventWrapper<span class="op">&lt;</span>T<span class="op">&gt;&gt;(</span>mailboxSize <span class="op">&lt;=</span> <span class="dv">0</span> <span class="op">?</span> <span class="dv">100</span> <span class="op">:</span> mailboxSize<span class="op">);</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">action</span> <span class="op">=</span> action<span class="op">;</span></span>
 <span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Future</span>&lt;?&gt; <span class="fu">sendAndAsyncWait</span>(T event) <span class="kw">throws</span> <span class="bu">Exception</span> {</span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> (!running) {</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>            <span class="kw">throw</span> <span class="kw">new</span> <span class="bu">Exception</span>(<span class="st">"the actor is down"</span>);</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>        <span class="bu">FutureTask</span>&lt;<span class="bu">Object</span>&gt; future = <span class="kw">new</span> <span class="bu">FutureTask</span>&lt;<span class="bu">Object</span>&gt;(<span class="kw">new</span> <span class="bu">Runnable</span>() {</span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>            <span class="kw">public</span> <span class="dt">void</span> <span class="fu">run</span>() {</span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>            }</span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>        }, <span class="kw">true</span>);</span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>        EventWrapper&lt;T&gt; wrapper = <span class="kw">new</span> EventWrapper&lt;T&gt;(event, future);</span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>        mailbox.<span class="fu">put</span>(wrapper);</span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> future;</span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Future</span><span class="op">&lt;?&gt;</span> <span class="fu">sendAndAsyncWait</span><span class="op">(</span>T event<span class="op">)</span> <span class="kw">throws</span> <span class="bu">Exception</span> <span class="op">{</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(!</span>running<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>            <span class="cf">throw</span> <span class="kw">new</span> <span class="bu">Exception</span><span class="op">(</span><span class="st">"the actor is down"</span><span class="op">);</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>        <span class="bu">FutureTask</span><span class="op">&lt;</span><span class="bu">Object</span><span class="op">&gt;</span> future <span class="op">=</span> <span class="kw">new</span> <span class="bu">FutureTask</span><span class="op">&lt;</span><span class="bu">Object</span><span class="op">&gt;(</span><span class="kw">new</span> <span class="bu">Runnable</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>            <span class="kw">public</span> <span class="dt">void</span> <span class="fu">run</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>        <span class="op">},</span> <span class="kw">true</span><span class="op">);</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>        EventWrapper<span class="op">&lt;</span>T<span class="op">&gt;</span> wrapper <span class="op">=</span> <span class="kw">new</span> EventWrapper<span class="op">&lt;</span>T<span class="op">&gt;(</span>event<span class="op">,</span> future<span class="op">);</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>        mailbox<span class="op">.</span><span class="fu">put</span><span class="op">(</span>wrapper<span class="op">);</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> future<span class="op">;</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">run</span>() {</span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>        <span class="kw">while</span> (running) {</span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>            <span class="kw">try</span> {</span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>                EventWrapper&lt;T&gt; wrapper = mailbox.<span class="fu">take</span>();</span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>                <span class="kw">try</span> {</span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>                    action.<span class="fu">sinkEvent</span>(wrapper.<span class="fu">getEvent</span>());</span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>                    action.<span class="fu">run</span>();</span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>                    wrapper.<span class="fu">getFuture</span>().<span class="fu">run</span>();</span>
-<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>                } <span class="kw">catch</span> (<span class="bu">Exception</span> e) {</span>
-<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>                    logger.<span class="fu">error</span>(<span class="st">"exception in actor execution which will stop the actor:</span><span class="sc">\n</span><span class="st">{}"</span>,</span>
-<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>                            ExceptionUtils.<span class="fu">getFullStackTrace</span>(e));</span>
-<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">break</span>;</span>
-<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>                }</span>
-<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>            } <span class="kw">catch</span> (<span class="bu">InterruptedException</span> e) {</span>
-<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>                logger.<span class="fu">info</span>(<span class="st">"ImprovedThreadBasedActor running thread is interrupted:{}"</span>,</span>
-<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>                        ExceptionUtils.<span class="fu">getFullStackTrace</span>(e));</span>
-<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>                <span class="kw">continue</span>;</span>
-<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>            }</span>
-<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>        logger.<span class="fu">info</span>(<span class="st">"ImprovedThreadBasedActor is down."</span>);</span>
-<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">run</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> <span class="op">(</span>running<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>            <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>                EventWrapper<span class="op">&lt;</span>T<span class="op">&gt;</span> wrapper <span class="op">=</span> mailbox<span class="op">.</span><span class="fu">take</span><span class="op">();</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>                <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>                    action<span class="op">.</span><span class="fu">sinkEvent</span><span class="op">(</span>wrapper<span class="op">.</span><span class="fu">getEvent</span><span class="op">());</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>                    action<span class="op">.</span><span class="fu">run</span><span class="op">();</span></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>                    wrapper<span class="op">.</span><span class="fu">getFuture</span><span class="op">().</span><span class="fu">run</span><span class="op">();</span></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>                <span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">Exception</span> e<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>                    logger<span class="op">.</span><span class="fu">error</span><span class="op">(</span><span class="st">"exception in actor execution which will stop the actor:</span><span class="sc">\n</span><span class="st">{}"</span><span class="op">,</span></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>                            ExceptionUtils<span class="op">.</span><span class="fu">getFullStackTrace</span><span class="op">(</span>e<span class="op">));</span></span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>                <span class="op">}</span></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">InterruptedException</span> e<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>                logger<span class="op">.</span><span class="fu">info</span><span class="op">(</span><span class="st">"ImprovedThreadBasedActor running thread is interrupted:{}"</span><span class="op">,</span></span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>                        ExceptionUtils<span class="op">.</span><span class="fu">getFullStackTrace</span><span class="op">(</span>e<span class="op">));</span></span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>                <span class="cf">continue</span><span class="op">;</span></span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>        logger<span class="op">.</span><span class="fu">info</span><span class="op">(</span><span class="st">"ImprovedThreadBasedActor is down."</span><span class="op">);</span></span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">terminate</span>() {</span>
-<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>        running = <span class="kw">false</span>;</span>
-<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>        <span class="fu">interrupt</span>();</span>
-<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">terminate</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>        running <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>        <span class="fu">interrupt</span><span class="op">();</span></span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(<span class="bu">String</span>[] args) <span class="kw">throws</span> <span class="bu">Exception</span> {</span>
-<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>        ImprovedThreadBasedActor&lt;<span class="bu">String</span>&gt; actor = <span class="kw">new</span> ImprovedThreadBasedActor&lt;<span class="bu">String</span>&gt;(</span>
-<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>                <span class="kw">new</span> <span class="fu">ActorClosureStub</span>(), <span class="dv">10</span>);</span>
-<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>        actor.<span class="fu">start</span>();</span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="kw">throws</span> <span class="bu">Exception</span> <span class="op">{</span></span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>        ImprovedThreadBasedActor<span class="op">&lt;</span><span class="bu">String</span><span class="op">&gt;</span> actor <span class="op">=</span> <span class="kw">new</span> ImprovedThreadBasedActor<span class="op">&lt;</span><span class="bu">String</span><span class="op">&gt;(</span></span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>                <span class="kw">new</span> <span class="fu">ActorClosureStub</span><span class="op">(),</span> <span class="dv">10</span><span class="op">);</span></span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>        actor<span class="op">.</span><span class="fu">start</span><span class="op">();</span></span>
 <span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Future</span>&lt;?&gt; f1 = actor.<span class="fu">sendAndAsyncWait</span>(<span class="st">"a"</span>);</span>
-<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Future</span>&lt;?&gt; f2 = actor.<span class="fu">sendAndAsyncWait</span>(<span class="st">"b"</span>);</span>
-<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Future</span>&lt;?&gt; f3 = actor.<span class="fu">sendAndAsyncWait</span>(<span class="st">"c"</span>);</span>
-<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>        f3.<span class="fu">get</span>();</span>
-<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">"f2 is done? "</span> + f2.<span class="fu">isDone</span>());</span>
-<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>        f2.<span class="fu">get</span>();</span>
-<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">"f1 is done? "</span> + f2.<span class="fu">isDone</span>());</span>
-<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a>        f1.<span class="fu">get</span>();</span>
-<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">"stop the actor."</span>);</span>
-<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>        actor.<span class="fu">terminate</span>();</span>
-<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a>}</span></code></pre>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Future</span><span class="op">&lt;?&gt;</span> f1 <span class="op">=</span> actor<span class="op">.</span><span class="fu">sendAndAsyncWait</span><span class="op">(</span><span class="st">"a"</span><span class="op">);</span></span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Future</span><span class="op">&lt;?&gt;</span> f2 <span class="op">=</span> actor<span class="op">.</span><span class="fu">sendAndAsyncWait</span><span class="op">(</span><span class="st">"b"</span><span class="op">);</span></span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Future</span><span class="op">&lt;?&gt;</span> f3 <span class="op">=</span> actor<span class="op">.</span><span class="fu">sendAndAsyncWait</span><span class="op">(</span><span class="st">"c"</span><span class="op">);</span></span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>        f3<span class="op">.</span><span class="fu">get</span><span class="op">();</span></span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"f2 is done? "</span> <span class="op">+</span> f2<span class="op">.</span><span class="fu">isDone</span><span class="op">());</span></span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>        f2<span class="op">.</span><span class="fu">get</span><span class="op">();</span></span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"f1 is done? "</span> <span class="op">+</span> f2<span class="op">.</span><span class="fu">isDone</span><span class="op">());</span></span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a>        f1<span class="op">.</span><span class="fu">get</span><span class="op">();</span></span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"stop the actor."</span><span class="op">);</span></span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>        actor<span class="op">.</span><span class="fu">terminate</span><span class="op">();</span></span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
     </div> 
     <p>No explanation on this, you can explore it yourself. There are several tricky things in the code, I hope you can figure out the reason. GL and HF.</p> 
-    <h2 data-number="4.1" id="another-version"><span class="header-section-number">4.1</span> Another Version</h2> 
+    <h2 id="another-version">Another Version</h2> 
     <div class="sourceCode" id="cb8">
      <pre class="sourceCode java"><code class="sourceCode java"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> This is a heavy weight thread based actor implementation<span class="co">.</span><span class="kw">&lt;br&gt;</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> </span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a> <span class="co">* </span><span class="an">@author </span>fujohnwang</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="an">@param &lt;T&gt;, </span>the event type to be processed</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="an">@param &lt;R&gt;, </span>result type after processing the event<span class="co">.</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"> * @</span>author fujohnwang</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="co">@</span>param <span class="kw">&lt;T&gt;</span><span class="co">,</span> the event type to be processed</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="co">@</span>param <span class="kw">&lt;R&gt;</span><span class="co">,</span> result type after processing the event<span class="co">.</span></span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a> <span class="co">*/</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> ThreadActor&lt;T, R&gt; <span class="kw">extends</span> <span class="bu">Thread</span> {</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">transient</span> <span class="dt">final</span> <span class="bu">Logger</span>            logger  = LoggerFactory.<span class="fu">getLogger</span>(<span class="kw">this</span>.<span class="fu">getClass</span>());</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> ThreadActor<span class="op">&lt;</span>T<span class="op">,</span> R<span class="op">&gt;</span> <span class="kw">extends</span> <span class="bu">Thread</span> <span class="op">{</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">transient</span> <span class="dt">final</span> <span class="bu">Logger</span>            logger  <span class="op">=</span> LoggerFactory<span class="op">.</span><span class="fu">getLogger</span><span class="op">(</span><span class="kw">this</span><span class="op">.</span><span class="fu">getClass</span><span class="op">());</span></span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">volatile</span> <span class="dt">boolean</span>                  running = <span class="kw">true</span>;</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">BlockingQueue</span>&lt;EventWrapper&lt;T, R&gt;&gt; mailbox;</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> Reaction&lt;T, R&gt;                    action;</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">volatile</span> <span class="dt">boolean</span>                  running <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">BlockingQueue</span><span class="op">&lt;</span>EventWrapper<span class="op">&lt;</span>T<span class="op">,</span> R<span class="op">&gt;&gt;</span> mailbox<span class="op">;</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> Reaction<span class="op">&lt;</span>T<span class="op">,</span> R<span class="op">&gt;</span>                    action<span class="op">;</span></span>
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="fu">ThreadActor</span>(Reaction&lt;T, R&gt; action, <span class="dt">int</span> mailboxSize) {</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span>.<span class="fu">action</span> = action;</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span>.<span class="fu">mailbox</span> = <span class="kw">new</span> <span class="bu">ArrayBlockingQueue</span>&lt;EventWrapper&lt;T, R&gt;&gt;((mailboxSize &lt;= <span class="dv">0</span>) ? <span class="dv">100</span></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>                : mailboxSize);</span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="fu">ThreadActor</span><span class="op">(</span>Reaction<span class="op">&lt;</span>T<span class="op">,</span> R<span class="op">&gt;</span> action<span class="op">,</span> <span class="dt">int</span> mailboxSize<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">action</span> <span class="op">=</span> action<span class="op">;</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">mailbox</span> <span class="op">=</span> <span class="kw">new</span> <span class="bu">ArrayBlockingQueue</span><span class="op">&lt;</span>EventWrapper<span class="op">&lt;</span>T<span class="op">,</span> R<span class="op">&gt;&gt;((</span>mailboxSize <span class="op">&lt;=</span> <span class="dv">0</span><span class="op">)</span> <span class="op">?</span> <span class="dv">100</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>                <span class="op">:</span> mailboxSize<span class="op">);</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Future</span>&lt;R&gt; <span class="fu">sendAndAsycAwait</span>(T event) <span class="kw">throws</span> <span class="bu">Exception</span> {</span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> (!running) {</span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>            <span class="kw">throw</span> <span class="kw">new</span> <span class="bu">Exception</span>(<span class="st">"the actor is down"</span>);</span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>        FutureProxy&lt;R&gt; f = <span class="kw">new</span> FutureProxy&lt;R&gt;(<span class="kw">new</span> <span class="bu">FutureTask</span>&lt;R&gt;(<span class="kw">new</span> <span class="bu">Callable</span>&lt;R&gt;() {</span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>            <span class="kw">public</span> R <span class="fu">call</span>() <span class="kw">throws</span> <span class="bu">Exception</span> {</span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>                <span class="kw">return</span> <span class="kw">null</span>;</span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>            }</span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>        }));</span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>        mailbox.<span class="fu">put</span>(<span class="kw">new</span> EventWrapper&lt;T, R&gt;(event, f));</span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> f;</span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Future</span><span class="op">&lt;</span>R<span class="op">&gt;</span> <span class="fu">sendAndAsycAwait</span><span class="op">(</span>T event<span class="op">)</span> <span class="kw">throws</span> <span class="bu">Exception</span> <span class="op">{</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(!</span>running<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>            <span class="cf">throw</span> <span class="kw">new</span> <span class="bu">Exception</span><span class="op">(</span><span class="st">"the actor is down"</span><span class="op">);</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>        FutureProxy<span class="op">&lt;</span>R<span class="op">&gt;</span> f <span class="op">=</span> <span class="kw">new</span> FutureProxy<span class="op">&lt;</span>R<span class="op">&gt;(</span><span class="kw">new</span> <span class="bu">FutureTask</span><span class="op">&lt;</span>R<span class="op">&gt;(</span><span class="kw">new</span> <span class="bu">Callable</span><span class="op">&lt;</span>R<span class="op">&gt;()</span> <span class="op">{</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>            <span class="kw">public</span> R <span class="fu">call</span><span class="op">()</span> <span class="kw">throws</span> <span class="bu">Exception</span> <span class="op">{</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>        <span class="op">}));</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>        mailbox<span class="op">.</span><span class="fu">put</span><span class="op">(</span><span class="kw">new</span> EventWrapper<span class="op">&lt;</span>T<span class="op">,</span> R<span class="op">&gt;(</span>event<span class="op">,</span> f<span class="op">));</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> f<span class="op">;</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
-<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">run</span>() {</span>
-<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>        <span class="kw">while</span> (running) {</span>
-<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>            <span class="kw">try</span> {</span>
-<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>                EventWrapper&lt;T, R&gt; e = mailbox.<span class="fu">take</span>();</span>
-<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>                action.<span class="fu">sink</span>(e.<span class="fu">getEvent</span>());</span>
-<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>                <span class="kw">try</span> {</span>
-<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>                    R r = action.<span class="fu">call</span>();</span>
-<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>                    e.<span class="fu">getFuture</span>().<span class="fu">setResult</span>(r);</span>
-<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>                } <span class="kw">catch</span> (<span class="bu">Exception</span> e1) {</span>
-<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>                    e.<span class="fu">getFuture</span>().<span class="fu">setCause</span>(e1);</span>
-<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>                } <span class="kw">finally</span> {</span>
-<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>                    e.<span class="fu">getFuture</span>().<span class="fu">getDelegate</span>().<span class="fu">run</span>();</span>
-<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>                }</span>
-<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a>            } <span class="kw">catch</span> (<span class="bu">InterruptedException</span> e) {</span>
-<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>                <span class="kw">continue</span>;</span>
-<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>            }</span>
-<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a>        logger.<span class="fu">info</span>(<span class="st">"actor shutdown"</span>);</span>
-<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">run</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> <span class="op">(</span>running<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>            <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>                EventWrapper<span class="op">&lt;</span>T<span class="op">,</span> R<span class="op">&gt;</span> e <span class="op">=</span> mailbox<span class="op">.</span><span class="fu">take</span><span class="op">();</span></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>                action<span class="op">.</span><span class="fu">sink</span><span class="op">(</span>e<span class="op">.</span><span class="fu">getEvent</span><span class="op">());</span></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>                <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>                    R r <span class="op">=</span> action<span class="op">.</span><span class="fu">call</span><span class="op">();</span></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>                    e<span class="op">.</span><span class="fu">getFuture</span><span class="op">().</span><span class="fu">setResult</span><span class="op">(</span>r<span class="op">);</span></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>                <span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">Exception</span> e1<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>                    e<span class="op">.</span><span class="fu">getFuture</span><span class="op">().</span><span class="fu">setCause</span><span class="op">(</span>e1<span class="op">);</span></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>                <span class="op">}</span> <span class="cf">finally</span> <span class="op">{</span></span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>                    e<span class="op">.</span><span class="fu">getFuture</span><span class="op">().</span><span class="fu">getDelegate</span><span class="op">().</span><span class="fu">run</span><span class="op">();</span></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>                <span class="op">}</span></span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">InterruptedException</span> e<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>                <span class="cf">continue</span><span class="op">;</span></span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a>        logger<span class="op">.</span><span class="fu">info</span><span class="op">(</span><span class="st">"actor shutdown"</span><span class="op">);</span></span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">terminate</span>() {</span>
-<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a>        running = <span class="kw">false</span>;</span>
-<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a>        <span class="fu">interrupt</span>();</span>
-<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">terminate</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a>        running <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a>        <span class="fu">interrupt</span><span class="op">();</span></span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(<span class="bu">String</span> args[]) {</span>
-<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a>        ThreadActor&lt;<span class="bu">String</span>, <span class="bu">Boolean</span>&gt; actor = <span class="kw">new</span> ThreadActor&lt;<span class="bu">String</span>, <span class="bu">Boolean</span>&gt;(<span class="kw">new</span> <span class="fu">ReactionStub</span>(),</span>
-<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a>                <span class="dv">10</span>);</span>
-<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a>        actor.<span class="fu">start</span>();</span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span> args<span class="op">[])</span> <span class="op">{</span></span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a>        ThreadActor<span class="op">&lt;</span><span class="bu">String</span><span class="op">,</span> <span class="bu">Boolean</span><span class="op">&gt;</span> actor <span class="op">=</span> <span class="kw">new</span> ThreadActor<span class="op">&lt;</span><span class="bu">String</span><span class="op">,</span> <span class="bu">Boolean</span><span class="op">&gt;(</span><span class="kw">new</span> <span class="fu">ReactionStub</span><span class="op">(),</span></span>
+<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a>                <span class="dv">10</span><span class="op">);</span></span>
+<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a>        actor<span class="op">.</span><span class="fu">start</span><span class="op">();</span></span>
 <span id="cb8-64"><a href="#cb8-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-65"><a href="#cb8-65" aria-hidden="true" tabindex="-1"></a>        <span class="kw">try</span> {</span>
-<span id="cb8-66"><a href="#cb8-66" aria-hidden="true" tabindex="-1"></a>            <span class="kw">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; <span class="dv">10</span>; i++) {</span>
-<span id="cb8-67"><a href="#cb8-67" aria-hidden="true" tabindex="-1"></a>                <span class="kw">try</span> {</span>
-<span id="cb8-68"><a href="#cb8-68" aria-hidden="true" tabindex="-1"></a>                    <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(actor.<span class="fu">sendAndAsycAwait</span>(<span class="bu">String</span>.<span class="fu">valueOf</span>(i)).<span class="fu">get</span>());</span>
-<span id="cb8-69"><a href="#cb8-69" aria-hidden="true" tabindex="-1"></a>                } <span class="kw">catch</span> (<span class="bu">InterruptedException</span> e) {</span>
+<span id="cb8-65"><a href="#cb8-65" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb8-66"><a href="#cb8-66" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">10</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb8-67"><a href="#cb8-67" aria-hidden="true" tabindex="-1"></a>                <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb8-68"><a href="#cb8-68" aria-hidden="true" tabindex="-1"></a>                    <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>actor<span class="op">.</span><span class="fu">sendAndAsycAwait</span><span class="op">(</span><span class="bu">String</span><span class="op">.</span><span class="fu">valueOf</span><span class="op">(</span>i<span class="op">)).</span><span class="fu">get</span><span class="op">());</span></span>
+<span id="cb8-69"><a href="#cb8-69" aria-hidden="true" tabindex="-1"></a>                <span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">InterruptedException</span> e<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb8-70"><a href="#cb8-70" aria-hidden="true" tabindex="-1"></a>                    <span class="co">// </span><span class="al">TODO</span><span class="co"> Auto-generated catch block</span></span>
-<span id="cb8-71"><a href="#cb8-71" aria-hidden="true" tabindex="-1"></a>                    e.<span class="fu">printStackTrace</span>();</span>
-<span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a>                } <span class="kw">catch</span> (<span class="bu">ExecutionException</span> e) {</span>
+<span id="cb8-71"><a href="#cb8-71" aria-hidden="true" tabindex="-1"></a>                    e<span class="op">.</span><span class="fu">printStackTrace</span><span class="op">();</span></span>
+<span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a>                <span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">ExecutionException</span> e<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a>                    <span class="co">// </span><span class="al">TODO</span><span class="co"> Auto-generated catch block</span></span>
-<span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a>                    e.<span class="fu">printStackTrace</span>();</span>
-<span id="cb8-75"><a href="#cb8-75" aria-hidden="true" tabindex="-1"></a>                } <span class="kw">catch</span> (<span class="bu">Exception</span> e) {</span>
+<span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a>                    e<span class="op">.</span><span class="fu">printStackTrace</span><span class="op">();</span></span>
+<span id="cb8-75"><a href="#cb8-75" aria-hidden="true" tabindex="-1"></a>                <span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">Exception</span> e<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb8-76"><a href="#cb8-76" aria-hidden="true" tabindex="-1"></a>                    <span class="co">// </span><span class="al">TODO</span><span class="co"> Auto-generated catch block</span></span>
-<span id="cb8-77"><a href="#cb8-77" aria-hidden="true" tabindex="-1"></a>                    e.<span class="fu">printStackTrace</span>();</span>
-<span id="cb8-78"><a href="#cb8-78" aria-hidden="true" tabindex="-1"></a>                }</span>
-<span id="cb8-79"><a href="#cb8-79" aria-hidden="true" tabindex="-1"></a>            }</span>
-<span id="cb8-80"><a href="#cb8-80" aria-hidden="true" tabindex="-1"></a>        } <span class="kw">finally</span> {</span>
-<span id="cb8-81"><a href="#cb8-81" aria-hidden="true" tabindex="-1"></a>            actor.<span class="fu">terminate</span>();</span>
-<span id="cb8-82"><a href="#cb8-82" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb8-83"><a href="#cb8-83" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb8-84"><a href="#cb8-84" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-77"><a href="#cb8-77" aria-hidden="true" tabindex="-1"></a>                    e<span class="op">.</span><span class="fu">printStackTrace</span><span class="op">();</span></span>
+<span id="cb8-78"><a href="#cb8-78" aria-hidden="true" tabindex="-1"></a>                <span class="op">}</span></span>
+<span id="cb8-79"><a href="#cb8-79" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb8-80"><a href="#cb8-80" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">finally</span> <span class="op">{</span></span>
+<span id="cb8-81"><a href="#cb8-81" aria-hidden="true" tabindex="-1"></a>            actor<span class="op">.</span><span class="fu">terminate</span><span class="op">();</span></span>
+<span id="cb8-82"><a href="#cb8-82" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb8-83"><a href="#cb8-83" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb8-84"><a href="#cb8-84" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
 <span id="cb8-85"><a href="#cb8-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-86"><a href="#cb8-86" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ReactionStub <span class="kw">implements</span> Reaction&lt;<span class="bu">String</span>, <span class="bu">Boolean</span>&gt; {</span>
+<span id="cb8-86"><a href="#cb8-86" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ReactionStub <span class="kw">implements</span> Reaction<span class="op">&lt;</span><span class="bu">String</span><span class="op">,</span> <span class="bu">Boolean</span><span class="op">&gt;</span> <span class="op">{</span></span>
 <span id="cb8-87"><a href="#cb8-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-88"><a href="#cb8-88" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">long</span>   counter;</span>
-<span id="cb8-89"><a href="#cb8-89" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> event;</span>
+<span id="cb8-88"><a href="#cb8-88" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">long</span>   counter<span class="op">;</span></span>
+<span id="cb8-89"><a href="#cb8-89" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> event<span class="op">;</span></span>
 <span id="cb8-90"><a href="#cb8-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-91"><a href="#cb8-91" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Boolean</span> <span class="fu">call</span>() <span class="kw">throws</span> <span class="bu">Exception</span> {</span>
-<span id="cb8-92"><a href="#cb8-92" aria-hidden="true" tabindex="-1"></a>        <span class="kw">try</span> {</span>
-<span id="cb8-93"><a href="#cb8-93" aria-hidden="true" tabindex="-1"></a>            <span class="kw">if</span> (counter % <span class="dv">2</span> == <span class="dv">0</span>) {</span>
-<span id="cb8-94"><a href="#cb8-94" aria-hidden="true" tabindex="-1"></a>                <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">"message received:"</span> + event);</span>
-<span id="cb8-95"><a href="#cb8-95" aria-hidden="true" tabindex="-1"></a>                <span class="kw">return</span> <span class="kw">true</span>;</span>
-<span id="cb8-96"><a href="#cb8-96" aria-hidden="true" tabindex="-1"></a>            } <span class="kw">else</span> {</span>
-<span id="cb8-97"><a href="#cb8-97" aria-hidden="true" tabindex="-1"></a>                <span class="kw">throw</span> <span class="kw">new</span> <span class="bu">Exception</span>(<span class="st">"sample exception"</span>);</span>
-<span id="cb8-98"><a href="#cb8-98" aria-hidden="true" tabindex="-1"></a>            }</span>
-<span id="cb8-99"><a href="#cb8-99" aria-hidden="true" tabindex="-1"></a>        } <span class="kw">finally</span> {</span>
-<span id="cb8-100"><a href="#cb8-100" aria-hidden="true" tabindex="-1"></a>            counter += <span class="dv">1</span>;</span>
-<span id="cb8-101"><a href="#cb8-101" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb8-91"><a href="#cb8-91" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Boolean</span> <span class="fu">call</span><span class="op">()</span> <span class="kw">throws</span> <span class="bu">Exception</span> <span class="op">{</span></span>
+<span id="cb8-92"><a href="#cb8-92" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb8-93"><a href="#cb8-93" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>counter <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-94"><a href="#cb8-94" aria-hidden="true" tabindex="-1"></a>                <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"message received:"</span> <span class="op">+</span> event<span class="op">);</span></span>
+<span id="cb8-95"><a href="#cb8-95" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb8-96"><a href="#cb8-96" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb8-97"><a href="#cb8-97" aria-hidden="true" tabindex="-1"></a>                <span class="cf">throw</span> <span class="kw">new</span> <span class="bu">Exception</span><span class="op">(</span><span class="st">"sample exception"</span><span class="op">);</span></span>
+<span id="cb8-98"><a href="#cb8-98" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb8-99"><a href="#cb8-99" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">finally</span> <span class="op">{</span></span>
+<span id="cb8-100"><a href="#cb8-100" aria-hidden="true" tabindex="-1"></a>            counter <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb8-101"><a href="#cb8-101" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
 <span id="cb8-102"><a href="#cb8-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-103"><a href="#cb8-103" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-103"><a href="#cb8-103" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb8-104"><a href="#cb8-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-105"><a href="#cb8-105" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">sink</span>(<span class="bu">String</span> event) {</span>
-<span id="cb8-106"><a href="#cb8-106" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span>.<span class="fu">event</span> = event;</span>
-<span id="cb8-107"><a href="#cb8-107" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-105"><a href="#cb8-105" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">sink</span><span class="op">(</span><span class="bu">String</span> event<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-106"><a href="#cb8-106" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">event</span> <span class="op">=</span> event<span class="op">;</span></span>
+<span id="cb8-107"><a href="#cb8-107" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb8-108"><a href="#cb8-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-109"><a href="#cb8-109" aria-hidden="true" tabindex="-1"></a>}</span></code></pre>
+<span id="cb8-109"><a href="#cb8-109" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
     </div> 
     <p>优劣不解释。</p> 
-    <h1 data-number="5" id="conclusion"><span class="header-section-number">5</span> Conclusion</h1> 
+    <h1 id="conclusion">Conclusion</h1> 
     <p>The above words just a play-around, don’t treat it too serious. It’s not rocket science, If you are looking for such thing, get away. These words are not for you.</p> 
     <p><strong>Caution: The last method still has gotchas, Improvement is still in progress</strong></p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
     <hr> 
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2009-08-24-book-cover-confirmed.html">封面终于确定下来了… </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2018-04-05-expect_incentive_and_opportunity_cost.html">预期， 激励与机会成本 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2008-06-02-days-go-on.html">days go on… </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2021-09-08-service-or-self-service.html">自助不是服务！ </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2020-04-23-bigdata-should-help-personalization.html">大数据构建的底线是个人王道的起点 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2021-09-15-casual-programming.html">养身式编程 为哪般？ </a> 
      </div> 
     </div> 
-    <hr> 
-    <img src="/images/zanshang.jpg" width="300/"> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <div id="comments"></div> 
     <hr> 
-    <div class="text-center"> 
-     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
     </div> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
-   ©王福强个人版权所有, All Rights Reserved.
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
   </div> 
   <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
    </div> 
   </div> 
   <script type="text/javascript">
@@ -586,7 +594,16 @@ var gitalk = new Gitalk({
 })
 
 gitalk.render('comments')
-    </script>  
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
  </body>
 </html>

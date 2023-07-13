@@ -6,13 +6,14 @@
   <meta name="description" content="Spring Without IoC - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-  <title>Spring Without IoC - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <title>Spring Without IoC -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
   <style type="text/css">
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -78,26 +79,35 @@
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
-  <script>
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    </script> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
  </head> 
  <body id="page-top"> <!-- Navigation --> 
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
     <div class="collapse navbar-collapse" id="navbarResponsive"> 
      <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
      </ul> 
     </div> 
@@ -106,7 +116,8 @@
   <section> 
    <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
     <p class="lead"> </p>
-    <h1 class="title">Spring Without IoC</h1> <small> <h3 class="author">FuqiangWang</h3> </small> 
+    <h1 class="title">Spring Without IoC</h1> <small> <h3 class="author">FuqiangWang</h3> 
+     <div style="text-align: left;"></div> </small> 
     <p></p> 
     <hr> 
     <blockquote> 
@@ -116,69 +127,78 @@
     <p>其实没有了spring的BeanFactory，你同样可以很容易的使用spring的种种便利，不要忘了，spring的BeanFactory组装的也仅仅是普通的pojo而已，现在只是通过一样的方式构造并使用它们就可以了。</p> 
     <p>比如，我们要在应用中使用spring提供的发送mail的API的支持，那么现在我们现在就可以这样写：</p> 
     <div class="sourceCode" id="cb1">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>JavaMailSender mailSender = <span class="kw">new</span> <span class="fu">JavaMailSenderImpl</span>();</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>((JavaMailSenderImpl)mailSender).<span class="fu">setHost</span>(<span class="st">"mail.livedoor.cn"</span>);</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>((JavaMailSenderImpl)mailSender).<span class="fu">setUsername</span>(<span class="st">"wfq@livedoor.cn"</span>);</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>((JavaMailSenderImpl)mailSender).<span class="fu">setPassword</span>(<span class="st">"458524033931"</span>);</span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>JavaMailSender mailSender <span class="op">=</span> <span class="kw">new</span> <span class="fu">JavaMailSenderImpl</span><span class="op">();</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">((</span>JavaMailSenderImpl<span class="op">)</span>mailSender<span class="op">).</span><span class="fu">setHost</span><span class="op">(</span><span class="st">"mail.livedoor.cn"</span><span class="op">);</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">((</span>JavaMailSenderImpl<span class="op">)</span>mailSender<span class="op">).</span><span class="fu">setUsername</span><span class="op">(</span><span class="st">"wfq@livedoor.cn"</span><span class="op">);</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">((</span>JavaMailSenderImpl<span class="op">)</span>mailSender<span class="op">).</span><span class="fu">setPassword</span><span class="op">(</span><span class="st">"458524033931"</span><span class="op">);</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">// IF your Mail Server request SMTP authentication, you must set properties below,</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">// Otherwise, mail sending will fail.</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">Properties</span> prop = <span class="kw">new</span> <span class="bu">Properties</span>();</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>prop.<span class="fu">setProperty</span>(<span class="st">"mail.smtp.auth"</span>,<span class="st">"true"</span>);</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>((JavaMailSenderImpl)mailSender).<span class="fu">setJavaMailProperties</span>(prop);</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">Properties</span> prop <span class="op">=</span> <span class="kw">new</span> <span class="bu">Properties</span><span class="op">();</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>prop<span class="op">.</span><span class="fu">setProperty</span><span class="op">(</span><span class="st">"mail.smtp.auth"</span><span class="op">,</span><span class="st">"true"</span><span class="op">);</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="op">((</span>JavaMailSenderImpl<span class="op">)</span>mailSender<span class="op">).</span><span class="fu">setJavaMailProperties</span><span class="op">(</span>prop<span class="op">);</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>mailSender.<span class="fu">send</span>(<span class="kw">new</span> <span class="fu">MimeMessagePreparator</span>(){</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">void</span> <span class="fu">prepare</span>(MimeMessage message) <span class="kw">throws</span> <span class="bu">Exception</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>MimeMessageHelper helper = <span class="kw">new</span> <span class="fu">MimeMessageHelper</span>(message);</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>helper.<span class="fu">setTo</span>(<span class="st">"wfq@livedoor.cn"</span>);</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>helper.<span class="fu">setFrom</span>(<span class="st">"wfq@livedoor.cn"</span>);</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>helper.<span class="fu">setSubject</span>(<span class="st">"Spring Mail Test Without IoC"</span>);</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>helper.<span class="fu">setText</span>(<span class="st">"Spring Mail is cool!"</span>);</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>});</span></code></pre>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>mailSender<span class="op">.</span><span class="fu">send</span><span class="op">(</span><span class="kw">new</span> <span class="fu">MimeMessagePreparator</span><span class="op">(){</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">void</span> <span class="fu">prepare</span><span class="op">(</span>MimeMessage message<span class="op">)</span> <span class="kw">throws</span> <span class="bu">Exception</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>MimeMessageHelper helper <span class="op">=</span> <span class="kw">new</span> <span class="fu">MimeMessageHelper</span><span class="op">(</span>message<span class="op">);</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>helper<span class="op">.</span><span class="fu">setTo</span><span class="op">(</span><span class="st">"wfq@livedoor.cn"</span><span class="op">);</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>helper<span class="op">.</span><span class="fu">setFrom</span><span class="op">(</span><span class="st">"wfq@livedoor.cn"</span><span class="op">);</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>helper<span class="op">.</span><span class="fu">setSubject</span><span class="op">(</span><span class="st">"Spring Mail Test Without IoC"</span><span class="op">);</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>helper<span class="op">.</span><span class="fu">setText</span><span class="op">(</span><span class="st">"Spring Mail is cool!"</span><span class="op">);</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="op">});</span></span></code></pre>
     </div> 
     <p>或者，我们仅仅为了拦截某个对象的方法，而不是很普遍，那么我们也可以这样：</p> 
     <div class="sourceCode" id="cb2">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>BusinessImpl impl = <span class="kw">new</span> <span class="fu">BusinessImpl</span>();</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>BusinessBeforeAdvice advice = <span class="kw">new</span> <span class="fu">BusinessBeforeAdvice</span>();</span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>BusinessImpl impl <span class="op">=</span> <span class="kw">new</span> <span class="fu">BusinessImpl</span><span class="op">();</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>BusinessBeforeAdvice advice <span class="op">=</span> <span class="kw">new</span> <span class="fu">BusinessBeforeAdvice</span><span class="op">();</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">// construct advisor in Regexp Way</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>RegexpMethodPointcutAdvisor advisor = <span class="kw">new</span> <span class="fu">RegexpMethodPointcutAdvisor</span>();</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>advisor.<span class="fu">setAdvice</span>(advice);</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>advisor.<span class="fu">setPattern</span>(<span class="st">".*doSomething.*"</span>);</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>RegexpMethodPointcutAdvisor advisor <span class="op">=</span> <span class="kw">new</span> <span class="fu">RegexpMethodPointcutAdvisor</span><span class="op">();</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>advisor<span class="op">.</span><span class="fu">setAdvice</span><span class="op">(</span>advice<span class="op">);</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>advisor<span class="op">.</span><span class="fu">setPattern</span><span class="op">(</span><span class="st">".*doSomething.*"</span><span class="op">);</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>ProxyFactory factory = <span class="kw">new</span> <span class="fu">ProxyFactory</span>();</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>factory.<span class="fu">setTarget</span>(impl);</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>factory.<span class="fu">addAdvisor</span>(advisor);</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>IBusiness bo = (IBusiness)factory.<span class="fu">getProxy</span>();</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>bo.<span class="fu">doSomething</span>();</span></code></pre>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>ProxyFactory factory <span class="op">=</span> <span class="kw">new</span> <span class="fu">ProxyFactory</span><span class="op">();</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>factory<span class="op">.</span><span class="fu">setTarget</span><span class="op">(</span>impl<span class="op">);</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>factory<span class="op">.</span><span class="fu">addAdvisor</span><span class="op">(</span>advisor<span class="op">);</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>IBusiness bo <span class="op">=</span> <span class="op">(</span>IBusiness<span class="op">)</span>factory<span class="op">.</span><span class="fu">getProxy</span><span class="op">();</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>bo<span class="op">.</span><span class="fu">doSomething</span><span class="op">();</span></span></code></pre>
     </div> 
     <p>怎么样？！是不是很容易那？</p> 
     <p>仅仅是这几天实在想不出写些什么，故此闲话些许。</p> <!--          </div>--> <!--        </div>--> 
     <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
+    <hr> 
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2014-10-24-how-to-shutdown-java-service-gracefully.html">How To Shutdown Java Service Gracefully [Tutorial] </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2021-02-11-release-keenotes-v1-2-3-for-spring-festival.html">KeeNotes发布新版恭祝大家新春快乐~ </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2010-02-18-spring-festval.html">大年三十 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2020-04-21-goldratt-toc.html">从震南推荐给我一本书开始… </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2021-05-16-love-death-robots2-in-my-eyes.html">扶墙短评《Love、Death+Robots 2》 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2018-12-16-live-your-own-way.html">人还是要向上活 </a> 
      </div> 
     </div> 
-    <hr> 
-    <img src="/images/zanshang.jpg" width="300/"> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <div id="comments"></div> 
     <hr> 
-    <div class="text-center"> 
-     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
     </div> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
-   ©王福强个人版权所有, All Rights Reserved.
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
   </div> 
   <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
    </div> 
   </div> 
   <script type="text/javascript">
@@ -193,7 +213,16 @@ var gitalk = new Gitalk({
 })
 
 gitalk.render('comments')
-    </script>  
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
  </body>
 </html>

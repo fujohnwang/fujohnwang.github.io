@@ -6,13 +6,14 @@
   <meta name="description" content="Spring使用中的陷阱和诀窍（Spring Gochas and Tips） - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-  <title>Spring使用中的陷阱和诀窍（Spring Gochas and Tips） - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <title>Spring使用中的陷阱和诀窍（Spring Gochas and Tips） -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
   <style type="text/css">
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -78,26 +79,35 @@
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
-  <script>
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    </script> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
  </head> 
  <body id="page-top"> <!-- Navigation --> 
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
     <div class="collapse navbar-collapse" id="navbarResponsive"> 
      <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
      </ul> 
     </div> 
@@ -109,23 +119,9 @@
     <h1 class="title">Spring使用中的陷阱和诀窍（Spring Gochas and Tips）</h1> 
     <p></p> 
     <hr> 
-    <ul> 
-     <li><a href="#陷阱gochas"><span class="toc-section-number">1</span> 陷阱(Gochas)</a> 
-      <ul> 
-       <li><a href="#说事儿"><span class="toc-section-number">1.1</span> 说事儿</a></li> 
-       <li><a href="#结论"><span class="toc-section-number">1.2</span> 结论</a></li> 
-      </ul></li> 
-     <li><a href="#诀窍tips"><span class="toc-section-number">2</span> 诀窍(Tips)</a> 
-      <ul> 
-       <li><a href="#说事儿-1"><span class="toc-section-number">2.1</span> 说事儿</a></li> 
-       <li><a href="#结论-1"><span class="toc-section-number">2.2</span> 结论</a></li> 
-       <li><a href="#caution"><span class="toc-section-number">2.3</span> CAUTION</a></li> 
-      </ul></li> 
-    </ul> 
-    <hr> 
     <p>本来想就这个写一系列的东西，不过， 很难拼凑足够数量的案例(自然也成不了书)，所以， 先暂且随手捡两个掰一掰， 一个黑的，一个红的…</p> 
-    <h1 data-number="1" id="陷阱gochas"><span class="header-section-number">1</span> 陷阱(Gochas)</h1> 
-    <h2 data-number="1.1" id="说事儿"><span class="header-section-number">1.1</span> 说事儿</h2> 
+    <h1 id="陷阱gochas">陷阱(Gochas)</h1> 
+    <h2 id="说事儿">说事儿</h2> 
     <p>话说PACMAN项目需要对DTC来的消息处理过程进行优化，这活儿到我头上了， 本来吧， 小事儿， 虽然数据量一下子从两三万蹿到100万左右， 首先咱可以提高worker threads的数量嘛， 实在不行， 咱再考虑分布， 但这是宏观上的， 这里的小陷阱存在于细节中， 有句话叫做“The problem isn’t design; it’s implementation.”， 说的就是这个道理， 不过，这有些扯远了…</p> 
     <p>程序重构完了，该测试了。 第一次启动Weblogic， 测了一轮， 有些地方需要持续修正， 程序部署之后， 重新启动Weblogic，当当， 异常来啦！</p> 
     <pre>javax.jms.JMSException: Duplicate durable subcription detected
@@ -160,24 +156,24 @@
     <p>他娘的， 不能把？！怎么隐约记得之前好象测试其他地方的时候也遇到过类似的问题那？ 不过， 那时候也不知道怎么糊弄过去了， 看来不成， 确实哪里有问题啊！</p> 
     <p>EMS服务器还是人家NY的， 咱也上不去阿， 能上去也好看一下是不是其他连接在那里， 到底谁在捣乱， 发信给NY，告诉没权限， nnd， google吧， 围绕EMS和这个异常折腾了好是一通， 未果。 忘了都折腾啥了， 反正我是彻底的翻了一遍code和spring配置文件， destroy方法真真切切的在那里，我都挨个字母得对名称啊， 对完了也没发现有问题。</p> 
     <p>最后， 不管了， 出去溜达了一圈， 回头一想， tnnd，不会之前的代码没有触发对象销毁的行为吧？不然，这多出来的连接到底哪里来的？好像除了我也没人在做同样的事情啊！ 查入口类StartupManager， 得， 还真他娘的是这么回事， shutDownService（）方法只有抛出Exception的情况下才会被调用到， 正常情况下， 反而没有被调用， 靠， 这代码都跑了2年了， 这帮人居然没发现， 还好意思说， 代码都跑了两年了，没有遇到这样的问题啊， 这Batch从市场关闭到市场开启的近乎半天时间里， 你就算不关Connection， 那服务器那边也会按照超时给你“咔嚓”掉吧？这样的跑了两年当然没问题啦！</p> 
-    <h2 data-number="1.2" id="结论"><span class="header-section-number">1.2</span> 结论</h2> 
+    <h2 id="结论">结论</h2> 
     <p>生活在Spring容器中的对象， 他们的生命周期是由容器来管理的， 但是， 仅仅通过实现DisposableBean接口或者通过destroy-method配置项， 甚至通过JSR250的@PreDestroy标注， 容器并不会在程序退出的时候，自动调用这些对象销毁的回调，我们必须在程序的主入口类或者其它合适的位置明确告知Spring容器， “哥们， 我要下班了，你把那些家伙都收拾了吧！”， 之后， 你通过以上所有方式指定的对象销毁逻辑才会被调用，否则， 哼哼…</p> 
     <p>用行话来说就是， 如果你使用的是BeanFactory类型的IoC容器，那么，你最好在容器构造完成后， 保险起见，顺便加上以下这样的代码片断:</p> 
     <div class="sourceCode" id="cb1">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Runtime</span>.<span class="fu">getRuntime</span>().<span class="fu">addShutdownHook</span>(<span class="kw">new</span> <span class="bu">Thread</span>(){</span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Runtime</span><span class="op">.</span><span class="fu">getRuntime</span><span class="op">().</span><span class="fu">addShutdownHook</span><span class="op">(</span><span class="kw">new</span> <span class="bu">Thread</span><span class="op">(){</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">@Override</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">public</span> <span class="dt">void</span> <span class="fu">run</span>() {</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>            <span class="kw">if</span>(beanFactory != <span class="kw">null</span>){</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>            beanFactory.<span class="fu">destroySingletons</span>();</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>            }</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    });</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">public</span> <span class="dt">void</span> <span class="fu">run</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span><span class="op">(</span>beanFactory <span class="op">!=</span> <span class="kw">null</span><span class="op">){</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>            beanFactory<span class="op">.</span><span class="fu">destroySingletons</span><span class="op">();</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">});</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    </span></code></pre>
     </div> 
     <p>如果你使用的是ApplicationContext类型的IoC容器，那么， 与上面类似</p> 
     <div class="sourceCode" id="cb2">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ApplicationContext ctx = ...;</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>((AbstractApplicationContext)ctx).<span class="fu">registerShutdownHook</span>();</span></code></pre>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ApplicationContext ctx <span class="op">=</span> <span class="kw">...</span><span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">((</span>AbstractApplicationContext<span class="op">)</span>ctx<span class="op">).</span><span class="fu">registerShutdownHook</span><span class="op">();</span></span></code></pre>
     </div> 
     <p>当然了， 道理实际上跟上面BeanFactory对应的处理差不多。</p> 
     <p>这样的处理虽然不能保证100%的安全，不过，只要你不是太粗鲁的对待你的应用程序，比如kill -9或者直接System.halt()之类， 这道安全网还是必要的。</p> 
@@ -185,85 +181,94 @@
      <p>NOTE</p> 
      <p>这个问题实际上早就写入了《Spring揭密》之中，只不过， 既然书还没出来，那就再重复一下这一言论吧！</p> 
     </blockquote> 
-    <h1 data-number="2" id="诀窍tips"><span class="header-section-number">2</span> 诀窍(Tips)</h1> 
-    <h2 data-number="2.1" id="说事儿-1"><span class="header-section-number">2.1</span> 说事儿</h2> 
+    <h1 id="诀窍tips">诀窍(Tips)</h1> 
+    <h2 id="说事儿-1">说事儿</h2> 
     <p>还是跟JMS连接有关， 话说纽约DDI Team某天突然发彪，说， “要连接到我们的EMS服务器订阅消息，必须通过用户和密码验证， 那种不验证就使用我们服务的日子已经一去不复返了。”</p> 
     <p>收到旨意之后， 你得赶快行动啊， 不然，下个release拿不到trades信息可就是你自己的问题了， 还好啦， 现在的Subscriber已经提供了这样的支持， 直接设置相应的username和pasword就行了。 不过那，如果你是通过JmsTemplate或者MessageListenerContainer来发送或者接受消息的话， 你该怎么做哪？！ 也只是通过为JmsTemplate或者MessageListenerContainer提供连接的用户名和密码设置就行了？呵呵，倒是找找看， 你是否能找到相应的setter方法吧。</p> 
-    <h2 data-number="2.2" id="结论-1"><span class="header-section-number">2.2</span> 结论</h2> 
+    <h2 id="结论-1">结论</h2> 
     <p>摘录一段别人的代码如下:</p> 
     <div class="sourceCode" id="cb3">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span>(<span class="bu">String</span>.<span class="fu">valueOf</span>(userName).<span class="fu">trim</span>().<span class="fu">length</span>()&gt;<span class="dv">0</span>) {</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    topicConn = connFactory.<span class="fu">createTopicConnection</span>(userName,password);</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>} <span class="kw">else</span> {</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    topicConn = connFactory.<span class="fu">createTopicConnection</span>();</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span><span class="op">(</span><span class="bu">String</span><span class="op">.</span><span class="fu">valueOf</span><span class="op">(</span>userName<span class="op">).</span><span class="fu">trim</span><span class="op">().</span><span class="fu">length</span><span class="op">()&gt;</span><span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    topicConn <span class="op">=</span> connFactory<span class="op">.</span><span class="fu">createTopicConnection</span><span class="op">(</span>userName<span class="op">,</span>password<span class="op">);</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    topicConn <span class="op">=</span> connFactory<span class="op">.</span><span class="fu">createTopicConnection</span><span class="op">();</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
     </div> 
     <p>如果你觉得JmsTemplate或者MessageListenerContainer在实现的时候也是这样处理的，那么， 在上面的那个场景中，你将浪费某些精力和时间去寻找这个方向上的答案， 但即使你去查代码，估计你也不会有啥收获。实际上，针对这个问题， Spring框架已经提供了对应的解决方案， 但是， 解决问题的角度不同而已。</p> 
     <p>Spring提供了一个UserCredentialsConnectionFactoryAdapter， 通过它，对你提供给JmsTemplate或者MessageListenerContainer使用的ConnectionFactory稍微“打扮”一下就行了， 例如：</p> 
     <div class="sourceCode" id="cb4">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ConnectionFactory cf = (ConnectionFactory) ctx.<span class="fu">lookup</span>(connectionFactoryJndiName);</span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ConnectionFactory cf <span class="op">=</span> <span class="op">(</span>ConnectionFactory<span class="op">)</span> ctx<span class="op">.</span><span class="fu">lookup</span><span class="op">(</span>connectionFactoryJndiName<span class="op">);</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>UserCredentialsConnectionFactoryAdapter connectionFactoryAdaptor = <span class="kw">new</span> <span class="fu">UserCredentialsConnectionFactoryAdapter</span>();</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>connectionFactoryAdaptor.<span class="fu">setTargetConnectionFactory</span>(cf);</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>connectionFactoryAdaptor.<span class="fu">setUsername</span>(<span class="st">"ddi_admin"</span>);</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>connectionFactoryAdaptor.<span class="fu">setPassword</span>(<span class="st">"ddi_admin"</span>);</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">... </span><span class="co">// ***</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>JmsTemplate jmsTemplate = <span class="kw">new</span> <span class="fu">JmsTemplate</span>(connectionFactoryAdaptor);</span></code></pre>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>UserCredentialsConnectionFactoryAdapter connectionFactoryAdaptor <span class="op">=</span> <span class="kw">new</span> <span class="fu">UserCredentialsConnectionFactoryAdapter</span><span class="op">();</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>connectionFactoryAdaptor<span class="op">.</span><span class="fu">setTargetConnectionFactory</span><span class="op">(</span>cf<span class="op">);</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>connectionFactoryAdaptor<span class="op">.</span><span class="fu">setUsername</span><span class="op">(</span><span class="st">"ddi_admin"</span><span class="op">);</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>connectionFactoryAdaptor<span class="op">.</span><span class="fu">setPassword</span><span class="op">(</span><span class="st">"ddi_admin"</span><span class="op">);</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">...</span> <span class="co">// ***</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>JmsTemplate jmsTemplate <span class="op">=</span> <span class="kw">new</span> <span class="fu">JmsTemplate</span><span class="op">(</span>connectionFactoryAdaptor<span class="op">);</span></span></code></pre>
     </div> 
     <p>现在， 验证信息可以生效了。 说白了， 还是包装，包装，再包装，最终都是为了“偷梁换柱”！</p> 
-    <h2 data-number="2.3" id="caution"><span class="header-section-number">2.3</span> CAUTION</h2> 
+    <h2 id="caution">CAUTION</h2> 
     <p>如果是使用JmsTemplate来发送消息，为了避免JmsTemplate内部不断创建新的连接， 保险起见， 可以使用SingleConnectionFactory对ConnectionFactory再包装一层（当然了，如果拿到的ConnectionFactory早已配置了连接池来控制资源的使用，也可以不用这么做），例如：</p> 
     <div class="sourceCode" id="cb5">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ConnectionFactory cf = (ConnectionFactory) ctx.<span class="fu">lookup</span>(connectionFactoryJndiName);</span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ConnectionFactory cf <span class="op">=</span> <span class="op">(</span>ConnectionFactory<span class="op">)</span> ctx<span class="op">.</span><span class="fu">lookup</span><span class="op">(</span>connectionFactoryJndiName<span class="op">);</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>UserCredentialsConnectionFactoryAdapter connectionFactoryAdaptor = <span class="kw">new</span> <span class="fu">UserCredentialsConnectionFactoryAdapter</span>();</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>connectionFactoryAdaptor.<span class="fu">setTargetConnectionFactory</span>(cf);</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>connectionFactoryAdaptor.<span class="fu">setUsername</span>(<span class="st">"ddi_admin"</span>);</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>connectionFactoryAdaptor.<span class="fu">setPassword</span>(<span class="st">"ddi_admin"</span>);</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>UserCredentialsConnectionFactoryAdapter connectionFactoryAdaptor <span class="op">=</span> <span class="kw">new</span> <span class="fu">UserCredentialsConnectionFactoryAdapter</span><span class="op">();</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>connectionFactoryAdaptor<span class="op">.</span><span class="fu">setTargetConnectionFactory</span><span class="op">(</span>cf<span class="op">);</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>connectionFactoryAdaptor<span class="op">.</span><span class="fu">setUsername</span><span class="op">(</span><span class="st">"ddi_admin"</span><span class="op">);</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>connectionFactoryAdaptor<span class="op">.</span><span class="fu">setPassword</span><span class="op">(</span><span class="st">"ddi_admin"</span><span class="op">);</span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="dt">final</span> SingleConnectionFactory singleCf = <span class="kw">new</span> <span class="fu">SingleConnectionFactory</span>(connectionFactoryAdaptor); </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="dt">final</span> SingleConnectionFactory singleCf <span class="op">=</span> <span class="kw">new</span> <span class="fu">SingleConnectionFactory</span><span class="op">(</span>connectionFactoryAdaptor<span class="op">);</span> </span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                                          </span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Runtime</span>.<span class="fu">getRuntime</span>().<span class="fu">addShutdownHook</span>(<span class="kw">new</span> <span class="bu">Thread</span>() {</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Runtime</span><span class="op">.</span><span class="fu">getRuntime</span><span class="op">().</span><span class="fu">addShutdownHook</span><span class="op">(</span><span class="kw">new</span> <span class="bu">Thread</span><span class="op">()</span> <span class="op">{</span></span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">@Override</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">public</span> <span class="dt">void</span> <span class="fu">run</span>() {</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        <span class="kw">try</span> {</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>            singleCf.<span class="fu">destroy</span>();</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        } <span class="kw">catch</span> (<span class="bu">Exception</span> e) {</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>            logger.<span class="fu">error</span>(<span class="st">"failed to destroy single connection factory.</span><span class="sc">\n</span><span class="st">"</span>);</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>            logger.<span class="fu">error</span>(ExceptionUtils.<span class="fu">getFullStackTrace</span>(e));</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    });</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">public</span> <span class="dt">void</span> <span class="fu">run</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>            singleCf<span class="op">.</span><span class="fu">destroy</span><span class="op">();</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">Exception</span> e<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>            logger<span class="op">.</span><span class="fu">error</span><span class="op">(</span><span class="st">"failed to destroy single connection factory.</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>            logger<span class="op">.</span><span class="fu">error</span><span class="op">(</span>ExceptionUtils<span class="op">.</span><span class="fu">getFullStackTrace</span><span class="op">(</span>e<span class="op">));</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">});</span></span>
 <span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>JmsTemplate jmsTemplate = <span class="kw">new</span> <span class="fu">JmsTemplate</span>(singleCf);</span></code></pre>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>JmsTemplate jmsTemplate <span class="op">=</span> <span class="kw">new</span> <span class="fu">JmsTemplate</span><span class="op">(</span>singleCf<span class="op">);</span></span></code></pre>
     </div> 
     <p>安全第一， 安全第一…</p> 
     <p>Get to Know Spring And Have Fun With Spring.</p> <!--          </div>--> <!--        </div>--> 
     <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
+    <hr> 
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2021-07-22-consulting-biz-sucks.html">没事儿别闲得做咨询！ </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2007-05-02-what-a-51-holiday.html">2007之五一7天记 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2016-01-30-the-team-I-would-like-to-dedicate.html">我所希望并为之奋斗的团队 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2014-05-18-architect-is-not-the-one-you-think.html">架构师的类莫比乌斯T型之路 #lollapalooza + positioning# </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2008-09-21-unveil-spring-history.html">《Unveil Spring》编年史 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2021-07-09-recruit-becomes-harder.html">前端难招？ </a> 
      </div> 
     </div> 
-    <hr> 
-    <img src="/images/zanshang.jpg" width="300/"> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <div id="comments"></div> 
     <hr> 
-    <div class="text-center"> 
-     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
     </div> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
-   ©王福强个人版权所有, All Rights Reserved.
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
   </div> 
   <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
    </div> 
   </div> 
   <script type="text/javascript">
@@ -278,7 +283,16 @@ var gitalk = new Gitalk({
 })
 
 gitalk.render('comments')
-    </script>  
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
  </body>
 </html>

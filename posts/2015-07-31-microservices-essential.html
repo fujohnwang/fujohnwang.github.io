@@ -6,7 +6,7 @@
   <meta name="description" content="扶墙老师谈微服务(Microservices Essential) - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-  <title>扶墙老师谈微服务(Microservices Essential) - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <title>扶墙老师谈微服务(Microservices Essential) -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <meta name="date" content="2015-07-20"> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
@@ -15,26 +15,35 @@
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
-  <script>
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    </script> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
  </head> 
  <body id="page-top"> <!-- Navigation --> 
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
     <div class="collapse navbar-collapse" id="navbarResponsive"> 
      <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
      </ul> 
     </div> 
@@ -43,25 +52,15 @@
   <section> 
    <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
     <p class="lead"> </p>
-    <h1 class="title">扶墙老师谈微服务(Microservices Essential)</h1> <small> <h3 class="author">王福强 - fujohnwang AT gmail DOTA com</h3>2015-07-20 </small> 
+    <h1 class="title">扶墙老师谈微服务(Microservices Essential)</h1> <small> <h3 class="author">王福强 - fujohnwang AT gmail DOTA com</h3> 
+     <div style="text-align: left;">
+      2015-07-20
+     </div> </small> 
     <p></p> 
-    <hr> 
-    <ul> 
-     <li><a href="#什么是微服务"><span class="toc-section-number">1</span> 什么是微服务？</a></li> 
-     <li><a href="#为什么选择微服务化"><span class="toc-section-number">2</span> 为什么选择微服务化？</a></li> 
-     <li><a href="#微服务所带来的挑战"><span class="toc-section-number">3</span> 微服务所带来的挑战</a> 
-      <ul> 
-       <li><a href="#开发与测试"><span class="toc-section-number">3.1</span> 开发与测试</a></li> 
-       <li><a href="#发布和部署"><span class="toc-section-number">3.2</span> 发布和部署</a></li> 
-       <li><a href="#运维"><span class="toc-section-number">3.3</span> 运维</a></li> 
-      </ul></li> 
-     <li><a href="#挖财2015技术年的springboot微服务战略"><span class="toc-section-number">4</span> 挖财2015技术年的SpringBoot微服务战略</a></li> 
-     <li><a href="#小结"><span class="toc-section-number">5</span> 小结</a></li> 
-    </ul> 
     <hr> 
     <p>微服务的概念甚嚣尘上，你又是否为其迷茫而感伤？！<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p> 
     <p>今天，扶墙老师将和你一起探究微服务背后的奥秘，请系紧安全带， 让哥带你装逼带你飞 ;-)</p> 
-    <h1 data-number="1" id="什么是微服务"><span class="header-section-number">1</span> 什么是微服务？</h1> 
+    <h1 id="什么是微服务">什么是微服务？</h1> 
     <p>扶墙老师觉得吧，微服务真没那么神秘， 其实它也就是一种SOA的演化形式， 而且他更加侧重于<strong>在服务的物理结构层面进行细分演化</strong> <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>， 你可以理解为，微服务其实是指引服务的具体落地方案层面的一种实践方式， 而SOA实际上更侧重于相关的原则(Principle)或者理念。</p> 
     <figure> 
      <img src="images/donald-trump.png" alt="来自Google搜索的Donald Trump的图片">
@@ -111,7 +110,7 @@
     <p>但是，到目前为止， 我们其实说的还是没有跳出SOA的范畴， 而且， 你的项目治理也不一定非要用我上面提到的这种方式， 说白了，我也只是给出了SOA的落地实践方式之一， 有没有其它方式那？ SOA是核心， 但它的延伸却可以很广， 这就带来一个问题， 有些时候，选择多了不一定就是好事， 只有一种选择有些时候反而会成为最有效的选择。</p> 
     <p>微服务是SOA的实践方式之一， 如果你把它当做你的唯一选择，或许就成了当下大部分的最佳选择了。</p> 
     <p>为什么叫微服务？ 一定是服务的粒度更细了， 那么粒度更细是通过什么体现的那？ 最直观上的就是功能的物理结构， 比如具体到功能代码组织的物理结构，即project， 如果说原来你会把很多功能都放到一个project中进行组织和开发，那么，现在这些功能就应该被进一步打散到各自的project中进行管理，每个功能作为微服务独立被开发， 测试， 发布，部署，使用和运维， 在整个软件的交付链路上， 一个个的微服务都是独立的， 这其实就是微服务的本质。</p> 
-    <h1 data-number="2" id="为什么选择微服务化"><span class="header-section-number">2</span> 为什么选择微服务化？</h1> 
+    <h1 id="为什么选择微服务化">为什么选择微服务化？</h1> 
     <p>选择微服务化，意味着你一定是要先接纳SOA，而选择SOA，最根本的一个原因是你需要一种方式来管理整体的复杂度， 请不要因果反调， 因为像<code>根据SOA的理念做了服务化之后，你的整体安全性更好了</code>这样的事情，其实是你选择了服务化后所带来的效果之一，而不是你为了加强系统的整体安全性才去选择的SOA（当然，排除少部分可能真的因为这种非核心功能因素而选择走SOA）。</p> 
     <p>接纳了SOA之后，进而再选择微服务化， 我认为更多是为了提高软件交付链路的整体效率，为什么这么说那？</p> 
     <p>其实选择了微服务化，就意味着你发动了一场服务化大背景下的独立战争， 每个服务都将独立开发，独立测试，独立发布，独立部署，独立运维， 所带来的好处就是，你可以直接而明确地分配团队或者个人对接一个个独立的服务，然后让其负责这些服务的整个生命周期管理。</p> 
@@ -119,10 +118,10 @@
     <blockquote> 
      <p>笔者个人看法， 欢迎拍砖， 但拒绝谩骂！</p> 
     </blockquote> 
-    <h1 data-number="3" id="微服务所带来的挑战"><span class="header-section-number">3</span> 微服务所带来的挑战</h1> 
+    <h1 id="微服务所带来的挑战">微服务所带来的挑战</h1> 
     <p>“嘿，醒醒！”， 你不会真的如此乐观的活在扶墙老师上面给你描绘的微服务的美好憧憬之中了吧？！ come on， 这个世界上从来就没有只“得”不“舍”的事儿！</p> 
     <p>选择了微服务化，确实可以带来一系列的好处，但是，也会对整个软件交付链路造成一系列的冲击！</p> 
-    <h2 data-number="3.1" id="开发与测试"><span class="header-section-number">3.1</span> 开发与测试</h2> 
+    <h2 id="开发与测试">开发与测试</h2> 
     <p>我们说，微服务之后， 服务可以独立开发和测试， 团队或者成员之间可以并行快跑， 这极大提高了系统的研发效率，但这也只是更多地关注了微服务个体内部的好处，可是微服务不是一个个的孤岛，它依然需要跟外部的其它系统或者微服务打交道，这个时候，你就会发现战场形势变了…</p> 
     <p>首先，微服务化之后，微服务的数量极大增多了，原来一个monolith应用，可能开发或者测试在自己的本机搭建一套环境就能进行工作了， 可是现在， 如果你的一个微服务或者多个微服务依赖了n个其它微服务，那么， 为了不影响开发和测试效率，你需要为开发和测试分别提供一套运行环境，在各自独立的开发和测试环境中，成百上千的微服务将持续运行，以保障开发和测试工作的快速迭代；</p> 
     <p>其次， 微服务虽然可以支持系统的多样性（比如不同语言，不同架构），但不意味着你一定要这样做，因为引入越多的差异性因素，你的整体交付链路上的复杂度就会呈指数级上升(微服务的数量 * 差异因素1 * 差异因素2 * …差异因素n)， 敢于发动微服务的独立战争意味着你有足够的资源和后勤保障，但你还是要掂量一下在开战之后这些资源保障是否经得起进一步的折腾？！ 实际上， 选择了微服务，就相当于你选择了企业战略中的“成本优先战略”， 你在拼成本和产量，为了能够批量生产又有盈利， 一个比较好的做法是标准化生产，即固定生产线，只提供标品生产， 只有少量的定制化生产。 这种思路落到软件研发的微服务战略里就是， 标准化一个主要的技术栈（解决80%的主要问题）， 只在特殊情况下允许少量的差异化生产(20%的特殊情况）， Parato Principle Stands Here Too！</p> 
@@ -135,7 +134,7 @@
      <p>我知道很多技术人员对性能有近乎偏执的喜好，但是，退一步讲， 对于应用研发来说，最成熟最合适的技术和方案或许才是你应该考虑的首要因素。</p> 
     </blockquote> 
     <p>关于微服务化对开发和测试的挑战，扶墙老师就谈这些了…</p> 
-    <h2 data-number="3.2" id="发布和部署"><span class="header-section-number">3.2</span> 发布和部署</h2> 
+    <h2 id="发布和部署">发布和部署</h2> 
     <p>微服务开发和测试之后接着就进入了发布和部署， 依然源于微服务的数量特征， 在发布和部署的时候， 有两种可能的选择：</p> 
     <ol type="1"> 
      <li>一般的微服务都是标准化的打包发布和部署，所以， 即使没有任何平台性的支持， 开发或者对应的应用运维团队依然可以根据自己负责的项目，采用各种手工或者自动化脚本的方式完成微服务的发布和部署；这种方式的好处是灵活，坏处也很明显， 很多东西可能无法复用，服务的注册和治理没有管控；</li> 
@@ -147,7 +146,7 @@
     <p>现在大家都在讲docker， 不得不说，这是一种比较好的发布和部署方案， 但不用docker也不意味着你就不叫微服务化，甚至不能微服务化。 比如， jar， rpm， docker image等形式都可以成为微服务的发布和部署形式：</p> 
     <p><img src="images/ops.pipelines.png"></p> 
     <p>最主要的，你要选择一种适合公司内部标准的发布和部署形式，至于具体采用哪一种，it depends。</p> 
-    <h2 data-number="3.3" id="运维"><span class="header-section-number">3.3</span> 运维</h2> 
+    <h2 id="运维">运维</h2> 
     <p>扶墙老师是做Java出身的，所以， 这部分主要以Java界的案例和场景为主要阐述话题。</p> 
     <p>JavaEE/J2EE的规范统治了Java界多年之后， 服务化和微服务化吹响了独立战争的解放号角…</p> 
     <p>原来Java界的web应用或者web服务都是需要跑在Web Container里的， Web Container为他们提供基本的“生活环境”，包括但不限于电话费（网络通信）， 安保（监控）等横向关注点， 但是这些应用同时也失去了独立生存的能力， 如果某个应用“闹事”，其它生活在同一环境下的应用多少都会受影响， 公共交通大家都坐过， 停车开车你是说了不算的， 但是tmd车费便宜啊！</p> 
@@ -168,7 +167,7 @@
      <li>负载均衡与服务调度等等</li> 
     </ol> 
     <p>总的来说， 微服务对持续交付的要求更高了，相应的建设需要快速跟进， 才能保障独立战争的顺利进行。</p> 
-    <h1 data-number="4" id="挖财2015技术年的springboot微服务战略"><span class="header-section-number">4</span> 挖财2015技术年的SpringBoot微服务战略</h1> 
+    <h1 id="挖财2015技术年的springboot微服务战略">挖财2015技术年的SpringBoot微服务战略</h1> 
     <p>最后，扶墙老师乐意晒一下2015年下半年挖财打算推行的基于SpringBoot微框架的微服务战略的Roadmap和生态环境， 希望对同道有所启发和借鉴，当然，也希望收到同道中人更好的建议。</p> 
     <p>我们的微服务战略生态环境大体归纳如下：</p> 
     <ol type="1"> 
@@ -188,7 +187,7 @@
     <p>Roadmap没有什么新意， 如果你要完全微服务化，那么，基本上也会是类似的路线图：</p> 
     <p><img src="images/lift-steps.png"></p> 
     <p>大意上就是说， 所有周边支持系统， 工具和平台都ready之后， 再通过培训等一系列渠道或者手段完成整体上的转变。当然，这是最理想的路线， 现实中一定是像瞎子摸象一样， 一块儿一块儿来，不会等整个大象都摸完了，才恍然大悟，那个时候黄花菜都凉了。</p> 
-    <h1 data-number="5" id="小结"><span class="header-section-number">5</span> 小结</h1> 
+    <h1 id="小结">小结</h1> 
     <p>微服务并不神秘， 微服务也不是万能药，只有你的系统复杂度持续增加， 而且业务对技术的支撑要求和预期越加强烈的时候， 考虑服务化以及微服务化才是合理的，因为起码公司层面会支持你投入更多的资源和后勤保障，一家很小的创业公司， 或许monolith的策略会更加合适。</p> 
     <p>微服务的成本增加可以通过标准化的方式来对冲， 但一定比不引入微服务要耗费更多的资源，所以，就算有再多的资源， 实施微服务战略的过程中也还是适当的减少生态圈的多样性吧， 否则怕你的生态圈承载能力被压垮。</p> 
     <p>合适的， 才是最好的！</p> 
@@ -200,30 +199,39 @@
      </ol> 
     </section> <!--          </div>--> <!--        </div>--> 
     <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
+    <hr> 
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2019-12-28-do-not-command-and-getinto-details-in-mgt.html">阿久被逼做前端，40岁老程序员重操旧业 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2017-09-06-be-nice-to-your-staffs.html">对员工好的公司到底是死是活 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2009-08-24-book-cover-confirmed.html">封面终于确定下来了… </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2009-11-17-words_on_framework_api_design.html">框架API设计相关的碎言 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2017-06-14-reposition-wechat-public-channel.html">扶墙老师说公众号要重新定位啦~~~ </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2008-11-25-dream-last-night.html">昨夜的梦境，依旧清晰 </a> 
      </div> 
     </div> 
-    <hr> 
-    <img src="/images/zanshang.jpg" width="300/"> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <div id="comments"></div> 
     <hr> 
-    <div class="text-center"> 
-     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
     </div> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
-   ©王福强个人版权所有, All Rights Reserved.
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
   </div> 
   <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
    </div> 
   </div> 
   <script type="text/javascript">
@@ -238,7 +246,16 @@ var gitalk = new Gitalk({
 })
 
 gitalk.render('comments')
-    </script>  
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
  </body>
 </html>

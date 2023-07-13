@@ -1,4 +1,4 @@
-% 个人介绍
+% 王福强 个人介绍
 % 王福强 - fujohnwang AT gmail DOTA com
 % 2017-11-13
 
@@ -6,14 +6,14 @@
 
 **`A Writer, A Fighter, A Programmer And A Teacher`**
 
-王福强，aka. 扶墙老师，[架构教练（架构师成长教练）](https://afoo.me/ama), 杭州[福强科技](https://keevol.cn)创始人，持续创业者，《Spring揭秘》和《SpringBoot揭秘》作者 ^[这里可以了解我的更多著作](books.html)^, 写代码的CTO，如履薄冰的CEO 😂
+王福强，[aka. 扶墙老师](https://afoo.me/ama), [杭州福强科技有限公司](https://keevol.cn)创始人，连续创业者(亲历大中小企业全生命周期的演化与关键环节)， 20+年互联网与金融技术研发与管理经验，原阿里巴巴大数据中间件canal的产品与技术奠基人，《Spring揭秘》和《SpringBoot揭秘》作者 ^[这里可以了解我的更多著作](books.html)^, 写代码的CTO，如履薄冰的CEO 😂
 
 - 原阿里巴巴平台技术部海量数据部门高级技术专家；
 - 原天猫产品技术部导购部资深架构师;
 - 原挖财技术VP兼首席架构师；
 - 历任多家创业公司CTO；
 
-互联网和金融领域涉猎居多，参与并领导过包括信贷，债券，外汇(保证金)交易等多种金融系统的设计与开发工作，同时服务过金融、行业SaaS、医疗服务、知识产权等领域诸多客户;
+互联网和金融领域涉猎居多，参与并领导过包括信贷，债券，外汇(保证金)交易等多种金融系统的设计与开发工作，同时服务过金融、行业SaaS、医疗服务、知识产权，人力资源等领域诸多客户;
 
 年轻时好武，玩过散打，拳击，跆拳道，太极，终无定性；
 
@@ -39,14 +39,15 @@
 
 # 我在线上
 
+**欢迎关注我的twitter和youtube**，视频号更新不及时或大部分内容无法更新。
 
-
-
-* Twitter - [王福强](https://twitter.com/fujohnwang)
-* Youtube - <https://www.youtube.com/channel/UCxhsCy-gAGwRnG_z7Wqrs3A>
-* 公众号 - 福强
+* [Twitter - 王福强](https://twitter.com/fujohnwang) ❤︎❤︎❤︎❤︎❤︎
+* [Youtube](https://youtube.com/c/fujohnwang) - <https://youtube.com/@afoo>  ❤︎❤︎❤︎❤︎❤︎
+* [架构百科@Youtube](https://youtube.com/@jgbk)
+* Github - <https://github.com/fujohnwang>
+* 公众号 - **福强**，*2022年以后少有更新*。
 <!--  * ![](images/qrcode_for_gh_4fe672b2e860_258.jpg)-->
-* [微博](http://www.weibo.com/fujohnwang)
+* [微博](http://www.weibo.com/fujohnwang) - *2022年10月29日已清空，不再更新*。
 * [slideshare](http://www.slideshare.net/fujohnwang/) - 如果各位看官对偶之前的一些`骗骗他`(PPT)感兴趣的话，可以参看
 
 
@@ -82,4 +83,9 @@
 
 # Buy me a coffee 
 
-<a href="https://dun.mianbaoduo.com/@fq" target="_blank"><img src="https://img.niucodata.com/dundunfan-bt.png"></a>
+<!-- <a href="https://dun.mianbaoduo.com/@fq" target="_blank"><img src="https://img.niucodata.com/dundunfan-bt.png"></a> -->
+
+<a href="https://ko-fi.com/fubao">
+    <img src="/images/zanshang.jpg" width="50%/">
+</a>
+

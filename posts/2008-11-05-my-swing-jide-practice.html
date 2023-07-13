@@ -6,13 +6,14 @@
   <meta name="description" content="我的Swing Jide WizardDialog实践个论 – 外部化，统一化, 职责化你的代码 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-  <title>我的Swing Jide WizardDialog实践个论 – 外部化，统一化, 职责化你的代码 - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <title>我的Swing Jide WizardDialog实践个论 – 外部化，统一化, 职责化你的代码 -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
   <style type="text/css">
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -78,26 +79,35 @@
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
-  <script>
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    </script> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
  </head> 
  <body id="page-top"> <!-- Navigation --> 
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
     <div class="collapse navbar-collapse" id="navbarResponsive"> 
      <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
      </ul> 
     </div> 
@@ -109,15 +119,7 @@
     <h1 class="title">我的Swing Jide WizardDialog实践个论 – 外部化，统一化, 职责化你的代码</h1> 
     <p></p> 
     <hr> 
-    <ul> 
-     <li><a href="#楔子"><span class="toc-section-number">1</span> 楔子</a></li> 
-     <li><a href="#jide简介"><span class="toc-section-number">2</span> Jide简介</a></li> 
-     <li><a href="#现有codebase中的wizarddialog代码实践"><span class="toc-section-number">3</span> 现有codebase中的WizardDialog代码实践</a></li> 
-     <li><a href="#重构后的wizarddialog代码实践"><span class="toc-section-number">4</span> 重构后的WizardDialog代码实践</a></li> 
-     <li><a href="#小结"><span class="toc-section-number">5</span> 小结</a></li> 
-    </ul> 
-    <hr> 
-    <h1 data-number="1" id="楔子"><span class="header-section-number">1</span> 楔子</h1> 
+    <h1 id="楔子">楔子</h1> 
     <p>感觉好久没写技术方面的博客了，沉寂了这么久，今天正好借机疏解一下自己的“郁闷”之情。自从8月中旬加入花旗软件（大连），转眼已经快三个月了，原先的美好愿望和希冀，现在却由淡淡的“忧伤”和“郁闷”而替代，原因或许很多，也或许根本就没有啥，纯粹庸人自扰：</p> 
     <ol type="1"> 
      <li>书稿写完了，提交给出版社之后的空虚？</li> 
@@ -129,98 +131,98 @@
     <p>当前项目组的技术架构虽然很简单，但是，前面写了两年多的codebase却着实让我无能为力，不能说代码很烂，但是，各种细节之间的纠缠却非我这刚进来的newbie所能掌控的，所以，每每有新的issue交给我处理，都是小心翼翼的，能不动之前的codebase就不动， 要知道，“失节”事小，“驾崩”事大，这可是金融系统，稍一不慎把系统搞挂掉，那可不是闹着玩的（虽然发布之前回旋余地大一些）。</p> 
     <p>不过那，不去动之前的codebase并不是说这些codebase有多好，有多容易维护，实际上，整个项目有些“挂羊头，卖狗肉”的味道，说是敏捷开发，但没有看到多少敏捷的实践；说是使用Spring框架，却让它形同虚设；说是用Hibernate做数据访问，却仅仅用它来做为调用存储过程的中间层，只用了调用存储过程后能够帮助你将结果映射到结果对象这一点点功能，个人感觉就是Hibernate在这里真的是“生不逢时”…</p> 
     <p>当然啦，我今天可不是要为了挑刺儿，毕竟任何项目都会存在这样那样的问题嘛，我今天要说的，只不过是从一个小小的功能点引申出来的代码实践而已，下面让我们进入正题…</p> 
-    <h1 data-number="2" id="jide简介"><span class="header-section-number">2</span> Jide简介</h1> 
+    <h1 id="jide简介">Jide简介</h1> 
     <p>或许做Swing的各位同仁对jidesoft(http://www.jidesoft.com/)所提供的产品早就有所耳闻，也或许没有，总之俺是进花旗这个项目组之后才知道有这么一个产品（其实，从身边许多人那里都可以了解到，许多金融相关产品的客户端使用swing做的），你可以鄙视我，谁让俺之前只做过两年左右的swt/jface而没有用swing那，呵呵。</p> 
     <p>应该说，jide提供的产品还是比较强大的，不过，商业产品，应该不是谁都愿意花这份儿银子吧！jide在原有swing基础上给出了多种扩展，包括dockable framework， action framework，dialogs，data grid/pivot table等等，我们今天要扯的话题与jide提供的WizardDialog有关，所以，就在这里对jide简单提及一下，希望没有说太多废话。</p> 
-    <h1 data-number="3" id="现有codebase中的wizarddialog代码实践"><span class="header-section-number">3</span> 现有codebase中的WizardDialog代码实践</h1> 
+    <h1 id="现有codebase中的wizarddialog代码实践">现有codebase中的WizardDialog代码实践</h1> 
     <p>话说我们要为用户提供接口，分多步从用户那里获取输入数据，这种情况下，为用户提供一个向导式的输入界面应该说是比较自然的事情，现在，就有这样的一个场景，所以，我们决定使用jide提供的WizardDialog来实现之。</p> 
     <p>《JIDE Dialogs Developer Guide》虽然对WizardDialog相关的各个类以及功能做了介绍，但是，如何在开发过程中使用它们，就得由我们来决定了，这自然就会引出不同的实践方式，下面是我从现有的codebase中移植过来的代码片段原型，我称之为“内部化”的代码实践（代码风格如何暂且不论）。</p> 
     <p>首先，XAction类是一个标准的Swing Action，其定义如下：</p> 
     <div class="sourceCode" id="cb1">
      <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>XXXAction <span class="kw">extends</span> <span class="bu">AbstractAction</span>  </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>{  </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span>  </span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    …  </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    Public <span class="dt">void</span> <span class="fu">actionPerformed</span>(<span class="bu">ActionEvent</span> e)  </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    {  </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    Public <span class="dt">void</span> <span class="fu">actionPerformed</span><span class="op">(</span><span class="bu">ActionEvent</span> e<span class="op">)</span>  </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span>  </span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="co">// collect data from event object or outer references  </span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        ByBkWizard.<span class="fu">showByBkDialog</span>(trades);  </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    }  </span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>}  </span></code></pre>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        ByBkWizard<span class="op">.</span><span class="fu">showByBkDialog</span><span class="op">(</span>trades<span class="op">);</span>  </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>  </span></code></pre>
     </div> 
     <p>当用户触发该Action对应的事件之后，定义的逻辑即被执行，简单点来说就是，搜集前提条件相关的数据，然后显示WizardDialog给用户，当用户输入完成之后，根据收集的输入结果进行后继处理，而这些工作，现在显然都是由这个ByBkWizard类来做了：</p> 
     <div class="sourceCode" id="cb2">
      <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> ByBkWizard  </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>{  </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">showByBkDialog</span>(<span class="bu">Collection</span>&lt;TransactionEntity&gt; trades_) {  </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>            <span class="kw">new</span> <span class="fu">ByBkWizard</span>(trades_);  </span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        }  </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span>  </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">showByBkDialog</span><span class="op">(</span><span class="bu">Collection</span><span class="op">&lt;</span>TransactionEntity<span class="op">&gt;</span> trades_<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>            <span class="kw">new</span> <span class="fu">ByBkWizard</span><span class="op">(</span>trades_<span class="op">);</span>  </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span>  </span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">public</span> <span class="fu">ByBkWizard</span>(<span class="bu">Collection</span>&lt;TransactionEntity&gt; trades_) {  </span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>            _backupTrades = <span class="kw">new</span> <span class="bu">HashMap</span>&lt;<span class="bu">String</span>, TransactionEntity&gt;(trades_.<span class="fu">size</span>());  </span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>            _trades = <span class="kw">new</span> <span class="bu">ArrayList</span>&lt;TransactionEntity&gt;(trades_.<span class="fu">size</span>());  </span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>            <span class="kw">for</span> (TransactionEntity entity : trades_) {  </span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>            <span class="kw">try</span> {  </span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>                _backupTrades.<span class="fu">put</span>(<span class="fu">getTempKey</span>(entity), (TransactionEntity) entity.<span class="fu">clone</span>());  </span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>                _trades.<span class="fu">add</span>((TransactionEntity) entity.<span class="fu">clone</span>());  </span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>            } <span class="kw">catch</span> (<span class="bu">Exception</span> e) {  </span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>                logger.<span class="fu">error</span>(e, e);  </span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>            }  </span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="fu">initWizard</span>();  </span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        }  </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">public</span> <span class="fu">ByBkWizard</span><span class="op">(</span><span class="bu">Collection</span><span class="op">&lt;</span>TransactionEntity<span class="op">&gt;</span> trades_<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>            _backupTrades <span class="op">=</span> <span class="kw">new</span> <span class="bu">HashMap</span><span class="op">&lt;</span><span class="bu">String</span><span class="op">,</span> TransactionEntity<span class="op">&gt;(</span>trades_<span class="op">.</span><span class="fu">size</span><span class="op">());</span>  </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>            _trades <span class="op">=</span> <span class="kw">new</span> <span class="bu">ArrayList</span><span class="op">&lt;</span>TransactionEntity<span class="op">&gt;(</span>trades_<span class="op">.</span><span class="fu">size</span><span class="op">());</span>  </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> <span class="op">(</span>TransactionEntity entity <span class="op">:</span> trades_<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>            <span class="cf">try</span> <span class="op">{</span>  </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>                _backupTrades<span class="op">.</span><span class="fu">put</span><span class="op">(</span><span class="fu">getTempKey</span><span class="op">(</span>entity<span class="op">),</span> <span class="op">(</span>TransactionEntity<span class="op">)</span> entity<span class="op">.</span><span class="fu">clone</span><span class="op">());</span>  </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>                _trades<span class="op">.</span><span class="fu">add</span><span class="op">((</span>TransactionEntity<span class="op">)</span> entity<span class="op">.</span><span class="fu">clone</span><span class="op">());</span>  </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">Exception</span> e<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>                logger<span class="op">.</span><span class="fu">error</span><span class="op">(</span>e<span class="op">,</span> e<span class="op">);</span>  </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span>  </span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="fu">initWizard</span><span class="op">();</span>  </span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span>  </span>
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="co">// initWizard定义  </span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        PageList model = <span class="kw">new</span> <span class="fu">PageList</span>();  </span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        PageList model <span class="op">=</span> <span class="kw">new</span> <span class="fu">PageList</span><span class="op">();</span>  </span>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        AbstractWizardPage setDataView = <span class="kw">new</span> <span class="fu">BuyBackStepOneWizardPage</span>();  </span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        AbstractWizardPage editView = <span class="kw">new</span> <span class="fu">BuyBackStepTwoWizardPage</span>();  </span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        model.<span class="fu">append</span>(setDataView);  </span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>        model.<span class="fu">append</span>(editView);  </span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>        wizard.<span class="fu">setPageList</span>(model);  </span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        AbstractWizardPage setDataView <span class="op">=</span> <span class="kw">new</span> <span class="fu">BuyBackStepOneWizardPage</span><span class="op">();</span>  </span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        AbstractWizardPage editView <span class="op">=</span> <span class="kw">new</span> <span class="fu">BuyBackStepTwoWizardPage</span><span class="op">();</span>  </span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        model<span class="op">.</span><span class="fu">append</span><span class="op">(</span>setDataView<span class="op">);</span>  </span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>        model<span class="op">.</span><span class="fu">append</span><span class="op">(</span>editView<span class="op">);</span>  </span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>        wizard<span class="op">.</span><span class="fu">setPageList</span><span class="op">(</span>model<span class="op">);</span>  </span>
 <span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        wizard.<span class="fu">addWindowListener</span>(<span class="kw">new</span> <span class="bu">WindowAdapter</span>() {  </span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>        <span class="kw">public</span> <span class="dt">void</span> <span class="fu">windowClosing</span>(<span class="dt">final</span> <span class="bu">WindowEvent</span> e) {  </span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>            wizard.<span class="fu">dispose</span>();  </span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>            _tradePanel.<span class="fu">destroy</span>();  </span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>            _tradePanel = <span class="kw">null</span>;  </span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>        }  </span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>        });  </span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>        wizard.<span class="fu">setFinishAction</span>(<span class="kw">new</span> <span class="bu">AbstractAction</span>(<span class="st">"Send"</span>) {  </span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>        <span class="kw">private</span> <span class="dt">static</span> <span class="dt">final</span> <span class="dt">long</span> serialVersionUID = <span class="dv">1L</span>;  </span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        wizard<span class="op">.</span><span class="fu">addWindowListener</span><span class="op">(</span><span class="kw">new</span> <span class="bu">WindowAdapter</span><span class="op">()</span> <span class="op">{</span>  </span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>        <span class="kw">public</span> <span class="dt">void</span> <span class="fu">windowClosing</span><span class="op">(</span><span class="dt">final</span> <span class="bu">WindowEvent</span> e<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>            wizard<span class="op">.</span><span class="fu">dispose</span><span class="op">();</span>  </span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>            _tradePanel<span class="op">.</span><span class="fu">destroy</span><span class="op">();</span>  </span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>            _tradePanel <span class="op">=</span> <span class="kw">null</span><span class="op">;</span>  </span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span>  </span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>        <span class="op">});</span>  </span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>        wizard<span class="op">.</span><span class="fu">setFinishAction</span><span class="op">(</span><span class="kw">new</span> <span class="bu">AbstractAction</span><span class="op">(</span><span class="st">"Send"</span><span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>        <span class="kw">private</span> <span class="dt">static</span> <span class="dt">final</span> <span class="dt">long</span> serialVersionUID <span class="op">=</span> <span class="dv">1L</span><span class="op">;</span>  </span>
 <span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>        <span class="kw">public</span> <span class="dt">void</span> <span class="fu">actionPerformed</span>(<span class="dt">final</span> <span class="bu">ActionEvent</span> e) {  </span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>            <span class="kw">if</span> (wizard.<span class="fu">closeCurrentPage</span>()) {  </span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>            <span class="kw">if</span> (! <span class="fu">checkInput</span>()) {  </span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>                GenericExceptionHandler.<span class="fu">showOptionDialog</span>(<span class="st">"Warn"</span>,  </span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"The input is illegal for the callable trade(s)"</span>,  </span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>                    <span class="bu">JOptionPane</span>.<span class="fu">WARNING_MESSAGE</span>);  </span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>                <span class="kw">return</span>;  </span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>            }  </span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>            <span class="fu">handleFinish</span>();  </span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>            wizard.<span class="fu">setVisible</span>(<span class="kw">false</span>);  </span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>            wizard.<span class="fu">dispose</span>();  </span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>            _tradePanel.<span class="fu">destroy</span>();  </span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>            _tradePanel = <span class="kw">null</span>;  </span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>            }  </span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>        }  </span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>        });  </span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>        wizard.<span class="fu">setCancelAction</span>(<span class="kw">new</span> <span class="bu">AbstractAction</span>(<span class="st">"Cancel"</span>) {  </span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>        <span class="kw">private</span> <span class="dt">static</span> <span class="dt">final</span> <span class="dt">long</span> serialVersionUID = <span class="dv">1L</span>;  </span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>        <span class="kw">public</span> <span class="dt">void</span> <span class="fu">actionPerformed</span><span class="op">(</span><span class="dt">final</span> <span class="bu">ActionEvent</span> e<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>wizard<span class="op">.</span><span class="fu">closeCurrentPage</span><span class="op">())</span> <span class="op">{</span>  </span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(!</span> <span class="fu">checkInput</span><span class="op">())</span> <span class="op">{</span>  </span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>                GenericExceptionHandler<span class="op">.</span><span class="fu">showOptionDialog</span><span class="op">(</span><span class="st">"Warn"</span><span class="op">,</span>  </span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"The input is illegal for the callable trade(s)"</span><span class="op">,</span>  </span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>                    <span class="bu">JOptionPane</span><span class="op">.</span><span class="fu">WARNING_MESSAGE</span><span class="op">);</span>  </span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span><span class="op">;</span>  </span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span>  </span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>            <span class="fu">handleFinish</span><span class="op">();</span>  </span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>            wizard<span class="op">.</span><span class="fu">setVisible</span><span class="op">(</span><span class="kw">false</span><span class="op">);</span>  </span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>            wizard<span class="op">.</span><span class="fu">dispose</span><span class="op">();</span>  </span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>            _tradePanel<span class="op">.</span><span class="fu">destroy</span><span class="op">();</span>  </span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>            _tradePanel <span class="op">=</span> <span class="kw">null</span><span class="op">;</span>  </span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span>  </span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span>  </span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>        <span class="op">});</span>  </span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>        wizard<span class="op">.</span><span class="fu">setCancelAction</span><span class="op">(</span><span class="kw">new</span> <span class="bu">AbstractAction</span><span class="op">(</span><span class="st">"Cancel"</span><span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>        <span class="kw">private</span> <span class="dt">static</span> <span class="dt">final</span> <span class="dt">long</span> serialVersionUID <span class="op">=</span> <span class="dv">1L</span><span class="op">;</span>  </span>
 <span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>        <span class="kw">public</span> <span class="dt">void</span> <span class="fu">actionPerformed</span>(<span class="dt">final</span> <span class="bu">ActionEvent</span> e) {  </span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>            <span class="kw">if</span> (wizard.<span class="fu">closeCurrentPage</span>()) {  </span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>            wizard.<span class="fu">dispose</span>();  </span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>            _tradePanel.<span class="fu">destroy</span>();  </span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>            _tradePanel = <span class="kw">null</span>;  </span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>            }  </span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>        }  </span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>        });  </span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>        <span class="kw">public</span> <span class="dt">void</span> <span class="fu">actionPerformed</span><span class="op">(</span><span class="dt">final</span> <span class="bu">ActionEvent</span> e<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>wizard<span class="op">.</span><span class="fu">closeCurrentPage</span><span class="op">())</span> <span class="op">{</span>  </span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>            wizard<span class="op">.</span><span class="fu">dispose</span><span class="op">();</span>  </span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>            _tradePanel<span class="op">.</span><span class="fu">destroy</span><span class="op">();</span>  </span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>            _tradePanel <span class="op">=</span> <span class="kw">null</span><span class="op">;</span>  </span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span>  </span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span>  </span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>        <span class="op">});</span>  </span>
 <span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>          </span>
 <span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>           <span class="co">// 内部类声明  </span></span>
 <span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>           <span class="bu">Class</span> BuyBackStepOneWizardPage  </span>
-<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>                      <span class="bu">State</span>, operations;  </span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>                      <span class="bu">State</span><span class="op">,</span> operations<span class="op">;</span>  </span>
 <span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>           <span class="bu">Class</span> BuyBackStepTwoWizardPage  </span>
-<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>                      <span class="bu">State</span>, operations;  </span>
-<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>}  </span></code></pre>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>                      <span class="bu">State</span><span class="op">,</span> operations<span class="op">;</span>  </span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>  </span></code></pre>
     </div> 
     <p>OK, 从功能上来说，ByBkWizard完成了预期的业务处理需求，但是，这样的ByBkWizard定义是否合适，却有值得商榷的地方（看官，如果你觉得“只要功能完成了就得了呗！”，那么就到此为止吧，下面的话其实再看就没啥意思了）：</p> 
     <ol type="1"> 
@@ -230,7 +232,7 @@
      <li>而说到这个handleFinish()方法，也就引出了我最初所说的“内部化”实践的问题，对最终数据进行处理的逻辑“内部化”到了当前类当中，而不是剥离并封装为单独的实体，有错吗？！其实也没错，就是感觉不符合我的审美观，毕竟，DI和IoC提了这么些年，回过头来再看到这样的代码有些难以忍受罢了。</li> 
     </ol> 
     <p>其实，往简单了说，所有的问题都归结为一点，即，代码职责不明确，或者专业点儿来说，关注点分离不够。而造成这种问题的前兆往往却是，不做足够的思考就根据功能去堆砌代码了。</p> 
-    <h1 data-number="4" id="重构后的wizarddialog代码实践"><span class="header-section-number">4</span> 重构后的WizardDialog代码实践</h1> 
+    <h1 id="重构后的wizarddialog代码实践">重构后的WizardDialog代码实践</h1> 
     <p>现在让我们来重构这一功能实现，重构的主要目标包括：</p> 
     <ol type="1"> 
      <li>重用WizardDialog的初始化逻辑；</li> 
@@ -239,104 +241,113 @@
     </ol> 
     <p>通常情况下，WizardDialog的使用流程是这样的：</p> 
     <div class="sourceCode" id="cb3">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>AbstractWizardPage page1 = …;  </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>AbstractWizardPage page2= …;  </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>AbstractWizardPage page3 = …;  </span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>AbstractWizardPage page1 <span class="op">=</span> …<span class="op">;</span>  </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>AbstractWizardPage page2<span class="op">=</span> …<span class="op">;</span>  </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>AbstractWizardPage page3 <span class="op">=</span> …<span class="op">;</span>  </span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>…  </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>PageList model = <span class="kw">new</span> <span class="fu">PageList</span>();  </span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>model .<span class="fu">append</span>(page1);  </span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>model .<span class="fu">append</span>(page2);  </span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>model .<span class="fu">append</span>(page3);  </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>PageList model <span class="op">=</span> <span class="kw">new</span> <span class="fu">PageList</span><span class="op">();</span>  </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>model <span class="op">.</span><span class="fu">append</span><span class="op">(</span>page1<span class="op">);</span>  </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>model <span class="op">.</span><span class="fu">append</span><span class="op">(</span>page2<span class="op">);</span>  </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>model <span class="op">.</span><span class="fu">append</span><span class="op">(</span>page3<span class="op">);</span>  </span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>…  </span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>WizardSample wizard = <span class="kw">new</span> <span class="fu">WizardSample</span>(<span class="st">"JIDE Wizard Demo"</span>);  </span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>wizard.<span class="fu">setPageList</span>(model);  </span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>wizard.<span class="fu">setResizable</span>(<span class="kw">false</span>);   </span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>wizard.<span class="fu">pack</span>();  </span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>wizard.<span class="fu">setVisible</span>(<span class="kw">true</span>); </span></code></pre>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>WizardSample wizard <span class="op">=</span> <span class="kw">new</span> <span class="fu">WizardSample</span><span class="op">(</span><span class="st">"JIDE Wizard Demo"</span><span class="op">);</span>  </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>wizard<span class="op">.</span><span class="fu">setPageList</span><span class="op">(</span>model<span class="op">);</span>  </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>wizard<span class="op">.</span><span class="fu">setResizable</span><span class="op">(</span><span class="kw">false</span><span class="op">);</span>   </span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>wizard<span class="op">.</span><span class="fu">pack</span><span class="op">();</span>  </span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>wizard<span class="op">.</span><span class="fu">setVisible</span><span class="op">(</span><span class="kw">true</span><span class="op">);</span> </span></code></pre>
     </div> 
     <p>显然，除了使用的Pages不同，初始化一个WizardDialog并使用它的流程基本模式是不变的，那么我们就可以这一流程采用模板化封装，以期之后能够复用之，这也就有了如下模板类定义：</p> 
     <div class="sourceCode" id="cb4">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> WizardDialogLauncher {  </span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> WizardDialogLauncher <span class="op">{</span>  </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">launch</span>(<span class="bu">String</span> title,<span class="dt">final</span> PageList pageList,<span class="dt">final</span> <span class="bu">Runnable</span> finishAction)  </span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    {  </span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">launch</span>(title,<span class="kw">new</span> <span class="fu">IWizardDialogCustomizer</span>(){  </span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>            <span class="kw">public</span> <span class="dt">void</span> <span class="fu">customizeWizardDialog</span>(WizardDialog dialog) {  </span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                dialog.<span class="fu">setPageList</span>(pageList);  </span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                                dialog.<span class="fu">setFinishAction</span>(<span class="kw">new</span> <span class="bu">AbstractAction</span>(<span class="st">""</span>)  </span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>                                {  </span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>                                    <span class="kw">...  </span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">launch</span><span class="op">(</span><span class="bu">String</span> title<span class="op">,</span><span class="dt">final</span> PageList pageList<span class="op">,</span><span class="dt">final</span> <span class="bu">Runnable</span> finishAction<span class="op">)</span>  </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span>  </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">launch</span><span class="op">(</span>title<span class="op">,</span><span class="kw">new</span> <span class="fu">IWizardDialogCustomizer</span><span class="op">(){</span>  </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>            <span class="kw">public</span> <span class="dt">void</span> <span class="fu">customizeWizardDialog</span><span class="op">(</span>WizardDialog dialog<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                dialog<span class="op">.</span><span class="fu">setPageList</span><span class="op">(</span>pageList<span class="op">);</span>  </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                                dialog<span class="op">.</span><span class="fu">setFinishAction</span><span class="op">(</span><span class="kw">new</span> <span class="bu">AbstractAction</span><span class="op">(</span><span class="st">""</span><span class="op">)</span>  </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>                                <span class="op">{</span>  </span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>                                    <span class="kw">...</span>  </span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>                                    <span class="co">// finishAction.run();  </span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>                                }  </span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>                                ...<span class="co">// other settings  </span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>            }});  </span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    }  </span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>                                <span class="op">}</span>  </span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>                                <span class="kw">...</span><span class="co">// other settings  </span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>            <span class="op">}});</span>  </span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">launch</span>(<span class="bu">String</span> title,IWizardDialogCustomizer customizer)  </span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    {  </span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        WizardDialog dialog = <span class="kw">new</span> <span class="fu">WizardDialog</span>(title);  </span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        customizer.<span class="fu">customizeWizardDialog</span>(dialog);  </span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        dialog.<span class="fu">setVisible</span>(<span class="kw">true</span>);  </span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    }  </span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>}  </span></code></pre>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">launch</span><span class="op">(</span><span class="bu">String</span> title<span class="op">,</span>IWizardDialogCustomizer customizer<span class="op">)</span>  </span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span>  </span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        WizardDialog dialog <span class="op">=</span> <span class="kw">new</span> <span class="fu">WizardDialog</span><span class="op">(</span>title<span class="op">);</span>  </span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        customizer<span class="op">.</span><span class="fu">customizeWizardDialog</span><span class="op">(</span>dialog<span class="op">);</span>  </span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        dialog<span class="op">.</span><span class="fu">setVisible</span><span class="op">(</span><span class="kw">true</span><span class="op">);</span>  </span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>  </span></code></pre>
     </div> 
     <p>其中，IWizardDialogCustomizer为Callback接口，如果默认的模板方法不能满足需求的话，可以通过该Callback接口进一步定制WizardDialog。</p> 
     <p>现在第一个重构目标达成，而重构的过程中我们也引出了第二个重构目标，即封装最终的数据处理逻辑。当用户走完WizardDialog给出的数据输入请求流程之后，我们就应该对最终收集到的用户输入结果进行处理了，显然，不同的WizardDialog因为会根据需求而使用不同的Page，那么，对应的最终数据处理逻辑也是各异的，所以，我们不能将这些数据处理逻辑硬编码到我们的模板类当中，所以，我们暂且以Runnable的形式抽取出来，这样，每次启动新的WizardDialog的时候，只要根据需要，传入相应的Runnable形式封装的最终数据处理逻辑即可。（当然，你也可以以其它形式来封装最终的数据处理逻辑，只要能够保证这一逻辑可以被重用，并能够灵活处理）</p> 
     <p>最后一个重构的目标是要处理页面间的数据状态管理，为什么要这么做那？！每一个WizardDialog都由多个WizardPage所组成，WizardDialog将这些Page来显示每一步的具体界面给用户，我们所要做的，只不过是通过PageList将这些Page交给WizardDialog进行显示罢了，至于这些Page管理则全都交由WizardDialog来做。但是，WizardDialog主要只负责这些页面之间的显示顺序以及最后向导结束后的行为定义，至于这些Page之间的数据状态管理，比如前后页面之间的数据依赖关系和传递，无论是《JIDE Dialogs Developer Guide》和相关类的Javadoc上都是只字未提，我想这就是为什么之前提到的实践方式中要将所有的数据状态以及页面逻辑都纳入一个类来管理的原因了，因为没有什么定规嘛，不过，这并不能为“内部化”的实践方式博得多少“同情”，实际上，我们完全可以将各个Page之间的模型数据以数据链的形式进行提供，比如，声明一个PagesModel，或者如果关心进一步的结构重用并不在乎数据类型检查的话，直接使用Map结构，让整个向导期间的数据交互都直接跟PagesModel或者Map形式的数据容器打交道，而之前的实践方式则基本上是通过同一个类定义范围内的状态共享来实现的。那么，我们是否要像之前的实践方式那样，做适当的变通，将状态定义为每一个Page的状态属性那？！稍微思考一下就会发现，这并不会带来什么好处，假设第二个Page要依赖第一个Page的数据状态，那么我们是不是要在初始化第二个Page的时候将第一个Page的引用传入那？如果第三个，第四个Page也有同样地状况那？！那就会纠缠不清了，还不如一了百了，让他们都直接跟某个统一的数据容器打交道来的清爽，我们所要所得，只不过是将同一个数据容器传给它们就是了。显然，作为数据容器的PagesModel或者Map可以在每一个Page中根据需要进行数据的获取和填充，比如页面初始化的时候获取数据容器中的数据初始化界面，而页面关闭的时候将页面上的某部分数据设置回数据容器，所有这些都可以通过为每个page注册相应的PageListener来完成，而且对每个Page都是独立的。</p> 
     <p>当所有这些重构目标达成之后，我们的XAction定义基本上就是如下的样子：</p> 
     <div class="sourceCode" id="cb5">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> XAction <span class="kw">extends</span> <span class="bu">AbstractAction</span> {  </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> WizardDialogLauncher launcher;  </span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> XAction <span class="kw">extends</span> <span class="bu">AbstractAction</span> <span class="op">{</span>  </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> WizardDialogLauncher launcher<span class="op">;</span>  </span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">actionPerformed</span>(<span class="bu">ActionEvent</span> arg0) {  </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        PagesModel model = <span class="kw">new</span> <span class="fu">PagesModel</span>();  </span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        model.<span class="fu">setX</span>(..);  </span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">...  </span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        PageList pageList = <span class="kw">new</span> <span class="fu">PageList</span>();  </span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        pageList.<span class="fu">append</span>(<span class="kw">new</span> <span class="fu">YourPageOne</span>(model));  </span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        pageList.<span class="fu">append</span>(<span class="kw">new</span> <span class="fu">YourPageTwo</span>(model));  </span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">...  </span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">actionPerformed</span><span class="op">(</span><span class="bu">ActionEvent</span> arg0<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        PagesModel model <span class="op">=</span> <span class="kw">new</span> <span class="fu">PagesModel</span><span class="op">();</span>  </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        model<span class="op">.</span><span class="fu">setX</span><span class="op">(..);</span>  </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">...</span>  </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        PageList pageList <span class="op">=</span> <span class="kw">new</span> <span class="fu">PageList</span><span class="op">();</span>  </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        pageList<span class="op">.</span><span class="fu">append</span><span class="op">(</span><span class="kw">new</span> <span class="fu">YourPageOne</span><span class="op">(</span>model<span class="op">));</span>  </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        pageList<span class="op">.</span><span class="fu">append</span><span class="op">(</span><span class="kw">new</span> <span class="fu">YourPageTwo</span><span class="op">(</span>model<span class="op">));</span>  </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">...</span>  </span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Runnable</span> finishAction = <span class="kw">new</span> <span class="fu">YourFinishAction</span>(model);  </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Runnable</span> finishAction <span class="op">=</span> <span class="kw">new</span> <span class="fu">YourFinishAction</span><span class="op">(</span>model<span class="op">);</span>  </span>
 <span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>          </span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        launcher.<span class="fu">launch</span>(pageList, finishAction);  </span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    }  </span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        launcher<span class="op">.</span><span class="fu">launch</span><span class="op">(</span>pageList<span class="op">,</span> finishAction<span class="op">);</span>  </span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">// getters and setters  </span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>}  </span></code></pre>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>  </span></code></pre>
     </div> 
     <p>显然，如果有新的WizardDialog需求，我们所要做的，无非就是像如上代码所示，提供相应的Page实现和对应的FinishAction实现即可。</p> 
     <p>重构的过程其实很简单，最主要在于，即使你不能使用Spring或者Guice之类的IoC容器或者框架，那也不应该放弃“外部化你的依赖管理”，没有框架的支持，不应该成为你不去编写可复用性，可测试性，可维护性良好的代码的借口。</p> 
-    <h1 data-number="5" id="小结"><span class="header-section-number">5</span> 小结</h1> 
+    <h1 id="小结">小结</h1> 
     <ol type="1"> 
      <li>以旁观者的角度去观察，设计和实现你的代码逻辑，这将使你更加专注于明确各个实现类的职责，而不会被来自不同“地区”的依赖打乱“战局”。</li> 
      <li>大家都知道，做同样一件事情有很多种方式，但是，总有更好的方式，如果你是一个追求完美的人，那即使没有任何的理论和设计模式之类的指导，你也同样可以写出令人赏心悦目地代码，因为，那是艺术，而你就是拥有艺术气质的那种人！</li> 
     </ol> <!--          </div>--> <!--        </div>--> 
     <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
+    <hr> 
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2017-09-05-how-to-run-startup-wisely.html">How To Run A Startup Wisely </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2008-01-16-what-a-day.html">放纵的一天 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2009-12-23-change-laptop.html">终于把我的三星X05折腾坏了… </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2021-08-22-tiny-detail-makes-a-great-product.html">好的产品，一个细节就够了！ </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2006-07-28-springdoclet.html">使用springdoclet简化基于spring框架的应用开发 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2018-09-17-AI-panic.html">人工智能恐慌（AI Panic） </a> 
      </div> 
     </div> 
-    <hr> 
-    <img src="/images/zanshang.jpg" width="300/"> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <div id="comments"></div> 
     <hr> 
-    <div class="text-center"> 
-     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
     </div> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
-   ©王福强个人版权所有, All Rights Reserved.
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
   </div> 
   <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
    </div> 
   </div> 
   <script type="text/javascript">
@@ -351,7 +362,16 @@ var gitalk = new Gitalk({
 })
 
 gitalk.render('comments')
-    </script>  
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
  </body>
 </html>

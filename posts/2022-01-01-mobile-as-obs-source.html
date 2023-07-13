@@ -6,7 +6,7 @@
   <meta name="description" content="怎么把手机摄像头作为obs输入源 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-  <title>怎么把手机摄像头作为obs输入源 - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <title>怎么把手机摄像头作为obs输入源 -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <meta name="date" content="2022-01-01"> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
@@ -15,26 +15,35 @@
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
-  <script>
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    </script> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
  </head> 
  <body id="page-top"> <!-- Navigation --> 
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
     <div class="collapse navbar-collapse" id="navbarResponsive"> 
      <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
      </ul> 
     </div> 
@@ -43,26 +52,24 @@
   <section> 
    <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
     <p class="lead"> </p>
-    <h1 class="title">怎么把手机摄像头作为obs输入源</h1> <small> <h3 class="author">王福强</h3>2022-01-01 </small> 
+    <h1 class="title">怎么把手机摄像头作为obs输入源</h1> <small> <h3 class="author">王福强</h3> 
+     <div style="text-align: left;">
+      2022-01-01
+     </div> </small> 
     <p></p> 
-    <hr> 
-    <ul> 
-     <li><a href="#有线方案"><span class="toc-section-number">1</span> 有线方案</a></li> 
-     <li><a href="#无线方案"><span class="toc-section-number">2</span> 无线方案</a></li> 
-    </ul> 
     <hr> 
     <p>Macbook Pro16的摄像头实在太渣，现在任何一个手机的摄像头都比它强吧，所以，考虑怎么把手机的摄像头作为直播视频的输入源纳入OBS，简单了解了一下，基本上就两个思路：</p> 
     <ul> 
      <li><strong>有线</strong>方案</li> 
      <li><strong>无线</strong>方案</li> 
     </ul> 
-    <h1 data-number="1" id="有线方案"><span class="header-section-number">1</span> 有线方案</h1> 
+    <h1 id="有线方案">有线方案</h1> 
     <p>恰好去年闲着无聊逛电商的时候搞了个玩具型视频采集卡，所以，组合<code>视频采集卡 + USB HUB</code>把手机和电脑连接起来之后，OBS就会自动识别把手机作为一个USB视频设备了，唯一不爽的就是串联各种线和各种转接头…</p> 
     <p>这是视频采集卡再加个USB转Type-C的转接头：</p> 
     <p><img src="images/ingest_card.jpg"></p> 
     <p>这是USB HUB转接HDMI和Type-C：</p> 
     <p><img src="images/hub.jpg"></p> 
-    <h1 data-number="2" id="无线方案"><span class="header-section-number">2</span> 无线方案</h1> 
+    <h1 id="无线方案">无线方案</h1> 
     <p>无线方案嘛，基本思路是这样的： 手机端起一个推流的客户端，然后把视频流推到一个推流服务器，之后，OBS里新加一个Media Source（去除本地文件选项）， 指定推流服务器对应的URL，把视频流从推流服务器拉下来就可以了。</p> 
     <p>手机装app客户端当然可以，也可以选择像<a href="https://obs.ninja/">obs.ninja</a>这样的网页版，不需要安装任何客户端，点开连接并授权就可以开始推流了。</p> 
     <p>如果有技术能力，自己假设一个推流服务器，自己折腾推流客户端逻辑，当然就更内聚了，不过，纯粹就是为了玩技术而玩儿了 <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>，忘了其实初衷是为了玩内容 ；）</p> 
@@ -73,30 +80,39 @@
      </ol> 
     </section> <!--          </div>--> <!--        </div>--> 
     <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
+    <hr> 
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2014-04-26-weak-horse-effect.html">瘦马效应 #What’s in a story# </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2012-07-31-add-tools-jar-to-sbt-compile-path.html">将tools.jar添加到sbt编译期classpath中 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2006-07-28-springdoclet.html">使用springdoclet简化基于spring框架的应用开发 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2007-11-08-BF4768EE8B110260_691.html">栽了，呵呵</a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2010-05-04-photography.html">学习摄影总结</a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2019-07-29-talk-about-postmortem-how-to.html">复盘不是你想的那样 </a> 
      </div> 
     </div> 
-    <hr> 
-    <img src="/images/zanshang.jpg" width="300/"> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <div id="comments"></div> 
     <hr> 
-    <div class="text-center"> 
-     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
     </div> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
-   ©王福强个人版权所有, All Rights Reserved.
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
   </div> 
   <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
    </div> 
   </div> 
   <script type="text/javascript">
@@ -111,7 +127,16 @@ var gitalk = new Gitalk({
 })
 
 gitalk.render('comments')
-    </script>  
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
  </body>
 </html>

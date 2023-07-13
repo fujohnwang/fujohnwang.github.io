@@ -6,7 +6,7 @@
   <meta name="description" content="Gitlab OAuth2 Application简明教程 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-  <title>Gitlab OAuth2 Application简明教程 - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <title>Gitlab OAuth2 Application简明教程 -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <meta name="date" content="2015-12-17"> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
@@ -14,6 +14,7 @@
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -79,26 +80,35 @@
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
-  <script>
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    </script> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
  </head> 
  <body id="page-top"> <!-- Navigation --> 
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
     <div class="collapse navbar-collapse" id="navbarResponsive"> 
      <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
      </ul> 
     </div> 
@@ -107,28 +117,15 @@
   <section> 
    <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
     <p class="lead"> </p>
-    <h1 class="title">Gitlab OAuth2 Application简明教程</h1> <small> <h3 class="author">王福强 - fujohnwang AT gmail DOTA com</h3>2015-12-17 </small> 
+    <h1 class="title">Gitlab OAuth2 Application简明教程</h1> <small> <h3 class="author">王福强 - fujohnwang AT gmail DOTA com</h3> 
+     <div style="text-align: left;">
+      2015-12-17
+     </div> </small> 
     <p></p> 
     <hr> 
-    <ul> 
-     <li><a href="#概要流程说明"><span class="toc-section-number">1</span> 概要流程说明</a> 
-      <ul> 
-       <li><a href="#应用注册"><span class="toc-section-number">1.1</span> 应用注册</a></li> 
-       <li><a href="#应用授权"><span class="toc-section-number">1.2</span> 应用授权</a></li> 
-      </ul></li> 
-     <li><a href="#工程实现举例"><span class="toc-section-number">2</span> 工程实现举例</a></li> 
-     <li><a href="#faqs"><span class="toc-section-number">3</span> FAQs</a> 
-      <ul> 
-       <li><a href="#private-token与access-token什么区别"><span class="toc-section-number">3.1</span> Private Token与Access Token什么区别？</a></li> 
-       <li><a href="#the-redirect-url-included-is-not-valid错误"><span class="toc-section-number">3.2</span> “The redirect url included is not valid”错误</a></li> 
-       <li><a href="#为啥没有显示授权页面而是引导我到了登录页面"><span class="toc-section-number">3.3</span> 为啥没有显示授权页面，而是引导我到了登录页面？</a></li> 
-      </ul></li> 
-     <li><a href="#小结和补充"><span class="toc-section-number">4</span> 小结和补充</a></li> 
-    </ul> 
-    <hr> 
     <p>aka. <strong>A simple guide on how to create a Gitlab OAuth2 Application</strong></p> 
-    <h1 data-number="1" id="概要流程说明"><span class="header-section-number">1</span> 概要流程说明</h1> 
-    <h2 data-number="1.1" id="应用注册"><span class="header-section-number">1.1</span> 应用注册</h2> 
+    <h1 id="概要流程说明">概要流程说明</h1> 
+    <h2 id="应用注册">应用注册</h2> 
     <p>Gitlab允许用户创建Applications， 这些Applications可以通过OAuth2授权来访问Gitlab的相应资源。</p> 
     <p>在Gitlab中， Applications分两种, 第一种是用户级别的Application， 这一般通过用户的Profile菜单进入创建：</p> 
     <p><img src="images/profile-application.png"></p> 
@@ -136,7 +133,7 @@
     <p><img src="images/system-application.png"></p> 
     <p>我们以系统级别的Application为例， 说明如何创建并注册一个Application：</p> 
     <p><img src="images/create-application.png"></p> 
-    <p>点击“New Application”之后， 会进入要求输入应用注册信息页面：</p> 
+    <p>点击”New Application”之后， 会进入要求输入应用注册信息页面：</p> 
     <p><img src="images/new-application-form.png"></p> 
     <p>假设我们创建一个testapp应用，并在本机调试，那么我们填写如下信息：</p> 
     <p><img src="images/new-application-form-submit.png"></p> 
@@ -148,7 +145,7 @@
     <p>注册完成后， 我们可以看到应用现在只有0个Clients， 即还没有任何实例作为这个Application的实例进行认证：</p> 
     <p><img src="images/application-list-before-authorize.png"></p> 
     <p>但不管怎么说， 应用注册这一步我们算成功完成啦！ Give Me Five~</p> 
-    <h2 data-number="1.2" id="应用授权"><span class="header-section-number">1.2</span> 应用授权</h2> 
+    <h2 id="应用授权">应用授权</h2> 
     <p>应用注册成功后， 应用的实例就可以作为一个认证实体向Gitlab认证自己啦， 如果认证成功， 就可以获取一个代表某个用户权限的access token对Gitlab的资源进行访问了。</p> 
     <p><a href="http://doc.gitlab.com/ce/api/oauth2.html">GitLab as an OAuth2 client</a>这篇帮助文档其实说的就是这个过程， 但其实只是看， 不自己动动手很难搞清楚这个过程是怎么回事， 尤其是， 帮助文档中没有清楚的表达出Gitlab和Application实例双方的交互流程，初看起来更是让人百思不得其解。</p> 
     <p>下面我简单通过图例说明这个交互的过程，后面再通过工程实例代码演示这个过程是如何实现的…</p> 
@@ -160,169 +157,169 @@
     </ol> 
     <p>当请求被重定向到以上gitlab的url的时候， gitlab会显示如下类似的页面要求当前已经登录gitlab的用户授权当前Application代表他/她来访问Gitlab的各项资源：</p> 
     <p><img src="images/authorize-required.png"></p> 
-    <p>不管用户是点击了“Authorize”同意授权还是“Deny”拒绝授权， gitlab都会将web请求重定向到Application注册的时候提供的Callback url地址上（在这里是我们的<code>http://localhost:8080/callback</code>）， 然后Application的对应这个url地址的Action就可以根据授权结果来决定后继行为了。</p> 
+    <p>不管用户是点击了”Authorize”同意授权还是“Deny”拒绝授权， gitlab都会将web请求重定向到Application注册的时候提供的Callback url地址上（在这里是我们的<code>http://localhost:8080/callback</code>）， 然后Application的对应这个url地址的Action就可以根据授权结果来决定后继行为了。</p> 
     <p>如果用户授权， 则Application会收到一个授权code， 使用这个授权code结合之前分配的Secret（即client secret）和一些其它必要信息，就可以访问<code>http://{your.gitlab.server}/oauth/token</code>并从请求返回的响应(Response)中获得一个AccessToken(当然，还有其他信息，比如Expire时间窗口有多长， RefreshToken，以及授权访问的scope是什么等）， 之后， Application就可以使用这个AccessToken并结合gitlab的API来访问相应的资源（只要授权的这个用户有权限访问）。</p> 
-    <h1 data-number="2" id="工程实现举例"><span class="header-section-number">2</span> 工程实现举例</h1> 
+    <h1 id="工程实现举例">工程实现举例</h1> 
     <p>我们使用Apache的OLTU这个库来构建OAuth2交互流程，所以需要先把它加到项目依赖之中：</p> 
     <div class="sourceCode" id="cb1">
-     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;dependency&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;groupId&gt;</span>org.apache.oltu.oauth2<span class="kw">&lt;/groupId&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;artifactId&gt;</span>org.apache.oltu.oauth2.client<span class="kw">&lt;/artifactId&gt;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;version&gt;</span>1.0.1<span class="kw">&lt;/version&gt;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/dependency&gt;</span></span></code></pre>
+     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">dependency</span>&gt;</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">groupId</span>&gt;org.apache.oltu.oauth2&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">artifactId</span>&gt;org.apache.oltu.oauth2.client&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">version</span>&gt;1.0.1&lt;/<span class="kw">version</span>&gt;</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">dependency</span>&gt;</span></code></pre>
     </div> 
     <p>简单起见，我们使用SpringBoot构建一个Web应用oauth2-app-proto， 项目的POM大体看起来像这样：</p> 
     <div class="sourceCode" id="cb2">
-     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;?xml</span> version="1.0" encoding="UTF-8"<span class="kw">?&gt;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;project</span><span class="ot"> xmlns=</span><span class="st">"http://maven.apache.org/POM/4.0.0"</span><span class="ot"> xmlns:xsi=</span><span class="st">"http://www.w3.org/2001/XMLSchema-instance"</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ot">    xsi:schemaLocation=</span><span class="st">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span><span class="kw">&gt;</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;modelVersion&gt;</span>4.0.0<span class="kw">&lt;/modelVersion&gt;</span></span>
+     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span><span class="ot"> version=</span><span class="st">"1.0"</span><span class="ot"> encoding=</span><span class="st">"UTF-8"</span><span class="fu">?&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">project</span><span class="ot"> xmlns=</span><span class="st">"http://maven.apache.org/POM/4.0.0"</span><span class="ot"> xmlns:xsi=</span><span class="st">"http://www.w3.org/2001/XMLSchema-instance"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ot">    xsi:schemaLocation=</span><span class="st">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">modelVersion</span>&gt;4.0.0&lt;/<span class="kw">modelVersion</span>&gt;</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;groupId&gt;</span>com.keevol<span class="kw">&lt;/groupId&gt;</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;artifactId&gt;</span>oauth2-app-proto<span class="kw">&lt;/artifactId&gt;</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;version&gt;</span>0.0.1-SNAPSHOT<span class="kw">&lt;/version&gt;</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;packaging&gt;</span>jar<span class="kw">&lt;/packaging&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">groupId</span>&gt;com.keevol&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">artifactId</span>&gt;oauth2-app-proto&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">version</span>&gt;0.0.1-SNAPSHOT&lt;/<span class="kw">version</span>&gt;</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">packaging</span>&gt;jar&lt;/<span class="kw">packaging</span>&gt;</span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;name&gt;</span>oauth2-app-proto<span class="kw">&lt;/name&gt;</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;description&gt;</span>Demo project for Spring Boot<span class="kw">&lt;/description&gt;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">name</span>&gt;oauth2-app-proto&lt;/<span class="kw">name</span>&gt;</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">description</span>&gt;Demo project for Spring Boot&lt;/<span class="kw">description</span>&gt;</span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;parent&gt;</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;groupId&gt;</span>org.springframework.boot<span class="kw">&lt;/groupId&gt;</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;artifactId&gt;</span>spring-boot-starter-parent<span class="kw">&lt;/artifactId&gt;</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;version&gt;</span>1.3.0.RELEASE<span class="kw">&lt;/version&gt;</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;relativePath/&gt;</span> <span class="co">&lt;!-- lookup parent from repository --&gt;</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/parent&gt;</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">parent</span>&gt;</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">groupId</span>&gt;org.springframework.boot&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">artifactId</span>&gt;spring-boot-starter-parent&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">version</span>&gt;1.3.0.RELEASE&lt;/<span class="kw">version</span>&gt;</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">relativePath</span>/&gt; <span class="co">&lt;!-- lookup parent from repository --&gt;</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">parent</span>&gt;</span>
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;properties&gt;</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;project.build.sourceEncoding&gt;</span>UTF-8<span class="kw">&lt;/project.build.sourceEncoding&gt;</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;java.version&gt;</span>1.8<span class="kw">&lt;/java.version&gt;</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/properties&gt;</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">properties</span>&gt;</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">project.build.sourceEncoding</span>&gt;UTF-8&lt;/<span class="kw">project.build.sourceEncoding</span>&gt;</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">java.version</span>&gt;1.8&lt;/<span class="kw">java.version</span>&gt;</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">properties</span>&gt;</span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;dependencies&gt;</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;dependency&gt;</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;groupId&gt;</span>org.springframework.boot<span class="kw">&lt;/groupId&gt;</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="kw">&lt;/artifactId&gt;</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;/dependency&gt;</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;dependency&gt;</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;groupId&gt;</span>org.apache.oltu.oauth2<span class="kw">&lt;/groupId&gt;</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;artifactId&gt;</span>org.apache.oltu.oauth2.client<span class="kw">&lt;/artifactId&gt;</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;version&gt;</span>1.0.1<span class="kw">&lt;/version&gt;</span></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;/dependency&gt;</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/dependencies&gt;</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">dependencies</span>&gt;</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.springframework.boot&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;spring-boot-starter-web&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.apache.oltu.oauth2&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;org.apache.oltu.oauth2.client&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">version</span>&gt;1.0.1&lt;/<span class="kw">version</span>&gt;</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">dependencies</span>&gt;</span>
 <span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;build&gt;</span></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;plugins&gt;</span></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;plugin&gt;</span></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>                <span class="kw">&lt;groupId&gt;</span>org.springframework.boot<span class="kw">&lt;/groupId&gt;</span></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>                <span class="kw">&lt;artifactId&gt;</span>spring-boot-maven-plugin<span class="kw">&lt;/artifactId&gt;</span></span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;/plugin&gt;</span></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;/plugins&gt;</span></span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/build&gt;</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">build</span>&gt;</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">plugins</span>&gt;</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">plugin</span>&gt;</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">groupId</span>&gt;org.springframework.boot&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">artifactId</span>&gt;spring-boot-maven-plugin&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>            &lt;/<span class="kw">plugin</span>&gt;</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">plugins</span>&gt;</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">build</span>&gt;</span>
 <span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/project&gt;</span></span></code></pre>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">project</span>&gt;</span></code></pre>
     </div> 
     <p>我们核心类就一个:</p> 
     <div class="sourceCode" id="cb3">
      <pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="at">@Controller</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> IndexController {</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">transient</span> <span class="dt">final</span> <span class="bu">Logger</span> logger = LoggerFactory.<span class="fu">getLogger</span>(<span class="fu">getClass</span>());</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> IndexController <span class="op">{</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">transient</span> <span class="dt">final</span> <span class="bu">Logger</span> logger <span class="op">=</span> LoggerFactory<span class="op">.</span><span class="fu">getLogger</span><span class="op">(</span><span class="fu">getClass</span><span class="op">());</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Value</span>(<span class="st">"${oauth2.server.url}"</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> gitlabServerUrl;</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Value</span>(<span class="st">"${oauth2.server.url.authorize.path:/oauth/authorize}"</span>)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> authorizePath;</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Value</span>(<span class="st">"${oauth2.server.url.token.path:/oauth/token}"</span>)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> tokenPath;</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Value</span><span class="op">(</span><span class="st">"${oauth2.server.url}"</span><span class="op">)</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> gitlabServerUrl<span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Value</span><span class="op">(</span><span class="st">"${oauth2.server.url.authorize.path:/oauth/authorize}"</span><span class="op">)</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> authorizePath<span class="op">;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Value</span><span class="op">(</span><span class="st">"${oauth2.server.url.token.path:/oauth/token}"</span><span class="op">)</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> tokenPath<span class="op">;</span></span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Value</span>(<span class="st">"${oauth2.client.id:260f7b273e13b9264b22bba3c5f1db53d55c8cb86fe3d02d7c11725ea52b0fe7}"</span>)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> clientId;</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Value</span>(<span class="st">"${oauth2.client.secret:15cebdce7a671fee9a7929b5a2c2bca006bb5afa92b36352586ccb6089004765}"</span>)</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> clientSecret;</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Value</span>(<span class="st">"${oauth2.client.callback.url:http://localhost:8080/callback}"</span>)</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> callbackUrl;</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Value</span><span class="op">(</span><span class="st">"${oauth2.client.id:260f7b273e13b9264b22bba3c5f1db53d55c8cb86fe3d02d7c11725ea52b0fe7}"</span><span class="op">)</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> clientId<span class="op">;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Value</span><span class="op">(</span><span class="st">"${oauth2.client.secret:15cebdce7a671fee9a7929b5a2c2bca006bb5afa92b36352586ccb6089004765}"</span><span class="op">)</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> clientSecret<span class="op">;</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Value</span><span class="op">(</span><span class="st">"${oauth2.client.callback.url:http://localhost:8080/callback}"</span><span class="op">)</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> callbackUrl<span class="op">;</span></span>
 <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Autowired</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    TokenRepository tokenRepository;</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    TokenRepository tokenRepository<span class="op">;</span></span>
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    OAuthClient oAuthClient = <span class="kw">new</span> <span class="fu">OAuthClient</span>(<span class="kw">new</span> <span class="fu">URLConnectionClient</span>());</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    OAuthClient oAuthClient <span class="op">=</span> <span class="kw">new</span> <span class="fu">OAuthClient</span><span class="op">(</span><span class="kw">new</span> <span class="fu">URLConnectionClient</span><span class="op">());</span></span>
 <span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">String</span> currentUserMock = <span class="st">"yunshi"</span>;</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">String</span> currentUserMock <span class="op">=</span> <span class="st">"yunshi"</span><span class="op">;</span></span>
 <span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">@PreDestroy</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">cleanUp</span>() {</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>        oAuthClient.<span class="fu">shutdown</span>();</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">cleanUp</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>        oAuthClient<span class="op">.</span><span class="fu">shutdown</span><span class="op">();</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">@RequestMapping</span>(<span class="st">"/main"</span>)</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">@RequestMapping</span><span class="op">(</span><span class="st">"/main"</span><span class="op">)</span></span>
 <span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">@ResponseBody</span></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">main</span>() {</span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> (tokenRepository.<span class="fu">getTokenOf</span>(currentUserMock).<span class="fu">isPresent</span>()) {</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>            <span class="kw">return</span> <span class="st">"authorization is done, you are good to go with access token: "</span> + tokenRepository.<span class="fu">getTokenOf</span>(currentUserMock).<span class="fu">get</span>();</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>        } <span class="kw">else</span> {</span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>            <span class="kw">return</span> <span class="st">"no authority."</span>;</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>tokenRepository<span class="op">.</span><span class="fu">getTokenOf</span><span class="op">(</span>currentUserMock<span class="op">).</span><span class="fu">isPresent</span><span class="op">())</span> <span class="op">{</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">"authorization is done, you are good to go with access token: "</span> <span class="op">+</span> tokenRepository<span class="op">.</span><span class="fu">getTokenOf</span><span class="op">(</span>currentUserMock<span class="op">).</span><span class="fu">get</span><span class="op">();</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">"no authority."</span><span class="op">;</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">@RequestMapping</span>(<span class="st">"/"</span>)</span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">index</span>(HttpServletRequest req, HttpServletResponse response) <span class="kw">throws</span> <span class="bu">Throwable</span> {</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> (tokenRepository.<span class="fu">getTokenOf</span>(currentUserMock).<span class="fu">isPresent</span>()) {</span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>            logger.<span class="fu">info</span>(<span class="st">"query user information with access token..."</span>);</span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>            OAuthClientRequest bearerClientRequest = <span class="kw">new</span> <span class="fu">OAuthBearerClientRequest</span>(gitlabServerUrl + <span class="st">"/api/v3/user"</span>).<span class="fu">setAccessToken</span>(tokenRepository.<span class="fu">getTokenOf</span>(currentUserMock).<span class="fu">get</span>()).<span class="fu">buildQueryMessage</span>();</span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>            OAuthResourceResponse resourceResponse = oAuthClient.<span class="fu">resource</span>(bearerClientRequest, OAuth.<span class="fu">HttpMethod</span>.<span class="fu">GET</span>, OAuthResourceResponse.<span class="fu">class</span>);</span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>            logger.<span class="fu">info</span>(<span class="st">"had authorized, just query for user information..."</span>);</span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>            logger.<span class="fu">info</span>(<span class="st">"user information: "</span> + resourceResponse.<span class="fu">getBody</span>());</span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>            <span class="kw">return</span> <span class="st">"redirect:/main"</span>;</span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>        } <span class="kw">else</span> {</span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>            logger.<span class="fu">info</span>(<span class="st">"first login, build oauth request &gt;.."</span>);</span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>            OAuthClientRequest request = OAuthClientRequest</span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>                    .<span class="fu">authorizationLocation</span>(gitlabServerUrl + authorizePath)</span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>                    .<span class="fu">setClientId</span>(clientId)</span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>                    .<span class="fu">setRedirectURI</span>(callbackUrl)</span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>                    .<span class="fu">setResponseType</span>(<span class="st">"code"</span>)</span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>                    .<span class="fu">buildQueryMessage</span>();</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">@RequestMapping</span><span class="op">(</span><span class="st">"/"</span><span class="op">)</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">index</span><span class="op">(</span>HttpServletRequest req<span class="op">,</span> HttpServletResponse response<span class="op">)</span> <span class="kw">throws</span> <span class="bu">Throwable</span> <span class="op">{</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>tokenRepository<span class="op">.</span><span class="fu">getTokenOf</span><span class="op">(</span>currentUserMock<span class="op">).</span><span class="fu">isPresent</span><span class="op">())</span> <span class="op">{</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>            logger<span class="op">.</span><span class="fu">info</span><span class="op">(</span><span class="st">"query user information with access token..."</span><span class="op">);</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>            OAuthClientRequest bearerClientRequest <span class="op">=</span> <span class="kw">new</span> <span class="fu">OAuthBearerClientRequest</span><span class="op">(</span>gitlabServerUrl <span class="op">+</span> <span class="st">"/api/v3/user"</span><span class="op">).</span><span class="fu">setAccessToken</span><span class="op">(</span>tokenRepository<span class="op">.</span><span class="fu">getTokenOf</span><span class="op">(</span>currentUserMock<span class="op">).</span><span class="fu">get</span><span class="op">()).</span><span class="fu">buildQueryMessage</span><span class="op">();</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>            OAuthResourceResponse resourceResponse <span class="op">=</span> oAuthClient<span class="op">.</span><span class="fu">resource</span><span class="op">(</span>bearerClientRequest<span class="op">,</span> OAuth<span class="op">.</span><span class="fu">HttpMethod</span><span class="op">.</span><span class="fu">GET</span><span class="op">,</span> OAuthResourceResponse<span class="op">.</span><span class="fu">class</span><span class="op">);</span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>            logger<span class="op">.</span><span class="fu">info</span><span class="op">(</span><span class="st">"had authorized, just query for user information..."</span><span class="op">);</span></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>            logger<span class="op">.</span><span class="fu">info</span><span class="op">(</span><span class="st">"user information: "</span> <span class="op">+</span> resourceResponse<span class="op">.</span><span class="fu">getBody</span><span class="op">());</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">"redirect:/main"</span><span class="op">;</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>            logger<span class="op">.</span><span class="fu">info</span><span class="op">(</span><span class="st">"first login, build oauth request &gt;.."</span><span class="op">);</span></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>            OAuthClientRequest request <span class="op">=</span> OAuthClientRequest</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>                    <span class="op">.</span><span class="fu">authorizationLocation</span><span class="op">(</span>gitlabServerUrl <span class="op">+</span> authorizePath<span class="op">)</span></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>                    <span class="op">.</span><span class="fu">setClientId</span><span class="op">(</span>clientId<span class="op">)</span></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>                    <span class="op">.</span><span class="fu">setRedirectURI</span><span class="op">(</span>callbackUrl<span class="op">)</span></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>                    <span class="op">.</span><span class="fu">setResponseType</span><span class="op">(</span><span class="st">"code"</span><span class="op">)</span></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>                    <span class="op">.</span><span class="fu">buildQueryMessage</span><span class="op">();</span></span>
 <span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>            <span class="bu">String</span> gitlabAuthUrl = request.<span class="fu">getLocationUri</span>();</span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>            <span class="bu">String</span> gitlabAuthUrl <span class="op">=</span> request<span class="op">.</span><span class="fu">getLocationUri</span><span class="op">();</span></span>
 <span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>            logger.<span class="fu">info</span>(<span class="st">"redirect to : "</span> + gitlabAuthUrl);</span>
-<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>            <span class="kw">return</span> <span class="st">"redirect:"</span> + gitlabAuthUrl;</span>
-<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>            logger<span class="op">.</span><span class="fu">info</span><span class="op">(</span><span class="st">"redirect to : "</span> <span class="op">+</span> gitlabAuthUrl<span class="op">);</span></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">"redirect:"</span> <span class="op">+</span> gitlabAuthUrl<span class="op">;</span></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>    <span class="at">@RequestMapping</span>(<span class="st">"/callback"</span>)</span>
-<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">callback</span>(<span class="at">@RequestParam</span>(value = <span class="st">"code"</span>, required = <span class="kw">false</span>) <span class="bu">String</span> code,</span>
-<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>                           <span class="at">@RequestParam</span>(value = <span class="st">"error"</span>, required = <span class="kw">false</span>) <span class="bu">String</span> error,</span>
-<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>                           <span class="at">@RequestParam</span>(value = <span class="st">"error_description"</span>, required = <span class="kw">false</span>) <span class="bu">String</span> errorDescription) <span class="kw">throws</span> <span class="bu">Throwable</span> {</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>    <span class="at">@RequestMapping</span><span class="op">(</span><span class="st">"/callback"</span><span class="op">)</span></span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">callback</span><span class="op">(</span><span class="at">@RequestParam</span><span class="op">(</span>value <span class="op">=</span> <span class="st">"code"</span><span class="op">,</span> required <span class="op">=</span> <span class="kw">false</span><span class="op">)</span> <span class="bu">String</span> code<span class="op">,</span></span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>                           <span class="at">@RequestParam</span><span class="op">(</span>value <span class="op">=</span> <span class="st">"error"</span><span class="op">,</span> required <span class="op">=</span> <span class="kw">false</span><span class="op">)</span> <span class="bu">String</span> error<span class="op">,</span></span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>                           <span class="at">@RequestParam</span><span class="op">(</span>value <span class="op">=</span> <span class="st">"error_description"</span><span class="op">,</span> required <span class="op">=</span> <span class="kw">false</span><span class="op">)</span> <span class="bu">String</span> errorDescription<span class="op">)</span> <span class="kw">throws</span> <span class="bu">Throwable</span> <span class="op">{</span></span>
 <span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> (StringUtils.<span class="fu">hasLength</span>(error)) {</span>
-<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>            logger.<span class="fu">error</span>(<span class="st">"authorization fails with error={} and error description={}"</span>, error, errorDescription);</span>
-<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>        } <span class="kw">else</span> {</span>
-<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>            logger.<span class="fu">info</span>(<span class="st">"callback request receives with code={}"</span>, code);</span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>StringUtils<span class="op">.</span><span class="fu">hasLength</span><span class="op">(</span>error<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>            logger<span class="op">.</span><span class="fu">error</span><span class="op">(</span><span class="st">"authorization fails with error={} and error description={}"</span><span class="op">,</span> error<span class="op">,</span> errorDescription<span class="op">);</span></span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>            logger<span class="op">.</span><span class="fu">info</span><span class="op">(</span><span class="st">"callback request receives with code={}"</span><span class="op">,</span> code<span class="op">);</span></span>
 <span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>            OAuthClientRequest request = OAuthClientRequest</span>
-<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>                    .<span class="fu">tokenLocation</span>(gitlabServerUrl + tokenPath)</span>
-<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>                    .<span class="fu">setGrantType</span>(GrantType.<span class="fu">AUTHORIZATION_CODE</span>)</span>
-<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>                    .<span class="fu">setClientId</span>(clientId)</span>
-<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>                    .<span class="fu">setClientSecret</span>(clientSecret)</span>
-<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a>                    .<span class="fu">setRedirectURI</span>(callbackUrl)</span>
-<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>                    .<span class="fu">setGrantType</span>(GrantType.<span class="fu">AUTHORIZATION_CODE</span>)</span>
-<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a>                    .<span class="fu">setCode</span>(code)</span>
-<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>                    .<span class="fu">buildQueryMessage</span>();</span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>            OAuthClientRequest request <span class="op">=</span> OAuthClientRequest</span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>                    <span class="op">.</span><span class="fu">tokenLocation</span><span class="op">(</span>gitlabServerUrl <span class="op">+</span> tokenPath<span class="op">)</span></span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>                    <span class="op">.</span><span class="fu">setGrantType</span><span class="op">(</span>GrantType<span class="op">.</span><span class="fu">AUTHORIZATION_CODE</span><span class="op">)</span></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>                    <span class="op">.</span><span class="fu">setClientId</span><span class="op">(</span>clientId<span class="op">)</span></span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>                    <span class="op">.</span><span class="fu">setClientSecret</span><span class="op">(</span>clientSecret<span class="op">)</span></span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a>                    <span class="op">.</span><span class="fu">setRedirectURI</span><span class="op">(</span>callbackUrl<span class="op">)</span></span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>                    <span class="op">.</span><span class="fu">setGrantType</span><span class="op">(</span>GrantType<span class="op">.</span><span class="fu">AUTHORIZATION_CODE</span><span class="op">)</span></span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a>                    <span class="op">.</span><span class="fu">setCode</span><span class="op">(</span>code<span class="op">)</span></span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>                    <span class="op">.</span><span class="fu">buildQueryMessage</span><span class="op">();</span></span>
 <span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a>            logger.<span class="fu">info</span>(<span class="st">"build authorize request with code:{} and client secret"</span>, code);</span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a>            logger<span class="op">.</span><span class="fu">info</span><span class="op">(</span><span class="st">"build authorize request with code:{} and client secret"</span><span class="op">,</span> code<span class="op">);</span></span>
 <span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>            OAuthJSONAccessTokenResponse response = oAuthClient.<span class="fu">accessToken</span>(request);</span>
-<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>            <span class="bu">String</span> accessToken = response.<span class="fu">getAccessToken</span>();</span>
-<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>            logger.<span class="fu">info</span>(<span class="st">"access token got: {}"</span>, accessToken);</span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>            OAuthJSONAccessTokenResponse response <span class="op">=</span> oAuthClient<span class="op">.</span><span class="fu">accessToken</span><span class="op">(</span>request<span class="op">);</span></span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>            <span class="bu">String</span> accessToken <span class="op">=</span> response<span class="op">.</span><span class="fu">getAccessToken</span><span class="op">();</span></span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>            logger<span class="op">.</span><span class="fu">info</span><span class="op">(</span><span class="st">"access token got: {}"</span><span class="op">,</span> accessToken<span class="op">);</span></span>
 <span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a>            <span class="co">// save access token for further use, then redirect user to another url in our own application.</span></span>
-<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a>            tokenRepository.<span class="fu">store</span>(currentUserMock, accessToken);</span>
-<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a>            tokenRepository<span class="op">.</span><span class="fu">store</span><span class="op">(</span>currentUserMock<span class="op">,</span> accessToken<span class="op">);</span></span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
 <span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> <span class="st">"redirect:/main"</span>;</span>
-<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"redirect:/main"</span><span class="op">;</span></span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
-<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a>}</span></code></pre>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
     </div> 
     <p>首先重点关注映射处理根路径请求的index()方法，这个endpoint负责触发授权行为， 你会看到，如果我们发现当前用户在我们应用这边没有任何授权状态（比如没有相应的access token）， 那么，代码逻辑走else分支， 我们将构建一个要求gitlab服务器授权的请求，并将当前针对我们自己应用的web请求重定向到gitlab服务器的授权地址， 之后你就会看到以下的页面：</p> 
     <p><img src="images/authorize-required.png"></p> 
@@ -333,19 +330,19 @@
     </blockquote> 
     <p>应用的callback()处理方法收到授权code之后， 会使用这个授权code加上应用注册时候配发的相应clientId和clientSecret等信息构建一个请求access token的oauth2请求，并发往gitlab服务器， 即这一段代码:</p> 
     <div class="sourceCode" id="cb4">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>            OAuthClientRequest request = OAuthClientRequest</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                    .<span class="fu">tokenLocation</span>(gitlabServerUrl + tokenPath)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                    .<span class="fu">setGrantType</span>(GrantType.<span class="fu">AUTHORIZATION_CODE</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                    .<span class="fu">setClientId</span>(clientId)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                    .<span class="fu">setClientSecret</span>(clientSecret)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                    .<span class="fu">setRedirectURI</span>(callbackUrl)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                    .<span class="fu">setGrantType</span>(GrantType.<span class="fu">AUTHORIZATION_CODE</span>)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                    .<span class="fu">setCode</span>(code)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>                    .<span class="fu">buildQueryMessage</span>();</span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>            OAuthClientRequest request <span class="op">=</span> OAuthClientRequest</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                    <span class="op">.</span><span class="fu">tokenLocation</span><span class="op">(</span>gitlabServerUrl <span class="op">+</span> tokenPath<span class="op">)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                    <span class="op">.</span><span class="fu">setGrantType</span><span class="op">(</span>GrantType<span class="op">.</span><span class="fu">AUTHORIZATION_CODE</span><span class="op">)</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                    <span class="op">.</span><span class="fu">setClientId</span><span class="op">(</span>clientId<span class="op">)</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                    <span class="op">.</span><span class="fu">setClientSecret</span><span class="op">(</span>clientSecret<span class="op">)</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                    <span class="op">.</span><span class="fu">setRedirectURI</span><span class="op">(</span>callbackUrl<span class="op">)</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                    <span class="op">.</span><span class="fu">setGrantType</span><span class="op">(</span>GrantType<span class="op">.</span><span class="fu">AUTHORIZATION_CODE</span><span class="op">)</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                    <span class="op">.</span><span class="fu">setCode</span><span class="op">(</span>code<span class="op">)</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>                    <span class="op">.</span><span class="fu">buildQueryMessage</span><span class="op">();</span></span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>            logger.<span class="fu">info</span>(<span class="st">"build authorize request with code:{} and client secret"</span>, code);</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>            logger<span class="op">.</span><span class="fu">info</span><span class="op">(</span><span class="st">"build authorize request with code:{} and client secret"</span><span class="op">,</span> code<span class="op">);</span></span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>            OAuthJSONAccessTokenResponse response = oAuthClient.<span class="fu">accessToken</span>(request);</span></code></pre>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>            OAuthJSONAccessTokenResponse response <span class="op">=</span> oAuthClient<span class="op">.</span><span class="fu">accessToken</span><span class="op">(</span>request<span class="op">);</span></span></code></pre>
     </div> 
     <p>请求成功之后，我们就可以获得相应的access token（以及对应refresh token， expires时间等）， 之后，我们就可以使用这个access token畅通无阻的访问授权用户的各项gitlab服务器上的资源了 <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>。</p> 
     <p>我们的代码实例中，只是先存下来，然后将用户引导到一个无关的展示页面（<code>/main</code>）， 在实际应用中，可以考虑直接将用户引导到授权之后有权限访问的页面。</p> 
@@ -353,24 +350,24 @@
     <p>如果你再次去查看gitlab服务器上Application的列表， 会发现我们注册的Application已经有1个Clients啦:</p> 
     <p><img src="images/application-list-after-authorize.png"></p> 
     <p>有咩有一点儿小兴奋？ ^_-</p> 
-    <h1 data-number="3" id="faqs"><span class="header-section-number">3</span> FAQs</h1> 
-    <h2 data-number="3.1" id="private-token与access-token什么区别"><span class="header-section-number">3.1</span> Private Token与Access Token什么区别？</h2> 
+    <h1 id="faqs">FAQs</h1> 
+    <h2 id="private-token与access-token什么区别">Private Token与Access Token什么区别？</h2> 
     <p>通过OAuth获得的是Access Token，Access Token一般代替当前给与授权的用户颁发给应用实体，拿到Access Token之后， 可以依据Access Token去获取用户信息，进而可以在用户信息中拿到用户个人的Private Token。</p> 
     <p>不管是Access Token还是Private Token， Gitlab API都支持作为API访问的凭据。</p> 
     <p>在gitlab中， 颁发的access token一般是长度为64的字符串， 比如<code>1f0af717251950dbd4d73154fdf0a474a5c5119adad999683f5b450c460726aa</code>， 而private token则只是长度20的字符串， 比如<code>SegfaScazyYyD_UG-n68</code></p> 
     <blockquote> 
      <p>Gitlab用户如果没有登录的话， 授权其实是不会进行的， gitlab会引导用户到登陆页面登录， 只有登录成功的用户才会授权oauth2客户端应用访问。</p> 
     </blockquote> 
-    <h2 data-number="3.2" id="the-redirect-url-included-is-not-valid错误"><span class="header-section-number">3.2</span> “The redirect url included is not valid”错误</h2> 
+    <h2 id="the-redirect-url-included-is-not-valid错误">“The redirect url included is not valid”错误</h2> 
     <p><img src="images/invalid-callback-url.png"></p> 
     <p>一般情况下， 出现这种错误信息是因为应用注册的时候提供的callback地址跟我们在发起授权请求时候提供的callback地址不一致， 比如我们在注册的时候提供callback地址为<code>http://localhost:8080</code>，而在发起授权请求时提供的callback地址却是<code>http://localhost:8080/callback</code>。</p> 
-    <h2 data-number="3.3" id="为啥没有显示授权页面而是引导我到了登录页面"><span class="header-section-number">3.3</span> 为啥没有显示授权页面，而是引导我到了登录页面？</h2> 
+    <h2 id="为啥没有显示授权页面而是引导我到了登录页面">为啥没有显示授权页面，而是引导我到了登录页面？</h2> 
     <p>如果当前机器上无任何用户登录gitlab，当gitlab收到要求授权的请求时（即接收到重定向到<code>http://your.gitlab.server/oauth/authorize</code>的请求）， gitlab会再次将请求重定向到gitlab的登录页面, 要求使用Application的用户登录Gitlab从而可以作为一个主体授权Application访问:</p> 
     <p><img src="images/gitlab-login.png"></p> 
     <p>用户成功登陆后，则被gitlab引导进入Dashboard页面：</p> 
     <p><img src="images/login-success.png"></p> 
     <p>这里有点儿不够友好， 需要用户重新访问要求授权的Application的某个URL以便重新发起授权请求。</p> 
-    <h1 data-number="4" id="小结和补充"><span class="header-section-number">4</span> 小结和补充</h1> 
+    <h1 id="小结和补充">小结和补充</h1> 
     <p>使用Controller来演示通过OAuth2与Gitlab服务器交互实际上只是为了简化， 正常来说， 使用拦截器或者Filter来管理授权行为的触发和认证才是比较合适的做法，尤其是封装成一个spring-boot-starter-gitlab-oauth2之类的自动配置模块， 可以大大简化开发的复杂度提升集成效率， 也不需要应用研发用户去了解以上流程交互细节（当然啦，从研发人员的角度， 还是了解这些细节比较好）。</p> 
     <p>授权成功后，我们其实可以拿到不止一个Access Token， 随同的还有Refresh Token, Access Token的超时时间(Expires)， 以及授权的范围(scope)， 各位客官可以根据请求选用。</p> 
     <p>有了以上与Gitlab服务器通过OAuth2集成授权的神功， 各位客官可以尽情的构建围绕Gitlab的各种有趣的应用啦，你可以写个小Robot来跟踪issue并回复， 你也可以写一个围绕project自动配置各种资源的持续交付和运维平台， 就看你怎么玩啦，GL &amp; HF</p> 
@@ -381,30 +378,39 @@
      </ol> 
     </section> <!--          </div>--> <!--        </div>--> 
     <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
+    <hr> 
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2010-02-18-spring-festval.html">大年三十 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2007-07-02-how-time-flies.html">How Time Flies… </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2020-07-07-worms-is-slow-but-never-stop.html">青虫的故事 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2023-06-20-jte3.html">借着Jte发新版，介绍下AI学堂背后的技术栈吧！ </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2013-06-11-how_to_access_private_ip_from_internet.html">教你如何使用卡片电脑对外提供网络服务 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2014-10-24-how-to-shutdown-java-service-gracefully.html">How To Shutdown Java Service Gracefully [Tutorial] </a> 
      </div> 
     </div> 
-    <hr> 
-    <img src="/images/zanshang.jpg" width="300/"> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <div id="comments"></div> 
     <hr> 
-    <div class="text-center"> 
-     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
     </div> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
-   ©王福强个人版权所有, All Rights Reserved.
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
   </div> 
   <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
    </div> 
   </div> 
   <script type="text/javascript">
@@ -419,7 +425,16 @@ var gitalk = new Gitalk({
 })
 
 gitalk.render('comments')
-    </script>  
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
  </body>
 </html>

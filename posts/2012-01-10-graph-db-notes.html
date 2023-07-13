@@ -6,7 +6,7 @@
   <meta name="description" content="“Notes Of GraphDBs” - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-  <title>“Notes Of GraphDBs” - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <title>“Notes Of GraphDBs” -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <meta name="date" content="2012-01-10"> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
@@ -15,26 +15,35 @@
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
-  <script>
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    </script> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
  </head> 
  <body id="page-top"> <!-- Navigation --> 
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
     <div class="collapse navbar-collapse" id="navbarResponsive"> 
      <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
      </ul> 
     </div> 
@@ -43,46 +52,16 @@
   <section> 
    <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
     <p class="lead"> </p>
-    <h1 class="title">“Notes Of GraphDBs”</h1> <small> <h3 class="author">fujohnwang</h3>2012-01-10 </small> 
+    <h1 class="title">“Notes Of GraphDBs”</h1> <small> <h3 class="author">fujohnwang</h3> 
+     <div style="text-align: left;">
+      2012-01-10
+     </div> </small> 
     <p></p> 
     <hr> 
-    <ul> 
-     <li><a href="#basic-concepts"><span class="toc-section-number">1</span> Basic Concepts</a> 
-      <ul> 
-       <li><a href="#graph-types"><span class="toc-section-number">1.1</span> Graph Types</a></li> 
-       <li><a href="#basic-operations"><span class="toc-section-number">1.2</span> Basic Operations</a></li> 
-       <li><a href="#graph-theoretic-data-structures"><span class="toc-section-number">1.3</span> Graph-theoretic data structures</a></li> 
-       <li><a href="#图论应用场景"><span class="toc-section-number">1.4</span> 图论应用场景</a></li> 
-      </ul></li> 
-     <li><a href="#typical-products"><span class="toc-section-number">2</span> Typical Products</a> 
-      <ul> 
-       <li><a href="#neo4j"><span class="toc-section-number">2.1</span> <span>Neo4J</span></a></li> 
-       <li><a href="#orientdb"><span class="toc-section-number">2.2</span> <span>OrientDB</span></a></li> 
-       <li><a href="#flockdb"><span class="toc-section-number">2.3</span> <span>FlockDB</span></a></li> 
-       <li><a href="#dex"><span class="toc-section-number">2.4</span> <span>DEX</span></a> 
-        <ul> 
-         <li><a href="#scenarios-for-dex"><span class="toc-section-number">2.4.1</span> Scenarios for DEX</a></li> 
-        </ul></li> 
-       <li><a href="#infogrid"><span class="toc-section-number">2.5</span> <span>Infogrid</span></a></li> 
-       <li><a href="#other-ones"><span class="toc-section-number">2.6</span> Other Ones…</a></li> 
-      </ul></li> 
-     <li><a href="#tools-support"><span class="toc-section-number">3</span> Tools &amp; Support</a></li> 
-     <li><a href="#关于graphdb的一些个人想法"><span class="toc-section-number">4</span> 关于GraphDB的一些个人想法</a> 
-      <ul> 
-       <li><a href="#存储结构抽象和引申"><span class="toc-section-number">4.1</span> 存储结构抽象和引申</a></li> 
-       <li><a href="#值得关注的点"><span class="toc-section-number">4.2</span> 值得关注的点</a></li> 
-       <li><a href="#使用场景分析"><span class="toc-section-number">4.3</span> 使用场景分析</a> 
-        <ul> 
-         <li><a href="#适合的场景"><span class="toc-section-number">4.3.1</span> 适合的场景</a></li> 
-        </ul></li> 
-      </ul></li> 
-     <li><a href="#references"><span class="toc-section-number">5</span> References</a></li> 
-    </ul> 
-    <hr> 
-    <h1 data-number="1" id="basic-concepts"><span class="header-section-number">1</span> Basic Concepts</h1> 
+    <h1 id="basic-concepts">Basic Concepts</h1> 
     <p>图存储 + 图运算 引申出一套生态系统， GraphDB属于存储序列， 图计算则以<a href="http://www.slideshare.net/shatteredNirvana/pregel-a-system-for-largescale-graph-processing?from=ss_embed">google的pregel</a>为典型代表（使用BSP计算模型），还包括了<a href="http://incubator.apache.org/hama/">Hama</a>，<a href="http://incubator.apache.org/giraph/">Giraph</a>等图计算框架。本Note主要侧重GraphDB相关内容， 包括基本概念， 基本操作和访问， 存储结构等等。</p> 
     <p>A graph is composed of Nodes(Vertices) [with Properties] and Edges [with Labels]. <img src="http://upload.wikimedia.org/wikipedia/en/3/3a/GraphDatabase_PropertyGraph.png" alt="graph sample picture from wikipedia"></p> 
-    <h2 data-number="1.1" id="graph-types"><span class="header-section-number">1.1</span> Graph Types</h2> 
+    <h2 id="graph-types">Graph Types</h2> 
     <ol type="1"> 
      <li><p>directed graph（有向图） -&gt; flow network <img src="http://techportal.ibuildings.com/wp-content/uploads/2009/09/graph2.png"></p></li> 
      <li><p>undirected graph</p> <p><img src="http://techportal.ibuildings.com/wp-content/uploads/2009/09/graph1.png"></p></li> 
@@ -94,7 +73,7 @@
        <li>对于Property Graph类型， 每个node和edge都可以有多组k-v形式的properties来附加更多信息， 另外， 每个edge可以有label， 用来表示不同类型的edge，这应该通常多见于multigraph中，即两个node之间存在多个edge的情形，而多个edge可以是不同类型的edge，比如like， follows等。 label和properties对于edge来说是不同的属性， 不要混淆。</li> 
       </ul></li> 
     </ol> 
-    <h2 data-number="1.2" id="basic-operations"><span class="header-section-number">1.2</span> Basic Operations</h2> 
+    <h2 id="basic-operations">Basic Operations</h2> 
     <p>The basic operations provided by a graph data structure G usually include:</p> 
     <ul> 
      <li><strong>adjacent(G, x, y)</strong>: tests whether there is an edge from node x to node y.</li> 
@@ -109,7 +88,7 @@
      <li><strong>get_edge_value(G, x, y)</strong>: returns the value associated to the edge (x,y).</li> 
      <li><strong>set_edge_value(G, x, y, v)</strong>: sets the value associated to the edge (x,y) to v.</li> 
     </ul> 
-    <h2 data-number="1.3" id="graph-theoretic-data-structures"><span class="header-section-number">1.3</span> Graph-theoretic data structures</h2> 
+    <h2 id="graph-theoretic-data-structures">Graph-theoretic data structures</h2> 
     <ol type="1"> 
      <li>List structures 
       <ul> 
@@ -130,7 +109,7 @@
       邻接矩阵OR邻接表
      </figcaption> 
     </figure> 
-    <h2 data-number="1.4" id="图论应用场景"><span class="header-section-number">1.4</span> 图论应用场景</h2> 
+    <h2 id="图论应用场景">图论应用场景</h2> 
     <ul> 
      <li>Task planning</li> 
      <li>Scheduling</li> 
@@ -145,8 +124,8 @@
      <li>Optimization of tasks</li> 
     </ul> 
     <p>更多参考<a href="http://www.slideshare.net/purbon/graph-t-6162024?from=ss_embed" class="uri">http://www.slideshare.net/purbon/graph-t-6162024?from=ss_embed</a></p> 
-    <h1 data-number="2" id="typical-products"><span class="header-section-number">2</span> Typical Products</h1> 
-    <h2 data-number="2.1" id="neo4j"><span class="header-section-number">2.1</span> <a href="http://neo4j.org/">Neo4J</a></h2> 
+    <h1 id="typical-products">Typical Products</h1> 
+    <h2 id="neo4j"><a href="http://neo4j.org/">Neo4J</a></h2> 
     <p>Graph DB, AGPL3 license(<em>Sucks, I think</em>), java made, ACID, HA, M-S Caching Shards, Domain-specific, embeddable, REST, etc.</p> 
     <p>Neo4j的授权协议包括商业性质的授权和开源协议的授权，但开源协议授权是基于AGPL， 意味着如果要用neo4j，那你的产品也要开源，这对许多公司的产品来说是不可接受的， 另外， 许多高级特性只在商业版中才有，比如HA， backup等，没有了这些高级特性， neo4j也就剩下玩玩的资本了。</p> 
     <p>所以， 不再对neo4j做更多了解和涉猎， 只罗列部分资料，如果有人感兴趣可以看下：</p> 
@@ -154,7 +133,7 @@
      <li><a href="http://www.slideshare.net/slideshow/embed_code/9600796#">An Introductionto Neo4j</a> Slide</li> 
      <li><a href="http://www.slideshare.net/peterneubauer/gdm-2011-neo4j-and-real-world-apps?from=ss_embed">Neo4j and real world apps</a></li> 
     </ol> 
-    <h2 data-number="2.2" id="orientdb"><span class="header-section-number">2.2</span> <a href="http://www.orientechnologies.com/orient-db.htm">OrientDB</a></h2> 
+    <h2 id="orientdb"><a href="http://www.orientechnologies.com/orient-db.htm">OrientDB</a></h2> 
     <p><a href="http://www.orientechnologies.com/orient-graphdb.htm" class="uri">http://www.orientechnologies.com/orient-graphdb.htm</a></p> 
     <p>Document-Graph DB, Apache2 License, Java Made, ACID Support, HA via replication, embeddable, REST&amp;SQL-like access.</p> 
     <p>OrientDB实际上不是一个纯的GraphDB， 它是构建在DocumentDB的模型之上。 除了GraphDB， OrientDB还在基础的DocumentDB基础模型之上构建了KV, OO等类型的DB。</p> 
@@ -165,7 +144,7 @@
      <li><a href="http://code.google.com/p/orient/wiki/GraphDatabase" class="uri">http://code.google.com/p/orient/wiki/GraphDatabase</a></li> 
      <li><a href="http://code.google.com/p/orient/wiki/GraphEdTutorial" class="uri">http://code.google.com/p/orient/wiki/GraphEdTutorial</a></li> 
     </ol> 
-    <h2 data-number="2.3" id="flockdb"><span class="header-section-number">2.3</span> <a href="https://github.com/twitter/flockdb">FlockDB</a></h2> 
+    <h2 id="flockdb"><a href="https://github.com/twitter/flockdb">FlockDB</a></h2> 
     <p>twitter特定场景下的graphed产品， 并非力图实现所有的features，而只关注twitter自身或者网站常见的一些问题， 比如在twitter内部只用flockdb存储用户关系图以及二级索引等信息。</p> 
     <p>flocked存储采用node+edge一起存储的策略，而且针对一个edge，会按照forward和backward分别存储2条， 这种策略内聚性不错，但是否耦合性太紧，不便于扩展那？！（<strong>更深层次的edge关联不好管理，尤其是引入分布式存储结构之后！</strong>）</p> 
     <p>flockdb底层使用mysql作为存储， 使用twitter的gizzard分布式数据访问层来管理mysql分区集群， 在这之上， 才是实现的重头戏， 成为flapps服务集群， flapps是stateless的， 所以可以很容易的横向扩展，而m底层的mysql存储层在gizzard的帮助下也可以横向扩展，所以总的来说， flockdb的横向扩展能力是没啥问题的。</p> 
@@ -187,10 +166,10 @@
      <li><a href="http://stackoverflow.com/questions/2629372/flockdb-what-is-it-and-best-cases-for-it-uses">FlockDB - What is it? And best cases for it uses</a></li> 
      <li><a href="http://newsicare.wordpress.com/2010/10/10/flockdb-twitters-powerful-weapon/">Flockdb: Twitter’s powerful weapon</a></li> 
     </ol> 
-    <h2 data-number="2.4" id="dex"><span class="header-section-number">2.4</span> <a href="http://www.sparsity-technologies.com/dex">DEX</a></h2> 
+    <h2 id="dex"><a href="http://www.sparsity-technologies.com/dex">DEX</a></h2> 
     <p>C++ core, Java, .Net API, dual Personal-evaluation or Commercial license</p> 
     <p><strong>Labeled, Directed And Attributed Multigraph Model</strong></p> 
-    <h3 data-number="2.4.1" id="scenarios-for-dex"><span class="header-section-number">2.4.1</span> Scenarios for DEX</h3> 
+    <h3 id="scenarios-for-dex">Scenarios for DEX</h3> 
     <ul> 
      <li>Social Networks 
       <ul> 
@@ -231,7 +210,7 @@
      <li><a href="http://www.slideshare.net/SparsityTechnologies/dex-introduction?from=ss_embed">Dex: Introduction</a></li> 
      <li><a href="http://www.slideshare.net/SparsityTechnologies/dex-seminar-tutorial?from=ss_embed">DEX: Seminar Tutorial</a></li> 
     </ol> 
-    <h2 data-number="2.5" id="infogrid"><span class="header-section-number">2.5</span> <a href="http://infogrid.org/">Infogrid</a></h2> 
+    <h2 id="infogrid"><a href="http://infogrid.org/">Infogrid</a></h2> 
     <p>MeshNetg公司开源产品， MeshNet提供商业支持。产品整体按照不同的关注点分为不同的子项目， 包括核心的graphdb， 关注cluster的grid， 关注存储的stores以及展现和工具支持，可以使用不同的存储方案， 包括mysql， FS， HDFS等。</p> 
     <p><strong>References</strong></p> 
     <ol type="1"> 
@@ -239,7 +218,7 @@
      <li><a href="http://www.slideshare.net/infogrid/a-taste-of-infogrid-1688328">A Taste Of InfoGrid</a></li> 
      <li><a href="http://www.slideshare.net/infogrid/the-infogrid-graph-database">The InfoGrid Graph DataBase</a></li> 
     </ol> 
-    <h2 data-number="2.6" id="other-ones"><span class="header-section-number">2.6</span> Other Ones…</h2> 
+    <h2 id="other-ones">Other Ones…</h2> 
     <ol type="1"> 
      <li>InfiniteGraph 
       <ul> 
@@ -252,7 +231,7 @@
       </ul></li> 
      <li><a href="https://github.com/tinkerpop/blueprints/wiki/TinkerGraph">TinkerGraph</a> - In-Memory Graph, Not for production.</li> 
     </ol> 
-    <h1 data-number="3" id="tools-support"><span class="header-section-number">3</span> Tools &amp; Support</h1> 
+    <h1 id="tools-support">Tools &amp; Support</h1> 
     <p>TinkerPop公司在这个领域显然做到工作很出色！</p> 
     <ol type="1"> 
      <li><a href="https://github.com/tinkerpop/blueprints">Blueprints</a> <img src="https://github.com/tinkerpop/rexster/raw/master/doc/images/rexster-system-arch.png" alt="rexster-system-arch"></li> 
@@ -263,11 +242,11 @@
      <li><a href="http://rexster.tinkerpop.com/">reXster</a></li> 
      <li><a href="http://prefuse.org/">Prefuse</a> - visualization tool</li> 
     </ol> 
-    <h1 data-number="4" id="关于graphdb的一些个人想法"><span class="header-section-number">4</span> 关于GraphDB的一些个人想法</h1> 
+    <h1 id="关于graphdb的一些个人想法">关于GraphDB的一些个人想法</h1> 
     <p>个人感觉，GraphDB的服务层可以独立于存储层，只要对存储层做合理的抽象， 现在的许多存储方案都可以使用，包括常见的RDBMS，以及各种KV啦，ColumnOrientedDB啦，等等。 但数据的组织，应该参考GraphDB的服务层设计， 尽量贴近服务层，规避特定存储层在GraphDB的访问模式下的各种弊端，比如“索引的空间和时间消耗”.</p> 
     <p>GraphDB强调索引的Vertices Adjacency能力， 即通过Vertex可以直接获得临近的Vertices，而不用像在RDBMS那样， 去B-Tree等索引中先查看索引，再做join的方式来获取相关vertices， 换句话说， 当前vertex本身已经是临近的vertices的索引。</p> 
     <p>当然， GraphDB并不排斥其它索引形式，比如完全可以通过B-Tree, B+Tree或者lucency等手段对vertices或者edge的properties进行索引或者对root vertices set进行索引，以加快graph其它相关信息的检索和访问。</p> 
-    <h2 data-number="4.1" id="存储结构抽象和引申"><span class="header-section-number">4.1</span> 存储结构抽象和引申</h2> 
+    <h2 id="存储结构抽象和引申">存储结构抽象和引申</h2> 
     <p>首先， graph中核心元素的存储可以分开， 比如分为：</p> 
     <ol type="1"> 
      <li>node存储（适合使用索引的存储）</li> 
@@ -277,7 +256,7 @@
     <p>分开的好处是， 不同元素的存储方案选择比较灵活， 另外分区扩展也很容易，但也有弊端，比如构建索引的空间开销，以及搜索期间跨越不同存储的时间开销等。为了规避弊端， 可以根据某些指标（比如子图）将核心元素的存储分区做locality， 不过，这又进一步会引入跨分区遍历的开销…</p> 
     <p>反过来， 几种核心元素一起存储又会怎样？！ 想自然语言的语句似的将所有信息都包含进一个单元（比如句子）当然可以，绝对高内聚，但使用的适合可能就不太方便， 要做多级索引才能提高查询和计算速度，而索引增多，随着查找层次的加深，又会进一步降低性能，所以完全的高内聚的一起存储所有信息显然不是啥太明智的做法。</p> 
     <p>SNS的关系网络原则上并非十分密集，所以，采用相邻列表(Adjacency list)的结构来存储应该比较合适。 而使用相邻列表(Adjacency list)的话， node以及其关联的edge就可以一同存储了。 在这种情况下，即使node和edge的properties单独存储，也是很容易切割和扩展的。</p> 
-    <h2 data-number="4.2" id="值得关注的点"><span class="header-section-number">4.2</span> 值得关注的点</h2> 
+    <h2 id="值得关注的点">值得关注的点</h2> 
     <ol type="1"> 
      <li>横向扩展能力</li> 
      <li>高可用性 
@@ -290,10 +269,10 @@
      <li>有哪些现成的图算法可用</li> 
      <li>运维复杂度</li> 
     </ol> 
-    <h2 data-number="4.3" id="使用场景分析"><span class="header-section-number">4.3</span> 使用场景分析</h2> 
-    <h3 data-number="4.3.1" id="适合的场景"><span class="header-section-number">4.3.1</span> 适合的场景</h3> 
+    <h2 id="使用场景分析">使用场景分析</h2> 
+    <h3 id="适合的场景">适合的场景</h3> 
     <p>pending ### 不适合的场景 pending</p> 
-    <h1 data-number="5" id="references"><span class="header-section-number">5</span> References</h1> 
+    <h1 id="references">References</h1> 
     <ol type="1"> 
      <li><a href="http://en.wikipedia.org/wiki/Graph_database" class="uri">http://en.wikipedia.org/wiki/Graph_database</a></li> 
      <li><a href="http://en.wikipedia.org/wiki/Graph_(data_structure)" class="uri">http://en.wikipedia.org/wiki/Graph_(data_structure)</a></li> 
@@ -323,30 +302,39 @@
      <li><a href="http://engineering.twitter.com/2012/03/cassovary-big-graph-processing-library.html">Cassovary</a> ***** twitter new open sourced graph-processing library written in Scala</li> 
     </ol> <!--          </div>--> <!--        </div>--> 
     <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
+    <hr> 
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2009-04-30-travel-to-lijiang-chap0.html">终于成行的丽江之旅(1) </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2007-08-04-fucking-ridiculous.html">到底是在彰显什么？ </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2009-01-15-csts-internal-training-notes.html">CSTS Internal Online Training Notes </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2010-06-10-gold-T+D.html">黄金T+D, 看起来很美 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2007-09-14-BF4768EE8B110260_607.html">spring ioc container section index draft</a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2009-07-08-encounter-FENG.html">巧遇冯大辉さん </a> 
      </div> 
     </div> 
-    <hr> 
-    <img src="/images/zanshang.jpg" width="300/"> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <div id="comments"></div> 
     <hr> 
-    <div class="text-center"> 
-     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
     </div> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
-   ©王福强个人版权所有, All Rights Reserved.
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
   </div> 
   <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
    </div> 
   </div> 
   <script type="text/javascript">
@@ -361,7 +349,16 @@ var gitalk = new Gitalk({
 })
 
 gitalk.render('comments')
-    </script>  
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
  </body>
 </html>

@@ -6,7 +6,7 @@
   <meta name="description" content="使用SBT构建可交互的命令行应用程序(Build Interactive Command Line Application With SBT) - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-  <title>使用SBT构建可交互的命令行应用程序(Build Interactive Command Line Application With SBT) - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <title>使用SBT构建可交互的命令行应用程序(Build Interactive Command Line Application With SBT) -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <meta name="date" content="2012-07-17"> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
@@ -14,6 +14,7 @@
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -79,26 +80,35 @@
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
-  <script>
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    </script> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
  </head> 
  <body id="page-top"> <!-- Navigation --> 
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
     <div class="collapse navbar-collapse" id="navbarResponsive"> 
      <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
      </ul> 
     </div> 
@@ -107,26 +117,16 @@
   <section> 
    <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
     <p class="lead"> </p>
-    <h1 class="title">使用SBT构建可交互的命令行应用程序(Build Interactive Command Line Application With SBT)</h1> <small> <h3 class="author">fujohnwang</h3>2012-07-17 </small> 
+    <h1 class="title">使用SBT构建可交互的命令行应用程序(Build Interactive Command Line Application With SBT)</h1> <small> <h3 class="author">fujohnwang</h3> 
+     <div style="text-align: left;">
+      2012-07-17
+     </div> </small> 
     <p></p> 
     <hr> 
-    <ul> 
-     <li><a href="#楔子"><span class="toc-section-number">1</span> 楔子</a></li> 
-     <li><a href="#quick-start"><span class="toc-section-number">2</span> Quick Start</a></li> 
-     <li><a href="#how-it-works"><span class="toc-section-number">3</span> How it works?!</a></li> 
-     <li><a href="#sbt-command定义详解"><span class="toc-section-number">4</span> SBT Command定义详解</a></li> 
-     <li><a href="#sbt-parser-combinator详解"><span class="toc-section-number">5</span> SBT Parser Combinator详解</a></li> 
-     <li><a href="#conclusion"><span class="toc-section-number">6</span> Conclusion</a></li> 
-     <li><a href="#参考实例"><span class="toc-section-number">7</span> 参考实例</a></li> 
-     <li><a href="#deployment-made-easy-with-conscript"><span class="toc-section-number">8</span> deployment made easy with conscript</a></li> 
-     <li><a href="#更多应用场景畅想"><span class="toc-section-number">9</span> 更多应用场景畅想</a></li> 
-     <li><a href="#参考文档"><span class="toc-section-number">10</span> 参考文档</a></li> 
-    </ul> 
-    <hr> 
-    <h1 data-number="1" id="楔子"><span class="header-section-number">1</span> 楔子</h1> 
+    <h1 id="楔子">楔子</h1> 
     <p>很多时候，受限于生产环境端口访问等限制， 我们没法通过一些方便的图形化界面的工具来监控和维护生产环境部署的应用， 为了规避这个问题，通常会随应用一起发布一些部署到本地的命令行工具程序或者脚本， 而如果这些命令行工具程序能够提供像大多数Termianl都有的命令自动补全(auto-completion)或者历史信息(history)等功能的话，那就更爽了。</p> 
     <p>SBT0.12.0之后提供了构建tab-completion可交互命令行程序的支持(从SBT一贯的发展来看，该功能只能算是一种锦上添花，不过，也进一步验证了SBT在架构设计上优秀的一致性和可扩展性)，这篇文字将简单回顾和汇总使用SBT构建可交互命令行程序相关细节，以期有所参考(好脑瓜子也不如烂笔头嘛！)。</p> 
-    <h1 data-number="2" id="quick-start"><span class="header-section-number">2</span> Quick Start</h1> 
+    <h1 id="quick-start">Quick Start</h1> 
     <ol type="1"> 
      <li>安装giter8 (<a href="https://github.com/n8han/giter8" class="uri">https://github.com/n8han/giter8</a>)， 如何安装参考该项目的README，有详细的介绍，这里不做赘述；</li> 
      <li>执行<code>g8 harrah/command-line-app</code>命令，构建scaffold工程，该giter8模板功能是sbt作者harrah构建的，所有命令行应用可以使用这个模板工程作为起点；</li> 
@@ -147,7 +147,7 @@
 &gt; 
 </pre> 
     <p>从以上运行结果可以看到，通过tab可以获取命令行程序可接受的命令以及参数形式，如果输入错误命令或者命令执行条件不满足，sbt将告知用户相应错误提示信息， cool， ha？！</p> 
-    <h1 data-number="3" id="how-it-works"><span class="header-section-number">3</span> How it works?!</h1> 
+    <h1 id="how-it-works">How it works?!</h1> 
     <p>这里牵扯sbt两个主要的internal功能， 第一个就是我们这次主要关注的tab-completion功能，另一个则是sbt的launcher功能。</p> 
     <p>sbt launcher可以根据指定的launch specification来抓取发布到maven或者ivy repo的artifacts(当然，并不限于maven或者ivy)，artifacts如果依赖其他artifacts，sbt launcher将一并抓取到本地的ivy cache，之后， sbt launcher将根据launch specification中指定的main class启动指定的应用。</p> 这样说有些抽象，就以command-line-app这个scaffold工程来讲吧，我们执行<code>sbt publish-local</code>之后，实际上是将其发布到了本地的repo中，在它的launch specification配置文件中，我们可以看到： 
     <pre>[scala]
@@ -166,41 +166,41 @@
     <p>像启动时要使用的scala version， 启动哪个artifact(org + name + version)， 使用哪个main函数(class)， 从哪些repo中去加载指定的artifact，在这个launch speficiation的配置中都有罗列。sbt launcher程序只需要根据这些信息来工作就足够了。</p> 
     <p>launch specification中配置的class需要符合一定的规则，简单来讲，就是指定的类需要实现<code>xsbti.AppMain</code> trait:</p> 
     <div class="sourceCode" id="cb1">
-     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">package</span> org.<span class="fu">example</span></span>
+     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">package</span> org<span class="op">.</span>example</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> sbt.<span class="fu">_</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> complete.<span class="fu">_</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> DefaultParsers.<span class="fu">_</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> sbt<span class="op">.</span>_</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> complete<span class="op">.</span>_</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> DefaultParsers<span class="op">.</span>_</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">final</span> <span class="kw">class</span> Main <span class="kw">extends</span> xsbti.<span class="fu">AppMain</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">final</span> <span class="kw">class</span> Main <span class="kw">extends</span> xsbti<span class="op">.</span>AppMain</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>   <span class="co">/**</span> Defines the entry point for the application<span class="co">.</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>   <span class="co">*</span> The call to <span class="co">`</span>initialState<span class="co">`</span> sets up the application<span class="co">.</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>   <span class="co">*</span> The call to runLogged starts command processing<span class="co">.</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>   <span class="co">*/</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> <span class="fu">run</span>(configuration: xsbti.<span class="fu">AppConfiguration</span>): xsbti.<span class="fu">MainResult</span> =</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>      MainLoop.<span class="fu">runLogged</span>( <span class="fu">initialState</span>(configuration) )</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> <span class="fu">run</span><span class="op">(</span>configuration<span class="op">:</span> xsbti<span class="op">.</span>AppConfiguration<span class="op">):</span> xsbti<span class="op">.</span>MainResult <span class="op">=</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>      MainLoop<span class="op">.</span><span class="fu">runLogged</span><span class="op">(</span> <span class="fu">initialState</span><span class="op">(</span>configuration<span class="op">)</span> <span class="op">)</span></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>   <span class="co">/**</span> Sets up the application by constructing an initial State instance with the </span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>   <span class="co">*</span> supported commands and initial commands to run<span class="co">.</span></span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>   <span class="co">*</span></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>   <span class="co">*</span> http<span class="co">://</span>harrah<span class="co">.</span>github<span class="co">.</span>com<span class="co">/</span>xsbt<span class="co">/</span>latest<span class="co">/</span>api<span class="co">/</span>sbt<span class="co">/</span>State<span class="co">%24.</span>html</span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>   <span class="co">*/</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> <span class="fu">initialState</span>(configuration: xsbti.<span class="fu">AppConfiguration</span>): State =</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>   {</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> <span class="fu">initialState</span><span class="op">(</span>configuration<span class="op">:</span> xsbti<span class="op">.</span>AppConfiguration<span class="op">):</span> State <span class="op">=</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>   <span class="op">{</span></span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>         <span class="co">// These are the commands that the application supports.</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>      <span class="kw">val</span> commandDefinitions = hello +: BasicCommands.<span class="fu">allBasicCommands</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>      <span class="kw">val</span> commandDefinitions <span class="op">=</span> hello <span class="op">+:</span> BasicCommands<span class="op">.</span>allBasicCommands</span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>         <span class="co">// These are the commands that are run when the application starts up.</span></span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>         <span class="co">// "iflast shell" will drop to the interactive prompt if no arguments are</span></span>
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>         <span class="co">//    provided on the command line</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>      <span class="kw">val</span> commandsToRun =</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>         <span class="st">"hello There"</span> +: <span class="st">"iflast shell"</span> +: configuration.<span class="fu">arguments</span>.<span class="fu">map</span>(_.<span class="fu">trim</span>)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>      <span class="kw">val</span> commandsToRun <span class="op">=</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>         <span class="st">"hello There"</span> <span class="op">+:</span> <span class="st">"iflast shell"</span> <span class="op">+:</span> configuration<span class="op">.</span>arguments<span class="op">.</span><span class="fu">map</span><span class="op">(</span>_<span class="op">.</span>trim<span class="op">)</span></span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>      State( configuration, commandDefinitions, Set.<span class="fu">empty</span>,</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>         None, commandsToRun, State.<span class="fu">newHistory</span>,</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>         AttributeMap.<span class="fu">empty</span>, initialGlobalLogging, State.<span class="fu">Continue</span> )</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>   }</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>      <span class="fu">State</span><span class="op">(</span> configuration<span class="op">,</span> commandDefinitions<span class="op">,</span> Set<span class="op">.</span>empty<span class="op">,</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>         <span class="bu">None</span><span class="op">,</span> commandsToRun<span class="op">,</span> State<span class="op">.</span>newHistory<span class="op">,</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>         AttributeMap<span class="op">.</span>empty<span class="op">,</span> initialGlobalLogging<span class="op">,</span> State<span class="op">.</span>Continue <span class="op">)</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>   <span class="op">}</span></span>
 <span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>   <span class="co">/**</span> A sample command that says hello to its argument<span class="co">.</span></span>
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>   <span class="co">*</span> The first argument to Command provides the command name<span class="co">.</span></span>
@@ -210,22 +210,22 @@
 <span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>   <span class="co">*</span></span>
 <span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>   <span class="co">*</span> See also https<span class="co">://</span>github<span class="co">.</span>com<span class="co">/</span>harrah<span class="co">/</span>xsbt<span class="co">/</span>wiki<span class="co">/</span>Commands</span>
 <span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>   <span class="co">*/</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> hello = <span class="fu">Command</span>(<span class="st">"hello"</span>)(state =&gt; helloParser)( helloAction )</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> hello <span class="op">=</span> <span class="fu">Command</span><span class="op">(</span><span class="st">"hello"</span><span class="op">)(</span>state <span class="op">=&gt;</span> helloParser<span class="op">)(</span> helloAction <span class="op">)</span></span>
 <span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> helloParser: Parser[String] =</span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>      <span class="fu">token</span>(Space) ~&gt; <span class="fu">token</span>(NotSpace, <span class="st">"&lt;name&gt;"</span>)</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> helloParser<span class="op">:</span> Parser<span class="op">[</span>String<span class="op">]</span> <span class="op">=</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>      <span class="fu">token</span><span class="op">(</span>Space<span class="op">)</span> <span class="op">~&gt;</span> <span class="fu">token</span><span class="op">(</span>NotSpace<span class="op">,</span> <span class="st">"&lt;name&gt;"</span><span class="op">)</span></span>
 <span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> <span class="fu">helloAction</span>(state: State, name: String): State = {</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>      state.<span class="fu">log</span>.<span class="fu">info</span>( <span class="st">"Hello %s!"</span><span class="fu">.format</span>(name) )</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> <span class="fu">helloAction</span><span class="op">(</span>state<span class="op">:</span> State<span class="op">,</span> name<span class="op">:</span> String<span class="op">):</span> State <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>      state<span class="op">.</span>log<span class="op">.</span><span class="fu">info</span><span class="op">(</span> <span class="st">"Hello %s!"</span><span class="op">.</span><span class="fu">format</span><span class="op">(</span>name<span class="op">)</span> <span class="op">)</span></span>
 <span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>      state</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>   }</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>   <span class="op">}</span></span>
 <span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>   <span class="co">/**</span> Configures logging to log to a temporary backing file as well as to the console<span class="co">. </span></span>
 <span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>   <span class="co">*</span> An application would need to do more here to customize the logging level and</span>
 <span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>   <span class="co">*</span> provide access to the backing file <span class="co">(</span>like sbt<span class="co">'</span>s last command and logLevel setting<span class="co">).*/</span></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> initialGlobalLogging: GlobalLogging =</span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>      GlobalLogging.<span class="fu">initial</span>(MainLogging.<span class="fu">globalDefault</span> _, java.<span class="fu">io</span>.<span class="fu">File</span>.<span class="fu">createTempFile</span>(<span class="st">"app"</span>, <span class="st">"log"</span>))</span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>}</span></code></pre>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> initialGlobalLogging<span class="op">:</span> GlobalLogging <span class="op">=</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>      GlobalLogging<span class="op">.</span><span class="fu">initial</span><span class="op">(</span>MainLogging<span class="op">.</span>globalDefault _<span class="op">,</span> java<span class="op">.</span>io<span class="op">.</span>File<span class="op">.</span><span class="fu">createTempFile</span><span class="op">(</span><span class="st">"app"</span><span class="op">,</span> <span class="st">"log"</span><span class="op">))</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
     </div> 
     <p>该trait的实现类只需要实现<code>def run (configuration: AppConfiguration): MainResult</code>方法， 它接收AppConfiguration参数，返回MainResult结果， MainResult主要有两种，即重启或者退出(Exit)，一般会选择退出，不过特殊情况下也可以选择重启，比如如果我们依赖的运行环境不满足，我们可以调整配置，降级也好，升级也好， 要求重启当前应用，在启动成功后，要求退出的情况下，再行退出。</p> 
     <p>以上实现类看起来纷繁复杂，其实很简单，基本原则就是： 1. 实现xsbt.AppMain的run方法； 2. 添加自定的commands</p> 
@@ -238,7 +238,7 @@
      </name></p> 
     <p>def helloAction(state: State, name: String): State = { state.log.info( “Hello %s!”.format(name) ) state }```</p> 
     <p>下面我们来看每一个命令(command)是如何定义的吧！</p> 
-    <h1 data-number="4" id="sbt-command定义详解"><span class="header-section-number">4</span> SBT Command定义详解</h1> 
+    <h1 id="sbt-command定义详解">SBT Command定义详解</h1> 
     <p>原则上， SBT Command 定义<a href="https://github.com/harrah/xsbt/wiki/Commands">这里</a>有详细的介绍，我只简单说一下。</p> 
     <p>一个命令定义由三部分组成(非严格意义上的，严格定义见sbt的wiki)： 1. 命令的名称，比如hello； 2. 命令使用的parser，用来验证命令语法以及转换命令数据到合适的数据结构； 3. 命令执行的action，用来定义具体的执行逻辑；</p> 
     <p>有了这个前提，再来看hello命令的定义就比较容易理解了吧？ <code>def hello = Command("hello")(state =&gt; helloParser)( helloAction )</code></p> 
@@ -246,16 +246,16 @@
     <p><code>scaladef helloAction(state: State, name: String): State = { state.log.info( "Hello %s!".format(name) ) state }</code></p> 
     <p>一个command，可以没有参数， 接收一个参数，或者接收多个参数， Command对象提供了相应的工厂方法， 具体参考<a href="https://github.com/harrah/xsbt/wiki/Commands">这里</a>。</p> 
     <p>那么， 这个Command的action中，T或者说hello action的String参数是从哪里来的那？ 这其实就是parser combinator的功劳了。</p> 
-    <h1 data-number="5" id="sbt-parser-combinator详解"><span class="header-section-number">5</span> SBT Parser Combinator详解</h1> 
+    <h1 id="sbt-parser-combinator详解">SBT Parser Combinator详解</h1> 
     <p>Parser Combinator允许将一个个小的Parser组装成一个或者多个大的Parser， command的定义中，第二部分接收一个<code>State =&gt; Parser[T]</code>类型的函数定义， 用来解析和验证命令的语法，并将最终的解析结果传递给对应的action使用。 tab-completion的功能，实际上就是parser的功能。</p> 
     <p>有关如何解析输入，<a href="https://github.com/harrah/xsbt/wiki/Parsing-Input">wiki这里</a>有详细的介绍，读过之后就了然了。</p> 
     <p>结合我们的command-line-app实例来说:</p> 
     <p><code>scaladef helloParser: Parser[String] = token(Space) ~&gt; token(NotSpace, "&lt;name&gt;")</code></p> 
     <p>helloParser接收以空格分割的一个字符串形式的参数， token用于提示输入的格式或者需求。 complete.DefaultParsers中预先定义了许多Parser可是在定义自己的Parser的时候可以使用。</p> 
-    <h1 data-number="6" id="conclusion"><span class="header-section-number">6</span> Conclusion</h1> 
+    <h1 id="conclusion">Conclusion</h1> 
     <p>简单来讲，有了Sbt的支持，构建一个可交互的命令行程序只需要做一个事情，即根据需要添加相应的Command定义到愿意支持的命令列表中，之后，发布到相应repo，然后本地使用sbt launcher来部署和执行即可。</p> 
     <p>现在，我们只需要关注相应command定义的语法(Parser)和逻辑(Action)定义就行了！</p> 
-    <h1 data-number="7" id="参考实例"><span class="header-section-number">7</span> 参考实例</h1> 
+    <h1 id="参考实例">参考实例</h1> 
     <p>除了harrah/command-line-application.g8这个脚手架模板项目，为了更好的理解基于sbt的命令行应用程序，以下项目也是很好的参考：</p> 
     <ul> 
      <li><a href="https://github.com/harrah/completion-demo">harrah/completion-demo</a> 
@@ -268,42 +268,51 @@
       </ul></li> 
     </ul> 
     <p>题外话，其实像<a href="https://github.com/zhongl/HouseMD" class="uri">https://github.com/zhongl/HouseMD</a>这种应用，完全可以构建在sbt的命令行功能之上， 跟cjmx这种类似。</p> 
-    <h1 data-number="8" id="deployment-made-easy-with-conscript"><span class="header-section-number">8</span> deployment made easy with conscript</h1> 
+    <h1 id="deployment-made-easy-with-conscript">deployment made easy with conscript</h1> 
     <p>每次分发和部署launch specification配置，并设置命令行环境和alias会很繁琐， 而且对个人用户来讲， 构建统一的repo也不现实，即使是local的repo也不方便保存， 随着github的兴起，我习惯于把一些项目托管到github，这有个好处，尤其是使用了sbt构建的应用程序，因为有<a href="https://github.com/n8han/conscript">conscript</a>这个工具，它可以帮助我们将这些应用程序从github的repo安装到本地，并自动配置好使用环境。 有了conscript，像g8, pictureshow等等，都可以一个命令安装和更新，甚是方便。</p> 
-    <h1 data-number="9" id="更多应用场景畅想"><span class="header-section-number">9</span> 更多应用场景畅想</h1> 
+    <h1 id="更多应用场景畅想">更多应用场景畅想</h1> 
     <p>tab-completion这个功能其实倒没啥好畅想的， 能直接想到的就是可以attach到JVM，并交互执行相应命令来监控目标应用的管理脚本或者说客户端；不过sbt launcher倒是可以畅想无限。</p> 
     <p>试想一下，如果把它当做部署的agent，每台服务器都预先部署一个sbt launcher， 那么，就可以构建一套和谐的开发，部署，运维的生态环境啦。 三者通过标准的maven repo或者ivy repo做桥梁， 开发发布artifact到repo， sbt launcher作为部署agent从repo拉取并部署相应的artifact到本地安装并部署和启动， 依赖管理也好，部署规范也好，都tmd的统一了，多好啊，哈哈，只可惜，在scala还是小众的情况下，这些也只是我意淫罢了，或许真有这么一天也说不定～</p> 
-    <h1 data-number="10" id="参考文档"><span class="header-section-number">10</span> 参考文档</h1> 
+    <h1 id="参考文档">参考文档</h1> 
     <ul> 
      <li><a href="https://github.com/harrah/xsbt/wiki/Command-Line-Applications">Creating Command Line Applications Using sbt</a></li> 
      <li><a href="https://github.com/harrah/xsbt/wiki/Launcher">Launcher Specification</a></li> 
      <li><a href="http://skillsmatter.com/podcast/scala/tab-completion-parser-combinators" class="uri">http://skillsmatter.com/podcast/scala/tab-completion-parser-combinators</a> ****推荐观看</li> 
     </ul> <!--          </div>--> <!--        </div>--> 
     <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
+    <hr> 
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2009-09-12-a-big-picture-on-concurrency.html">A Big Piture On Concurrency </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2006-08-23-dyna-criteria-query-in-java.html">谈java中的动态条件查询（Dynamic Criteria Query In Java） </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2021-12-31-explore-instead-of-judge.html">2022还是2020？ </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2010-06-19-go-hospital.html">终于中招了 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2009-09-12-a-big-picture-on-concurrency.html">A Big Piture On Concurrency </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2008-01-16-what-a-day.html">放纵的一天 </a> 
      </div> 
     </div> 
-    <hr> 
-    <img src="/images/zanshang.jpg" width="300/"> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <div id="comments"></div> 
     <hr> 
-    <div class="text-center"> 
-     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
     </div> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
-   ©王福强个人版权所有, All Rights Reserved.
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
   </div> 
   <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
    </div> 
   </div> 
   <script type="text/javascript">
@@ -318,7 +327,16 @@ var gitalk = new Gitalk({
 })
 
 gitalk.render('comments')
-    </script>  
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
  </body>
 </html>

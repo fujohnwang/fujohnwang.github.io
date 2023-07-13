@@ -6,13 +6,14 @@
   <meta name="description" content="Understanding Typeclass In Scala The Easy Way - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-  <title>Understanding Typeclass In Scala The Easy Way - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <title>Understanding Typeclass In Scala The Easy Way -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
   <style type="text/css">
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -78,26 +79,35 @@
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
-  <script>
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    </script> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
  </head> 
  <body id="page-top"> <!-- Navigation --> 
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
     <div class="collapse navbar-collapse" id="navbarResponsive"> 
      <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
      </ul> 
     </div> 
@@ -106,7 +116,8 @@
   <section> 
    <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
     <p class="lead"> </p>
-    <h1 class="title">Understanding Typeclass In Scala The Easy Way</h1> <small> <h3 class="author">FuqiangWang</h3> </small> 
+    <h1 class="title">Understanding Typeclass In Scala The Easy Way</h1> <small> <h3 class="author">FuqiangWang</h3> 
+     <div style="text-align: left;"></div> </small> 
     <p></p> 
     <hr> 
     <p>typeclass并不神秘， 本质上， 它只是某种定义了一系列行为模式的契约。 这与OO中的抽象概念是类似的，比如Java中的Interface，其实跟FP中的typeclass基本类似， 如果理解了OO中的interface，那么，理解FP中的typeclass也没有太大问题。</p> 
@@ -151,54 +162,63 @@ class String implements Comparable
     <p>这个时候， Scala的Implicit Resolution特性就可以派上用场了。</p> 
     <p>假设我们有类型A， 它之前没有实现Comarable，现在我们想要给它加上这个typeclass的约束， 使其可以被比较，那么，按照上面的第三步，我们应该这样来声明这个使用场景:</p> 
     <div class="sourceCode" id="cb1">
-     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">compare</span>(a:A, b:A)：Int</span></code></pre>
+     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">compare</span><span class="op">(</span>a<span class="op">:</span>A<span class="op">,</span> b<span class="op">:</span>A<span class="op">)</span>：Int</span></code></pre>
     </div> 
     <p>可是， A并没有实现Comparable，所以上面的声明显然不能工作，不过，我们可以稍微改进一下:</p> 
     <div class="sourceCode" id="cb2">
-     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">compare</span>(a:A, b:A)(<span class="kw">implicit</span> handler: ComparableTypeClassAdaptor[A]):Int </span></code></pre>
+     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">compare</span><span class="op">(</span>a<span class="op">:</span>A<span class="op">,</span> b<span class="op">:</span>A<span class="op">)(</span><span class="kw">implicit</span> handler<span class="op">:</span> ComparableTypeClassAdaptor<span class="op">[</span>A<span class="op">]):</span><span class="bu">Int</span> </span></code></pre>
     </div> 
     <p>这里的<code>ComparableTypeClassAdaptor[A]</code>可以根据传入的A的类型来提供Comparable约束的行为，比如：</p> 
     <div class="sourceCode" id="cb3">
-     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ATypeClassAdaptor <span class="kw">extends</span> ComparableTypeClassAdaptor[A]{</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">makeItComparable</span>(a:A) = <span class="kw">new</span> Comparable[A]{<span class="kw">def</span> <span class="fu">compare</span>(o:A):Int = {实现逻辑}}</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre>
+     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ATypeClassAdaptor <span class="kw">extends</span> ComparableTypeClassAdaptor<span class="op">[</span>A<span class="op">]{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">makeItComparable</span><span class="op">(</span>a<span class="op">:</span>A<span class="op">)</span> <span class="op">=</span> <span class="kw">new</span> Comparable<span class="op">[</span>A<span class="op">]{</span><span class="kw">def</span> <span class="fu">compare</span><span class="op">(</span>o<span class="op">:</span>A<span class="op">):</span><span class="bu">Int</span> <span class="op">=</span> <span class="op">{</span>实现逻辑<span class="op">}}</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
     </div> 
     <p>那么，只要我们在调用的时候，将相应的<code>ATypeClassAdaptor[A]</code>的实现作为implicit parameter传入就可以完成typeclass的约束:</p> 
     <div class="sourceCode" id="cb4">
-     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">compare</span>(a:A, b:A)(<span class="kw">implicit</span> <span class="kw">val</span> handler:ATypeClassAdaptor[A]) = handler.<span class="fu">makeItComparable</span>(a).<span class="fu">compare</span>(b))</span>
+     <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">compare</span><span class="op">(</span>a<span class="op">:</span>A<span class="op">,</span> b<span class="op">:</span>A<span class="op">)(</span><span class="kw">implicit</span> <span class="kw">val</span> handler<span class="op">:</span>ATypeClassAdaptor<span class="op">[</span>A<span class="op">])</span> <span class="op">=</span> handler<span class="op">.</span><span class="fu">makeItComparable</span><span class="op">(</span>a<span class="op">).</span><span class="fu">compare</span><span class="op">(</span>b<span class="op">))</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">implicit</span> handler = <span class="kw">new</span> ATypeClassAdaptor</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> a1 : A = _</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> a2 : A = _</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">compare</span>(a1, a2)</span></code></pre>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">implicit</span> handler <span class="op">=</span> <span class="kw">new</span> ATypeClassAdaptor</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> a1 <span class="op">:</span> A <span class="op">=</span> _</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> a2 <span class="op">:</span> A <span class="op">=</span> _</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">compare</span><span class="op">(</span>a1<span class="op">,</span> a2<span class="op">)</span></span></code></pre>
     </div> 
     <p>只不过，这种场景按照二八原则应该属于二的那一部分，而大部分blog post或者书上却把这东西讲得跟八那部分似的。</p> 
     <p>好啦， 关于typeclass就扯这么多，各位看官尽兴，手里有砖的也可以拍出来 ；）</p> <!--          </div>--> <!--        </div>--> 
     <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
+    <hr> 
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2009-05-27-am-I-still-naive.html">心理年龄小 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2021-12-31-explore-instead-of-judge.html">2022还是2020？ </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2009-06-10-harward-negotiating-training-note.html">Harward Negotiating Training Note </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2020-04-23-ffmpeg-v-compress.html">使用ffmpeg压缩视频复盘 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2014-11-12-how-to-research-a-enterprise-before-investing.html">投资人怎么把一家公司研究透[摘要] </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2018-04-06-value_of_consulting.html">为什么很多公司觉得请顾问没有什么效果？ </a> 
      </div> 
     </div> 
-    <hr> 
-    <img src="/images/zanshang.jpg" width="300/"> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <div id="comments"></div> 
     <hr> 
-    <div class="text-center"> 
-     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
     </div> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
-   ©王福强个人版权所有, All Rights Reserved.
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
   </div> 
   <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
    </div> 
   </div> 
   <script type="text/javascript">
@@ -213,7 +233,16 @@ var gitalk = new Gitalk({
 })
 
 gitalk.render('comments')
-    </script>  
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
  </body>
 </html>

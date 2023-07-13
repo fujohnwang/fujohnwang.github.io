@@ -6,7 +6,7 @@
   <meta name="description" content="了解ansible - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-  <title>了解ansible - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <title>了解ansible -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
@@ -14,26 +14,35 @@
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
-  <script>
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    </script> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
  </head> 
  <body id="page-top"> <!-- Navigation --> 
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
     <div class="collapse navbar-collapse" id="navbarResponsive"> 
      <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
      </ul> 
     </div> 
@@ -42,48 +51,17 @@
   <section> 
    <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
     <p class="lead"> </p>
-    <h1 class="title">了解ansible</h1> <small> <h3 class="author">FuqiangWang</h3> </small> 
+    <h1 class="title">了解ansible</h1> <small> <h3 class="author">FuqiangWang</h3> 
+     <div style="text-align: left;"></div> </small> 
     <p></p> 
     <hr> 
-    <ul> 
-     <li><a href="#ansible是干啥的simple-intro"><span class="toc-section-number">1</span> Ansible是干啥的？(Simple Intro)</a></li> 
-     <li><a href="#安装how-to-install"><span class="toc-section-number">2</span> 安装(How to install)</a></li> 
-     <li><a href="#大体上的系统结构a-big-picture-of-ansible"><span class="toc-section-number">3</span> 大体上的系统结构(A Big Picture Of Ansible)</a></li> 
-     <li><a href="#命令格式how-to-cast-an-ansible-command"><span class="toc-section-number">4</span> 命令格式(How to cast an ansible command)</a> 
-      <ul> 
-       <li><a href="#执行一些临时命令ad-hoc-commands"><span class="toc-section-number">4.1</span> 执行一些临时命令(Ad-hoc Commands )</a></li> 
-       <li><a href="#常见modules"><span class="toc-section-number">4.2</span> 常见Modules</a></li> 
-      </ul></li> 
-     <li><a href="#ansible配置ansible-configuration"><span class="toc-section-number">5</span> Ansible配置(Ansible Configuration)</a></li> 
-     <li><a href="#playbook"><span class="toc-section-number">6</span> Playbook</a> 
-      <ul> 
-       <li><a href="#playbook结构"><span class="toc-section-number">6.1</span> Playbook结构</a> 
-        <ul> 
-         <li><a href="#handlersrunning-operations-on-change"><span class="toc-section-number">6.1.1</span> Handlers:Running Operations On Change</a></li> 
-        </ul></li> 
-       <li><a href="#执行playbook"><span class="toc-section-number">6.2</span> 执行Playbook</a></li> 
-       <li><a href="#roles"><span class="toc-section-number">6.3</span> Roles</a></li> 
-       <li><a href="#vars-conditions-loops"><span class="toc-section-number">6.4</span> Vars, Conditions, Loops…</a></li> 
-       <li><a href="#最佳实践"><span class="toc-section-number">6.5</span> 最佳实践</a> 
-        <ul> 
-         <li><a href="#灰度发布"><span class="toc-section-number">6.5.1</span> 灰度发布</a></li> 
-        </ul></li> 
-      </ul></li> 
-     <li><a href="#总结"><span class="toc-section-number">7</span> 总结</a></li> 
-     <li><a href="#参考"><span class="toc-section-number">8</span> 参考</a> 
-      <ul> 
-       <li><a href="#playbook相关参考"><span class="toc-section-number">8.1</span> Playbook相关参考</a></li> 
-       <li><a href="#其它"><span class="toc-section-number">8.2</span> 其它</a></li> 
-      </ul></li> 
-    </ul> 
-    <hr> 
     <p>大部分是摘录性的内容，不是一篇完整的思考并融合的结果，仅存之</p> 
-    <h1 data-number="1" id="ansible是干啥的simple-intro"><span class="header-section-number">1</span> Ansible是干啥的？(Simple Intro)</h1> 
+    <h1 id="ansible是干啥的simple-intro">Ansible是干啥的？(Simple Intro)</h1> 
     <blockquote> 
      <p>Ansible is an IT automation tool. It can configure systems, deploy software, and orchestrate more advanced IT tasks such as continuous deployments or zero downtime rolling updates.</p> 
     </blockquote> 
     <p>照我说，tmd就是一个可以针对多台机器执行命令的工具，作为国王的你（控制机），只要发号施令， 命令就可以分发到你的子民（目标机）那里执行啦！ 至于这个过程中， 授权啦， 通信信道啦， 各种细节，就是ansible帮助打理的地方了，具体有哪些细节值得称道，我们后面慢慢道来…</p> 
-    <h1 data-number="2" id="安装how-to-install"><span class="header-section-number">2</span> 安装(How to install)</h1> 
+    <h1 id="安装how-to-install">安装(How to install)</h1> 
     <p>哥用的是mac， 有homebrew这个神器，所以，最简单的安装方法就是：</p> 
     <pre>$ brew install ansible
 </pre> 
@@ -100,7 +78,7 @@ $ source ./hacking/env-setup
     <blockquote> 
      <p>TIP : 可以在命令执行过程中通过-i参数指定使用哪个inventory file,比如<code>ansible all -i hosts -m shell -a ...</code>, 可以通过版本控制系统来管理inventory file并与这种方式相结合。</p> 
     </blockquote> 
-    <h1 data-number="3" id="大体上的系统结构a-big-picture-of-ansible"><span class="header-section-number">3</span> 大体上的系统结构(A Big Picture Of Ansible)</h1> 
+    <h1 id="大体上的系统结构a-big-picture-of-ansible">大体上的系统结构(A Big Picture Of Ansible)</h1> 
     <p>一台操作机，直接通过ssh控制一组目标服务器， 目标服务器地址通过ansible的hosts文件内容指定。</p> 
     <pre>                             +---------------------+
                              |       目标机器      |
@@ -115,7 +93,7 @@ $ source ./hacking/env-setup
                              +---------------------+
 </pre> 
     <p>raw和script模块可以直接允许在目标机器上执行命令和脚本</p> 
-    <h1 data-number="4" id="命令格式how-to-cast-an-ansible-command"><span class="header-section-number">4</span> 命令格式(How to cast an ansible command)</h1> 
+    <h1 id="命令格式how-to-cast-an-ansible-command">命令格式(How to cast an ansible command)</h1> 
     <pre>$ ansible all -a "/usr/bin/foo" -u username  --sudo // ansible [pattern] -m [module] -a [argument] -u [user]
 $ ansible webservers -m git -a "repo=git://foo.example.org/repo.git dest=/srv/myapp version=HEAD"
 </pre> 例如: 
@@ -124,9 +102,9 @@ $ ansible all -m ping -u bruce                                 // as bruce
 $ ansible all -m ping -u bruce --sudo                          // as bruce, sudoing to root
 $ ansible all -m ping -u bruce --sudo --sudo-user batman       // as bruce, sudoing to batman   
 </pre> 
-    <h2 data-number="4.1" id="执行一些临时命令ad-hoc-commands"><span class="header-section-number">4.1</span> 执行一些临时命令(Ad-hoc Commands <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>)</h2> 
+    <h2 id="执行一些临时命令ad-hoc-commands">执行一些临时命令(Ad-hoc Commands <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>)</h2> 
     <p><a href="http://docs.ansible.com/intro_adhoc.html" class="uri">http://docs.ansible.com/intro_adhoc.html</a></p> 
-    <h2 data-number="4.2" id="常见modules"><span class="header-section-number">4.2</span> 常见Modules</h2> 
+    <h2 id="常见modules">常见Modules</h2> 
     <ol type="1"> 
      <li>command（默认， 不指定-m参数的时候使用的module） 
       <ul> 
@@ -150,7 +128,7 @@ $ ansible all -m ping -u bruce --sudo --sudo-user batman       // as bruce, sudo
        <li><code>ansible webservers -m service -a "name=httpd state=started"</code></li> 
       </ul></li> 
     </ol> 
-    <h1 data-number="5" id="ansible配置ansible-configuration"><span class="header-section-number">5</span> Ansible配置(Ansible Configuration)</h1> 
+    <h1 id="ansible配置ansible-configuration">Ansible配置(Ansible Configuration)</h1> 
     <p>主要是运行参数的配置， 跟inventory file没有关系， inventory file更多是配置目标机器相关信息， 而ansible配置文件则更多是正规框架行为的调整和配置，比如启动多少并行进程执行命令啦， 执行过程中是否需要交互询问密码啦，等等</p> 
     <p>ansible的配置可以多种形式进行，生效优先级为:</p> 
     <ol type="1"> 
@@ -161,7 +139,7 @@ $ ansible all -m ping -u bruce --sudo --sudo-user batman       // as bruce, sudo
     </ol> 
     <p>Ansible will process the above list and use the first file found. Settings in files are not merged.</p> 
     <p>详细配置信息参考<a href="http://docs.ansible.com/intro_configuration.html" class="uri">http://docs.ansible.com/intro_configuration.html</a></p> 
-    <h1 data-number="6" id="playbook"><span class="header-section-number">6</span> Playbook</h1> 
+    <h1 id="playbook">Playbook</h1> 
     <p>你一定会问，啥是Playbook？</p> 
     <p>你想啊，部署一个东西的时候， 第一步干啥，第二步执行啥命令，第三步…， 每次都这样手动搞是不是挺烦？ 烦就对了， 为了不烦，就得用Playbook这东东： 提前将每次都重复的事情写成式样书， 然后交给ansible-playbook命令去照着执行就可以了！</p> 
     <p>Playbooks涵盖了配置(Configuration)以及流程(Orchestration)相关规格说明。</p> 
@@ -171,7 +149,7 @@ $ ansible all -m ping -u bruce --sudo --sudo-user batman       // as bruce, sudo
       ansible playbook architecture
      </figcaption> 
     </figure> 
-    <h2 data-number="6.1" id="playbook结构"><span class="header-section-number">6.1</span> Playbook结构</h2> 
+    <h2 id="playbook结构">Playbook结构</h2> 
     <p>Playbooks contain plays<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>;</p> 
     <p>Plays contain tasks<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>;</p> 
     <p>Tasks call modules;<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p> 
@@ -216,7 +194,7 @@ $ ansible all -m ping -u bruce --sudo --sudo-user batman       // as bruce, sudo
     <blockquote> 
      <p>执行sudo的时候，最好通过命令行指定–ask-sudo-pass参数，否则很可能整个执行过程被挂住(Hang)</p> 
     </blockquote> 
-    <h3 data-number="6.1.1" id="handlersrunning-operations-on-change"><span class="header-section-number">6.1.1</span> Handlers:Running Operations On Change</h3> 如果要根据流程中的某些变更做出相应的行为， 可以使用handlers， 即通过定义notify这个action来捕捉事件并做出相应的反应: 
+    <h3 id="handlersrunning-operations-on-change">Handlers:Running Operations On Change</h3> 如果要根据流程中的某些变更做出相应的行为， 可以使用handlers， 即通过定义notify这个action来捕捉事件并做出相应的反应: 
     <pre>- name: template configuration file
   template: src=template.j2 dest=/etc/foo.conf
   notify:
@@ -224,14 +202,14 @@ $ ansible all -m ping -u bruce --sudo --sudo-user batman       // as bruce, sudo
      - restart apache
 </pre> 
     <p>here is an example of restarting two services when the contents of a file change, but only if the file changes, The things listed in the ‘notify’ section of a task are called handlers.</p> 
-    <h2 data-number="6.2" id="执行playbook"><span class="header-section-number">6.2</span> 执行Playbook</h2> Playbook的执行与Ad-hoc Command的执行不同， 后者使用<code>ansible</code>命令， 而Playbook则使用<code>ansible-playbook</code>命令： 
+    <h2 id="执行playbook">执行Playbook</h2> Playbook的执行与Ad-hoc Command的执行不同， 后者使用<code>ansible</code>命令， 而Playbook则使用<code>ansible-playbook</code>命令： 
     <pre>$ ansible-playbook playbook.yml -f 10
 </pre> 
     <p><code>-f 10</code>表示并行度， 即同样一份playbook，在目标机器集群中一次同时在多少台目标机上执行。</p> 
     <blockquote> 
      <p>如果想事先了解执行某个playbook会影响到哪些目标机，可以执行: <code>ansible-playbook playbook.yml --list-hosts</code></p> 
     </blockquote> 
-    <h2 data-number="6.3" id="roles"><span class="header-section-number">6.3</span> Roles</h2> 
+    <h2 id="roles">Roles</h2> 
     <p>Roles的概念其实就是组织一系列的tasks啦， handlers啦， vars啦等等到一个以目录为结构实体的组件之中， playbooks可以引用它们。</p> 比如，某项目目录如下: 
     <pre>site.yml
 webservers.yml
@@ -275,25 +253,25 @@ roles/
     - shell: echo 'goodbye'
 </pre> 
     <p>更多Roles或者Playbook实例可以参考<a href="http://galaxy.ansible.com/" class="uri">http://galaxy.ansible.com/</a>, Ansible Galaxy收录了很多社区贡献的playbooks。</p> 
-    <h2 data-number="6.4" id="vars-conditions-loops"><span class="header-section-number">6.4</span> Vars, Conditions, Loops…</h2> 
+    <h2 id="vars-conditions-loops">Vars, Conditions, Loops…</h2> 
     <p>写过程序的应该不会陌生啦， 不用废啥嘴皮子了， 基本上是把可以写程序实现的逻辑，改成配置文件里的表达式匹配。</p> 
     <p>具体细节参考ansible文档</p> 
-    <h2 data-number="6.5" id="最佳实践"><span class="header-section-number">6.5</span> 最佳实践</h2> 
-    <h3 data-number="6.5.1" id="灰度发布"><span class="header-section-number">6.5.1</span> 灰度发布</h3> 
+    <h2 id="最佳实践">最佳实践</h2> 
+    <h3 id="灰度发布">灰度发布</h3> 
     <pre>ansible-playbook -i production webservers.yml --limit boston[0-10]
 ansible-playbook -i production webservers.yml --limit boston[10-20]
 </pre> 
-    <h1 data-number="7" id="总结"><span class="header-section-number">7</span> 总结</h1> 
+    <h1 id="总结">总结</h1> 
     <p>即使是使用ansible， 像如何管理部署流程， 如何结合配置和流程， 如何控制发布进度， 如何监控发布情况等等， 依然需要在此基础上进行开发， 这也就是ansible公司又搞了个Ansible Tower的原因，也是很多公司愿意自己开发配置和部署平台的原因。</p> 
     <p>对于中小企业来说，或许使用现成的工具就可以了，像我大BAT， 基本上都有自己的配置部署平台吧！</p> 
-    <h1 data-number="8" id="参考"><span class="header-section-number">8</span> 参考</h1> 
-    <h2 data-number="8.1" id="playbook相关参考"><span class="header-section-number">8.1</span> Playbook相关参考</h2> 
+    <h1 id="参考">参考</h1> 
+    <h2 id="playbook相关参考">Playbook相关参考</h2> 
     <ol type="1"> 
      <li><a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html" class="uri">https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html</a></li> 
      <li><a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html" class="uri">https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html</a></li> 
      <li><a href="https://spacelift.io/blog/ansible-playbooks" class="uri">https://spacelift.io/blog/ansible-playbooks</a></li> 
     </ol> 
-    <h2 data-number="8.2" id="其它"><span class="header-section-number">8.2</span> 其它</h2> 
+    <h2 id="其它">其它</h2> 
     <ol type="1"> 
      <li><a href="https://docs.ansible.com/ansible/2.8/user_guide/playbooks_best_practices.html" class="uri">https://docs.ansible.com/ansible/2.8/user_guide/playbooks_best_practices.html</a></li> 
     </ol> 
@@ -309,30 +287,39 @@ ansible-playbook -i production webservers.yml --limit boston[10-20]
      </ol> 
     </section> <!--          </div>--> <!--        </div>--> 
     <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
+    <hr> 
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2007-08-23-docbook-addict.html">docbook addict </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2021-05-24-million-salary-ways.html">怎么做到年薪以百万单位起跳？ </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2013-08-11-meet-with-dengcaoyuan.html">邓草原散记 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2014-04-11-story-of-ants.html">勤劳蚂蚁与懒蚂蚁 #What’s in a story# </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2008-07-13-movie-chibi.html">赤壁之略懂 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2007-09-28-thoughts-on-bestwiz-fx-products.html">Bestwiz FX产品化路上的建议 </a> 
      </div> 
     </div> 
-    <hr> 
-    <img src="/images/zanshang.jpg" width="300/"> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <div id="comments"></div> 
     <hr> 
-    <div class="text-center"> 
-     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
     </div> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
-   ©王福强个人版权所有, All Rights Reserved.
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
   </div> 
   <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
    </div> 
   </div> 
   <script type="text/javascript">
@@ -347,7 +334,16 @@ var gitalk = new Gitalk({
 })
 
 gitalk.render('comments')
-    </script>  
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
  </body>
 </html>

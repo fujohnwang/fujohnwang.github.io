@@ -6,13 +6,14 @@
   <meta name="description" content="随笔20040524（Beanutils） - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-  <title>随笔20040524（Beanutils） - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <title>随笔20040524（Beanutils） -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
   <style type="text/css">
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -78,26 +79,35 @@
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
-  <script>
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    </script> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
  </head> 
  <body id="page-top"> <!-- Navigation --> 
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
     <div class="collapse navbar-collapse" id="navbarResponsive"> 
      <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
      </ul> 
     </div> 
@@ -106,7 +116,8 @@
   <section> 
    <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
     <p class="lead"> </p>
-    <h1 class="title">随笔20040524（Beanutils）</h1> <small> <h3 class="author">FuqiangWang</h3> </small> 
+    <h1 class="title">随笔20040524（Beanutils）</h1> <small> <h3 class="author">FuqiangWang</h3> 
+     <div style="text-align: left;"></div> </small> 
     <p></p> 
     <hr> 
     <blockquote> 
@@ -117,107 +128,116 @@
     <p>因为近来又看了些hibernate的documentation，所以联想到VO在各个层之间的数据传递问题，就想起以前看过的commons beanutils，所以重新扫描了一遍，部分内容如下：</p> 
     <p>首先需要说明的是PropertyUtils类，这个类提供了对javabean和动态bean的属性进行访问的各种方法，因为beanutils将bean的property分为simple，indexed和mapped三种，所以，这个类提供了get/setSimpleProperty(…),get/setIndexedProperty(…),和get/setMappedProperty(…)等方法分别针对各种property的访问。另外，除了以上这些property访问方法，还有get/setNestedProperty(…)和get/setProperty(…)方法，前两个针对bean的property依然是bean的property的访问问题，后者则是通用的property访问方式。下面是简短的代码实例：</p> 
     <div class="sourceCode" id="cb1">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Employee employee = ...;</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> city = (<span class="bu">String</span>) PropertyUtils.<span class="fu">getProperty</span>(employee,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>      <span class="st">"subordinate[3].address(home).city"</span>);</span></code></pre>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Employee employee <span class="op">=</span> <span class="kw">...</span><span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> city <span class="op">=</span> <span class="op">(</span><span class="bu">String</span><span class="op">)</span> PropertyUtils<span class="op">.</span><span class="fu">getProperty</span><span class="op">(</span>employee<span class="op">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>      <span class="st">"subordinate[3].address(home).city"</span><span class="op">);</span></span></code></pre>
     </div> 
     <p>其他的property访问方法的parameter跟这个代码实例类似，如果还不明白可以参考BeanUtils的API。</p> 
     <p>除了以上方法，PropertyUtils还提供了copyProperty（…)等静态方法，可以查阅API 文档以取得更多信息。</p> 
     <p>其次我们要说的就是DynaBean和DynaClass接口了，我们可以通过为DynaClass的实现类提供DynaProperty类型的数组作为参数，调用其newInstance（）方法返回相应的DynaBean实例，之后，初始化该生成的bean并进行相应的处理。</p> 
     <p>下面是代码实例：</p> 
     <div class="sourceCode" id="cb2">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a> DynaProperty[] props = <span class="kw">new</span> DynaProperty[]{</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">new</span> <span class="fu">DynaProperty</span>(<span class="st">"address"</span>, java.<span class="fu">util</span>.<span class="fu">Map</span>.<span class="fu">class</span>),</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">new</span> <span class="fu">DynaProperty</span>(<span class="st">"subordinate"</span>, mypackage.<span class="fu">Employee</span>[].<span class="fu">class</span>),</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">new</span> <span class="fu">DynaProperty</span>(<span class="st">"firstName"</span>, <span class="bu">String</span>.<span class="fu">class</span>),</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">new</span> <span class="fu">DynaProperty</span>(<span class="st">"lastName"</span>,  <span class="bu">String</span>.<span class="fu">class</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      };</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>BasicDynaClass dynaClass = <span class="kw">new</span> <span class="fu">BasicDynaClass</span>(<span class="st">"employee"</span>, <span class="kw">null</span>, props);</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>DynaBean employee = dynaClass.<span class="fu">newInstance</span>();</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>employee.<span class="fu">set</span>(<span class="st">"address"</span>, <span class="kw">new</span> <span class="bu">HashMap</span>());</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>employee.<span class="fu">set</span>(<span class="st">"subordinate"</span>, <span class="kw">new</span> mypackage.<span class="fu">Employee</span>[<span class="dv">0</span>]);</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>employee.<span class="fu">set</span>(<span class="st">"firstName"</span>, <span class="st">"Fred"</span>);</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>employee.<span class="fu">set</span>(<span class="st">"lastName"</span>, <span class="st">"Flintstone"</span>);</span></code></pre>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a> DynaProperty<span class="op">[]</span> props <span class="op">=</span> <span class="kw">new</span> DynaProperty<span class="op">[]{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">new</span> <span class="fu">DynaProperty</span><span class="op">(</span><span class="st">"address"</span><span class="op">,</span> java<span class="op">.</span><span class="fu">util</span><span class="op">.</span><span class="fu">Map</span><span class="op">.</span><span class="fu">class</span><span class="op">),</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">new</span> <span class="fu">DynaProperty</span><span class="op">(</span><span class="st">"subordinate"</span><span class="op">,</span> mypackage<span class="op">.</span><span class="fu">Employee</span><span class="op">[].</span><span class="fu">class</span><span class="op">),</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">new</span> <span class="fu">DynaProperty</span><span class="op">(</span><span class="st">"firstName"</span><span class="op">,</span> <span class="bu">String</span><span class="op">.</span><span class="fu">class</span><span class="op">),</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">new</span> <span class="fu">DynaProperty</span><span class="op">(</span><span class="st">"lastName"</span><span class="op">,</span>  <span class="bu">String</span><span class="op">.</span><span class="fu">class</span><span class="op">)</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="op">};</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>BasicDynaClass dynaClass <span class="op">=</span> <span class="kw">new</span> <span class="fu">BasicDynaClass</span><span class="op">(</span><span class="st">"employee"</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> props<span class="op">);</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>DynaBean employee <span class="op">=</span> dynaClass<span class="op">.</span><span class="fu">newInstance</span><span class="op">();</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>employee<span class="op">.</span><span class="fu">set</span><span class="op">(</span><span class="st">"address"</span><span class="op">,</span> <span class="kw">new</span> <span class="bu">HashMap</span><span class="op">());</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>employee<span class="op">.</span><span class="fu">set</span><span class="op">(</span><span class="st">"subordinate"</span><span class="op">,</span> <span class="kw">new</span> mypackage<span class="op">.</span><span class="fu">Employee</span><span class="op">[</span><span class="dv">0</span><span class="op">]);</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>employee<span class="op">.</span><span class="fu">set</span><span class="op">(</span><span class="st">"firstName"</span><span class="op">,</span> <span class="st">"Fred"</span><span class="op">);</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>employee<span class="op">.</span><span class="fu">set</span><span class="op">(</span><span class="st">"lastName"</span><span class="op">,</span> <span class="st">"Flintstone"</span><span class="op">);</span></span></code></pre>
     </div> 
     <p>DynaBean和DynaClass的实现类分别可以归纳为【BasicDynaBean,ResultSetIterator,WrapDynaBean】和【BasicDynaClass, ResultSetDynaClass, RowSetDynaClass, WrapDynaClass】两组。其中，BasicDynaBean和BasicDynaClass在上面的代码中已经演示过了，剩下的尤其属ResultSetDynaClass, RowSetDynaClass两个类偶认为最为实用。他们可以对SQL查询后返回的ResultSet进行wrap，这个在web应用中很有用，你可以再也不用就数据在各层之间传递而写无数的相应的VO beans了。不过，二者也存在一定的区别。ResultSetDynaClass只能在保持数据库连接的情况下构造DynaBean并进行处理，这在很大程度上限制了其应用，因为不管怎么样，你应该将connection尽快的返回pool中而不是一直占有它，否则资源将很快的耗尽，这一点显而易见。</p> 
     <p>不过，RowSetDynaClass则可以在数据库连接关闭的情况下返回数据bean并处理，它将data拷贝到memory，所以这种方法是以性能和内存的消耗为代价的，不过，这种情况对于web应用来说，却是很划的来。</p> 
     <p>下面我们看看Beanutils文档提供的代码实例，不妨做一个比较：</p> 
     <div class="sourceCode" id="cb3">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Connection</span> conn = ...;</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">Statement</span> stmt = conn.<span class="fu">createStatement</span>();</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="bu">ResultSet</span> rs = stmt.<span class="fu">executeQuery</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"select account_id, name from customers"</span>);</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="bu">Iterator</span> rows = (<span class="kw">new</span> <span class="fu">ResultSetDynaClass</span>(rs)).<span class="fu">iterator</span>();</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">while</span> (rows.<span class="fu">hasNext</span>()) {</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    DynaBean row = (DynaBean) rows.<span class="fu">next</span>();</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">"Account number is "</span> +</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                       row.<span class="fu">get</span>(<span class="st">"account_id"</span>) +</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                       <span class="st">" and name is "</span> + row.<span class="fu">get</span>(<span class="st">"name"</span>));</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  rs.<span class="fu">close</span>();</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  stmt.<span class="fu">close</span>();</span></code></pre>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Connection</span> conn <span class="op">=</span> <span class="kw">...</span><span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">Statement</span> stmt <span class="op">=</span> conn<span class="op">.</span><span class="fu">createStatement</span><span class="op">();</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="bu">ResultSet</span> rs <span class="op">=</span> stmt<span class="op">.</span><span class="fu">executeQuery</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">(</span><span class="st">"select account_id, name from customers"</span><span class="op">);</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="bu">Iterator</span> rows <span class="op">=</span> <span class="op">(</span><span class="kw">new</span> <span class="fu">ResultSetDynaClass</span><span class="op">(</span>rs<span class="op">)).</span><span class="fu">iterator</span><span class="op">();</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> <span class="op">(</span>rows<span class="op">.</span><span class="fu">hasNext</span><span class="op">())</span> <span class="op">{</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    DynaBean row <span class="op">=</span> <span class="op">(</span>DynaBean<span class="op">)</span> rows<span class="op">.</span><span class="fu">next</span><span class="op">();</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"Account number is "</span> <span class="op">+</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                       row<span class="op">.</span><span class="fu">get</span><span class="op">(</span><span class="st">"account_id"</span><span class="op">)</span> <span class="op">+</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                       <span class="st">" and name is "</span> <span class="op">+</span> row<span class="op">.</span><span class="fu">get</span><span class="op">(</span><span class="st">"name"</span><span class="op">));</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  rs<span class="op">.</span><span class="fu">close</span><span class="op">();</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  stmt<span class="op">.</span><span class="fu">close</span><span class="op">();</span></span></code></pre>
     </div> 
     <div class="sourceCode" id="cb4">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Connection</span> conn = ...;  <span class="co">// Acquire connection from pool</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Statement</span> stmt = conn.<span class="fu">createStatement</span>();</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">ResultSet</span> rs = stmt.<span class="fu">executeQuery</span>(<span class="st">"SELECT ..."</span>);</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    RowSetDynaClass rsdc = <span class="kw">new</span> <span class="fu">RowSetDynaClass</span>(rs);</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    rs.<span class="fu">close</span>();</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    stmt.<span class="fu">close</span>();</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    ...;                    <span class="co">// Return connection to pool</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">List</span> rows = rsdc.<span class="fu">getRows</span>();</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    ...;                   <span class="co">// Process the rows as desired</span></span></code></pre>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Connection</span> conn <span class="op">=</span> <span class="kw">...</span><span class="op">;</span>  <span class="co">// Acquire connection from pool</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Statement</span> stmt <span class="op">=</span> conn<span class="op">.</span><span class="fu">createStatement</span><span class="op">();</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">ResultSet</span> rs <span class="op">=</span> stmt<span class="op">.</span><span class="fu">executeQuery</span><span class="op">(</span><span class="st">"SELECT ..."</span><span class="op">);</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    RowSetDynaClass rsdc <span class="op">=</span> <span class="kw">new</span> <span class="fu">RowSetDynaClass</span><span class="op">(</span>rs<span class="op">);</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    rs<span class="op">.</span><span class="fu">close</span><span class="op">();</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    stmt<span class="op">.</span><span class="fu">close</span><span class="op">();</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">...</span><span class="op">;</span>                    <span class="co">// Return connection to pool</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">List</span> rows <span class="op">=</span> rsdc<span class="op">.</span><span class="fu">getRows</span><span class="op">();</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">...</span><span class="op">;</span>                   <span class="co">// Process the rows as desired</span></span></code></pre>
     </div> 
     <p>是不是后者更适合web应用那？！</p> 
     <p>除了上面的一些实现类，还剩下了WrapDynaBean和WrapDynaClass类，他们同样相应的实现了DynaBean和DynaClass接口，作用就是：如果你愿意所以的bean访问（）都通过beanutils包的PropertyUtils类方式来访问，那么你可以通过这两个类对现有的bean进行wrap，例如：</p> 
     <div class="sourceCode" id="cb5">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>MyBean bean = ...;</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>DynaBean wrapper = <span class="kw">new</span> <span class="fu">WrapDynaBean</span>(bean);</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> firstName = wrapper.<span class="fu">get</span>(<span class="st">"firstName"</span>);</span></code></pre>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>MyBean bean <span class="op">=</span> <span class="kw">...</span><span class="op">;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>DynaBean wrapper <span class="op">=</span> <span class="kw">new</span> <span class="fu">WrapDynaBean</span><span class="op">(</span>bean<span class="op">);</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> firstName <span class="op">=</span> wrapper<span class="op">.</span><span class="fu">get</span><span class="op">(</span><span class="st">"firstName"</span><span class="op">);</span></span></code></pre>
     </div> 
     <p>虽然在这里看不到WrapDynaClass的影子，不过不用担心，实际上在程序内部已经构造了它的实例，只是我们无须关心而已。</p> 
     <p>以上差不多对beanutils提供 的主要功能类说的差不多了吧，不过，还有一点点儿，呵呵，那就是BeanUtils和ConvertUtils类以及Converter接口。</p> 
     <p>其实那，beanutils包的本来目的就是由BeanUtils撑大纲的，如果了解struts的历史，也应该知道这些，或许它的doc提供的这段代码可以很好的解析其原来的用意吧：</p> 
     <div class="sourceCode" id="cb6">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>    HttpServletRequest request = ...;</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    MyBean bean = ...;</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">HashMap</span> map = <span class="kw">new</span> <span class="bu">HashMap</span>();</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Enumeration</span> names = request.<span class="fu">getParameterNames</span>();</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">while</span> (names.<span class="fu">hasMoreElements</span>()) {</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>      <span class="bu">String</span> name = (<span class="bu">String</span>) names.<span class="fu">nextElement</span>();</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>      map.<span class="fu">put</span>(name, request.<span class="fu">getParameterValues</span>(name));</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    BeanUtils.<span class="fu">populate</span>(bean, map);</span></code></pre>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>    HttpServletRequest request <span class="op">=</span> <span class="kw">...</span><span class="op">;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    MyBean bean <span class="op">=</span> <span class="kw">...</span><span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">HashMap</span> map <span class="op">=</span> <span class="kw">new</span> <span class="bu">HashMap</span><span class="op">();</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Enumeration</span> names <span class="op">=</span> request<span class="op">.</span><span class="fu">getParameterNames</span><span class="op">();</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>names<span class="op">.</span><span class="fu">hasMoreElements</span><span class="op">())</span> <span class="op">{</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>      <span class="bu">String</span> name <span class="op">=</span> <span class="op">(</span><span class="bu">String</span><span class="op">)</span> names<span class="op">.</span><span class="fu">nextElement</span><span class="op">();</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>      map<span class="op">.</span><span class="fu">put</span><span class="op">(</span>name<span class="op">,</span> request<span class="op">.</span><span class="fu">getParameterValues</span><span class="op">(</span>name<span class="op">));</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    BeanUtils<span class="op">.</span><span class="fu">populate</span><span class="op">(</span>bean<span class="op">,</span> map<span class="op">);</span></span></code></pre>
     </div> 
     <p>另外，它底层会使用ConvertUtils进行各种数据类型的cast，而ConvertUtils提供的一些方法也可以直接使用，但是因为版本更新和未来的考虑，并不提倡直接使用它提供的一些方法，而是推荐实现自己的转换类，但前提是implements Converter接口，呵呵</p> 
     <p>还有就是如果考虑到I18N的问题，也就是Locale-Aware,可以使用org.apache.commons.beanutils.locale包中提供的相应类，因为缺省的org.apache.commons.beanutils包中提供的类不支持locale-aware。</p> 
     <p>最好要说的是，在org.apache.commons.beanutils.converters包下面提供了许多的converter类，至于怎么使用我就想赘述了，只要会查API doc，使用他们就不会有太多问题。</p> 
     <p>ok，写的我头疼脖子酸，休息先….</p> <!--          </div>--> <!--        </div>--> 
     <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
+    <hr> 
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2005-06-18-upload-file-in-struts.html">Struts中的文件上传 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2008-10-18-she-is-my-world.html">She is my world </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2021-11-25-fund-service-and-satisfication.html">垫付、服务与客户满意度 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2021-12-10-log4j-shit-happens.html">Shit Happens: log4j 0day灾难始末 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2009-07-27-depressing-days.html">再这样下去有点儿不像话了 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2018-08-30-illusion_as_reality.html">冲突，臆想与现实 </a> 
      </div> 
     </div> 
-    <hr> 
-    <img src="/images/zanshang.jpg" width="300/"> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <div id="comments"></div> 
     <hr> 
-    <div class="text-center"> 
-     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
     </div> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
-   ©王福强个人版权所有, All Rights Reserved.
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
   </div> 
   <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
    </div> 
   </div> 
   <script type="text/javascript">
@@ -232,7 +252,16 @@ var gitalk = new Gitalk({
 })
 
 gitalk.render('comments')
-    </script>  
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
  </body>
 </html>

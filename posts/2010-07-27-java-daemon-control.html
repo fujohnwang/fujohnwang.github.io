@@ -6,13 +6,14 @@
   <meta name="description" content="Java Daemon Control - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-  <title>Java Daemon Control - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <title>Java Daemon Control -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
   <style type="text/css">
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -78,26 +79,35 @@
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
-  <script>
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    </script> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
  </head> 
  <body id="page-top"> <!-- Navigation --> 
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
     <div class="collapse navbar-collapse" id="navbarResponsive"> 
      <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
      </ul> 
     </div> 
@@ -109,32 +119,20 @@
     <h1 class="title">Java Daemon Control</h1> 
     <p></p> 
     <hr> 
-    <ul> 
-     <li><a href="#old-days-solutions"><span class="toc-section-number">1</span> Old Days Solutions</a></li> 
-     <li><a href="#alternatives-available-today"><span class="toc-section-number">2</span> Alternatives Available Today</a></li> 
-     <li><a href="#my-choice"><span class="toc-section-number">3</span> My Choice</a> 
-      <ul> 
-       <li><a href="#signal"><span class="toc-section-number">3.1</span> Signal</a></li> 
-       <li><a href="#signalhandler"><span class="toc-section-number">3.2</span> SignalHandler</a></li> 
-       <li><a href="#glue-them-together"><span class="toc-section-number">3.3</span> Glue them together</a></li> 
-      </ul></li> 
-     <li><a href="#参考文档"><span class="toc-section-number">4</span> 参考文档</a></li> 
-    </ul> 
-    <hr> 
     <p>As to desktop or normal Java applications, we can easily know when we should shutdown the application or not, because users have explicit ways to do this, for example, for a Swing Application, usually a “CLOSE” menu or tool-bar item will be available, or directly click the “X” icon on the left/right top of the window. But for a Java application that will be run as a server process(which don’t need interactive behavior), what we do?</p> 
-    <h1 data-number="1" id="old-days-solutions"><span class="header-section-number">1</span> Old Days Solutions</h1> 
+    <h1 id="old-days-solutions">Old Days Solutions</h1> 
     <p>Directly “kill -9” ? Of course, that’s a way, but that’s too brutal.</p> 
     <p>A Java process that will be run as a server process usually will be sent to OS’s background to run, that’s called “daemon” on Unix and “service” on Windows. A Simple way to control the life-cycle of a Java daemon is to start a loop and wait for user input, like this:</p> 
     <div class="sourceCode" id="cb1">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">BufferedReader</span> reader = <span class="kw">new</span> <span class="bu">BufferedReader</span>(<span class="kw">new</span> <span class="bu">InputStreamReader</span>(<span class="bu">System</span>.<span class="fu">in</span>));  </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> line = <span class="kw">null</span>;  </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">do</span> {  </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    line = reader.<span class="fu">readLine</span>();  </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> (line != <span class="kw">null</span> &amp;&amp; line.<span class="fu">equals</span>(<span class="st">"quit"</span>)) {  </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">break</span>; <span class="co">// and exit gracefully  </span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    }  </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>}  </span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">while</span> (<span class="kw">true</span>);  </span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">BufferedReader</span> reader <span class="op">=</span> <span class="kw">new</span> <span class="bu">BufferedReader</span><span class="op">(</span><span class="kw">new</span> <span class="bu">InputStreamReader</span><span class="op">(</span><span class="bu">System</span><span class="op">.</span><span class="fu">in</span><span class="op">));</span>  </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> line <span class="op">=</span> <span class="kw">null</span><span class="op">;</span>  </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span> <span class="op">{</span>  </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    line <span class="op">=</span> reader<span class="op">.</span><span class="fu">readLine</span><span class="op">();</span>  </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>line <span class="op">!=</span> <span class="kw">null</span> <span class="op">&amp;&amp;</span> line<span class="op">.</span><span class="fu">equals</span><span class="op">(</span><span class="st">"quit"</span><span class="op">))</span> <span class="op">{</span>  </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span><span class="op">;</span> <span class="co">// and exit gracefully  </span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>  </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(</span><span class="kw">true</span><span class="op">);</span>  </span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">// clean up and exit  </span></span></code></pre>
     </div> 
@@ -142,65 +140,65 @@
     <p>Another mostly used solution is, start a TCP server socket and listen control requests, when termination control request is received, a loop based on control flag will break and exit. This is similar to above solution, just with another communication channel. <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p> 
     <p>A common pattern for both solution can be found,that’s, set up a control flag to start a loop with, and then wait for other channels to change the control flag. This can be formulated as:</p> 
     <div class="sourceCode" id="cb2">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">boolean</span> running = <span class="kw">true</span>;  </span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">boolean</span> running <span class="op">=</span> <span class="kw">true</span><span class="op">;</span>  </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">while</span>(running)  </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>{  </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span><span class="op">(</span>running<span class="op">)</span>  </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="op">{</span>  </span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">// do Sth.  </span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>}  </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>  </span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">// exit</span></span></code></pre>
     </div> 
     <p>As to how to change the control flag, there are two solutions presented, can you find more?</p> 
-    <h1 data-number="2" id="alternatives-available-today"><span class="header-section-number">2</span> Alternatives Available Today</h1> 
+    <h1 id="alternatives-available-today">Alternatives Available Today</h1> 
     <p>Old Days Solutions have their pros and cons, today more solutions are available for us.</p> 
     <p>The first one is Jakarta Commons Daemon . It provides a Java daemon solution with native Jsvc and Procrun support.</p> 
     <p>The second and third are Java Service Wrapper and yajsw , The former is a commerce solution now, and the latter is an open source one which has some works based on the former(there is a possibility that I misunderstand its introduction).</p> 
     <p>Other Solutions are Akuma , Start-Stop-Daemon, or Classword , but I don’t get patience to read their document. If you are interested in them,follow the links I provide or google them.</p> 
-    <h1 data-number="3" id="my-choice"><span class="header-section-number">3</span> My Choice</h1> 
+    <h1 id="my-choice">My Choice</h1> 
     <p>I choose to combine shell and “sun.misc.Signal” and “sun.misc.SignalHandler” to achieve Java daemon, because they are much simpler to me to understand them and use them. The Shell will take care of running-in-background stuff:</p> 
     <div class="sourceCode" id="cb3">
      <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/sh  </span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">java</span> -cp your_class_path com.domain.main_class <span class="op">&lt;</span><span class="kw">&amp;</span><span class="ex">-</span> <span class="kw">&amp;</span>  </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="va">pid=$!</span>  </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">java</span> <span class="at">-cp</span> your_class_path com.domain.main_class <span class="op">&lt;&amp;</span>- <span class="kw">&amp;</span>  </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="va">pid</span><span class="op">=</span><span class="va">$!</span>  </span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">${pid}</span> <span class="op">&gt;</span> mydaemon.pid  </span></code></pre>
     </div> 
     <p>And “sun.misc.Signal” and “sun.misc.SignalHandler” will take care of controlling the life-cycle of the program. About “sun.misc.Signal” and “sun.misc.SignalHandler” , you can find more information at 参考文档 , here I just simply introduce how to use them together to achieve asynchronous communication between processes or just internally in a same process.</p> 
     <p>The concept of “sun.misc.Signal” and “sun.misc.SignalHandler” is simple</p> 
-    <h2 data-number="3.1" id="signal"><span class="header-section-number">3.1</span> Signal</h2> 
+    <h2 id="signal">Signal</h2> 
     <p>Signal is the signal that u will send to SignalHandler to process, so you can create a Signal just like instantiate a simple value object:</p> 
     <div class="sourceCode" id="cb4">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Signal sig = <span class="kw">new</span> <span class="fu">Signal</span>(<span class="st">"USR1"</span>);  </span></code></pre>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Signal sig <span class="op">=</span> <span class="kw">new</span> <span class="fu">Signal</span><span class="op">(</span><span class="st">"USR1"</span><span class="op">);</span>  </span></code></pre>
     </div> 
     <p>The signal names you pass to “Signal” conform a pattern, that’s, remove the prefix “SIG” from the name of the standard signals that’s used by JVM. For example, if you want to send “SIGINT” , then you create “Signal” instance with name of “INT” ; If you want to send “SIGTERM” , you create “Signal” instance with name of “TERM” :</p> 
     <div class="sourceCode" id="cb5">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>Signal interactiveSignal = <span class="kw">new</span> <span class="fu">Signal</span>(<span class="st">"INT"</span>);  </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Signal terminationSignal = <span class="kw">new</span> <span class="fu">Signal</span>(<span class="st">"TERM"</span>);</span></code></pre>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>Signal interactiveSignal <span class="op">=</span> <span class="kw">new</span> <span class="fu">Signal</span><span class="op">(</span><span class="st">"INT"</span><span class="op">);</span>  </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Signal terminationSignal <span class="op">=</span> <span class="kw">new</span> <span class="fu">Signal</span><span class="op">(</span><span class="st">"TERM"</span><span class="op">);</span></span></code></pre>
     </div> 
     <p>Fucking Simple, right?</p> 
     <p>After you have a Signal, you can send it out by using “Signal” class’s “raise” method:</p> 
     <div class="sourceCode" id="cb6">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>Signal.<span class="fu">raise</span>(sig);   </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>Signal.<span class="fu">raise</span>(interactiveSignal);   </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>Signal.<span class="fu">raise</span>(terminationSignal);   </span></code></pre>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>Signal<span class="op">.</span><span class="fu">raise</span><span class="op">(</span>sig<span class="op">);</span>   </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>Signal<span class="op">.</span><span class="fu">raise</span><span class="op">(</span>interactiveSignal<span class="op">);</span>   </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>Signal<span class="op">.</span><span class="fu">raise</span><span class="op">(</span>terminationSignal<span class="op">);</span>   </span></code></pre>
     </div> 
-    <h2 data-number="3.2" id="signalhandler"><span class="header-section-number">3.2</span> SignalHandler</h2> 
+    <h2 id="signalhandler">SignalHandler</h2> 
     <p>As the name indicates, “SignalHandler” will take the responsibility of handling the “Signal” s. You implements your own signal handlers by implementing the “SignalHandler” interface. It has only one method:</p> 
     <div class="sourceCode" id="cb7">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> MySigHandler <span class="kw">implements</span> SignalHandler {  </span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> MySigHandler <span class="kw">implements</span> SignalHandler <span class="op">{</span>  </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">handle</span>(Signal sig) {  </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">handle</span><span class="op">(</span>Signal sig<span class="op">)</span> <span class="op">{</span>  </span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="co">// ...  </span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    }  </span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>}  </span></code></pre>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>  </span></code></pre>
     </div> 
     <p>It’s fucking simple too.</p> 
-    <h2 data-number="3.3" id="glue-them-together"><span class="header-section-number">3.3</span> Glue them together</h2> 
+    <h2 id="glue-them-together">Glue them together</h2> 
     <p>After you get both “Signal” and “SignalHandler” of your own, you should link them together to make it work. This is by “Signal” class’s static method “handle” :</p> 
     <div class="sourceCode" id="cb8">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>MySigHandler sigHandler = <span class="kw">new</span> <span class="fu">MySigHandler</span>();  </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>Signal.<span class="fu">handle</span>(sig, sigHandler);  </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>Signal.<span class="fu">handle</span>(interactiveSignal, sigHandler);  </span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>Signal.<span class="fu">handle</span>(terminationSignal, sigHandler);  </span></code></pre>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>MySigHandler sigHandler <span class="op">=</span> <span class="kw">new</span> <span class="fu">MySigHandler</span><span class="op">();</span>  </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>Signal<span class="op">.</span><span class="fu">handle</span><span class="op">(</span>sig<span class="op">,</span> sigHandler<span class="op">);</span>  </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>Signal<span class="op">.</span><span class="fu">handle</span><span class="op">(</span>interactiveSignal<span class="op">,</span> sigHandler<span class="op">);</span>  </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>Signal<span class="op">.</span><span class="fu">handle</span><span class="op">(</span>terminationSignal<span class="op">,</span> sigHandler<span class="op">);</span>  </span></code></pre>
     </div> 
     <p>Now as long as you add them to your java programs and send proper signals to it, the pairs of “Signal” and “SignalHandler” will work for you.</p> 
     <p>You have 2 ways to send signals to your program’s process:</p> 
@@ -215,7 +213,7 @@
       </ul></li> 
     </ol> 
     <p>The only cons to use “Signal” and “SignalHandler” is, they are both restricted API which are not guaranteed.</p> 
-    <h1 data-number="4" id="参考文档"><span class="header-section-number">4</span> 参考文档</h1> 
+    <h1 id="参考文档">参考文档</h1> 
     <ol type="1"> 
      <li>Revelations on Java signal handling and termination . http://www.ibm.com/developerworks/java/library/i-signalhandling/ .</li> 
      <li>基于OS信号实现Java异步通知 . http://kenwublog.com/java-asynchronous-notify-based-on-signal .</li> 
@@ -228,30 +226,39 @@
      </ol> 
     </section> <!--          </div>--> <!--        </div>--> 
     <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
+    <hr> 
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2014-03-09-it-is-all-about-energy.html">It’s all about energy </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2009-06-25-on-board-alibaba.html">杭州初体验 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2008-10-25-keep-running.html">am I getting old? </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2007-06-23-easier-said-than-done-but-u-must-get-it-done.html">Easier Said than done, but you must get it done! </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2009-10-20-good-will-bad-execution.html">我不知道是不是我操作上不对… </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2023-06-02-stable-diffusion-courses-all-ready.html">福强AI课堂Stable Diffusion系列结课啦～ </a> 
      </div> 
     </div> 
-    <hr> 
-    <img src="/images/zanshang.jpg" width="300/"> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <div id="comments"></div> 
     <hr> 
-    <div class="text-center"> 
-     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
     </div> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
-   ©王福强个人版权所有, All Rights Reserved.
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
   </div> 
   <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
    </div> 
   </div> 
   <script type="text/javascript">
@@ -266,7 +273,16 @@ var gitalk = new Gitalk({
 })
 
 gitalk.render('comments')
-    </script>  
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
  </body>
 </html>

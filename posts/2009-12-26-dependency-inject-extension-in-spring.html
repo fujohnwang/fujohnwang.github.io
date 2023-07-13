@@ -6,13 +6,14 @@
   <meta name="description" content="扩展Spring的依赖注入行为两例 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-  <title>扩展Spring的依赖注入行为两例 - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <title>扩展Spring的依赖注入行为两例 -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
   <style type="text/css">
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -78,26 +79,35 @@
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
-  <script>
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    </script> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
  </head> 
  <body id="page-top"> <!-- Navigation --> 
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
     <div class="collapse navbar-collapse" id="navbarResponsive"> 
      <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
      </ul> 
     </div> 
@@ -109,184 +119,169 @@
     <h1 class="title">扩展Spring的依赖注入行为两例</h1> 
     <p></p> 
     <hr> 
-    <ul> 
-     <li><a href="#注入以enum作为key的map依赖"><span class="toc-section-number">1</span> 注入以Enum作为Key的Map依赖</a> 
-      <ul> 
-       <li><a href="#自定义factorybean"><span class="toc-section-number">1.1</span> 自定义FactoryBean</a></li> 
-       <li><a href="#自定义beanpostprocessort"><span class="toc-section-number">1.2</span> 自定义BeanPostProcessort</a></li> 
-       <li><a href="#自定义propertyeditor"><span class="toc-section-number">1.3</span> 自定义PropertyEditor?</a></li> 
-      </ul></li> 
-     <li><a href="#注入容器中某一类型所有依赖对象"><span class="toc-section-number">2</span> 注入容器中某一类型所有依赖对象</a> 
-      <ul> 
-       <li><a href="#自定义factorybean-1"><span class="toc-section-number">2.1</span> 自定义FactoryBean</a></li> 
-       <li><a href="#自定义beanpostprocessor"><span class="toc-section-number">2.2</span> 自定义BeanPostProcessor</a></li> 
-      </ul></li> 
-     <li><a href="#结束语"><span class="toc-section-number">3</span> 结束语</a></li> 
-    </ul> 
-    <hr> 
-    <p>前阵子“袜子”电话里随便聊了点儿有关在Spring里面如何扩展某些行为的话题, 其实, 这些话题本身没有什么技术含量, 完全是根据使用场景来权衡罢了, “袜子”心里肯定也已经有数了,不过,感觉就这两个话题来说说也挺好的, 因为跟阿九这阵子的路子有些吻合, 讲简单的东西,但一定要把简单的东西讲清楚, 讲架构当然更能吸引眼球,但我一直认为“The problem is not the design, it’s the implementation.”, 所以, 我还是愿意说些很简单,很基本的东西.</p> 
-    <h1 data-number="1" id="注入以enum作为key的map依赖"><span class="header-section-number">1</span> 注入以Enum作为Key的Map依赖</h1> 
+    <p>前阵子“袜子 ”电话里随便聊了点儿有关在Spring里面如何扩展某些行为的话题, 其实, 这些话题本身没有什么技术含量, 完全是根据使用场景来权衡罢了, “袜子”心里肯定也已经有数了,不过,感觉就这两个话题来说说也挺好的, 因为跟阿九这阵子的路子有些吻合, 讲简单的东西,但一定要把简单的东西讲清楚, 讲架构当然更能吸引眼球,但我一直认为“The problem is not the design, it’s the implementation. ”, 所以, 我还是愿意说些很简单,很基本的东西.</p> 
+    <h1 id="注入以enum作为key的map依赖">注入以Enum作为Key的Map依赖</h1> 
     <p>在现有Spring框架的默认支持下,我们可以注入单独声明的Enum类型的依赖关系, 例如:</p> 
     <div class="sourceCode" id="cb1">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">enum</span> FixtureEnum {  </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    FIXTURE_ONE, FIXTURE_TWO;  </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>}  </span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">enum</span> FixtureEnum <span class="op">{</span>  </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    FIXTURE_ONE<span class="op">,</span> FIXTURE_TWO<span class="op">;</span>  </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>  </span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>              </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Sample{  </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> FixtureEnum fOne;  </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">...  </span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>}  </span></code></pre>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Sample<span class="op">{</span>  </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> FixtureEnum fOne<span class="op">;</span>  </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">...</span>  </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>  </span></code></pre>
     </div> 
     <div class="sourceCode" id="cb2">
-     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;bean</span><span class="ot"> id=</span><span class="st">"target"</span><span class="ot"> class=</span><span class="st">"...Sample"</span><span class="kw">&gt;</span>  </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;property</span><span class="ot"> name=</span><span class="st">"fOne"</span><span class="ot"> value=</span><span class="st">"FIXTURE_ONE"</span><span class="kw">/&gt;</span>  </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/bean&gt;</span> </span></code></pre>
+     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">bean</span><span class="ot"> id=</span><span class="st">"target"</span><span class="ot"> class=</span><span class="st">"...Sample"</span>&gt;  </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"fOne"</span><span class="ot"> value=</span><span class="st">"FIXTURE_ONE"</span>/&gt;  </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">bean</span>&gt; </span></code></pre>
     </div> 
     <p>我们也可以注入以String或者复杂对象类型作为key的Map:</p> 
     <div class="sourceCode" id="cb3">
-     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;bean</span><span class="ot"> id=</span><span class="st">"target"</span><span class="ot"> class=</span><span class="st">"..."</span><span class="kw">&gt;</span>  </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;property</span><span class="ot"> name=</span><span class="st">"mapping"</span><span class="kw">&gt;</span>  </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;map&gt;</span>  </span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;entry</span><span class="ot"> key-ref=</span><span class="st">"complexObject"</span><span class="ot"> value=</span><span class="st">"anything"</span><span class="kw">/&gt;</span>  </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;entry</span><span class="ot"> key=</span><span class="st">"stringvalue"</span><span class="ot"> value-ref=</span><span class="st">"..."</span><span class="kw">/&gt;</span>  </span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;/map&gt;</span>  </span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/property&gt;</span>  </span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/bean&gt;</span>  </span>
+     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">bean</span><span class="ot"> id=</span><span class="st">"target"</span><span class="ot"> class=</span><span class="st">"..."</span>&gt;  </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"mapping"</span>&gt;  </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">map</span>&gt;  </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">entry</span><span class="ot"> key-ref=</span><span class="st">"complexObject"</span><span class="ot"> value=</span><span class="st">"anything"</span>/&gt;  </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">entry</span><span class="ot"> key=</span><span class="st">"stringvalue"</span><span class="ot"> value-ref=</span><span class="st">"..."</span>/&gt;  </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">map</span>&gt;  </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">property</span>&gt;  </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">bean</span>&gt;  </span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;bean</span><span class="ot"> id=</span><span class="st">"complexObject"</span><span class="ot"> class=</span><span class="st">"..."</span><span class="kw">&gt;</span>  </span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/bean&gt;</span> </span></code></pre>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">bean</span><span class="ot"> id=</span><span class="st">"complexObject"</span><span class="ot"> class=</span><span class="st">"..."</span>&gt;  </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">bean</span>&gt; </span></code></pre>
     </div> 
     <p>可是,把这两个结合起来, 我们要注入以Enum作为Key的Map的话,可能默认的支持就帮不了什么大忙了, 如果我们声明一个Map依赖对象, 但它的Key是Enum类型的话:</p> 
     <div class="sourceCode" id="cb4">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> InjectionTarget {  </span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> InjectionTarget <span class="op">{</span>  </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">@EnumKeyType</span>(FixtureEnum.<span class="fu">class</span>)  </span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">Map</span>&lt;FixtureEnum,<span class="bu">String</span>&gt; mapping;  </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">@EnumKeyType</span><span class="op">(</span>FixtureEnum<span class="op">.</span><span class="fu">class</span><span class="op">)</span>  </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">Map</span><span class="op">&lt;</span>FixtureEnum<span class="op">,</span><span class="bu">String</span><span class="op">&gt;</span> mapping<span class="op">;</span>  </span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">... </span><span class="co">// setters or getters and other things  </span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>}  </span></code></pre>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">...</span> <span class="co">// setters or getters and other things  </span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>  </span></code></pre>
     </div> 
     <p>如果单单简单的定义依赖注入关系如下:</p> 
     <div class="sourceCode" id="cb5">
-     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;bean</span><span class="ot"> id=</span><span class="st">"target"</span><span class="ot"> class=</span><span class="st">"...InjectionTarget"</span><span class="kw">&gt;</span>  </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;property</span><span class="ot"> name=</span><span class="st">"mapping"</span><span class="kw">&gt;</span>  </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;map&gt;</span>  </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;entry</span><span class="ot"> key=</span><span class="st">"FIXTURE_TWO"</span><span class="ot"> value=</span><span class="st">"FIXTURE TWO"</span><span class="kw">/&gt;</span>  </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;/map&gt;</span>  </span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/property&gt;</span>  </span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/bean&gt;</span>  </span></code></pre>
+     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">bean</span><span class="ot"> id=</span><span class="st">"target"</span><span class="ot"> class=</span><span class="st">"...InjectionTarget"</span>&gt;  </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"mapping"</span>&gt;  </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">map</span>&gt;  </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">entry</span><span class="ot"> key=</span><span class="st">"FIXTURE_TWO"</span><span class="ot"> value=</span><span class="st">"FIXTURE TWO"</span>/&gt;  </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">map</span>&gt;  </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">property</span>&gt;  </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">bean</span>&gt;  </span></code></pre>
     </div> 
     <p>恐怕最终得到的不是一个Map&lt;FixtureEnum,String&gt;类型的Map,而是一个Map&lt;String,String&gt;类型的Map, 小沈阳语:为什么那?</p> 
     <p>Java5的Generic是Erase-Based, 这就意味着,运行期间无法获得Map的Key相关的Generic类型信息, 那么, Spring在做注入的时候,也就没法知道应该将String形式表达的依赖对象转换成什么类型, 只好保持原样啦, 所以,以通常形式表达的map注入,最终得到的就成了一个Map&lt;String,..&gt;类型的Map,而不是Map&lt;Enum,..&gt;类型的Map.那谁可能说了,那怎么其它复杂对象作为Key怎么没问题那? 原因很简单嘛, 你直接指定了对象的引用嘛,不服,你把对象类型直接写上试试?</p> 
     <p>那怎么解决这个问题那? 显然我们无法在运行期间通过反射之类的途径来获得Map的Key类型了,那么,我们就明确指定呗,如何明确指定那?可以考虑几种方式…</p> 
-    <h2 data-number="1.1" id="自定义factorybean"><span class="header-section-number">1.1</span> 自定义FactoryBean</h2> 
-    <p>我们可以自定义一个FactoryBean来“生产”以Enum类型作为Key的Map,通过该自定义FactoryBean的某个Property类指定Key的Enum类型是什么, 就可以在“生产”过程中生成或者转换出相应的Map实例, Spring默认提供了一个MapFactoryBean,我们可以在这个父类的基础上做进一步的工作,说白了,就是直接根据明确指定的Enum类型将已经注入的Key值做一下转换, 之后,Map的Key就从String变成了指定的Enum类型, 一个实例代码可以实现如下:</p> 
+    <h2 id="自定义factorybean">自定义FactoryBean</h2> 
+    <p>我们可以自定义一个FactoryBean来“生产 ”以Enum类型作为Key的Map,通过该自定义FactoryBean的某个Property类指定Key的Enum类型是什么, 就可以在“生产 ”过程中生成或者转换出相应的Map实例, Spring默认提供了一个MapFactoryBean,我们可以在这个父类的基础上做进一步的工作,说白了,就是直接根据明确指定的Enum类型将已经注入的Key值做一下转换, 之后,Map的Key就从String变成了指定的Enum类型, 一个实例代码可以实现如下:</p> 
     <div class="sourceCode" id="cb6">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> EnumKeyMapFactoryBean <span class="kw">extends</span> MapFactoryBean {  </span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> EnumKeyMapFactoryBean <span class="kw">extends</span> MapFactoryBean <span class="op">{</span>  </span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">Class</span>&lt;? <span class="kw">extends</span> <span class="bu">Enum</span>&lt;?&gt;&gt; enumType;  </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> EnumKeyConversionSupport conversionSupport = <span class="kw">new</span> <span class="fu">EnumKeyConversionSupport</span>();  </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">Class</span><span class="op">&lt;?</span> <span class="kw">extends</span> <span class="bu">Enum</span><span class="op">&lt;?&gt;&gt;</span> enumType<span class="op">;</span>  </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> EnumKeyConversionSupport conversionSupport <span class="op">=</span> <span class="kw">new</span> <span class="fu">EnumKeyConversionSupport</span><span class="op">();</span>  </span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span>  </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="bu">Object</span> <span class="fu">createInstance</span>() {  </span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> conversionSupport.<span class="fu">convert</span>(<span class="kw">super</span>.<span class="fu">createInstance</span>(), enumType);  </span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    }  </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="bu">Object</span> <span class="fu">createInstance</span><span class="op">()</span> <span class="op">{</span>  </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> conversionSupport<span class="op">.</span><span class="fu">convert</span><span class="op">(</span><span class="kw">super</span><span class="op">.</span><span class="fu">createInstance</span><span class="op">(),</span> enumType<span class="op">);</span>  </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">setEnumType</span>(<span class="bu">Class</span>&lt;? <span class="kw">extends</span> <span class="bu">Enum</span>&lt;?&gt;&gt; enumType) {  </span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span>.<span class="fu">enumType</span> = enumType;  </span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    }  </span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">setEnumType</span><span class="op">(</span><span class="bu">Class</span><span class="op">&lt;?</span> <span class="kw">extends</span> <span class="bu">Enum</span><span class="op">&lt;?&gt;&gt;</span> enumType<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">enumType</span> <span class="op">=</span> enumType<span class="op">;</span>  </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Class</span>&lt;? <span class="kw">extends</span> <span class="bu">Enum</span>&lt;?&gt;&gt; <span class="fu">getEnumType</span>() {  </span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> enumType;  </span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    }  </span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Class</span><span class="op">&lt;?</span> <span class="kw">extends</span> <span class="bu">Enum</span><span class="op">&lt;?&gt;&gt;</span> <span class="fu">getEnumType</span><span class="op">()</span> <span class="op">{</span>  </span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> enumType<span class="op">;</span>  </span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
 <span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>} </span></code></pre>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> </span></code></pre>
     </div> 
     <p>super.createInstance()返回的是最初的Map实例,我们通过EnumKeyConversionSupport这个类和明确指定的Enum类型进行一下转换, 就可以获得最终想要的Map实例了. EnumKeyMapFactoryBean的适用看起来如下:</p> 
     <div class="sourceCode" id="cb7">
-     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;bean</span><span class="ot"> id=</span><span class="st">"ekMap"</span><span class="ot"> class=</span><span class="st">"cn.spring21.sandbox.springext.EnumKeyMapFactoryBean"</span><span class="kw">&gt;</span>  </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;property</span><span class="ot"> name=</span><span class="st">"enumType"</span><span class="ot"> value=</span><span class="st">"cn.spring21.sandbox.springext.FixtureEnum"</span><span class="kw">/&gt;</span>  </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;property</span><span class="ot"> name=</span><span class="st">"sourceMap"</span><span class="kw">&gt;</span>  </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;map&gt;</span>  </span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;entry</span><span class="ot"> key=</span><span class="st">"FIXTURE_ONE"</span><span class="ot"> value=</span><span class="st">"anything"</span><span class="kw">/&gt;</span>  </span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;entry</span><span class="ot"> key=</span><span class="st">"FIXTURE_TWO"</span><span class="ot"> value=</span><span class="st">"anything"</span><span class="kw">/&gt;</span>  </span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;/map&gt;</span>  </span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/property&gt;</span>  </span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/bean&gt;</span> </span></code></pre>
+     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">bean</span><span class="ot"> id=</span><span class="st">"ekMap"</span><span class="ot"> class=</span><span class="st">"cn.spring21.sandbox.springext.EnumKeyMapFactoryBean"</span>&gt;  </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"enumType"</span><span class="ot"> value=</span><span class="st">"cn.spring21.sandbox.springext.FixtureEnum"</span>/&gt;  </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"sourceMap"</span>&gt;  </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">map</span>&gt;  </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">entry</span><span class="ot"> key=</span><span class="st">"FIXTURE_ONE"</span><span class="ot"> value=</span><span class="st">"anything"</span>/&gt;  </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">entry</span><span class="ot"> key=</span><span class="st">"FIXTURE_TWO"</span><span class="ot"> value=</span><span class="st">"anything"</span>/&gt;  </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">map</span>&gt;  </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">property</span>&gt;  </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">bean</span>&gt; </span></code></pre>
     </div> 
     <p>ekMap现在的Key就是我们最终想要的FixtureEnum类型.</p> 
     <blockquote> 
      <p>NOTE</p> 
      <p>如果感觉上面的配置方式很繁琐,可以考虑自定义XML Schema类简化配置,类似于spring的util命名空间提供的简化配置形式.</p> 
     </blockquote> 
-    <h2 data-number="1.2" id="自定义beanpostprocessort"><span class="header-section-number">1.2</span> 自定义BeanPostProcessort</h2> 
-    <p>自定义FactoryBean的形式当然可以达成目的,不过, 使用上来看,可能不是太方便,毕竟,每次遇到这样的情况都需要声明那么一个FactoryBean的bean定义, 而且,配置的形式也不是那么简洁,本着“精益求精”的精神,我们是不是可以想一下,还可以有更好的方法那? 要明确指定Map的Key的类型是Enum类型,不一定非要通过XML配置的形式,我们还可以使用Annotation,通过为相应的Map标注某一表明了Key的Enum类型的Annotation, 我们同样可以获得Key的Enum类型信息,例如,我们可以声明某一Annotation如下:</p> 
+    <h2 id="自定义beanpostprocessort">自定义BeanPostProcessort</h2> 
+    <p>自定义FactoryBean的形式当然可以达成目的,不过, 使用上来看,可能不是太方便,毕竟,每次遇到这样的情况都需要声明那么一个FactoryBean的bean定义, 而且,配置的形式也不是那么简洁,本着“精益求精 ”的精神,我们是不是可以想一下,还可以有更好的方法那? 要明确指定Map的Key的类型是Enum类型,不一定非要通过XML配置的形式,我们还可以使用Annotation,通过为相应的Map标注某一表明了Key的Enum类型的Annotation, 我们同样可以获得Key的Enum类型信息,例如,我们可以声明某一Annotation如下:</p> 
     <div class="sourceCode" id="cb8">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="at">@Retention</span>(<span class="bu">RetentionPolicy</span>.<span class="fu">RUNTIME</span>)  </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="at">@Target</span>(<span class="bu">ElementType</span>.<span class="fu">FIELD</span>)  </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">@interface</span> EnumKeyType {  </span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Class</span>&lt;?&gt; <span class="fu">value</span>();  </span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>} </span></code></pre>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="at">@Retention</span><span class="op">(</span><span class="bu">RetentionPolicy</span><span class="op">.</span><span class="fu">RUNTIME</span><span class="op">)</span>  </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="at">@Target</span><span class="op">(</span><span class="bu">ElementType</span><span class="op">.</span><span class="fu">FIELD</span><span class="op">)</span>  </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="at">@interface</span> EnumKeyType <span class="op">{</span>  </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Class</span><span class="op">&lt;?&gt;</span> <span class="fu">value</span><span class="op">();</span>  </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> </span></code></pre>
     </div> 
     <p>然后在遇到适用Enum作为Key的Map的情况下,就可以通过这一Annotation对这样的Map进行标注:</p> 
     <div class="sourceCode" id="cb9">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> InjectionTarget {  </span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> InjectionTarget <span class="op">{</span>  </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">@EnumKeyType</span>(FixtureEnum.<span class="fu">class</span>)  </span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">Map</span>&lt;FixtureEnum,<span class="bu">String</span>&gt; mapping;  </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">@EnumKeyType</span><span class="op">(</span>FixtureEnum<span class="op">.</span><span class="fu">class</span><span class="op">)</span>  </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">Map</span><span class="op">&lt;</span>FixtureEnum<span class="op">,</span><span class="bu">String</span><span class="op">&gt;</span> mapping<span class="op">;</span>  </span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">...   </span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>} </span></code></pre>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">...</span>   </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> </span></code></pre>
     </div> 
     <p>这样,虽然我们无法在运行期间获得Map的Key的Generic类型信息,但可以通过Annotation来获得,不过, 光标注一下,Spring可不会聪明到马上知道你标注这么个Annotation要干嘛,我们得写点儿东西让Spring知道遇到这个 Annotation该干点儿什么事情, 所以,可以定义一个BeanPostProcessor来做这个事情,例如:</p> 
     <div class="sourceCode" id="cb10">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> EnumKeyMapBeanPostProcessor <span class="kw">implements</span> BeanPostProcessor {  </span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> EnumKeyMapBeanPostProcessor <span class="kw">implements</span> BeanPostProcessor <span class="op">{</span>  </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="dt">static</span> <span class="dt">final</span> <span class="kw">transient</span> <span class="bu">Logger</span> logger = LoggerFactory.<span class="fu">getLogger</span>(EnumKeyMapBeanPostProcessor.<span class="fu">class</span>);  </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="dt">static</span> <span class="dt">final</span> <span class="kw">transient</span> <span class="bu">Logger</span> logger <span class="op">=</span> LoggerFactory<span class="op">.</span><span class="fu">getLogger</span><span class="op">(</span>EnumKeyMapBeanPostProcessor<span class="op">.</span><span class="fu">class</span><span class="op">);</span>  </span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> EnumKeyConversionSupport conversionSupport = <span class="kw">new</span> <span class="fu">EnumKeyConversionSupport</span>();  </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> EnumKeyConversionSupport conversionSupport <span class="op">=</span> <span class="kw">new</span> <span class="fu">EnumKeyConversionSupport</span><span class="op">();</span>  </span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>      </span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span>  </span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Object</span> <span class="fu">postProcessAfterInitialization</span>(<span class="bu">Object</span> bean, <span class="bu">String</span> beanName)  </span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>            <span class="kw">throws</span> BeansException {  </span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Field</span>[] fields = bean.<span class="fu">getClass</span>().<span class="fu">getDeclaredFields</span>();  </span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">for</span>(<span class="bu">Field</span> field:fields)  </span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>        {  </span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>            <span class="kw">if</span>(field.<span class="fu">isAnnotationPresent</span>(EnumKeyType.<span class="fu">class</span>))  </span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>            {  </span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>                <span class="kw">try</span> {  </span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">convertKeyType</span>(field,bean);  </span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>                } <span class="kw">catch</span> (<span class="bu">Exception</span> e) {  </span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>                    logger.<span class="fu">warn</span>(<span class="st">"failed to do map key convert.</span><span class="sc">\n</span><span class="st">{}"</span>,e);  </span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>                }  </span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>            }  </span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>        }  </span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> bean;  </span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    }  </span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Object</span> <span class="fu">postProcessAfterInitialization</span><span class="op">(</span><span class="bu">Object</span> bean<span class="op">,</span> <span class="bu">String</span> beanName<span class="op">)</span>  </span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>            <span class="kw">throws</span> BeansException <span class="op">{</span>  </span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Field</span><span class="op">[]</span> fields <span class="op">=</span> bean<span class="op">.</span><span class="fu">getClass</span><span class="op">().</span><span class="fu">getDeclaredFields</span><span class="op">();</span>  </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span><span class="op">(</span><span class="bu">Field</span> field<span class="op">:</span>fields<span class="op">)</span>  </span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span>  </span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span><span class="op">(</span>field<span class="op">.</span><span class="fu">isAnnotationPresent</span><span class="op">(</span>EnumKeyType<span class="op">.</span><span class="fu">class</span><span class="op">))</span>  </span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span>  </span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>                <span class="cf">try</span> <span class="op">{</span>  </span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">convertKeyType</span><span class="op">(</span>field<span class="op">,</span>bean<span class="op">);</span>  </span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>                <span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">Exception</span> e<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>                    logger<span class="op">.</span><span class="fu">warn</span><span class="op">(</span><span class="st">"failed to do map key convert.</span><span class="sc">\n</span><span class="st">{}"</span><span class="op">,</span>e<span class="op">);</span>  </span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>                <span class="op">}</span>  </span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span>  </span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span>  </span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> bean<span class="op">;</span>  </span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
 <span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="dt">void</span> <span class="fu">convertKeyType</span>(<span class="bu">Field</span> field,<span class="bu">Object</span> bean) <span class="kw">throws</span> <span class="bu">Exception</span> {  </span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>        EnumKeyType eType= field.<span class="fu">getAnnotation</span>(EnumKeyType.<span class="fu">class</span>);  </span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Class</span>&lt;?&gt; clazz = eType.<span class="fu">value</span>();  </span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>        field.<span class="fu">setAccessible</span>(<span class="kw">true</span>);  </span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Object</span> map = field.<span class="fu">get</span>(bean);  </span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span>(<span class="bu">Map</span>.<span class="fu">class</span>.<span class="fu">isAssignableFrom</span>(map.<span class="fu">getClass</span>()) &amp;&amp; clazz != <span class="kw">null</span>)  </span>
-<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>        {  </span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>            <span class="bu">Map</span>&lt;<span class="bu">Object</span>, <span class="bu">Object</span>&gt; result = conversionSupport.<span class="fu">convert</span>(map, clazz);  </span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>            field.<span class="fu">set</span>(bean, result);  </span>
-<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>        }  </span>
-<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>    }  </span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="dt">void</span> <span class="fu">convertKeyType</span><span class="op">(</span><span class="bu">Field</span> field<span class="op">,</span><span class="bu">Object</span> bean<span class="op">)</span> <span class="kw">throws</span> <span class="bu">Exception</span> <span class="op">{</span>  </span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>        EnumKeyType eType<span class="op">=</span> field<span class="op">.</span><span class="fu">getAnnotation</span><span class="op">(</span>EnumKeyType<span class="op">.</span><span class="fu">class</span><span class="op">);</span>  </span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Class</span><span class="op">&lt;?&gt;</span> clazz <span class="op">=</span> eType<span class="op">.</span><span class="fu">value</span><span class="op">();</span>  </span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>        field<span class="op">.</span><span class="fu">setAccessible</span><span class="op">(</span><span class="kw">true</span><span class="op">);</span>  </span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Object</span> map <span class="op">=</span> field<span class="op">.</span><span class="fu">get</span><span class="op">(</span>bean<span class="op">);</span>  </span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span><span class="op">(</span><span class="bu">Map</span><span class="op">.</span><span class="fu">class</span><span class="op">.</span><span class="fu">isAssignableFrom</span><span class="op">(</span>map<span class="op">.</span><span class="fu">getClass</span><span class="op">())</span> <span class="op">&amp;&amp;</span> clazz <span class="op">!=</span> <span class="kw">null</span><span class="op">)</span>  </span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span>  </span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>            <span class="bu">Map</span><span class="op">&lt;</span><span class="bu">Object</span><span class="op">,</span> <span class="bu">Object</span><span class="op">&gt;</span> result <span class="op">=</span> conversionSupport<span class="op">.</span><span class="fu">convert</span><span class="op">(</span>map<span class="op">,</span> clazz<span class="op">);</span>  </span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>            field<span class="op">.</span><span class="fu">set</span><span class="op">(</span>bean<span class="op">,</span> result<span class="op">);</span>  </span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span>  </span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
 <span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span>  </span>
-<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Object</span> <span class="fu">postProcessBeforeInitialization</span>(<span class="bu">Object</span> bean, <span class="bu">String</span> beanName)  </span>
-<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>            <span class="kw">throws</span> BeansException {  </span>
-<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> bean;  </span>
-<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>    }  </span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Object</span> <span class="fu">postProcessBeforeInitialization</span><span class="op">(</span><span class="bu">Object</span> bean<span class="op">,</span> <span class="bu">String</span> beanName<span class="op">)</span>  </span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>            <span class="kw">throws</span> BeansException <span class="op">{</span>  </span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> bean<span class="op">;</span>  </span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
 <span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>}  </span></code></pre>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>  </span></code></pre>
     </div> 
     <p>只要将这个EnumKeyMapBeanPostProcessor注册到Spring的ApplicationContext, 那么,之后要注入以Enum作为Key的Map的时候,只要简单的使用EnumKeyType标注一下这些Map就可以了,一劳多得, 如果应用中有多处需要这样的Map注入,使用这种方式显然要比适用自定义的FactoryBean要省事不少.</p> 
-    <h2 data-number="1.3" id="自定义propertyeditor"><span class="header-section-number">1.3</span> 自定义PropertyEditor?</h2> 
+    <h2 id="自定义propertyeditor">自定义PropertyEditor?</h2> 
     <p>我们知道, Spring内部在做类型转换的时候,会使用一些默认注册的PropertyEditor来做类型转换,而且,也允许我们注册自定义的PropertyEditor, 那么, 自然而然的,我们会想到提供一个针对这种情况的自定义PropertyEditor实现,那么,是否可行那? 如果感兴趣的话, 你可以试一下,呵呵</p> 
-    <h1 data-number="2" id="注入容器中某一类型所有依赖对象"><span class="header-section-number">2</span> 注入容器中某一类型所有依赖对象</h1> 
+    <h1 id="注入容器中某一类型所有依赖对象">注入容器中某一类型所有依赖对象</h1> 
     <p>默认情况下,我们可以通过Spring的XML配置文件中的<list>
       或者
       <set>
@@ -294,193 +289,202 @@
       </set>
      </list></p> 
     <div class="sourceCode" id="cb11">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> InjectionTarget {  </span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> InjectionTarget <span class="op">{</span>  </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">List</span>&lt;T&gt; collection;  </span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">...  </span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>} </span></code></pre>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">List</span><span class="op">&lt;</span>T<span class="op">&gt;</span> collection<span class="op">;</span>  </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">...</span>  </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> </span></code></pre>
     </div> 
     <div class="sourceCode" id="cb12">
-     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;bean</span><span class="ot"> id=</span><span class="st">"it"</span><span class="ot"> class=</span><span class="st">"...InjectionTarget"</span><span class="kw">&gt;</span>  </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;property</span><span class="ot"> name=</span><span class="st">"collection"</span><span class="kw">&gt;</span>  </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;list&gt;</span>  </span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;ref</span><span class="ot"> bean=</span><span class="st">"t1"</span><span class="kw">/&gt;</span>  </span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;ref</span><span class="ot"> bean=</span><span class="st">"t2"</span><span class="kw">/&gt;</span>  </span>
+     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">bean</span><span class="ot"> id=</span><span class="st">"it"</span><span class="ot"> class=</span><span class="st">"...InjectionTarget"</span>&gt;  </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"collection"</span>&gt;  </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">list</span>&gt;  </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">ref</span><span class="ot"> bean=</span><span class="st">"t1"</span>/&gt;  </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">ref</span><span class="ot"> bean=</span><span class="st">"t2"</span>/&gt;  </span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>            ...  </span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;/list&gt;</span>  </span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/property&gt;</span>  </span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/bean&gt;</span>  </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">list</span>&gt;  </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">property</span>&gt;  </span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">bean</span>&gt;  </span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;bean</span><span class="ot"> id=</span><span class="st">"t1"</span><span class="ot"> class=</span><span class="st">"..."</span><span class="kw">/&gt;</span>  </span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;bean</span><span class="ot"> id=</span><span class="st">"t2"</span><span class="ot"> class=</span><span class="st">"..."</span><span class="kw">/&gt;</span>  </span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">bean</span><span class="ot"> id=</span><span class="st">"t1"</span><span class="ot"> class=</span><span class="st">"..."</span>/&gt;  </span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">bean</span><span class="ot"> id=</span><span class="st">"t2"</span><span class="ot"> class=</span><span class="st">"..."</span>/&gt;  </span>
 <span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>...  </span></code></pre>
     </div> 
     <p>可是,大部分情况下,list里面都是同一类型的依赖对象(你要混合元素类型,那是你的事情),每次添加一个这样类型的依赖对象,就需要配置文件里添加一 个bean定义,然后<list>
       处改一下,很是烦躁,是吧? 我们可以通过某些方式来简化这种场景下的配置或者消除它,例如…
      </list></p> 
-    <h2 data-number="2.1" id="自定义factorybean-1"><span class="header-section-number">2.1</span> 自定义FactoryBean</h2> 
+    <h2 id="自定义factorybean-1">自定义FactoryBean</h2> 
     <p>我们可以自定义一个FactoryBean,让它替我们自动去容器里查找指定类型的一组依赖对象,然后,我们只要把这个FactoryBean挂接到依赖这组依赖对象的bean定义上就行了. 要让自定义的FactoryBean能够查找容器中指定类型的对象,我们可以让它实现ApplicationContextAware接口(这个接口能做啥事儿我就不多说了):</p> 
     <div class="sourceCode" id="cb13">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> CollectionInjectionFactoryBean <span class="kw">implements</span> FactoryBean,ApplicationContextAware {  </span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> CollectionInjectionFactoryBean <span class="kw">implements</span> FactoryBean<span class="op">,</span>ApplicationContextAware <span class="op">{</span>  </span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> ApplicationContext applicationContext;  </span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">Class</span>&lt;?&gt; componentType;  </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> ApplicationContext applicationContext<span class="op">;</span>  </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">Class</span><span class="op">&lt;?&gt;</span> componentType<span class="op">;</span>  </span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>      </span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span>  </span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Object</span> <span class="fu">getObject</span>() <span class="kw">throws</span> <span class="bu">Exception</span> {  </span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">@SuppressWarnings</span>(<span class="st">"unchecked"</span>)  </span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Map</span>&lt;<span class="bu">String</span>,<span class="bu">Object</span>&gt; map = <span class="kw">this</span>.<span class="fu">applicationContext</span>.<span class="fu">getBeansOfType</span>(<span class="fu">getComponentType</span>());  </span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span>(map == <span class="kw">null</span> || map.<span class="fu">isEmpty</span>())  </span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>        {  </span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>            <span class="kw">return</span> <span class="bu">Collections</span>.<span class="fu">EMPTY_LIST</span>;  </span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>        }  </span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> map.<span class="fu">values</span>();  </span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    }  </span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">@SuppressWarnings</span>(<span class="st">"unchecked"</span>)  </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Object</span> <span class="fu">getObject</span><span class="op">()</span> <span class="kw">throws</span> <span class="bu">Exception</span> <span class="op">{</span>  </span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">@SuppressWarnings</span><span class="op">(</span><span class="st">"unchecked"</span><span class="op">)</span>  </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Map</span><span class="op">&lt;</span><span class="bu">String</span><span class="op">,</span><span class="bu">Object</span><span class="op">&gt;</span> map <span class="op">=</span> <span class="kw">this</span><span class="op">.</span><span class="fu">applicationContext</span><span class="op">.</span><span class="fu">getBeansOfType</span><span class="op">(</span><span class="fu">getComponentType</span><span class="op">());</span>  </span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span><span class="op">(</span>map <span class="op">==</span> <span class="kw">null</span> <span class="op">||</span> map<span class="op">.</span><span class="fu">isEmpty</span><span class="op">())</span>  </span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span>  </span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="bu">Collections</span><span class="op">.</span><span class="fu">EMPTY_LIST</span><span class="op">;</span>  </span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span>  </span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> map<span class="op">.</span><span class="fu">values</span><span class="op">();</span>  </span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">@SuppressWarnings</span><span class="op">(</span><span class="st">"unchecked"</span><span class="op">)</span>  </span>
 <span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span>  </span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Class</span> <span class="fu">getObjectType</span>() {  </span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> <span class="bu">Collection</span>.<span class="fu">class</span>;  </span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    }  </span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Class</span> <span class="fu">getObjectType</span><span class="op">()</span> <span class="op">{</span>  </span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">Collection</span><span class="op">.</span><span class="fu">class</span><span class="op">;</span>  </span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
 <span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span>  </span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">boolean</span> <span class="fu">isSingleton</span>() {  </span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> <span class="kw">false</span>;  </span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>    }  </span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">boolean</span> <span class="fu">isSingleton</span><span class="op">()</span> <span class="op">{</span>  </span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span>  </span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
 <span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span>  </span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">setApplicationContext</span>(ApplicationContext arg0)  </span>
-<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>            <span class="kw">throws</span> BeansException {  </span>
-<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span>.<span class="fu">applicationContext</span> = arg0;   </span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>    }  </span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">setApplicationContext</span><span class="op">(</span>ApplicationContext arg0<span class="op">)</span>  </span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>            <span class="kw">throws</span> BeansException <span class="op">{</span>  </span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">applicationContext</span> <span class="op">=</span> arg0<span class="op">;</span>   </span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
 <span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">setComponentType</span>(<span class="bu">Class</span>&lt;?&gt; componentType) {  </span>
-<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span>.<span class="fu">componentType</span> = componentType;  </span>
-<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>    }  </span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">setComponentType</span><span class="op">(</span><span class="bu">Class</span><span class="op">&lt;?&gt;</span> componentType<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">componentType</span> <span class="op">=</span> componentType<span class="op">;</span>  </span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
 <span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Class</span>&lt;?&gt; <span class="fu">getComponentType</span>() {  </span>
-<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> componentType;  </span>
-<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>    }  </span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Class</span><span class="op">&lt;?&gt;</span> <span class="fu">getComponentType</span><span class="op">()</span> <span class="op">{</span>  </span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> componentType<span class="op">;</span>  </span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
 <span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>} </span></code></pre>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> </span></code></pre>
     </div> 
     <p>有了它之后,如果你想为某个对象注入一族A类型的依赖对象,那么就定义一个CollectionInjectionFactoryBean,并指定它的componentType为A; 如果想注入一族B类型的依赖对象,就指定它的componentType为B,依此类推.例如:</p> 
     <div class="sourceCode" id="cb14">
-     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;bean</span><span class="ot"> id=</span><span class="st">"target"</span> <span class="er">..</span><span class="kw">&gt;</span>  </span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;property</span><span class="ot"> name=</span><span class="st">".."</span><span class="ot"> ref=</span><span class="st">"collectionInjectionFB"</span><span class="kw">/&gt;</span>  </span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/bean&gt;</span>  </span>
+     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">bean</span><span class="ot"> id=</span><span class="st">"target"</span> <span class="er">..</span>&gt;  </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">".."</span><span class="ot"> ref=</span><span class="st">"collectionInjectionFB"</span>/&gt;  </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">bean</span>&gt;  </span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>          </span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;bean</span><span class="ot"> id=</span><span class="st">"collectionInjectionFB"</span><span class="ot"> class=</span><span class="st">"cn.spring21.sandbox.springext.CollectionInjectionFactoryBean"</span><span class="kw">&gt;</span>  </span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;property</span><span class="ot"> name=</span><span class="st">"componentType"</span><span class="ot"> value=</span><span class="st">"...AType"</span><span class="kw">/&gt;</span>  </span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/bean&gt;</span>  </span></code></pre>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">bean</span><span class="ot"> id=</span><span class="st">"collectionInjectionFB"</span><span class="ot"> class=</span><span class="st">"cn.spring21.sandbox.springext.CollectionInjectionFactoryBean"</span>&gt;  </span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"componentType"</span><span class="ot"> value=</span><span class="st">"...AType"</span>/&gt;  </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">bean</span>&gt;  </span></code></pre>
     </div> 
     <p>如果应用里这种场景不多,那使用这种自定义FactoryBean的方式还可以将就一下,但多的话,那也依然减少不了多少配置,这个时候,可以考虑下面这种方式.</p> 
-    <h2 data-number="2.2" id="自定义beanpostprocessor"><span class="header-section-number">2.2</span> 自定义BeanPostProcessor</h2> 
+    <h2 id="自定义beanpostprocessor">自定义BeanPostProcessor</h2> 
     <p>如果可能,开发人员肯定不愿在java代码与配置文件之间切换,最好是只关注Java代码文件,这也就是为啥Annotation很受开发人员欢迎的原因之一. 所以,如果某个对象的属性需要注入一组依赖对象,那么,最好的方式就是直接在Java代码中直接标注这种依赖关系,鉴于此,我们定义一用于此目的的Annotation如下:</p> 
     <div class="sourceCode" id="cb15">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="at">@Retention</span>(<span class="bu">RetentionPolicy</span>.<span class="fu">RUNTIME</span>)  </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="at">@Target</span>(<span class="bu">ElementType</span>.<span class="fu">FIELD</span>)  </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">@interface</span> InjectCollectionOf {  </span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Class</span>&lt;?&gt; <span class="fu">value</span>();  </span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>}  </span></code></pre>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="at">@Retention</span><span class="op">(</span><span class="bu">RetentionPolicy</span><span class="op">.</span><span class="fu">RUNTIME</span><span class="op">)</span>  </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="at">@Target</span><span class="op">(</span><span class="bu">ElementType</span><span class="op">.</span><span class="fu">FIELD</span><span class="op">)</span>  </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="at">@interface</span> InjectCollectionOf <span class="op">{</span>  </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Class</span><span class="op">&lt;?&gt;</span> <span class="fu">value</span><span class="op">();</span>  </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>  </span></code></pre>
     </div> 
     <p>有了该Annotation之后,我们就可以在对象中需要注入一组依赖对象的Property处标注该Annotation:</p> 
     <div class="sourceCode" id="cb16">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> InjectionTarget {  </span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> InjectionTarget <span class="op">{</span>  </span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">@InjectCollectionOf</span>(SomeType.<span class="fu">class</span>)  </span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">Collection</span>&lt;SomeType&gt; collection;  </span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">...  </span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>}  </span></code></pre>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">@InjectCollectionOf</span><span class="op">(</span>SomeType<span class="op">.</span><span class="fu">class</span><span class="op">)</span>  </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">Collection</span><span class="op">&lt;</span>SomeType<span class="op">&gt;</span> collection<span class="op">;</span>  </span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">...</span>  </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>  </span></code></pre>
     </div> 
     <p>为了让容器按照我们的旨意行事,我们最后需要提供一个自定义的BeanPostProcessor实现,如下所示:</p> 
     <div class="sourceCode" id="cb17">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> CollectionInjectionBeanPostProcessor <span class="kw">implements</span> BeanPostProcessor,ApplicationContextAware {  </span>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> CollectionInjectionBeanPostProcessor <span class="kw">implements</span> BeanPostProcessor<span class="op">,</span>ApplicationContextAware <span class="op">{</span>  </span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">static</span> <span class="dt">final</span> <span class="bu">Logger</span> logger = LoggerFactory.<span class="fu">getLogger</span>(CollectionInjectionBeanPostProcessor.<span class="fu">class</span>);  </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">static</span> <span class="dt">final</span> <span class="bu">Logger</span> logger <span class="op">=</span> LoggerFactory<span class="op">.</span><span class="fu">getLogger</span><span class="op">(</span>CollectionInjectionBeanPostProcessor<span class="op">.</span><span class="fu">class</span><span class="op">);</span>  </span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> ApplicationContext applicationContext;  </span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> ApplicationContext applicationContext<span class="op">;</span>  </span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>      </span>
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span>  </span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Object</span> <span class="fu">postProcessAfterInitialization</span>(<span class="bu">Object</span> bean, <span class="bu">String</span> beanName)  </span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>            <span class="kw">throws</span> BeansException {  </span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Object</span> <span class="fu">postProcessAfterInitialization</span><span class="op">(</span><span class="bu">Object</span> bean<span class="op">,</span> <span class="bu">String</span> beanName<span class="op">)</span>  </span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>            <span class="kw">throws</span> BeansException <span class="op">{</span>  </span>
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>          </span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Field</span>[] fields = bean.<span class="fu">getClass</span>().<span class="fu">getDeclaredFields</span>();  </span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">for</span>(<span class="bu">Field</span> field:fields)  </span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>        {  </span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>            <span class="kw">if</span>(field.<span class="fu">isAnnotationPresent</span>(InjectCollectionOf.<span class="fu">class</span>))  </span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>            {  </span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>                <span class="bu">Class</span>&lt;?&gt; componentType = field.<span class="fu">getAnnotation</span>(InjectCollectionOf.<span class="fu">class</span>).<span class="fu">value</span>();  </span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>                <span class="kw">if</span>(componentType == <span class="kw">null</span>)  </span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>                {  </span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">continue</span>;  </span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>                }  </span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>                <span class="at">@SuppressWarnings</span>(<span class="st">"unchecked"</span>)  </span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>                <span class="bu">Map</span>&lt;<span class="bu">String</span>,<span class="bu">Object</span>&gt; componentCandidates = <span class="kw">this</span>.<span class="fu">applicationContext</span>.<span class="fu">getBeansOfType</span>(componentType);  </span>
-<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>                <span class="kw">if</span>(componentCandidates != <span class="kw">null</span> &amp;&amp; !componentCandidates.<span class="fu">isEmpty</span>()){  </span>
-<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>                    field.<span class="fu">setAccessible</span>(<span class="kw">true</span>);  </span>
-<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">try</span> {  </span>
-<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>                        field.<span class="fu">set</span>(bean,componentCandidates.<span class="fu">values</span>());  </span>
-<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>                    } <span class="kw">catch</span> (<span class="bu">IllegalArgumentException</span> e) {  </span>
-<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>                        logger.<span class="fu">warn</span>(<span class="st">"argument is not a collection.</span><span class="sc">\n</span><span class="st">{}"</span>,ExceptionUtils.<span class="fu">getFullStackTrace</span>(e));  </span>
-<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>                    } <span class="kw">catch</span> (<span class="bu">IllegalAccessException</span> e) {  </span>
-<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>                        logger.<span class="fu">warn</span>(ExceptionUtils.<span class="fu">getFullStackTrace</span>(e));  </span>
-<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>                    }  </span>
-<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>                }  </span>
-<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>            }  </span>
-<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>        }  </span>
-<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> bean;  </span>
-<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>    }  </span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Field</span><span class="op">[]</span> fields <span class="op">=</span> bean<span class="op">.</span><span class="fu">getClass</span><span class="op">().</span><span class="fu">getDeclaredFields</span><span class="op">();</span>  </span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span><span class="op">(</span><span class="bu">Field</span> field<span class="op">:</span>fields<span class="op">)</span>  </span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span>  </span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span><span class="op">(</span>field<span class="op">.</span><span class="fu">isAnnotationPresent</span><span class="op">(</span>InjectCollectionOf<span class="op">.</span><span class="fu">class</span><span class="op">))</span>  </span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span>  </span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>                <span class="bu">Class</span><span class="op">&lt;?&gt;</span> componentType <span class="op">=</span> field<span class="op">.</span><span class="fu">getAnnotation</span><span class="op">(</span>InjectCollectionOf<span class="op">.</span><span class="fu">class</span><span class="op">).</span><span class="fu">value</span><span class="op">();</span>  </span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span><span class="op">(</span>componentType <span class="op">==</span> <span class="kw">null</span><span class="op">)</span>  </span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>                <span class="op">{</span>  </span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">continue</span><span class="op">;</span>  </span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>                <span class="op">}</span>  </span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>                <span class="at">@SuppressWarnings</span><span class="op">(</span><span class="st">"unchecked"</span><span class="op">)</span>  </span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>                <span class="bu">Map</span><span class="op">&lt;</span><span class="bu">String</span><span class="op">,</span><span class="bu">Object</span><span class="op">&gt;</span> componentCandidates <span class="op">=</span> <span class="kw">this</span><span class="op">.</span><span class="fu">applicationContext</span><span class="op">.</span><span class="fu">getBeansOfType</span><span class="op">(</span>componentType<span class="op">);</span>  </span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span><span class="op">(</span>componentCandidates <span class="op">!=</span> <span class="kw">null</span> <span class="op">&amp;&amp;</span> <span class="op">!</span>componentCandidates<span class="op">.</span><span class="fu">isEmpty</span><span class="op">()){</span>  </span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>                    field<span class="op">.</span><span class="fu">setAccessible</span><span class="op">(</span><span class="kw">true</span><span class="op">);</span>  </span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">try</span> <span class="op">{</span>  </span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>                        field<span class="op">.</span><span class="fu">set</span><span class="op">(</span>bean<span class="op">,</span>componentCandidates<span class="op">.</span><span class="fu">values</span><span class="op">());</span>  </span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>                    <span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">IllegalArgumentException</span> e<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>                        logger<span class="op">.</span><span class="fu">warn</span><span class="op">(</span><span class="st">"argument is not a collection.</span><span class="sc">\n</span><span class="st">{}"</span><span class="op">,</span>ExceptionUtils<span class="op">.</span><span class="fu">getFullStackTrace</span><span class="op">(</span>e<span class="op">));</span>  </span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>                    <span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">IllegalAccessException</span> e<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>                        logger<span class="op">.</span><span class="fu">warn</span><span class="op">(</span>ExceptionUtils<span class="op">.</span><span class="fu">getFullStackTrace</span><span class="op">(</span>e<span class="op">));</span>  </span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>                    <span class="op">}</span>  </span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>                <span class="op">}</span>  </span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span>  </span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span>  </span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> bean<span class="op">;</span>  </span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
 <span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span>  </span>
-<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Object</span> <span class="fu">postProcessBeforeInitialization</span>(<span class="bu">Object</span> arg0, <span class="bu">String</span> arg1)  </span>
-<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a>            <span class="kw">throws</span> BeansException {  </span>
-<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> arg0;  </span>
-<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a>    }  </span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Object</span> <span class="fu">postProcessBeforeInitialization</span><span class="op">(</span><span class="bu">Object</span> arg0<span class="op">,</span> <span class="bu">String</span> arg1<span class="op">)</span>  </span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a>            <span class="kw">throws</span> BeansException <span class="op">{</span>  </span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> arg0<span class="op">;</span>  </span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
 <span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span>  </span>
-<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">setApplicationContext</span>(ApplicationContext arg0)  </span>
-<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a>            <span class="kw">throws</span> BeansException {  </span>
-<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span>.<span class="fu">applicationContext</span> = arg0;  </span>
-<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a>    }  </span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">setApplicationContext</span><span class="op">(</span>ApplicationContext arg0<span class="op">)</span>  </span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a>            <span class="kw">throws</span> BeansException <span class="op">{</span>  </span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">applicationContext</span> <span class="op">=</span> arg0<span class="op">;</span>  </span>
+<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
 <span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a>}  </span></code></pre>
+<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>  </span></code></pre>
     </div> 
     <p>实现原理上跟自定义的FactoryBean差不多,无非就是多了Annotation检测相关逻辑, 最后,只要将这个自定义的BeanPostProcessor注册到容器, 所有标注了@InjectCollectionOf的Property就可以被正确的注入了:</p> 
     <div class="sourceCode" id="cb18">
-     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;bean</span><span class="ot"> id=</span><span class="st">"target"</span><span class="ot"> class=</span><span class="st">"..InjectionTarget"</span><span class="kw">&gt;</span>  </span>
+     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">bean</span><span class="ot"> id=</span><span class="st">"target"</span><span class="ot"> class=</span><span class="st">"..InjectionTarget"</span>&gt;  </span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    ...  </span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/bean&gt;</span>  </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">bean</span>&gt;  </span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;bean</span><span class="ot"> class=</span><span class="st">"...CollectionInjectionBeanPostProcessor"</span><span class="kw">/&gt;</span>  </span></code></pre>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">bean</span><span class="ot"> class=</span><span class="st">"...CollectionInjectionBeanPostProcessor"</span>/&gt;  </span></code></pre>
     </div> 
     <p>如果需要针对Collection的明确子类型的类似注入需求, 依葫芦画瓢就可以了.</p> 
-    <h1 data-number="3" id="结束语"><span class="header-section-number">3</span> 结束语</h1> 
-    <p>无论是设计还是实现,都是在各种因素之间进行权衡, 没有普遍适用的设计方案,也没有普遍适用的实现方案, 因时因地而权衡吧! 经济学第一原则不是“People face tradeoffs”嘛, 其实哪里都一样.</p> <!--          </div>--> <!--        </div>--> 
+    <h1 id="结束语">结束语</h1> 
+    <p>无论是设计还是实现,都是在各种因素之间进行权衡, 没有普遍适用的设计方案,也没有普遍适用的实现方案, 因时因地而权衡吧! 经济学第一原则不是“People face tradeoffs ”嘛, 其实哪里都一样.</p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
     <hr> 
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2010-07-12-prefer-event-driven-api-design.html">Event Driven Style API Design Instead of Old Procedure Style Ones </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2013-06-19-git-and-octal-escaped-filename.html">Git对非ASCII文件名的Octal Escape处理说明 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2017-10-24-programmer-levels.html">程序员的手感 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2023-03-13-rsync-permission-err.html">Rsync报错Permission denied </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2009-10-09-mid-autumn-holiday.html">回家过中秋，在招远转了转，拍了几张照片，感觉还不错，呵呵 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2013-06-25-logging-framework-explained.html">Logging Framework Explained (afoo.me) </a> 
      </div> 
     </div> 
-    <hr> 
-    <img src="/images/zanshang.jpg" width="300/"> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <div id="comments"></div> 
     <hr> 
-    <div class="text-center"> 
-     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
     </div> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
-   ©王福强个人版权所有, All Rights Reserved.
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
   </div> 
   <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
    </div> 
   </div> 
   <script type="text/javascript">
@@ -495,7 +499,16 @@ var gitalk = new Gitalk({
 })
 
 gitalk.render('comments')
-    </script>  
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
  </body>
 </html>

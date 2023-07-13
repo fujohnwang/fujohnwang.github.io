@@ -6,13 +6,14 @@
   <meta name="description" content="有关Maven编译DeprecatedAPI失败的问题 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-  <title>有关Maven编译DeprecatedAPI失败的问题 - 扶墙老师说：一个架构士的思考与沉淀</title> 
+  <title>有关Maven编译DeprecatedAPI失败的问题 -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
   <style type="text/css">
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -78,26 +79,35 @@
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> <!--    <link href="/ivy.css" rel="stylesheet">--> <!-- 百度统计 --> 
-  <script>
-      var _hmt = _hmt || [];
-      (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?4b0cf57d9b677da796218f27d72dbbca";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-      })();
-    </script> 
+  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <style type="text/css">
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  </style> 
  </head> 
  <body id="page-top"> <!-- Navigation --> 
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">福强说 <small>一个<b>架构士</b>的思考与沉淀</small> </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
+   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
     <div class="collapse navbar-collapse" id="navbarResponsive"> 
      <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">个人简介</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">个人博客</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">我的创作</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
+      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
       <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
      </ul> 
     </div> 
@@ -109,81 +119,90 @@
     <h1 class="title">有关Maven编译DeprecatedAPI失败的问题</h1> 
     <p></p> 
     <hr> 
-    <p>在项目代码里用了sun.misc.Signal和sun.misc.SignalHandler， 自己的Mac下编译没问题， 在别人的Windows下编译报“警告：sun.misc.Signal 是 Sun 的专用 API，可能会在未来版本中删除”， 警告也就算了， 还tmd编译失败， <code>maven -e</code>打出来的异常是：</p> 
+    <p>在项目代码里用了sun.misc.Signal和sun.misc.SignalHandler， 自己的Mac下编译没问题， 在别人的Windows下编译报”警告：sun.misc.Signal 是 Sun 的专用 API，可能会在未来版本中删除”， 警告也就算了， 还tmd编译失败， <code>maven -e</code>打出来的异常是：</p> 
     <div class="sourceCode" id="cb1">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>[INFO] Trace  </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>org.<span class="fu">apache</span>.<span class="fu">maven</span>.<span class="fu">BuildFailureException</span>: Compilation failure  </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        at org.<span class="fu">apache</span>.<span class="fu">maven</span>.<span class="fu">lifecycle</span>.<span class="fu">DefaultLifecycleExecutor</span>.<span class="fu">executeGoals</span>(DefaultLifecycleExecutor.<span class="fu">java</span>:<span class="dv">715</span>)  </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        at org.<span class="fu">apache</span>.<span class="fu">maven</span>.<span class="fu">lifecycle</span>.<span class="fu">DefaultLifecycleExecutor</span>.<span class="fu">executeGoalWithLifecycle</span>(DefaultLifecycleExecutor.<span class="fu">java</span>:<span class="dv">556</span>)  </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        at org.<span class="fu">apache</span>.<span class="fu">maven</span>.<span class="fu">lifecycle</span>.<span class="fu">DefaultLifecycleExecutor</span>.<span class="fu">executeGoal</span>(DefaultLifecycleExecutor.<span class="fu">java</span>:<span class="dv">535</span>)  </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        at org.<span class="fu">apache</span>.<span class="fu">maven</span>.<span class="fu">lifecycle</span>.<span class="fu">DefaultLifecycleExecutor</span>.<span class="fu">executeGoalAndHandleFailures</span>(DefaultLifecycleExecutor.<span class="fu">java</span>:<span class="dv">387</span>)  </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        at org.<span class="fu">apache</span>.<span class="fu">maven</span>.<span class="fu">lifecycle</span>.<span class="fu">DefaultLifecycleExecutor</span>.<span class="fu">executeTaskSegments</span>(DefaultLifecycleExecutor.<span class="fu">java</span>:<span class="dv">348</span>)  </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        at org.<span class="fu">apache</span>.<span class="fu">maven</span>.<span class="fu">lifecycle</span>.<span class="fu">DefaultLifecycleExecutor</span>.<span class="fu">execute</span>(DefaultLifecycleExecutor.<span class="fu">java</span>:<span class="dv">180</span>)  </span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        at org.<span class="fu">apache</span>.<span class="fu">maven</span>.<span class="fu">DefaultMaven</span>.<span class="fu">doExecute</span>(DefaultMaven.<span class="fu">java</span>:<span class="dv">328</span>)  </span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        at org.<span class="fu">apache</span>.<span class="fu">maven</span>.<span class="fu">DefaultMaven</span>.<span class="fu">execute</span>(DefaultMaven.<span class="fu">java</span>:<span class="dv">138</span>)  </span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        at org.<span class="fu">apache</span>.<span class="fu">maven</span>.<span class="fu">cli</span>.<span class="fu">MavenCli</span>.<span class="fu">main</span>(MavenCli.<span class="fu">java</span>:<span class="dv">362</span>)  </span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        at org.<span class="fu">apache</span>.<span class="fu">maven</span>.<span class="fu">cli</span>.<span class="fu">compat</span>.<span class="fu">CompatibleMain</span>.<span class="fu">main</span>(CompatibleMain.<span class="fu">java</span>:<span class="dv">60</span>)  </span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        at sun.<span class="fu">reflect</span>.<span class="fu">NativeMethodAccessorImpl</span>.<span class="fu">invoke0</span>(Native <span class="bu">Method</span>)  </span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        at sun.<span class="fu">reflect</span>.<span class="fu">NativeMethodAccessorImpl</span>.<span class="fu">invoke</span>(NativeMethodAccessorImpl.<span class="fu">java</span>:<span class="dv">39</span>)  </span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        at sun.<span class="fu">reflect</span>.<span class="fu">DelegatingMethodAccessorImpl</span>.<span class="fu">invoke</span>(DelegatingMethodAccessorImpl.<span class="fu">java</span>:<span class="dv">25</span>)  </span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        at java.<span class="fu">lang</span>.<span class="fu">reflect</span>.<span class="fu">Method</span>.<span class="fu">invoke</span>(<span class="bu">Method</span>.<span class="fu">java</span>:<span class="dv">597</span>)  </span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        at org.<span class="fu">codehaus</span>.<span class="fu">classworlds</span>.<span class="fu">Launcher</span>.<span class="fu">launchEnhanced</span>(Launcher.<span class="fu">java</span>:<span class="dv">315</span>)  </span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        at org.<span class="fu">codehaus</span>.<span class="fu">classworlds</span>.<span class="fu">Launcher</span>.<span class="fu">launch</span>(Launcher.<span class="fu">java</span>:<span class="dv">255</span>)  </span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        at org.<span class="fu">codehaus</span>.<span class="fu">classworlds</span>.<span class="fu">Launcher</span>.<span class="fu">mainWithExitCode</span>(Launcher.<span class="fu">java</span>:<span class="dv">430</span>)  </span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        at org.<span class="fu">codehaus</span>.<span class="fu">classworlds</span>.<span class="fu">Launcher</span>.<span class="fu">main</span>(Launcher.<span class="fu">java</span>:<span class="dv">375</span>)  </span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>Caused by: org.<span class="fu">apache</span>.<span class="fu">maven</span>.<span class="fu">plugin</span>.<span class="fu">CompilationFailureException</span>: Compilation failure  </span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        at org.<span class="fu">apache</span>.<span class="fu">maven</span>.<span class="fu">plugin</span>.<span class="fu">AbstractCompilerMojo</span>.<span class="fu">execute</span>(AbstractCompilerMojo.<span class="fu">java</span>:<span class="dv">516</span>)  </span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        at org.<span class="fu">apache</span>.<span class="fu">maven</span>.<span class="fu">plugin</span>.<span class="fu">CompilerMojo</span>.<span class="fu">execute</span>(CompilerMojo.<span class="fu">java</span>:<span class="dv">114</span>)  </span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        at org.<span class="fu">apache</span>.<span class="fu">maven</span>.<span class="fu">plugin</span>.<span class="fu">DefaultPluginManager</span>.<span class="fu">executeMojo</span>(DefaultPluginManager.<span class="fu">java</span>:<span class="dv">490</span>)  </span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        at org.<span class="fu">apache</span>.<span class="fu">maven</span>.<span class="fu">lifecycle</span>.<span class="fu">DefaultLifecycleExecutor</span>.<span class="fu">executeGoals</span>(DefaultLifecycleExecutor.<span class="fu">java</span>:<span class="dv">694</span>)  </span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>        <span class="kw">... </span><span class="dv">17</span> more </span></code></pre>
+     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">[</span>INFO<span class="op">]</span> Trace  </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>org<span class="op">.</span><span class="fu">apache</span><span class="op">.</span><span class="fu">maven</span><span class="op">.</span><span class="fu">BuildFailureException</span><span class="op">:</span> Compilation failure  </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        at org<span class="op">.</span><span class="fu">apache</span><span class="op">.</span><span class="fu">maven</span><span class="op">.</span><span class="fu">lifecycle</span><span class="op">.</span><span class="fu">DefaultLifecycleExecutor</span><span class="op">.</span><span class="fu">executeGoals</span><span class="op">(</span>DefaultLifecycleExecutor<span class="op">.</span><span class="fu">java</span><span class="op">:</span><span class="dv">715</span><span class="op">)</span>  </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        at org<span class="op">.</span><span class="fu">apache</span><span class="op">.</span><span class="fu">maven</span><span class="op">.</span><span class="fu">lifecycle</span><span class="op">.</span><span class="fu">DefaultLifecycleExecutor</span><span class="op">.</span><span class="fu">executeGoalWithLifecycle</span><span class="op">(</span>DefaultLifecycleExecutor<span class="op">.</span><span class="fu">java</span><span class="op">:</span><span class="dv">556</span><span class="op">)</span>  </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        at org<span class="op">.</span><span class="fu">apache</span><span class="op">.</span><span class="fu">maven</span><span class="op">.</span><span class="fu">lifecycle</span><span class="op">.</span><span class="fu">DefaultLifecycleExecutor</span><span class="op">.</span><span class="fu">executeGoal</span><span class="op">(</span>DefaultLifecycleExecutor<span class="op">.</span><span class="fu">java</span><span class="op">:</span><span class="dv">535</span><span class="op">)</span>  </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        at org<span class="op">.</span><span class="fu">apache</span><span class="op">.</span><span class="fu">maven</span><span class="op">.</span><span class="fu">lifecycle</span><span class="op">.</span><span class="fu">DefaultLifecycleExecutor</span><span class="op">.</span><span class="fu">executeGoalAndHandleFailures</span><span class="op">(</span>DefaultLifecycleExecutor<span class="op">.</span><span class="fu">java</span><span class="op">:</span><span class="dv">387</span><span class="op">)</span>  </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        at org<span class="op">.</span><span class="fu">apache</span><span class="op">.</span><span class="fu">maven</span><span class="op">.</span><span class="fu">lifecycle</span><span class="op">.</span><span class="fu">DefaultLifecycleExecutor</span><span class="op">.</span><span class="fu">executeTaskSegments</span><span class="op">(</span>DefaultLifecycleExecutor<span class="op">.</span><span class="fu">java</span><span class="op">:</span><span class="dv">348</span><span class="op">)</span>  </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        at org<span class="op">.</span><span class="fu">apache</span><span class="op">.</span><span class="fu">maven</span><span class="op">.</span><span class="fu">lifecycle</span><span class="op">.</span><span class="fu">DefaultLifecycleExecutor</span><span class="op">.</span><span class="fu">execute</span><span class="op">(</span>DefaultLifecycleExecutor<span class="op">.</span><span class="fu">java</span><span class="op">:</span><span class="dv">180</span><span class="op">)</span>  </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        at org<span class="op">.</span><span class="fu">apache</span><span class="op">.</span><span class="fu">maven</span><span class="op">.</span><span class="fu">DefaultMaven</span><span class="op">.</span><span class="fu">doExecute</span><span class="op">(</span>DefaultMaven<span class="op">.</span><span class="fu">java</span><span class="op">:</span><span class="dv">328</span><span class="op">)</span>  </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        at org<span class="op">.</span><span class="fu">apache</span><span class="op">.</span><span class="fu">maven</span><span class="op">.</span><span class="fu">DefaultMaven</span><span class="op">.</span><span class="fu">execute</span><span class="op">(</span>DefaultMaven<span class="op">.</span><span class="fu">java</span><span class="op">:</span><span class="dv">138</span><span class="op">)</span>  </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        at org<span class="op">.</span><span class="fu">apache</span><span class="op">.</span><span class="fu">maven</span><span class="op">.</span><span class="fu">cli</span><span class="op">.</span><span class="fu">MavenCli</span><span class="op">.</span><span class="fu">main</span><span class="op">(</span>MavenCli<span class="op">.</span><span class="fu">java</span><span class="op">:</span><span class="dv">362</span><span class="op">)</span>  </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        at org<span class="op">.</span><span class="fu">apache</span><span class="op">.</span><span class="fu">maven</span><span class="op">.</span><span class="fu">cli</span><span class="op">.</span><span class="fu">compat</span><span class="op">.</span><span class="fu">CompatibleMain</span><span class="op">.</span><span class="fu">main</span><span class="op">(</span>CompatibleMain<span class="op">.</span><span class="fu">java</span><span class="op">:</span><span class="dv">60</span><span class="op">)</span>  </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        at sun<span class="op">.</span><span class="fu">reflect</span><span class="op">.</span><span class="fu">NativeMethodAccessorImpl</span><span class="op">.</span><span class="fu">invoke0</span><span class="op">(</span>Native <span class="bu">Method</span><span class="op">)</span>  </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        at sun<span class="op">.</span><span class="fu">reflect</span><span class="op">.</span><span class="fu">NativeMethodAccessorImpl</span><span class="op">.</span><span class="fu">invoke</span><span class="op">(</span>NativeMethodAccessorImpl<span class="op">.</span><span class="fu">java</span><span class="op">:</span><span class="dv">39</span><span class="op">)</span>  </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        at sun<span class="op">.</span><span class="fu">reflect</span><span class="op">.</span><span class="fu">DelegatingMethodAccessorImpl</span><span class="op">.</span><span class="fu">invoke</span><span class="op">(</span>DelegatingMethodAccessorImpl<span class="op">.</span><span class="fu">java</span><span class="op">:</span><span class="dv">25</span><span class="op">)</span>  </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        at java<span class="op">.</span><span class="fu">lang</span><span class="op">.</span><span class="fu">reflect</span><span class="op">.</span><span class="fu">Method</span><span class="op">.</span><span class="fu">invoke</span><span class="op">(</span><span class="bu">Method</span><span class="op">.</span><span class="fu">java</span><span class="op">:</span><span class="dv">597</span><span class="op">)</span>  </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        at org<span class="op">.</span><span class="fu">codehaus</span><span class="op">.</span><span class="fu">classworlds</span><span class="op">.</span><span class="fu">Launcher</span><span class="op">.</span><span class="fu">launchEnhanced</span><span class="op">(</span>Launcher<span class="op">.</span><span class="fu">java</span><span class="op">:</span><span class="dv">315</span><span class="op">)</span>  </span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        at org<span class="op">.</span><span class="fu">codehaus</span><span class="op">.</span><span class="fu">classworlds</span><span class="op">.</span><span class="fu">Launcher</span><span class="op">.</span><span class="fu">launch</span><span class="op">(</span>Launcher<span class="op">.</span><span class="fu">java</span><span class="op">:</span><span class="dv">255</span><span class="op">)</span>  </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        at org<span class="op">.</span><span class="fu">codehaus</span><span class="op">.</span><span class="fu">classworlds</span><span class="op">.</span><span class="fu">Launcher</span><span class="op">.</span><span class="fu">mainWithExitCode</span><span class="op">(</span>Launcher<span class="op">.</span><span class="fu">java</span><span class="op">:</span><span class="dv">430</span><span class="op">)</span>  </span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        at org<span class="op">.</span><span class="fu">codehaus</span><span class="op">.</span><span class="fu">classworlds</span><span class="op">.</span><span class="fu">Launcher</span><span class="op">.</span><span class="fu">main</span><span class="op">(</span>Launcher<span class="op">.</span><span class="fu">java</span><span class="op">:</span><span class="dv">375</span><span class="op">)</span>  </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>Caused by<span class="op">:</span> org<span class="op">.</span><span class="fu">apache</span><span class="op">.</span><span class="fu">maven</span><span class="op">.</span><span class="fu">plugin</span><span class="op">.</span><span class="fu">CompilationFailureException</span><span class="op">:</span> Compilation failure  </span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        at org<span class="op">.</span><span class="fu">apache</span><span class="op">.</span><span class="fu">maven</span><span class="op">.</span><span class="fu">plugin</span><span class="op">.</span><span class="fu">AbstractCompilerMojo</span><span class="op">.</span><span class="fu">execute</span><span class="op">(</span>AbstractCompilerMojo<span class="op">.</span><span class="fu">java</span><span class="op">:</span><span class="dv">516</span><span class="op">)</span>  </span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        at org<span class="op">.</span><span class="fu">apache</span><span class="op">.</span><span class="fu">maven</span><span class="op">.</span><span class="fu">plugin</span><span class="op">.</span><span class="fu">CompilerMojo</span><span class="op">.</span><span class="fu">execute</span><span class="op">(</span>CompilerMojo<span class="op">.</span><span class="fu">java</span><span class="op">:</span><span class="dv">114</span><span class="op">)</span>  </span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        at org<span class="op">.</span><span class="fu">apache</span><span class="op">.</span><span class="fu">maven</span><span class="op">.</span><span class="fu">plugin</span><span class="op">.</span><span class="fu">DefaultPluginManager</span><span class="op">.</span><span class="fu">executeMojo</span><span class="op">(</span>DefaultPluginManager<span class="op">.</span><span class="fu">java</span><span class="op">:</span><span class="dv">490</span><span class="op">)</span>  </span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        at org<span class="op">.</span><span class="fu">apache</span><span class="op">.</span><span class="fu">maven</span><span class="op">.</span><span class="fu">lifecycle</span><span class="op">.</span><span class="fu">DefaultLifecycleExecutor</span><span class="op">.</span><span class="fu">executeGoals</span><span class="op">(</span>DefaultLifecycleExecutor<span class="op">.</span><span class="fu">java</span><span class="op">:</span><span class="dv">694</span><span class="op">)</span>  </span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>        <span class="kw">...</span> <span class="dv">17</span> more </span></code></pre>
     </div> 
     <p>看到这个我估计就是maven的问题了， 搜了一下， 居然发现“钱总”在部门的team blog里发了篇有关这个问题的blog ，真tmd悲剧，早知道也不用费那么些周折搜来搜去了。</p> 
     <p>恍然记得平台另一个框架里也用了sun.misc包里的东西，就问了下他们怎么编译过的， 最后的答案是直接把类拷贝出来了 ：-（ 这也行…</p> 
     <p>这里是钱总那里讨过来的解决方法：</p> 
     <div class="sourceCode" id="cb2">
-     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;plugin&gt;</span>   </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="kw">&lt;/groupId&gt;</span>   </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;artifactId&gt;</span>maven-compiler-plugin<span class="kw">&lt;/artifactId&gt;</span>   </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;version&gt;</span>2.3.1<span class="kw">&lt;/version&gt;</span>   </span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;configuration&gt;</span>   </span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;optimize&gt;</span>true<span class="kw">&lt;/optimize&gt;</span>   </span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/configuration&gt;</span>   </span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;dependencies&gt;</span>   </span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;dependency&gt;</span>   </span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;groupId&gt;</span>org.codehaus.plexus<span class="kw">&lt;/groupId&gt;</span>   </span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;artifactId&gt;</span>plexus-compiler-javac<span class="kw">&lt;/artifactId&gt;</span>   </span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;version&gt;</span>1.8.1-patch<span class="kw">&lt;/version&gt;</span>   </span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;/dependency&gt;</span>   </span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/dependencies&gt;</span>   </span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/plugin&gt;</span></span></code></pre>
+     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">plugin</span>&gt;   </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">groupId</span>&gt;org.apache.maven.plugins&lt;/<span class="kw">groupId</span>&gt;   </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">artifactId</span>&gt;maven-compiler-plugin&lt;/<span class="kw">artifactId</span>&gt;   </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">version</span>&gt;2.3.1&lt;/<span class="kw">version</span>&gt;   </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">configuration</span>&gt;   </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">optimize</span>&gt;true&lt;/<span class="kw">optimize</span>&gt;   </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">configuration</span>&gt;   </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">dependencies</span>&gt;   </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;   </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">groupId</span>&gt;org.codehaus.plexus&lt;/<span class="kw">groupId</span>&gt;   </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">artifactId</span>&gt;plexus-compiler-javac&lt;/<span class="kw">artifactId</span>&gt;   </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">version</span>&gt;1.8.1-patch&lt;/<span class="kw">version</span>&gt;   </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>            &lt;/<span class="kw">dependency</span>&gt;   </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">dependencies</span>&gt;   </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">plugin</span>&gt;</span></code></pre>
     </div> 
     <p>其实最简单的方法就是别用中文的locale，哈哈</p> <!--          </div>--> <!--        </div>--> 
+    <hr> 
+    <div> 
+     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+     <ol> 
+      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+      <li>还分享AI工具、产品方法和商业机会</li> 
+      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+     </ol> 
+     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+    </div> 
     <hr> 
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2007-09-21-whats-wrong-with-me.html">What’s wrong with me? </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2010-03-30-isolation-architecture-practice.html">Simple, Yet Powerful系列之“隔离” </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2016-10-11-hardcore-startup.html">创业， 需要有“扎硬寨， 打死仗”的勇气！ </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2017-04-07-what-u-think-may-be-not.html">很多时候你不是总结的太少，而是总结的太早 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2019-04-24-urwhour.html">谁刷抖音谁就low？ 你才low，你们全家都low！ </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2010-07-21-thanku-my-dear-fella.html">Thank you, My dear fella </a> 
      </div> 
     </div> 
-    <hr> 
-    <img src="/images/zanshang.jpg" width="300/"> 
+    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <div id="comments"></div> 
     <hr> 
-    <div class="text-center"> 
-     <img src="/images/sph.jpg" class="img-responsive" loading="lazy" style="width: fit-content;"> 
+    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
     </div> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
-   ©王福强个人版权所有, All Rights Reserved.
+   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
   </div> 
   <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © 王福强个人版权所有 - Since 2004</small> 
+   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
+    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
    </div> 
   </div> 
   <script type="text/javascript">
@@ -198,7 +217,16 @@ var gitalk = new Gitalk({
 })
 
 gitalk.render('comments')
-    </script>  
+    </script> 
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
+  <script>
+  kofiWidgetOverlay.draw('fubao', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#0066FF',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
  </body>
 </html>
