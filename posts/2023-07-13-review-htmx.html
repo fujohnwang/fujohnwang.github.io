@@ -153,6 +153,28 @@
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="st">         |</span><span class="ss">"""</span><span class="op">.</span>stripMargin</span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    ctx<span class="op">.</span><span class="fu">response</span><span class="op">().</span><span class="fu">end</span><span class="op">(</span>template<span class="op">)</span></span></code></pre>
     </div> 
+    <p><strong>UPDATE@2023-07-15</strong>: 对于非200状态码，可以用事件捕捉自定义：</p> 
+    <div class="sourceCode" id="cb2">
+     <pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">document</span><span class="op">.</span><span class="at">body</span><span class="op">.</span><span class="fu">addEventListener</span>(<span class="st">'htmx:beforeSwap'</span><span class="op">,</span> <span class="kw">function</span>(evt) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(evt<span class="op">.</span><span class="at">detail</span><span class="op">.</span><span class="at">xhr</span><span class="op">.</span><span class="at">status</span> <span class="op">===</span> <span class="dv">404</span>){</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="co">// alert the user when a 404 occurs (maybe use a nicer mechanism than alert())</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">alert</span>(<span class="st">"Error: Could Not Find Resource"</span>)<span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> <span class="cf">if</span>(evt<span class="op">.</span><span class="at">detail</span><span class="op">.</span><span class="at">xhr</span><span class="op">.</span><span class="at">status</span> <span class="op">===</span> <span class="dv">422</span>){</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="co">// allow 422 responses to swap as we are using this as a signal that</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="co">// a form was submitted with bad data and want to rerender with the</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="co">// errors</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="co">//</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="co">// set isError to false to avoid error logging in console</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        evt<span class="op">.</span><span class="at">detail</span><span class="op">.</span><span class="at">shouldSwap</span> <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        evt<span class="op">.</span><span class="at">detail</span><span class="op">.</span><span class="at">isError</span> <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> <span class="cf">if</span>(evt<span class="op">.</span><span class="at">detail</span><span class="op">.</span><span class="at">xhr</span><span class="op">.</span><span class="at">status</span> <span class="op">===</span> <span class="dv">418</span>){</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="co">// if the response code 418 (I'm a teapot) is returned, retarget the</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="co">// content of the response to the element with the id `teapot`</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        evt<span class="op">.</span><span class="at">detail</span><span class="op">.</span><span class="at">shouldSwap</span> <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        evt<span class="op">.</span><span class="at">detail</span><span class="op">.</span><span class="at">target</span> <span class="op">=</span> htmx<span class="op">.</span><span class="fu">find</span>(<span class="st">"#teapot"</span>)<span class="op">;</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre>
+    </div> 
     <p>原来对于html片段的管理还是有抵触的，但既然是做小东西简单的东西，配合Scala的String interpolation特性以及<a href="https://play.tailwindcss.com/">tailwind的play</a>所见即所得，也还算过得去，直接拷贝粘贴也差不多了。</p> 
     <p>所以，最后就变成了，htmx发送最简单的表单提交请求，服务器端提取参数获得数据库状态后，通过string interpolation插入html片段作为字符串响应返回就行了。</p> 
     <p>基本上就是一个index.html静态文件 + n多的route返回html片段，多了肯定不好管理，我就一个handler，多写几个方法放一个类里管理也够了。</p> 
@@ -162,47 +184,49 @@
     <pre><code>    hx-confirm="Are you sure?"</code></pre> 
     <h2 id="运行期间状态标识"><a href="https://htmx.org/docs/#indicators">运行期间状态标识</a></h2> 
     <p>最主要的是，需要定义预先的css：</p> 
-    <div class="sourceCode" id="cb3">
-     <pre class="sourceCode css"><code class="sourceCode css"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">.htmx-indicator</span>{</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">opacity</span>:<span class="dv">0</span><span class="op">;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">transition</span>: opacity <span class="dv">500</span><span class="dt">ms</span> <span class="dv">ease-in</span><span class="op">;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">.htmx-request</span> <span class="fu">.htmx-indicator</span>{</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">opacity</span>:<span class="dv">1</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">.htmx-request.htmx-indicator</span>{</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">opacity</span>:<span class="dv">1</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre>
-    </div> 
     <div class="sourceCode" id="cb4">
-     <pre class="sourceCode html"><code class="sourceCode html"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;button</span> <span class="er">hx-post</span><span class="ot">=</span><span class="st">"/example"</span><span class="kw">&gt;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>   <span class="kw">&lt;img</span>  <span class="er">class</span><span class="ot">=</span><span class="st">"htmx-indicator"</span> <span class="er">src</span><span class="ot">=</span><span class="st">"/img/bars.svg"</span><span class="kw">/&gt;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>   Post It!</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/button&gt;</span></span></code></pre>
+     <pre class="sourceCode css"><code class="sourceCode css"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">.htmx-indicator</span>{</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">opacity</span>:<span class="dv">0</span><span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">transition</span>: opacity <span class="dv">500</span><span class="dt">ms</span> <span class="dv">ease-in</span><span class="op">;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">.htmx-request</span> <span class="fu">.htmx-indicator</span>{</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">opacity</span>:<span class="dv">1</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">.htmx-request.htmx-indicator</span>{</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">opacity</span>:<span class="dv">1</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre>
+    </div> 
+    <div class="sourceCode" id="cb5">
+     <pre class="sourceCode html"><code class="sourceCode html"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;button</span> <span class="er">hx-post</span><span class="ot">=</span><span class="st">"/example"</span><span class="kw">&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>   <span class="kw">&lt;img</span>  <span class="er">class</span><span class="ot">=</span><span class="st">"htmx-indicator"</span> <span class="er">src</span><span class="ot">=</span><span class="st">"/img/bars.svg"</span><span class="kw">/&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>   Post It!</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/button&gt;</span></span></code></pre>
     </div> 
     <h1 id="通知类消息">通知类消息</h1> 
     <p>我是为返回的响应元素加了disappear这个class：</p> 
-    <div class="sourceCode" id="cb5">
-     <pre class="sourceCode css"><code class="sourceCode css"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>        <span class="fu">.disappear</span> {</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>            <span class="kw">animation</span>: disappear <span class="dv">0</span><span class="dt">s</span> <span class="dv">linear</span> <span class="dv">3</span><span class="dt">s</span> <span class="dv">forwards</span><span class="op">;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="im">@keyframes</span> disappear {</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>            <span class="dv">to</span> {</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                <span class="kw">opacity</span>: <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>            }</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        }</span></code></pre>
+    <div class="sourceCode" id="cb6">
+     <pre class="sourceCode css"><code class="sourceCode css"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>        <span class="fu">.disappear</span> {</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>            <span class="kw">animation</span>: disappear <span class="dv">0</span><span class="dt">s</span> <span class="dv">linear</span> <span class="dv">3</span><span class="dt">s</span> <span class="dv">forwards</span><span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="im">@keyframes</span> disappear {</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>            <span class="dv">to</span> {</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                <span class="kw">opacity</span>: <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>            }</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        }</span></code></pre>
     </div> 
     <p>原则上这类应该是客户端处理比较好，但htmx既然都是server端控制，所以，也就暂时这样了。反正这种跟正常响应用不同的方法渲染就好了，正常的响应不加disappear这个class就可以了。</p> 
     <h1 id="history">history</h1> 
     <p>对于顶层的link，最好加入浏览器的history，便于直接访问和回溯，这个效果通过在事件触发的时候添加<code>hx-push-url="true"</code>获得：</p> 
-    <div class="sourceCode" id="cb6">
-     <pre class="sourceCode html"><code class="sourceCode html"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;nav</span> <span class="er">class</span><span class="ot">=</span><span class="st">"md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center"</span><span class="kw">&gt;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;a</span> <span class="er">class</span><span class="ot">=</span><span class="st">"mr-5 hover:text-gray-900"</span> <span class="er">href</span><span class="ot">=</span><span class="st">"/"</span><span class="kw">&gt;</span>Permission Mgmt<span class="kw">&lt;/a&gt;</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;a</span> <span class="er">class</span><span class="ot">=</span><span class="st">"mr-5 hover:text-gray-900"</span> <span class="er">hx-get</span><span class="ot">=</span><span class="st">"/product"</span> <span class="er">hx-target</span><span class="ot">=</span><span class="st">"#mainZone"</span> <span class="er">hx-swap</span><span class="ot">=</span><span class="st">"outerHTML"</span> <span class="er">hx-push-url</span><span class="ot">=</span><span class="st">"true"</span><span class="kw">&gt;</span>Product Mgmt<span class="kw">&lt;/a&gt;</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;a</span> <span class="er">class</span><span class="ot">=</span><span class="st">"mr-5 hover:text-gray-900"</span> <span class="er">hx-get</span><span class="ot">=</span><span class="st">"/console"</span> <span class="er">hx-target</span><span class="ot">=</span><span class="st">"#mainZone"</span> <span class="er">hx-swap</span><span class="ot">=</span><span class="st">"outerHTML"</span> <span class="er">hx-push-url</span><span class="ot">=</span><span class="st">"true"</span><span class="kw">&gt;</span>SQL Console<span class="kw">&lt;/a&gt;</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;/nav&gt;</span></span></code></pre>
+    <div class="sourceCode" id="cb7">
+     <pre class="sourceCode html"><code class="sourceCode html"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;nav</span> <span class="er">class</span><span class="ot">=</span><span class="st">"md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center"</span><span class="kw">&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;a</span> <span class="er">class</span><span class="ot">=</span><span class="st">"mr-5 hover:text-gray-900"</span> <span class="er">href</span><span class="ot">=</span><span class="st">"/"</span><span class="kw">&gt;</span>Permission Mgmt<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;a</span> <span class="er">class</span><span class="ot">=</span><span class="st">"mr-5 hover:text-gray-900"</span> <span class="er">hx-get</span><span class="ot">=</span><span class="st">"/product"</span> <span class="er">hx-target</span><span class="ot">=</span><span class="st">"#mainZone"</span> <span class="er">hx-swap</span><span class="ot">=</span><span class="st">"outerHTML"</span> <span class="er">hx-push-url</span><span class="ot">=</span><span class="st">"true"</span><span class="kw">&gt;</span>Product Mgmt<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;a</span> <span class="er">class</span><span class="ot">=</span><span class="st">"mr-5 hover:text-gray-900"</span> <span class="er">hx-get</span><span class="ot">=</span><span class="st">"/console"</span> <span class="er">hx-target</span><span class="ot">=</span><span class="st">"#mainZone"</span> <span class="er">hx-swap</span><span class="ot">=</span><span class="st">"outerHTML"</span> <span class="er">hx-push-url</span><span class="ot">=</span><span class="st">"true"</span><span class="kw">&gt;</span>SQL Console<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;/nav&gt;</span></span></code></pre>
     </div> 
+    <hr> 
+    <p>附上HTMX相关的实操案例视频：<a href="https://youtu.be/YSDwlEdd4-I">500行HTMX和Scala代码打造一个快糙猛的Web后台程序</a></p> 
     <section class="footnotes" role="doc-endnotes"> 
      <hr> 
      <ol> 
@@ -223,11 +247,11 @@
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2015-03-24-java-scala-project-type-choice-principle.html">Java/Scala项目设立原则 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2017-05-06-emotion-is-more-powerful-than-rationality.html">为什么越是情绪化的事件或者越是偏激的观点，越能做成营销热点？！ </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2021-04-12-why-tech-startup-is-much-harder.html">为什么说技术创业更难？ </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2007-05-30-ger.html">个，这个字 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2011-03-14-prototype-a-java-actor.html">Prototyping An Actor In Java </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2014-10-24-how-to-shutdown-java-service-gracefully.html">How To Shutdown Java Service Gracefully [Tutorial] </a> 
      </div> 
     </div> 
     <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
@@ -260,11 +284,27 @@ gitalk.render('comments')
     </script> 
   <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
   <script>
-  kofiWidgetOverlay.draw('fubao', {
+  kofiWidgetOverlay.draw('fff000', {
     'type': 'floating-chat',
     'floating-chat.donateButton.text': 'Support me',
-    'floating-chat.donateButton.background-color': '#0066FF',
-    'floating-chat.donateButton.text-color': '#fff'
+    'floating-chat.donateButton.background-color': 'red',
+    'floating-chat.donateButton.text-color': 'white'
+  });
+</script> 
+  <script>
+  fetch('https://jsonld.afoo.me', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      url: window.location.href
+    })
+  }).then(response => response.text()).then(structuredDataText => {
+    const script = document.createElement('script');
+    script.setAttribute('type', 'application/ld+json');
+    script.textContent = structuredDataText;
+    document.head.appendChild(script);
   });
 </script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 

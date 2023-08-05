@@ -83,9 +83,7 @@
 
 # Buy me a coffee 
 
-<!-- <a href="https://dun.mianbaoduo.com/@fq" target="_blank"><img src="https://img.niucodata.com/dundunfan-bt.png"></a> -->
-
-<a href="https://ko-fi.com/fubao">
+<a href="https://ko-fi.com/fff000">
     <img src="/images/zanshang.jpg" width="50%/">
 </a>
 

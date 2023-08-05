@@ -222,11 +222,11 @@
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2008-11-26-the-ways-to-achieve-modular-sys.html">The Ways To Achieve Your Modular System </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2022-01-12-typical-annoyings-of-CTO.html">新晋CTO遇到的三个问题 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2004-05-24-beanutils-intro.html">随笔20040524（Beanutils） </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2009-03-09-slow-process-of-publishing-book.html">这出本书简直比生孩子都费劲… </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2010-09-05-driving-car-stories.html">行车记录 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2023-03-14-culture-of-enterprises.html">谈谈企业文化 </a> 
      </div> 
     </div> 
     <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
@@ -259,11 +259,27 @@ gitalk.render('comments')
     </script> 
   <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
   <script>
-  kofiWidgetOverlay.draw('fubao', {
+  kofiWidgetOverlay.draw('fff000', {
     'type': 'floating-chat',
     'floating-chat.donateButton.text': 'Support me',
-    'floating-chat.donateButton.background-color': '#0066FF',
-    'floating-chat.donateButton.text-color': '#fff'
+    'floating-chat.donateButton.background-color': 'red',
+    'floating-chat.donateButton.text-color': 'white'
+  });
+</script> 
+  <script>
+  fetch('https://jsonld.afoo.me', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      url: window.location.href
+    })
+  }).then(response => response.text()).then(structuredDataText => {
+    const script = document.createElement('script');
+    script.setAttribute('type', 'application/ld+json');
+    script.textContent = structuredDataText;
+    document.head.appendChild(script);
   });
 </script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 

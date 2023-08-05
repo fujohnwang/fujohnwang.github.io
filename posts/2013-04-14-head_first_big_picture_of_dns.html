@@ -182,9 +182,9 @@ $ nslookup -debug redhat.com  // Enabling debug mode using -debug
     <div id="random_posts"> 
      <div class="alert alert-light" role="alert"> <a href="/posts/2007-09-21-whats-wrong-with-me.html">What’s wrong with me? </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2007-09-28-thoughts-on-bestwiz-fx-products.html">Bestwiz FX产品化路上的建议 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2006-00-00-sshexec-ant-task.html">扩展Ant Task之sshexec </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2020-06-05-books-rec-from-ceo.html">CEO们都在读什么书 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2005-02-25-try-springframework.html">闲话spring在系统实现中的应用 </a> 
      </div> 
     </div> 
     <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
@@ -217,11 +217,27 @@ gitalk.render('comments')
     </script> 
   <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
   <script>
-  kofiWidgetOverlay.draw('fubao', {
+  kofiWidgetOverlay.draw('fff000', {
     'type': 'floating-chat',
     'floating-chat.donateButton.text': 'Support me',
-    'floating-chat.donateButton.background-color': '#0066FF',
-    'floating-chat.donateButton.text-color': '#fff'
+    'floating-chat.donateButton.background-color': 'red',
+    'floating-chat.donateButton.text-color': 'white'
+  });
+</script> 
+  <script>
+  fetch('https://jsonld.afoo.me', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      url: window.location.href
+    })
+  }).then(response => response.text()).then(structuredDataText => {
+    const script = document.createElement('script');
+    script.setAttribute('type', 'application/ld+json');
+    script.textContent = structuredDataText;
+    document.head.appendChild(script);
   });
 </script>  
   <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 

@@ -35,6 +35,31 @@
     ctx.response().end(template)
 ```
 
+**UPDATE@2023-07-15**:  对于非200状态码，可以用事件捕捉自定义：
+
+
+```js
+document.body.addEventListener('htmx:beforeSwap', function(evt) {
+    if(evt.detail.xhr.status === 404){
+        // alert the user when a 404 occurs (maybe use a nicer mechanism than alert())
+        alert("Error: Could Not Find Resource");
+    } else if(evt.detail.xhr.status === 422){
+        // allow 422 responses to swap as we are using this as a signal that
+        // a form was submitted with bad data and want to rerender with the
+        // errors
+        //
+        // set isError to false to avoid error logging in console
+        evt.detail.shouldSwap = true;
+        evt.detail.isError = false;
+    } else if(evt.detail.xhr.status === 418){
+        // if the response code 418 (I'm a teapot) is returned, retarget the
+        // content of the response to the element with the id `teapot`
+        evt.detail.shouldSwap = true;
+        evt.detail.target = htmx.find("#teapot");
+    }
+});
+```
+
 原来对于html片段的管理还是有抵触的，但既然是做小东西简单的东西，配合Scala的String interpolation特性以及[tailwind的play](https://play.tailwindcss.com/)所见即所得，也还算过得去，直接拷贝粘贴也差不多了。
 
 所以，最后就变成了，htmx发送最简单的表单提交请求，服务器端提取参数获得数据库状态后，通过string interpolation插入html片段作为字符串响应返回就行了。
@@ -109,4 +134,7 @@
         </nav>
 ```
 
+---
+
+附上HTMX相关的实操案例视频：[500行HTMX和Scala代码打造一个快糙猛的Web后台程序](https://youtu.be/YSDwlEdd4-I)
 

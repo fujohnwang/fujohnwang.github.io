@@ -21,6 +21,7 @@
 # 第三方工具
 
 - [unvCode](https://unvcode.librian.net/)
+- [ggwave](https://waver.ggerganov.com/)
 - [Arrow.app - Graph Tool](https://arrows.app/)
 - [Portable Secrets](/tools/ps/index.html)
 
