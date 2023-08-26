@@ -1,0 +1,28 @@
+
+.popover__wrapper {
+    position: relative;
+}
+
+.popover__content {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    background-color: #bfbfbf;
+    padding: 1.5rem;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    width: auto;
+}
+
+.popover__wrapper:hover .popover__content {
+    z-index: 10;
+    opacity: 1;
+    visibility: visible;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+}
+
+
+

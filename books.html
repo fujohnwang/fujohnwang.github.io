@@ -22,6 +22,10 @@
 	<link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg">
 	<link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8">
 	<link rel="stylesheet" href="/css/af.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.6.0/cdn/themes/light.css" />
+	<script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.6.0/cdn/shoelace-autoloader.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
+  	<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
 </head>
 
 <body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized">
@@ -145,11 +149,9 @@
 					<div
 						class="relative h-0 pb-[56.25%] lg:h-64 overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg mb-6">
 						<picture>
-							<a href="https://wfq.gumroad.com/">
 								<img width="900" height="506" src="http://afoo.me/images/unveil_spring_cover.jpg"
 									loading="lazy" decoding="async" alt="spring揭秘"
 									class="object-cover object-top w-full lg:h-64 rounded shadow-lg bg-gray-400 dark:bg-slate-700">
-							</a>
 						</picture>
 					</div>
 				</article>
@@ -157,11 +159,9 @@
 					<div
 						class="relative h-0 pb-[56.25%] lg:h-64 overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg mb-6">
 						<picture>
-							<a href="https://wfq.gumroad.com/">
 								<img width="900" height="506" src="http://afoo.me/images/unveil_springboot_cover.jpg"
-									loading="lazy" decoding="async" alt="spring boot"
+									loading="lazy" decoding="async" alt="spring boot揭秘"
 									class="object-cover object-top w-full lg:h-64 rounded shadow-lg bg-gray-400 dark:bg-slate-700">
-							</a>
 						</picture>
 					</div>
 				</article>
@@ -169,20 +169,63 @@
 					<div
 						class="relative h-0 pb-[56.25%] lg:h-64 overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg mb-6">
 						<picture>
-							<acronym
-								title="《Simple Svelte》 will cover from product design to technology implementations, I will guide you thru how to think, how to design and how to build even how to operate. With this book, you will learn more than just svelte3 and technology things, but also product, marketing and human natures.">
-								<a href="https://wfq.gumroad.com/">
+								<a href="#" 
+								onclick="document.querySelector('.drawer-placement-bottom').show();" >
 									<img width="900" height="506" src="http://afoo.me/images/cover_simple_svelte.jpg"
 										loading="lazy" decoding="async" alt="Simple Svelte"
 										class="object-cover object-top w-full lg:h-64 rounded shadow-lg bg-gray-400 dark:bg-slate-700">
 								</a>
-							</acronym>
+								<sl-drawer label="About Simple Svelte" placement="bottom" class="drawer-placement-bottom">
+									<div style="padding-left: 3rem; padding-right: 3rem;">
+										<p>
+											Have you ever...
+											<ol>
+												<li class="ml-4">👉 Create a Single Page Application from scratch?  Svelte is simple to get start.</li>
+												<li class="ml-4">👉 Migrate a legacy web application? Svelte is simple to integrate.</li>
+												<li class="ml-4">👉 As a backend developer who wants to try frontend nowadays? Svelte is simpler to play with than React/Vue.</li>
+											</ol>
+										</p>
+										<p class="mt-4">
+											《Simple Svelte》 will cover from product design to technology implementations, I will guide you thru how to think, how to design and how to build even how to operate. With this book, you will learn more than just svelte3 and technology things, but also product, marketing and human natures.
+										</p>
+									</div>
+									<sl-button slot="footer" variant="primary" onclick="this.href='https://wfq.gumroad.com/l/simple_svelte';">点击购买</sl-button>
+								</sl-drawer>
 						</picture>
 					</div>
 				</article>
+
+				<article class="mb-6 transition">
+					<div
+						class="relative h-0 pb-[56.25%] lg:h-64 overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg mb-6">
+						<picture>
+								<a href="#" 
+								onclick="document.querySelector('#htmx_pop').show();" >
+									<img width="900" height="506" src="/images/cover_unveil_htmx.jpg"
+										loading="lazy" decoding="async" alt="Unveiling HTMX"
+										class="object-cover object-top w-full lg:h-64 rounded shadow-lg bg-gray-400 dark:bg-slate-700">
+								</a>
+								<sl-drawer label="About Unveiling HTMX" placement="bottom" id="htmx_pop">
+									<div style="padding-left: 3rem; padding-right: 3rem;">
+										<p>
+											对于高度内聚的软件研发活动来说（比如全栈-fullstack，比如独立开发者，比如精英小团队），
+											HTMX提供了一种小众但全新的开发体验。尤其对于后端开发者以及MPA时代走过来的开发者，HTMX可以让你的传统艺能继续发扬光大。
+										</p>
+										<p>
+											《HTMX揭秘》尝试由浅入深、从理论到实践， 全方位地为大家展示和剖析HTMX的威力与魅力。
+											工欲善其事，必先利其器，HTMX就是一把认知门槛不高的利器，
+											帮助我们在打造受欢迎的Web产品之路上狂奔。
+										</p>
+									</div>
+									<sl-button slot="footer" variant="primary" onclick="this.href='https://wfq.gumroad.com/l/htmx';">点击购买</sl-button>
+								</sl-drawer>
+						</picture>
+					</div>
+				</article>
+
 			</div>
 			<div>
-				<p>《Spring揭秘》和《Spring揭秘》推荐走传统出版社渠道购买，比如京东、当当等。</p>
+				<p>《Spring揭秘》和《SpringBoot揭秘》推荐走传统出版社渠道购买，比如京东、当当等。</p>
 				<p>As to <b>Simple Svelte</b>, you can <a href="https://afoo.me/books/SimpleSvelte_Trial_Edition.pdf"
 						class="border-b">Grab the FREE trial chapters of Simple Svelte.</a></p>
 				<p><a href="https://poster.keevol.cn/" class="border-b">keeposter</a> is a SPA built with svelte.</p>
@@ -398,6 +441,24 @@
 			</div>
 		</section>
 
+		<section>
+			<div class="max-w-6xl mx-auto px-4 sm:px-6">
+				<div class="py-12">
+					<div class="text-center pb-10 md:pb-16 max-w-5xl mx-auto">
+						<h2 class="mb-4 text-4xl lg:text-5xl font-bold font-heading">
+							<a href="https://wfq.gumroad.com/" class="border-b"><span class="border-b">读者说</span>
+							</a>
+						</h2>
+						<div id="comments" class="max-w-3xl mx-auto" style="text-align: left;">
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</section>
+
+
 	</main>
 	<footer class="border-t border-gray-200 dark:border-slate-800">
 		<div class="max-w-6xl mx-auto px-4 sm:px-6">
@@ -535,6 +596,20 @@
 			'floating-chat.donateButton.background-color': 'red',
 			'floating-chat.donateButton.text-color': 'white'
 		});
+	</script>
+
+	<script>
+		var gitalk = new Gitalk({
+		  clientID: '518a605d711883414ac0',
+		  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+		  repo: 'afoo.me.comments',
+		  owner: 'fujohnwang',
+		  admin: ['fujohnwang'],
+		  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+		  distractionFreeMode: false  // Facebook-like distraction free mode
+		})
+
+		gitalk.render('comments')
 	</script>
 
 </body>
