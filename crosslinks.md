@@ -60,7 +60,7 @@
 - [不卖温柔](https://my.spline.design/logo-2dd2b486d306742087b23d29862cb270/)
 - [Shortwords](https://shortwords.vercel.app/)
 - [Keenotes Trend](/keenotes-trend.html)
-
+- [GithubPage上的福强个人博客](https://fujohnwang.github.io/)
 
 
 
