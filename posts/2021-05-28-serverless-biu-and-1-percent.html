@@ -91,9 +91,9 @@
     <div id="random_posts"> 
      <div class="alert alert-light" role="alert"> <a href="/posts/2011-06-01-book_digest_from_scalability_rules.html">book_digest_from_scalability_rules </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2023-07-13-review-htmx.html">都2023年了，再说说使用HTMX的感受 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2020-06-08-my-consulting-methodology.html">向前看 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2022-03-07-intro-svelte-cubed.html">从Threejs到Svelte</a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2023-03-26-chatgpt-pros-and-cons.html">朱啸虎对ChatGPT的观点和判断对不对? </a> 
      </div> 
     </div> 
     <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
@@ -132,23 +132,6 @@ gitalk.render('comments')
     'floating-chat.donateButton.background-color': 'red',
     'floating-chat.donateButton.text-color': 'white'
   });
-</script> 
-  <script>
-  fetch('https://jsonld.afoo.me', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      url: window.location.href
-    })
-  }).then(response => response.text()).then(structuredDataText => {
-    const script = document.createElement('script');
-    script.setAttribute('type', 'application/ld+json');
-    script.textContent = structuredDataText;
-    document.head.appendChild(script);
-  });
-</script>  
-  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+</script>  <!-- <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> --> 
  </body>
 </html>
