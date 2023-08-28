@@ -15,6 +15,7 @@
 
 - [福强海报](https://poster.keevol.cn/)
 - [汉字拼音工具](https://afoo.me/pinyin/index.html)
+  - <https://hanzipinyin.blackwhole.cn>
 - [是个不是](https://afoo.me/yesno.html)
 - [支付宝到账语音](https://afoo.me/alipay_noti/index.html)
 
@@ -52,6 +53,7 @@
 - [博客首页](posts.html)
 - [专栏文章](columns.html)
 - [Biased Scala](/columns/biased-scala/index.html), My Biased Opinion on Scala, 2021
+  - 独立站，<https://scala.afoo.me>
 - [我的收藏夹](favorite.html)
 - [我的年度关键词](keewords/index.html)
 - [金融看板](dashboard.html)
@@ -62,6 +64,11 @@
 - [Keenotes Trend](/keenotes-trend.html)
 - [GithubPage上的福强个人博客](https://fujohnwang.github.io/)
 
+
+
+# 海报工具
+
+- [粉丝数到达多少多少](https://functional.tools/awesome-stats)
 
 
 
