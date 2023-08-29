@@ -13,9 +13,11 @@
 
 My Biased Opinion on Scala, 2021
 
-### [cookbook of svelte](http://svelte-cookbook.afoo.me/) 
+### SEO
 
-you know, about svelte.
+1. [3种主动要求Google收录网站内容的常用方法](columns/seo/three-ways-to-submit-sitemap.html)
+
+
 
 ---
 
