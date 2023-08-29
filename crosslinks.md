@@ -11,7 +11,7 @@
 - [福强的stop doing list](https://keevol.cn/stop-doing-list.html)
 - [咨询密室](https://fuqiang.circleo.me/)
 
-# 工具[福强](https://afoo.me/whoami.html)造
+# [工具福强造](https://afoo.me/tools.html)
 
 - [福强海报](https://poster.keevol.cn/)
 - [汉字拼音工具](https://afoo.me/pinyin/index.html)
