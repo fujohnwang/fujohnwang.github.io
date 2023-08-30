@@ -17,7 +17,7 @@ How to reuse Clash‘s rules or proxy configurations?!
 
 受X友提醒，加上之前大体上也了解过Clash类客户端的配置结构，最终敲定可行方案：
 
-![](images/2023-08-30-22-37-51.jpg)
+![](images/2023-08-30-19-19-48.jpg)
 
 基本上就是分两大部分职能进行聚合：
 
