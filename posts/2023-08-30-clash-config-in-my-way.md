@@ -24,7 +24,7 @@ How to reuse Clash‘s rules or proxy configurations?!
 1. 通过proxy-groups来聚合自己的通道以及第三方提供的通道，自建的因为不多，所以，直接以proxy的形式配置到主配置文件就可以了，第三方的 通道则通过proxy-provider的形式接入；
 2. 通过ruleset添加多个同类规则的策略，这些规则集将是后面定制与添加规则的主要地方；
 
-基于这个配置框架，就可以只用一个主配置文件就可以了，加上本地git的版本控制以及`ln -s {config in repo} {destination dir}`，基本上可以做到local first的私密性与安全性，又不是配置的灵活性，完美～
+基于这个配置框架，就可以只用一个主配置文件就可以了，加上本地git的版本控制以及`ln -s {config in repo} {destination dir}`，基本上可以做到**local first**的私密性与安全性，又不失配置的灵活性，完美～
 
 
 
