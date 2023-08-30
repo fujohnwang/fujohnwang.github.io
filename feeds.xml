@@ -5,6 +5,167 @@
     <link>http://afoo.me</link>
     <description>王福强的个人博客：一个架构士的思考与沉淀</description>
     <item>
+      <title>如何聚合重用Clash的配置？</title>
+      <link>http://afoo.me/posts/2023-08-30-clash-config-in-my-way.html</link>
+      <description>&lt;!doctype html&gt;
+&lt;html lang="zh"&gt; 
+ &lt;head&gt; 
+  &lt;meta charset="utf-8"&gt; 
+  &lt;meta name="keywords" content="如何聚合重用Clash的配置？ - 架构教练,架构师个人成长教练,个人成长,组织成长,个人与组织成长顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
+  &lt;meta name="description" content="如何聚合重用Clash的配置？ - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
+  &lt;meta name="author" content="王福强"&gt; 
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
+  &lt;title&gt;如何聚合重用Clash的配置？ -王福强的个人博客：一个架构士的思考与沉淀&lt;/title&gt; 
+  &lt;meta name="date" content="2023-08-30"&gt; 
+  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
+  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
+  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
+  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
+  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
+  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
+  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; 
+  &lt;style type="text/css"&gt;
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-align: left;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+
+    h1{
+      margin-top: 3rem;
+    }
+  &lt;/style&gt; 
+  &lt;script type="application/ld+json"&gt;
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "如何聚合重用Clash的配置？",
+      "image": [
+        "https://afoo.me/images/fb_subscribe.jpg"
+       ],
+      "datePublished": "2023-08-30",
+      "author": [{
+          "@type": "Person",
+          "name": "王福强",
+          "url": "https://afoo.me"
+        }]
+    }
+  &lt;/script&gt; 
+ &lt;/head&gt; 
+ &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
+  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
+   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;王福强的个人博客 &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
+    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
+     &lt;ul class="navbar-nav ml-auto"&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;博客文章&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;创作出版&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me"&gt;福强AI学堂&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;关于我&lt;/a&gt; &lt;/li&gt; 
+      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
+     &lt;/ul&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/nav&gt; 
+  &lt;section&gt; 
+   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
+    &lt;p class="lead"&gt; &lt;/p&gt;
+    &lt;h1 class="title"&gt;如何聚合重用Clash的配置？&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt; 
+     &lt;div style="text-align: left;"&gt;
+      2023-08-30
+     &lt;/div&gt; &lt;/small&gt; 
+    &lt;p&gt;&lt;/p&gt; 
+    &lt;hr&gt; 
+    &lt;p&gt;How to reuse Clash‘s rules or proxy configurations?!&lt;/p&gt; 
+    &lt;p&gt;因为有多个通道，有自己搭建的，也有外购的，所以，经常会在其中切换，但一个比较头疼的问题就是：&lt;/p&gt; 
+    &lt;ol type="1"&gt; 
+     &lt;li&gt;要在所有这些通道之间同步配置内容，尤其是规则，还挺烦躁的；&lt;/li&gt; 
+     &lt;li&gt;远端接入的服务，有些时候，本地的客户端不提供prepend或者append规则配置的途径，所以，一旦远端定时更新，那么，本地添加的内容会被冲掉；&lt;/li&gt; 
+    &lt;/ol&gt; 
+    &lt;p&gt;所以，希望有一种方式可以保留本地自己添加的配置，但同时又能利用原来通道提供的能力，类似于这样：&lt;/p&gt; 
+    &lt;p&gt;&lt;img src="images/2023-08-30-22-34-39.jpg"&gt;&lt;/p&gt; 
+    &lt;p&gt;原来要在各个通道的配置之前切换来切换去，并尽量同步常用的配置内容，尤其是规则，现在，我希望能只用一个主的配置文件，然后接入其它通道的能力甚至规则，这样，我就只要变更自己的主配置文件或者独立的规则配置文件就可以了，渠道主体能力部分原来是啥样还是啥样，不做变更，只做聚合。&lt;/p&gt; 
+    &lt;p&gt;受X友提醒，加上之前大体上也了解过Clash类客户端的配置结构，最终敲定可行方案：&lt;/p&gt; 
+    &lt;p&gt;&lt;img src="images/2023-08-30-22-37-51.jpg"&gt;&lt;/p&gt; 
+    &lt;p&gt;基本上就是分两大部分职能进行聚合：&lt;/p&gt; 
+    &lt;ol type="1"&gt; 
+     &lt;li&gt;通过proxy-groups来聚合自己的通道以及第三方提供的通道，自建的因为不多，所以，直接以proxy的形式配置到主配置文件就可以了，第三方的 通道则通过proxy-provider的形式接入；&lt;/li&gt; 
+     &lt;li&gt;通过ruleset添加多个同类规则的策略，这些规则集将是后面定制与添加规则的主要地方；&lt;/li&gt; 
+    &lt;/ol&gt; 
+    &lt;p&gt;基于这个配置框架，就可以只用一个主配置文件就可以了，加上本地git的版本控制以及&lt;code&gt;ln -s {config in repo} {destination dir}&lt;/code&gt;，基本上可以做到local first的私密性与安全性，又不是配置的灵活性，完美～&lt;/p&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
+    &lt;hr&gt; 
+    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
+    &lt;/div&gt; 
+    &lt;div id="random_posts"&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2023-07-05-art-qrcode-with-comfyui.html"&gt;生成艺术二维码的三种套路 &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-10-20-good-will-bad-execution.html"&gt;我不知道是不是我操作上不对… &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2014-05-07-weixin-zxl-team-guideline.html"&gt;张小龙内部邮件中提到团队的理念[转载] &lt;/a&gt; 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;div&gt; 
+     &lt;p&gt; 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^&lt;br&gt; 这里 &lt;/p&gt;
+     &lt;ol&gt; 
+      &lt;li&gt;不但有及时新鲜的AI资讯和深度探讨&lt;/li&gt; 
+      &lt;li&gt;还分享AI工具、产品方法和商业机会&lt;/li&gt; 
+      &lt;li&gt;更有体系化精品付费内容等着你，&lt;a href="https://t.zsxq.com/0dI3ZA0sL"&gt;加入星球(https://t.zsxq.com/0dI3ZA0sL)&lt;/a&gt; 即可免费领取。(加入之后&lt;b&gt;一定记得看置顶消息&lt;/b&gt;呀！)&lt;/li&gt; 
+     &lt;/ol&gt; 
+     &lt;p&gt;&lt;/p&gt; &lt;a href="https://t.zsxq.com/0dI3ZA0sL"&gt; &lt;img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"&gt; &lt;/a&gt; 
+    &lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;p&gt; &lt;span style="font-size: xx-large;"&gt;存量的时代，省钱就是赚钱。&lt;/span&gt; &lt;br&gt; &lt;span style="font-size: xx-large;"&gt;在增量的时代，省钱其实是亏钱。&lt;/span&gt; &lt;br&gt; 避坑儿是省钱的一种形式，更是真正聪明人的选择！ &lt;br&gt; 弯路虽然也是路，但还是能少走就少走，背后都是高昂的试错成本。 &lt;/p&gt; &lt;a href="https://wfq.gumroad.com/l/fb"&gt; &lt;img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"&gt; &lt;/a&gt; 
+    &lt;div id="comments"&gt;&lt;/div&gt; 
+    &lt;hr&gt; 
+    &lt;div class="text-center"&gt; &lt;a href="https://twitter.com/fujohnwang"&gt; &lt;img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; &lt;/a&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/section&gt; 
+  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
+   ©&lt;a href="/whoami.html"&gt;王福强&lt;/a&gt;个人版权所有, All Rights Reserved.
+  &lt;/div&gt; 
+  &lt;div class="copyright py-4 text-center text-white"&gt; 
+   &lt;div class="container"&gt; &lt;small&gt;Copyright © &lt;a href="/whoami.html"&gt;王福强&lt;/a&gt;个人版权所有 - Since 2004&lt;/small&gt; 
+    &lt;br&gt;&lt;small&gt;Everything is homebrewed with &lt;a href="https://pandoc.org/"&gt;pandoc&lt;/a&gt; and &lt;a href="https://daringfireball.net/projects/markdown/syntax"&gt;Markdown&lt;/a&gt;, little &lt;a href="https://www.scala-lang.org/"&gt;Scala&lt;/a&gt; also included.&lt;/small&gt; 
+   &lt;/div&gt; 
+  &lt;/div&gt; 
+  &lt;script type="text/javascript"&gt;
+var gitalk = new Gitalk({
+  clientID: '518a605d711883414ac0',
+  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+  repo: 'afoo.me.comments',
+  owner: 'fujohnwang',
+  admin: ['fujohnwang'],
+  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('comments')
+    &lt;/script&gt; 
+  &lt;script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"&gt;&lt;/script&gt; 
+  &lt;script&gt;
+  kofiWidgetOverlay.draw('fff000', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': 'red',
+    'floating-chat.donateButton.text-color': 'white'
+  });
+&lt;/script&gt;  &lt;!-- &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; --&gt; 
+ &lt;/body&gt;
+&lt;/html&gt;</description>
+      <pubDate>Tue, 29 Aug 2023 16:00:00 GMT</pubDate>
+      <guid>http://afoo.me/posts/2023-08-30-clash-config-in-my-way.html</guid>
+      <dc:date>2023-08-29T16:00:00Z</dc:date>
+    </item>
+    <item>
       <title>天赋，培训与个性化</title>
       <link>http://afoo.me/posts/2023-08-22-gift-training-and-unique.html</link>
       <description>&lt;!doctype html&gt;
@@ -1725,181 +1886,6 @@ gitalk.render('comments')
       <pubDate>Sun, 09 Jul 2023 16:00:00 GMT</pubDate>
       <guid>http://afoo.me/posts/2023-07-10-sdxl-comfyui-setup.html</guid>
       <dc:date>2023-07-09T16:00:00Z</dc:date>
-    </item>
-    <item>
-      <title>生成艺术二维码的三种套路</title>
-      <link>http://afoo.me/posts/2023-07-05-art-qrcode-with-comfyui.html</link>
-      <description>&lt;!doctype html&gt;
-&lt;html lang="zh"&gt; 
- &lt;head&gt; 
-  &lt;meta charset="utf-8"&gt; 
-  &lt;meta name="keywords" content="生成艺术二维码的三种套路 - 架构教练,架构师个人成长教练,个人成长,组织成长,个人与组织成长顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
-  &lt;meta name="description" content="生成艺术二维码的三种套路 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
-  &lt;meta name="author" content="王福强"&gt; 
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
-  &lt;title&gt;生成艺术二维码的三种套路 -王福强的个人博客：一个架构士的思考与沉淀&lt;/title&gt; 
-  &lt;meta name="date" content="2023-07-05"&gt; 
-  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
-  &lt;style type="text/css"&gt;code{white-space: pre;}&lt;/style&gt; 
-  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"&gt; 
-  &lt;script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"&gt;&lt;/script&gt; 
-  &lt;script type="text/javascript" src="/js/watermark.js"&gt;&lt;/script&gt; &lt;!-- Bootstrap core CSS --&gt; 
-  &lt;link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; &lt;!-- Custom fonts for this template --&gt; 
-  &lt;link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"&gt; &lt;!-- Custom styles for this template --&gt; 
-  &lt;link href="/css/freelancer.css" rel="stylesheet"&gt; 
-  &lt;style type="text/css"&gt;
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      text-align: left;
-      position: relative;
-      -webkit-font-smoothing: antialiased;
-    }
-    
-
-    h1{
-      margin-top: 3rem;
-    }
-  &lt;/style&gt; 
-  &lt;script type="application/ld+json"&gt;
-    {
-      "@context": "https://schema.org",
-      "@type": "NewsArticle",
-      "headline": "生成艺术二维码的三种套路",
-      "image": [
-        "https://afoo.me/images/fb_subscribe.jpg"
-       ],
-      "datePublished": "2023-07-05",
-      "author": [{
-          "@type": "Person",
-          "name": "王福强",
-          "url": "https://afoo.me"
-        }]
-    }
-  &lt;/script&gt; 
- &lt;/head&gt; 
- &lt;body id="page-top"&gt; &lt;!-- Navigation --&gt; 
-  &lt;nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"&gt; 
-   &lt;div class="container"&gt; &lt;a class="navbar-brand js-scroll-trigger" href="/"&gt; &lt;img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;"&gt;王福强的个人博客 &lt;/a&gt; &lt;button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"&gt; Menu &lt;i class="fas fa-bars"&gt;&lt;/i&gt; &lt;/button&gt; 
-    &lt;div class="collapse navbar-collapse" id="navbarResponsive"&gt; 
-     &lt;ul class="navbar-nav ml-auto"&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/posts.html"&gt;博客文章&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/books.html"&gt;创作出版&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me"&gt;福强AI学堂&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html"&gt;关于我&lt;/a&gt; &lt;/li&gt; 
-      &lt;li class="nav-item mx-0 mx-lg-1"&gt; &lt;a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml"&gt;RSS订阅&lt;/a&gt; &lt;/li&gt; 
-     &lt;/ul&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/nav&gt; 
-  &lt;section&gt; 
-   &lt;div class="container"&gt; &lt;!--        &lt;div class="row"&gt;--&gt; &lt;!--          &lt;div class="col-lg-8 mx-auto"&gt;--&gt; 
-    &lt;p class="lead"&gt; &lt;/p&gt;
-    &lt;h1 class="title"&gt;生成艺术二维码的三种套路&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt; 
-     &lt;div style="text-align: left;"&gt;
-      2023-07-05
-     &lt;/div&gt; &lt;/small&gt; 
-    &lt;p&gt;&lt;/p&gt; 
-    &lt;hr&gt; 
-    &lt;p&gt;啥？ 艺术二维码你还没听说？ 其实就是随着AIGC尤其是Stable Diffusion的兴起而出现的一种新的二维码形式，像下面这样（效果有比这惊艳太多的），既像二维码，又与生成的图片合二为一融为一体：&lt;/p&gt; 
-    &lt;p&gt;&lt;img src="images/2023-07-05-23-23-53.jpg"&gt;&lt;/p&gt; 
-    &lt;p&gt;&lt;strong&gt;第一种套路&lt;/strong&gt; 是直接用网上别人搞的SaaS，比如Huggingface上别人开放的&lt;a href="https://huggingface.co/spaces/huggingface-projects/QR-code-AI-art-generator"&gt;demo space&lt;/a&gt;， 或者加入别人提供的Discord服务器，这个就比较多了，各位感兴趣自己搜下；）&lt;/p&gt; 
-    &lt;p&gt;&lt;strong&gt;第二种套路&lt;/strong&gt; 当然就是走我们大名鼎鼎的Stable Diffusion了，只不过， 走Stable Diffusion其实也有至少两种套路：&lt;/p&gt; 
-    &lt;ol type="1"&gt; 
-     &lt;li&gt;&lt;a href="https://stable-diffusion-art.com/qr-code/"&gt;img2img + controlnet&lt;/a&gt;&lt;/li&gt; 
-     &lt;li&gt;controlnet + controlnet&lt;/li&gt; 
-    &lt;/ol&gt; 
-    &lt;p&gt;现在用的最多的是第二种，也就是两个controlnet串联， 第一个一般用&lt;a href="https://huggingface.co/ioclab/ioc-controlnet/blob/main/models/control_v1p_sd15_brightness.safetensors"&gt;brightness&lt;/a&gt;这个control net，主要用来调节颜色或者重新着色， 第二个一般用tile这个controlnet，目的是增减细节，这个特性在 &lt;a href="https://edu.afoo.me/"&gt;扶墙老师讲Stable Diffusion系列（5）- 深入浅出ControlNet&lt;/a&gt; 里提到过。&lt;/p&gt; 
-    &lt;p&gt;通过在两个controlnet的控制权重与范围这两个或者一个参数之间平衡，就可以生成融合了生成图像的二维码了，只不过这个试错的过程通常比较耗费时间，所以，大家如果要自己玩，最好先去搜一下前面别人实验之后的参数值做参考，否则，自己从头试错，有些时候还是挺有挫败感的，比如，&lt;a href="https://keepoints.feishu.cn/docx/ZxMndkpwRoongpxAUcbcUn9xnad"&gt;这里就是很多残次品&lt;/a&gt;(https://keepoints.feishu.cn/docx/ZxMndkpwRoongpxAUcbcUn9xnad)，而这也是只是几百张里挑出来的好看点儿的，但依然不能扫成功，要从生成结果中筛选出既漂亮（有创意性）还能扫码成功（有识别度）的，那就更是难上加难了。&lt;/p&gt; 
-    &lt;p&gt;&lt;strong&gt;第三种套路&lt;/strong&gt; 其实有点儿勉强，原因是我在用自己脚本启动和执行Automatic1111 Stable Diffusion WebUI的时候，其实brightness这个controlnet的模型报错：&lt;/p&gt; 
-    &lt;pre&gt;&lt;code&gt;Total progress: 100% 20/20 [00:03&amp;lt;00:00,  6.53it/s]
-2023-07-05 06:18:14,882 - ControlNet - INFO - Loading model: control_v1p_sd15_brightness [e3b0c442]
-*** Error running process: /content/stable-diffusion-webui/extensions/sd-webui-controlnet/scripts/controlnet.py
-    Traceback (most recent call last):
-      File "/content/stable-diffusion-webui/modules/scripts.py", line 474, in process
-        script.process(p, *script_args)
-      File "/content/stable-diffusion-webui/extensions/sd-webui-controlnet/scripts/controlnet.py", line 742, in process
-        model_net = Script.load_control_model(p, unet, unit.model, unit.low_vram)
-      File "/content/stable-diffusion-webui/extensions/sd-webui-controlnet/scripts/controlnet.py", line 303, in load_control_model
-        model_net = Script.build_control_model(p, unet, model, lowvram)
-      File "/content/stable-diffusion-webui/extensions/sd-webui-controlnet/scripts/controlnet.py", line 331, in build_control_model
-        state_dict = load_state_dict(model_path)
-      File "/content/stable-diffusion-webui/extensions/sd-webui-controlnet/scripts/utils.py", line 20, in load_state_dict
-        state_dict = safetensors.torch.load_file(ckpt_path, device=location)
-      File "/usr/local/lib/python3.10/dist-packages/safetensors/torch.py", line 259, in load_file
-        with safe_open(filename, framework="pt", device=device) as f:
-    safetensors_rust.SafetensorError: Error while deserializing header: HeaderTooLarge&lt;/code&gt;&lt;/pre&gt; 
-    &lt;p&gt;所以我就绕行了， 转而去启动了comfyui，然后挂了两个controlnet的方式，搞了一批艺术二维码，至于思路，那还是brightness这个controlnet加上tile这个controlnet的思路，毕竟，只要知其然知其所以然了，用啥都只是工具不是？！&lt;/p&gt; 
-    &lt;hr&gt; 
-    &lt;p&gt;最后做个广告，&lt;strong&gt;如果你对Stable Diffusion如何创作感兴趣&lt;/strong&gt;，欢迎加入「为AI疯狂」知识星球同时获得 &lt;a href="https://edu.afoo.me" class="uri"&gt;https://edu.afoo.me&lt;/a&gt; &lt;strong&gt;上千分钟&lt;/strong&gt;的精品内容访问特权，其中包含了体系化的Stable Diffusion系列课程以及ChatGPT和大语言模型等前沿AI内容。&lt;/p&gt; &lt;!--          &lt;/div&gt;--&gt; &lt;!--        &lt;/div&gt;--&gt; 
-    &lt;hr&gt; 
-    &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
-    &lt;/div&gt; 
-    &lt;div id="random_posts"&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2021-09-30-nocode-lowcode-revisit-chapter3.html"&gt;再谈NoCode与LowCode &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2006-02-10-scp-with-ant-api.html"&gt;Scp With Ant API programmatically &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2014-12-12-understanding-launch-daemons-of-macosx.html"&gt;了解LaunchDaemons &lt;/a&gt; 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;div&gt; 
-     &lt;p&gt; 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^&lt;br&gt; 这里 &lt;/p&gt;
-     &lt;ol&gt; 
-      &lt;li&gt;不但有及时新鲜的AI资讯和深度探讨&lt;/li&gt; 
-      &lt;li&gt;还分享AI工具、产品方法和商业机会&lt;/li&gt; 
-      &lt;li&gt;更有体系化精品付费内容等着你，&lt;a href="https://t.zsxq.com/0dI3ZA0sL"&gt;加入星球(https://t.zsxq.com/0dI3ZA0sL)&lt;/a&gt; 即可免费领取。(加入之后&lt;b&gt;一定记得看置顶消息&lt;/b&gt;呀！)&lt;/li&gt; 
-     &lt;/ol&gt; 
-     &lt;p&gt;&lt;/p&gt; &lt;a href="https://t.zsxq.com/0dI3ZA0sL"&gt; &lt;img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"&gt; &lt;/a&gt; 
-    &lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;p&gt; &lt;span style="font-size: xx-large;"&gt;存量的时代，省钱就是赚钱。&lt;/span&gt; &lt;br&gt; &lt;span style="font-size: xx-large;"&gt;在增量的时代，省钱其实是亏钱。&lt;/span&gt; &lt;br&gt; 避坑儿是省钱的一种形式，更是真正聪明人的选择！ &lt;br&gt; 弯路虽然也是路，但还是能少走就少走，背后都是高昂的试错成本。 &lt;/p&gt; &lt;a href="https://wfq.gumroad.com/l/fb"&gt; &lt;img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"&gt; &lt;/a&gt; 
-    &lt;div id="comments"&gt;&lt;/div&gt; 
-    &lt;hr&gt; 
-    &lt;div class="text-center"&gt; &lt;a href="https://twitter.com/fujohnwang"&gt; &lt;img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"&gt; &lt;/a&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/section&gt; 
-  &lt;div style="color:white; visibility: collapse; height: 0;"&gt;
-   ©&lt;a href="/whoami.html"&gt;王福强&lt;/a&gt;个人版权所有, All Rights Reserved.
-  &lt;/div&gt; 
-  &lt;div class="copyright py-4 text-center text-white"&gt; 
-   &lt;div class="container"&gt; &lt;small&gt;Copyright © &lt;a href="/whoami.html"&gt;王福强&lt;/a&gt;个人版权所有 - Since 2004&lt;/small&gt; 
-    &lt;br&gt;&lt;small&gt;Everything is homebrewed with &lt;a href="https://pandoc.org/"&gt;pandoc&lt;/a&gt; and &lt;a href="https://daringfireball.net/projects/markdown/syntax"&gt;Markdown&lt;/a&gt;, little &lt;a href="https://www.scala-lang.org/"&gt;Scala&lt;/a&gt; also included.&lt;/small&gt; 
-   &lt;/div&gt; 
-  &lt;/div&gt; 
-  &lt;script type="text/javascript"&gt;
-var gitalk = new Gitalk({
-  clientID: '518a605d711883414ac0',
-  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-  repo: 'afoo.me.comments',
-  owner: 'fujohnwang',
-  admin: ['fujohnwang'],
-  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-  distractionFreeMode: false  // Facebook-like distraction free mode
-})
-
-gitalk.render('comments')
-    &lt;/script&gt; 
-  &lt;script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"&gt;&lt;/script&gt; 
-  &lt;script&gt;
-  kofiWidgetOverlay.draw('fff000', {
-    'type': 'floating-chat',
-    'floating-chat.donateButton.text': 'Support me',
-    'floating-chat.donateButton.background-color': 'red',
-    'floating-chat.donateButton.text-color': 'white'
-  });
-&lt;/script&gt;  &lt;!-- &lt;script&gt;watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})&lt;/script&gt; --&gt; 
- &lt;/body&gt;
-&lt;/html&gt;</description>
-      <pubDate>Tue, 04 Jul 2023 16:00:00 GMT</pubDate>
-      <guid>http://afoo.me/posts/2023-07-05-art-qrcode-with-comfyui.html</guid>
-      <dc:date>2023-07-04T16:00:00Z</dc:date>
     </item>
   </channel>
 </rss>
