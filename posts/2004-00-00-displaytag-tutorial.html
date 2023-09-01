@@ -9,6 +9,7 @@
   <title>DisplayTag Tutorial -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
+  <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
   <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
@@ -341,13 +342,14 @@ DisplayTag一共提供了五种标签用来显示显示表格，他们是
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2022-01-12-typical-annoyings-of-CTO.html">新晋CTO遇到的三个问题 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2005-00-00-InstallAnywhere-gotchas.html">有关InstallAnyWhere的几个问题 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2009-04-14-is-concurrency-control-always-a-must.html">并发控制总是必需的吗 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2009-05-14-say-goodbye-to-CSTS.html">最终还是不得不发出这样的邮件 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2006-12-30-conclusion-of-my-2006.html">回首我的2006 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2013-12-01-idea-on-fx-startup.html">关于以外汇交易平台为核心的创业公司的设想 </a> 
      </div> 
     </div> 
+    <div id="comments"></div> 
     <hr> 
     <div> 
      <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
@@ -359,11 +361,13 @@ DisplayTag一共提供了五种标签用来显示显示表格，他们是
      <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
     </div> 
     <hr> 
-    <p> <span style="font-size: xx-large;">存量的时代，省钱就是赚钱。</span> <br> <span style="font-size: xx-large;">在增量的时代，省钱其实是亏钱。</span> <br> 避坑儿是省钱的一种形式，更是真正聪明人的选择！ <br> 弯路虽然也是路，但还是能少走就少走，背后都是高昂的试错成本。 </p> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
-    <div id="comments"></div> 
+    <p> <span style="font-size: xx-large;">存量的时代，省钱就是赚钱。</span> <br> <span style="font-size: xx-large;">在增量的时代，省钱其实是亏钱。</span> <br> 避坑儿是省钱的一种形式，更是真正聪明人的选择！ <br> 弯路虽然也是路，但还是能少走就少走，背后都是高昂的试错成本。 <br> <b>订阅「福报」</b>，少踩坑，少走弯路，多走一步，就是不一样的胜率！ </p> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <hr> 
-    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
-    </div> 
+    <div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed"></div> <!-- <div class="text-center">
+      <a href="https://twitter.com/fujohnwang">
+        <img src="/images/Twitter-logo.png" class="img-responsive" loading='lazy' style="width: fit-content;">
+      </a>
+    </div> --> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">

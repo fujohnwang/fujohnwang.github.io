@@ -10,6 +10,7 @@
   <meta name="date" content="2013-02-16"> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <style type="text/css">code{white-space: pre;}</style> 
+  <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
   <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
   <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
@@ -171,13 +172,14 @@
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2010-11-24-understanding_sbt_in_my_way.html">Understanding SBT In My Way </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2009-07-27-depressing-days.html">再这样下去有点儿不像话了 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2014-06-12-understanding-ansible.html">了解ansible </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2009-07-18-build-tools-I-experienced.html">数数自己经历过的几种项目构建工具 </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2015-02-17-my-actor-practice-advices.html">Practice Advices On Design and Impl. with Actor Model </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2017-06-29-fuqiang-tech-gogogo.html">福强科技开始接客啦~ </a> 
      </div> 
     </div> 
+    <div id="comments"></div> 
     <hr> 
     <div> 
      <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
@@ -189,11 +191,13 @@
      <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
     </div> 
     <hr> 
-    <p> <span style="font-size: xx-large;">存量的时代，省钱就是赚钱。</span> <br> <span style="font-size: xx-large;">在增量的时代，省钱其实是亏钱。</span> <br> 避坑儿是省钱的一种形式，更是真正聪明人的选择！ <br> 弯路虽然也是路，但还是能少走就少走，背后都是高昂的试错成本。 </p> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
-    <div id="comments"></div> 
+    <p> <span style="font-size: xx-large;">存量的时代，省钱就是赚钱。</span> <br> <span style="font-size: xx-large;">在增量的时代，省钱其实是亏钱。</span> <br> 避坑儿是省钱的一种形式，更是真正聪明人的选择！ <br> 弯路虽然也是路，但还是能少走就少走，背后都是高昂的试错成本。 <br> <b>订阅「福报」</b>，少踩坑，少走弯路，多走一步，就是不一样的胜率！ </p> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <hr> 
-    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
-    </div> 
+    <div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed"></div> <!-- <div class="text-center">
+      <a href="https://twitter.com/fujohnwang">
+        <img src="/images/Twitter-logo.png" class="img-responsive" loading='lazy' style="width: fit-content;">
+      </a>
+    </div> --> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
