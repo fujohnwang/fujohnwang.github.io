@@ -33,6 +33,16 @@
     h1{
       margin-top: 3rem;
     }
+
+    .x-indicator{
+        display:none;
+    }
+    .htmx-request .x-indicator{
+        display:inline;
+    }
+    .htmx-request.x-indicator{
+        display:inline;
+    }
   </style> 
   <script type="application/ld+json">
     {
@@ -87,11 +97,11 @@
     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
     </div> 
     <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2015-11-10-why-techies-also-need-think-the-PD-way.html">技术人也需要有产品思维(why techies also need think the PD way) </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2023-03-13-rsync-permission-err.html">Rsync报错Permission denied </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2016-01-30-the-team-I-would-like-to-dedicate.html">我所希望并为之奋斗的团队 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2008-11-26-the-ways-to-achieve-modular-sys.html">The Ways To Achieve Your Modular System </a> 
      </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2020-07-31-trend-words-to-ali.html">我曾经跟阿里内部人说过的话 </a> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2005-00-00-spring-without-ioc.html">Spring Without IoC </a> 
      </div> 
     </div> 
     <div id="comments"></div> 
@@ -108,7 +118,27 @@
     <hr> 
     <p> <span style="font-size: xx-large;">存量的时代，省钱就是赚钱。</span> <br> <span style="font-size: xx-large;">在增量的时代，省钱其实是亏钱。</span> <br> 避坑儿是省钱的一种形式，更是真正聪明人的选择！ <br> 弯路虽然也是路，但还是能少走就少走，背后都是高昂的试错成本。 <br> <b>订阅「福报」</b>，少踩坑，少走弯路，多走一步，就是不一样的胜率！ </p> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <hr> 
-    <div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed"></div> <!-- <div class="text-center">
+    <div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"> 
+     <div id="tfloader" class="x-indicator"> 
+      <svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"> <g fill="none" fill-rule="evenodd"> 
+        <g transform="translate(1 1)" stroke-width="2"> 
+         <circle cx="5" cy="50" r="5"> 
+          <animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /> 
+          <animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /> 
+         </circle> 
+         <circle cx="27" cy="5" r="5"> 
+          <animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /> 
+          <animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /> 
+         </circle> 
+         <circle cx="49" cy="50" r="5"> 
+          <animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /> 
+          <animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /> 
+         </circle> 
+        </g> 
+       </g> 
+      </svg> 
+     </div> 
+    </div> <!-- <div class="text-center">
       <a href="https://twitter.com/fujohnwang">
         <img src="/images/Twitter-logo.png" class="img-responsive" loading='lazy' style="width: fit-content;">
       </a>
