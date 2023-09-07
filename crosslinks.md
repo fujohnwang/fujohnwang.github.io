@@ -25,6 +25,7 @@
 - [ggwave](https://waver.ggerganov.com/)
 - [Arrow.app - Graph Tool](https://arrows.app/)
 - [Portable Secrets](/tools/ps/index.html)
+- [Privacy Policy Generator](https://www.privacypolicies.com/)
 
 # 第三方工具/服务部署
 
