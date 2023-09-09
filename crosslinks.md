@@ -2,11 +2,13 @@
 % 王福强
 % 2021-02-18
 
-- [福强进学堂](https://edu.afoo.me)
+- [福强学堂](https://edu.afoo.me)
 - [福强](https://afoo.me/whoami.html)的Youtube频道
   - [扶墙老师](https://www.youtube.com/c/fujohnwang) - <https://youtube.com/@afoo>
-  - [架构百科](https://www.youtube.com/channel/UCG4NNmSjcCQGv3T25JBlHTQ)
-- [福强为个人提供的产品与服务](private_products_and_services.html)
+- 架构百科
+  - [架构百科文字版](https://jiagoubaike.github.io/)
+  - [架构百科Youtube频道](https://www.youtube.com/channel/UCG4NNmSjcCQGv3T25JBlHTQ)
+- [福强为个人提供的产品与服务](consulting.html)
   - [福强的书](https://afoo.me/books.html)
 - [福强的stop doing list](https://keevol.cn/stop-doing-list.html)
 - [咨询密室](https://fuqiang.circleo.me/)
