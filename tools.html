@@ -17,6 +17,9 @@
 	<link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8">
 	<link rel="stylesheet" href="/css/af.css">
     <script src="https://cdn.tailwindcss.com/"></script>
+	<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
+	<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+	<script src='/js/overlay-widget.js'></script>
 </head>
 
 <body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized">
@@ -261,7 +264,15 @@
 		};
 	</script>
 
-
+<script>
+	kofiWidgetOverlay.draw('fff000', {
+	  'type': 'floating-chat',
+	  'floating-chat.donateButton.text': 'Support me',
+	  'floating-chat.donateButton.background-color': 'red',
+	  'floating-chat.donateButton.text-color': 'white'
+	});
+  </script>
+  
 
 </body>
 

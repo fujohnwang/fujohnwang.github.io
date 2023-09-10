@@ -9,10 +9,14 @@
   <title>王福强 个人介绍 -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <meta name="date" content="2017-11-13"> 
   <link rel="shortcut icon" href="/favicon.ico"> 
+  <link rel="canonical" href="https://afoo.me/whoami.html"> 
   <style type="text/css">code{white-space: pre;}</style> 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
-  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
-  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
+  <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <script src="/js/overlay-widget.js"></script> <!--
+  <script type="text/javascript" src="/js/watermark.js"></script>
+  --> <!-- Bootstrap core CSS --> 
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
   <link href="/css/freelancer.css" rel="stylesheet"> 
@@ -32,7 +36,40 @@
     h1{
       margin-top: 3rem;
     }
+
+    .x-indicator{
+        display:none;
+    }
+    .htmx-request .x-indicator{
+        display:inline;
+    }
+    .htmx-request.x-indicator{
+        display:inline;
+    }
   </style> 
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "王福强 个人介绍",
+      "image": [
+        "https://afoo.me/images/fb_subscribe.jpg"
+       ],
+      "datePublished": "2017-11-13",
+      "author": [{
+          "@type": "Person",
+          "name": "王福强",
+          "url": "https://afoo.me"
+        }]
+    }
+  </script> 
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "irqzhxtyzn");
+  </script> 
  </head> 
  <body id="page-top"> <!-- Navigation --> 
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
@@ -125,31 +162,56 @@
      </ol> 
     </section> <!--          </div>--> <!--        </div>--> 
     <hr> 
+    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+    </div> 
+    <div id="random_posts"> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2010-03-26-gotchas-with-junit-exec-model.html">Gotchas With JUnit’s Execution Model </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2008-05-22-plain-day.html">今日杂记 </a> 
+     </div> 
+     <div class="alert alert-light" role="alert"> <a href="/posts/2015-09-15-qiang-mai-touring.html">清迈, 刷我滴卡 </a> 
+     </div> 
+    </div> 
+    <hr> 
     <div> 
      <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
      <ol> 
       <li>不但有及时新鲜的AI资讯和深度探讨</li> 
       <li>还分享AI工具、产品方法和商业机会</li> 
-      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
+      <li>更有体系化精品付费内容等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取。(加入之后<b>一定记得看置顶消息</b>呀！)</li> 
      </ol> 
      <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
     </div> 
     <hr> 
-    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
-    </div> 
-    <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2020-07-31-trend-words-to-ali.html">我曾经跟阿里内部人说过的话 </a> 
-     </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2009-02-20-jms-durable-subscription-tutorial.html">JMS Durable Subscription Tutorial </a> 
-     </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2011-09-07-casual_thoughts_on_distributed_RPC_framework.html">Casual Thoughts On Distributed RPC Service Framework </a> 
-     </div> 
-    </div> 
-    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
-    <div id="comments"></div> 
+    <p> <span style="font-size: xx-large;">存量的时代，省钱就是赚钱。</span> <br> <span style="font-size: xx-large;">在增量的时代，省钱其实是亏钱。</span> <br> 避坑儿是省钱的一种形式，更是真正聪明人的选择！ <br> 弯路虽然也是路，但还是能少走就少走，背后都是高昂的试错成本。 <br> <b>订阅「福报」</b>，少踩坑，少走弯路，多走一步，就是不一样的胜率！ </p> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
     <hr> 
-    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
+    <div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"> 
+     <div id="tfloader" class="x-indicator"> 
+      <svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"> <g fill="none" fill-rule="evenodd"> 
+        <g transform="translate(1 1)" stroke-width="2"> 
+         <circle cx="5" cy="50" r="5"> 
+          <animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /> 
+          <animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /> 
+         </circle> 
+         <circle cx="27" cy="5" r="5"> 
+          <animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /> 
+          <animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /> 
+         </circle> 
+         <circle cx="49" cy="50" r="5"> 
+          <animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /> 
+          <animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /> 
+         </circle> 
+        </g> 
+       </g> 
+      </svg> 
+     </div> 
     </div> 
+    <hr> 
+    <div id="comments"></div> <!-- <div class="text-center">
+      <a href="https://twitter.com/fujohnwang">
+        <img src="/images/Twitter-logo.png" class="img-responsive" loading='lazy' style="width: fit-content;">
+      </a>
+    </div> --> 
    </div> 
   </section> 
   <div style="color:white; visibility: collapse; height: 0;">
@@ -173,7 +235,6 @@ var gitalk = new Gitalk({
 
 gitalk.render('comments')
     </script> 
-  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
   <script>
   kofiWidgetOverlay.draw('fff000', {
     'type': 'floating-chat',
@@ -181,23 +242,6 @@ gitalk.render('comments')
     'floating-chat.donateButton.background-color': 'red',
     'floating-chat.donateButton.text-color': 'white'
   });
-</script> 
-  <script>
-  fetch('https://jsonld.afoo.me', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      url: window.location.href
-    })
-  }).then(response => response.text()).then(structuredDataText => {
-    const script = document.createElement('script');
-    script.setAttribute('type', 'application/ld+json');
-    script.textContent = structuredDataText;
-    document.head.appendChild(script);
-  });
-</script>  
-  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+</script>  <!-- <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> --> 
  </body>
 </html>

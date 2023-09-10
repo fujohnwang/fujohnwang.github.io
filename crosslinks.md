@@ -6,7 +6,7 @@
 - [福强](https://afoo.me/whoami.html)的Youtube频道
   - [扶墙老师](https://www.youtube.com/c/fujohnwang) - <https://youtube.com/@afoo>
 - 架构百科
-  - [架构百科文字版](https://jiagoubaike.github.io/)
+  - [架构百科文字版](https://jiagoubaike.com)
   - [架构百科Youtube频道](https://www.youtube.com/channel/UCG4NNmSjcCQGv3T25JBlHTQ)
 - [福强为个人提供的产品与服务](consulting.html)
   - [福强的书](https://afoo.me/books.html)
