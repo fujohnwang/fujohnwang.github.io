@@ -1,116 +1,100 @@
 <!doctype html>
-<html lang="zh"> 
+<html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]"> 
  <head> 
   <meta charset="utf-8"> 
-  <meta name="keywords" content="普通文本的“麻雀变凤凰”之路 - 架构教练,架构师个人成长教练,个人成长,组织成长,个人与组织成长顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
-  <meta name="description" content="普通文本的“麻雀变凤凰”之路 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="keywords" content="普通文本的“麻雀变凤凰”之路 - 架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="普通文本的“麻雀变凤凰”之路 - 福强说，扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+  <meta name="robots" content="index,follow"> 
   <title>普通文本的“麻雀变凤凰”之路 -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <link rel="canonical" href="https://afoo.me/posts/2008-11-12-choices-make-plain-text-be-rich.html"> 
-  <style type="text/css">code{white-space: pre;}</style> 
-  <style type="text/css">
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      {   }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-    code span.at { color: #7d9029; } /* Attribute */
-    code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #4070a0; } /* Char */
-    code span.cn { color: #880000; } /* Constant */
-    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-    code span.dt { color: #902000; } /* DataType */
-    code span.dv { color: #40a070; } /* DecVal */
-    code span.er { color: #ff0000; font-weight: bold; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #40a070; } /* Float */
-    code span.fu { color: #06287e; } /* Function */
-    code span.im { } /* Import */
-    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-    code span.op { color: #666666; } /* Operator */
-    code span.ot { color: #007020; } /* Other */
-    code span.pp { color: #bc7a00; } /* Preprocessor */
-    code span.sc { color: #4070a0; } /* SpecialChar */
-    code span.ss { color: #bb6688; } /* SpecialString */
-    code span.st { color: #4070a0; } /* String */
-    code span.va { color: #19177c; } /* Variable */
-    code span.vs { color: #4070a0; } /* VerbatimString */
-    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-  </style> 
+  <link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"> 
+  <link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8"> 
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
-  <script src="/js/overlay-widget.js"></script> <!--
-  <script type="text/javascript" src="/js/watermark.js"></script>
-  --> <!-- Bootstrap core CSS --> 
-  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
-  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> 
   <style type="text/css">
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      text-align: left;
-      position: relative;
-      -webkit-font-smoothing: antialiased;
-    }
-    
+        pre > code{white-space: pre-line;}
 
-    h1{
-      margin-top: 3rem;
-    }
-
-    .x-indicator{
-        display:none;
-    }
-    .htmx-request .x-indicator{
-        display:inline;
-    }
-    .htmx-request.x-indicator{
-        display:inline;
-    }
-  </style> 
+        .x-indicator{
+            display:none;
+        }
+        .htmx-request .x-indicator{
+            display:inline;
+        }
+        .htmx-request.x-indicator{
+            display:inline;
+        }
+    </style> 
+  <style type="text/css">
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    </style> 
+  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -135,166 +119,244 @@
     })(window, document, "clarity", "script", "irqzhxtyzn");
   </script> 
  </head> 
- <body id="page-top"> <!-- Navigation --> 
-  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
-    <div class="collapse navbar-collapse" id="navbarResponsive"> 
-     <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://jiagoubaike.com">架构百科</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
-     </ul> 
-    </div> 
-   </div> 
-  </nav> 
-  <section> 
-   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
-    <p class="lead"> </p>
-    <h1 class="title">普通文本的“麻雀变凤凰”之路</h1> 
-    <p></p> 
-    <hr> 
-    <p>整个标题整得有些过于夸张了（这种行为好像是称作“标题党 ”吧？！）， 呵呵，实际上，仅仅是因为无意间翻了翻“搞头书 ” <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> ， 发现个叫“BlueCloth ”的Gem库可以将普通文本标记转换成HTML格式， 从而牵连出自己脑海中的其它几种完成类似功能的工具选择，故此借机汇聚一下， 当然了，更希望是“抛砖引玉 ”，各位同仁如果还有更多的选择，不妨尽情添附，以(之)享整个社区。</p> 
-    <p>对于文档之类的编写工作来说，大家或许早就习惯了MS Word之类工具倡导的“所见即所得(WYSIWYG) ”编写方式， 属于这一类的工具很多，包括:</p> 
-    <ol type="1"> 
-     <li>Microsoft Word</li> 
-     <li>OpenOffice Writer</li> 
-     <li>DreamWeaver(我不知道把它罗列在这里是否合适，呵呵)</li> 
-     <li>Buzzword(http://buzzword.acrobat.com)</li> 
-    </ol> 
-    <p>但是，所有这些并不能代表整个世界，当我们透过镜子的这一面看过去的时候，就会发现， 在镜子的另一面，“所见即所得”并不像我们最初所想象的那样处处受欢迎， 因为在这里，“基于标记文本的文字编写方式”才是统治镜子另一面的那个“人 ”。 :-)</p> 
-    <p>我们不妨将“基于标记文本的文字编写方式 ”划分为两类，第一类不妨称其为“基于普通文本的标记文本 ”， 第二类不妨称其为“基于XML格式的标记文本 ”，下面我们分别对这两类标记文本方式进行细谈…</p> 
-    <h1 id="基于普通文本的标记文本">基于普通文本的标记文本</h1> 
-    <p>通常情况下，“基于普通文本的标记文本”都是在普通文本中间“穿插 ”一些具有特殊意义的标记文本， 然后通过某种能够识别这些预先定义的标记文本的工具，对这些普通文本进行处理或者说转换，最终输出成各种格式的文档，比如最常见的就是输出成HTML文件。</p> 
-    <h2 id="wiki">WIKI</h2> 
-    <p>属于此种范畴的“人选 ”，第一个当属“WIKI ”，大名鼎鼎的Wikipedia（http://en.wikipedia.org/wiki/Main_Page）想必大家都已经早有耳闻了。 WIKI形式的文档就是，编辑的时候以普通文本形式进行编辑，而显示的时候，则根据普通文本内容中嵌入的各种标记进行格式化输出成HTML进行显示。对WIKI的总体情况，笔者其实不是很熟悉， 好像各家WIKI都有各自都有的标记文本语法(Syntax)，而笔者充其量也只是早些年前自己装过“MoinMoin Wiki(http://moinmoin.wikiwikiweb.de/) ”，自己把玩了一把而已。</p> 
-    <p>WIKI的实现产品很多，基于各种编程语言的WIKI都会各自涌现一些优秀的产品，像MoinMoin Wiki就是使用Python语言开发的， 除此之外，还有使用Java语言开发的XWiki，使用Perl开发的最早的Wiki应用WikiWikiWeb等等。 你可以从http://en.wikipedia.org/wiki/Wiki_software获取更多使用其他语言开发的Wiki软件的相关信息。</p> 
-    <p>还记得前阵子在图灵的论坛里，刘江老师发起一个倡导大家通过Wiki合作写书的想法，可见Wiki并非浪得虚名，仅是说说而已了。</p> 
-    <h2 id="texlatex">Tex/LaTex</h2> 
-    <p>笔者想当年因为经济条件没有考研，所以也就没有真正验证过，只是听说，只要是读过研究生写过论文的， 好像大多数都接触过LaTeX（http://www.latex-project.org/），它属于TeX的改进版，但同样属于基于普通标记文本的文字编写方式。 LaTeX好像对各种公式的表达支持很好，不过，对于中文的支持来说，好像要诉诸于CTeX之类的本地化版本，但这都是笔者道听途说， 如果您对这种基于TeX/LaTeX的编辑方式感兴趣，倒是应该自己验证一下。俺此行的目的，仅仅是为了罗列选择项而已。</p> 
-    <p>这里有一个摘自LaTeX网站的实例，或许能够让我们有一个感性的认识。如果编写如下源文本：</p> 
-    <div class="sourceCode" id="cb1">
-     <pre class="sourceCode latex"><code class="sourceCode latex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">\documentclass</span>{<span class="ex">article</span>}</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">\title</span>{Cartesian closed categories and the price of eggs}</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">\author</span>{Jane Doe}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">\date</span>{September 1994}</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">document</span>}</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>   <span class="fu">\maketitle</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>   Hello world!</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">document</span>}</span></code></pre>
-    </div> 
-    <p>那么，通过LaTeX处理后，将输出类似如下形式的显示效果(下面的输出无法完全反映效果，可以参考LaTeX网站上的样子)：</p> 
-    <pre>Cartesian closed categories and the price of eggs
-
-
-
-
-Jane Doe
-September 1994
-
-Hello world!
-</pre> 
-    <h2 id="blueclothredcloth">BlueCloth/RedCloth</h2> 
-    <p>前面说了，这篇文字是由BlueCloth（http://www.deveiate.org/projects/BlueCloth/）引出的， 这是一个基于Markdown(http://daringfireball.net/projects/markdown/)标记语法的Ruby Gem库， 使用它，我们可以在Ruby程序中将符合Markdown标记语法的普通文本转换成HTML格式的文本以供显示。</p> 
-    <p>在Ruby世界里，有一个BlueCloth的同胞兄弟，叫做RedCloth，它也是一个Ruby的Gem库，同样用于将普通的标记文本转换成HTML格式的文本， 但是，RedCloth所遵循的标记语法与BlueCloth是不一样的，它遵循的是Textism(http://www.textism.com/tools/textile/)所规定的标记语法。 ## A9text</p> 
-    <p>这个是自己兄弟阿九的开源项目，主要基于Javascript实现，采用自己的标记文本语法，同样采用的是基于普通标记文本格式。 A9Text可以让你在本机方便的进行文档编写，而不用去操心各种格式的编排之类的琐事，你可以从http://trydofor.iteye.com/获取更多A9Text的信息。</p> 
-    <h2 id="其他">其他…</h2> 
-    <p>我想，许多思想都是相似的，在其他的计算机语言或者说技术社区中，应该也存在许多基于同一思想的软件或者说产品， 只是，俺不是超人，不可能去一一认识，列位如若晓得，不妨道明，也让俺开阔些眼界。</p> 
-    <h1 id="基于xml格式的标记文本">基于XML格式的标记文本</h1> 
-    <p>这部分其实只是想说说DocBook，因为笔者现在已经习惯了基于docbook的文档编写方式，谁让俺没能精通Word的使用那，呵呵。 最初决定使用docbook的时候，是记得好像OReilly内部是使用docbook作为内部格式的，后来才发现，当初没有充分考虑国情， 因为国内还是用Word进行排版的，好在使用Docbook的好处就是，我只需要关注内容就可以了，至于最终的输出格式， 可以视情况而定，我可以将同样一份docbook输出成单页的HTML，多页的HTML，PDF等格式，甚至于如果我们能够知道Word文档的内部结构， 也可以写一个转换程序，将同一份docbook文档直接转换成Word文档。</p> 
-    <p>实际上，这篇文字就是使用docbook编写的，通过Velocity项目提供的Docbook Framework，只需要少许几步， 就可以在Eclipse中搭建一个完备的文档编写工程，如果不考虑交换的话，只是自己编写一些东西，离了word，其实也满逍遥的。</p> 
-    <h1 id="小结">小结</h1> 
-    <p>或许真的就跟Linkin Park乐队在一首歌的结尾所说的那样，“Difference Is Good”， 即使是基于相同的理念或者说思想，但各个产品之间还是会存在些许差异，或者是标记语法的差异，或者是实现语音的差异，等等。 这就跟经常见到的语言之争，框架之争一样，或许都只是个人喜好决定的，也正是如此，才会让整个世界变得如此斑斓。</p> 
-    <p>但话又说回来了，有时候，选择太多了也不好，或许会让大家选择的很累，这个时候，过多的差异反而成为了问题， 能够一统天下的方式，或许又会更受欢迎，谁又知道那？！</p> 
-    <section class="footnotes" role="doc-endnotes"> 
-     <hr> 
-     <ol> 
-      <li id="fn1" role="doc-endnote"><p>《Programming Ruby》 2nd Edition<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
-     </ol> 
-    </section> <!--          </div>--> <!--        </div>--> 
-    <hr> 
-    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
-    </div> 
-    <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2018-08-15-know_graal_today.html">初识Graal </a> 
-     </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2016-01-14-wacai-pt-recruiting.html">挖财平台技术保障部广发英雄帖 </a> 
-     </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2006-01-06-pdf-printing-with-java.html">在java中实现PDF打印（PDF Printing With Java） </a> 
-     </div> 
-    </div> 
-    <hr> 
-    <div> 
-     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
-     <ol> 
-      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
-      <li>还分享AI工具、产品方法和商业机会</li> 
-      <li>更有体系化精品付费内容等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取。(加入之后<b>一定记得看置顶消息</b>呀！)</li> 
-     </ol> 
-     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
-    </div> 
-    <hr> 
-    <p> <span style="font-size: xx-large;">存量的时代，省钱就是赚钱。</span> <br> <span style="font-size: xx-large;">在增量的时代，省钱其实是亏钱。</span> <br> 避坑儿是省钱的一种形式，更是真正聪明人的选择！ <br> 弯路虽然也是路，但还是能少走就少走，背后都是高昂的试错成本。 <br> <b>订阅「福报」</b>，少踩坑，少走弯路，多走一步，就是不一样的胜率！ </p> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
-    <hr> 
-    <div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"> 
-     <div id="tfloader" class="x-indicator"> 
-      <svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"> <g fill="none" fill-rule="evenodd"> 
-        <g transform="translate(1 1)" stroke-width="2"> 
-         <circle cx="5" cy="50" r="5"> 
-          <animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /> 
-          <animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /> 
-         </circle> 
-         <circle cx="27" cy="5" r="5"> 
-          <animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /> 
-          <animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /> 
-         </circle> 
-         <circle cx="49" cy="50" r="5"> 
-          <animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /> 
-          <animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /> 
-         </circle> 
+ <body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"> 
+  <header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"> 
+   <div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"> 
+    <div class="flex justify-between"> <a class="flex items-center" href="https://afoo.me"> <span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"> <h1>王福强的个人博客</h1> </span> </a> 
+     <div class="flex items-center md:hidden"> <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""> 
+       <svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+         <circle cx="12" cy="12" r="4"></circle> 
+         <path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"> 
+         </path> 
         </g> 
-       </g> 
-      </svg> 
+       </svg> </button> <button type="button" class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition" aria-label="Toggle Menu" data-toggle-menu=""> 
+       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:menu"> <g class="icon-tabler" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+         <path d="M4 8h16"></path> 
+         <path d="M4 16h16"></path> 
+        </g> 
+       </svg> </button> 
      </div> 
     </div> 
-    <hr> 
-    <div id="comments"></div> <!-- <div class="text-center">
-      <a href="https://twitter.com/fujohnwang">
-        <img src="/images/Twitter-logo.png" class="img-responsive" loading='lazy' style="width: fit-content;">
-      </a>
-    </div> --> 
+    <nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"> 
+     <ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me">福强AI学堂</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com">架构百科</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html">博客文章 </a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html">创作出版</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me">产品与服务</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/crosslinks.html">更多链接</a> </li> 
+     </ul> 
+     <div class="md:self-center flex items-center mb-4 md:mb-0 ml-2"> 
+      <div class="hidden items-center md:flex"> <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+          <circle cx="12" cy="12" r="4"></circle> 
+          <path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"> 
+          </path> 
+         </g> 
+        </svg> </button> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="RSS Feed" href="http://afoo.me/feeds.xml"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:rss"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+          <circle cx="5" cy="19" r="1"></circle> 
+          <path d="M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"></path> 
+         </g> 
+        </svg> </a> 
+      </div> 
+     </div> 
+    </nav> 
    </div> 
-  </section> 
-  <div style="color:white; visibility: collapse; height: 0;">
-   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
-  </div> 
-  <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
-    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
-   </div> 
-  </div> 
-  <script type="text/javascript">
-var gitalk = new Gitalk({
-  clientID: '518a605d711883414ac0',
-  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-  repo: 'afoo.me.comments',
-  owner: 'fujohnwang',
-  admin: ['fujohnwang'],
-  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-  distractionFreeMode: false  // Facebook-like distraction free mode
-})
+  </header> 
+  <main> 
+   <section class="text-gray-600 body-font relative"> 
+    <div class="container px-5 py-24 mx-auto mb-12 prose prose-lg dark:prose-invert"> 
+     <p class="lead"> </p>
+     <h1 class="title">普通文本的“麻雀变凤凰”之路</h1> 
+     <p></p> 
+     <hr> 
+     <p>整个标题整得有些过于夸张了（这种行为好像是称作“标题党 ”吧？！）， 呵呵，实际上，仅仅是因为无意间翻了翻“搞头书 ” <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> ， 发现个叫“BlueCloth ”的Gem库可以将普通文本标记转换成HTML格式， 从而牵连出自己脑海中的其它几种完成类似功能的工具选择，故此借机汇聚一下， 当然了，更希望是“抛砖引玉 ”，各位同仁如果还有更多的选择，不妨尽情添附，以(之)享整个社区。</p> 
+     <p>对于文档之类的编写工作来说，大家或许早就习惯了MS Word之类工具倡导的“所见即所得(WYSIWYG) ”编写方式， 属于这一类的工具很多，包括:</p> 
+     <ol type="1"> 
+      <li>Microsoft Word</li> 
+      <li>OpenOffice Writer</li> 
+      <li>DreamWeaver(我不知道把它罗列在这里是否合适，呵呵)</li> 
+      <li>Buzzword(http://buzzword.acrobat.com)</li> 
+     </ol> 
+     <p>但是，所有这些并不能代表整个世界，当我们透过镜子的这一面看过去的时候，就会发现， 在镜子的另一面，“所见即所得”并不像我们最初所想象的那样处处受欢迎， 因为在这里，“基于标记文本的文字编写方式”才是统治镜子另一面的那个“人 ”。 :-)</p> 
+     <p>我们不妨将“基于标记文本的文字编写方式 ”划分为两类，第一类不妨称其为“基于普通文本的标记文本 ”， 第二类不妨称其为“基于XML格式的标记文本 ”，下面我们分别对这两类标记文本方式进行细谈…</p> 
+     <h1 id="基于普通文本的标记文本">基于普通文本的标记文本</h1> 
+     <p>通常情况下，“基于普通文本的标记文本”都是在普通文本中间“穿插 ”一些具有特殊意义的标记文本， 然后通过某种能够识别这些预先定义的标记文本的工具，对这些普通文本进行处理或者说转换，最终输出成各种格式的文档，比如最常见的就是输出成HTML文件。</p> 
+     <h2 id="wiki">WIKI</h2> 
+     <p>属于此种范畴的“人选 ”，第一个当属“WIKI ”，大名鼎鼎的Wikipedia（http://en.wikipedia.org/wiki/Main_Page）想必大家都已经早有耳闻了。 WIKI形式的文档就是，编辑的时候以普通文本形式进行编辑，而显示的时候，则根据普通文本内容中嵌入的各种标记进行格式化输出成HTML进行显示。对WIKI的总体情况，笔者其实不是很熟悉， 好像各家WIKI都有各自都有的标记文本语法(Syntax)，而笔者充其量也只是早些年前自己装过“MoinMoin Wiki(http://moinmoin.wikiwikiweb.de/) ”，自己把玩了一把而已。</p> 
+     <p>WIKI的实现产品很多，基于各种编程语言的WIKI都会各自涌现一些优秀的产品，像MoinMoin Wiki就是使用Python语言开发的， 除此之外，还有使用Java语言开发的XWiki，使用Perl开发的最早的Wiki应用WikiWikiWeb等等。 你可以从http://en.wikipedia.org/wiki/Wiki_software获取更多使用其他语言开发的Wiki软件的相关信息。</p> 
+     <p>还记得前阵子在图灵的论坛里，刘江老师发起一个倡导大家通过Wiki合作写书的想法，可见Wiki并非浪得虚名，仅是说说而已了。</p> 
+     <h2 id="texlatex">Tex/LaTex</h2> 
+     <p>笔者想当年因为经济条件没有考研，所以也就没有真正验证过，只是听说，只要是读过研究生写过论文的， 好像大多数都接触过LaTeX（http://www.latex-project.org/），它属于TeX的改进版，但同样属于基于普通标记文本的文字编写方式。 LaTeX好像对各种公式的表达支持很好，不过，对于中文的支持来说，好像要诉诸于CTeX之类的本地化版本，但这都是笔者道听途说， 如果您对这种基于TeX/LaTeX的编辑方式感兴趣，倒是应该自己验证一下。俺此行的目的，仅仅是为了罗列选择项而已。</p> 
+     <p>这里有一个摘自LaTeX网站的实例，或许能够让我们有一个感性的认识。如果编写如下源文本：</p> 
+     <div class="sourceCode" id="cb1">
+      <pre class="sourceCode latex"><code class="sourceCode latex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">\documentclass</span>{<span class="ex">article</span>}</span>
+            <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">\title</span>{Cartesian closed categories and the price of eggs}</span>
+            <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">\author</span>{Jane Doe}</span>
+            <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">\date</span>{September 1994}</span>
+            <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">document</span>}</span>
+            <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>   <span class="fu">\maketitle</span></span>
+            <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>   Hello world!</span>
+            <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">document</span>}</span></code></pre>
+     </div> 
+     <p>那么，通过LaTeX处理后，将输出类似如下形式的显示效果(下面的输出无法完全反映效果，可以参考LaTeX网站上的样子)：</p> 
+     <pre>            Cartesian closed categories and the price of eggs
 
-gitalk.render('comments')
-    </script> 
+
+
+
+            Jane Doe
+            September 1994
+
+            Hello world!
+            </pre> 
+     <h2 id="blueclothredcloth">BlueCloth/RedCloth</h2> 
+     <p>前面说了，这篇文字是由BlueCloth（http://www.deveiate.org/projects/BlueCloth/）引出的， 这是一个基于Markdown(http://daringfireball.net/projects/markdown/)标记语法的Ruby Gem库， 使用它，我们可以在Ruby程序中将符合Markdown标记语法的普通文本转换成HTML格式的文本以供显示。</p> 
+     <p>在Ruby世界里，有一个BlueCloth的同胞兄弟，叫做RedCloth，它也是一个Ruby的Gem库，同样用于将普通的标记文本转换成HTML格式的文本， 但是，RedCloth所遵循的标记语法与BlueCloth是不一样的，它遵循的是Textism(http://www.textism.com/tools/textile/)所规定的标记语法。 ## A9text</p> 
+     <p>这个是自己兄弟阿九的开源项目，主要基于Javascript实现，采用自己的标记文本语法，同样采用的是基于普通标记文本格式。 A9Text可以让你在本机方便的进行文档编写，而不用去操心各种格式的编排之类的琐事，你可以从http://trydofor.iteye.com/获取更多A9Text的信息。</p> 
+     <h2 id="其他">其他…</h2> 
+     <p>我想，许多思想都是相似的，在其他的计算机语言或者说技术社区中，应该也存在许多基于同一思想的软件或者说产品， 只是，俺不是超人，不可能去一一认识，列位如若晓得，不妨道明，也让俺开阔些眼界。</p> 
+     <h1 id="基于xml格式的标记文本">基于XML格式的标记文本</h1> 
+     <p>这部分其实只是想说说DocBook，因为笔者现在已经习惯了基于docbook的文档编写方式，谁让俺没能精通Word的使用那，呵呵。 最初决定使用docbook的时候，是记得好像OReilly内部是使用docbook作为内部格式的，后来才发现，当初没有充分考虑国情， 因为国内还是用Word进行排版的，好在使用Docbook的好处就是，我只需要关注内容就可以了，至于最终的输出格式， 可以视情况而定，我可以将同样一份docbook输出成单页的HTML，多页的HTML，PDF等格式，甚至于如果我们能够知道Word文档的内部结构， 也可以写一个转换程序，将同一份docbook文档直接转换成Word文档。</p> 
+     <p>实际上，这篇文字就是使用docbook编写的，通过Velocity项目提供的Docbook Framework，只需要少许几步， 就可以在Eclipse中搭建一个完备的文档编写工程，如果不考虑交换的话，只是自己编写一些东西，离了word，其实也满逍遥的。</p> 
+     <h1 id="小结">小结</h1> 
+     <p>或许真的就跟Linkin Park乐队在一首歌的结尾所说的那样，“Difference Is Good”， 即使是基于相同的理念或者说思想，但各个产品之间还是会存在些许差异，或者是标记语法的差异，或者是实现语音的差异，等等。 这就跟经常见到的语言之争，框架之争一样，或许都只是个人喜好决定的，也正是如此，才会让整个世界变得如此斑斓。</p> 
+     <p>但话又说回来了，有时候，选择太多了也不好，或许会让大家选择的很累，这个时候，过多的差异反而成为了问题， 能够一统天下的方式，或许又会更受欢迎，谁又知道那？！</p> 
+     <section class="footnotes" role="doc-endnotes"> 
+      <hr> 
+      <ol> 
+       <li id="fn1" role="doc-endnote"><p>《Programming Ruby》 2nd Edition<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+      </ol> 
+     </section> 
+     <hr> 
+     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+     </div> 
+     <div id="random_posts"> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2018-07-25-i-am-a-bottle.html">我是一只虚脱的瓶子 </a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2023-04-09-stable-diffusion-courses.html">18🈲️：AI绘画，再不会就晚了… </a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2010-06-22-life-in-a-loop.html">轮回</a> 
+      </div> 
+     </div> 
+     <hr> 
+     <div> 
+      <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+      <ol> 
+       <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+       <li>还分享AI工具、产品方法和商业机会</li> 
+       <li>更有体系化精品付费内容等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取。(加入之后<b>一定记得看置顶消息</b>呀！)</li> 
+      </ol> 
+      <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+     </div> 
+     <hr> 
+     <p> <span style="font-size: xx-large;">存量的时代，省钱就是赚钱。</span> <br> <span style="font-size: xx-large;">在增量的时代，省钱其实是亏钱。</span> <br> 避坑儿是省钱的一种形式，更是真正聪明人的选择！ <br> 弯路虽然也是路，但还是能少走就少走，背后都是高昂的试错成本。 <br> <b>订阅「福报」</b>，少踩坑，少走弯路，多走一步，就是不一样的胜率！ </p> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
+     <hr> 
+     <div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"> 
+      <div id="tfloader" class="x-indicator"> 
+       <svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"> <g fill="none" fill-rule="evenodd"> 
+         <g transform="translate(1 1)" stroke-width="2"> 
+          <circle cx="5" cy="50" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+          <circle cx="27" cy="5" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+          <circle cx="49" cy="50" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+         </g> 
+        </g> 
+       </svg> 
+      </div> 
+     </div> 
+     <hr> 
+     <div id="comments"></div> 
+    </div> 
+   </section> 
+  </main> 
+  <footer class="border-t border-gray-200 dark:border-slate-800"> 
+   <div class="max-w-6xl mx-auto px-4 sm:px-6"> 
+    <div class="md:flex md:items-center md:justify-between py-6 md:py-8"> 
+     <ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0"> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Twitter" href="https://twitter.com/fujohnwang"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-twitter"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z"> 
+         </path> 
+        </svg> </a> </li> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Facebook" href="https://www.facebook.com/fujohnwang/"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-facebook"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2H7"></path> 
+        </svg> </a> </li> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Github" href="https://github.com/fujohnwang"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-github"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"> 
+         </path> 
+        </svg> </a> </li> 
+     </ul> 
+     <div class="text-sm text-gray-700 mr-4 dark:text-slate-400"> <span class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 float-left rounded-sm"> <img src="https://afoo.me/favicon.svg" class="rounded-md" alt> </span> Copyright © 王福强个人版权所有 - Since 2004 (Everything is homebrewed with <a href="https://pandoc.org/">Pandoc</a> and Markdown, little <a href="https://www.scala-lang.org/">Scala</a> also included.) 
+     </div> 
+    </div> 
+   </div> 
+  </footer> 
   <script>
-  kofiWidgetOverlay.draw('fff000', {
-    'type': 'floating-chat',
-    'floating-chat.donateButton.text': 'Support me',
-    'floating-chat.donateButton.background-color': 'red',
-    'floating-chat.donateButton.text-color': 'white'
-  });
-</script>  <!-- <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> --> 
+        // Set "light" theme as default
+        if (!localStorage.theme) {
+            localStorage.theme = "light";
+        }
+
+        if (
+            localStorage.theme === 'dark' ||
+            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function attachEvent(selector, event, fn) {
+            const matches = document.querySelectorAll(selector);
+            if (matches && matches.length) {
+                matches.forEach((elem) => {
+                    elem.addEventListener(event, () => fn(elem), false);
+                });
+            }
+        }
+
+        window.onload = function () {
+            attachEvent('[data-toggle-menu]', 'click', function (elem) {
+                elem.classList.toggle('expanded');
+                document.body.classList.toggle('overflow-hidden');
+                document.getElementById('header')?.classList.toggle('h-screen');
+                document.querySelector('#header nav')?.classList.toggle('hidden');
+            });
+            attachEvent('[data-toggle-color-scheme]', 'click', function () {
+                document.documentElement.classList.toggle('dark');
+                localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            });
+        };
+        window.onpageshow = function () {
+            const elem = document.querySelector('[data-toggle-menu]');
+            if (elem) {
+                elem.classList.remove('expanded');
+            }
+            document.body.classList.remove('overflow-hidden');
+            document.getElementById('header')?.classList.remove('h-screen');
+            document.querySelector('#header nav')?.classList.add('hidden');
+        };
+    </script> 
+  <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '518a605d711883414ac0',
+          clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+          repo: 'afoo.me.comments',
+          owner: 'fujohnwang',
+          admin: ['fujohnwang'],
+          id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+        gitalk.render('comments')
+    </script>  
  </body>
 </html>

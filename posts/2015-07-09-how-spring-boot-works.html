@@ -1,117 +1,101 @@
 <!doctype html>
-<html lang="zh"> 
+<html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]"> 
  <head> 
   <meta charset="utf-8"> 
-  <meta name="keywords" content="Spring Boot Rock’n’Roll - 架构教练,架构师个人成长教练,个人成长,组织成长,个人与组织成长顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
-  <meta name="description" content="Spring Boot Rock’n’Roll - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="keywords" content="Spring Boot Rock’n’Roll - 架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="Spring Boot Rock’n’Roll - 福强说，扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+  <meta name="robots" content="index,follow"> 
   <title>Spring Boot Rock’n’Roll -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <meta name="date" content="2015-07-09"> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <link rel="canonical" href="https://afoo.me/posts/2015-07-09-how-spring-boot-works.html"> 
-  <style type="text/css">code{white-space: pre;}</style> 
-  <style type="text/css">
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      {   }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-    code span.at { color: #7d9029; } /* Attribute */
-    code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #4070a0; } /* Char */
-    code span.cn { color: #880000; } /* Constant */
-    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-    code span.dt { color: #902000; } /* DataType */
-    code span.dv { color: #40a070; } /* DecVal */
-    code span.er { color: #ff0000; font-weight: bold; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #40a070; } /* Float */
-    code span.fu { color: #06287e; } /* Function */
-    code span.im { } /* Import */
-    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-    code span.op { color: #666666; } /* Operator */
-    code span.ot { color: #007020; } /* Other */
-    code span.pp { color: #bc7a00; } /* Preprocessor */
-    code span.sc { color: #4070a0; } /* SpecialChar */
-    code span.ss { color: #bb6688; } /* SpecialString */
-    code span.st { color: #4070a0; } /* String */
-    code span.va { color: #19177c; } /* Variable */
-    code span.vs { color: #4070a0; } /* VerbatimString */
-    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-  </style> 
+  <link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"> 
+  <link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8"> 
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
-  <script src="/js/overlay-widget.js"></script> <!--
-  <script type="text/javascript" src="/js/watermark.js"></script>
-  --> <!-- Bootstrap core CSS --> 
-  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
-  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> 
   <style type="text/css">
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      text-align: left;
-      position: relative;
-      -webkit-font-smoothing: antialiased;
-    }
-    
+        pre > code{white-space: pre-line;}
 
-    h1{
-      margin-top: 3rem;
-    }
-
-    .x-indicator{
-        display:none;
-    }
-    .htmx-request .x-indicator{
-        display:inline;
-    }
-    .htmx-request.x-indicator{
-        display:inline;
-    }
-  </style> 
+        .x-indicator{
+            display:none;
+        }
+        .htmx-request .x-indicator{
+            display:inline;
+        }
+        .htmx-request.x-indicator{
+            display:inline;
+        }
+    </style> 
+  <style type="text/css">
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    </style> 
+  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -136,546 +120,624 @@
     })(window, document, "clarity", "script", "irqzhxtyzn");
   </script> 
  </head> 
- <body id="page-top"> <!-- Navigation --> 
-  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
-    <div class="collapse navbar-collapse" id="navbarResponsive"> 
-     <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://jiagoubaike.com">架构百科</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
-     </ul> 
-    </div> 
-   </div> 
-  </nav> 
-  <section> 
-   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
-    <p class="lead"> </p>
-    <h1 class="title">Spring Boot Rock’n’Roll</h1> <small> <h3 class="author">FuqiangWang - fujohnwang AT gmail DOTA com</h3> 
-     <div style="text-align: left;">
-      2015-07-09
-     </div> </small> 
-    <p></p> 
-    <hr> 
-    <h1 id="springboot-intro">SpringBoot Intro</h1> 
-    <p><a href="http://projects.spring.io/spring-boot/">SpringBoot</a>是顺应现在微服务（MicroServices）理念而产生的一个微框架（同类微框架可供选择的还有<a href="https://dropwizard.github.io/">Dropwizard</a>）， 用来构建基于Spring框架的标准化的独立部署应用程序（“再也tmd不用寄人篱下，活在WebContainer的屋檐下了”）。</p> 
-    <blockquote> 
-     <p>我们原来选择试用Dropwizard作为Web API的标准框架， 也完成了一些项目，总体上来说， Dropwizard是可以满足这些场景的，且它对metrics的支持尤其优秀。从技术因素 <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>上来说， Dropwizard是OK的， 但结合公司内部和外部层面其它更多因素考虑，则选型Dropwizard可能不是最合适的做法。</p> 
-     <p>我们还是一个比较年轻的团队， 大家有很好的上进意愿，而且我们有优秀的技术leader来带领他们前行，但罗马不是一天建成的，所以， 现在大家还是对现在java生态圈中流行的技术更为熟悉，比如Spring， MyBatis等口口相传的开源框架，如何让大家在现有经验积累的前提下高效完成工作是我们目前的主要目标， 预留20%的空间给团队和个人成长应该是第二目标，而且， Spring社区已经足够成熟， 可以持续完善和支撑现有技术方案与社区成长，故此，我们决定使用SpringBoot来作为我们的微框架，以标准化支持我们的微服务战略。</p> 
-    </blockquote> 
-    <h1 id="springboot-quickstart">SpringBoot Quickstart</h1> 
-    <p>我们使用Maven构建项目，所以新建一个maven项目， pom.xml中添加如下两个关键因素：</p> 
-    <div class="sourceCode" id="cb1">
-     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">parent</span>&gt;</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">groupId</span>&gt;org.springframework.boot&lt;/<span class="kw">groupId</span>&gt;</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">artifactId</span>&gt;spring-boot-starter-parent&lt;/<span class="kw">artifactId</span>&gt;</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">version</span>&gt;1.2.5.RELEASE&lt;/<span class="kw">version</span>&gt;</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">parent</span>&gt;</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">dependencies</span>&gt;</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">dependency</span>&gt;</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">groupId</span>&gt;org.springframework.boot&lt;/<span class="kw">groupId</span>&gt;</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">artifactId</span>&gt;spring-boot-starter-web&lt;/<span class="kw">artifactId</span>&gt;</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">dependency</span>&gt;</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">dependencies</span>&gt;</span></code></pre>
-    </div> 
-    <p>使用spring-boot-starter-parent作为当前项目的parent可以享受到spring boot应用相关的一系列依赖(dependency)， 插件(plugins)等装备， 而添加spring-boot-starter-web这个依赖，则纯粹是我们希望构建一个独立运行的web应用而已(注意， 没有version元素定义，因为spring-boot-starter-parent已经提供了相应的dependencyManagement)。</p> 
-    <p>有了以上配置，我们就可以按照SpringMVC的套路添加相应的Controller实现就可以了， 比如：</p> 
-    <div class="sourceCode" id="cb2">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">// let's say, it is under package com.xxx.controller</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">@Controller</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> HelloController <span class="op">{</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">@RequestMapping</span><span class="op">(</span><span class="st">"/"</span><span class="op">)</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">@ResponseBody</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">String</span> <span class="fu">home</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Hello SpringBoot!"</span><span class="op">;</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
-    </div> 
-    <p>最后，要让SpringBoot可以独立运行和部署，我们需要一个Main方法入口， 比如：</p> 
-    <div class="sourceCode" id="cb3">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// let's say, it's located under package com.xxx</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">@SpringBootApplication</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> HelloSpringBoot <span class="op">{</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="kw">throws</span> <span class="bu">Exception</span> <span class="op">{</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        SpringApplication<span class="op">.</span><span class="fu">run</span><span class="op">(</span>HelloSpringBoot<span class="op">.</span><span class="fu">class</span><span class="op">,</span> args<span class="op">);</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
-    </div> 
-    <p>That’s it, 剩下的就是运行HelloSpringBoot, 然后打开浏览器，访问路径<code>http://localhost:8080</code>看看发生了什么吧！<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p> 
-    <p>是不是很简单？ 是啊， 不过也太过于简单了(Everything Should Be Made as Simple as Possible, But Not Simpler)， 如果仅止步于次， 那我们这些自称为技术精英的人们还有什么颜面活在这个世上那？ 我们要深挖洞，广积粮…</p> 
-    <h1 id="how-spring-boot-works">How Spring Boot Works？</h1> 
-    <p>要让一个开源软件产品在公司内部落地并成长乃至成熟， 需要我们投入精力来熟悉它， 打磨和完善它，然后才是使用它来简洁高效的交付相应的软件产品乃至高效运维之。</p> 
-    <p>为了能让SpringBoot落地生根发芽，让我们先来了解它是如何工作吧！</p> 
-    <h2 id="spring-features-revisited">Spring Features Revisited</h2> 
-    <p>作为使用Spring框架的老一辈技术革命家之一， 哥已经脱离应用开发一线多年， 虽然Spring框架从根儿上没有什么变化，但从哥那时起也已经发展了2，3个大的版本了， 所以，在深入SpringBoot之前，有必要先了解一下新版本Spring中那些相关的特性来铺垫铺垫…</p> 
-    <blockquote> 
-     <p>如果各位看官从开始就一直在使用较新或者最新的Spring框架的话，可以忽略这部分内容，直接从”Understanding <span class="citation" data-cites="EnableAutoConfiguration">@EnableAutoConfiguration</span>“章节继续好了， 不过话说回来， 看看也是好的嘛 ^_-</p> 
-    </blockquote> 
-    <h3 id="xml-configuration-vs.-javaconfig">XML Configuration VS. JavaConfig</h3> 
-    <p>哥是从Spring使用xml做依赖注入和绑定的那个时代走出来的，对xml形式的配置会比较清楚也比较“情有独钟”一些，但并非说排斥其它形式，只是会根据情况来权衡。比如SpringBoot倡导基于JavaConfig的形式来“装配”应用， 但有些层面，我们还是希望根据公司的生态圈和基础设施现状，对其进行一些定制，以便更好的融入并享受一系列生态， 这就会加一些已有系统的集成啦， 对SpringBoot原来的Convention进行Configuration明确化调整啦等等， 而大部分要集成外部已有系统的时候， 通过xml集中明确化配置我认为是比较合适的做法。</p> 
-    <p>总之， 这两种方式不应该是东风压倒西风，而应该根据情况来选择。 从我的角度来讲，我希望在SpringBoot里，除了Main入口类和autoscan相关的地方使用JavaConfig， 其它最好以xml配置，然后像一个bag似的，可以到处背着到处搬， 反正也不知道这个比喻各位看官能否看明白 ;)</p> 
-    <h3 id="configuration"><span class="citation" data-cites="Configuration">@Configuration</span></h3> 
-    <p><span class="citation" data-cites="Configuration这个Annotation就是JavaConfig的典型代表啦">@Configuration这个Annotation就是JavaConfig的典型代表啦</span>，标注了这个Annotation的Java类定义会以Java代码的形式（对应于xml定义的形式）提供一系列的bean定义和实例， 结合AnnotationConfigApplicationContext和自动扫描的功能，就可以构建一个基于Spring容器的Java应用了。</p> 
-    <p>一系列标注了@Configuration的Java类的集合，对应于“昨日”的一系列xml配置文件。</p> 
-    <h3 id="componentscan"><span class="citation" data-cites="ComponentScan">@ComponentScan</span></h3> 
-    <p><span class="citation" data-cites="ComponentScan对应xml时代的">@ComponentScan对应xml时代的</span><code>&lt;context:component-scan&gt;</code>, 用来扫描classpath下标注了相应Annotation的bean定义，然后加载到Spring容器之中。</p> 
-    <p>一般配合@Configuration来使用， 你可以将@Configuraiton做的事情是纯手工定义bean然后添加到Spring容器， 而@ComponentScan则是自动收集bean定义并添加到Spring容器。</p> 
-    <h3 id="import"><span class="citation" data-cites="Import">@Import</span></h3> 
-    <p>Spring容器的配置可以分散在多个物理存在的配置类或者配置文件中， <span class="citation" data-cites="Import允许将其它JavaConfig形式的配置类引入到当前的">@Import允许将其它JavaConfig形式的配置类引入到当前的</span><span class="citation" data-cites="Configuration标注的配置类当中">@Configuration标注的配置类当中</span>， 对应于原来xml时代的<code>&lt;import/&gt;</code>, 甚至于也可以通过@ImportResource将xml形式定义的配置也引入当前JavaConfig形式的配置类当中。</p> 
-    <h3 id="propertysource"><span class="citation" data-cites="PropertySource">@PropertySource</span></h3> 
-    <p>配合@Configuration使用， 用来加载.properties内容到Environment，比如：<code>@PropertySource("classpath:/application.properties")</code>，当然，要生效， 同时需要容器中配置一个PropertySourcesPlaceholderConfigurer。</p> 
-    <p><span class="citation" data-cites="PropertySource和">@PropertySource和</span><span class="citation" data-cites="PropertySources的区别在于">@PropertySources的区别在于</span>， 后者属于前者的Aggregation类型， 在有多个.properties资源需要引入的情况下，如果能够使用Java8的repeatable annotation特性，则只需要声明多个@PropertySource就行了， 否则，作为fallback方案，使用@PropertySources然后再其中引用多个<span class="citation" data-cites="PropertySource好了">@PropertySource好了</span>。</p> 
-    <h3 id="environment和profile">Environment和Profile</h3> 
-    <p>这两个概念应该是Spring3时代引入的， Environment用来统一表达当前应用程序运行环境的概念，会以Properties的形式提供一系列该环境下的上下文信息，而且允许当前应用程序获取activeProfile是哪个。</p> 
-    <p>说实话， Environment的设计，我觉得到提供上下文信息这一关键职能就可以了， 而Profile的设计，则有些太过于Monolithic时代的做事风格。 Profile一般用来提供某些灵活性， 但这种灵活性是内部化的， 这意味着， 你的软件实体需要知道外面可能提供多少种profiles， 然后在不同的profile下，我的软件实体需要做什么样的调整。 而实际上， 软件实体从研发到交付和使用， 最好是在整条流水线上设计和生产都是一致， 只有“销售”之前，才根据目标环境或者目标客户调整“包装”和配置， 然后“发货”， 用户拿到手的产品(当然包括我们搞的软件产品)应该是开箱即用的， 这个产品既不会存在我不需要的功能，也不应该每次使用的时候先自己“很智能”的扫描一下上下文环境然后决定使用哪一个Profile。尤其是在微服务时代，随着你服务数量的增长， <code>服务数量 * Environment数量 * 所谓的Profile数量</code>更是指数级增长 <a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>， 如果应用开发的时候还要考虑这么多，那出问题的几率就更大了。</p> 
-    <p>所以， 在Microservices时代，我们更建议外部化你的软件产品差异化配置管理， 尽量减少Profile的滥用甚至不用(这就减少一个纬度的管理)。</p> 
-    <h2 id="understanding-enableautoconfiguration">Understanding <span class="citation" data-cites="EnableAutoConfiguration">@EnableAutoConfiguration</span></h2> 
-    <p>在本文之前提到的所有Annotation都属于SpringFramework提供的， 现在要说的这个Annotation，即@EnableAutoConfiguration， 则属于SpringBoot。</p> 
-    <p><span class="citation" data-cites="EnableAutoConfiguration的定义信息如下">@EnableAutoConfiguration的定义信息如下</span>：</p> 
-    <div class="sourceCode" id="cb4">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="at">@Target</span><span class="op">(</span>value<span class="op">=</span>TYPE<span class="op">)</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at">@Retention</span><span class="op">(</span>value<span class="op">=</span>RUNTIME<span class="op">)</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="at">@Documented</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="at">@Inherited</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="at">@Import</span><span class="op">(</span>value<span class="op">={</span>org<span class="op">.</span><span class="fu">springframework</span><span class="op">.</span><span class="fu">boot</span><span class="op">.</span><span class="fu">autoconfigure</span><span class="op">.</span><span class="fu">EnableAutoConfigurationImportSelector</span><span class="op">.</span><span class="fu">class</span><span class="op">,</span>org<span class="op">.</span><span class="fu">springframework</span><span class="op">.</span><span class="fu">boot</span><span class="op">.</span><span class="fu">autoconfigure</span><span class="op">.</span><span class="fu">AutoConfigurationPackages</span><span class="op">.</span><span class="fu">Registrar</span><span class="op">.</span><span class="fu">class</span><span class="op">})</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="at">@interface</span> EnableAutoConfiguration</span></code></pre>
-    </div> 
-    <p>标注了这个Annotation的配置类将触发一系列动作， 也是SpringBoot“黑魔法”的核心， 魔法大体上是这样发生的： SpringBoot一旦发现@EnableAutoConfiguration， 那么就使用Spring框架提供的SpringFactoriesLoader这个特性去扫描当前应用classpath下所有<code>META-INF/spring.factories</code>元信息配置， 然后根据当前使用场景需要， 加载符合当前场景需要的配置类型并供当前或者后继流程使用， 对于@EnableAutoConfiguration的场景，就是提取以<code>org.springframework.boot.autoconfigure.EnableAutoConfiguration</code>作为key标志的一系列Java配置类，然后将这些Java配置类中的bean定义加载或者说灌入Spring容器中。</p> 
-    <p>当然， EnableAutoConfiguration通过SpringFactoriesLoader筛选并加载进来的这些Java配置类里面，我们其实还可以进一步对要加载到容器的bean定义进行筛选， 这就会用Spring3系列引入的@Conditional“军团”， 通过像@ConditionalOnClass， <span class="citation" data-cites="ConditionalOnMissingBean等具体的类型和条件来进一步决定加载还是不加载哪些bean定义">@ConditionalOnMissingBean等具体的类型和条件来进一步决定加载还是不加载哪些bean定义</span>。</p> 
-    <h2 id="enter-main">Enter Main</h2> 
-    <p>有了上面的这些“前戏”， 下面我们正式进入正题了…</p> 
-    <p>每一个SpringBoot应用都有一个入口类，在其中定义main方法， 然后使用SpringApplication这个类来加载指定配置并运行SpringBoot应用程序， 在很多SpringBoot的介绍中，都会使用当前入口类既作为配置（标注@Configuration）又作为入口类， 比如我们的HellSpringBoot:</p> 
-    <div class="sourceCode" id="cb5">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="at">@SpringBootApplication</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> HelloSpringBoot <span class="op">{</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="kw">throws</span> <span class="bu">Exception</span> <span class="op">{</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        SpringApplication<span class="op">.</span><span class="fu">run</span><span class="op">(</span>HelloSpringBoot<span class="op">.</span><span class="fu">class</span><span class="op">,</span> args<span class="op">);</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
-    </div> 
-    <p><span class="citation" data-cites="SpringBootApplication等效于">@SpringBootApplication等效于</span><span class="citation" data-cites="Configuraiton">@Configuraiton</span> + <span class="citation" data-cites="EnableAutoConfiguration">@EnableAutoConfiguration</span> + <span class="citation" data-cites="ComponentScan">@ComponentScan</span>, 所以， 当我们将HelloSpringBoot.class作为JavaConfig配置类传入SpringApplication.run方法之后， SpringApplication.run方法就知道从哪里加载并扫描必要的bean定义了。</p> 
-    <p>现在，剩下的就是要搞清楚SpringApplication.run里面发生了什么：</p> 
-    <figure> 
-     <img src="images/how-spring-boot-autoconfigure-works.png" alt="how-spring-boot-autoconfigure-works">
-     <figcaption aria-hidden="true">
-      how-spring-boot-autoconfigure-works
-     </figcaption> 
-    </figure> 
-    <p>其实SpringApplication作为一个bootstrap类， 既可以加载JavaConfig形式的配置， 也可以加载XML形式的配置， 然后根据情况下创建相应类型的ApplicationContext实例， 为了简化理解难度，我们以JavaConfig为主线， 那么一般情况下， SpringBoot就会创建一个对应处理JavaConfig形式配置的AnnotationConfigApplicationContext实例（或者如果有Servlet等类，则创建ConfigurableWebApplicationContext）。</p> 
-    <p>然后一个CommandLinePropertySource会被创建且其内容会加载到当前SpringBoot应用的Environment之中（这也就是为什么命令行上提供的参数可以优先覆盖其它配置的原因），当然， 其它的PropertySource这个时候也会随后一起加载然后并到Environment， 然后交给ApplicationContext实例后继使用（不要纠结与代码细节，虽然代码细节里是先做了包括设置env的一些事情然后再创建ApplicationContext实例）。</p> 
-    <p>在ApplicationContext创建的之前和之后， SpringBoot会使用SpringFactoriesLoader这个特性，从当前classpath下所有的META-INF/spring.factories下加载如下类型的一些callback接口并在前中后等不同时机执行：</p> 
-    <ol type="1"> 
-     <li>org.springframework.boot.SpringApplicationRunListener</li> 
-     <li>org.springframework.context.ApplicationContextInitializer</li> 
-     <li>org.springframework.context.ApplicationListener</li> 
-    </ol> 
-    <p>这些杂事我这里就不细说了， 总是上面提到的事儿做完后，ApplicationContext就正式加载SpringApplication.run方法传入进来的配置了（JavaConfig形式或者XML形式）， 然后，因为我们标注了@SpringBootApplication， 容器会自动完成指定语意的一系列职能，包括@EnableAutoConfiguration要求的事情， 比如， 从SpringBoot提供的多个starter模块中加载JavaConfig配置， 然后将这些JavaConfig配置筛选上来的bena定义加入Spring容器中（即ApplicationContext中）， refresh容器，然后就完事大吉了，一个SpringBoot应用启动完成。</p> 
-    <p>不过，其实最后还有一个关键组件，一般用于扩展， 在容器准备好之后，SpringBoot其实还会根据类型去容器中挑选一批CommandLineRunner， 然后依次执行这些CommandLineRunner， 我们可以根据需求和场景，实现一些自己的CommandLineRunner并添加到容器来对SpringBoot应用进行某种扩展。</p> 
-    <p>以上属于SpringBoot的整部大戏， 希望各位看官受用， ^_-</p> 
-    <h1 id="lean-springboot">Lean SpringBoot</h1> 
-    <p>如果你对SpringBoot不甚了解， 或许就会对其<code>Quick &amp; Dirty</code>的做事方式有所顾虑， 是不是AutoConfiguration黑魔法加载了过多没必要的配置啊？ 是不是这套框架太简单无法满足需要啊？ 不过， 一旦你了解了SpringBoot， 这些顾虑就会烟消云散了, SpringBoot既提供了丰富的“给养”， 又同时具有足够的灵活度，让我们根据情况对其进行瘦身（make it lean）， 我们先来看丰富的“给养”…</p> 
-    <h2 id="get-to-know-springboot-modules-first">Get To Know SpringBoot Modules First</h2> 
-    <p>SpringBoot提供了很多预先配置好的职能模块，我们可以先来看看这些模块都能为我们做什么，然后再来决定SpringBoot提供的现有功能是否满足我们的需求， 这些模块大体上如下所列：</p> 
-    <div class="sourceCode" id="cb6">
-     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-amqp&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-aop&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-batch&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-cloud-connectors&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-data-elasticsearch&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-data-gemfire&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-data-jpa&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-data-mongodb&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-data-rest&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-data-solr&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-freemarker&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-groovy-templates&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-hateoas&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-hornetq&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-integration&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-jdbc&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-jersey&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-jetty&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-jta-atomikos&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-jta-bitronix&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-logging&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-log4j&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-log4j2&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-mail&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-mobile&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-mustache&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-actuator&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-parent&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-redis&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-security&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-social-facebook&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-social-twitter&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-social-linkedin&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-remote-shell&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-test&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-thymeleaf&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-tomcat&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-undertow&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-velocity&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-web&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-websocket&lt;/<span class="kw">module</span>&gt;</span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-ws&lt;/<span class="kw">module</span>&gt;</span></code></pre>
-    </div> 
-    <p>我不会对所有的starter都进行介绍，只简单挑几个主要的进行简单介绍…</p> 
-    <h3 id="spring-boot-starter-actuator">spring-boot-starter-actuator</h3> 
-    <p>这个module提供的东西比较多，都属于外围支撑性功能， 比如：</p> 
-    <ol type="1"> 
-     <li>提供一系列的Endpoints来窥探SpringBoot应用内部的一系列状态并进行监控管理；</li> 
-     <li>提供HealthIndicator来允许对SpringBoot应用进行健康检查；</li> 
-     <li>提供metrics支持；</li> 
-     <li>提供远程shell支持；</li> 
-     <li>提供mbean支持， 等等…</li> 
-    </ol> 
-    <h3 id="spring-boot-starter-web">spring-boot-starter-web</h3> 
-    <p>告诉SpringBoot， 哥当前要开发的是一个Web应用，把相应的依赖配置都给我准备好。</p> 
-    <p>默认SpringBoot会给Web应用配备Tomcat作为嵌入式web容器， 如果你不想用默认的tomcat，而想用jetty，那么可以再声明一个对spring-boot-starter-jetty的dependency，之后SpringBoot中使用的EnableAutoConfiguration会施展黑魔法，帮你搞定替换满足你的愿望。</p> 
-    <h3 id="spring-boot-starter-logging">spring-boot-starter-logging</h3> 
-    <p>告诉SpringBoot， “给哥使用slf4j和logback！”</p> 
-    <h3 id="其它starter-modules">其它starter modules</h3> 
-    <p>一般看名字就可以猜个八九不离十了，所以， 留待各位看官自己去挖掘吧~</p> 
-    <h2 id="specific-microservice-type-customization">Specific Microservice Type Customization</h2> 
-    <p>SpringBoot提供的功能倒是蛮丰富的了，但是，你会发现，爽了的同时，整个应用也会看起笨重了些， 比如有人就抱怨说SpringBoot应用启动慢(虽然这不是什么大问题，你生产环境又不会闲着没事经常重启，服务就应该长久，哈哈)， 好在SpringBoot的设计提供了足够的灵活度，让我们可以对其进行裁剪和瘦身。</p> 
-    <h3 id="dubbomicroserviceautoconfiguration">DubboMicroServiceAutoConfiguration</h3> 
-    <p>很多公司在使用dubbo作为java服务的开发框架，我们也不例外， 所以， 构建基于SpringBoot和Dubbo的微服务属于比较普遍的需求， 要完成这个事情其实很简单，只要提供一个特定于dubbo的自动加载模块就可以了， 比如我们称其为DubboMicroServiceAutoConfiguration（只是举例，非实际生产代码）：</p> 
-    <div class="sourceCode" id="cb7">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="at">@Configuration</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="at">@Order</span><span class="op">(</span>Ordered<span class="op">.</span><span class="fu">HIGHEST_PRECEDENCE</span><span class="op">)</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> DubboMicroServiceAutoConfiguration <span class="op">{</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 1. Application Bean Definition</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Bean</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">@ConditionalOnMissingBean</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Value</span><span class="op">(</span>$<span class="op">{</span>dubo<span class="op">.</span><span class="fu">application</span><span class="op">.</span><span class="fu">name</span><span class="op">})</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> DubboApplication <span class="fu">dubboApp</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">new</span> xxx<span class="op">;</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 2. Registry Bean Definition</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 3. Protocol Bean Definition</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
-    </div> 
-    <p>然后， 在pom中添加其依赖就完工了：</p> 
-    <div class="sourceCode" id="cb8">
-     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">dependency</span>&gt;</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">groupId</span>&gt;com.wacai&lt;/<span class="kw">groupId</span>&gt;</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">artifactId</span>&gt;spring-boot-starter-dubbo&lt;/<span class="kw">artifactId</span>&gt;</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">version</span>&gt;...&lt;/<span class="kw">version</span>&gt;</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">dependency</span>&gt;</span></code></pre>
-    </div> 
-    <p>当然， dubbo跟哥属于一个时代，其实使用JavaConfig来配置还是有些不适应的，而且基本上大部分dubbo服务也都是通过xml形式进行配置的，不过没关系， 退一步讲， 都不需要自动配置模块， 通过convention来约定说我们所有的dubbo项目从src/main/resources/spring/*.xml这样的资源路径来加载容器的配置就可以了， 更他娘的简单！</p> 
-    <div class="sourceCode" id="cb9">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="at">@Configuration</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="at">@ImportResource</span><span class="op">(</span><span class="st">"classpath*:/spring/*.xml"</span><span class="op">)</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">...</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Main <span class="op">{</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">...</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
-    </div> 
-    <blockquote> 
-     <p>使用的pattern请各位看官灵活把握！</p> 
-    </blockquote> 
-    <h3 id="webapiautoconfiguration">WebAPIAutoConfiguration</h3> 
-    <p>其实对于性能要求不是那么苛刻的场景（大多数应用其实都归于此类）， 我们完全可以只走HTTP就好了， 服务注册中心都现成的经过多年验证的成熟方案（I mean DNS）, 而且，多语言生态下的互通这也是唯一比较合理的一条路， 这就是我现在公司内部一直强调“大部分情况下，互通优于性能”， 只有在特殊需求下，才有必要花费经历对性能去进行优化（比如使用dubbo这种特定于java的方案， 对网络，系统甚至代码等进行调优）。</p> 
-    <p>故此，我们内部除了基于dubbo的微服务，还有web api形式的微服务，我说web api而不是说rest(ful) api， 是因为，虽然后者更高大上， 但对于我们的团队来说， 简单粗暴的做法更容易接受且符合团队现状， hibernate当年搞得映射关系支持的多么牛逼，最后还不是都自己在代码逻辑里管理这些关系， 而几乎只用它最基本的CURD支持吗？！ 存在肯定是有理由的，哈哈</p> 
-    <p>web api的设计我们就不多说了， 建议是采用适合自己团队的做法， 我们来聊正事！</p> 
-    <p>基于SpringBoot提供web api， 我们可以选择基于JavaEE标准的starter模块，比如spring-boot-starter-jersey， 也可以使用高大上的spring-boot-starter-hateoas， 其实基本上不需要自己提供扩展。</p> 
-    <h4 id="web-api-documentation">Web API Documentation</h4> 
-    <p>我们可以使用Swagger提供当前Web API的文档。</p> 
-    <ol type="1"> 
-     <li>添加maven依赖</li> 
-    </ol> 
-    <div class="sourceCode" id="cb10">
-     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;com.mangofactory&lt;/<span class="kw">groupId</span>&gt;</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;swagger-springmvc&lt;/<span class="kw">artifactId</span>&gt;</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">version</span>&gt;1.0.2&lt;/<span class="kw">version</span>&gt;</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span></code></pre>
-    </div> 
-    <ol start="2" type="1"> 
-     <li><p>src/main/resources目录下添加swagger-ui的相关资源(亲们，自己google大法吧~)</p></li> 
-     <li><p>启动类上添加相应配置</p></li> 
-    </ol> 
-    <div class="sourceCode" id="cb11">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="at">@Configuration</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="at">@PropertySource</span><span class="op">(</span><span class="st">"file:conf/application.properties"</span><span class="op">)</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="at">@ImportResource</span><span class="op">(</span><span class="st">"classpath*:/spring/*.xml"</span><span class="op">)</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="at">@EnableAutoConfiguration</span><span class="op">(</span>exclude <span class="op">=</span> <span class="op">{</span>DataSourceAutoConfiguration<span class="op">.</span><span class="fu">class</span><span class="op">,</span> DataSourceTransactionManagerAutoConfiguration<span class="op">.</span><span class="fu">class</span><span class="op">})</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="at">@ComponentScan</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="at">@EnableSwagger</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Main <span class="op">{</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> SpringSwaggerConfig springSwaggerConfig<span class="op">;</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Autowired</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">setSpringSwaggerConfig</span><span class="op">(</span>SpringSwaggerConfig springSwaggerConfig<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">springSwaggerConfig</span> <span class="op">=</span> springSwaggerConfig<span class="op">;</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Bean</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> SwaggerSpringMvcPlugin <span class="fu">configureSwagger</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>        ApiInfo apiInfo <span class="op">=</span> <span class="kw">new</span> <span class="fu">ApiInfo</span><span class="op">(</span><span class="st">"sample web api"</span><span class="op">,</span> <span class="st">"web api project with spring boot"</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">);</span></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">new</span> <span class="fu">SwaggerSpringMvcPlugin</span><span class="op">(</span><span class="kw">this</span><span class="op">.</span><span class="fu">springSwaggerConfig</span><span class="op">).</span><span class="fu">apiInfo</span><span class="op">(</span>apiInfo<span class="op">).</span><span class="fu">useDefaultResponseMessages</span><span class="op">(</span><span class="kw">false</span><span class="op">).</span><span class="fu">includePatterns</span><span class="op">(</span><span class="st">"/*"</span><span class="op">);</span></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>        SpringApplication app <span class="op">=</span> <span class="kw">new</span> <span class="fu">SpringApplication</span><span class="op">(</span>Main<span class="op">.</span><span class="fu">class</span><span class="op">);</span></span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>        app<span class="op">.</span><span class="fu">setShowBanner</span><span class="op">(</span><span class="kw">false</span><span class="op">);</span></span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>        app<span class="op">.</span><span class="fu">run</span><span class="op">(</span>args<span class="op">);</span></span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
-    </div> 
-    <p>然后通过/index.html路径访问swagger-ui， 然后在api信息查询输入框中输入对应host下的/api-docs路径的URL， 就可以获取相应的API文档信息了。</p> 
-    <p>API文档随同Web API一起发布，fucking amazing!</p> 
-    <h2 id="devops-specific-customization">DevOps-Specific Customization</h2> 
-    <p>系统不是一个个的孤岛， 我们需要连接起来才会发挥更大的效能， 为了让SpringBoot可以融入<a href="http://www.wacai.com">挖财</a>的技术生态中，我们会对其进行一些定制， 这些定制对各位看官来说不一定有用， 权且作为点滴参考。</p> 
-    <h3 id="config-customization">config customization</h3> 
-    <p>我们的应用配置采用配置中心 <a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>进行管理， 但流程上对研发是透明的， 开发阶段配置文件按照约定放在项目根目录下的conf/目录， 发布包的结构也是同样的，配置文件名采用SpringBoot的默认application.properties即可， 唯一需要调整的配置就是配置文件的加载路径， 这可以在应用启动的时候指定命令行参数搞定：<code>--spring.config.location=file:conf/</code>, 或者：</p> 
-    <div class="sourceCode" id="cb12">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">...</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="at">@PropertySource</span><span class="op">(</span><span class="st">"file:conf/application.properties"</span><span class="op">)</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="kw">...</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Main <span class="op">{</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        SpringApplication app <span class="op">=</span> <span class="kw">new</span> <span class="fu">SpringApplication</span><span class="op">(</span>Main<span class="op">.</span><span class="fu">class</span><span class="op">);</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        app<span class="op">.</span><span class="fu">setShowBanner</span><span class="op">(</span><span class="kw">false</span><span class="op">);</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>        app<span class="op">.</span><span class="fu">run</span><span class="op">(</span>args<span class="op">);</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
-    </div> 
-    <p>我们还可以提供一个新的AutoConfiguraiton的module， 这个module提供一个新的PropertySource指向我们约定的位置就行了， 具体方案会结合我们的发布平台再选择最为合适的， 可选方案只是为了给大家一些启发思路。</p> 
-    <h3 id="logging-customization">logging customization</h3> 
-    <p>在挖财，我们对日志格式进行了规范， 而且使用logback， 且对日志的输出路径也做了规定，以便所有应用一旦部署就可以自动享受到我们的日志采集分析平台的服务。</p> 
-    <p>SpringBoot因为一些历史原因和向前兼容保持一致性等因素的关系（不知道有没有其它利害）， 一直主要用commons-logging， 我们显然不喜欢这个默认设置，所以， 我们对SpringBoot的日志设定做了一些定制：</p> 
-    <ol type="1"> 
-     <li>添加spring-boot-starter-logging依赖，让spring boot使用logback;</li> 
-     <li>添加logback.xml配置文件，配置规则遵循我们自己的规范；</li> 
-     <li>启动的时候，设置LOG_HOME环境变量或者命令行参数；</li> 
-    </ol> 
-    <h1 id="scala-is-also-bootiful">Scala Is Also Bootiful</h1> 
-    <p>我们团队有部分精英同学(Scala Elites)使用Scala语言进行开发， 而对于SpringBoot来说， 使用任何JVM上的语言原则上都不是什么问题， 比如， 要使用Scala进行SpringBoot应用的开发， 只需要添加Scala的相应依赖和编译支持就可以了：</p> 
-    <div class="sourceCode" id="cb13">
-     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">project</span><span class="ot"> xmlns=</span><span class="st">"http://maven.apache.org/POM/4.0.0"</span><span class="ot"> xmlns:xsi=</span><span class="st">"http://www.w3.org/2001/XMLSchema-instance"</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ot">         xsi:schemaLocation=</span><span class="st">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">modelVersion</span>&gt;4.0.0&lt;/<span class="kw">modelVersion</span>&gt;</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">parent</span>&gt;</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">groupId</span>&gt;org.springframework.boot&lt;/<span class="kw">groupId</span>&gt;</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">artifactId</span>&gt;spring-boot-starter-parent&lt;/<span class="kw">artifactId</span>&gt;</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">version</span>&gt;1.2.5.RELEASE&lt;/<span class="kw">version</span>&gt;</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">parent</span>&gt;</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">groupId</span>&gt;com.wacai&lt;/<span class="kw">groupId</span>&gt;</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">artifactId</span>&gt;hello-springboot&lt;/<span class="kw">artifactId</span>&gt;</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">version</span>&gt;1.0-SNAPSHOT&lt;/<span class="kw">version</span>&gt;</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">packaging</span>&gt;jar&lt;/<span class="kw">packaging</span>&gt;</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">name</span>&gt;hello-spring-boot&lt;/<span class="kw">name</span>&gt;</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">url</span>&gt;http://maven.apache.org&lt;/<span class="kw">url</span>&gt;</span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">properties</span>&gt;</span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">encoding</span>&gt;UTF-8&lt;/<span class="kw">encoding</span>&gt;</span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">scala.version</span>&gt;2.11.6&lt;/<span class="kw">scala.version</span>&gt;</span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">properties</span>&gt;</span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">build</span>&gt;</span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">plugins</span>&gt;</span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">plugin</span>&gt;</span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">groupId</span>&gt;net.alchim31.maven&lt;/<span class="kw">groupId</span>&gt;</span>
-<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">artifactId</span>&gt;scala-maven-plugin&lt;/<span class="kw">artifactId</span>&gt;</span>
-<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">version</span>&gt;3.2.1&lt;/<span class="kw">version</span>&gt;</span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">executions</span>&gt;</span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">execution</span>&gt;</span>
-<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">id</span>&gt;compile-scala&lt;/<span class="kw">id</span>&gt;</span>
-<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">phase</span>&gt;compile&lt;/<span class="kw">phase</span>&gt;</span>
-<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">goals</span>&gt;</span>
-<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>                            &lt;<span class="kw">goal</span>&gt;add-source&lt;/<span class="kw">goal</span>&gt;</span>
-<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>                            &lt;<span class="kw">goal</span>&gt;compile&lt;/<span class="kw">goal</span>&gt;</span>
-<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>                        &lt;/<span class="kw">goals</span>&gt;</span>
-<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>                    &lt;/<span class="kw">execution</span>&gt;</span>
-<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">execution</span>&gt;</span>
-<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">id</span>&gt;test-compile-scala&lt;/<span class="kw">id</span>&gt;</span>
-<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">phase</span>&gt;test-compile&lt;/<span class="kw">phase</span>&gt;</span>
-<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">goals</span>&gt;</span>
-<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>                            &lt;<span class="kw">goal</span>&gt;add-source&lt;/<span class="kw">goal</span>&gt;</span>
-<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>                            &lt;<span class="kw">goal</span>&gt;testCompile&lt;/<span class="kw">goal</span>&gt;</span>
-<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>                        &lt;/<span class="kw">goals</span>&gt;</span>
-<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>                    &lt;/<span class="kw">execution</span>&gt;</span>
-<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>                &lt;/<span class="kw">executions</span>&gt;</span>
-<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">configuration</span>&gt;</span>
-<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">recompileMode</span>&gt;incremental&lt;/<span class="kw">recompileMode</span>&gt;</span>
-<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">scalaVersion</span>&gt;${scala.version}&lt;/<span class="kw">scalaVersion</span>&gt;</span>
-<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">args</span>&gt;</span>
-<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">arg</span>&gt;-deprecation&lt;/<span class="kw">arg</span>&gt;</span>
-<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>                    &lt;/<span class="kw">args</span>&gt;</span>
-<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">jvmArgs</span>&gt;</span>
-<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">jvmArg</span>&gt;-Xms64m&lt;/<span class="kw">jvmArg</span>&gt;</span>
-<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">jvmArg</span>&gt;-Xmx1024m&lt;/<span class="kw">jvmArg</span>&gt;</span>
-<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a>                    &lt;/<span class="kw">jvmArgs</span>&gt;</span>
-<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a>                &lt;/<span class="kw">configuration</span>&gt;</span>
-<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a>            &lt;/<span class="kw">plugin</span>&gt;</span>
-<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">plugins</span>&gt;</span>
-<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">build</span>&gt;</span>
-<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">dependencies</span>&gt;</span>
-<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;</span>
-<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.scala-lang&lt;/<span class="kw">groupId</span>&gt;</span>
-<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;scala-library&lt;/<span class="kw">artifactId</span>&gt;</span>
-<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">version</span>&gt;${scala.version}&lt;/<span class="kw">version</span>&gt;</span>
-<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span>
-<span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;</span>
-<span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.scala-lang&lt;/<span class="kw">groupId</span>&gt;</span>
-<span id="cb13-73"><a href="#cb13-73" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;scala-compiler&lt;/<span class="kw">artifactId</span>&gt;</span>
-<span id="cb13-74"><a href="#cb13-74" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">version</span>&gt;${scala.version}&lt;/<span class="kw">version</span>&gt;</span>
-<span id="cb13-75"><a href="#cb13-75" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span>
-<span id="cb13-76"><a href="#cb13-76" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;</span>
-<span id="cb13-77"><a href="#cb13-77" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.springframework.boot&lt;/<span class="kw">groupId</span>&gt;</span>
-<span id="cb13-78"><a href="#cb13-78" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;spring-boot-starter-web&lt;/<span class="kw">artifactId</span>&gt;</span>
-<span id="cb13-79"><a href="#cb13-79" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span>
-<span id="cb13-80"><a href="#cb13-80" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">dependencies</span>&gt;</span>
-<span id="cb13-81"><a href="#cb13-81" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">project</span>&gt;</span></code></pre>
-    </div> 
-    <blockquote> 
-     <p>如果使用SBT而不是Maven, 可能需要费点儿周折， 需要自己添加一系列的依赖，并且解决按照SpringBoot的可执行jar规范格式发布的问题。</p> 
-    </blockquote> 
-    <h1 id="distribute-springboot-application">Distribute SpringBoot Application</h1> 
-    <p>SpringBoot提供了相应的Maven插件用于将SpringBoot应用以可执行jar包的形式发布出去， 只要将如下插件配置加入pom即可：</p> 
-    <div class="sourceCode" id="cb14">
-     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">build</span>&gt;</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">plugins</span>&gt;</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">plugin</span>&gt;</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.springframework.boot&lt;/<span class="kw">groupId</span>&gt;</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;spring-boot-maven-plugin&lt;/<span class="kw">artifactId</span>&gt;</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">plugin</span>&gt;</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">plugins</span>&gt;</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">build</span>&gt;</span></code></pre>
-    </div> 
-    <p>允许<code>mvn package</code>将直接获得一个可执行的jar包(<code>java -jar xxxx.jar</code>)， 具体原理参考SpringBoot的Reference文档附录。</p> 
-    <h1 id="conclusion">Conclusion</h1> 
-    <p>SpringBoot初看上去颇为复杂，但一旦你了解了它内部的精妙设计， 就会有那种“柳暗花明”的感觉了。本文最后引用的参考连接中使用钢铁侠来类比SpringBoot，我觉得还是挺恰当的， 感觉上很笨重，但实际上却是灵活可拆装， 多种后备组合可供选择， 既有雄厚的商业实体支撑， 还有良好的群众基础， fucking perfect！</p> 
-    <p>SpringBoot， 你值得拥有 ；）</p> 
-    <h1 id="references">References</h1> 
-    <ol type="1"> 
-     <li><a href="http://spring.io/blog/2013/08/06/spring-boot-simplifying-spring-for-everyone/">Spring Boot – Simplifying Spring for Everyone</a> 
-      <ul> 
-       <li>起源性介绍</li> 
-       <li><a href="https://jira.spring.io/browse/SPR-9888" class="uri">https://jira.spring.io/browse/SPR-9888</a> - 起源性issue</li> 
-      </ul></li> 
-     <li><a href="http://www.infoq.com/news/2014/04/spring-boot-goes-ga" class="uri">http://www.infoq.com/news/2014/04/spring-boot-goes-ga</a></li> 
-     <li><a href="http://www.infoq.com/articles/microframeworks1-spring-boot" class="uri">http://www.infoq.com/articles/microframeworks1-spring-boot</a></li> 
-     <li><a href="https://jira.spring.io/browse/SPR-9888">Improved support for ‘containerless’ web application architectures</a></li> 
-     <li><a href="http://dev-blog.xoom.com/2015/03/15/use-spring-boot-auto-configuration/">Why We Do Not Use Spring Boot Auto Configuration</a></li> 
-     <li><a href="http://spring.io/blog/2015/06/08/cors-support-in-spring-framework">CORS support in Spring Framework</a></li> 
-     <li><a href="http://www.schibsted.pl/2015/07/spring-boot-and-dropwizard-in-microservices-development/">http://www.schibsted.pl/2015/07/spring-boot-and-dropwizard-in-microservices-development/</a></li> 
-     <li>SpringBoot Javadoc and Sourcecode</li> 
-     <li><a href="http://callistaenterprise.se/blogg/teknik/2015/03/25/an-operations-model-for-microservices/" class="uri">http://callistaenterprise.se/blogg/teknik/2015/03/25/an-operations-model-for-microservices/</a></li> 
-     <li><a href="http://microservices.io/patterns/index.html" class="uri">http://microservices.io/patterns/index.html</a></li> 
-     <li>other more posts and docs that I can’t remember…</li> 
-    </ol> 
-    <section class="footnotes" role="doc-endnotes"> 
-     <hr> 
-     <ol> 
-      <li id="fn1" role="doc-endnote"><p>Dropwizard的做事方式对于Senior来说是OK的，但还是处于半自动状态，很多东西需要自己装配，技术选型很优秀，但拼整体的时候，就有些力有不歹<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
-      <li id="fn2" role="doc-endnote"><p>默认运行嵌入的tomcat，所以使用默认的8080端口<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
-      <li id="fn3" role="doc-endnote"><p>注意很多时候Profile不一定与Environment相对应, 估计很多开发人员看到文档后并没有完全理解概念，只是照葫芦画瓢，导致profile概念现在大面上被滥用/用坏<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
-      <li id="fn4" role="doc-endnote"><p>注意，这里的配置中心跟现在技术社区里提到的配置中心是两个概念， 现在技术社区里常常提到的配置中心叫”状态中心”还差不多, 因为本质上他们是在用数据库也好还是zookeeper也罢作为一个共享状态， 然后让相关系统来“参拜”， 而如果系统设计趋于理想化的话，这些状态应该内聚到服务内部， 如果外部要与这些状态交互， 通过消息传递依次或者并行送达相应的消息就好了，只不过， 这对研发人员的要求，对服务治理，安全等都会造成压力，所以大家就都省事，采用了现在SharedState的模式， 当然，也不失为实践的一种合理方式，无绝对好坏<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
-     </ol> 
-    </section> <!--          </div>--> <!--        </div>--> 
-    <hr> 
-    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
-    </div> 
-    <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2021-06-22-svelte3-gotcha-cherish.html">《技术、商业与人》番外篇 </a> 
-     </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2009-11-30-catch-cold.html">感冒了，别是甲流就行… </a> 
-     </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2014-10-27-digest-of-a-PD-s-talk.html">《少谈些主义， 多做些需求》摘录 </a> 
-     </div> 
-    </div> 
-    <hr> 
-    <div> 
-     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
-     <ol> 
-      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
-      <li>还分享AI工具、产品方法和商业机会</li> 
-      <li>更有体系化精品付费内容等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取。(加入之后<b>一定记得看置顶消息</b>呀！)</li> 
-     </ol> 
-     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
-    </div> 
-    <hr> 
-    <p> <span style="font-size: xx-large;">存量的时代，省钱就是赚钱。</span> <br> <span style="font-size: xx-large;">在增量的时代，省钱其实是亏钱。</span> <br> 避坑儿是省钱的一种形式，更是真正聪明人的选择！ <br> 弯路虽然也是路，但还是能少走就少走，背后都是高昂的试错成本。 <br> <b>订阅「福报」</b>，少踩坑，少走弯路，多走一步，就是不一样的胜率！ </p> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
-    <hr> 
-    <div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"> 
-     <div id="tfloader" class="x-indicator"> 
-      <svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"> <g fill="none" fill-rule="evenodd"> 
-        <g transform="translate(1 1)" stroke-width="2"> 
-         <circle cx="5" cy="50" r="5"> 
-          <animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /> 
-          <animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /> 
-         </circle> 
-         <circle cx="27" cy="5" r="5"> 
-          <animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /> 
-          <animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /> 
-         </circle> 
-         <circle cx="49" cy="50" r="5"> 
-          <animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /> 
-          <animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /> 
-         </circle> 
+ <body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"> 
+  <header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"> 
+   <div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"> 
+    <div class="flex justify-between"> <a class="flex items-center" href="https://afoo.me"> <span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"> <h1>王福强的个人博客</h1> </span> </a> 
+     <div class="flex items-center md:hidden"> <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""> 
+       <svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+         <circle cx="12" cy="12" r="4"></circle> 
+         <path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"> 
+         </path> 
         </g> 
-       </g> 
-      </svg> 
+       </svg> </button> <button type="button" class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition" aria-label="Toggle Menu" data-toggle-menu=""> 
+       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:menu"> <g class="icon-tabler" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+         <path d="M4 8h16"></path> 
+         <path d="M4 16h16"></path> 
+        </g> 
+       </svg> </button> 
      </div> 
     </div> 
-    <hr> 
-    <div id="comments"></div> <!-- <div class="text-center">
-      <a href="https://twitter.com/fujohnwang">
-        <img src="/images/Twitter-logo.png" class="img-responsive" loading='lazy' style="width: fit-content;">
-      </a>
-    </div> --> 
+    <nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"> 
+     <ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me">福强AI学堂</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com">架构百科</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html">博客文章 </a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html">创作出版</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me">产品与服务</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/crosslinks.html">更多链接</a> </li> 
+     </ul> 
+     <div class="md:self-center flex items-center mb-4 md:mb-0 ml-2"> 
+      <div class="hidden items-center md:flex"> <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+          <circle cx="12" cy="12" r="4"></circle> 
+          <path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"> 
+          </path> 
+         </g> 
+        </svg> </button> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="RSS Feed" href="http://afoo.me/feeds.xml"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:rss"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+          <circle cx="5" cy="19" r="1"></circle> 
+          <path d="M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"></path> 
+         </g> 
+        </svg> </a> 
+      </div> 
+     </div> 
+    </nav> 
    </div> 
-  </section> 
-  <div style="color:white; visibility: collapse; height: 0;">
-   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
-  </div> 
-  <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
-    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
+  </header> 
+  <main> 
+   <section class="text-gray-600 body-font relative"> 
+    <div class="container px-5 py-24 mx-auto mb-12 prose prose-lg dark:prose-invert"> 
+     <p class="lead"> </p>
+     <h1 class="title">Spring Boot Rock’n’Roll</h1> <small> <h3 class="author">FuqiangWang - fujohnwang AT gmail DOTA com</h3> 
+      <div style="text-align: left;">
+       2015-07-09
+      </div> </small> 
+     <p></p> 
+     <hr> 
+     <h1 id="springboot-intro">SpringBoot Intro</h1> 
+     <p><a href="http://projects.spring.io/spring-boot/">SpringBoot</a>是顺应现在微服务（MicroServices）理念而产生的一个微框架（同类微框架可供选择的还有<a href="https://dropwizard.github.io/">Dropwizard</a>）， 用来构建基于Spring框架的标准化的独立部署应用程序（“再也tmd不用寄人篱下，活在WebContainer的屋檐下了”）。</p> 
+     <blockquote> 
+      <p>我们原来选择试用Dropwizard作为Web API的标准框架， 也完成了一些项目，总体上来说， Dropwizard是可以满足这些场景的，且它对metrics的支持尤其优秀。从技术因素 <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>上来说， Dropwizard是OK的， 但结合公司内部和外部层面其它更多因素考虑，则选型Dropwizard可能不是最合适的做法。</p> 
+      <p>我们还是一个比较年轻的团队， 大家有很好的上进意愿，而且我们有优秀的技术leader来带领他们前行，但罗马不是一天建成的，所以， 现在大家还是对现在java生态圈中流行的技术更为熟悉，比如Spring， MyBatis等口口相传的开源框架，如何让大家在现有经验积累的前提下高效完成工作是我们目前的主要目标， 预留20%的空间给团队和个人成长应该是第二目标，而且， Spring社区已经足够成熟， 可以持续完善和支撑现有技术方案与社区成长，故此，我们决定使用SpringBoot来作为我们的微框架，以标准化支持我们的微服务战略。</p> 
+     </blockquote> 
+     <h1 id="springboot-quickstart">SpringBoot Quickstart</h1> 
+     <p>我们使用Maven构建项目，所以新建一个maven项目， pom.xml中添加如下两个关键因素：</p> 
+     <div class="sourceCode" id="cb1">
+      <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">parent</span>&gt;</span>
+            <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">groupId</span>&gt;org.springframework.boot&lt;/<span class="kw">groupId</span>&gt;</span>
+            <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">artifactId</span>&gt;spring-boot-starter-parent&lt;/<span class="kw">artifactId</span>&gt;</span>
+            <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">version</span>&gt;1.2.5.RELEASE&lt;/<span class="kw">version</span>&gt;</span>
+            <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">parent</span>&gt;</span>
+            <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>...</span>
+            <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">dependencies</span>&gt;</span>
+            <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">dependency</span>&gt;</span>
+            <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">groupId</span>&gt;org.springframework.boot&lt;/<span class="kw">groupId</span>&gt;</span>
+            <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">artifactId</span>&gt;spring-boot-starter-web&lt;/<span class="kw">artifactId</span>&gt;</span>
+            <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">dependency</span>&gt;</span>
+            <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">dependencies</span>&gt;</span></code></pre>
+     </div> 
+     <p>使用spring-boot-starter-parent作为当前项目的parent可以享受到spring boot应用相关的一系列依赖(dependency)， 插件(plugins)等装备， 而添加spring-boot-starter-web这个依赖，则纯粹是我们希望构建一个独立运行的web应用而已(注意， 没有version元素定义，因为spring-boot-starter-parent已经提供了相应的dependencyManagement)。</p> 
+     <p>有了以上配置，我们就可以按照SpringMVC的套路添加相应的Controller实现就可以了， 比如：</p> 
+     <div class="sourceCode" id="cb2">
+      <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">// let's say, it is under package com.xxx.controller</span></span>
+            <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+            <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">@Controller</span></span>
+            <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> HelloController <span class="op">{</span></span>
+            <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">@RequestMapping</span><span class="op">(</span><span class="st">"/"</span><span class="op">)</span></span>
+            <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">@ResponseBody</span></span>
+            <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">String</span> <span class="fu">home</span><span class="op">()</span> <span class="op">{</span></span>
+            <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Hello SpringBoot!"</span><span class="op">;</span></span>
+            <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+            <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+     </div> 
+     <p>最后，要让SpringBoot可以独立运行和部署，我们需要一个Main方法入口， 比如：</p> 
+     <div class="sourceCode" id="cb3">
+      <pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// let's say, it's located under package com.xxx</span></span>
+            <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+            <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">@SpringBootApplication</span></span>
+            <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> HelloSpringBoot <span class="op">{</span></span>
+            <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="kw">throws</span> <span class="bu">Exception</span> <span class="op">{</span></span>
+            <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        SpringApplication<span class="op">.</span><span class="fu">run</span><span class="op">(</span>HelloSpringBoot<span class="op">.</span><span class="fu">class</span><span class="op">,</span> args<span class="op">);</span></span>
+            <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+            <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+     </div> 
+     <p>That’s it, 剩下的就是运行HelloSpringBoot, 然后打开浏览器，访问路径<code>http://localhost:8080</code>看看发生了什么吧！<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p> 
+     <p>是不是很简单？ 是啊， 不过也太过于简单了(Everything Should Be Made as Simple as Possible, But Not Simpler)， 如果仅止步于次， 那我们这些自称为技术精英的人们还有什么颜面活在这个世上那？ 我们要深挖洞，广积粮…</p> 
+     <h1 id="how-spring-boot-works">How Spring Boot Works？</h1> 
+     <p>要让一个开源软件产品在公司内部落地并成长乃至成熟， 需要我们投入精力来熟悉它， 打磨和完善它，然后才是使用它来简洁高效的交付相应的软件产品乃至高效运维之。</p> 
+     <p>为了能让SpringBoot落地生根发芽，让我们先来了解它是如何工作吧！</p> 
+     <h2 id="spring-features-revisited">Spring Features Revisited</h2> 
+     <p>作为使用Spring框架的老一辈技术革命家之一， 哥已经脱离应用开发一线多年， 虽然Spring框架从根儿上没有什么变化，但从哥那时起也已经发展了2，3个大的版本了， 所以，在深入SpringBoot之前，有必要先了解一下新版本Spring中那些相关的特性来铺垫铺垫…</p> 
+     <blockquote> 
+      <p>如果各位看官从开始就一直在使用较新或者最新的Spring框架的话，可以忽略这部分内容，直接从”Understanding <span class="citation" data-cites="EnableAutoConfiguration">@EnableAutoConfiguration</span>“章节继续好了， 不过话说回来， 看看也是好的嘛 ^_-</p> 
+     </blockquote> 
+     <h3 id="xml-configuration-vs.-javaconfig">XML Configuration VS. JavaConfig</h3> 
+     <p>哥是从Spring使用xml做依赖注入和绑定的那个时代走出来的，对xml形式的配置会比较清楚也比较“情有独钟”一些，但并非说排斥其它形式，只是会根据情况来权衡。比如SpringBoot倡导基于JavaConfig的形式来“装配”应用， 但有些层面，我们还是希望根据公司的生态圈和基础设施现状，对其进行一些定制，以便更好的融入并享受一系列生态， 这就会加一些已有系统的集成啦， 对SpringBoot原来的Convention进行Configuration明确化调整啦等等， 而大部分要集成外部已有系统的时候， 通过xml集中明确化配置我认为是比较合适的做法。</p> 
+     <p>总之， 这两种方式不应该是东风压倒西风，而应该根据情况来选择。 从我的角度来讲，我希望在SpringBoot里，除了Main入口类和autoscan相关的地方使用JavaConfig， 其它最好以xml配置，然后像一个bag似的，可以到处背着到处搬， 反正也不知道这个比喻各位看官能否看明白 ;)</p> 
+     <h3 id="configuration"><span class="citation" data-cites="Configuration">@Configuration</span></h3> 
+     <p><span class="citation" data-cites="Configuration这个Annotation就是JavaConfig的典型代表啦">@Configuration这个Annotation就是JavaConfig的典型代表啦</span>，标注了这个Annotation的Java类定义会以Java代码的形式（对应于xml定义的形式）提供一系列的bean定义和实例， 结合AnnotationConfigApplicationContext和自动扫描的功能，就可以构建一个基于Spring容器的Java应用了。</p> 
+     <p>一系列标注了@Configuration的Java类的集合，对应于“昨日”的一系列xml配置文件。</p> 
+     <h3 id="componentscan"><span class="citation" data-cites="ComponentScan">@ComponentScan</span></h3> 
+     <p><span class="citation" data-cites="ComponentScan对应xml时代的">@ComponentScan对应xml时代的</span><code>&lt;context:component-scan&gt;</code>, 用来扫描classpath下标注了相应Annotation的bean定义，然后加载到Spring容器之中。</p> 
+     <p>一般配合@Configuration来使用， 你可以将@Configuraiton做的事情是纯手工定义bean然后添加到Spring容器， 而@ComponentScan则是自动收集bean定义并添加到Spring容器。</p> 
+     <h3 id="import"><span class="citation" data-cites="Import">@Import</span></h3> 
+     <p>Spring容器的配置可以分散在多个物理存在的配置类或者配置文件中， <span class="citation" data-cites="Import允许将其它JavaConfig形式的配置类引入到当前的">@Import允许将其它JavaConfig形式的配置类引入到当前的</span><span class="citation" data-cites="Configuration标注的配置类当中">@Configuration标注的配置类当中</span>， 对应于原来xml时代的<code>&lt;import/&gt;</code>, 甚至于也可以通过@ImportResource将xml形式定义的配置也引入当前JavaConfig形式的配置类当中。</p> 
+     <h3 id="propertysource"><span class="citation" data-cites="PropertySource">@PropertySource</span></h3> 
+     <p>配合@Configuration使用， 用来加载.properties内容到Environment，比如：<code>@PropertySource("classpath:/application.properties")</code>，当然，要生效， 同时需要容器中配置一个PropertySourcesPlaceholderConfigurer。</p> 
+     <p><span class="citation" data-cites="PropertySource和">@PropertySource和</span><span class="citation" data-cites="PropertySources的区别在于">@PropertySources的区别在于</span>， 后者属于前者的Aggregation类型， 在有多个.properties资源需要引入的情况下，如果能够使用Java8的repeatable annotation特性，则只需要声明多个@PropertySource就行了， 否则，作为fallback方案，使用@PropertySources然后再其中引用多个<span class="citation" data-cites="PropertySource好了">@PropertySource好了</span>。</p> 
+     <h3 id="environment和profile">Environment和Profile</h3> 
+     <p>这两个概念应该是Spring3时代引入的， Environment用来统一表达当前应用程序运行环境的概念，会以Properties的形式提供一系列该环境下的上下文信息，而且允许当前应用程序获取activeProfile是哪个。</p> 
+     <p>说实话， Environment的设计，我觉得到提供上下文信息这一关键职能就可以了， 而Profile的设计，则有些太过于Monolithic时代的做事风格。 Profile一般用来提供某些灵活性， 但这种灵活性是内部化的， 这意味着， 你的软件实体需要知道外面可能提供多少种profiles， 然后在不同的profile下，我的软件实体需要做什么样的调整。 而实际上， 软件实体从研发到交付和使用， 最好是在整条流水线上设计和生产都是一致， 只有“销售”之前，才根据目标环境或者目标客户调整“包装”和配置， 然后“发货”， 用户拿到手的产品(当然包括我们搞的软件产品)应该是开箱即用的， 这个产品既不会存在我不需要的功能，也不应该每次使用的时候先自己“很智能”的扫描一下上下文环境然后决定使用哪一个Profile。尤其是在微服务时代，随着你服务数量的增长， <code>服务数量 * Environment数量 * 所谓的Profile数量</code>更是指数级增长 <a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>， 如果应用开发的时候还要考虑这么多，那出问题的几率就更大了。</p> 
+     <p>所以， 在Microservices时代，我们更建议外部化你的软件产品差异化配置管理， 尽量减少Profile的滥用甚至不用(这就减少一个纬度的管理)。</p> 
+     <h2 id="understanding-enableautoconfiguration">Understanding <span class="citation" data-cites="EnableAutoConfiguration">@EnableAutoConfiguration</span></h2> 
+     <p>在本文之前提到的所有Annotation都属于SpringFramework提供的， 现在要说的这个Annotation，即@EnableAutoConfiguration， 则属于SpringBoot。</p> 
+     <p><span class="citation" data-cites="EnableAutoConfiguration的定义信息如下">@EnableAutoConfiguration的定义信息如下</span>：</p> 
+     <div class="sourceCode" id="cb4">
+      <pre class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="at">@Target</span><span class="op">(</span>value<span class="op">=</span>TYPE<span class="op">)</span></span>
+            <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at">@Retention</span><span class="op">(</span>value<span class="op">=</span>RUNTIME<span class="op">)</span></span>
+            <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="at">@Documented</span></span>
+            <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="at">@Inherited</span></span>
+            <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="at">@Import</span><span class="op">(</span>value<span class="op">={</span>org<span class="op">.</span><span class="fu">springframework</span><span class="op">.</span><span class="fu">boot</span><span class="op">.</span><span class="fu">autoconfigure</span><span class="op">.</span><span class="fu">EnableAutoConfigurationImportSelector</span><span class="op">.</span><span class="fu">class</span><span class="op">,</span>org<span class="op">.</span><span class="fu">springframework</span><span class="op">.</span><span class="fu">boot</span><span class="op">.</span><span class="fu">autoconfigure</span><span class="op">.</span><span class="fu">AutoConfigurationPackages</span><span class="op">.</span><span class="fu">Registrar</span><span class="op">.</span><span class="fu">class</span><span class="op">})</span></span>
+            <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="at">@interface</span> EnableAutoConfiguration</span></code></pre>
+     </div> 
+     <p>标注了这个Annotation的配置类将触发一系列动作， 也是SpringBoot“黑魔法”的核心， 魔法大体上是这样发生的： SpringBoot一旦发现@EnableAutoConfiguration， 那么就使用Spring框架提供的SpringFactoriesLoader这个特性去扫描当前应用classpath下所有<code>META-INF/spring.factories</code>元信息配置， 然后根据当前使用场景需要， 加载符合当前场景需要的配置类型并供当前或者后继流程使用， 对于@EnableAutoConfiguration的场景，就是提取以<code>org.springframework.boot.autoconfigure.EnableAutoConfiguration</code>作为key标志的一系列Java配置类，然后将这些Java配置类中的bean定义加载或者说灌入Spring容器中。</p> 
+     <p>当然， EnableAutoConfiguration通过SpringFactoriesLoader筛选并加载进来的这些Java配置类里面，我们其实还可以进一步对要加载到容器的bean定义进行筛选， 这就会用Spring3系列引入的@Conditional“军团”， 通过像@ConditionalOnClass， <span class="citation" data-cites="ConditionalOnMissingBean等具体的类型和条件来进一步决定加载还是不加载哪些bean定义">@ConditionalOnMissingBean等具体的类型和条件来进一步决定加载还是不加载哪些bean定义</span>。</p> 
+     <h2 id="enter-main">Enter Main</h2> 
+     <p>有了上面的这些“前戏”， 下面我们正式进入正题了…</p> 
+     <p>每一个SpringBoot应用都有一个入口类，在其中定义main方法， 然后使用SpringApplication这个类来加载指定配置并运行SpringBoot应用程序， 在很多SpringBoot的介绍中，都会使用当前入口类既作为配置（标注@Configuration）又作为入口类， 比如我们的HellSpringBoot:</p> 
+     <div class="sourceCode" id="cb5">
+      <pre class="sourceCode java"><code class="sourceCode java"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="at">@SpringBootApplication</span></span>
+            <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> HelloSpringBoot <span class="op">{</span></span>
+            <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="kw">throws</span> <span class="bu">Exception</span> <span class="op">{</span></span>
+            <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        SpringApplication<span class="op">.</span><span class="fu">run</span><span class="op">(</span>HelloSpringBoot<span class="op">.</span><span class="fu">class</span><span class="op">,</span> args<span class="op">);</span></span>
+            <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+            <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+     </div> 
+     <p><span class="citation" data-cites="SpringBootApplication等效于">@SpringBootApplication等效于</span><span class="citation" data-cites="Configuraiton">@Configuraiton</span> + <span class="citation" data-cites="EnableAutoConfiguration">@EnableAutoConfiguration</span> + <span class="citation" data-cites="ComponentScan">@ComponentScan</span>, 所以， 当我们将HelloSpringBoot.class作为JavaConfig配置类传入SpringApplication.run方法之后， SpringApplication.run方法就知道从哪里加载并扫描必要的bean定义了。</p> 
+     <p>现在，剩下的就是要搞清楚SpringApplication.run里面发生了什么：</p> 
+     <figure> 
+      <img src="images/how-spring-boot-autoconfigure-works.png" alt="how-spring-boot-autoconfigure-works">
+      <figcaption aria-hidden="true">
+       how-spring-boot-autoconfigure-works
+      </figcaption> 
+     </figure> 
+     <p>其实SpringApplication作为一个bootstrap类， 既可以加载JavaConfig形式的配置， 也可以加载XML形式的配置， 然后根据情况下创建相应类型的ApplicationContext实例， 为了简化理解难度，我们以JavaConfig为主线， 那么一般情况下， SpringBoot就会创建一个对应处理JavaConfig形式配置的AnnotationConfigApplicationContext实例（或者如果有Servlet等类，则创建ConfigurableWebApplicationContext）。</p> 
+     <p>然后一个CommandLinePropertySource会被创建且其内容会加载到当前SpringBoot应用的Environment之中（这也就是为什么命令行上提供的参数可以优先覆盖其它配置的原因），当然， 其它的PropertySource这个时候也会随后一起加载然后并到Environment， 然后交给ApplicationContext实例后继使用（不要纠结与代码细节，虽然代码细节里是先做了包括设置env的一些事情然后再创建ApplicationContext实例）。</p> 
+     <p>在ApplicationContext创建的之前和之后， SpringBoot会使用SpringFactoriesLoader这个特性，从当前classpath下所有的META-INF/spring.factories下加载如下类型的一些callback接口并在前中后等不同时机执行：</p> 
+     <ol type="1"> 
+      <li>org.springframework.boot.SpringApplicationRunListener</li> 
+      <li>org.springframework.context.ApplicationContextInitializer</li> 
+      <li>org.springframework.context.ApplicationListener</li> 
+     </ol> 
+     <p>这些杂事我这里就不细说了， 总是上面提到的事儿做完后，ApplicationContext就正式加载SpringApplication.run方法传入进来的配置了（JavaConfig形式或者XML形式）， 然后，因为我们标注了@SpringBootApplication， 容器会自动完成指定语意的一系列职能，包括@EnableAutoConfiguration要求的事情， 比如， 从SpringBoot提供的多个starter模块中加载JavaConfig配置， 然后将这些JavaConfig配置筛选上来的bena定义加入Spring容器中（即ApplicationContext中）， refresh容器，然后就完事大吉了，一个SpringBoot应用启动完成。</p> 
+     <p>不过，其实最后还有一个关键组件，一般用于扩展， 在容器准备好之后，SpringBoot其实还会根据类型去容器中挑选一批CommandLineRunner， 然后依次执行这些CommandLineRunner， 我们可以根据需求和场景，实现一些自己的CommandLineRunner并添加到容器来对SpringBoot应用进行某种扩展。</p> 
+     <p>以上属于SpringBoot的整部大戏， 希望各位看官受用， ^_-</p> 
+     <h1 id="lean-springboot">Lean SpringBoot</h1> 
+     <p>如果你对SpringBoot不甚了解， 或许就会对其<code>Quick &amp; Dirty</code>的做事方式有所顾虑， 是不是AutoConfiguration黑魔法加载了过多没必要的配置啊？ 是不是这套框架太简单无法满足需要啊？ 不过， 一旦你了解了SpringBoot， 这些顾虑就会烟消云散了, SpringBoot既提供了丰富的“给养”， 又同时具有足够的灵活度，让我们根据情况对其进行瘦身（make it lean）， 我们先来看丰富的“给养”…</p> 
+     <h2 id="get-to-know-springboot-modules-first">Get To Know SpringBoot Modules First</h2> 
+     <p>SpringBoot提供了很多预先配置好的职能模块，我们可以先来看看这些模块都能为我们做什么，然后再来决定SpringBoot提供的现有功能是否满足我们的需求， 这些模块大体上如下所列：</p> 
+     <div class="sourceCode" id="cb6">
+      <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-amqp&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-aop&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-batch&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-cloud-connectors&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-data-elasticsearch&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-data-gemfire&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-data-jpa&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-data-mongodb&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-data-rest&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-data-solr&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-freemarker&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-groovy-templates&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-hateoas&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-hornetq&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-integration&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-jdbc&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-jersey&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-jetty&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-jta-atomikos&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-jta-bitronix&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-logging&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-log4j&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-log4j2&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-mail&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-mobile&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-mustache&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-actuator&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-parent&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-redis&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-security&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-social-facebook&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-social-twitter&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-social-linkedin&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-remote-shell&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-test&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-thymeleaf&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-tomcat&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-undertow&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-velocity&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-web&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-websocket&lt;/<span class="kw">module</span>&gt;</span>
+            <span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">module</span>&gt;spring-boot-starter-ws&lt;/<span class="kw">module</span>&gt;</span></code></pre>
+     </div> 
+     <p>我不会对所有的starter都进行介绍，只简单挑几个主要的进行简单介绍…</p> 
+     <h3 id="spring-boot-starter-actuator">spring-boot-starter-actuator</h3> 
+     <p>这个module提供的东西比较多，都属于外围支撑性功能， 比如：</p> 
+     <ol type="1"> 
+      <li>提供一系列的Endpoints来窥探SpringBoot应用内部的一系列状态并进行监控管理；</li> 
+      <li>提供HealthIndicator来允许对SpringBoot应用进行健康检查；</li> 
+      <li>提供metrics支持；</li> 
+      <li>提供远程shell支持；</li> 
+      <li>提供mbean支持， 等等…</li> 
+     </ol> 
+     <h3 id="spring-boot-starter-web">spring-boot-starter-web</h3> 
+     <p>告诉SpringBoot， 哥当前要开发的是一个Web应用，把相应的依赖配置都给我准备好。</p> 
+     <p>默认SpringBoot会给Web应用配备Tomcat作为嵌入式web容器， 如果你不想用默认的tomcat，而想用jetty，那么可以再声明一个对spring-boot-starter-jetty的dependency，之后SpringBoot中使用的EnableAutoConfiguration会施展黑魔法，帮你搞定替换满足你的愿望。</p> 
+     <h3 id="spring-boot-starter-logging">spring-boot-starter-logging</h3> 
+     <p>告诉SpringBoot， “给哥使用slf4j和logback！”</p> 
+     <h3 id="其它starter-modules">其它starter modules</h3> 
+     <p>一般看名字就可以猜个八九不离十了，所以， 留待各位看官自己去挖掘吧~</p> 
+     <h2 id="specific-microservice-type-customization">Specific Microservice Type Customization</h2> 
+     <p>SpringBoot提供的功能倒是蛮丰富的了，但是，你会发现，爽了的同时，整个应用也会看起笨重了些， 比如有人就抱怨说SpringBoot应用启动慢(虽然这不是什么大问题，你生产环境又不会闲着没事经常重启，服务就应该长久，哈哈)， 好在SpringBoot的设计提供了足够的灵活度，让我们可以对其进行裁剪和瘦身。</p> 
+     <h3 id="dubbomicroserviceautoconfiguration">DubboMicroServiceAutoConfiguration</h3> 
+     <p>很多公司在使用dubbo作为java服务的开发框架，我们也不例外， 所以， 构建基于SpringBoot和Dubbo的微服务属于比较普遍的需求， 要完成这个事情其实很简单，只要提供一个特定于dubbo的自动加载模块就可以了， 比如我们称其为DubboMicroServiceAutoConfiguration（只是举例，非实际生产代码）：</p> 
+     <div class="sourceCode" id="cb7">
+      <pre class="sourceCode java"><code class="sourceCode java"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="at">@Configuration</span></span>
+            <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="at">@Order</span><span class="op">(</span>Ordered<span class="op">.</span><span class="fu">HIGHEST_PRECEDENCE</span><span class="op">)</span></span>
+            <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> DubboMicroServiceAutoConfiguration <span class="op">{</span></span>
+            <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+            <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 1. Application Bean Definition</span></span>
+            <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Bean</span></span>
+            <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">@ConditionalOnMissingBean</span></span>
+            <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Value</span><span class="op">(</span>$<span class="op">{</span>dubo<span class="op">.</span><span class="fu">application</span><span class="op">.</span><span class="fu">name</span><span class="op">})</span></span>
+            <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> DubboApplication <span class="fu">dubboApp</span><span class="op">()</span> <span class="op">{</span></span>
+            <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">new</span> xxx<span class="op">;</span></span>
+            <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+            <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    </span>
+            <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 2. Registry Bean Definition</span></span>
+            <span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    </span>
+            <span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 3. Protocol Bean Definition</span></span>
+            <span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+     </div> 
+     <p>然后， 在pom中添加其依赖就完工了：</p> 
+     <div class="sourceCode" id="cb8">
+      <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">dependency</span>&gt;</span>
+            <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">groupId</span>&gt;com.wacai&lt;/<span class="kw">groupId</span>&gt;</span>
+            <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">artifactId</span>&gt;spring-boot-starter-dubbo&lt;/<span class="kw">artifactId</span>&gt;</span>
+            <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">version</span>&gt;...&lt;/<span class="kw">version</span>&gt;</span>
+            <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">dependency</span>&gt;</span></code></pre>
+     </div> 
+     <p>当然， dubbo跟哥属于一个时代，其实使用JavaConfig来配置还是有些不适应的，而且基本上大部分dubbo服务也都是通过xml形式进行配置的，不过没关系， 退一步讲， 都不需要自动配置模块， 通过convention来约定说我们所有的dubbo项目从src/main/resources/spring/*.xml这样的资源路径来加载容器的配置就可以了， 更他娘的简单！</p> 
+     <div class="sourceCode" id="cb9">
+      <pre class="sourceCode java"><code class="sourceCode java"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="at">@Configuration</span></span>
+            <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="at">@ImportResource</span><span class="op">(</span><span class="st">"classpath*:/spring/*.xml"</span><span class="op">)</span></span>
+            <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">...</span></span>
+            <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Main <span class="op">{</span></span>
+            <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">...</span></span>
+            <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+     </div> 
+     <blockquote> 
+      <p>使用的pattern请各位看官灵活把握！</p> 
+     </blockquote> 
+     <h3 id="webapiautoconfiguration">WebAPIAutoConfiguration</h3> 
+     <p>其实对于性能要求不是那么苛刻的场景（大多数应用其实都归于此类）， 我们完全可以只走HTTP就好了， 服务注册中心都现成的经过多年验证的成熟方案（I mean DNS）, 而且，多语言生态下的互通这也是唯一比较合理的一条路， 这就是我现在公司内部一直强调“大部分情况下，互通优于性能”， 只有在特殊需求下，才有必要花费经历对性能去进行优化（比如使用dubbo这种特定于java的方案， 对网络，系统甚至代码等进行调优）。</p> 
+     <p>故此，我们内部除了基于dubbo的微服务，还有web api形式的微服务，我说web api而不是说rest(ful) api， 是因为，虽然后者更高大上， 但对于我们的团队来说， 简单粗暴的做法更容易接受且符合团队现状， hibernate当年搞得映射关系支持的多么牛逼，最后还不是都自己在代码逻辑里管理这些关系， 而几乎只用它最基本的CURD支持吗？！ 存在肯定是有理由的，哈哈</p> 
+     <p>web api的设计我们就不多说了， 建议是采用适合自己团队的做法， 我们来聊正事！</p> 
+     <p>基于SpringBoot提供web api， 我们可以选择基于JavaEE标准的starter模块，比如spring-boot-starter-jersey， 也可以使用高大上的spring-boot-starter-hateoas， 其实基本上不需要自己提供扩展。</p> 
+     <h4 id="web-api-documentation">Web API Documentation</h4> 
+     <p>我们可以使用Swagger提供当前Web API的文档。</p> 
+     <ol type="1"> 
+      <li>添加maven依赖</li> 
+     </ol> 
+     <div class="sourceCode" id="cb10">
+      <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;</span>
+            <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;com.mangofactory&lt;/<span class="kw">groupId</span>&gt;</span>
+            <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;swagger-springmvc&lt;/<span class="kw">artifactId</span>&gt;</span>
+            <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">version</span>&gt;1.0.2&lt;/<span class="kw">version</span>&gt;</span>
+            <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span></code></pre>
+     </div> 
+     <ol start="2" type="1"> 
+      <li><p>src/main/resources目录下添加swagger-ui的相关资源(亲们，自己google大法吧~)</p></li> 
+      <li><p>启动类上添加相应配置</p></li> 
+     </ol> 
+     <div class="sourceCode" id="cb11">
+      <pre class="sourceCode java"><code class="sourceCode java"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="at">@Configuration</span></span>
+            <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="at">@PropertySource</span><span class="op">(</span><span class="st">"file:conf/application.properties"</span><span class="op">)</span></span>
+            <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="at">@ImportResource</span><span class="op">(</span><span class="st">"classpath*:/spring/*.xml"</span><span class="op">)</span></span>
+            <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="at">@EnableAutoConfiguration</span><span class="op">(</span>exclude <span class="op">=</span> <span class="op">{</span>DataSourceAutoConfiguration<span class="op">.</span><span class="fu">class</span><span class="op">,</span> DataSourceTransactionManagerAutoConfiguration<span class="op">.</span><span class="fu">class</span><span class="op">})</span></span>
+            <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="at">@ComponentScan</span></span>
+            <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="at">@EnableSwagger</span></span>
+            <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Main <span class="op">{</span></span>
+            <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+            <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> SpringSwaggerConfig springSwaggerConfig<span class="op">;</span></span>
+            <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+            <span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Autowired</span></span>
+            <span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">setSpringSwaggerConfig</span><span class="op">(</span>SpringSwaggerConfig springSwaggerConfig<span class="op">)</span> <span class="op">{</span></span>
+            <span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">springSwaggerConfig</span> <span class="op">=</span> springSwaggerConfig<span class="op">;</span></span>
+            <span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+            <span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+            <span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Bean</span></span>
+            <span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> SwaggerSpringMvcPlugin <span class="fu">configureSwagger</span><span class="op">()</span> <span class="op">{</span></span>
+            <span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>        ApiInfo apiInfo <span class="op">=</span> <span class="kw">new</span> <span class="fu">ApiInfo</span><span class="op">(</span><span class="st">"sample web api"</span><span class="op">,</span> <span class="st">"web api project with spring boot"</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">);</span></span>
+            <span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">new</span> <span class="fu">SwaggerSpringMvcPlugin</span><span class="op">(</span><span class="kw">this</span><span class="op">.</span><span class="fu">springSwaggerConfig</span><span class="op">).</span><span class="fu">apiInfo</span><span class="op">(</span>apiInfo<span class="op">).</span><span class="fu">useDefaultResponseMessages</span><span class="op">(</span><span class="kw">false</span><span class="op">).</span><span class="fu">includePatterns</span><span class="op">(</span><span class="st">"/*"</span><span class="op">);</span></span>
+            <span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+            <span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a></span>
+            <span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+            <span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>        SpringApplication app <span class="op">=</span> <span class="kw">new</span> <span class="fu">SpringApplication</span><span class="op">(</span>Main<span class="op">.</span><span class="fu">class</span><span class="op">);</span></span>
+            <span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>        app<span class="op">.</span><span class="fu">setShowBanner</span><span class="op">(</span><span class="kw">false</span><span class="op">);</span></span>
+            <span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>        app<span class="op">.</span><span class="fu">run</span><span class="op">(</span>args<span class="op">);</span></span>
+            <span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+            <span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a></span>
+            <span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+     </div> 
+     <p>然后通过/index.html路径访问swagger-ui， 然后在api信息查询输入框中输入对应host下的/api-docs路径的URL， 就可以获取相应的API文档信息了。</p> 
+     <p>API文档随同Web API一起发布，fucking amazing!</p> 
+     <h2 id="devops-specific-customization">DevOps-Specific Customization</h2> 
+     <p>系统不是一个个的孤岛， 我们需要连接起来才会发挥更大的效能， 为了让SpringBoot可以融入<a href="http://www.wacai.com">挖财</a>的技术生态中，我们会对其进行一些定制， 这些定制对各位看官来说不一定有用， 权且作为点滴参考。</p> 
+     <h3 id="config-customization">config customization</h3> 
+     <p>我们的应用配置采用配置中心 <a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>进行管理， 但流程上对研发是透明的， 开发阶段配置文件按照约定放在项目根目录下的conf/目录， 发布包的结构也是同样的，配置文件名采用SpringBoot的默认application.properties即可， 唯一需要调整的配置就是配置文件的加载路径， 这可以在应用启动的时候指定命令行参数搞定：<code>--spring.config.location=file:conf/</code>, 或者：</p> 
+     <div class="sourceCode" id="cb12">
+      <pre class="sourceCode java"><code class="sourceCode java"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">...</span></span>
+            <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="at">@PropertySource</span><span class="op">(</span><span class="st">"file:conf/application.properties"</span><span class="op">)</span></span>
+            <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="kw">...</span></span>
+            <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Main <span class="op">{</span></span>
+            <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+            <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        SpringApplication app <span class="op">=</span> <span class="kw">new</span> <span class="fu">SpringApplication</span><span class="op">(</span>Main<span class="op">.</span><span class="fu">class</span><span class="op">);</span></span>
+            <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        app<span class="op">.</span><span class="fu">setShowBanner</span><span class="op">(</span><span class="kw">false</span><span class="op">);</span></span>
+            <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>        app<span class="op">.</span><span class="fu">run</span><span class="op">(</span>args<span class="op">);</span></span>
+            <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+            <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+     </div> 
+     <p>我们还可以提供一个新的AutoConfiguraiton的module， 这个module提供一个新的PropertySource指向我们约定的位置就行了， 具体方案会结合我们的发布平台再选择最为合适的， 可选方案只是为了给大家一些启发思路。</p> 
+     <h3 id="logging-customization">logging customization</h3> 
+     <p>在挖财，我们对日志格式进行了规范， 而且使用logback， 且对日志的输出路径也做了规定，以便所有应用一旦部署就可以自动享受到我们的日志采集分析平台的服务。</p> 
+     <p>SpringBoot因为一些历史原因和向前兼容保持一致性等因素的关系（不知道有没有其它利害）， 一直主要用commons-logging， 我们显然不喜欢这个默认设置，所以， 我们对SpringBoot的日志设定做了一些定制：</p> 
+     <ol type="1"> 
+      <li>添加spring-boot-starter-logging依赖，让spring boot使用logback;</li> 
+      <li>添加logback.xml配置文件，配置规则遵循我们自己的规范；</li> 
+      <li>启动的时候，设置LOG_HOME环境变量或者命令行参数；</li> 
+     </ol> 
+     <h1 id="scala-is-also-bootiful">Scala Is Also Bootiful</h1> 
+     <p>我们团队有部分精英同学(Scala Elites)使用Scala语言进行开发， 而对于SpringBoot来说， 使用任何JVM上的语言原则上都不是什么问题， 比如， 要使用Scala进行SpringBoot应用的开发， 只需要添加Scala的相应依赖和编译支持就可以了：</p> 
+     <div class="sourceCode" id="cb13">
+      <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">project</span><span class="ot"> xmlns=</span><span class="st">"http://maven.apache.org/POM/4.0.0"</span><span class="ot"> xmlns:xsi=</span><span class="st">"http://www.w3.org/2001/XMLSchema-instance"</span></span>
+            <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ot">         xsi:schemaLocation=</span><span class="st">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span>
+            <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">modelVersion</span>&gt;4.0.0&lt;/<span class="kw">modelVersion</span>&gt;</span>
+            <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+            <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">parent</span>&gt;</span>
+            <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">groupId</span>&gt;org.springframework.boot&lt;/<span class="kw">groupId</span>&gt;</span>
+            <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">artifactId</span>&gt;spring-boot-starter-parent&lt;/<span class="kw">artifactId</span>&gt;</span>
+            <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">version</span>&gt;1.2.5.RELEASE&lt;/<span class="kw">version</span>&gt;</span>
+            <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">parent</span>&gt;</span>
+            <span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+            <span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">groupId</span>&gt;com.wacai&lt;/<span class="kw">groupId</span>&gt;</span>
+            <span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">artifactId</span>&gt;hello-springboot&lt;/<span class="kw">artifactId</span>&gt;</span>
+            <span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">version</span>&gt;1.0-SNAPSHOT&lt;/<span class="kw">version</span>&gt;</span>
+            <span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">packaging</span>&gt;jar&lt;/<span class="kw">packaging</span>&gt;</span>
+            <span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
+            <span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">name</span>&gt;hello-spring-boot&lt;/<span class="kw">name</span>&gt;</span>
+            <span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">url</span>&gt;http://maven.apache.org&lt;/<span class="kw">url</span>&gt;</span>
+            <span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
+            <span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">properties</span>&gt;</span>
+            <span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">encoding</span>&gt;UTF-8&lt;/<span class="kw">encoding</span>&gt;</span>
+            <span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">scala.version</span>&gt;2.11.6&lt;/<span class="kw">scala.version</span>&gt;</span>
+            <span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">properties</span>&gt;</span>
+            <span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a></span>
+            <span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a></span>
+            <span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">build</span>&gt;</span>
+            <span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">plugins</span>&gt;</span>
+            <span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">plugin</span>&gt;</span>
+            <span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">groupId</span>&gt;net.alchim31.maven&lt;/<span class="kw">groupId</span>&gt;</span>
+            <span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">artifactId</span>&gt;scala-maven-plugin&lt;/<span class="kw">artifactId</span>&gt;</span>
+            <span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">version</span>&gt;3.2.1&lt;/<span class="kw">version</span>&gt;</span>
+            <span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">executions</span>&gt;</span>
+            <span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">execution</span>&gt;</span>
+            <span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">id</span>&gt;compile-scala&lt;/<span class="kw">id</span>&gt;</span>
+            <span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">phase</span>&gt;compile&lt;/<span class="kw">phase</span>&gt;</span>
+            <span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">goals</span>&gt;</span>
+            <span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>                            &lt;<span class="kw">goal</span>&gt;add-source&lt;/<span class="kw">goal</span>&gt;</span>
+            <span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>                            &lt;<span class="kw">goal</span>&gt;compile&lt;/<span class="kw">goal</span>&gt;</span>
+            <span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>                        &lt;/<span class="kw">goals</span>&gt;</span>
+            <span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>                    &lt;/<span class="kw">execution</span>&gt;</span>
+            <span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">execution</span>&gt;</span>
+            <span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">id</span>&gt;test-compile-scala&lt;/<span class="kw">id</span>&gt;</span>
+            <span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">phase</span>&gt;test-compile&lt;/<span class="kw">phase</span>&gt;</span>
+            <span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">goals</span>&gt;</span>
+            <span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>                            &lt;<span class="kw">goal</span>&gt;add-source&lt;/<span class="kw">goal</span>&gt;</span>
+            <span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>                            &lt;<span class="kw">goal</span>&gt;testCompile&lt;/<span class="kw">goal</span>&gt;</span>
+            <span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>                        &lt;/<span class="kw">goals</span>&gt;</span>
+            <span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>                    &lt;/<span class="kw">execution</span>&gt;</span>
+            <span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>                &lt;/<span class="kw">executions</span>&gt;</span>
+            <span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">configuration</span>&gt;</span>
+            <span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">recompileMode</span>&gt;incremental&lt;/<span class="kw">recompileMode</span>&gt;</span>
+            <span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">scalaVersion</span>&gt;${scala.version}&lt;/<span class="kw">scalaVersion</span>&gt;</span>
+            <span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">args</span>&gt;</span>
+            <span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">arg</span>&gt;-deprecation&lt;/<span class="kw">arg</span>&gt;</span>
+            <span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>                    &lt;/<span class="kw">args</span>&gt;</span>
+            <span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">jvmArgs</span>&gt;</span>
+            <span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">jvmArg</span>&gt;-Xms64m&lt;/<span class="kw">jvmArg</span>&gt;</span>
+            <span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">jvmArg</span>&gt;-Xmx1024m&lt;/<span class="kw">jvmArg</span>&gt;</span>
+            <span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a>                    &lt;/<span class="kw">jvmArgs</span>&gt;</span>
+            <span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a>                &lt;/<span class="kw">configuration</span>&gt;</span>
+            <span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a>            &lt;/<span class="kw">plugin</span>&gt;</span>
+            <span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a></span>
+            <span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">plugins</span>&gt;</span>
+            <span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">build</span>&gt;</span>
+            <span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a></span>
+            <span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">dependencies</span>&gt;</span>
+            <span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;</span>
+            <span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.scala-lang&lt;/<span class="kw">groupId</span>&gt;</span>
+            <span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;scala-library&lt;/<span class="kw">artifactId</span>&gt;</span>
+            <span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">version</span>&gt;${scala.version}&lt;/<span class="kw">version</span>&gt;</span>
+            <span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span>
+            <span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;</span>
+            <span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.scala-lang&lt;/<span class="kw">groupId</span>&gt;</span>
+            <span id="cb13-73"><a href="#cb13-73" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;scala-compiler&lt;/<span class="kw">artifactId</span>&gt;</span>
+            <span id="cb13-74"><a href="#cb13-74" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">version</span>&gt;${scala.version}&lt;/<span class="kw">version</span>&gt;</span>
+            <span id="cb13-75"><a href="#cb13-75" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span>
+            <span id="cb13-76"><a href="#cb13-76" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;</span>
+            <span id="cb13-77"><a href="#cb13-77" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.springframework.boot&lt;/<span class="kw">groupId</span>&gt;</span>
+            <span id="cb13-78"><a href="#cb13-78" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;spring-boot-starter-web&lt;/<span class="kw">artifactId</span>&gt;</span>
+            <span id="cb13-79"><a href="#cb13-79" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span>
+            <span id="cb13-80"><a href="#cb13-80" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">dependencies</span>&gt;</span>
+            <span id="cb13-81"><a href="#cb13-81" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">project</span>&gt;</span></code></pre>
+     </div> 
+     <blockquote> 
+      <p>如果使用SBT而不是Maven, 可能需要费点儿周折， 需要自己添加一系列的依赖，并且解决按照SpringBoot的可执行jar规范格式发布的问题。</p> 
+     </blockquote> 
+     <h1 id="distribute-springboot-application">Distribute SpringBoot Application</h1> 
+     <p>SpringBoot提供了相应的Maven插件用于将SpringBoot应用以可执行jar包的形式发布出去， 只要将如下插件配置加入pom即可：</p> 
+     <div class="sourceCode" id="cb14">
+      <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">build</span>&gt;</span>
+            <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">plugins</span>&gt;</span>
+            <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">plugin</span>&gt;</span>
+            <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.springframework.boot&lt;/<span class="kw">groupId</span>&gt;</span>
+            <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;spring-boot-maven-plugin&lt;/<span class="kw">artifactId</span>&gt;</span>
+            <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">plugin</span>&gt;</span>
+            <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">plugins</span>&gt;</span>
+            <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">build</span>&gt;</span></code></pre>
+     </div> 
+     <p>允许<code>mvn package</code>将直接获得一个可执行的jar包(<code>java -jar xxxx.jar</code>)， 具体原理参考SpringBoot的Reference文档附录。</p> 
+     <h1 id="conclusion">Conclusion</h1> 
+     <p>SpringBoot初看上去颇为复杂，但一旦你了解了它内部的精妙设计， 就会有那种“柳暗花明”的感觉了。本文最后引用的参考连接中使用钢铁侠来类比SpringBoot，我觉得还是挺恰当的， 感觉上很笨重，但实际上却是灵活可拆装， 多种后备组合可供选择， 既有雄厚的商业实体支撑， 还有良好的群众基础， fucking perfect！</p> 
+     <p>SpringBoot， 你值得拥有 ；）</p> 
+     <h1 id="references">References</h1> 
+     <ol type="1"> 
+      <li><a href="http://spring.io/blog/2013/08/06/spring-boot-simplifying-spring-for-everyone/">Spring Boot – Simplifying Spring for Everyone</a> 
+       <ul> 
+        <li>起源性介绍</li> 
+        <li><a href="https://jira.spring.io/browse/SPR-9888" class="uri">https://jira.spring.io/browse/SPR-9888</a> - 起源性issue</li> 
+       </ul></li> 
+      <li><a href="http://www.infoq.com/news/2014/04/spring-boot-goes-ga" class="uri">http://www.infoq.com/news/2014/04/spring-boot-goes-ga</a></li> 
+      <li><a href="http://www.infoq.com/articles/microframeworks1-spring-boot" class="uri">http://www.infoq.com/articles/microframeworks1-spring-boot</a></li> 
+      <li><a href="https://jira.spring.io/browse/SPR-9888">Improved support for ‘containerless’ web application architectures</a></li> 
+      <li><a href="http://dev-blog.xoom.com/2015/03/15/use-spring-boot-auto-configuration/">Why We Do Not Use Spring Boot Auto Configuration</a></li> 
+      <li><a href="http://spring.io/blog/2015/06/08/cors-support-in-spring-framework">CORS support in Spring Framework</a></li> 
+      <li><a href="http://www.schibsted.pl/2015/07/spring-boot-and-dropwizard-in-microservices-development/">http://www.schibsted.pl/2015/07/spring-boot-and-dropwizard-in-microservices-development/</a></li> 
+      <li>SpringBoot Javadoc and Sourcecode</li> 
+      <li><a href="http://callistaenterprise.se/blogg/teknik/2015/03/25/an-operations-model-for-microservices/" class="uri">http://callistaenterprise.se/blogg/teknik/2015/03/25/an-operations-model-for-microservices/</a></li> 
+      <li><a href="http://microservices.io/patterns/index.html" class="uri">http://microservices.io/patterns/index.html</a></li> 
+      <li>other more posts and docs that I can’t remember…</li> 
+     </ol> 
+     <section class="footnotes" role="doc-endnotes"> 
+      <hr> 
+      <ol> 
+       <li id="fn1" role="doc-endnote"><p>Dropwizard的做事方式对于Senior来说是OK的，但还是处于半自动状态，很多东西需要自己装配，技术选型很优秀，但拼整体的时候，就有些力有不歹<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+       <li id="fn2" role="doc-endnote"><p>默认运行嵌入的tomcat，所以使用默认的8080端口<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+       <li id="fn3" role="doc-endnote"><p>注意很多时候Profile不一定与Environment相对应, 估计很多开发人员看到文档后并没有完全理解概念，只是照葫芦画瓢，导致profile概念现在大面上被滥用/用坏<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+       <li id="fn4" role="doc-endnote"><p>注意，这里的配置中心跟现在技术社区里提到的配置中心是两个概念， 现在技术社区里常常提到的配置中心叫”状态中心”还差不多, 因为本质上他们是在用数据库也好还是zookeeper也罢作为一个共享状态， 然后让相关系统来“参拜”， 而如果系统设计趋于理想化的话，这些状态应该内聚到服务内部， 如果外部要与这些状态交互， 通过消息传递依次或者并行送达相应的消息就好了，只不过， 这对研发人员的要求，对服务治理，安全等都会造成压力，所以大家就都省事，采用了现在SharedState的模式， 当然，也不失为实践的一种合理方式，无绝对好坏<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+      </ol> 
+     </section> 
+     <hr> 
+     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+     </div> 
+     <div id="random_posts"> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2020-10-25-saas-evolution-path.html">我对SaaS产品研发的些许观点分享 </a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2018-05-26-how_to_find_proper_CTO.html">要找CTO， 你有没有想好选I还是选E？ </a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2011-03-14-prototype-a-java-actor.html">Prototyping An Actor In Java </a> 
+      </div> 
+     </div> 
+     <hr> 
+     <div> 
+      <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+      <ol> 
+       <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+       <li>还分享AI工具、产品方法和商业机会</li> 
+       <li>更有体系化精品付费内容等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取。(加入之后<b>一定记得看置顶消息</b>呀！)</li> 
+      </ol> 
+      <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+     </div> 
+     <hr> 
+     <p> <span style="font-size: xx-large;">存量的时代，省钱就是赚钱。</span> <br> <span style="font-size: xx-large;">在增量的时代，省钱其实是亏钱。</span> <br> 避坑儿是省钱的一种形式，更是真正聪明人的选择！ <br> 弯路虽然也是路，但还是能少走就少走，背后都是高昂的试错成本。 <br> <b>订阅「福报」</b>，少踩坑，少走弯路，多走一步，就是不一样的胜率！ </p> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
+     <hr> 
+     <div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"> 
+      <div id="tfloader" class="x-indicator"> 
+       <svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"> <g fill="none" fill-rule="evenodd"> 
+         <g transform="translate(1 1)" stroke-width="2"> 
+          <circle cx="5" cy="50" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+          <circle cx="27" cy="5" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+          <circle cx="49" cy="50" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+         </g> 
+        </g> 
+       </svg> 
+      </div> 
+     </div> 
+     <hr> 
+     <div id="comments"></div> 
+    </div> 
+   </section> 
+  </main> 
+  <footer class="border-t border-gray-200 dark:border-slate-800"> 
+   <div class="max-w-6xl mx-auto px-4 sm:px-6"> 
+    <div class="md:flex md:items-center md:justify-between py-6 md:py-8"> 
+     <ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0"> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Twitter" href="https://twitter.com/fujohnwang"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-twitter"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z"> 
+         </path> 
+        </svg> </a> </li> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Facebook" href="https://www.facebook.com/fujohnwang/"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-facebook"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2H7"></path> 
+        </svg> </a> </li> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Github" href="https://github.com/fujohnwang"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-github"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"> 
+         </path> 
+        </svg> </a> </li> 
+     </ul> 
+     <div class="text-sm text-gray-700 mr-4 dark:text-slate-400"> <span class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 float-left rounded-sm"> <img src="https://afoo.me/favicon.svg" class="rounded-md" alt> </span> Copyright © 王福强个人版权所有 - Since 2004 (Everything is homebrewed with <a href="https://pandoc.org/">Pandoc</a> and Markdown, little <a href="https://www.scala-lang.org/">Scala</a> also included.) 
+     </div> 
+    </div> 
    </div> 
-  </div> 
-  <script type="text/javascript">
-var gitalk = new Gitalk({
-  clientID: '518a605d711883414ac0',
-  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-  repo: 'afoo.me.comments',
-  owner: 'fujohnwang',
-  admin: ['fujohnwang'],
-  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-  distractionFreeMode: false  // Facebook-like distraction free mode
-})
-
-gitalk.render('comments')
-    </script> 
+  </footer> 
   <script>
-  kofiWidgetOverlay.draw('fff000', {
-    'type': 'floating-chat',
-    'floating-chat.donateButton.text': 'Support me',
-    'floating-chat.donateButton.background-color': 'red',
-    'floating-chat.donateButton.text-color': 'white'
-  });
-</script>  <!-- <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> --> 
+        // Set "light" theme as default
+        if (!localStorage.theme) {
+            localStorage.theme = "light";
+        }
+
+        if (
+            localStorage.theme === 'dark' ||
+            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function attachEvent(selector, event, fn) {
+            const matches = document.querySelectorAll(selector);
+            if (matches && matches.length) {
+                matches.forEach((elem) => {
+                    elem.addEventListener(event, () => fn(elem), false);
+                });
+            }
+        }
+
+        window.onload = function () {
+            attachEvent('[data-toggle-menu]', 'click', function (elem) {
+                elem.classList.toggle('expanded');
+                document.body.classList.toggle('overflow-hidden');
+                document.getElementById('header')?.classList.toggle('h-screen');
+                document.querySelector('#header nav')?.classList.toggle('hidden');
+            });
+            attachEvent('[data-toggle-color-scheme]', 'click', function () {
+                document.documentElement.classList.toggle('dark');
+                localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            });
+        };
+        window.onpageshow = function () {
+            const elem = document.querySelector('[data-toggle-menu]');
+            if (elem) {
+                elem.classList.remove('expanded');
+            }
+            document.body.classList.remove('overflow-hidden');
+            document.getElementById('header')?.classList.remove('h-screen');
+            document.querySelector('#header nav')?.classList.add('hidden');
+        };
+    </script> 
+  <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '518a605d711883414ac0',
+          clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+          repo: 'afoo.me.comments',
+          owner: 'fujohnwang',
+          admin: ['fujohnwang'],
+          id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+        gitalk.render('comments')
+    </script>  
  </body>
 </html>

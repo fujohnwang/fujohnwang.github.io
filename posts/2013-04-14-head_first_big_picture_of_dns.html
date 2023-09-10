@@ -1,51 +1,35 @@
 <!doctype html>
-<html lang="zh"> 
+<html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]"> 
  <head> 
   <meta charset="utf-8"> 
-  <meta name="keywords" content="Head First The Big Picture Of DNS - 架构教练,架构师个人成长教练,个人成长,组织成长,个人与组织成长顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
-  <meta name="description" content="Head First The Big Picture Of DNS - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="keywords" content="Head First The Big Picture Of DNS - 架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="Head First The Big Picture Of DNS - 福强说，扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+  <meta name="robots" content="index,follow"> 
   <title>Head First The Big Picture Of DNS -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <link rel="canonical" href="https://afoo.me/posts/2013-04-14-head_first_big_picture_of_dns.html"> 
-  <style type="text/css">code{white-space: pre;}</style> 
+  <link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"> 
+  <link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8"> 
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
-  <script src="/js/overlay-widget.js"></script> <!--
-  <script type="text/javascript" src="/js/watermark.js"></script>
-  --> <!-- Bootstrap core CSS --> 
-  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
-  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> 
   <style type="text/css">
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      text-align: left;
-      position: relative;
-      -webkit-font-smoothing: antialiased;
-    }
-    
+        pre > code{white-space: pre-line;}
 
-    h1{
-      margin-top: 3rem;
-    }
-
-    .x-indicator{
-        display:none;
-    }
-    .htmx-request .x-indicator{
-        display:inline;
-    }
-    .htmx-request.x-indicator{
-        display:inline;
-    }
-  </style> 
+        .x-indicator{
+            display:none;
+        }
+        .htmx-request .x-indicator{
+            display:inline;
+        }
+        .htmx-request.x-indicator{
+            display:inline;
+        }
+    </style> 
+  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -70,220 +54,298 @@
     })(window, document, "clarity", "script", "irqzhxtyzn");
   </script> 
  </head> 
- <body id="page-top"> <!-- Navigation --> 
-  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
-    <div class="collapse navbar-collapse" id="navbarResponsive"> 
-     <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://jiagoubaike.com">架构百科</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
-     </ul> 
-    </div> 
-   </div> 
-  </nav> 
-  <section> 
-   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
-    <p class="lead"> </p>
-    <h1 class="title">Head First The Big Picture Of DNS</h1> <small> <h3 class="author">王福强</h3> 
-     <div style="text-align: left;"></div> </small> 
-    <p></p> 
-    <hr> 
-    <p>学术不精，平日多有耳闻却又熟视无睹， 借资料大扫荡之机，重新梳理整个DNS体系的大图景，以期将来有据可查可参可考…</p> 
-    <h1 id="dns基本概念铺垫">DNS基本概念铺垫</h1> 对以下域名进行解剖： 
-    <pre>www.howstuffworks.com
-</pre> 
-    <ul> 
-     <li>com: 一级域名或者称为顶级域名(top-level domain/first-class domain)部分</li> 
-     <li>howstuffworks: 二级域名部分</li> 
-     <li>www: 主机(host)部分</li> 
-    </ul> 
-    <h1 id="dns生态体系中牵扯的机构及其职能">DNS生态体系中牵扯的机构及其职能</h1> 
-    <p>顶级域名/一级域名由IANA<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>统一进行管理和分配， 这些顶级域名/一级域名包括我们耳熟能详的：</p> 
-    <ol type="1"> 
-     <li>.com</li> 
-     <li>.net</li> 
-     <li>.org</li> 
-     <li>.edu</li> 
-     <li>etc. etc.</li> 
-    </ol> 
-    <p>“These top-level domains are controlled by the IANA in what’s called the Root Zone Database”</p> 
-    <p>二级域名归属于相应的一级页面下面， 二级域名由域名注册商(registrar)进行分配， 每个域名注册商可以获取一个或者多个一级域名下二级域名的注册权，比如registrar1只能负责.com下二级域名的注册，而registrar2则可以负责.net, .org多个一级域名下二级域名的注册。 每个域名注册商在用户注册/申请二级域名的时候，需要跟ICANN的InterNIC服务进行交互，该服务将保证同一顶级域名下的二级域名的唯一性， 注册成功的二级域名将入whois database.</p> 
-    <p>Network Solutions, Inc.&nbsp;(NSI) was one of the first registrars, and today companies like GoDaddy.com offer domain registration in addition to many other Web site and domain management services.</p> 
-    <h1 id="典型流程和基础设施说明">典型流程和基础设施说明</h1> 
-    <p>当我们在浏览器中输入域名进行服务访问的时候，浏览器会调用相应的系统程序，比如gethostname或者getaddrinfo等，来进行DNS查询，以便找到域名对应的服务器的IP地址是多少，在拿到相应的IP地址之后再发送服务请求进行访问。</p> 
-    <p>那到哪里去查询域名信息与IP地址的映射关系那？ 一般情况下， 我们可以在网络设置里选择手动添加DNS Server地址或者通过DHCP(Dynamic Host Configuration Protocol)自动从ISP获得相应的DNS Server地址。</p> 
-    <blockquote> 
-     <p>NOTE</p> 在Linux或者Unix下， 使用的DNS Server地址可以在resolv.conf中找到，但resolv.conf的内容是自动生成的，一般认为更改无效，要手动变更自己想用的DNS Server是哪个，可以编辑/etc/hosts进行域名/主机名到IP地址的映射关系的添加。 
-    </blockquote> 
-    <p>在知道了要查询的DNS Server是哪个之后， DNS请求就根据相应的协议发送给了DNS Server，DNS Server将首先检查本地缓存中是否存在当前查询的域名与其IP地址的对应关系，如果有则直接返回，如果没有，则查询Root DNS Server，因为每一个DNS Server都会知道至少一个Root DNS Server, Root DNS Server将根据查询域名的一级域名是什么，告诉发起查询的DNS Server哪些其它的DNS Server可能包含相应的二级域名与其IP地址的映射关系信息，之后当前发起查询的DNS Server再向这些DNS Server进行查询，如果在这些返回的DNS Server处查询到相应的映射信息，则缓存到本地然后返回，否则，报给客户端查找不到的错误信息<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>。</p> 
-    <p>我们实际上可以通过nslookup命令(适用于linux或者unix系统)来检查某些域名相关信息，包括它对应的IP地址是什么:</p> 
-    <pre>$ nslookup www.howstuffworks.com // 默认相当于-type=A,即A记录
-$ nslookup -type=ns www.howstuffworks.com //Query the NS Record using -query=ns
-$ nslookup -type=any www.howstuffworks.com // View available DNS records using -query=any
-$ nslookup 209.132.183.181  OR $ host -a IP/DomainName // Reverse DNS lookup, 
-$ nslookup redhat.com ns1.redhat.com // Using Specific DNS server(here, ns1.redhat.com)
-$ nslookup -debug redhat.com  // Enabling debug mode using -debug
-</pre> 
-    <p>我们可以通过type参数指定要查询的域名相关信息，见上例， 其中，如果不指定type则默认返回A记录(A Record)对应的信息， 简单来讲就是域名与IP地址的对应信息。关于nslookup使用的更多信息可以参考<a href="http://www.thegeekstuff.com/2012/07/nslookup-examples/" class="uri">http://www.thegeekstuff.com/2012/07/nslookup-examples/</a></p> 
-    <p>如果是在MacOS X系统下， 除了使用命令行形式的nslookup命令，也可以使用/Application/Utilities/Network Utility图形化工具来达成相同的目的。</p> 
-    <h2 id="域名注册商与dns-server">域名注册商与DNS Server</h2> 
-    <p>如果我们在某个域名注册商处注册了一个域名， 一般情况下， 域名注册商会有相应的DNS服务让我们来指定注册成功后的域名应该绑定到哪个IP地址上， 即域名注册商会有相应的DNS Server对外提供服务，该DNS Server被认为是authoritive的，原则上，它是应该在Root DNS Server是有在册记录的^_^， 只有这样，当查询应用程序访问和查询我们注册的域名的时候， 才能通过Root DNS Server的查询结果告知发起查询的DNS Server到注册商的DNS Server上来查询到对应的结果。</p> 
-    <p>域名注册商的DNS Server或许不错，不过，我们也可以不使用域名注册商提供的DNS Server， 比如DNSPod的口碑不错又是免费的，我们想使用DNSPod的服务，那么，我们就可以通过域名注册商的后台管理程序，将域名的解析权转给DNSPod的DNS Server来处理， 而在DNSPod的后台管理程序中设置相应的A记录啦，CNAME记录啦， 等等。</p> 
-    <blockquote> 
-     <p>NOTE</p> DNS Server一般运行BIND软件对外提供服务。 
-    </blockquote> 
-    <p>那A记录， CNAME之类到底有哪些，又都代表什么意思那？</p> 
-    <h2 id="域名的记录类型record-types-of-domain-names">域名的记录类型(record types of domain names)</h2> 
-    <ol type="1"> 
-     <li>Host(A Record) 
-      <ul> 
-       <li>This is the basic mapping of IP address to host name, the essential component for any domain name.</li> 
-      </ul></li> 
-     <li>Canonical Name (CNAME) 
-      <ul> 
-       <li>This is an alias for your domain. Anyone accessing that alias will be automatically directed to the server indicated in the A record.</li> 
-      </ul></li> 
-     <li>Mail Exchanger (MX) 
-      <ul> 
-       <li>This maps e-mail traffic to a specific server. It could indicate another host name or an IP address. For example, people who use Google for the e-mail for their domain will create an MX record that points to ghs.google.com.</li> 
-      </ul></li> 
-     <li>Name Server (NS) 
-      <ul> 
-       <li>This contains the name server information for the zone. If you configure this, your server will let other DNS servers know that yours is the ultimate authority (SOA) for your domain when caching lookup information on your domain from other DNS servers around the world.</li> 
-      </ul></li> 
-     <li>start of Authority (SOA) 
-      <ul> 
-       <li>This is one larger record at the beginning of every zone file with the primary name server for the zone and some other information. If your registrar or hosting company is running your DNS server, you won’t need to manage this. If you’re managing your own DNS, Microsoft’s support information has a helpful article on the structure of a DNS SOA Record.</li> 
-      </ul></li> 
-    </ol> 
-    <p>这里是来自DNSPod的通俗解释： <img src="images/dns_records_type_explained_by_dnspod.png" alt="dns_records_type_explained_by_dnspod"></p> 
-    <h1 id="更多域名与ip的故事">更多域名与IP的故事</h1> 
-    <p>一个域名对应一个IP， 这个就不需要多说了吧？ 在域名的A记录中指定对应的IP就行了。</p> 
-    <h2 id="一个域名对应多个ip">一个域名对应多个IP</h2> 
-    <p>大型网站一个域名后面通常都会有多台服务器提供相应服务，而且往往会在DNS层面做负载均衡，这种情况下，需要设置一个域名对应到多个IP。</p> 
-    <p>根据实现的不同，配置方式可以是不同的，比如在BIND中，是可以在一条A记录中指定一个对应的IP列表。</p> 
-    <h2 id="多个域名对应一个ip">多个域名对应一个IP</h2> 
-    <p>如果一台服务器上起了多个服务，而又想使用不同的域名来访问这些不同的服务，那么， 就会需要设置多个域名对应一个IP。</p> 
-    <p>一般情况下，只要设置不同域名的A记录指向这台服务器的IP就可以了。</p> 
-    <blockquote> 
-     <p>一台服务器上的多个服务一般跑在不同的端口上， 在访问的时候，在域名后指定端口即可，不需要在DNS配置中指定。</p> 当然，像在DNSPod中，也可以IP和端口一起指定， 参考https://support.dnspod.cn/Kb/showarticle/tsid/35/。 
-    </blockquote> 
-    <h2 id="多个域名对应多个ip">多个域名对应多个IP</h2> 
-    <p>有了上面几个故事，这里还需要再细说嘛？</p> 
-    <h1 id="dynamic-dns">Dynamic DNS</h1> 
-    <p>对于没有静态IP(static ip)的机器来说， 如果想一直让外部通过固定的域名访问，通常需要Dynamic DNS服务支持。</p> 
-    <p>原则上与一般意义上的DNS没有太大差别，唯一多出来的一个装备是， 在拥有动态IP的本地机器上需要安装一个软件或者脚本 - dynamic DNS client，可以检测本地机器的IP变更，然后将变更通知DynamicDNS服务器去更新相应zone file中的A记录。</p> 
-    <figure> 
-     <img src="images/how_dynamic_dns_works.gif" alt="how_dynamic_dns_works - 图片来自easyDNS">
-     <figcaption aria-hidden="true">
-      how_dynamic_dns_works - 图片来自easyDNS
-     </figcaption> 
-    </figure> 
-    <p>Dynamic DNS中更新频率<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>以及其它DNS服务的更新传播速度决定了本地机器上的服务的可持续性和可用性。</p> 
-    <h1 id="参考资料">参考资料</h1> 
-    <ol type="1"> 
-     <li>《用TCP/IP进行网际互连 - 第一卷》</li> 
-     <li><a href="http://computer.howstuffworks.com/dns.htm">How Domain Name Servers Work</a></li> 
-     <li><a href="http://www.iana.org/" class="uri">http://www.iana.org/</a></li> 
-     <li><a href="http://dnslookup.me/dynamic-dns/" class="uri">http://dnslookup.me/dynamic-dns/</a></li> 
-     <li><a href="https://support.dnspod.cn/Kb/showarticle/tsid/32/">CNAME记录</a></li> 
-     <li><a href="https://support.dnspod.cn/Kb/showarticle/tsid/30/">A记录</a></li> 
-     <li><a href="https://support.dnspod.cn/Kb/guide">DNSPod问题向导</a></li> 
-     <li>easyDNS support documents</li> 
-    </ol> 
-    <section class="footnotes" role="doc-endnotes"> 
-     <hr> 
-     <ol> 
-      <li id="fn1" role="doc-endnote"><p>Internet Assigned Number Authority, it’s operated by the Internet Corporation for Assigned Names and Numbers (ICANN)<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
-      <li id="fn2" role="doc-endnote"><p>我们这里只是简单描述了大体流程，实际流程中很多细节没有牵涉，包括结构，协议，算法等等<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
-      <li id="fn3" role="doc-endnote"><p>由TTL来控制，比如2分钟<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
-     </ol> 
-    </section> <!--          </div>--> <!--        </div>--> 
-    <hr> 
-    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
-    </div> 
-    <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2009-11-04-shy3_best_practice.html">关于钱磊在Shy3框架中使用的“动态URL”功能的小记 </a> 
-     </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2014-04-26-weak-horse-effect.html">瘦马效应 #What’s in a story# </a> 
-     </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2021-09-27-dillema-of-processes.html">流程悖论 </a> 
-     </div> 
-    </div> 
-    <hr> 
-    <div> 
-     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
-     <ol> 
-      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
-      <li>还分享AI工具、产品方法和商业机会</li> 
-      <li>更有体系化精品付费内容等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取。(加入之后<b>一定记得看置顶消息</b>呀！)</li> 
-     </ol> 
-     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
-    </div> 
-    <hr> 
-    <p> <span style="font-size: xx-large;">存量的时代，省钱就是赚钱。</span> <br> <span style="font-size: xx-large;">在增量的时代，省钱其实是亏钱。</span> <br> 避坑儿是省钱的一种形式，更是真正聪明人的选择！ <br> 弯路虽然也是路，但还是能少走就少走，背后都是高昂的试错成本。 <br> <b>订阅「福报」</b>，少踩坑，少走弯路，多走一步，就是不一样的胜率！ </p> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
-    <hr> 
-    <div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"> 
-     <div id="tfloader" class="x-indicator"> 
-      <svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"> <g fill="none" fill-rule="evenodd"> 
-        <g transform="translate(1 1)" stroke-width="2"> 
-         <circle cx="5" cy="50" r="5"> 
-          <animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /> 
-          <animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /> 
-         </circle> 
-         <circle cx="27" cy="5" r="5"> 
-          <animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /> 
-          <animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /> 
-         </circle> 
-         <circle cx="49" cy="50" r="5"> 
-          <animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /> 
-          <animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /> 
-         </circle> 
+ <body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"> 
+  <header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"> 
+   <div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"> 
+    <div class="flex justify-between"> <a class="flex items-center" href="https://afoo.me"> <span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"> <h1>王福强的个人博客</h1> </span> </a> 
+     <div class="flex items-center md:hidden"> <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""> 
+       <svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+         <circle cx="12" cy="12" r="4"></circle> 
+         <path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"> 
+         </path> 
         </g> 
-       </g> 
-      </svg> 
+       </svg> </button> <button type="button" class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition" aria-label="Toggle Menu" data-toggle-menu=""> 
+       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:menu"> <g class="icon-tabler" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+         <path d="M4 8h16"></path> 
+         <path d="M4 16h16"></path> 
+        </g> 
+       </svg> </button> 
      </div> 
     </div> 
-    <hr> 
-    <div id="comments"></div> <!-- <div class="text-center">
-      <a href="https://twitter.com/fujohnwang">
-        <img src="/images/Twitter-logo.png" class="img-responsive" loading='lazy' style="width: fit-content;">
-      </a>
-    </div> --> 
+    <nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"> 
+     <ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me">福强AI学堂</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com">架构百科</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html">博客文章 </a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html">创作出版</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me">产品与服务</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/crosslinks.html">更多链接</a> </li> 
+     </ul> 
+     <div class="md:self-center flex items-center mb-4 md:mb-0 ml-2"> 
+      <div class="hidden items-center md:flex"> <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+          <circle cx="12" cy="12" r="4"></circle> 
+          <path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"> 
+          </path> 
+         </g> 
+        </svg> </button> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="RSS Feed" href="http://afoo.me/feeds.xml"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:rss"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+          <circle cx="5" cy="19" r="1"></circle> 
+          <path d="M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"></path> 
+         </g> 
+        </svg> </a> 
+      </div> 
+     </div> 
+    </nav> 
    </div> 
-  </section> 
-  <div style="color:white; visibility: collapse; height: 0;">
-   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
-  </div> 
-  <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
-    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
+  </header> 
+  <main> 
+   <section class="text-gray-600 body-font relative"> 
+    <div class="container px-5 py-24 mx-auto mb-12 prose prose-lg dark:prose-invert"> 
+     <p class="lead"> </p>
+     <h1 class="title">Head First The Big Picture Of DNS</h1> <small> <h3 class="author">王福强</h3> 
+      <div style="text-align: left;"></div> </small> 
+     <p></p> 
+     <hr> 
+     <p>学术不精，平日多有耳闻却又熟视无睹， 借资料大扫荡之机，重新梳理整个DNS体系的大图景，以期将来有据可查可参可考…</p> 
+     <h1 id="dns基本概念铺垫">DNS基本概念铺垫</h1> 对以下域名进行解剖： 
+     <pre>            www.howstuffworks.com
+            </pre> 
+     <ul> 
+      <li>com: 一级域名或者称为顶级域名(top-level domain/first-class domain)部分</li> 
+      <li>howstuffworks: 二级域名部分</li> 
+      <li>www: 主机(host)部分</li> 
+     </ul> 
+     <h1 id="dns生态体系中牵扯的机构及其职能">DNS生态体系中牵扯的机构及其职能</h1> 
+     <p>顶级域名/一级域名由IANA<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>统一进行管理和分配， 这些顶级域名/一级域名包括我们耳熟能详的：</p> 
+     <ol type="1"> 
+      <li>.com</li> 
+      <li>.net</li> 
+      <li>.org</li> 
+      <li>.edu</li> 
+      <li>etc. etc.</li> 
+     </ol> 
+     <p>“These top-level domains are controlled by the IANA in what’s called the Root Zone Database”</p> 
+     <p>二级域名归属于相应的一级页面下面， 二级域名由域名注册商(registrar)进行分配， 每个域名注册商可以获取一个或者多个一级域名下二级域名的注册权，比如registrar1只能负责.com下二级域名的注册，而registrar2则可以负责.net, .org多个一级域名下二级域名的注册。 每个域名注册商在用户注册/申请二级域名的时候，需要跟ICANN的InterNIC服务进行交互，该服务将保证同一顶级域名下的二级域名的唯一性， 注册成功的二级域名将入whois database.</p> 
+     <p>Network Solutions, Inc.&nbsp;(NSI) was one of the first registrars, and today companies like GoDaddy.com offer domain registration in addition to many other Web site and domain management services.</p> 
+     <h1 id="典型流程和基础设施说明">典型流程和基础设施说明</h1> 
+     <p>当我们在浏览器中输入域名进行服务访问的时候，浏览器会调用相应的系统程序，比如gethostname或者getaddrinfo等，来进行DNS查询，以便找到域名对应的服务器的IP地址是多少，在拿到相应的IP地址之后再发送服务请求进行访问。</p> 
+     <p>那到哪里去查询域名信息与IP地址的映射关系那？ 一般情况下， 我们可以在网络设置里选择手动添加DNS Server地址或者通过DHCP(Dynamic Host Configuration Protocol)自动从ISP获得相应的DNS Server地址。</p> 
+     <blockquote> 
+      <p>NOTE</p> 在Linux或者Unix下， 使用的DNS Server地址可以在resolv.conf中找到，但resolv.conf的内容是自动生成的，一般认为更改无效，要手动变更自己想用的DNS Server是哪个，可以编辑/etc/hosts进行域名/主机名到IP地址的映射关系的添加。 
+     </blockquote> 
+     <p>在知道了要查询的DNS Server是哪个之后， DNS请求就根据相应的协议发送给了DNS Server，DNS Server将首先检查本地缓存中是否存在当前查询的域名与其IP地址的对应关系，如果有则直接返回，如果没有，则查询Root DNS Server，因为每一个DNS Server都会知道至少一个Root DNS Server, Root DNS Server将根据查询域名的一级域名是什么，告诉发起查询的DNS Server哪些其它的DNS Server可能包含相应的二级域名与其IP地址的映射关系信息，之后当前发起查询的DNS Server再向这些DNS Server进行查询，如果在这些返回的DNS Server处查询到相应的映射信息，则缓存到本地然后返回，否则，报给客户端查找不到的错误信息<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>。</p> 
+     <p>我们实际上可以通过nslookup命令(适用于linux或者unix系统)来检查某些域名相关信息，包括它对应的IP地址是什么:</p> 
+     <pre>            $ nslookup www.howstuffworks.com // 默认相当于-type=A,即A记录
+            $ nslookup -type=ns www.howstuffworks.com //Query the NS Record using -query=ns
+            $ nslookup -type=any www.howstuffworks.com // View available DNS records using -query=any
+            $ nslookup 209.132.183.181  OR $ host -a IP/DomainName // Reverse DNS lookup, 
+            $ nslookup redhat.com ns1.redhat.com // Using Specific DNS server(here, ns1.redhat.com)
+            $ nslookup -debug redhat.com  // Enabling debug mode using -debug
+            </pre> 
+     <p>我们可以通过type参数指定要查询的域名相关信息，见上例， 其中，如果不指定type则默认返回A记录(A Record)对应的信息， 简单来讲就是域名与IP地址的对应信息。关于nslookup使用的更多信息可以参考<a href="http://www.thegeekstuff.com/2012/07/nslookup-examples/" class="uri">http://www.thegeekstuff.com/2012/07/nslookup-examples/</a></p> 
+     <p>如果是在MacOS X系统下， 除了使用命令行形式的nslookup命令，也可以使用/Application/Utilities/Network Utility图形化工具来达成相同的目的。</p> 
+     <h2 id="域名注册商与dns-server">域名注册商与DNS Server</h2> 
+     <p>如果我们在某个域名注册商处注册了一个域名， 一般情况下， 域名注册商会有相应的DNS服务让我们来指定注册成功后的域名应该绑定到哪个IP地址上， 即域名注册商会有相应的DNS Server对外提供服务，该DNS Server被认为是authoritive的，原则上，它是应该在Root DNS Server是有在册记录的^_^， 只有这样，当查询应用程序访问和查询我们注册的域名的时候， 才能通过Root DNS Server的查询结果告知发起查询的DNS Server到注册商的DNS Server上来查询到对应的结果。</p> 
+     <p>域名注册商的DNS Server或许不错，不过，我们也可以不使用域名注册商提供的DNS Server， 比如DNSPod的口碑不错又是免费的，我们想使用DNSPod的服务，那么，我们就可以通过域名注册商的后台管理程序，将域名的解析权转给DNSPod的DNS Server来处理， 而在DNSPod的后台管理程序中设置相应的A记录啦，CNAME记录啦， 等等。</p> 
+     <blockquote> 
+      <p>NOTE</p> DNS Server一般运行BIND软件对外提供服务。 
+     </blockquote> 
+     <p>那A记录， CNAME之类到底有哪些，又都代表什么意思那？</p> 
+     <h2 id="域名的记录类型record-types-of-domain-names">域名的记录类型(record types of domain names)</h2> 
+     <ol type="1"> 
+      <li>Host(A Record) 
+       <ul> 
+        <li>This is the basic mapping of IP address to host name, the essential component for any domain name.</li> 
+       </ul></li> 
+      <li>Canonical Name (CNAME) 
+       <ul> 
+        <li>This is an alias for your domain. Anyone accessing that alias will be automatically directed to the server indicated in the A record.</li> 
+       </ul></li> 
+      <li>Mail Exchanger (MX) 
+       <ul> 
+        <li>This maps e-mail traffic to a specific server. It could indicate another host name or an IP address. For example, people who use Google for the e-mail for their domain will create an MX record that points to ghs.google.com.</li> 
+       </ul></li> 
+      <li>Name Server (NS) 
+       <ul> 
+        <li>This contains the name server information for the zone. If you configure this, your server will let other DNS servers know that yours is the ultimate authority (SOA) for your domain when caching lookup information on your domain from other DNS servers around the world.</li> 
+       </ul></li> 
+      <li>start of Authority (SOA) 
+       <ul> 
+        <li>This is one larger record at the beginning of every zone file with the primary name server for the zone and some other information. If your registrar or hosting company is running your DNS server, you won’t need to manage this. If you’re managing your own DNS, Microsoft’s support information has a helpful article on the structure of a DNS SOA Record.</li> 
+       </ul></li> 
+     </ol> 
+     <p>这里是来自DNSPod的通俗解释： <img src="images/dns_records_type_explained_by_dnspod.png" alt="dns_records_type_explained_by_dnspod"></p> 
+     <h1 id="更多域名与ip的故事">更多域名与IP的故事</h1> 
+     <p>一个域名对应一个IP， 这个就不需要多说了吧？ 在域名的A记录中指定对应的IP就行了。</p> 
+     <h2 id="一个域名对应多个ip">一个域名对应多个IP</h2> 
+     <p>大型网站一个域名后面通常都会有多台服务器提供相应服务，而且往往会在DNS层面做负载均衡，这种情况下，需要设置一个域名对应到多个IP。</p> 
+     <p>根据实现的不同，配置方式可以是不同的，比如在BIND中，是可以在一条A记录中指定一个对应的IP列表。</p> 
+     <h2 id="多个域名对应一个ip">多个域名对应一个IP</h2> 
+     <p>如果一台服务器上起了多个服务，而又想使用不同的域名来访问这些不同的服务，那么， 就会需要设置多个域名对应一个IP。</p> 
+     <p>一般情况下，只要设置不同域名的A记录指向这台服务器的IP就可以了。</p> 
+     <blockquote> 
+      <p>一台服务器上的多个服务一般跑在不同的端口上， 在访问的时候，在域名后指定端口即可，不需要在DNS配置中指定。</p> 当然，像在DNSPod中，也可以IP和端口一起指定， 参考https://support.dnspod.cn/Kb/showarticle/tsid/35/。 
+     </blockquote> 
+     <h2 id="多个域名对应多个ip">多个域名对应多个IP</h2> 
+     <p>有了上面几个故事，这里还需要再细说嘛？</p> 
+     <h1 id="dynamic-dns">Dynamic DNS</h1> 
+     <p>对于没有静态IP(static ip)的机器来说， 如果想一直让外部通过固定的域名访问，通常需要Dynamic DNS服务支持。</p> 
+     <p>原则上与一般意义上的DNS没有太大差别，唯一多出来的一个装备是， 在拥有动态IP的本地机器上需要安装一个软件或者脚本 - dynamic DNS client，可以检测本地机器的IP变更，然后将变更通知DynamicDNS服务器去更新相应zone file中的A记录。</p> 
+     <figure> 
+      <img src="images/how_dynamic_dns_works.gif" alt="how_dynamic_dns_works - 图片来自easyDNS">
+      <figcaption aria-hidden="true">
+       how_dynamic_dns_works - 图片来自easyDNS
+      </figcaption> 
+     </figure> 
+     <p>Dynamic DNS中更新频率<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>以及其它DNS服务的更新传播速度决定了本地机器上的服务的可持续性和可用性。</p> 
+     <h1 id="参考资料">参考资料</h1> 
+     <ol type="1"> 
+      <li>《用TCP/IP进行网际互连 - 第一卷》</li> 
+      <li><a href="http://computer.howstuffworks.com/dns.htm">How Domain Name Servers Work</a></li> 
+      <li><a href="http://www.iana.org/" class="uri">http://www.iana.org/</a></li> 
+      <li><a href="http://dnslookup.me/dynamic-dns/" class="uri">http://dnslookup.me/dynamic-dns/</a></li> 
+      <li><a href="https://support.dnspod.cn/Kb/showarticle/tsid/32/">CNAME记录</a></li> 
+      <li><a href="https://support.dnspod.cn/Kb/showarticle/tsid/30/">A记录</a></li> 
+      <li><a href="https://support.dnspod.cn/Kb/guide">DNSPod问题向导</a></li> 
+      <li>easyDNS support documents</li> 
+     </ol> 
+     <section class="footnotes" role="doc-endnotes"> 
+      <hr> 
+      <ol> 
+       <li id="fn1" role="doc-endnote"><p>Internet Assigned Number Authority, it’s operated by the Internet Corporation for Assigned Names and Numbers (ICANN)<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+       <li id="fn2" role="doc-endnote"><p>我们这里只是简单描述了大体流程，实际流程中很多细节没有牵涉，包括结构，协议，算法等等<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+       <li id="fn3" role="doc-endnote"><p>由TTL来控制，比如2分钟<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+      </ol> 
+     </section> 
+     <hr> 
+     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+     </div> 
+     <div id="random_posts"> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2023-02-21-old-notion-should-die.html">二月二，龙抬头，先把旧观念给休！ </a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2008-09-08-let-go.html">放手 </a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2006-09-04-Intro-to-an-excel-template-engine.html">Introduction 2 an excel template engine </a> 
+      </div> 
+     </div> 
+     <hr> 
+     <div> 
+      <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+      <ol> 
+       <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+       <li>还分享AI工具、产品方法和商业机会</li> 
+       <li>更有体系化精品付费内容等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取。(加入之后<b>一定记得看置顶消息</b>呀！)</li> 
+      </ol> 
+      <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+     </div> 
+     <hr> 
+     <p> <span style="font-size: xx-large;">存量的时代，省钱就是赚钱。</span> <br> <span style="font-size: xx-large;">在增量的时代，省钱其实是亏钱。</span> <br> 避坑儿是省钱的一种形式，更是真正聪明人的选择！ <br> 弯路虽然也是路，但还是能少走就少走，背后都是高昂的试错成本。 <br> <b>订阅「福报」</b>，少踩坑，少走弯路，多走一步，就是不一样的胜率！ </p> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
+     <hr> 
+     <div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"> 
+      <div id="tfloader" class="x-indicator"> 
+       <svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"> <g fill="none" fill-rule="evenodd"> 
+         <g transform="translate(1 1)" stroke-width="2"> 
+          <circle cx="5" cy="50" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+          <circle cx="27" cy="5" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+          <circle cx="49" cy="50" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+         </g> 
+        </g> 
+       </svg> 
+      </div> 
+     </div> 
+     <hr> 
+     <div id="comments"></div> 
+    </div> 
+   </section> 
+  </main> 
+  <footer class="border-t border-gray-200 dark:border-slate-800"> 
+   <div class="max-w-6xl mx-auto px-4 sm:px-6"> 
+    <div class="md:flex md:items-center md:justify-between py-6 md:py-8"> 
+     <ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0"> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Twitter" href="https://twitter.com/fujohnwang"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-twitter"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z"> 
+         </path> 
+        </svg> </a> </li> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Facebook" href="https://www.facebook.com/fujohnwang/"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-facebook"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2H7"></path> 
+        </svg> </a> </li> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Github" href="https://github.com/fujohnwang"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-github"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"> 
+         </path> 
+        </svg> </a> </li> 
+     </ul> 
+     <div class="text-sm text-gray-700 mr-4 dark:text-slate-400"> <span class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 float-left rounded-sm"> <img src="https://afoo.me/favicon.svg" class="rounded-md" alt> </span> Copyright © 王福强个人版权所有 - Since 2004 (Everything is homebrewed with <a href="https://pandoc.org/">Pandoc</a> and Markdown, little <a href="https://www.scala-lang.org/">Scala</a> also included.) 
+     </div> 
+    </div> 
    </div> 
-  </div> 
-  <script type="text/javascript">
-var gitalk = new Gitalk({
-  clientID: '518a605d711883414ac0',
-  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-  repo: 'afoo.me.comments',
-  owner: 'fujohnwang',
-  admin: ['fujohnwang'],
-  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-  distractionFreeMode: false  // Facebook-like distraction free mode
-})
-
-gitalk.render('comments')
-    </script> 
+  </footer> 
   <script>
-  kofiWidgetOverlay.draw('fff000', {
-    'type': 'floating-chat',
-    'floating-chat.donateButton.text': 'Support me',
-    'floating-chat.donateButton.background-color': 'red',
-    'floating-chat.donateButton.text-color': 'white'
-  });
-</script>  <!-- <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> --> 
+        // Set "light" theme as default
+        if (!localStorage.theme) {
+            localStorage.theme = "light";
+        }
+
+        if (
+            localStorage.theme === 'dark' ||
+            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function attachEvent(selector, event, fn) {
+            const matches = document.querySelectorAll(selector);
+            if (matches && matches.length) {
+                matches.forEach((elem) => {
+                    elem.addEventListener(event, () => fn(elem), false);
+                });
+            }
+        }
+
+        window.onload = function () {
+            attachEvent('[data-toggle-menu]', 'click', function (elem) {
+                elem.classList.toggle('expanded');
+                document.body.classList.toggle('overflow-hidden');
+                document.getElementById('header')?.classList.toggle('h-screen');
+                document.querySelector('#header nav')?.classList.toggle('hidden');
+            });
+            attachEvent('[data-toggle-color-scheme]', 'click', function () {
+                document.documentElement.classList.toggle('dark');
+                localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            });
+        };
+        window.onpageshow = function () {
+            const elem = document.querySelector('[data-toggle-menu]');
+            if (elem) {
+                elem.classList.remove('expanded');
+            }
+            document.body.classList.remove('overflow-hidden');
+            document.getElementById('header')?.classList.remove('h-screen');
+            document.querySelector('#header nav')?.classList.add('hidden');
+        };
+    </script> 
+  <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '518a605d711883414ac0',
+          clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+          repo: 'afoo.me.comments',
+          owner: 'fujohnwang',
+          admin: ['fujohnwang'],
+          id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+        gitalk.render('comments')
+    </script>  
  </body>
 </html>

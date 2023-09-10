@@ -1,116 +1,100 @@
 <!doctype html>
-<html lang="zh"> 
+<html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]"> 
  <head> 
   <meta charset="utf-8"> 
-  <meta name="keywords" content="使用jacob来launch Excel文件 - 架构教练,架构师个人成长教练,个人成长,组织成长,个人与组织成长顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
-  <meta name="description" content="使用jacob来launch Excel文件 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="keywords" content="使用jacob来launch Excel文件 - 架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="使用jacob来launch Excel文件 - 福强说，扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+  <meta name="robots" content="index,follow"> 
   <title>使用jacob来launch Excel文件 -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <link rel="canonical" href="https://afoo.me/posts/2005-00-00-launch-excel-with-jacob.html"> 
-  <style type="text/css">code{white-space: pre;}</style> 
-  <style type="text/css">
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      {   }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-    code span.at { color: #7d9029; } /* Attribute */
-    code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #4070a0; } /* Char */
-    code span.cn { color: #880000; } /* Constant */
-    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-    code span.dt { color: #902000; } /* DataType */
-    code span.dv { color: #40a070; } /* DecVal */
-    code span.er { color: #ff0000; font-weight: bold; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #40a070; } /* Float */
-    code span.fu { color: #06287e; } /* Function */
-    code span.im { } /* Import */
-    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-    code span.op { color: #666666; } /* Operator */
-    code span.ot { color: #007020; } /* Other */
-    code span.pp { color: #bc7a00; } /* Preprocessor */
-    code span.sc { color: #4070a0; } /* SpecialChar */
-    code span.ss { color: #bb6688; } /* SpecialString */
-    code span.st { color: #4070a0; } /* String */
-    code span.va { color: #19177c; } /* Variable */
-    code span.vs { color: #4070a0; } /* VerbatimString */
-    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-  </style> 
+  <link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"> 
+  <link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8"> 
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
-  <script src="/js/overlay-widget.js"></script> <!--
-  <script type="text/javascript" src="/js/watermark.js"></script>
-  --> <!-- Bootstrap core CSS --> 
-  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
-  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> 
   <style type="text/css">
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      text-align: left;
-      position: relative;
-      -webkit-font-smoothing: antialiased;
-    }
-    
+        pre > code{white-space: pre-line;}
 
-    h1{
-      margin-top: 3rem;
-    }
-
-    .x-indicator{
-        display:none;
-    }
-    .htmx-request .x-indicator{
-        display:inline;
-    }
-    .htmx-request.x-indicator{
-        display:inline;
-    }
-  </style> 
+        .x-indicator{
+            display:none;
+        }
+        .htmx-request .x-indicator{
+            display:inline;
+        }
+        .htmx-request.x-indicator{
+            display:inline;
+        }
+    </style> 
+  <style type="text/css">
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    </style> 
+  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -135,241 +119,319 @@
     })(window, document, "clarity", "script", "irqzhxtyzn");
   </script> 
  </head> 
- <body id="page-top"> <!-- Navigation --> 
-  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
-    <div class="collapse navbar-collapse" id="navbarResponsive"> 
-     <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://jiagoubaike.com">架构百科</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
-     </ul> 
-    </div> 
-   </div> 
-  </nav> 
-  <section> 
-   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
-    <p class="lead"> </p>
-    <h1 class="title">使用jacob来launch Excel文件</h1> <small> <h3 class="author">FuqiangWang</h3> 
-     <div style="text-align: left;"></div> </small> 
-    <p></p> 
-    <hr> 
-    <blockquote> 
-     <p>2014年从msn space存档中重新恢复出来！</p> 
-    </blockquote> 
-    <p>这几天一直在调查怎么在java程序中启动excel文件，但是进展一直不大，查遍网络各个角落，网上各个论坛，全都是千篇一律的，根本没有有创意一点儿的解决方法，呵呵，不过，黄天不负有心人，终于让我在yahoo的jacob新闻组中找到了一线生机，且让我慢慢道来。</p> 
-    <p>问题的背景是这样的，在我们的credit项目的back office管理工具中，现在有一个事件模块需要处理excel报表，当然报表生成使用的是POI，这在前面的blog中已经提到过了，但是，报表生成之后，日方希望能够马上启动已经生成的excel文件并显示出来，不过，有个条件，就是不管启动多少个excel文件，最终的excel进程只能有一个。（这个意图我和我的leader开始都理解错了，我们一直以为是在一个workbook中启动多个workbook显示，这个也是弯路之一吧。）</p> 
-    <p>Ok，问题来了，刚开始那我也使用了最基本的Runtime来处理这个问题，但是，这个明显不能满足需求，也想过跟日本人探讨是否取消以上条件，因为这样可以更容易处理（是十分的容易，呵呵）。不过，最终的结果是还要处理以上的条件，所以，下面的历程就开始了。</p> 
-    <p>首先，我在sun的forum中搜索了所有跟excel有关的帖子，也或多或少的发现了一下解决方法，但大部分都是使用Runtime来启动的，既然如此，我也多多少少试验了一下Runtime各种方法，比如：</p> 
-    <p>Runtime.getRuntime().exec(“cmd /c start”+fileName); 或者Runtime.getRuntime().exec(“cmd /c”+fileName); 甚至Runtime.getRuntime().exec(“rundll32 url.dll,FileProtocolHandler c:/workbook2.xls”);等等，</p> 
-    <p>虽然可以顺利的启动excel文件但是都不能满足日方的要求，所以，最终我还是要转到其他的方案。</p> 
-    <p>其实那，我在之前就发现了jacob，但是，我对于com不是很熟悉，因为我真的是一个纯粹的java developer呵呵，所以，我对他有抵触情绪，能不用尽量不用，虽然我隐约感觉道他正是我要找的东西。当然，最终，我也硬着头皮钻进去看看如何使其为我所用。</p> 
-    <p>我在yahoo的jacob新闻组中发了帖子，请求帮助，最终收到了Samir的答复，在这里再次谢谢Samir的帮助。他开始给我发了一个类，但是好像不是很顺利，所以，我请求他发一个完整的实例给我，他也在百忙之中给予了我帮助（他祖籍印度，现在移民澳大利亚，职位是架构师）。下面是他给我的原始类：</p> 
-    <div class="sourceCode" id="cb1">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">com</span><span class="op">.</span><span class="im">jacob</span><span class="op">.</span><span class="im">activeX</span><span class="op">.</span><span class="im">ActiveXComponent</span><span class="op">;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">com</span><span class="op">.</span><span class="im">jacob</span><span class="op">.</span><span class="im">com</span><span class="op">.</span><span class="im">ComThread</span><span class="op">;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">com</span><span class="op">.</span><span class="im">jacob</span><span class="op">.</span><span class="im">com</span><span class="op">.</span><span class="im">Dispatch</span><span class="op">;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">com</span><span class="op">.</span><span class="im">jacob</span><span class="op">.</span><span class="im">com</span><span class="op">.</span><span class="im">Variant</span><span class="op">;</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">* @</span>author Samir Kumar Mishra</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> ExcelTest <span class="op">{</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    ActiveXComponent excel<span class="op">;</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Dispatch</span> excelApp<span class="op">;</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Dispatch</span> workBooks<span class="op">;</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    Variant wBooks<span class="op">;</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        ExcelTest excelTest <span class="op">=</span> <span class="kw">new</span> <span class="fu">ExcelTest</span><span class="op">();</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        <span class="co">//excelTest.print();</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>        <span class="co">// This method can be called in loop to open as many worksheet youwant within the same excel instance.</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>        excelTest<span class="op">.</span><span class="fu">addWorkBook</span><span class="op">(</span><span class="st">"C:/workbook.xls"</span><span class="op">);</span><span class="co">// Open1st Excel file.</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>        excelTest<span class="op">.</span><span class="fu">addWorkBook</span><span class="op">(</span><span class="st">"C:/workbook2.xls"</span><span class="op">);</span><span class="co">// Open 2nd Excelfile.</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>        excelTest<span class="op">.</span><span class="fu">release</span><span class="op">();</span> <span class="co">// Use this method to close Excel.</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="fu">ExcelTest</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>        excel <span class="op">=</span> <span class="kw">new</span> <span class="fu">ActiveXComponent</span><span class="op">(</span><span class="st">"Excel.Application"</span><span class="op">);</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co">//        excelApp = excel.getObject();</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>        excel<span class="op">.</span><span class="fu">setProperty</span><span class="op">(</span><span class="st">"Visible"</span><span class="op">,</span> <span class="kw">new</span> <span class="fu">Variant</span><span class="op">(</span><span class="kw">true</span><span class="op">));</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>        workBooks <span class="op">=</span> excel<span class="op">.</span><span class="fu">getProperty</span><span class="op">(</span><span class="st">"WorkBooks"</span><span class="op">).</span><span class="fu">toDispatch</span><span class="op">();</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">addWorkBook</span><span class="op">(</span><span class="bu">String</span> fileName<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>        wBooks <span class="op">=</span> <span class="bu">Dispatch</span><span class="op">.</span><span class="fu">callN</span><span class="op">(</span>workBooks<span class="op">,</span> <span class="st">"Open"</span><span class="op">,</span> <span class="kw">new</span> <span class="bu">Object</span><span class="op">[]</span> <span class="op">{</span>fileName<span class="op">});</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">release</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>        excel<span class="op">.</span><span class="fu">invoke</span><span class="op">(</span><span class="st">"Quit"</span><span class="op">,</span> <span class="kw">new</span> Variant<span class="op">[]</span> <span class="op">{});</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
-    </div> 
-    <p>现在我们可以多次调用addWorkbook方法来启动多个excel文件了，完成任务了不是嘛？！呵呵，少安毋躁，怎么windows的任务管理器的进程中那个excel在java程序推出后还是没有消失那？！我问了Samir，他说现在的进程应该已经不在java的管理范围之列了，我也同意，因为现在的excel进程应该属于本地的了。但是这样交工肯定不行，而我高中同学秦春雷的提醒促使我再次钻进jacob的文档，呵呵，而最终也发现了问题的所在。</p> 
-    <p>下面是我对Samir的类进行改进后的成果：</p> 
-    <div class="sourceCode" id="cb2">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">package</span><span class="im"> com</span><span class="op">.</span><span class="im">livedoor</span><span class="op">.</span><span class="im">finance</span><span class="op">.</span><span class="im">credit</span><span class="op">.</span><span class="im">admin</span><span class="op">.</span><span class="im">business</span><span class="op">.</span><span class="im">event</span><span class="op">.</span><span class="im">util</span><span class="op">;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">com</span><span class="op">.</span><span class="im">jacob</span><span class="op">.</span><span class="im">com</span><span class="op">.</span><span class="im">Variant</span><span class="op">;</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">com</span><span class="op">.</span><span class="im">jacob</span><span class="op">.</span><span class="im">com</span><span class="op">.</span><span class="im">Dispatch</span><span class="op">;</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">com</span><span class="op">.</span><span class="im">jacob</span><span class="op">.</span><span class="im">com</span><span class="op">.</span><span class="im">ComThread</span><span class="op">;</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">com</span><span class="op">.</span><span class="im">jacob</span><span class="op">.</span><span class="im">activeX</span><span class="op">.</span><span class="im">ActiveXComponent</span><span class="op">;</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"> * @</span>author Darren<span class="co">.</span>Wang</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="co">2005/03/17</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span>  Thanks to Samir<span class="co">(</span>who is in Australia<span class="co">),</span> without his help <span class="co">,</span> I can<span class="co">''</span>t complete this work<span class="co">.</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a> <span class="co">*/</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> JacobExcelLauncher <span class="op">{</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">// excel automation</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> ActiveXComponent excel<span class="op">;</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">// excel workbooks </span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">Dispatch</span> workbooks<span class="op">;</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">// excel file varient</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> Variant workbook<span class="op">;</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">/*</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">     * constructor  of the JacobExcelLauncher</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">     * @author Darren.Wang</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">     */</span> </span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="fu">JacobExcelLauncher</span><span class="op">()</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>        <span class="co">// start the Excel </span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>        excel <span class="op">=</span> <span class="kw">new</span> <span class="fu">ActiveXComponent</span><span class="op">(</span><span class="st">"Excel.Application"</span><span class="op">);</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        <span class="co">// first time, we need set the excel to be invisible</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>        excel<span class="op">.</span><span class="fu">setProperty</span><span class="op">(</span><span class="st">"Visible"</span><span class="op">,</span><span class="kw">new</span> <span class="fu">Variant</span><span class="op">(</span><span class="kw">false</span><span class="op">));</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>        <span class="co">// get workbooks</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>        workbooks <span class="op">=</span> excel<span class="op">.</span><span class="fu">getProperty</span><span class="op">(</span><span class="st">"WorkBooks"</span><span class="op">).</span><span class="fu">toDispatch</span><span class="op">();</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    <span class="co">/*</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co">     *  Launch Excel file with this method, </span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co">     *  it can be invoked many times</span></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="co">     */</span></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">launch</span><span class="op">(</span><span class="bu">String</span> fileName<span class="op">)</span></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>        <span class="co">// now make it appear</span></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>        excel<span class="op">.</span><span class="fu">setProperty</span><span class="op">(</span><span class="st">"Visible"</span><span class="op">,</span><span class="kw">new</span> <span class="fu">Variant</span><span class="op">(</span><span class="kw">true</span><span class="op">));</span></span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>        <span class="co">// open the excel file</span></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>        workbook <span class="op">=</span> <span class="bu">Dispatch</span><span class="op">.</span><span class="fu">callN</span><span class="op">(</span>workbooks<span class="op">,</span><span class="st">"Open"</span><span class="op">,</span><span class="kw">new</span> <span class="bu">Object</span><span class="op">[]{</span>fileName<span class="op">});</span></span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>    <span class="co">/*</span></span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="co">     * Release the resources and kill the excel process</span></span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="co">     */</span></span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">release</span><span class="op">()</span></span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>        <span class="co">// quit the excel application</span></span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>        excel<span class="op">.</span><span class="fu">invoke</span><span class="op">(</span><span class="st">"Quit"</span><span class="op">,</span><span class="kw">new</span> Variant<span class="op">[]{});</span></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>        <span class="co">// invoke the method to count down the numbers of the reference,</span></span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>        <span class="co">// and release them one by one to kill the excel process finally.</span></span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>        ComThread<span class="op">.</span><span class="fu">Release</span><span class="op">();</span></span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>        JacobExcelLauncher launcher <span class="op">=</span> <span class="kw">new</span> <span class="fu">JacobExcelLauncher</span><span class="op">();</span></span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>        launcher<span class="op">.</span><span class="fu">launch</span><span class="op">(</span><span class="st">"c:/workbook.xls"</span><span class="op">);</span></span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>        launcher<span class="op">.</span><span class="fu">launch</span><span class="op">(</span><span class="st">"c:/workbook2.xls"</span><span class="op">);</span></span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>        launcher<span class="op">.</span><span class="fu">release</span><span class="op">();</span></span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
-    </div> 
-    <p>发现区别了嘛，对，就在release方法中，我加入了ComThread.Release()，十分简单不是嘛？！ 但是这个结果的得到却不是一帆风顺的。Com的资源释放方式好像跟java的gc有很大的不同，他好像是针对引用计数来处理资源释放的，所以，ComThread.Release()的作用就一个挨着一个的清空引用计数，知道所有的引用的release完成为止，而最终excel进程也可以被kill掉了。</p> 
-    <p>好了，大功告成，打完收工，呵呵</p> 
-    <p>Thanks to Samir，thank you very much，you have given me so much help. Thanks to 秦春雷2，呵呵，虽然你给我的代码不是太能跑起来，hoho</p> 
-    <p>注：如果说其他情况下要用Runtime的话，记得要将fileName用引号引起来，否则对于文件名中有中文或者日文字符，甚至空格的文件名，运行时候会出问题，根本不会起作用。</p> <!--          </div>--> <!--        </div>--> 
-    <hr> 
-    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
-    </div> 
-    <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2010-07-21-thanku-my-dear-fella.html">Thank you, My dear fella </a> 
-     </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2020-04-23-bigdata-should-help-personalization.html">大数据构建的底线是个人王道的起点 </a> 
-     </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2008-10-25-keep-running.html">am I getting old? </a> 
-     </div> 
-    </div> 
-    <hr> 
-    <div> 
-     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
-     <ol> 
-      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
-      <li>还分享AI工具、产品方法和商业机会</li> 
-      <li>更有体系化精品付费内容等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取。(加入之后<b>一定记得看置顶消息</b>呀！)</li> 
-     </ol> 
-     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
-    </div> 
-    <hr> 
-    <p> <span style="font-size: xx-large;">存量的时代，省钱就是赚钱。</span> <br> <span style="font-size: xx-large;">在增量的时代，省钱其实是亏钱。</span> <br> 避坑儿是省钱的一种形式，更是真正聪明人的选择！ <br> 弯路虽然也是路，但还是能少走就少走，背后都是高昂的试错成本。 <br> <b>订阅「福报」</b>，少踩坑，少走弯路，多走一步，就是不一样的胜率！ </p> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
-    <hr> 
-    <div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"> 
-     <div id="tfloader" class="x-indicator"> 
-      <svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"> <g fill="none" fill-rule="evenodd"> 
-        <g transform="translate(1 1)" stroke-width="2"> 
-         <circle cx="5" cy="50" r="5"> 
-          <animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /> 
-          <animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /> 
-         </circle> 
-         <circle cx="27" cy="5" r="5"> 
-          <animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /> 
-          <animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /> 
-         </circle> 
-         <circle cx="49" cy="50" r="5"> 
-          <animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /> 
-          <animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /> 
-         </circle> 
+ <body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"> 
+  <header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"> 
+   <div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"> 
+    <div class="flex justify-between"> <a class="flex items-center" href="https://afoo.me"> <span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"> <h1>王福强的个人博客</h1> </span> </a> 
+     <div class="flex items-center md:hidden"> <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""> 
+       <svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+         <circle cx="12" cy="12" r="4"></circle> 
+         <path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"> 
+         </path> 
         </g> 
-       </g> 
-      </svg> 
+       </svg> </button> <button type="button" class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition" aria-label="Toggle Menu" data-toggle-menu=""> 
+       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:menu"> <g class="icon-tabler" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+         <path d="M4 8h16"></path> 
+         <path d="M4 16h16"></path> 
+        </g> 
+       </svg> </button> 
      </div> 
     </div> 
-    <hr> 
-    <div id="comments"></div> <!-- <div class="text-center">
-      <a href="https://twitter.com/fujohnwang">
-        <img src="/images/Twitter-logo.png" class="img-responsive" loading='lazy' style="width: fit-content;">
-      </a>
-    </div> --> 
+    <nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"> 
+     <ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me">福强AI学堂</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com">架构百科</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html">博客文章 </a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html">创作出版</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me">产品与服务</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/crosslinks.html">更多链接</a> </li> 
+     </ul> 
+     <div class="md:self-center flex items-center mb-4 md:mb-0 ml-2"> 
+      <div class="hidden items-center md:flex"> <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+          <circle cx="12" cy="12" r="4"></circle> 
+          <path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"> 
+          </path> 
+         </g> 
+        </svg> </button> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="RSS Feed" href="http://afoo.me/feeds.xml"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:rss"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+          <circle cx="5" cy="19" r="1"></circle> 
+          <path d="M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"></path> 
+         </g> 
+        </svg> </a> 
+      </div> 
+     </div> 
+    </nav> 
    </div> 
-  </section> 
-  <div style="color:white; visibility: collapse; height: 0;">
-   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
-  </div> 
-  <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
-    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
+  </header> 
+  <main> 
+   <section class="text-gray-600 body-font relative"> 
+    <div class="container px-5 py-24 mx-auto mb-12 prose prose-lg dark:prose-invert"> 
+     <p class="lead"> </p>
+     <h1 class="title">使用jacob来launch Excel文件</h1> <small> <h3 class="author">FuqiangWang</h3> 
+      <div style="text-align: left;"></div> </small> 
+     <p></p> 
+     <hr> 
+     <blockquote> 
+      <p>2014年从msn space存档中重新恢复出来！</p> 
+     </blockquote> 
+     <p>这几天一直在调查怎么在java程序中启动excel文件，但是进展一直不大，查遍网络各个角落，网上各个论坛，全都是千篇一律的，根本没有有创意一点儿的解决方法，呵呵，不过，黄天不负有心人，终于让我在yahoo的jacob新闻组中找到了一线生机，且让我慢慢道来。</p> 
+     <p>问题的背景是这样的，在我们的credit项目的back office管理工具中，现在有一个事件模块需要处理excel报表，当然报表生成使用的是POI，这在前面的blog中已经提到过了，但是，报表生成之后，日方希望能够马上启动已经生成的excel文件并显示出来，不过，有个条件，就是不管启动多少个excel文件，最终的excel进程只能有一个。（这个意图我和我的leader开始都理解错了，我们一直以为是在一个workbook中启动多个workbook显示，这个也是弯路之一吧。）</p> 
+     <p>Ok，问题来了，刚开始那我也使用了最基本的Runtime来处理这个问题，但是，这个明显不能满足需求，也想过跟日本人探讨是否取消以上条件，因为这样可以更容易处理（是十分的容易，呵呵）。不过，最终的结果是还要处理以上的条件，所以，下面的历程就开始了。</p> 
+     <p>首先，我在sun的forum中搜索了所有跟excel有关的帖子，也或多或少的发现了一下解决方法，但大部分都是使用Runtime来启动的，既然如此，我也多多少少试验了一下Runtime各种方法，比如：</p> 
+     <p>Runtime.getRuntime().exec(“cmd /c start”+fileName); 或者Runtime.getRuntime().exec(“cmd /c”+fileName); 甚至Runtime.getRuntime().exec(“rundll32 url.dll,FileProtocolHandler c:/workbook2.xls”);等等，</p> 
+     <p>虽然可以顺利的启动excel文件但是都不能满足日方的要求，所以，最终我还是要转到其他的方案。</p> 
+     <p>其实那，我在之前就发现了jacob，但是，我对于com不是很熟悉，因为我真的是一个纯粹的java developer呵呵，所以，我对他有抵触情绪，能不用尽量不用，虽然我隐约感觉道他正是我要找的东西。当然，最终，我也硬着头皮钻进去看看如何使其为我所用。</p> 
+     <p>我在yahoo的jacob新闻组中发了帖子，请求帮助，最终收到了Samir的答复，在这里再次谢谢Samir的帮助。他开始给我发了一个类，但是好像不是很顺利，所以，我请求他发一个完整的实例给我，他也在百忙之中给予了我帮助（他祖籍印度，现在移民澳大利亚，职位是架构师）。下面是他给我的原始类：</p> 
+     <div class="sourceCode" id="cb1">
+      <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">com</span><span class="op">.</span><span class="im">jacob</span><span class="op">.</span><span class="im">activeX</span><span class="op">.</span><span class="im">ActiveXComponent</span><span class="op">;</span></span>
+            <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+            <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">com</span><span class="op">.</span><span class="im">jacob</span><span class="op">.</span><span class="im">com</span><span class="op">.</span><span class="im">ComThread</span><span class="op">;</span></span>
+            <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">com</span><span class="op">.</span><span class="im">jacob</span><span class="op">.</span><span class="im">com</span><span class="op">.</span><span class="im">Dispatch</span><span class="op">;</span></span>
+            <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+            <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">com</span><span class="op">.</span><span class="im">jacob</span><span class="op">.</span><span class="im">com</span><span class="op">.</span><span class="im">Variant</span><span class="op">;</span></span>
+            <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+            <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a> </span>
+            <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+            <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+            <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+            <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">* @</span>author Samir Kumar Mishra</span>
+            <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+            <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span></span>
+            <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+            <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> ExcelTest <span class="op">{</span></span>
+            <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+            <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    ActiveXComponent excel<span class="op">;</span></span>
+            <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Dispatch</span> excelApp<span class="op">;</span></span>
+            <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Dispatch</span> workBooks<span class="op">;</span></span>
+            <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    Variant wBooks<span class="op">;</span></span>
+            <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+            <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+            <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        ExcelTest excelTest <span class="op">=</span> <span class="kw">new</span> <span class="fu">ExcelTest</span><span class="op">();</span></span>
+            <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        <span class="co">//excelTest.print();</span></span>
+            <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>      </span>
+            <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>        <span class="co">// This method can be called in loop to open as many worksheet youwant within the same excel instance.</span></span>
+            <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>        excelTest<span class="op">.</span><span class="fu">addWorkBook</span><span class="op">(</span><span class="st">"C:/workbook.xls"</span><span class="op">);</span><span class="co">// Open1st Excel file.</span></span>
+            <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>        excelTest<span class="op">.</span><span class="fu">addWorkBook</span><span class="op">(</span><span class="st">"C:/workbook2.xls"</span><span class="op">);</span><span class="co">// Open 2nd Excelfile.</span></span>
+            <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>        excelTest<span class="op">.</span><span class="fu">release</span><span class="op">();</span> <span class="co">// Use this method to close Excel.</span></span>
+            <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+            <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="fu">ExcelTest</span><span class="op">()</span> <span class="op">{</span></span>
+            <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>        excel <span class="op">=</span> <span class="kw">new</span> <span class="fu">ActiveXComponent</span><span class="op">(</span><span class="st">"Excel.Application"</span><span class="op">);</span></span>
+            <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co">//        excelApp = excel.getObject();</span></span>
+            <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>        excel<span class="op">.</span><span class="fu">setProperty</span><span class="op">(</span><span class="st">"Visible"</span><span class="op">,</span> <span class="kw">new</span> <span class="fu">Variant</span><span class="op">(</span><span class="kw">true</span><span class="op">));</span></span>
+            <span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+            <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>        workBooks <span class="op">=</span> excel<span class="op">.</span><span class="fu">getProperty</span><span class="op">(</span><span class="st">"WorkBooks"</span><span class="op">).</span><span class="fu">toDispatch</span><span class="op">();</span></span>
+            <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+            <span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+            <span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">addWorkBook</span><span class="op">(</span><span class="bu">String</span> fileName<span class="op">)</span> <span class="op">{</span></span>
+            <span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>        wBooks <span class="op">=</span> <span class="bu">Dispatch</span><span class="op">.</span><span class="fu">callN</span><span class="op">(</span>workBooks<span class="op">,</span> <span class="st">"Open"</span><span class="op">,</span> <span class="kw">new</span> <span class="bu">Object</span><span class="op">[]</span> <span class="op">{</span>fileName<span class="op">});</span></span>
+            <span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+            <span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">release</span><span class="op">()</span> <span class="op">{</span></span>
+            <span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>        excel<span class="op">.</span><span class="fu">invoke</span><span class="op">(</span><span class="st">"Quit"</span><span class="op">,</span> <span class="kw">new</span> Variant<span class="op">[]</span> <span class="op">{});</span></span>
+            <span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+            <span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+     </div> 
+     <p>现在我们可以多次调用addWorkbook方法来启动多个excel文件了，完成任务了不是嘛？！呵呵，少安毋躁，怎么windows的任务管理器的进程中那个excel在java程序推出后还是没有消失那？！我问了Samir，他说现在的进程应该已经不在java的管理范围之列了，我也同意，因为现在的excel进程应该属于本地的了。但是这样交工肯定不行，而我高中同学秦春雷的提醒促使我再次钻进jacob的文档，呵呵，而最终也发现了问题的所在。</p> 
+     <p>下面是我对Samir的类进行改进后的成果：</p> 
+     <div class="sourceCode" id="cb2">
+      <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">package</span><span class="im"> com</span><span class="op">.</span><span class="im">livedoor</span><span class="op">.</span><span class="im">finance</span><span class="op">.</span><span class="im">credit</span><span class="op">.</span><span class="im">admin</span><span class="op">.</span><span class="im">business</span><span class="op">.</span><span class="im">event</span><span class="op">.</span><span class="im">util</span><span class="op">;</span></span>
+            <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+            <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">com</span><span class="op">.</span><span class="im">jacob</span><span class="op">.</span><span class="im">com</span><span class="op">.</span><span class="im">Variant</span><span class="op">;</span></span>
+            <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">com</span><span class="op">.</span><span class="im">jacob</span><span class="op">.</span><span class="im">com</span><span class="op">.</span><span class="im">Dispatch</span><span class="op">;</span></span>
+            <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">com</span><span class="op">.</span><span class="im">jacob</span><span class="op">.</span><span class="im">com</span><span class="op">.</span><span class="im">ComThread</span><span class="op">;</span></span>
+            <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">com</span><span class="op">.</span><span class="im">jacob</span><span class="op">.</span><span class="im">activeX</span><span class="op">.</span><span class="im">ActiveXComponent</span><span class="op">;</span></span>
+            <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+            <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+            <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"> * @</span>author Darren<span class="co">.</span>Wang</span>
+            <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="co">2005/03/17</span></span>
+            <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span>  Thanks to Samir<span class="co">(</span>who is in Australia<span class="co">),</span> without his help <span class="co">,</span> I can<span class="co">''</span>t complete this work<span class="co">.</span></span>
+            <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a> <span class="co">*/</span></span>
+            <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> JacobExcelLauncher <span class="op">{</span></span>
+            <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">// excel automation</span></span>
+            <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> ActiveXComponent excel<span class="op">;</span></span>
+            <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">// excel workbooks </span></span>
+            <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">Dispatch</span> workbooks<span class="op">;</span></span>
+            <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">// excel file varient</span></span>
+            <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> Variant workbook<span class="op">;</span></span>
+            <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    </span>
+            <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">/*</span></span>
+            <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">     * constructor  of the JacobExcelLauncher</span></span>
+            <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">     * @author Darren.Wang</span></span>
+            <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">     */</span> </span>
+            <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="fu">JacobExcelLauncher</span><span class="op">()</span></span>
+            <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+            <span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>        <span class="co">// start the Excel </span></span>
+            <span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>        excel <span class="op">=</span> <span class="kw">new</span> <span class="fu">ActiveXComponent</span><span class="op">(</span><span class="st">"Excel.Application"</span><span class="op">);</span></span>
+            <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        <span class="co">// first time, we need set the excel to be invisible</span></span>
+            <span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>        excel<span class="op">.</span><span class="fu">setProperty</span><span class="op">(</span><span class="st">"Visible"</span><span class="op">,</span><span class="kw">new</span> <span class="fu">Variant</span><span class="op">(</span><span class="kw">false</span><span class="op">));</span></span>
+            <span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>        <span class="co">// get workbooks</span></span>
+            <span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>        workbooks <span class="op">=</span> excel<span class="op">.</span><span class="fu">getProperty</span><span class="op">(</span><span class="st">"WorkBooks"</span><span class="op">).</span><span class="fu">toDispatch</span><span class="op">();</span></span>
+            <span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+            <span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    </span>
+            <span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    <span class="co">/*</span></span>
+            <span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co">     *  Launch Excel file with this method, </span></span>
+            <span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co">     *  it can be invoked many times</span></span>
+            <span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="co">     */</span></span>
+            <span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">launch</span><span class="op">(</span><span class="bu">String</span> fileName<span class="op">)</span></span>
+            <span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+            <span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>        <span class="co">// now make it appear</span></span>
+            <span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>        excel<span class="op">.</span><span class="fu">setProperty</span><span class="op">(</span><span class="st">"Visible"</span><span class="op">,</span><span class="kw">new</span> <span class="fu">Variant</span><span class="op">(</span><span class="kw">true</span><span class="op">));</span></span>
+            <span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>        <span class="co">// open the excel file</span></span>
+            <span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>        workbook <span class="op">=</span> <span class="bu">Dispatch</span><span class="op">.</span><span class="fu">callN</span><span class="op">(</span>workbooks<span class="op">,</span><span class="st">"Open"</span><span class="op">,</span><span class="kw">new</span> <span class="bu">Object</span><span class="op">[]{</span>fileName<span class="op">});</span></span>
+            <span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+            <span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    </span>
+            <span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>    <span class="co">/*</span></span>
+            <span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="co">     * Release the resources and kill the excel process</span></span>
+            <span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="co">     */</span></span>
+            <span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">release</span><span class="op">()</span></span>
+            <span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+            <span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>        <span class="co">// quit the excel application</span></span>
+            <span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>        excel<span class="op">.</span><span class="fu">invoke</span><span class="op">(</span><span class="st">"Quit"</span><span class="op">,</span><span class="kw">new</span> Variant<span class="op">[]{});</span></span>
+            <span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>        <span class="co">// invoke the method to count down the numbers of the reference,</span></span>
+            <span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>        <span class="co">// and release them one by one to kill the excel process finally.</span></span>
+            <span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>        ComThread<span class="op">.</span><span class="fu">Release</span><span class="op">();</span></span>
+            <span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+            <span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>    </span>
+            <span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+            <span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>        JacobExcelLauncher launcher <span class="op">=</span> <span class="kw">new</span> <span class="fu">JacobExcelLauncher</span><span class="op">();</span></span>
+            <span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>        launcher<span class="op">.</span><span class="fu">launch</span><span class="op">(</span><span class="st">"c:/workbook.xls"</span><span class="op">);</span></span>
+            <span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>        launcher<span class="op">.</span><span class="fu">launch</span><span class="op">(</span><span class="st">"c:/workbook2.xls"</span><span class="op">);</span></span>
+            <span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>        launcher<span class="op">.</span><span class="fu">release</span><span class="op">();</span></span>
+            <span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+            <span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+     </div> 
+     <p>发现区别了嘛，对，就在release方法中，我加入了ComThread.Release()，十分简单不是嘛？！ 但是这个结果的得到却不是一帆风顺的。Com的资源释放方式好像跟java的gc有很大的不同，他好像是针对引用计数来处理资源释放的，所以，ComThread.Release()的作用就一个挨着一个的清空引用计数，知道所有的引用的release完成为止，而最终excel进程也可以被kill掉了。</p> 
+     <p>好了，大功告成，打完收工，呵呵</p> 
+     <p>Thanks to Samir，thank you very much，you have given me so much help. Thanks to 秦春雷2，呵呵，虽然你给我的代码不是太能跑起来，hoho</p> 
+     <p>注：如果说其他情况下要用Runtime的话，记得要将fileName用引号引起来，否则对于文件名中有中文或者日文字符，甚至空格的文件名，运行时候会出问题，根本不会起作用。</p> 
+     <hr> 
+     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+     </div> 
+     <div id="random_posts"> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2020-07-13-go-big-or-strong.html">为什么一定要做大或者做强 </a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2023-08-20-cnblog-delimma.html">博客园的尴尬也是你我的尴尬 </a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2007-04-21-understanding-factor-in.html">“factor in”, you know these words, right?! </a> 
+      </div> 
+     </div> 
+     <hr> 
+     <div> 
+      <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+      <ol> 
+       <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+       <li>还分享AI工具、产品方法和商业机会</li> 
+       <li>更有体系化精品付费内容等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取。(加入之后<b>一定记得看置顶消息</b>呀！)</li> 
+      </ol> 
+      <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+     </div> 
+     <hr> 
+     <p> <span style="font-size: xx-large;">存量的时代，省钱就是赚钱。</span> <br> <span style="font-size: xx-large;">在增量的时代，省钱其实是亏钱。</span> <br> 避坑儿是省钱的一种形式，更是真正聪明人的选择！ <br> 弯路虽然也是路，但还是能少走就少走，背后都是高昂的试错成本。 <br> <b>订阅「福报」</b>，少踩坑，少走弯路，多走一步，就是不一样的胜率！ </p> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
+     <hr> 
+     <div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"> 
+      <div id="tfloader" class="x-indicator"> 
+       <svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"> <g fill="none" fill-rule="evenodd"> 
+         <g transform="translate(1 1)" stroke-width="2"> 
+          <circle cx="5" cy="50" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+          <circle cx="27" cy="5" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+          <circle cx="49" cy="50" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+         </g> 
+        </g> 
+       </svg> 
+      </div> 
+     </div> 
+     <hr> 
+     <div id="comments"></div> 
+    </div> 
+   </section> 
+  </main> 
+  <footer class="border-t border-gray-200 dark:border-slate-800"> 
+   <div class="max-w-6xl mx-auto px-4 sm:px-6"> 
+    <div class="md:flex md:items-center md:justify-between py-6 md:py-8"> 
+     <ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0"> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Twitter" href="https://twitter.com/fujohnwang"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-twitter"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z"> 
+         </path> 
+        </svg> </a> </li> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Facebook" href="https://www.facebook.com/fujohnwang/"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-facebook"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2H7"></path> 
+        </svg> </a> </li> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Github" href="https://github.com/fujohnwang"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-github"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"> 
+         </path> 
+        </svg> </a> </li> 
+     </ul> 
+     <div class="text-sm text-gray-700 mr-4 dark:text-slate-400"> <span class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 float-left rounded-sm"> <img src="https://afoo.me/favicon.svg" class="rounded-md" alt> </span> Copyright © 王福强个人版权所有 - Since 2004 (Everything is homebrewed with <a href="https://pandoc.org/">Pandoc</a> and Markdown, little <a href="https://www.scala-lang.org/">Scala</a> also included.) 
+     </div> 
+    </div> 
    </div> 
-  </div> 
-  <script type="text/javascript">
-var gitalk = new Gitalk({
-  clientID: '518a605d711883414ac0',
-  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-  repo: 'afoo.me.comments',
-  owner: 'fujohnwang',
-  admin: ['fujohnwang'],
-  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-  distractionFreeMode: false  // Facebook-like distraction free mode
-})
-
-gitalk.render('comments')
-    </script> 
+  </footer> 
   <script>
-  kofiWidgetOverlay.draw('fff000', {
-    'type': 'floating-chat',
-    'floating-chat.donateButton.text': 'Support me',
-    'floating-chat.donateButton.background-color': 'red',
-    'floating-chat.donateButton.text-color': 'white'
-  });
-</script>  <!-- <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> --> 
+        // Set "light" theme as default
+        if (!localStorage.theme) {
+            localStorage.theme = "light";
+        }
+
+        if (
+            localStorage.theme === 'dark' ||
+            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function attachEvent(selector, event, fn) {
+            const matches = document.querySelectorAll(selector);
+            if (matches && matches.length) {
+                matches.forEach((elem) => {
+                    elem.addEventListener(event, () => fn(elem), false);
+                });
+            }
+        }
+
+        window.onload = function () {
+            attachEvent('[data-toggle-menu]', 'click', function (elem) {
+                elem.classList.toggle('expanded');
+                document.body.classList.toggle('overflow-hidden');
+                document.getElementById('header')?.classList.toggle('h-screen');
+                document.querySelector('#header nav')?.classList.toggle('hidden');
+            });
+            attachEvent('[data-toggle-color-scheme]', 'click', function () {
+                document.documentElement.classList.toggle('dark');
+                localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            });
+        };
+        window.onpageshow = function () {
+            const elem = document.querySelector('[data-toggle-menu]');
+            if (elem) {
+                elem.classList.remove('expanded');
+            }
+            document.body.classList.remove('overflow-hidden');
+            document.getElementById('header')?.classList.remove('h-screen');
+            document.querySelector('#header nav')?.classList.add('hidden');
+        };
+    </script> 
+  <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '518a605d711883414ac0',
+          clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+          repo: 'afoo.me.comments',
+          owner: 'fujohnwang',
+          admin: ['fujohnwang'],
+          id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+        gitalk.render('comments')
+    </script>  
  </body>
 </html>

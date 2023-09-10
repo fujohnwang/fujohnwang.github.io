@@ -1,117 +1,101 @@
 <!doctype html>
-<html lang="zh"> 
+<html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]"> 
  <head> 
   <meta charset="utf-8"> 
-  <meta name="keywords" content="Struts中的文件上传 - 架构教练,架构师个人成长教练,个人成长,组织成长,个人与组织成长顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
-  <meta name="description" content="Struts中的文件上传 - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="keywords" content="Struts中的文件上传 - 架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="Struts中的文件上传 - 福强说，扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+  <meta name="robots" content="index,follow"> 
   <title>Struts中的文件上传 -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <meta name="date" content="2005-06-18"> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <link rel="canonical" href="https://afoo.me/posts/2005-06-18-upload-file-in-struts.html"> 
-  <style type="text/css">code{white-space: pre;}</style> 
-  <style type="text/css">
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      {   }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-    code span.at { color: #7d9029; } /* Attribute */
-    code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #4070a0; } /* Char */
-    code span.cn { color: #880000; } /* Constant */
-    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-    code span.dt { color: #902000; } /* DataType */
-    code span.dv { color: #40a070; } /* DecVal */
-    code span.er { color: #ff0000; font-weight: bold; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #40a070; } /* Float */
-    code span.fu { color: #06287e; } /* Function */
-    code span.im { } /* Import */
-    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-    code span.op { color: #666666; } /* Operator */
-    code span.ot { color: #007020; } /* Other */
-    code span.pp { color: #bc7a00; } /* Preprocessor */
-    code span.sc { color: #4070a0; } /* SpecialChar */
-    code span.ss { color: #bb6688; } /* SpecialString */
-    code span.st { color: #4070a0; } /* String */
-    code span.va { color: #19177c; } /* Variable */
-    code span.vs { color: #4070a0; } /* VerbatimString */
-    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-  </style> 
+  <link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"> 
+  <link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8"> 
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
-  <script src="/js/overlay-widget.js"></script> <!--
-  <script type="text/javascript" src="/js/watermark.js"></script>
-  --> <!-- Bootstrap core CSS --> 
-  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
-  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> 
   <style type="text/css">
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      text-align: left;
-      position: relative;
-      -webkit-font-smoothing: antialiased;
-    }
-    
+        pre > code{white-space: pre-line;}
 
-    h1{
-      margin-top: 3rem;
-    }
-
-    .x-indicator{
-        display:none;
-    }
-    .htmx-request .x-indicator{
-        display:inline;
-    }
-    .htmx-request.x-indicator{
-        display:inline;
-    }
-  </style> 
+        .x-indicator{
+            display:none;
+        }
+        .htmx-request .x-indicator{
+            display:inline;
+        }
+        .htmx-request.x-indicator{
+            display:inline;
+        }
+    </style> 
+  <style type="text/css">
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    </style> 
+  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -136,349 +120,427 @@
     })(window, document, "clarity", "script", "irqzhxtyzn");
   </script> 
  </head> 
- <body id="page-top"> <!-- Navigation --> 
-  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
-    <div class="collapse navbar-collapse" id="navbarResponsive"> 
-     <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://jiagoubaike.com">架构百科</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
-     </ul> 
-    </div> 
-   </div> 
-  </nav> 
-  <section> 
-   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
-    <p class="lead"> </p>
-    <h1 class="title">Struts中的文件上传</h1> <small> <h3 class="author">FuqiangWang</h3> 
-     <div style="text-align: left;">
-      2005-06-18
-     </div> </small> 
-    <p></p> 
-    <hr> 
-    <p>Keywords: Struts，upload，controller，上传文件长度限制</p> 
-    <blockquote> 
-     <p>NOTE: 2014年重新从msn space存档中恢复，可能存在格式错误</p> 
-    </blockquote> 
-    <h1 id="前言">前言</h1> 
-    <p>在以前的文章中，我们提到struts对于文件上传有其自己的一套实现方案，这套方案对文件的上传操作进行了进一步的程序实现复杂度的封装，更加易于操作，可以极大的提高开发效率。</p> 
-    <p>下面，就让我们来领略一下他到底是一个怎么样的实现。希望在读完本文之后，读者可以充分了解struts的文件上传功能的实现流程以及原</p> 
-    <h1 id="技术背景">技术背景</h1> 
-    <p>除去其他技术对于文件上传的实现技术不谈，但就java的web应用中文件上传的方式或者说实现上看，在struts提供的文件上传实现之前，一般有两种方式可以供开发者选择：</p> 
-    <ol type="1"> 
-     <li>第一种：从最底层的HTTP协议出发，使用手动编码对HTTP协议的request进行分析，根据分析所取得的协议的request内容，取得用户提交的表单中各个表单域的数据，包括普通的文本以及二进制形式的文件形式等。数据取得后，可以在服务器端进行所需要处理的操作。这种方式的缺点就是重复开发，一切编码都要从零开始，需要什么形式的上传请求，就针对该请求进行重新开发，不能保证开发效率。优点嘛，当然也有，那就是可以是开发者更加清晰的了解协议的规格以及具体实现，因为，只有清楚的了解了这些，才能开发出能对协议中request的内容进行正确解析的组件。</li> 
-     <li>第二种嘛，实际上只是本人所划分的，可以说成是在第一种的基础上进行的改进，特点就是，所有的上传实现都已经开发并实现为组件的形式，一般是javabeans的形式。用户只需要调用各个厂商提供的文件上传组件就可以了，其中使用最多的就是JspSmartUpload。缺点嘛，目前还不能说有什么缺点，因为这种方式将所有的实现逻辑都封装起来，可以极大的提高软件的复用度。实际上，struts提供的文件上传服务也要归到这一类。</li> 
-    </ol> 
-    <p>实际上，在Struts架构中，完全可以使用JspSmartUpload之类的组件库来实现文件上传，但是，唯一的区别就是，Struts中的文件上传功能可以与struts架构更加紧密的结合。既然选择了使用struts架构进行开发，为什么还要排斥他提供的文件上传功能那？</p> 
-    <h1 id="安装和配置">安装和配置</h1> 
-    <p>要使用struts的文件上传功能，其实不用任何多余的文件安装或者是配置，只要你已经成功的配置好了struts1.1的开发环境。因为org.apache.struts.upload包已经集成到struts的类库中。下面是Struts的一般配置步骤：</p> 
-    <ol type="1"> 
-     <li>从Jakarta的官方网站下载Struts1.1的zip压缩包（当然是指windows平台下，其他平台可以下载相应的文件压缩包）</li> 
-     <li>拷贝压缩包中lib目录下的所有jar压缩包到欲使用Struts进行开发的web应用的-INF。同样拷贝压缩包中lib目录下的*.tld文件到web应用的-INF目录下面，这些是标签库的索引文件。如果使用IDE，比如Jbuilder等，其实只要在新建Web Application的时候选择使用Struts架构进行开发的话，这些东西都会自动添加到该web应用的相应目录下方。</li> 
-     <li>在web.xml部署描述符中添加一下内容：</li> 
-    </ol> 
-    <div class="sourceCode" id="cb1">
-     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">servlet</span>&gt;</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">servlet-name</span>&gt;action&lt;/<span class="kw">servlet-name</span>&gt;</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">servlet-class</span>&gt;org.apache.struts.action.ActionServlet&lt;/<span class="kw">servlet-class</span>&gt;</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">init-param</span>&gt;</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">param-name</span>&gt;config&lt;/<span class="kw">param-name</span>&gt;</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">param-value</span>&gt;/WEB-INF/struts-config.xml&lt;/<span class="kw">param-value</span>&gt;</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">init-param</span>&gt;</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">init-param</span>&gt;</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">param-name</span>&gt;debug&lt;/<span class="kw">param-name</span>&gt;</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">param-value</span>&gt;2&lt;/<span class="kw">param-value</span>&gt;</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">init-param</span>&gt;</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">init-param</span>&gt;</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">param-name</span>&gt;detail&lt;/<span class="kw">param-name</span>&gt;</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">param-value</span>&gt;2&lt;/<span class="kw">param-value</span>&gt;</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">init-param</span>&gt;</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">load-on-startup</span>&gt;2&lt;/<span class="kw">load-on-startup</span>&gt;</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">servlet</span>&gt;</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>//----------以上注册ActionServlet---------------------------------</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">taglib</span>&gt;</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">taglib-uri</span>&gt;/tags/struts-bean&lt;/<span class="kw">taglib-uri</span>&gt;</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">taglib-location</span>&gt;/WEB-INF/struts-bean.tld&lt;/<span class="kw">taglib-location</span>&gt;</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">taglib</span>&gt;</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">taglib</span>&gt;</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">taglib-uri</span>&gt;/tags/struts-html&lt;/<span class="kw">taglib-uri</span>&gt;</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">taglib-location</span>&gt;/WEB-INF/struts-html.tld&lt;/<span class="kw">taglib-location</span>&gt;</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">taglib</span>&gt;</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">taglib</span>&gt;</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">taglib-uri</span>&gt;/tags/struts-logic&lt;/<span class="kw">taglib-uri</span>&gt;</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">taglib-location</span>&gt;/WEB-INF/struts-logic.tld&lt;/<span class="kw">taglib-location</span>&gt;</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">taglib</span>&gt;</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">taglib</span>&gt;</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">taglib-uri</span>&gt;/tags/struts-nested&lt;/<span class="kw">taglib-uri</span>&gt;</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">taglib-location</span>&gt;/WEB-INF/struts-nested.tld&lt;/<span class="kw">taglib-location</span>&gt;</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">taglib</span>&gt;</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">taglib</span>&gt;</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">taglib-uri</span>&gt;/tags/struts-tiles&lt;/<span class="kw">taglib-uri</span>&gt;</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">taglib-location</span>&gt;/WEB-INF/struts-tiles.tld&lt;/<span class="kw">taglib-location</span>&gt;</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">taglib</span>&gt;</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>//-------------以上注册Struts标签库------------------------</span></code></pre>
-    </div> 
-    <ol start="4" type="1"> 
-     <li>最后，在WEB-INF目录下面构建Struts-config.xml文件，将开发中所需要注册的资源添加进去就可以了。</li> 
-    </ol> 
-    <p>至此，就可以着手进行文件上传的开发工作，不过，在此之前，让我们先了解一下在struts中进行文件上传的基本流程或者说简单原理。</p> 
-    <h1 id="原理及流程">原理及流程</h1> 
-    <p>文件上传的页面Form表单与其他的普通的Form表单有些不同，其中文件上传页面中定义的表单的enctype属性必须设置为multipart/form-data。虽然如此，但是对于表单的处理来说，使用struts进行处理依然是使用同一种处理方式，ActionForm传送数据到Action进行处理，可以说是以不变应万变！那么，具体是怎么一回事那？</p> 
-    <p>在页面的表单中定义文件上传输入域，名称指定为符合规格的形式，比如定义一个文件输入域如下：<html:file property="fileOne" />。其他表单域类似定义。然后，编写与此表单相对应的ActionForm类，其定义的所有属性都要与表单中定义的表单域一一对应，名称相同，而且该ActionForm必须符合JavaBeans规范，为各个属性定义相应的setter和getter方法。只不过，对于与文件输入域相对应的属性，其类型现在必须定义为org.apache.struts.upload. FormFile接口类型，而且相对应的setter和getter方法的参数以及返回类型也是一样处理。这些完成后，将该ActionForm注册到struts-config.xml文件中，然后开始编写用来处理请求的Action。在这里，Action取得上面的ActionForm，然后，象取得其他普通类型的属性一样取得FormFile类型的属性，然后，根据逻辑处理要求就可以对FormFile象文件一样进行操作了，具体可以参考FormFile接口的API参考。</p> 
-    <p>以上就是struts中进行文件上传的基本流程。</p> 
-    <h1 id="简单实例实现">简单实例实现</h1> 
-    <p>我们实现一个简单的文件上传流程，在Upload.jsp页面中定义一个文件上传表单，定义一个文本域，一个文件输入域，分别代表上传者姓名和所上传的文件。Upload.jsp页面的主体实现代码如下：</p> 
-    <div class="sourceCode" id="cb2">
-     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">html:form</span><span class="ot"> action=</span><span class="st">"uploadAction.do"</span><span class="ot"> method=</span><span class="st">"post"</span><span class="ot"> enctype=</span><span class="st">"multipart/form-data"</span>&gt;</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>To choose the File to be Uploaded:</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">br</span>&gt;&lt;<span class="kw">html:text</span><span class="ot"> property=</span><span class="er">”uploader”/&gt;</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;br&gt;&lt;html:file</span> <span class="er">property=</span><span class="st">"fileOne"</span>/&gt;&lt;<span class="kw">br</span>&gt;</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">html:submit</span>/&gt;&lt;<span class="kw">html:reset</span>/&gt;</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">html:form</span>&gt;</span></code></pre>
-    </div> 
-    <p>页面完成后，需要定义与之对于的ActionForm，在应用中新建一个ActionForm，命名为UploadForm，定义uploader属性为String型，fileOne属性为FormFile型。与各个属性相对应的setter和getter方法以规范实现，这里不作赘述。代码可以参考附带文件。</p> 
-    <p>ActionForm开发完成后，将其添加到struts-config.xml配置文件中以便于Action调用。在struts-config.xml文件中的&lt; form-beans &gt;元素下面添加以下内容：</p> 
-    <div class="sourceCode" id="cb3">
-     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">form-bean</span><span class="ot"> name=</span><span class="st">"uploadForm"</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ot">             type=</span><span class="st">"com.darrenstudio.guestbook.forms.UploadForm"</span>/&gt;</span></code></pre>
-    </div> 
-    <p>以上完成后，就可以开始进行处理上传请求的Action的开发了。我们定义Action类为UploadAction，扩展自org.apache.struts.action.Action类。在该Action中，我们通过取得ActionForm，然后判断，如果是UploadForm则进行逻辑操作，从UploadForm实例中取得上传者姓名以及上传的FormFile实例。然后，通过FormFile提供的处理方法，将FormFile实例所代表的文件另存为服务器上的一个同名文件中。最后，处理完成后将页面forward到UploadResult.jsp页面，显示上传信息，如果出错，则forward到error处理页面。UploadAction的部分代码实现如下，完整代码可参照附带源码文件：</p> 
-    <div class="sourceCode" id="cb4">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>form <span class="kw">instanceof</span> UploadForm<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>UploadForm theForm <span class="op">=</span> <span class="op">(</span>UploadForm<span class="op">)</span> form<span class="op">;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> uploader <span class="op">=</span> theForm<span class="op">.</span><span class="fu">getUploader</span><span class="op">();</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>FormFile file <span class="op">=</span> theForm<span class="op">.</span><span class="fu">getFileOne</span><span class="op">();</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> BasePath <span class="op">=</span> <span class="bu">System</span><span class="op">.</span><span class="fu">getProperty</span><span class="op">(</span><span class="st">"user.dir"</span><span class="op">)+</span><span class="bu">File</span><span class="op">.</span><span class="fu">separator</span><span class="op">;</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="bu">InputStream</span> ins <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="bu">OutputStream</span> out <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span><span class="op">{</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="dt">byte</span><span class="op">[]</span> buffer <span class="op">=</span> <span class="kw">new</span> <span class="dt">byte</span><span class="op">[</span><span class="dv">1024</span><span class="op">];</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> bufferRead <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span><span class="op">(!(</span>file<span class="op">.</span><span class="fu">getFileName</span><span class="op">()==</span><span class="kw">null</span><span class="op">||</span>file<span class="op">.</span><span class="fu">getFileName</span><span class="op">().</span><span class="fu">equals</span><span class="op">(</span><span class="st">""</span><span class="op">)))</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>                ins <span class="op">=</span> file<span class="op">.</span><span class="fu">getInputStream</span><span class="op">();</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>                out <span class="op">=</span> <span class="kw">new</span> <span class="bu">FileOutputStream</span><span class="op">(</span>BasePath <span class="op">+</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>                                           EncodingBean<span class="op">.</span><span class="fu">ISO2GBK</span><span class="op">(</span>file1<span class="op">.</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">getFileName</span><span class="op">()));</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>                <span class="cf">while</span> <span class="op">(</span> <span class="op">(</span>bufferRead <span class="op">=</span> ins<span class="op">.</span><span class="fu">read</span><span class="op">(</span>buffer<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> buffer<span class="op">.</span><span class="fu">length</span><span class="op">))</span> <span class="op">!=</span> <span class="op">-</span><span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>                    out<span class="op">.</span><span class="fu">write</span><span class="op">(</span>buffer<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> buffer<span class="op">.</span><span class="fu">length</span><span class="op">);</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>                <span class="op">}</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>                ins<span class="op">.</span><span class="fu">close</span><span class="op">();</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>                out<span class="op">.</span><span class="fu">close</span><span class="op">();</span></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>file<span class="op">.</span><span class="fu">destroy</span><span class="op">();</span></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="op">}</span><span class="cf">catch</span><span class="op">(</span><span class="bu">Exception</span> e<span class="op">)</span></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>     e<span class="op">.</span><span class="fu">printStackTrace</span><span class="op">();</span></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>     <span class="cf">return</span> actionMapping<span class="op">.</span><span class="fu">findForward</span><span class="op">(</span><span class="st">"failure"</span><span class="op">);</span></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> actionMapping<span class="op">.</span><span class="fu">findForward</span><span class="op">(</span><span class="st">"success"</span><span class="op">);</span></span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="op">}</span><span class="cf">return</span> <span class="kw">null</span><span class="op">;</span>   <span class="co">// will never happen in this sample</span></span></code></pre>
-    </div> 
-    <p>代码完成之后，将该Action类，即UploadAction，添加到struts-config.xml文件中，在struts-config.xml文件中添加以下内容：</p> 
-    <div class="sourceCode" id="cb5">
-     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">action</span><span class="ot"> name=</span><span class="st">"uploadForm"</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ot">          type=</span><span class="st">"com.darrenstudio.guestbook.actions.UploadAction"</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ot">          validate=</span><span class="st">"false"</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ot">          input=</span><span class="st">"/upload.jsp"</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ot">          scope=</span><span class="st">"request"</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="ot">          path=</span><span class="st">"/uploadAction"</span>&gt;</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>   &lt;<span class="kw">forward</span><span class="ot"> name=</span><span class="st">"success"</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="ot">            path=</span><span class="st">"/UploadResult.jsp"</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="ot">            redirect=</span><span class="st">"false"</span>/&gt;</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>   &lt;<span class="kw">forward</span><span class="ot"> name=</span><span class="st">"failure"</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="ot">            path=</span><span class="st">"/ErrorPage.jsp"</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="ot">            redirect=</span><span class="st">"false"</span>/&gt;</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">action</span>&gt;</span></code></pre>
-    </div> 
-    <p>需要注意的是：action的name属性应该与上面定义的FormBean的name属性的值一样，在这里都是“uploadFrom”。这里，还为这个action定义了两个Forward，即success和failure，当处理顺利完成后，forward走success；否则，走failure报错。</p> 
-    <p>处理如果顺利完成，则页面跳转到UploadResult.jsp,在这里显示上传后的定制显示信息。而且，为了用户重新上传，还在这个页面中添加了一个重新到upload.jsp的link。该页面部分代码如下所示：</p> 
-    <div class="sourceCode" id="cb6">
-     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">pre</span>&gt;  </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a> &lt;<span class="kw">font</span><span class="ot"> color=</span><span class="st">"red"</span>&gt;Files Uploaded Successfully!&lt;/<span class="kw">font</span>&gt;</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a> Uploader : <span class="er">&lt;</span>%=uploader%&gt;</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a> FileName : <span class="er">&lt;</span>%=FileName%&gt;</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a> FileLocationOnServer:<span class="er">&lt;</span>%=FilePath%&gt;</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">pre</span>&gt;</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">br</span>&gt;</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">html:link</span><span class="ot"> href=</span><span class="st">"return2Upload.do"</span>&gt;返回上传页面&lt;/<span class="kw">html:link</span>&gt;</span></code></pre>
-    </div> 
-    <p>为了将连接归入struts架构下，为其在Struts-config.xml文件中添加一个action，内容如下：</p> 
-    <div class="sourceCode" id="cb7">
-     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">action</span><span class="ot"> path=</span><span class="st">"/return2Upload"</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ot">          parameter=</span><span class="st">"/upload.jsp"</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ot">          type=</span><span class="st">"org.apache.struts.actions.ForwardAction"</span>/&gt;</span></code></pre>
-    </div> 
-    <p>关于ForwardAction的使用，在以前的《》一文中已经提到过。</p> 
-    <p>至此，整个上传流程的开发完成，只要将该Web应用部署到相应的应用服务器上的规定目录下面就可以运行了。</p> 
-    <h1 id="深入阐述">深入阐述</h1> 
-    <p>在org.apache.struts.upload包中，有两个主要的接口：FormFile接口和MultipartRequestHandler接口。</p> 
-    <p>前者在上面的实例中已经接触过，它代表从客户端上传上来的文件，也是在struts应用中在上传文件方面使用最多的接口或者说是类，通过它提供的各种文件操作方法，我们可以对于应用中它所代表的文件进行各种所需要的操作，比如取得从客户端上传的文件的文件名，或者取得文件大小，进而可以取得输入流，对该文件进行操作等，这在上面的实例中都可以涉及到。</p> 
-    <p>后者，即MultipartRequestHandler接口，为struts应用提供一个标准接口，用来处理表单的enctype属性为“multipart/form-data”的文件上传操作。这个接口有一个ATTRIBUTE_MAX_LENGTH_EXCEEDED域，通过这个域，我们可以对客户端上传的文件的大小进行控制。下面，我们就对于如何控制客户端上传文件的大小进行简单描述。 在通常的web应用中，如果允许文件上传的话，也不是可以任意上传的，一般会对客户端上传的文件大小进行适当的限制，以便服务器可以负担，因为文件上传是很耗服务器资源的一件事情。</p> 
-    <p>在struts中对文件的上传进行控制需要进行一下几个步骤:</p> 
-    <ol type="1"> 
-     <li>在struts-config.xml文件中注册一个controller，通过其maxFileSize属性设置对文件大小进行的限制；</li> 
-     <li>在FormBean的validate（）验证方法中进行检查，判断上传的文件大小是否超出controller所设置的大小，如果超出，则向ActionErrors中添加一个ActionError，然后返回input指定的页面；否则，返回的ActionErrors对象为空，处理交给Action处理；</li> 
-     <li>如果文件大小超出限制，需要在原上传页面中对文件没有允许上传进行信息提示。</li> 
-    </ol> 
-    <p>下面就是在各个步骤中所涉及的具体实施内容：</p> 
-    <ol type="1"> 
-     <li>向struts-config.xml文件中添加以下内容即可完成Controller对象的注册工作：</li> 
-    </ol> 
-    <div class="sourceCode" id="cb8">
-     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">controller</span><span class="ot"> maxFileSize=</span><span class="st">"2M"</span> /&gt;</span></code></pre>
-    </div> 
-    <pre>注意，controller元素的父元素是<struts-config>
-      ,你可以在
-      <struts-config>
-       下面注册多个controller分别处理不同逻辑。
-
-       <controller>
-        元素有多个属性，其中针对文件上传进行控制的属性只有bufferSize，maxFileSize，multipartClass和tempDir。
-&gt;bufferSize属性代表处理文件上传的文件缓冲区的大小，这个属性是可选的，默认的大小是4096；
-&gt;maxFileSize属性指定文件上传中所允许的最大上传文件大小，可以在数字后面添加“K”，“M”，“G”等来表明文件的大小数量级。也是可选属性，默认为250M，如果设置为-1，则表示对上传的文件大小没有限制。但是因为我们要对文件大小进行限制，所以，上面指定最大上传文件大小为2M。
-&gt;multipartClass属性指定被controller使用的MultipartRequestHandler类的全名，也是可选属性，默认为org.apache.struts.upload.CommonsMultipartRequestHandler。
-&gt;tempDir属性指定处理文件上传时候使用的临时工作目录，同样是可选属性。
-
-       </controller>
-      </struts-config>
-     </struts-config></pre> 
-    <ol start="2" type="1"> 
-     <li>在ActionForm的validate（）方法中进行文件大小是否超出规定大小进行检查，那么如何知道文件是否超出规定大小那？具体实现是这样的：</li> 
-    </ol> 
-    <div class="sourceCode" id="cb9">
-     <pre class="sourceCode java"><code class="sourceCode java"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ActionErrors errors <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Boolean</span> maxLengthExceeded <span class="op">=</span> <span class="op">(</span><span class="bu">Boolean</span><span class="op">)</span>            request<span class="op">.</span><span class="fu">getAttribute</span><span class="op">(</span>MultipartRequestHandler<span class="op">.</span><span class="fu">ATTRIBUTE_MAX_LENGTH_EXCEEDED</span><span class="op">);</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">((</span>maxLengthExceeded <span class="op">!=</span> <span class="kw">null</span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="op">(</span>maxLengthExceeded<span class="op">.</span><span class="fu">booleanValue</span><span class="op">()))</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    errors <span class="op">=</span> <span class="kw">new</span> <span class="fu">ActionErrors</span><span class="op">();</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    errors<span class="op">.</span><span class="fu">add</span><span class="op">(</span>“FileSizeExceeded”<span class="op">,</span> <span class="kw">new</span> <span class="fu">ActionError</span><span class="op">(</span><span class="st">"maxLengthExceeded"</span><span class="op">));</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> errors<span class="op">;</span></span></code></pre>
-    </div> 
-    <p>在该章开始我们就提到过，我们是通过MultipartRequestHandler类的ATTRIBUTE_MAX_LENGTH_EXCEEDED域进行文件大小限制的。当读入一个multipart类型的request并且上传的文件最大长度超出实现规定的话，ServletRequest的这个属性将会被设置，否则，如果文件长度没有超出规定，则这个属性就不会被设置，该属性返回类型为Boolean型。所以，从上面的代码中我们可以看出，我们可以通过取得request的这个属性，然后判断其是否为空，并且其返回的对于boolean值是否为true来判断文件是否超出规定长度。如果，判断得到超出规定长度，则向ActionErrors对象中加入文件长度超出限制的ActionError；否则，直接就是返回null的ActionErrors对象。可以看出，文件长度比较等逻辑实现复杂度在struts中都已经隐藏了。</p> 
-    <ol start="3" type="1"> 
-     <li>如果文件超出规定长度，需要在原来的上传初始页面中提示错误信息，下面是struts的sample中提供的代码实现，但不是唯一的：</li> 
-    </ol> 
-    <div class="sourceCode" id="cb10">
-     <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">logic:present</span><span class="ot"> name=</span><span class="st">"</span><span class="er">&lt;</span><span class="st">%= Action.ERROR_KEY %&gt;"</span><span class="ot"> scope=</span><span class="st">"request"</span>&gt;</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="er">&lt;</span>%</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        ActionErrors errors = (ActionErrors) request.getAttribute(Action.ERROR_KEY);</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        //note that this error is created in the validate() method of UploadForm</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        Iterator iterator = errors.get(UploadForm.ERROR_PROPERTY_MAX_LENGTH_EXCEEDED);</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        //there''s only one possible error in this</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        ActionError error = (ActionError) iterator.next();</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        pageContext.setAttribute("maxlength.error", error, PageContext.REQUEST_SCOPE);</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    %&gt;</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">logic:present</span>&gt;</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- If there was an error, print it out --&gt;</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">logic:present</span><span class="ot"> name=</span><span class="st">"maxlength.error"</span><span class="ot"> scope=</span><span class="st">"request"</span>&gt;</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">font</span><span class="ot"> color=</span><span class="st">"red"</span>&gt;&lt;<span class="kw">bean:message</span><span class="ot"> name=</span><span class="st">"maxlength.error"</span><span class="ot"> property=</span><span class="st">"key"</span> /&gt;&lt;/<span class="kw">font</span>&gt;</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">logic:present</span>&gt;</span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">logic:notPresent</span><span class="ot"> name=</span><span class="st">"maxlength.error"</span><span class="ot"> scope=</span><span class="st">"request"</span>&gt;</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    Note that the maximum allowed size of an uploaded file for this application is two megabytes.</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    See the /WEB-INF/struts-config.xml file for this application to change it.</span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">logic:notPresent</span>&gt;</span></code></pre>
-    </div> 
-    <p>至此，对于上传文件大小进行限制的实现就可以完成了。</p> 
-    <p>对于org.apache.struts.upload包中的其他类，如果读者感兴趣，可以参考Struts官方网站所提供的API参考。</p> 
-    <h1 id="可能遇到的问题">可能遇到的问题</h1> 
-    <p>实际上，使用struts提供的文件上传十分简单，根本无需太多关注具体实现的逻辑复杂度。所以，可能遇到问题应该很少。笔者初次使用的时候遇到的问题就是忘记指定上传表单的enctype属性的值，也就是应该在jsp页面的将表单的enctype设定为“multipart/form-data”类型，希望读者不会犯与笔者同样的错误。</p> 
-    <p>另外，笔者在此之前在网上看到有的人会问对于多个文件在struts中如何上传，其实这也不是十分复杂，只需要扩展上面的例子就可以了。在表单中添加其他的需要数量的文件输入域，指定合适的名称。在相应的ActionForm中为这些文件输入域定义与之对应的属性和setter，getter方法，当然属性类型为FormFile，方法的参数和返回类型同样。剩下唯一需要做的就是在Action中取得ActionForm的实例，使用ActionForm取得各个已经上传的文件，然后根据需要进行处理。唯一需要注意的就是处理多个文件上传时候，用户可能不会选择全部的文件输入域，所以要对空的属性进行判断，以免程序存在缺陷。</p> 
-    <h1 id="结束语">结束语</h1> 
-    <p>至此，针对struts中如何实现文件上传的内容阐述就结束了。</p> 
-    <p>由于笔者对于struts还是初次接触，所以有些方面还不是十分的了解，如果本文中有什么不妥之处，还希望读者热心指正。也希望本文所谈到的内容能够为大家提供一定的帮助。</p> 
-    <h1 id="参考文献">参考文献</h1> 
-    <ol type="1"> 
-     <li>Apache Jakarta Struts User Guide</li> 
-     <li>Struts Upload API Reference</li> 
-     <li>Struts-upload.war附带文档以及源码</li> 
-    </ol> <!--          </div>--> <!--        </div>--> 
-    <hr> 
-    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
-    </div> 
-    <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2009-04-30-travel-to-lijiang-chap0.html">终于成行的丽江之旅(1) </a> 
-     </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2023-05-25-multidiffusion-course-is-ready.html">MultiDiffusion理论与实践 </a> 
-     </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2019-03-12-business_model_of_3company_at_hz.html">杭州典型ToB技术公司商业模式分析 </a> 
-     </div> 
-    </div> 
-    <hr> 
-    <div> 
-     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
-     <ol> 
-      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
-      <li>还分享AI工具、产品方法和商业机会</li> 
-      <li>更有体系化精品付费内容等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取。(加入之后<b>一定记得看置顶消息</b>呀！)</li> 
-     </ol> 
-     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
-    </div> 
-    <hr> 
-    <p> <span style="font-size: xx-large;">存量的时代，省钱就是赚钱。</span> <br> <span style="font-size: xx-large;">在增量的时代，省钱其实是亏钱。</span> <br> 避坑儿是省钱的一种形式，更是真正聪明人的选择！ <br> 弯路虽然也是路，但还是能少走就少走，背后都是高昂的试错成本。 <br> <b>订阅「福报」</b>，少踩坑，少走弯路，多走一步，就是不一样的胜率！ </p> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
-    <hr> 
-    <div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"> 
-     <div id="tfloader" class="x-indicator"> 
-      <svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"> <g fill="none" fill-rule="evenodd"> 
-        <g transform="translate(1 1)" stroke-width="2"> 
-         <circle cx="5" cy="50" r="5"> 
-          <animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /> 
-          <animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /> 
-         </circle> 
-         <circle cx="27" cy="5" r="5"> 
-          <animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /> 
-          <animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /> 
-         </circle> 
-         <circle cx="49" cy="50" r="5"> 
-          <animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /> 
-          <animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /> 
-         </circle> 
+ <body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"> 
+  <header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"> 
+   <div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"> 
+    <div class="flex justify-between"> <a class="flex items-center" href="https://afoo.me"> <span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"> <h1>王福强的个人博客</h1> </span> </a> 
+     <div class="flex items-center md:hidden"> <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""> 
+       <svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+         <circle cx="12" cy="12" r="4"></circle> 
+         <path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"> 
+         </path> 
         </g> 
-       </g> 
-      </svg> 
+       </svg> </button> <button type="button" class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition" aria-label="Toggle Menu" data-toggle-menu=""> 
+       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:menu"> <g class="icon-tabler" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+         <path d="M4 8h16"></path> 
+         <path d="M4 16h16"></path> 
+        </g> 
+       </svg> </button> 
      </div> 
     </div> 
-    <hr> 
-    <div id="comments"></div> <!-- <div class="text-center">
-      <a href="https://twitter.com/fujohnwang">
-        <img src="/images/Twitter-logo.png" class="img-responsive" loading='lazy' style="width: fit-content;">
-      </a>
-    </div> --> 
+    <nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"> 
+     <ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me">福强AI学堂</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com">架构百科</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html">博客文章 </a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html">创作出版</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me">产品与服务</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/crosslinks.html">更多链接</a> </li> 
+     </ul> 
+     <div class="md:self-center flex items-center mb-4 md:mb-0 ml-2"> 
+      <div class="hidden items-center md:flex"> <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+          <circle cx="12" cy="12" r="4"></circle> 
+          <path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"> 
+          </path> 
+         </g> 
+        </svg> </button> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="RSS Feed" href="http://afoo.me/feeds.xml"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:rss"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+          <circle cx="5" cy="19" r="1"></circle> 
+          <path d="M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"></path> 
+         </g> 
+        </svg> </a> 
+      </div> 
+     </div> 
+    </nav> 
    </div> 
-  </section> 
-  <div style="color:white; visibility: collapse; height: 0;">
-   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
-  </div> 
-  <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
-    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
+  </header> 
+  <main> 
+   <section class="text-gray-600 body-font relative"> 
+    <div class="container px-5 py-24 mx-auto mb-12 prose prose-lg dark:prose-invert"> 
+     <p class="lead"> </p>
+     <h1 class="title">Struts中的文件上传</h1> <small> <h3 class="author">FuqiangWang</h3> 
+      <div style="text-align: left;">
+       2005-06-18
+      </div> </small> 
+     <p></p> 
+     <hr> 
+     <p>Keywords: Struts，upload，controller，上传文件长度限制</p> 
+     <blockquote> 
+      <p>NOTE: 2014年重新从msn space存档中恢复，可能存在格式错误</p> 
+     </blockquote> 
+     <h1 id="前言">前言</h1> 
+     <p>在以前的文章中，我们提到struts对于文件上传有其自己的一套实现方案，这套方案对文件的上传操作进行了进一步的程序实现复杂度的封装，更加易于操作，可以极大的提高开发效率。</p> 
+     <p>下面，就让我们来领略一下他到底是一个怎么样的实现。希望在读完本文之后，读者可以充分了解struts的文件上传功能的实现流程以及原</p> 
+     <h1 id="技术背景">技术背景</h1> 
+     <p>除去其他技术对于文件上传的实现技术不谈，但就java的web应用中文件上传的方式或者说实现上看，在struts提供的文件上传实现之前，一般有两种方式可以供开发者选择：</p> 
+     <ol type="1"> 
+      <li>第一种：从最底层的HTTP协议出发，使用手动编码对HTTP协议的request进行分析，根据分析所取得的协议的request内容，取得用户提交的表单中各个表单域的数据，包括普通的文本以及二进制形式的文件形式等。数据取得后，可以在服务器端进行所需要处理的操作。这种方式的缺点就是重复开发，一切编码都要从零开始，需要什么形式的上传请求，就针对该请求进行重新开发，不能保证开发效率。优点嘛，当然也有，那就是可以是开发者更加清晰的了解协议的规格以及具体实现，因为，只有清楚的了解了这些，才能开发出能对协议中request的内容进行正确解析的组件。</li> 
+      <li>第二种嘛，实际上只是本人所划分的，可以说成是在第一种的基础上进行的改进，特点就是，所有的上传实现都已经开发并实现为组件的形式，一般是javabeans的形式。用户只需要调用各个厂商提供的文件上传组件就可以了，其中使用最多的就是JspSmartUpload。缺点嘛，目前还不能说有什么缺点，因为这种方式将所有的实现逻辑都封装起来，可以极大的提高软件的复用度。实际上，struts提供的文件上传服务也要归到这一类。</li> 
+     </ol> 
+     <p>实际上，在Struts架构中，完全可以使用JspSmartUpload之类的组件库来实现文件上传，但是，唯一的区别就是，Struts中的文件上传功能可以与struts架构更加紧密的结合。既然选择了使用struts架构进行开发，为什么还要排斥他提供的文件上传功能那？</p> 
+     <h1 id="安装和配置">安装和配置</h1> 
+     <p>要使用struts的文件上传功能，其实不用任何多余的文件安装或者是配置，只要你已经成功的配置好了struts1.1的开发环境。因为org.apache.struts.upload包已经集成到struts的类库中。下面是Struts的一般配置步骤：</p> 
+     <ol type="1"> 
+      <li>从Jakarta的官方网站下载Struts1.1的zip压缩包（当然是指windows平台下，其他平台可以下载相应的文件压缩包）</li> 
+      <li>拷贝压缩包中lib目录下的所有jar压缩包到欲使用Struts进行开发的web应用的-INF。同样拷贝压缩包中lib目录下的*.tld文件到web应用的-INF目录下面，这些是标签库的索引文件。如果使用IDE，比如Jbuilder等，其实只要在新建Web Application的时候选择使用Struts架构进行开发的话，这些东西都会自动添加到该web应用的相应目录下方。</li> 
+      <li>在web.xml部署描述符中添加一下内容：</li> 
+     </ol> 
+     <div class="sourceCode" id="cb1">
+      <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">servlet</span>&gt;</span>
+            <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">servlet-name</span>&gt;action&lt;/<span class="kw">servlet-name</span>&gt;</span>
+            <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">servlet-class</span>&gt;org.apache.struts.action.ActionServlet&lt;/<span class="kw">servlet-class</span>&gt;</span>
+            <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">init-param</span>&gt;</span>
+            <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">param-name</span>&gt;config&lt;/<span class="kw">param-name</span>&gt;</span>
+            <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">param-value</span>&gt;/WEB-INF/struts-config.xml&lt;/<span class="kw">param-value</span>&gt;</span>
+            <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">init-param</span>&gt;</span>
+            <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">init-param</span>&gt;</span>
+            <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">param-name</span>&gt;debug&lt;/<span class="kw">param-name</span>&gt;</span>
+            <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">param-value</span>&gt;2&lt;/<span class="kw">param-value</span>&gt;</span>
+            <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">init-param</span>&gt;</span>
+            <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">init-param</span>&gt;</span>
+            <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">param-name</span>&gt;detail&lt;/<span class="kw">param-name</span>&gt;</span>
+            <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">param-value</span>&gt;2&lt;/<span class="kw">param-value</span>&gt;</span>
+            <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">init-param</span>&gt;</span>
+            <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">load-on-startup</span>&gt;2&lt;/<span class="kw">load-on-startup</span>&gt;</span>
+            <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">servlet</span>&gt;</span>
+            <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>//----------以上注册ActionServlet---------------------------------</span>
+            <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">taglib</span>&gt;</span>
+            <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">taglib-uri</span>&gt;/tags/struts-bean&lt;/<span class="kw">taglib-uri</span>&gt;</span>
+            <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">taglib-location</span>&gt;/WEB-INF/struts-bean.tld&lt;/<span class="kw">taglib-location</span>&gt;</span>
+            <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">taglib</span>&gt;</span>
+            <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">taglib</span>&gt;</span>
+            <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">taglib-uri</span>&gt;/tags/struts-html&lt;/<span class="kw">taglib-uri</span>&gt;</span>
+            <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">taglib-location</span>&gt;/WEB-INF/struts-html.tld&lt;/<span class="kw">taglib-location</span>&gt;</span>
+            <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">taglib</span>&gt;</span>
+            <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">taglib</span>&gt;</span>
+            <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">taglib-uri</span>&gt;/tags/struts-logic&lt;/<span class="kw">taglib-uri</span>&gt;</span>
+            <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">taglib-location</span>&gt;/WEB-INF/struts-logic.tld&lt;/<span class="kw">taglib-location</span>&gt;</span>
+            <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">taglib</span>&gt;</span>
+            <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">taglib</span>&gt;</span>
+            <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">taglib-uri</span>&gt;/tags/struts-nested&lt;/<span class="kw">taglib-uri</span>&gt;</span>
+            <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">taglib-location</span>&gt;/WEB-INF/struts-nested.tld&lt;/<span class="kw">taglib-location</span>&gt;</span>
+            <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">taglib</span>&gt;</span>
+            <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">taglib</span>&gt;</span>
+            <span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">taglib-uri</span>&gt;/tags/struts-tiles&lt;/<span class="kw">taglib-uri</span>&gt;</span>
+            <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">taglib-location</span>&gt;/WEB-INF/struts-tiles.tld&lt;/<span class="kw">taglib-location</span>&gt;</span>
+            <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">taglib</span>&gt;</span>
+            <span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>//-------------以上注册Struts标签库------------------------</span></code></pre>
+     </div> 
+     <ol start="4" type="1"> 
+      <li>最后，在WEB-INF目录下面构建Struts-config.xml文件，将开发中所需要注册的资源添加进去就可以了。</li> 
+     </ol> 
+     <p>至此，就可以着手进行文件上传的开发工作，不过，在此之前，让我们先了解一下在struts中进行文件上传的基本流程或者说简单原理。</p> 
+     <h1 id="原理及流程">原理及流程</h1> 
+     <p>文件上传的页面Form表单与其他的普通的Form表单有些不同，其中文件上传页面中定义的表单的enctype属性必须设置为multipart/form-data。虽然如此，但是对于表单的处理来说，使用struts进行处理依然是使用同一种处理方式，ActionForm传送数据到Action进行处理，可以说是以不变应万变！那么，具体是怎么一回事那？</p> 
+     <p>在页面的表单中定义文件上传输入域，名称指定为符合规格的形式，比如定义一个文件输入域如下：<html:file property="fileOne" />。其他表单域类似定义。然后，编写与此表单相对应的ActionForm类，其定义的所有属性都要与表单中定义的表单域一一对应，名称相同，而且该ActionForm必须符合JavaBeans规范，为各个属性定义相应的setter和getter方法。只不过，对于与文件输入域相对应的属性，其类型现在必须定义为org.apache.struts.upload. FormFile接口类型，而且相对应的setter和getter方法的参数以及返回类型也是一样处理。这些完成后，将该ActionForm注册到struts-config.xml文件中，然后开始编写用来处理请求的Action。在这里，Action取得上面的ActionForm，然后，象取得其他普通类型的属性一样取得FormFile类型的属性，然后，根据逻辑处理要求就可以对FormFile象文件一样进行操作了，具体可以参考FormFile接口的API参考。</p> 
+     <p>以上就是struts中进行文件上传的基本流程。</p> 
+     <h1 id="简单实例实现">简单实例实现</h1> 
+     <p>我们实现一个简单的文件上传流程，在Upload.jsp页面中定义一个文件上传表单，定义一个文本域，一个文件输入域，分别代表上传者姓名和所上传的文件。Upload.jsp页面的主体实现代码如下：</p> 
+     <div class="sourceCode" id="cb2">
+      <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">html:form</span><span class="ot"> action=</span><span class="st">"uploadAction.do"</span><span class="ot"> method=</span><span class="st">"post"</span><span class="ot"> enctype=</span><span class="st">"multipart/form-data"</span>&gt;</span>
+            <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>To choose the File to be Uploaded:</span>
+            <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">br</span>&gt;&lt;<span class="kw">html:text</span><span class="ot"> property=</span><span class="er">”uploader”/&gt;</span></span>
+            <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;br&gt;&lt;html:file</span> <span class="er">property=</span><span class="st">"fileOne"</span>/&gt;&lt;<span class="kw">br</span>&gt;</span>
+            <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">html:submit</span>/&gt;&lt;<span class="kw">html:reset</span>/&gt;</span>
+            <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">html:form</span>&gt;</span></code></pre>
+     </div> 
+     <p>页面完成后，需要定义与之对于的ActionForm，在应用中新建一个ActionForm，命名为UploadForm，定义uploader属性为String型，fileOne属性为FormFile型。与各个属性相对应的setter和getter方法以规范实现，这里不作赘述。代码可以参考附带文件。</p> 
+     <p>ActionForm开发完成后，将其添加到struts-config.xml配置文件中以便于Action调用。在struts-config.xml文件中的&lt; form-beans &gt;元素下面添加以下内容：</p> 
+     <div class="sourceCode" id="cb3">
+      <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">form-bean</span><span class="ot"> name=</span><span class="st">"uploadForm"</span></span>
+            <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ot">             type=</span><span class="st">"com.darrenstudio.guestbook.forms.UploadForm"</span>/&gt;</span></code></pre>
+     </div> 
+     <p>以上完成后，就可以开始进行处理上传请求的Action的开发了。我们定义Action类为UploadAction，扩展自org.apache.struts.action.Action类。在该Action中，我们通过取得ActionForm，然后判断，如果是UploadForm则进行逻辑操作，从UploadForm实例中取得上传者姓名以及上传的FormFile实例。然后，通过FormFile提供的处理方法，将FormFile实例所代表的文件另存为服务器上的一个同名文件中。最后，处理完成后将页面forward到UploadResult.jsp页面，显示上传信息，如果出错，则forward到error处理页面。UploadAction的部分代码实现如下，完整代码可参照附带源码文件：</p> 
+     <div class="sourceCode" id="cb4">
+      <pre class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>form <span class="kw">instanceof</span> UploadForm<span class="op">)</span> <span class="op">{</span></span>
+            <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>UploadForm theForm <span class="op">=</span> <span class="op">(</span>UploadForm<span class="op">)</span> form<span class="op">;</span></span>
+            <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> uploader <span class="op">=</span> theForm<span class="op">.</span><span class="fu">getUploader</span><span class="op">();</span></span>
+            <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>FormFile file <span class="op">=</span> theForm<span class="op">.</span><span class="fu">getFileOne</span><span class="op">();</span></span>
+            <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> BasePath <span class="op">=</span> <span class="bu">System</span><span class="op">.</span><span class="fu">getProperty</span><span class="op">(</span><span class="st">"user.dir"</span><span class="op">)+</span><span class="bu">File</span><span class="op">.</span><span class="fu">separator</span><span class="op">;</span></span>
+            <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="bu">InputStream</span> ins <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></span>
+            <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="bu">OutputStream</span> out <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></span>
+            <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span><span class="op">{</span></span>
+            <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="dt">byte</span><span class="op">[]</span> buffer <span class="op">=</span> <span class="kw">new</span> <span class="dt">byte</span><span class="op">[</span><span class="dv">1024</span><span class="op">];</span></span>
+            <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> bufferRead <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+            <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span><span class="op">(!(</span>file<span class="op">.</span><span class="fu">getFileName</span><span class="op">()==</span><span class="kw">null</span><span class="op">||</span>file<span class="op">.</span><span class="fu">getFileName</span><span class="op">().</span><span class="fu">equals</span><span class="op">(</span><span class="st">""</span><span class="op">)))</span></span>
+            <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span></span>
+            <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>                ins <span class="op">=</span> file<span class="op">.</span><span class="fu">getInputStream</span><span class="op">();</span></span>
+            <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>                out <span class="op">=</span> <span class="kw">new</span> <span class="bu">FileOutputStream</span><span class="op">(</span>BasePath <span class="op">+</span></span>
+            <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>                                           EncodingBean<span class="op">.</span><span class="fu">ISO2GBK</span><span class="op">(</span>file1<span class="op">.</span></span>
+            <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">getFileName</span><span class="op">()));</span></span>
+            <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>                <span class="cf">while</span> <span class="op">(</span> <span class="op">(</span>bufferRead <span class="op">=</span> ins<span class="op">.</span><span class="fu">read</span><span class="op">(</span>buffer<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> buffer<span class="op">.</span><span class="fu">length</span><span class="op">))</span> <span class="op">!=</span> <span class="op">-</span><span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
+            <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>                    out<span class="op">.</span><span class="fu">write</span><span class="op">(</span>buffer<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> buffer<span class="op">.</span><span class="fu">length</span><span class="op">);</span></span>
+            <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>                <span class="op">}</span></span>
+            <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>                ins<span class="op">.</span><span class="fu">close</span><span class="op">();</span></span>
+            <span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>                out<span class="op">.</span><span class="fu">close</span><span class="op">();</span></span>
+            <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+            <span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>file<span class="op">.</span><span class="fu">destroy</span><span class="op">();</span></span>
+            <span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="op">}</span><span class="cf">catch</span><span class="op">(</span><span class="bu">Exception</span> e<span class="op">)</span></span>
+            <span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+            <span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>     e<span class="op">.</span><span class="fu">printStackTrace</span><span class="op">();</span></span>
+            <span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>     <span class="cf">return</span> actionMapping<span class="op">.</span><span class="fu">findForward</span><span class="op">(</span><span class="st">"failure"</span><span class="op">);</span></span>
+            <span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+            <span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> actionMapping<span class="op">.</span><span class="fu">findForward</span><span class="op">(</span><span class="st">"success"</span><span class="op">);</span></span>
+            <span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="op">}</span><span class="cf">return</span> <span class="kw">null</span><span class="op">;</span>   <span class="co">// will never happen in this sample</span></span></code></pre>
+     </div> 
+     <p>代码完成之后，将该Action类，即UploadAction，添加到struts-config.xml文件中，在struts-config.xml文件中添加以下内容：</p> 
+     <div class="sourceCode" id="cb5">
+      <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">action</span><span class="ot"> name=</span><span class="st">"uploadForm"</span></span>
+            <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ot">          type=</span><span class="st">"com.darrenstudio.guestbook.actions.UploadAction"</span></span>
+            <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ot">          validate=</span><span class="st">"false"</span></span>
+            <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ot">          input=</span><span class="st">"/upload.jsp"</span></span>
+            <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ot">          scope=</span><span class="st">"request"</span></span>
+            <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="ot">          path=</span><span class="st">"/uploadAction"</span>&gt;</span>
+            <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>   &lt;<span class="kw">forward</span><span class="ot"> name=</span><span class="st">"success"</span></span>
+            <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="ot">            path=</span><span class="st">"/UploadResult.jsp"</span></span>
+            <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="ot">            redirect=</span><span class="st">"false"</span>/&gt;</span>
+            <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>   &lt;<span class="kw">forward</span><span class="ot"> name=</span><span class="st">"failure"</span></span>
+            <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="ot">            path=</span><span class="st">"/ErrorPage.jsp"</span></span>
+            <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="ot">            redirect=</span><span class="st">"false"</span>/&gt;</span>
+            <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">action</span>&gt;</span></code></pre>
+     </div> 
+     <p>需要注意的是：action的name属性应该与上面定义的FormBean的name属性的值一样，在这里都是“uploadFrom”。这里，还为这个action定义了两个Forward，即success和failure，当处理顺利完成后，forward走success；否则，走failure报错。</p> 
+     <p>处理如果顺利完成，则页面跳转到UploadResult.jsp,在这里显示上传后的定制显示信息。而且，为了用户重新上传，还在这个页面中添加了一个重新到upload.jsp的link。该页面部分代码如下所示：</p> 
+     <div class="sourceCode" id="cb6">
+      <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">pre</span>&gt;  </span>
+            <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a> &lt;<span class="kw">font</span><span class="ot"> color=</span><span class="st">"red"</span>&gt;Files Uploaded Successfully!&lt;/<span class="kw">font</span>&gt;</span>
+            <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a> Uploader : <span class="er">&lt;</span>%=uploader%&gt;</span>
+            <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a> FileName : <span class="er">&lt;</span>%=FileName%&gt;</span>
+            <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a> FileLocationOnServer:<span class="er">&lt;</span>%=FilePath%&gt;</span>
+            <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">pre</span>&gt;</span>
+            <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">br</span>&gt;</span>
+            <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">html:link</span><span class="ot"> href=</span><span class="st">"return2Upload.do"</span>&gt;返回上传页面&lt;/<span class="kw">html:link</span>&gt;</span></code></pre>
+     </div> 
+     <p>为了将连接归入struts架构下，为其在Struts-config.xml文件中添加一个action，内容如下：</p> 
+     <div class="sourceCode" id="cb7">
+      <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">action</span><span class="ot"> path=</span><span class="st">"/return2Upload"</span></span>
+            <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ot">          parameter=</span><span class="st">"/upload.jsp"</span></span>
+            <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ot">          type=</span><span class="st">"org.apache.struts.actions.ForwardAction"</span>/&gt;</span></code></pre>
+     </div> 
+     <p>关于ForwardAction的使用，在以前的《》一文中已经提到过。</p> 
+     <p>至此，整个上传流程的开发完成，只要将该Web应用部署到相应的应用服务器上的规定目录下面就可以运行了。</p> 
+     <h1 id="深入阐述">深入阐述</h1> 
+     <p>在org.apache.struts.upload包中，有两个主要的接口：FormFile接口和MultipartRequestHandler接口。</p> 
+     <p>前者在上面的实例中已经接触过，它代表从客户端上传上来的文件，也是在struts应用中在上传文件方面使用最多的接口或者说是类，通过它提供的各种文件操作方法，我们可以对于应用中它所代表的文件进行各种所需要的操作，比如取得从客户端上传的文件的文件名，或者取得文件大小，进而可以取得输入流，对该文件进行操作等，这在上面的实例中都可以涉及到。</p> 
+     <p>后者，即MultipartRequestHandler接口，为struts应用提供一个标准接口，用来处理表单的enctype属性为“multipart/form-data”的文件上传操作。这个接口有一个ATTRIBUTE_MAX_LENGTH_EXCEEDED域，通过这个域，我们可以对客户端上传的文件的大小进行控制。下面，我们就对于如何控制客户端上传文件的大小进行简单描述。 在通常的web应用中，如果允许文件上传的话，也不是可以任意上传的，一般会对客户端上传的文件大小进行适当的限制，以便服务器可以负担，因为文件上传是很耗服务器资源的一件事情。</p> 
+     <p>在struts中对文件的上传进行控制需要进行一下几个步骤:</p> 
+     <ol type="1"> 
+      <li>在struts-config.xml文件中注册一个controller，通过其maxFileSize属性设置对文件大小进行的限制；</li> 
+      <li>在FormBean的validate（）验证方法中进行检查，判断上传的文件大小是否超出controller所设置的大小，如果超出，则向ActionErrors中添加一个ActionError，然后返回input指定的页面；否则，返回的ActionErrors对象为空，处理交给Action处理；</li> 
+      <li>如果文件大小超出限制，需要在原上传页面中对文件没有允许上传进行信息提示。</li> 
+     </ol> 
+     <p>下面就是在各个步骤中所涉及的具体实施内容：</p> 
+     <ol type="1"> 
+      <li>向struts-config.xml文件中添加以下内容即可完成Controller对象的注册工作：</li> 
+     </ol> 
+     <div class="sourceCode" id="cb8">
+      <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">controller</span><span class="ot"> maxFileSize=</span><span class="st">"2M"</span> /&gt;</span></code></pre>
+     </div> 
+     <pre>            注意，controller元素的父元素是<struts-config>
+       ,你可以在
+       <struts-config>
+        下面注册多个controller分别处理不同逻辑。
+            
+        <controller>
+         元素有多个属性，其中针对文件上传进行控制的属性只有bufferSize，maxFileSize，multipartClass和tempDir。
+            &gt;bufferSize属性代表处理文件上传的文件缓冲区的大小，这个属性是可选的，默认的大小是4096；
+            &gt;maxFileSize属性指定文件上传中所允许的最大上传文件大小，可以在数字后面添加“K”，“M”，“G”等来表明文件的大小数量级。也是可选属性，默认为250M，如果设置为-1，则表示对上传的文件大小没有限制。但是因为我们要对文件大小进行限制，所以，上面指定最大上传文件大小为2M。
+            &gt;multipartClass属性指定被controller使用的MultipartRequestHandler类的全名，也是可选属性，默认为org.apache.struts.upload.CommonsMultipartRequestHandler。
+            &gt;tempDir属性指定处理文件上传时候使用的临时工作目录，同样是可选属性。
+            
+        </controller>
+       </struts-config>
+      </struts-config></pre> 
+     <ol start="2" type="1"> 
+      <li>在ActionForm的validate（）方法中进行文件大小是否超出规定大小进行检查，那么如何知道文件是否超出规定大小那？具体实现是这样的：</li> 
+     </ol> 
+     <div class="sourceCode" id="cb9">
+      <pre class="sourceCode java"><code class="sourceCode java"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ActionErrors errors <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></span>
+            <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Boolean</span> maxLengthExceeded <span class="op">=</span> <span class="op">(</span><span class="bu">Boolean</span><span class="op">)</span>            request<span class="op">.</span><span class="fu">getAttribute</span><span class="op">(</span>MultipartRequestHandler<span class="op">.</span><span class="fu">ATTRIBUTE_MAX_LENGTH_EXCEEDED</span><span class="op">);</span></span>
+            <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">((</span>maxLengthExceeded <span class="op">!=</span> <span class="kw">null</span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="op">(</span>maxLengthExceeded<span class="op">.</span><span class="fu">booleanValue</span><span class="op">()))</span></span>
+            <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+            <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    errors <span class="op">=</span> <span class="kw">new</span> <span class="fu">ActionErrors</span><span class="op">();</span></span>
+            <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    errors<span class="op">.</span><span class="fu">add</span><span class="op">(</span>“FileSizeExceeded”<span class="op">,</span> <span class="kw">new</span> <span class="fu">ActionError</span><span class="op">(</span><span class="st">"maxLengthExceeded"</span><span class="op">));</span></span>
+            <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+            <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> errors<span class="op">;</span></span></code></pre>
+     </div> 
+     <p>在该章开始我们就提到过，我们是通过MultipartRequestHandler类的ATTRIBUTE_MAX_LENGTH_EXCEEDED域进行文件大小限制的。当读入一个multipart类型的request并且上传的文件最大长度超出实现规定的话，ServletRequest的这个属性将会被设置，否则，如果文件长度没有超出规定，则这个属性就不会被设置，该属性返回类型为Boolean型。所以，从上面的代码中我们可以看出，我们可以通过取得request的这个属性，然后判断其是否为空，并且其返回的对于boolean值是否为true来判断文件是否超出规定长度。如果，判断得到超出规定长度，则向ActionErrors对象中加入文件长度超出限制的ActionError；否则，直接就是返回null的ActionErrors对象。可以看出，文件长度比较等逻辑实现复杂度在struts中都已经隐藏了。</p> 
+     <ol start="3" type="1"> 
+      <li>如果文件超出规定长度，需要在原来的上传初始页面中提示错误信息，下面是struts的sample中提供的代码实现，但不是唯一的：</li> 
+     </ol> 
+     <div class="sourceCode" id="cb10">
+      <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">logic:present</span><span class="ot"> name=</span><span class="st">"</span><span class="er">&lt;</span><span class="st">%= Action.ERROR_KEY %&gt;"</span><span class="ot"> scope=</span><span class="st">"request"</span>&gt;</span>
+            <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="er">&lt;</span>%</span>
+            <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        ActionErrors errors = (ActionErrors) request.getAttribute(Action.ERROR_KEY);</span>
+            <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        //note that this error is created in the validate() method of UploadForm</span>
+            <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        Iterator iterator = errors.get(UploadForm.ERROR_PROPERTY_MAX_LENGTH_EXCEEDED);</span>
+            <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        //there''s only one possible error in this</span>
+            <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        ActionError error = (ActionError) iterator.next();</span>
+            <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        pageContext.setAttribute("maxlength.error", error, PageContext.REQUEST_SCOPE);</span>
+            <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    %&gt;</span>
+            <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">logic:present</span>&gt;</span>
+            <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- If there was an error, print it out --&gt;</span></span>
+            <span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">logic:present</span><span class="ot"> name=</span><span class="st">"maxlength.error"</span><span class="ot"> scope=</span><span class="st">"request"</span>&gt;</span>
+            <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">font</span><span class="ot"> color=</span><span class="st">"red"</span>&gt;&lt;<span class="kw">bean:message</span><span class="ot"> name=</span><span class="st">"maxlength.error"</span><span class="ot"> property=</span><span class="st">"key"</span> /&gt;&lt;/<span class="kw">font</span>&gt;</span>
+            <span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">logic:present</span>&gt;</span>
+            <span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">logic:notPresent</span><span class="ot"> name=</span><span class="st">"maxlength.error"</span><span class="ot"> scope=</span><span class="st">"request"</span>&gt;</span>
+            <span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    Note that the maximum allowed size of an uploaded file for this application is two megabytes.</span>
+            <span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    See the /WEB-INF/struts-config.xml file for this application to change it.</span>
+            <span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">logic:notPresent</span>&gt;</span></code></pre>
+     </div> 
+     <p>至此，对于上传文件大小进行限制的实现就可以完成了。</p> 
+     <p>对于org.apache.struts.upload包中的其他类，如果读者感兴趣，可以参考Struts官方网站所提供的API参考。</p> 
+     <h1 id="可能遇到的问题">可能遇到的问题</h1> 
+     <p>实际上，使用struts提供的文件上传十分简单，根本无需太多关注具体实现的逻辑复杂度。所以，可能遇到问题应该很少。笔者初次使用的时候遇到的问题就是忘记指定上传表单的enctype属性的值，也就是应该在jsp页面的将表单的enctype设定为“multipart/form-data”类型，希望读者不会犯与笔者同样的错误。</p> 
+     <p>另外，笔者在此之前在网上看到有的人会问对于多个文件在struts中如何上传，其实这也不是十分复杂，只需要扩展上面的例子就可以了。在表单中添加其他的需要数量的文件输入域，指定合适的名称。在相应的ActionForm中为这些文件输入域定义与之对应的属性和setter，getter方法，当然属性类型为FormFile，方法的参数和返回类型同样。剩下唯一需要做的就是在Action中取得ActionForm的实例，使用ActionForm取得各个已经上传的文件，然后根据需要进行处理。唯一需要注意的就是处理多个文件上传时候，用户可能不会选择全部的文件输入域，所以要对空的属性进行判断，以免程序存在缺陷。</p> 
+     <h1 id="结束语">结束语</h1> 
+     <p>至此，针对struts中如何实现文件上传的内容阐述就结束了。</p> 
+     <p>由于笔者对于struts还是初次接触，所以有些方面还不是十分的了解，如果本文中有什么不妥之处，还希望读者热心指正。也希望本文所谈到的内容能够为大家提供一定的帮助。</p> 
+     <h1 id="参考文献">参考文献</h1> 
+     <ol type="1"> 
+      <li>Apache Jakarta Struts User Guide</li> 
+      <li>Struts Upload API Reference</li> 
+      <li>Struts-upload.war附带文档以及源码</li> 
+     </ol> 
+     <hr> 
+     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+     </div> 
+     <div id="random_posts"> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2009-04-12-wii-sport.html">Wii Sport </a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2009-12-07-java-reflection-with-dsl.html">Using Java Reflection In a DSL</a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2005-00-00-RFTEditor2.html">RFTEditor总结续篇 </a> 
+      </div> 
+     </div> 
+     <hr> 
+     <div> 
+      <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+      <ol> 
+       <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+       <li>还分享AI工具、产品方法和商业机会</li> 
+       <li>更有体系化精品付费内容等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取。(加入之后<b>一定记得看置顶消息</b>呀！)</li> 
+      </ol> 
+      <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+     </div> 
+     <hr> 
+     <p> <span style="font-size: xx-large;">存量的时代，省钱就是赚钱。</span> <br> <span style="font-size: xx-large;">在增量的时代，省钱其实是亏钱。</span> <br> 避坑儿是省钱的一种形式，更是真正聪明人的选择！ <br> 弯路虽然也是路，但还是能少走就少走，背后都是高昂的试错成本。 <br> <b>订阅「福报」</b>，少踩坑，少走弯路，多走一步，就是不一样的胜率！ </p> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
+     <hr> 
+     <div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"> 
+      <div id="tfloader" class="x-indicator"> 
+       <svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"> <g fill="none" fill-rule="evenodd"> 
+         <g transform="translate(1 1)" stroke-width="2"> 
+          <circle cx="5" cy="50" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+          <circle cx="27" cy="5" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+          <circle cx="49" cy="50" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+         </g> 
+        </g> 
+       </svg> 
+      </div> 
+     </div> 
+     <hr> 
+     <div id="comments"></div> 
+    </div> 
+   </section> 
+  </main> 
+  <footer class="border-t border-gray-200 dark:border-slate-800"> 
+   <div class="max-w-6xl mx-auto px-4 sm:px-6"> 
+    <div class="md:flex md:items-center md:justify-between py-6 md:py-8"> 
+     <ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0"> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Twitter" href="https://twitter.com/fujohnwang"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-twitter"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z"> 
+         </path> 
+        </svg> </a> </li> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Facebook" href="https://www.facebook.com/fujohnwang/"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-facebook"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2H7"></path> 
+        </svg> </a> </li> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Github" href="https://github.com/fujohnwang"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-github"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"> 
+         </path> 
+        </svg> </a> </li> 
+     </ul> 
+     <div class="text-sm text-gray-700 mr-4 dark:text-slate-400"> <span class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 float-left rounded-sm"> <img src="https://afoo.me/favicon.svg" class="rounded-md" alt> </span> Copyright © 王福强个人版权所有 - Since 2004 (Everything is homebrewed with <a href="https://pandoc.org/">Pandoc</a> and Markdown, little <a href="https://www.scala-lang.org/">Scala</a> also included.) 
+     </div> 
+    </div> 
    </div> 
-  </div> 
-  <script type="text/javascript">
-var gitalk = new Gitalk({
-  clientID: '518a605d711883414ac0',
-  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-  repo: 'afoo.me.comments',
-  owner: 'fujohnwang',
-  admin: ['fujohnwang'],
-  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-  distractionFreeMode: false  // Facebook-like distraction free mode
-})
-
-gitalk.render('comments')
-    </script> 
+  </footer> 
   <script>
-  kofiWidgetOverlay.draw('fff000', {
-    'type': 'floating-chat',
-    'floating-chat.donateButton.text': 'Support me',
-    'floating-chat.donateButton.background-color': 'red',
-    'floating-chat.donateButton.text-color': 'white'
-  });
-</script>  <!-- <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> --> 
+        // Set "light" theme as default
+        if (!localStorage.theme) {
+            localStorage.theme = "light";
+        }
+
+        if (
+            localStorage.theme === 'dark' ||
+            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function attachEvent(selector, event, fn) {
+            const matches = document.querySelectorAll(selector);
+            if (matches && matches.length) {
+                matches.forEach((elem) => {
+                    elem.addEventListener(event, () => fn(elem), false);
+                });
+            }
+        }
+
+        window.onload = function () {
+            attachEvent('[data-toggle-menu]', 'click', function (elem) {
+                elem.classList.toggle('expanded');
+                document.body.classList.toggle('overflow-hidden');
+                document.getElementById('header')?.classList.toggle('h-screen');
+                document.querySelector('#header nav')?.classList.toggle('hidden');
+            });
+            attachEvent('[data-toggle-color-scheme]', 'click', function () {
+                document.documentElement.classList.toggle('dark');
+                localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            });
+        };
+        window.onpageshow = function () {
+            const elem = document.querySelector('[data-toggle-menu]');
+            if (elem) {
+                elem.classList.remove('expanded');
+            }
+            document.body.classList.remove('overflow-hidden');
+            document.getElementById('header')?.classList.remove('h-screen');
+            document.querySelector('#header nav')?.classList.add('hidden');
+        };
+    </script> 
+  <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '518a605d711883414ac0',
+          clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+          repo: 'afoo.me.comments',
+          owner: 'fujohnwang',
+          admin: ['fujohnwang'],
+          id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+        gitalk.render('comments')
+    </script>  
  </body>
 </html>
