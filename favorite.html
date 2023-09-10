@@ -1,534 +1,640 @@
 <!doctype html>
-<html lang="zh"> 
+<html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]"> 
  <head> 
   <meta charset="utf-8"> 
-  <meta name="keywords" content="favorite - 架构教练,架构师个人成长教练,个人成长,组织成长,个人与组织成长顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
-  <meta name="description" content="favorite - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="keywords" content="favorite - 架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="favorite - 福强说，扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+  <meta name="robots" content="index,follow"> 
   <title>favorite -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <link rel="shortcut icon" href="/favicon.ico"> 
-  <style type="text/css">code{white-space: pre;}</style> 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
-  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
-  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
-  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
-  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <link rel="canonical" href="https://afoo.me/favorite.html"> 
+  <link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"> 
+  <link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8"> 
+  <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
   <style type="text/css">
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      text-align: left;
-      position: relative;
-      -webkit-font-smoothing: antialiased;
-    }
-    
+        pre > code{white-space: pre-line;}
 
-    h1{
-      margin-top: 3rem;
+        .x-indicator{
+            display:none;
+        }
+        .htmx-request .x-indicator{
+            display:inline;
+        }
+        .htmx-request.x-indicator{
+            display:inline;
+        }
+    </style> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "",
+      "image": [
+        "https://afoo.me/images/fb_subscribe.jpg"
+       ],
+      "datePublished": "0000-00-00",
+      "author": [{
+          "@type": "Person",
+          "name": "王福强",
+          "url": "https://afoo.me"
+        }]
     }
-  </style> 
- </head> 
- <body id="page-top"> <!-- Navigation --> 
-  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
-    <div class="collapse navbar-collapse" id="navbarResponsive"> 
-     <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
-     </ul> 
-    </div> 
-   </div> 
-  </nav> 
-  <section> 
-   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
-    <hr> 
-    <h1 id="收藏夹">收藏夹</h1> 
-    <h2 id="uncategories">Uncategories</h2> 
-    <ul> 
-     <li><a href="http://sufa.cnodejs.net/create">书法</a></li> 
-     <li><a href="https://browserling.com/">https://browserling.com/</a></li> 
-     <li><a href="http://research.microsoft.com/en-us/um/people/lamport/pubs/pubs.html" class="uri">http://research.microsoft.com/en-us/um/people/lamport/pubs/pubs.html</a></li> 
-     <li><a href="http://fsword.github.com/recommend/Scale2.swf">宇宙的刻度2</a></li> 
-     <li><a href="http://weblogs.java.net/blogfront">weblogs.java.net</a></li> 
-     <li><a href="http://ianseyler.github.com/easy_x86-64/">x86-64汇编</a></li> 
-     <li><a href="http://www.visual-literacy.org/periodic_table/periodic_table.html">A Periodic Table Of Visualization Methods</a></li> 
-     <li><a href="http://www.us-knife.com/showclass51.htm">|Kanetsune 关兼常</a></li> 
-     <li><a href="http://www.starling-software.com/employment/programmer-competency-matrix.html">Programmer Competency Matrix</a></li> 
-     <li><a href="http://www.123cha.com/">http://www.123cha.com/</a></li> 
-     <li><a href="http://www.miitbeian.gov.cn/publish/query/indexFirst.action">工信部网站备案查询</a></li> 
-     <li><a href="http://www.projectup.net/blog/">專案管理生活思維</a></li> 
-     <li><a href="http://www.cheatography.com/">http://www.cheatography.com/</a> - cheatsheet search</li> 
-     <li><a href="http://www.emoji-cheat-sheet.com/">http://www.emoji-cheat-sheet.com/</a> - github friendly Emoji</li> 
-     <li><a href="http://www.excite.co.jp/world/chinese/" class="uri">http://www.excite.co.jp/world/chinese/</a> - 多语字典翻译</li> 
-     <li><a href="https://serversforhackers.com/">https://serversforhackers.com/</a> - Server Admin for Programmers</li> 
-    </ul> 
-    <h2 id="finance">Finance</h2> 
-    <ul> 
-     <li><p><a href="http://www.boc.cn/sourcedb/whpj/">中国银行外汇当日牌价</a></p></li> 
-     <li><p><a href="http://www.ksvali.com/">http://www.ksvali.com/ - Practical Topics for IT professionals of Capital Markets</a></p></li> 
-     <li><p><a href="http://kan.weibo.com/kan/3515306971365898">中国量化投资学会</a></p></li> 
-     <li><p><a href="http://www.wireshark.org/docs/dfref/f/fix.html">Wireshark Display Filter Reference - Financial Information eXchange Protocol</a></p></li> 
-     <li><p><a href="http://wiki.mbalib.com/wiki/%E9%A6%96%E9%A1%B5">MBA智库百科</a></p></li> 
-     <li><p><a href="http://www.thxflt.com/forum.php">投行先锋</a></p></li> 
-     <li><p><a href="https://www.jisilu.cn/">集思录</a></p></li> 
-     <li><p><a href="http://www.fengkonghui.com/tzr">风控汇</a></p></li> 
-    </ul> 
-    <h3 id="美股投资">美股投资</h3> 
-    <ol type="1"> 
-     <li><a href="http://www.3dfn.com/">三维预测</a></li> 
-    </ol> 
-    <h2 id="open-courses">Open Courses</h2> 
-    <ul> 
-     <li><a href="http://cns.ucsd.edu/lecturearchive.shtml">CNS(Center For Network Systems) Lecture Archives</a></li> 
-     <li><a href="http://bigdatauniversity.com/courses/">Big Data University</a></li> 
-     <li><a href="http://www.howstuffworks.com/">How Stuff Works</a></li> 
-     <li><a href="http://www.howtogeek.com/">How-To Geek</a></li> 
-     <li><a href="http://happycasts.net/">http://happycasts.net/</a></li> 
-     <li><a href="http://haoqicat.com/happypeter/htmlcss-ji-chu-jiao-cheng">HTML&amp;CSS基础教程</a></li> 
-     <li><a href="http://discover-devtools.codeschool.com/">Explore and Master Chrome DevTools</a></li> 
-     <li><a href="http://regal.csep.umflint.edu/~swturner/classes.html">Past, Present, and Future Courses</a></li> 
-     <li><a href="http://libraries.io/">http://libraries.io/ - Open Source Libraries</a></li> 
-    </ul> 
-    <h2 id="learn-something-by-video">Learn Something By Video</h2> 
-    <ol type="1"> 
-     <li><a href="http://v.zhiyin.cn/watch/7655.html">中国为什么不找美国人还钱？</a> 
-      <ul> 
-       <li>外汇与出口型企业的就业之间的关系</li> 
-       <li>持仓多寡与交易对市场的冲击</li> 
-      </ul></li> 
-     <li><a href="http://www.tudou.com/programs/view/sLq2cHN2rlk/">解析CPI</a> 
-      <ul> 
-       <li>继《人人都是纳税人》《纳税人的钱哪去了》之后又出巨作！！！！</li> 
-      </ul></li> 
-     <li><a href="http://you.video.sina.com.cn/api/sinawebApi/outplayrefer.php/vid=72571463_1290078633_PxjjHCJrD2XK+l1lHz2stqkP7KQNt6nki2O0u1WsIw1aQ0/XM5GeYNgA4S3QA9kEqDhAQ5o6cv8i0R4/s.swf">有关两会法律法规制定</a></li> 
-     <li><a href="http://www.tudou.com/v/T0umS4j7Rng/&amp;resourceId=0_04_02_99&amp;autoPlay=true/v.swf">3D技术展现200国家的200年变化</a> 
-      <ul> 
-       <li>财富， 健康，差距， 趋同</li> 
-      </ul></li> 
-     <li><a href="http://www.google.com/insidesearch/howsearchworks/thestory/">How Search Works by Google</a></li> 
-     <li><a href="http://v.youku.com/v_show/id_XMzc5NTk4NTE2.html">我们为什么需要数据可视化</a></li> 
-     <li><a href="http://www.56.com/u29/v_OTQyODgzMjI.html/1030_ksaa112.html">中国式教育</a></li> 
-     <li><a href="http://t.cn/zjxvbeG">6分钟读懂经济学</a></li> 
-    </ol> 
-    <h2 id="企业">企业</h2> 
-    <ol type="1"> 
-     <li><a href="http://www.qixin007.com/">企信宝</a></li> 
-    </ol> 
-    <h2 id="algorithm-datastructures">Algorithm &amp; DataStructures</h2> 
-    <ol type="1"> 
-     <li><a href="https://sites.google.com/site/algoxy/">AlgoXY</a> 
-      <ul> 
-       <li>A free book about elementary algorithms and data structures</li> 
-      </ul></li> 
-     <li><a href="http://www.cs.usfca.edu/~galles/visualization/Algorithms.html">Data Structure Visualizations</a></li> 
-     <li><a href="http://thesecretlivesofdata.com/raft/">http://thesecretlivesofdata.com/raft/</a> 
-      <ul> 
-       <li>raft协议动态演示</li> 
-      </ul></li> 
-    </ol> 
-    <h2 id="os">OS</h2> 
-    <ol type="1"> 
-     <li><a href="http://dpdk.org/">http://dpdk.org/ - userspace networking</a></li> 
-    </ol> 
-    <h2 id="jvm">JVM</h2> 
-    <ol type="1"> 
-     <li><a href="http://shipilev.net/blog/2014/jmm-pragmatics/">Java Memory Model Pragmatics (transcript)</a></li> 
-    </ol> 
-    <h2 id="scala">Scala</h2> 
-    <ul> 
-     <li><a href="http://docs.scala-lang.org/tutorials/" class="uri">http://docs.scala-lang.org/tutorials/</a></li> 
-     <li><a href="http://docs.scala-lang.org/" class="uri">http://docs.scala-lang.org/</a></li> 
-     <li><a href="http://www.scala-sbt.org/" class="uri">http://www.scala-sbt.org/</a></li> 
-     <li><a href="http://naildrivin5.com/scalatour">Another tour of Scala</a> 
-      <ul> 
-       <li>入门级</li> 
-      </ul></li> 
-     <li><a href="http://marakana.com/static/courseware/scala/presentation/scala%20%3E%20java.html">Scala &gt; Java</a> - Monad</li> 
-     <li><a href="http://marakana.com/static/courseware/scala/presentation/comprehending-monads.html">Comprehending Monads</a></li> 
-     <li><a href="http://speakerdeck.com/u/marakana/p/dead-simple-dependency-injection-in-scala">Dead-Simple Dependency Injection in Scala</a> *****</li> 
-     <li><a href="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=psugunderscore20100630-100701074655-phpapp01&amp;stripped_title=scala-dreaded&amp;userName=normation">Scala Dreaded Underscore</a> ****</li> 
-     <li><a href="http://scala.masgui.cloudbees.net/5015e303e4b0ee9926e62763">Running Scala Code In Browser</a></li> 
-     <li><a href="http://typeclassopedia.bitbucket.org">The Typeclassopedia</a></li> 
-     <li><a href="http://adopting-conscript.lessis.me">Adopting Conscript</a></li> 
-     <li><a href="http://www.slideshare.net/fullscreen/ayushmishra2005/knolx-session-introducing-extractors-in-scala/1">Introducing Extractor</a></li> 
-     <li><a href="http://www.slideshare.net/ruchijindal87/functional-object-14058420?ref=http://ruchijindal.wordpress.com/2012/08/24/functional-object/">Introducing Functional Objects</a></li> 
-     <li><a href="http://hircus.multics.org/kanren/presentation.html">Logical JVM: Implementing the Mini-Kanren logic system in Scala</a></li> 
-     <li><a href="http://scalapuzzlers.com/index.html">ScalaPuzzlers</a></li> 
-     <li><a href="http://www.scala-sbt.org/release/docs/index.html">SBT Documentation</a></li> 
-     <li><a href="http://www.scala-lang.org/docu/files/collections-api/collections_0.html">Scala Collection API</a></li> 
-     <li><a href="https://class.coursera.org/progfun-2012-001/lecture/index">Functional Programming Principles In Scala(Coursera)</a></li> 
-     <li><a href="http://mackler.org/LearningSlick/">Learning Slick Tutorial</a></li> 
-     <li><a href="https://blog.stackmob.com/2013/01/resources-for-getting-started-with-functional-programming-and-scala/">Resources for Getting Started With Functional Programming and Scala</a></li> 
-     <li><a href="http://eed3si9n.com/learning-scalaz/Combined+Pages.html">learning Scalaz</a> - climb the wall if necessary</li> 
-     <li><a href="http://adit.io/posts/2013-05-15-Locks,-Actors,-And-STM-In-Pictures.html">Locks, Actors, And STM In Pictures</a></li> 
-     <li><a href="http://www.slideshare.net/prasinous/scaladays-2013-final">Practical type mining in Scala</a> - Scala2.10 Reflection</li> 
-     <li><a href="http://jsuereth.com/intro-to-fp/print.html">Introduction to Functional Patterns</a></li> 
-     <li><a href="http://ktoso.github.io/scala-types-of-types/">Scala’s Types of Types</a></li> 
-     <li><a href="https://wiki.scala-lang.org/display/SIW/Overview+of+Compiler+Phases">Scala Compiler Phases Wiki</a></li> 
-     <li><a href="http://underscore.io/training/">underscore.io提供的培训课程</a></li> 
-    </ul> 
-    <h2 id="fp">FP</h2> 
-    <ul> 
-     <li><a href="http://www.cse.chalmers.se/~rjmh/tutorials.html">Tutorial Papers in Functional Programming</a></li> 
-    </ul> 
-    <h2 id="sbt">SBT</h2> 
-    <ul> 
-     <li><a href="http://www.scala-sbt.org/release/docs/index.html">http://www.scala-sbt.org/release/docs/index.html</a></li> 
-     <li><a href="http://danielwestheide.com/talks/scaladays2014/slides/#/">Learn you an SBT for fun and profit!</a></li> 
-    </ul> 
-    <h2 id="play">Play</h2> 
-    <ul> 
-     <li><a href="http://jazzy.id.au/default/2013/05/08/advanced_routing_in_play_framework.html">Advanced routing in Play Framework</a></li> 
-    </ul> 
-    <h2 id="akka">Akka</h2> 
-    <ul> 
-     <li><a href="http://letitcrash.com/post/28901663062/throttling-messages-in-akka-2">Throttling Messages in Akka 2</a></li> 
-     <li><a href="http://letitcrash.com/post/29044669086/balancing-workload-across-nodes-with-akka-2">Balancing Workload Across Nodes with Akka 2</a></li> 
-     <li><a href="http://doc.akka.io/docs/akka/2.1.2/index.html">Akka 2.1.2 Documentation</a></li> 
-    </ul> 
-    <h2 id="git">Git</h2> 
-    <ul> 
-     <li><a href="http://nvie.com/posts/a-successful-git-branching-model/">A successful Git branching model</a></li> 
-     <li><a href="http://marklodato.github.com/visual-git-guide/index-en.html">A Visual Git Reference</a></li> 
-     <li><a href="http://zh-cn.whygitisbetterthanx.com/">Why Git is Better than X</a></li> 
-     <li><a href="https://github.com/plusjade/jekyll-bootstrap">jekyll-bootstrap</a> 
-      <ul> 
-       <li>The quickest way to start and publish your Jekyll powered blog. 100% compatible with GitHub pages.</li> 
-      </ul></li> 
-     <li><a href="http://www.bootcss.com/p/git-guide/">git - 简易指南</a> 
-      <ul> 
-       <li>its bootstrap css style rocks</li> 
-      </ul></li> 
-     <li><a href="https://www.atlassian.com/git">Git Tutorials : Make the Switch to Git</a></li> 
-    </ul> 
-    <h2 id="architecture">Architecture</h2> 
-    <ul> 
-     <li><a href="http://www.slideshare.net/quipo/scalable-architectures-taming-the-twitter-firehose?from=new_upload_email">Scalable Architecture:Taming The Twitter Firehole</a> - patterns for scalable real-time platforms</li> 
-     <li><a href="http://www.infoq.com/presentations/Event-Sourced-Architectures-for-High-Availability">Event Sourced Architectures for High Availability</a></li> 
-     <li><a href="http://berb.github.io/diploma-thesis/original/index.html">Concurrent Programming for Scalable Web Architectures</a></li> 
-    </ul> 
-    <h2 id="open-books">Open Books</h2> 
-    <ul> 
-     <li><a href="http://docs.oracle.com/javase/tutorial/index.html">The Java Tutorials</a> ^^^</li> 
-     <li><a href="http://www.aosabook.org/en/">The Architecture of Open Source Applications</a> *****</li> 
-     <li><a href="http://tengine.taobao.org/book/index.html">Nginx开发从入门到精通</a></li> 
-     <li><a href="http://wiki.netbeans.org/BookNBPlatformCookbook">Netbeans Platform Cookbook</a></li> 
-     <li><a href="http://lintool.github.com/MapReduceAlgorithms/index.html">Data-Intensive Text Processing with MapReduce</a> ^^^</li> 
-     <li><a href="http://mitpress.mit.edu/sicp/full-text/book/book.html">Structure And Interpretation Of Computer Programs</a></li> 
-     <li><a href="http://learnyouahaskell.com/chapters">Learn You a Haskell for Great Good!</a></li> 
-     <li><a href="http://oreilly.com/openbook/webclient/">Web Client Programming with Perl</a></li> 
-     <li><a href="http://lwn.net/Articles/250967/">What every programmer should know about memory</a></li> 
-     <li><a href="http://hbase.apache.org/book">HBase Book Online</a></li> 
-     <li><a href="http://tengine.taobao.org/book/index.html">Nginx开发从入门到精通</a></li> 
-     <li><a href="http://letoverlambda.com/textmode.cl/guest/toc">Let Over Lambda – 50 Years of Lisp</a></li> 
-     <li><a href="https://github.com/vhf/free-programming-books/blob/master/free-programming-books.md">free-programming-books on github</a> ****</li> 
-     <li><a href="http://prasoonagrawal.com/library/oreilly/">OReilly’s Bookshelf</a></li> 
-     <li><a href="http://ejohn.org/apps/learn/">Learning Advanced JavaScript</a></li> 
-     <li><a href="http://programming-motherfucker.com/become.html" class="uri">http://programming-motherfucker.com/become.html</a> - 一堆书和资料的汇总</li> 
-     <li><a href="http://hackr.io/" class="uri">http://hackr.io/</a> - Share and discover the best programming tutorials and courses online.</li> 
-     <li><a href="http://automatetheboringstuff.com/">Automate the Boring Stuff with Python</a></li> 
-    </ul> 
-    <h2 id="mysql">MySQL</h2> 
-    <ul> 
-     <li><a href="http://dev.mysql.com/doc/internals/en/index.html">MySQL Internals Manual</a> ****</li> 
-    </ul> 
-    <h2 id="docbook">Docbook</h2> 
-    <ul> 
-     <li><a href="http://docbook.org/tdg5/en/html/docbook.html">DocBook 5: The Definitive Guide</a></li> 
-     <li><a href="http://doccookbook.sourceforge.net/html/en/DoCookBook.html">The DoCookBook</a></li> 
-    </ul> 
-    <h2 id="messaging">Messaging</h2> 
-    <ul> 
-     <li><a href="http://www.infoq.com/presentations/High-Performance-Network-Applications-in-the-Capital-Markets">High Performance Network Applications in the Capital Markets</a> *****</li> 
-     <li><a href="http://www.informatica.com/downloads/1568_high_perf_messaging_wp/Topics-in-High-Performance-Messaging.htm">Topics in High-Performance Messaging</a> *****</li> 
-     <li><a href="http://www.cs.wvu.edu/~tmont/">Todd L. Montgomery其人</a></li> 
-     <li><a href="http://zguide.zeromq.org/page:all">ZMQ - The Guide</a></li> 
-     <li><a href="http://www.infoq.com/presentations/Messaging-TCP-IP">Running with the Devil: Mechanical Sympathetic Networking</a> 
-      <ul> 
-       <li>by Todd Montgomery</li> 
-      </ul></li> 
-    </ul> 
-    <h2 id="go-lang">Go Lang</h2> 
-    <ul> 
-     <li><a href="http://talks.golang.org/2012/chat.slide#1">Go: code that grows with grace</a></li> 
-     <li><a href="http://jan.newmarch.name/go/">Network programming with Go</a></li> 
-     <li><a href="https://speakerdeck.com/doitian/a-tour-of-go">A Tour Of Go</a></li> 
-     <li><a href="http://cuddle.googlecode.com/hg/talk/lex.html">Lexical Scanning in Go</a></li> 
-     <li><a href="http://talks.golang.org/2013/advconc.slide">Advanced Go Concurrency Patterns</a> - slide - <a href="http://www.youtube.com/watch?v=QDDwwePbDtw#t=0" class="uri">http://www.youtube.com/watch?v=QDDwwePbDtw#t=0</a> - video</li> 
-    </ul> 
-    <h2 id="haskell">Haskell</h2> 
-    <ul> 
-     <li><a href="http://yannesposito.com/Scratch/en/blog/Haskell-the-Hard-Way/">Learn Haskell Fast and Hard</a></li> 
-     <li><a href="https://rwh.readthedocs.org/en/latest/index.html">Real World Haskell 中文版</a></li> 
-     <li><a href="http://shuklan.com/haskell/">Introduction to Haskell</a> 
-      <ul> 
-       <li>University of Virginia CS 1501 Lectures Spring 2013</li> 
-      </ul></li> 
-     <li><a href="http://www.scs.stanford.edu/11au-cs240h/notes/">CS240h lecture notes</a></li> 
-    </ul> 
-    <h2 id="python">Python</h2> 
-    <ul> 
-     <li><a href="https://python.zeef.com/alan.richmond" class="uri">https://python.zeef.com/alan.richmond</a></li> 
-     <li><a href="http://www.fullstackpython.com/table-of-contents.html">Full Stack Python</a></li> 
-    </ul> 
-    <h2 id="javascript">Javascript</h2> 
-    <ul> 
-     <li><a href="http://ejohn.org/apps/learn/">Learning Advanced JavaScript</a></li> 
-    </ul> 
-    <h3 id="react">React</h3> 
-    <ol type="1"> 
-     <li><a href="https://fakefish.github.io/react-webpack-cookbook/">https://fakefish.github.io/react-webpack-cookbook/</a></li> 
-    </ol> 
-    <h2 id="seo">SEO</h2> 
-    <ol type="1"> 
-     <li><a href="https://adwords.google.com/o/Targeting/Explorer?__c=1000000000&amp;__u=1000000000&amp;ideaRequestType=KEYWORD_IDEAS">Google Keyword Tool</a></li> 
-     <li><a href="http://zhanzhang.baidu.com/dashboard/index">百度站长工具</a> ****</li> 
-     <li><a href="https://www.google.com/webmasters/tools/">Google站长工具</a> ****</li> 
-     <li><a href="http://www.alexa.com">http://www.alexa.com</a></li> 
-     <li><a href="http://tool.chinaz.com">chinaz站长工具</a></li> 
-     <li><a href="http://tool.qycn.com">群英站长工具</a></li> 
-     <li><a href="https://www.google.com/webmasters/tools/">https://www.google.com/webmasters/tools/</a></li> 
-     <li><a href="http://www.seozac.com/">SEO每日一帖</a></li> 
-     <li><a href="http://www.opensiteexplorer.org">反向链接分析工具-opensiteexplorer</a></li> 
-     <li><a href="http://www.seomoz.org/">seomoz的seo工具群</a></li> 
-     <li><a href="http://www.cheatography.com/colinbancmedia/cheat-sheets/onsite-seo-cheatsheet/pdf/">Onsite SEO Cheatsheet Cheat Sheet</a> **</li> 
-    </ol> 
-    <h2 id="ops">Ops</h2> 
-    <ol type="1"> 
-     <li><a href="http://www.thegeekstuff.com/" class="uri">http://www.thegeekstuff.com/</a></li> 
-     <li><a href="http://www.commandlinefu.com/commands/browse" class="uri">http://www.commandlinefu.com/commands/browse</a> 
-      <ul> 
-       <li>many commands demonstrated for misc. senarios</li> 
-      </ul></li> 
-     <li><a href="https://sysadmincasts.com/" class="uri">https://sysadmincasts.com/</a> 
-      <ul> 
-       <li>Sysadmin Casts - bite-sized sysadmin screencasts (released weekly)</li> 
-      </ul></li> 
-     <li><a href="http://sroberts.github.io//2015/04/21/hunting-tools/">Incident Response Hunting Tools</a></li> 
-    </ol> 
-    <h3 id="docker">Docker</h3> 
-    <ol type="1"> 
-     <li><a href="https://www.dockboard.org/">Docker 中文社区</a></li> 
-     <li><a href="https://hub.docker.com/" class="uri">https://hub.docker.com/</a></li> 
-     <li><a href="http://yuedu.baidu.com/ebook/d817967416fc700abb68fca1?pn=1&amp;rf=http%3A%2F%2Fdockerone.com%2Farticle%2F233">Docker入门实战(在线阅读)</a></li> 
-    </ol> 
-    <h2 id="blade">Blade</h2> 
-    <ol type="1"> 
-     <li><a href="http://www.balisung.com/">蝴蝶刀(balisung)</a></li> 
-    </ol> 
-    <h2 id="tools">Tools</h2> 
-    <ol type="1"> 
-     <li><a href="http://phabricator.org/">Phabricator</a> created by Facebook 
-      <ul> 
-       <li>a suite of web applications that help software companies communicate about software effectively</li> 
-      </ul></li> 
-     <li>Tag Cloud Generator 
-      <ul> 
-       <li><a href="http://worditout.com/word-cloud/make-a-new-one" class="uri">http://worditout.com/word-cloud/make-a-new-one</a></li> 
-       <li><a href="http://www.tagcloud-generator.com/generator.php" class="uri">http://www.tagcloud-generator.com/generator.php</a></li> 
-       <li><a href="https://tagul.com/cloud/1" class="uri">https://tagul.com/cloud/1</a> ****</li> 
-      </ul></li> 
-     <li><a href="https://gomockingbird.com/mockingbird/">MockingGrid - 页面草案</a></li> 
-     <li><a href="http://ascii.mastervb.net/" class="uri">http://ascii.mastervb.net/</a> - ASCII generator</li> 
-     <li><a href="http://asciinema.org/">http://asciinema.org/</a> 
-      <ul> 
-       <li>纯文字录屏， 不需要浏览器插件</li> 
-      </ul></li> 
-     <li><a href="http://tool.17mon.cn/">http://tool.17mon.cn/</a></li> 
-     <li><a href="http://www.springfrog.com/converter/ascii-text-art/">http://www.springfrog.com/converter/ascii-text-art/</a></li> 
-     <li><a href="http://www.jsnice.org/">JS Nice</a> - 在线格式化js代码的工具</li> 
-     <li><a href="http://www.favicon.cc/">favicon.ico Generator</a></li> 
-     <li><a href="https://infogr.am/">https://infogr.am/</a> - 在线图表制作工具，比如制作报告</li> 
-     <li><a href="http://asciiflow.com/">http://asciiflow.com/</a> - 在线画ASCII arts， 比如搞个有个性的代码中的注释</li> 
-     <li><a href="http://schemaspy.sourceforge.net/" class="uri">http://schemaspy.sourceforge.net/</a> - 基于Java的图形化工具，用于分析数据库schema的关系</li> 
-     <li><a href="https://www.iconfinder.com/free_icons" class="uri">https://www.iconfinder.com/free_icons</a> - 免费图标</li> 
-     <li><a href="https://iconverticons.com/online/">https://iconverticons.com/online/</a> - iConvert Icons converts and creates custom icons for Windows, Mac OS X, Linux, iOS, and Android.</li> 
-     <li><a href="http://ericandrewlewis.github.io/emoji-mosaic/" class="uri">http://ericandrewlewis.github.io/emoji-mosaic/</a> - 图片模糊</li> 
-     <li><a href="https://infogr.am/" class="uri">https://infogr.am/</a> - 根据数据制作报告或者报表并且分享的在线工具</li> 
-     <li><a href="https://www.typeform.com/" class="uri">https://www.typeform.com/</a> - 动态表单****</li> 
-     <li><a href="http://crontab.guru/" class="uri">http://crontab.guru/</a> - cron表达式解释</li> 
-    </ol> 
-    <h2 id="素材">素材</h2> 
-    <ol type="1"> 
-     <li><a href="https://pixabay.com/">https://pixabay.com/</a> - 高清</li> 
-     <li><a href="http://www.iconfont.cn/">http://www.iconfont.cn/</a> - 矢量图</li> 
-    </ol> 
-    <h2 id="mac-os-x">Mac OS X</h2> 
-    <ol type="1"> 
-     <li><a href="http://www.techrepublic.com/blog/mac/how-to-create-a-bootable-usb-to-install-os-x/2699">How to create a bootable USB to install OS X</a></li> 
-    </ol> 
-    <h2 id="安全">安全</h2> 
-    <ol type="1"> 
-     <li><a href="http://webapp-hardening.heroku.com/">Harden Your Web App - A developer oriented repository of attacks and defenses.</a></li> 
-     <li><a href="http://fofa.so/fofacli">Fofacli 全网漏洞扫描器</a></li> 
-     <li><a href="http://www.weigongkai.com/">社工库</a></li> 
-     <li><a href="http://www.findmima.com/">密码网 - http://www.findmima.com/</a></li> 
-     <li><a href="http://www.273tech.com/" class="uri">http://www.273tech.com/</a></li> 
-     <li><a href="https://veracrypt.codeplex.com/" class="uri">https://veracrypt.codeplex.com/</a> - Veracrpyt, enhanced truecrypt</li> 
-     <li><a href="https://osquery.io/">osquery</a> 
-      <ul> 
-       <li>osquery gives you the ability to query and log things like running processes, logged in users, password changes, usb devices, firewall exceptions, listening ports, and more. You can perform ad-hoc queries or schedule them.</li> 
-      </ul></li> 
-     <li><a href="https://asecuritysite.com/encryption/shamir" class="uri">https://asecuritysite.com/encryption/shamir</a></li> 
-    </ol> 
-    <h2 id="shell">Shell</h2> 
-    <ol type="1"> 
-     <li><a href="http://explainshell.com/">http://explainshell.com/</a></li> 
-     <li><a href="http://www.commandlinefu.com/">http://www.commandlinefu.com/</a></li> 
-     <li><a href="http://www.tldp.org/LDP/abs/html/index.html">Advanced Bash-Scripting Guide</a></li> 
-     <li><a href="http://billie66.github.io/TLCL/book/">The Linux Command Line 的中文版</a></li> 
-    </ol> 
-    <h2 id="bootstrap">Bootstrap</h2> 
-    <ol type="1"> 
-     <li><a href="http://startbootstrap.com/">http://startbootstrap.com/</a></li> 
-     <li><a href="https://bootswatch.com/" class="uri">https://bootswatch.com/</a> - Free themes for Bootstrap</li> 
-    </ol> 
-    <h2 id="android">Android</h2> 
-    <ol type="1"> 
-     <li><a href="https://tutsplus.com/course/android-for-the-busy-developer/">Android for the Busy Developer</a></li> 
-    </ol> 
-    <h2 id="unicode">Unicode</h2> 
-    <ul> 
-     <li><a href="http://www.joelonsoftware.com/articles/Unicode.html">The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)</a></li> 
-    </ul> 
-    <h2 id="web">Web</h2> 
-    <ol type="1"> 
-     <li><a href="http://bradfrost.github.io/this-is-responsive/resources.html">响应式 Web 设计资源集合 - responsive web design resources</a></li> 
-     <li><a href="https://developers.google.com/web/fundamentals/">Google Web Fundamentals</a></li> 
-     <li><a href="http://www.fontsquirrel.com/tools/webfont-generator">Webfont Generator</a></li> 
-    </ol> 
-    <h2 id="ebooks">ebooks</h2> 
-    <ol type="1"> 
-     <li><a href="https://www.mlook.mobi/" class="uri">https://www.mlook.mobi/</a></li> 
-     <li><a href="http://book.zi5.me/" class="uri">http://book.zi5.me/</a></li> 
-     <li><a href="http://www.itpub.net/forum-61-1.html">IT类电子书@itpub.net</a></li> 
-     <li><a href="http://it-ebooks.info/" class="uri">http://it-ebooks.info/</a></li> 
-    </ol> 
-    <h2 id="movies电影">Movies(电影)</h2> 
-    <ol start="0" type="1"> 
-     <li><a href="http://www.yizhansou.com/">一站搜(美剧)</a></li> 
-     <li><a href="http://www.ttmeiju.com/">天天美剧</a></li> 
-     <li><a href="http://www.ed2000.com/FileList.asp?FileCategory=%E7%94%B5%E5%BD%B1">ed2000电影</a></li> 
-     <li><a href="http://www.ygdy8.com/">阳光电影</a></li> 
-     <li><a href="http://www.dytt8.net">电影天堂</a></li> 
-     <li><del><a href="http://www.yyets.com">人人影视</a></del></li> 
-     <li><a href="http://www.piaohua.com/">飘花资源网</a></li> 
-     <li><a href="http://www.bttiantang.cc/">BT天堂</a></li> 
-     <li><a href="http://yzys.tv/">人人影视海外版</a></li> 
-     <li><a href="http://sub.makedie.me/">伪射手网</a></li> 
-     <li><a href="http://kickass.to" class="uri">http://kickass.to</a></li> 
-     <li><a href="http://www.btsoso.me" class="uri">http://www.btsoso.me</a></li> 
-     <li><a href="http://www.shinybbs.com/forum.php" class="uri">http://www.shinybbs.com/forum.php</a></li> 
-     <li><a href="http://subhd.com/" class="uri">http://subhd.com/</a> - 字幕网站</li> 
-     <li><a href="http://www.bthave.com/" class="uri">http://www.bthave.com/</a> ****</li> 
-    </ol> 
-    <h2 id="bt-search">BT Search</h2> 
-    <ol start="0" type="1"> 
-     <li><a href="https://www.skytorrents.in/" class="uri">https://www.skytorrents.in/</a></li> 
-     <li><a href="http://kaopu.so/" class="uri">http://kaopu.so/</a> 搜百度云盘</li> 
-     <li><a href="http://www.daimugua.com" class="uri">http://www.daimugua.com</a> ****</li> 
-     <li><a href="http://www.jiumodiary.com/" class="uri">http://www.jiumodiary.com/</a> - Jiumo Ebook Search</li> 
-     <li><a href="http://www.btbook.net/" class="uri">http://www.btbook.net/</a></li> 
-     <li><a href="http://btdigg.org/" class="uri">http://btdigg.org/</a></li> 
-     <li><a href="http://www.torrentkitty.org/" class="uri">http://www.torrentkitty.org/</a></li> 
-     <li><a href="http://torrentz.eu/" class="uri">http://torrentz.eu/</a></li> 
-     <li><a href="http://www.xunl.us/" class="uri">http://www.xunl.us/</a></li> 
-     <li><a href="http://acgcomic.com/" class="uri">http://acgcomic.com/</a></li> 
-     <li><a href="http://www.bttiantang.com" class="uri">http://www.bttiantang.com</a></li> 
-     <li><a href="http://imax.im" class="uri">http://imax.im</a></li> 
-    </ol> 
-    <h2 id="汽车">汽车</h2> 
-    <ol type="1"> 
-     <li><a href="http://www.4x4emag.com/">4*4 Magazine</a></li> 
-    </ol> 
-    <h2 id="字体fonts">字体FONTS</h2> 
-    <ul> 
-     <li><a href="http://www.youziku.com/Home/Index">有字库</a> - 中文webfont</li> 
-     <li><a href="http://fonts.mobanwang.com/">模板王字体</a> ****</li> 
-    </ul> <!--          </div>--> <!--        </div>--> 
-    <hr> 
-    <div> 
-     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
-     <ol> 
-      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
-      <li>还分享AI工具、产品方法和商业机会</li> 
-      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
-     </ol> 
-     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
-    </div> 
-    <hr> 
-    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
-    </div> 
-    <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2015-11-10-why-techies-also-need-think-the-PD-way.html">技术人也需要有产品思维(why techies also need think the PD way) </a> 
-     </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2022-03-13-chrome_extension_tips_and_gotchas.html">Chrome Extension Development Cookbook </a> 
-     </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2005-00-00-launch-excel-with-jacob.html">使用jacob来launch Excel文件 </a> 
-     </div> 
-    </div> 
-    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
-    <div id="comments"></div> 
-    <hr> 
-    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
-    </div> 
-   </div> 
-  </section> 
-  <div style="color:white; visibility: collapse; height: 0;">
-   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
-  </div> 
-  <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
-    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
-   </div> 
-  </div> 
+  </script> 
   <script type="text/javascript">
-var gitalk = new Gitalk({
-  clientID: '518a605d711883414ac0',
-  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-  repo: 'afoo.me.comments',
-  owner: 'fujohnwang',
-  admin: ['fujohnwang'],
-  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-  distractionFreeMode: false  // Facebook-like distraction free mode
-})
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "irqzhxtyzn");
+  </script> 
+ </head> 
+ <body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"> 
+  <header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"> 
+   <div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"> 
+    <div class="flex justify-between"> <a class="flex items-center" href="https://afoo.me"> <span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"> <h1>王福强的个人博客</h1> </span> </a> 
+     <div class="flex items-center md:hidden"> <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""> 
+       <svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+         <circle cx="12" cy="12" r="4"></circle> 
+         <path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"> 
+         </path> 
+        </g> 
+       </svg> </button> <button type="button" class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition" aria-label="Toggle Menu" data-toggle-menu=""> 
+       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:menu"> <g class="icon-tabler" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+         <path d="M4 8h16"></path> 
+         <path d="M4 16h16"></path> 
+        </g> 
+       </svg> </button> 
+     </div> 
+    </div> 
+    <nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"> 
+     <ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me">福强AI学堂</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com">架构百科</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html">博客文章 </a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html">创作出版</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me">产品与服务</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/crosslinks.html">更多链接</a> </li> 
+     </ul> 
+     <div class="md:self-center flex items-center mb-4 md:mb-0 ml-2"> 
+      <div class="hidden items-center md:flex"> <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+          <circle cx="12" cy="12" r="4"></circle> 
+          <path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"> 
+          </path> 
+         </g> 
+        </svg> </button> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="RSS Feed" href="http://afoo.me/feeds.xml"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:rss"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+          <circle cx="5" cy="19" r="1"></circle> 
+          <path d="M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"></path> 
+         </g> 
+        </svg> </a> 
+      </div> 
+     </div> 
+    </nav> 
+   </div> 
+  </header> 
+  <main> 
+   <section class="text-gray-600 body-font relative"> 
+    <div class="container px-5 py-24 mx-auto mb-12 prose prose-lg dark:prose-invert"> 
+     <hr> 
+     <h1 id="收藏夹">收藏夹</h1> 
+     <h2 id="uncategories">Uncategories</h2> 
+     <ul> 
+      <li><a href="http://sufa.cnodejs.net/create">书法</a></li> 
+      <li><a href="https://browserling.com/">https://browserling.com/</a></li> 
+      <li><a href="http://research.microsoft.com/en-us/um/people/lamport/pubs/pubs.html" class="uri">http://research.microsoft.com/en-us/um/people/lamport/pubs/pubs.html</a></li> 
+      <li><a href="http://fsword.github.com/recommend/Scale2.swf">宇宙的刻度2</a></li> 
+      <li><a href="http://weblogs.java.net/blogfront">weblogs.java.net</a></li> 
+      <li><a href="http://ianseyler.github.com/easy_x86-64/">x86-64汇编</a></li> 
+      <li><a href="http://www.visual-literacy.org/periodic_table/periodic_table.html">A Periodic Table Of Visualization Methods</a></li> 
+      <li><a href="http://www.us-knife.com/showclass51.htm">|Kanetsune 关兼常</a></li> 
+      <li><a href="http://www.starling-software.com/employment/programmer-competency-matrix.html">Programmer Competency Matrix</a></li> 
+      <li><a href="http://www.123cha.com/">http://www.123cha.com/</a></li> 
+      <li><a href="http://www.miitbeian.gov.cn/publish/query/indexFirst.action">工信部网站备案查询</a></li> 
+      <li><a href="http://www.projectup.net/blog/">專案管理生活思維</a></li> 
+      <li><a href="http://www.cheatography.com/">http://www.cheatography.com/</a> - cheatsheet search</li> 
+      <li><a href="http://www.emoji-cheat-sheet.com/">http://www.emoji-cheat-sheet.com/</a> - github friendly Emoji</li> 
+      <li><a href="http://www.excite.co.jp/world/chinese/" class="uri">http://www.excite.co.jp/world/chinese/</a> - 多语字典翻译</li> 
+      <li><a href="https://serversforhackers.com/">https://serversforhackers.com/</a> - Server Admin for Programmers</li> 
+     </ul> 
+     <h2 id="finance">Finance</h2> 
+     <ul> 
+      <li><p><a href="http://www.boc.cn/sourcedb/whpj/">中国银行外汇当日牌价</a></p></li> 
+      <li><p><a href="http://www.ksvali.com/">http://www.ksvali.com/ - Practical Topics for IT professionals of Capital Markets</a></p></li> 
+      <li><p><a href="http://kan.weibo.com/kan/3515306971365898">中国量化投资学会</a></p></li> 
+      <li><p><a href="http://www.wireshark.org/docs/dfref/f/fix.html">Wireshark Display Filter Reference - Financial Information eXchange Protocol</a></p></li> 
+      <li><p><a href="http://wiki.mbalib.com/wiki/%E9%A6%96%E9%A1%B5">MBA智库百科</a></p></li> 
+      <li><p><a href="http://www.thxflt.com/forum.php">投行先锋</a></p></li> 
+      <li><p><a href="https://www.jisilu.cn/">集思录</a></p></li> 
+      <li><p><a href="http://www.fengkonghui.com/tzr">风控汇</a></p></li> 
+     </ul> 
+     <h3 id="美股投资">美股投资</h3> 
+     <ol type="1"> 
+      <li><a href="http://www.3dfn.com/">三维预测</a></li> 
+     </ol> 
+     <h2 id="open-courses">Open Courses</h2> 
+     <ul> 
+      <li><a href="http://cns.ucsd.edu/lecturearchive.shtml">CNS(Center For Network Systems) Lecture Archives</a></li> 
+      <li><a href="http://bigdatauniversity.com/courses/">Big Data University</a></li> 
+      <li><a href="http://www.howstuffworks.com/">How Stuff Works</a></li> 
+      <li><a href="http://www.howtogeek.com/">How-To Geek</a></li> 
+      <li><a href="http://happycasts.net/">http://happycasts.net/</a></li> 
+      <li><a href="http://haoqicat.com/happypeter/htmlcss-ji-chu-jiao-cheng">HTML&amp;CSS基础教程</a></li> 
+      <li><a href="http://discover-devtools.codeschool.com/">Explore and Master Chrome DevTools</a></li> 
+      <li><a href="http://regal.csep.umflint.edu/~swturner/classes.html">Past, Present, and Future Courses</a></li> 
+      <li><a href="http://libraries.io/">http://libraries.io/ - Open Source Libraries</a></li> 
+     </ul> 
+     <h2 id="learn-something-by-video">Learn Something By Video</h2> 
+     <ol type="1"> 
+      <li><a href="http://v.zhiyin.cn/watch/7655.html">中国为什么不找美国人还钱？</a> 
+       <ul> 
+        <li>外汇与出口型企业的就业之间的关系</li> 
+        <li>持仓多寡与交易对市场的冲击</li> 
+       </ul></li> 
+      <li><a href="http://www.tudou.com/programs/view/sLq2cHN2rlk/">解析CPI</a> 
+       <ul> 
+        <li>继《人人都是纳税人》《纳税人的钱哪去了》之后又出巨作！！！！</li> 
+       </ul></li> 
+      <li><a href="http://you.video.sina.com.cn/api/sinawebApi/outplayrefer.php/vid=72571463_1290078633_PxjjHCJrD2XK+l1lHz2stqkP7KQNt6nki2O0u1WsIw1aQ0/XM5GeYNgA4S3QA9kEqDhAQ5o6cv8i0R4/s.swf">有关两会法律法规制定</a></li> 
+      <li><a href="http://www.tudou.com/v/T0umS4j7Rng/&amp;resourceId=0_04_02_99&amp;autoPlay=true/v.swf">3D技术展现200国家的200年变化</a> 
+       <ul> 
+        <li>财富， 健康，差距， 趋同</li> 
+       </ul></li> 
+      <li><a href="http://www.google.com/insidesearch/howsearchworks/thestory/">How Search Works by Google</a></li> 
+      <li><a href="http://v.youku.com/v_show/id_XMzc5NTk4NTE2.html">我们为什么需要数据可视化</a></li> 
+      <li><a href="http://www.56.com/u29/v_OTQyODgzMjI.html/1030_ksaa112.html">中国式教育</a></li> 
+      <li><a href="http://t.cn/zjxvbeG">6分钟读懂经济学</a></li> 
+     </ol> 
+     <h2 id="企业">企业</h2> 
+     <ol type="1"> 
+      <li><a href="http://www.qixin007.com/">企信宝</a></li> 
+     </ol> 
+     <h2 id="algorithm-datastructures">Algorithm &amp; DataStructures</h2> 
+     <ol type="1"> 
+      <li><a href="https://sites.google.com/site/algoxy/">AlgoXY</a> 
+       <ul> 
+        <li>A free book about elementary algorithms and data structures</li> 
+       </ul></li> 
+      <li><a href="http://www.cs.usfca.edu/~galles/visualization/Algorithms.html">Data Structure Visualizations</a></li> 
+      <li><a href="http://thesecretlivesofdata.com/raft/">http://thesecretlivesofdata.com/raft/</a> 
+       <ul> 
+        <li>raft协议动态演示</li> 
+       </ul></li> 
+     </ol> 
+     <h2 id="os">OS</h2> 
+     <ol type="1"> 
+      <li><a href="http://dpdk.org/">http://dpdk.org/ - userspace networking</a></li> 
+     </ol> 
+     <h2 id="jvm">JVM</h2> 
+     <ol type="1"> 
+      <li><a href="http://shipilev.net/blog/2014/jmm-pragmatics/">Java Memory Model Pragmatics (transcript)</a></li> 
+     </ol> 
+     <h2 id="scala">Scala</h2> 
+     <ul> 
+      <li><a href="http://docs.scala-lang.org/tutorials/" class="uri">http://docs.scala-lang.org/tutorials/</a></li> 
+      <li><a href="http://docs.scala-lang.org/" class="uri">http://docs.scala-lang.org/</a></li> 
+      <li><a href="http://www.scala-sbt.org/" class="uri">http://www.scala-sbt.org/</a></li> 
+      <li><a href="http://naildrivin5.com/scalatour">Another tour of Scala</a> 
+       <ul> 
+        <li>入门级</li> 
+       </ul></li> 
+      <li><a href="http://marakana.com/static/courseware/scala/presentation/scala%20%3E%20java.html">Scala &gt; Java</a> - Monad</li> 
+      <li><a href="http://marakana.com/static/courseware/scala/presentation/comprehending-monads.html">Comprehending Monads</a></li> 
+      <li><a href="http://speakerdeck.com/u/marakana/p/dead-simple-dependency-injection-in-scala">Dead-Simple Dependency Injection in Scala</a> *****</li> 
+      <li><a href="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=psugunderscore20100630-100701074655-phpapp01&amp;stripped_title=scala-dreaded&amp;userName=normation">Scala Dreaded Underscore</a> ****</li> 
+      <li><a href="http://scala.masgui.cloudbees.net/5015e303e4b0ee9926e62763">Running Scala Code In Browser</a></li> 
+      <li><a href="http://typeclassopedia.bitbucket.org">The Typeclassopedia</a></li> 
+      <li><a href="http://adopting-conscript.lessis.me">Adopting Conscript</a></li> 
+      <li><a href="http://www.slideshare.net/fullscreen/ayushmishra2005/knolx-session-introducing-extractors-in-scala/1">Introducing Extractor</a></li> 
+      <li><a href="http://www.slideshare.net/ruchijindal87/functional-object-14058420?ref=http://ruchijindal.wordpress.com/2012/08/24/functional-object/">Introducing Functional Objects</a></li> 
+      <li><a href="http://hircus.multics.org/kanren/presentation.html">Logical JVM: Implementing the Mini-Kanren logic system in Scala</a></li> 
+      <li><a href="http://scalapuzzlers.com/index.html">ScalaPuzzlers</a></li> 
+      <li><a href="http://www.scala-sbt.org/release/docs/index.html">SBT Documentation</a></li> 
+      <li><a href="http://www.scala-lang.org/docu/files/collections-api/collections_0.html">Scala Collection API</a></li> 
+      <li><a href="https://class.coursera.org/progfun-2012-001/lecture/index">Functional Programming Principles In Scala(Coursera)</a></li> 
+      <li><a href="http://mackler.org/LearningSlick/">Learning Slick Tutorial</a></li> 
+      <li><a href="https://blog.stackmob.com/2013/01/resources-for-getting-started-with-functional-programming-and-scala/">Resources for Getting Started With Functional Programming and Scala</a></li> 
+      <li><a href="http://eed3si9n.com/learning-scalaz/Combined+Pages.html">learning Scalaz</a> - climb the wall if necessary</li> 
+      <li><a href="http://adit.io/posts/2013-05-15-Locks,-Actors,-And-STM-In-Pictures.html">Locks, Actors, And STM In Pictures</a></li> 
+      <li><a href="http://www.slideshare.net/prasinous/scaladays-2013-final">Practical type mining in Scala</a> - Scala2.10 Reflection</li> 
+      <li><a href="http://jsuereth.com/intro-to-fp/print.html">Introduction to Functional Patterns</a></li> 
+      <li><a href="http://ktoso.github.io/scala-types-of-types/">Scala’s Types of Types</a></li> 
+      <li><a href="https://wiki.scala-lang.org/display/SIW/Overview+of+Compiler+Phases">Scala Compiler Phases Wiki</a></li> 
+      <li><a href="http://underscore.io/training/">underscore.io提供的培训课程</a></li> 
+     </ul> 
+     <h2 id="fp">FP</h2> 
+     <ul> 
+      <li><a href="http://www.cse.chalmers.se/~rjmh/tutorials.html">Tutorial Papers in Functional Programming</a></li> 
+     </ul> 
+     <h2 id="sbt">SBT</h2> 
+     <ul> 
+      <li><a href="http://www.scala-sbt.org/release/docs/index.html">http://www.scala-sbt.org/release/docs/index.html</a></li> 
+      <li><a href="http://danielwestheide.com/talks/scaladays2014/slides/#/">Learn you an SBT for fun and profit!</a></li> 
+     </ul> 
+     <h2 id="play">Play</h2> 
+     <ul> 
+      <li><a href="http://jazzy.id.au/default/2013/05/08/advanced_routing_in_play_framework.html">Advanced routing in Play Framework</a></li> 
+     </ul> 
+     <h2 id="akka">Akka</h2> 
+     <ul> 
+      <li><a href="http://letitcrash.com/post/28901663062/throttling-messages-in-akka-2">Throttling Messages in Akka 2</a></li> 
+      <li><a href="http://letitcrash.com/post/29044669086/balancing-workload-across-nodes-with-akka-2">Balancing Workload Across Nodes with Akka 2</a></li> 
+      <li><a href="http://doc.akka.io/docs/akka/2.1.2/index.html">Akka 2.1.2 Documentation</a></li> 
+     </ul> 
+     <h2 id="git">Git</h2> 
+     <ul> 
+      <li><a href="http://nvie.com/posts/a-successful-git-branching-model/">A successful Git branching model</a></li> 
+      <li><a href="http://marklodato.github.com/visual-git-guide/index-en.html">A Visual Git Reference</a></li> 
+      <li><a href="http://zh-cn.whygitisbetterthanx.com/">Why Git is Better than X</a></li> 
+      <li><a href="https://github.com/plusjade/jekyll-bootstrap">jekyll-bootstrap</a> 
+       <ul> 
+        <li>The quickest way to start and publish your Jekyll powered blog. 100% compatible with GitHub pages.</li> 
+       </ul></li> 
+      <li><a href="http://www.bootcss.com/p/git-guide/">git - 简易指南</a> 
+       <ul> 
+        <li>its bootstrap css style rocks</li> 
+       </ul></li> 
+      <li><a href="https://www.atlassian.com/git">Git Tutorials : Make the Switch to Git</a></li> 
+     </ul> 
+     <h2 id="architecture">Architecture</h2> 
+     <ul> 
+      <li><a href="http://www.slideshare.net/quipo/scalable-architectures-taming-the-twitter-firehose?from=new_upload_email">Scalable Architecture:Taming The Twitter Firehole</a> - patterns for scalable real-time platforms</li> 
+      <li><a href="http://www.infoq.com/presentations/Event-Sourced-Architectures-for-High-Availability">Event Sourced Architectures for High Availability</a></li> 
+      <li><a href="http://berb.github.io/diploma-thesis/original/index.html">Concurrent Programming for Scalable Web Architectures</a></li> 
+     </ul> 
+     <h2 id="open-books">Open Books</h2> 
+     <ul> 
+      <li><a href="http://docs.oracle.com/javase/tutorial/index.html">The Java Tutorials</a> ^^^</li> 
+      <li><a href="http://www.aosabook.org/en/">The Architecture of Open Source Applications</a> *****</li> 
+      <li><a href="http://tengine.taobao.org/book/index.html">Nginx开发从入门到精通</a></li> 
+      <li><a href="http://wiki.netbeans.org/BookNBPlatformCookbook">Netbeans Platform Cookbook</a></li> 
+      <li><a href="http://lintool.github.com/MapReduceAlgorithms/index.html">Data-Intensive Text Processing with MapReduce</a> ^^^</li> 
+      <li><a href="http://mitpress.mit.edu/sicp/full-text/book/book.html">Structure And Interpretation Of Computer Programs</a></li> 
+      <li><a href="http://learnyouahaskell.com/chapters">Learn You a Haskell for Great Good!</a></li> 
+      <li><a href="http://oreilly.com/openbook/webclient/">Web Client Programming with Perl</a></li> 
+      <li><a href="http://lwn.net/Articles/250967/">What every programmer should know about memory</a></li> 
+      <li><a href="http://hbase.apache.org/book">HBase Book Online</a></li> 
+      <li><a href="http://tengine.taobao.org/book/index.html">Nginx开发从入门到精通</a></li> 
+      <li><a href="http://letoverlambda.com/textmode.cl/guest/toc">Let Over Lambda – 50 Years of Lisp</a></li> 
+      <li><a href="https://github.com/vhf/free-programming-books/blob/master/free-programming-books.md">free-programming-books on github</a> ****</li> 
+      <li><a href="http://prasoonagrawal.com/library/oreilly/">OReilly’s Bookshelf</a></li> 
+      <li><a href="http://ejohn.org/apps/learn/">Learning Advanced JavaScript</a></li> 
+      <li><a href="http://programming-motherfucker.com/become.html" class="uri">http://programming-motherfucker.com/become.html</a> - 一堆书和资料的汇总</li> 
+      <li><a href="http://hackr.io/" class="uri">http://hackr.io/</a> - Share and discover the best programming tutorials and courses online.</li> 
+      <li><a href="http://automatetheboringstuff.com/">Automate the Boring Stuff with Python</a></li> 
+     </ul> 
+     <h2 id="mysql">MySQL</h2> 
+     <ul> 
+      <li><a href="http://dev.mysql.com/doc/internals/en/index.html">MySQL Internals Manual</a> ****</li> 
+     </ul> 
+     <h2 id="docbook">Docbook</h2> 
+     <ul> 
+      <li><a href="http://docbook.org/tdg5/en/html/docbook.html">DocBook 5: The Definitive Guide</a></li> 
+      <li><a href="http://doccookbook.sourceforge.net/html/en/DoCookBook.html">The DoCookBook</a></li> 
+     </ul> 
+     <h2 id="messaging">Messaging</h2> 
+     <ul> 
+      <li><a href="http://www.infoq.com/presentations/High-Performance-Network-Applications-in-the-Capital-Markets">High Performance Network Applications in the Capital Markets</a> *****</li> 
+      <li><a href="http://www.informatica.com/downloads/1568_high_perf_messaging_wp/Topics-in-High-Performance-Messaging.htm">Topics in High-Performance Messaging</a> *****</li> 
+      <li><a href="http://www.cs.wvu.edu/~tmont/">Todd L. Montgomery其人</a></li> 
+      <li><a href="http://zguide.zeromq.org/page:all">ZMQ - The Guide</a></li> 
+      <li><a href="http://www.infoq.com/presentations/Messaging-TCP-IP">Running with the Devil: Mechanical Sympathetic Networking</a> 
+       <ul> 
+        <li>by Todd Montgomery</li> 
+       </ul></li> 
+     </ul> 
+     <h2 id="go-lang">Go Lang</h2> 
+     <ul> 
+      <li><a href="http://talks.golang.org/2012/chat.slide#1">Go: code that grows with grace</a></li> 
+      <li><a href="http://jan.newmarch.name/go/">Network programming with Go</a></li> 
+      <li><a href="https://speakerdeck.com/doitian/a-tour-of-go">A Tour Of Go</a></li> 
+      <li><a href="http://cuddle.googlecode.com/hg/talk/lex.html">Lexical Scanning in Go</a></li> 
+      <li><a href="http://talks.golang.org/2013/advconc.slide">Advanced Go Concurrency Patterns</a> - slide - <a href="http://www.youtube.com/watch?v=QDDwwePbDtw#t=0" class="uri">http://www.youtube.com/watch?v=QDDwwePbDtw#t=0</a> - video</li> 
+     </ul> 
+     <h2 id="haskell">Haskell</h2> 
+     <ul> 
+      <li><a href="http://yannesposito.com/Scratch/en/blog/Haskell-the-Hard-Way/">Learn Haskell Fast and Hard</a></li> 
+      <li><a href="https://rwh.readthedocs.org/en/latest/index.html">Real World Haskell 中文版</a></li> 
+      <li><a href="http://shuklan.com/haskell/">Introduction to Haskell</a> 
+       <ul> 
+        <li>University of Virginia CS 1501 Lectures Spring 2013</li> 
+       </ul></li> 
+      <li><a href="http://www.scs.stanford.edu/11au-cs240h/notes/">CS240h lecture notes</a></li> 
+     </ul> 
+     <h2 id="python">Python</h2> 
+     <ul> 
+      <li><a href="https://python.zeef.com/alan.richmond" class="uri">https://python.zeef.com/alan.richmond</a></li> 
+      <li><a href="http://www.fullstackpython.com/table-of-contents.html">Full Stack Python</a></li> 
+     </ul> 
+     <h2 id="javascript">Javascript</h2> 
+     <ul> 
+      <li><a href="http://ejohn.org/apps/learn/">Learning Advanced JavaScript</a></li> 
+     </ul> 
+     <h3 id="react">React</h3> 
+     <ol type="1"> 
+      <li><a href="https://fakefish.github.io/react-webpack-cookbook/">https://fakefish.github.io/react-webpack-cookbook/</a></li> 
+     </ol> 
+     <h2 id="seo">SEO</h2> 
+     <ol type="1"> 
+      <li><a href="https://adwords.google.com/o/Targeting/Explorer?__c=1000000000&amp;__u=1000000000&amp;ideaRequestType=KEYWORD_IDEAS">Google Keyword Tool</a></li> 
+      <li><a href="http://zhanzhang.baidu.com/dashboard/index">百度站长工具</a> ****</li> 
+      <li><a href="https://www.google.com/webmasters/tools/">Google站长工具</a> ****</li> 
+      <li><a href="http://www.alexa.com">http://www.alexa.com</a></li> 
+      <li><a href="http://tool.chinaz.com">chinaz站长工具</a></li> 
+      <li><a href="http://tool.qycn.com">群英站长工具</a></li> 
+      <li><a href="https://www.google.com/webmasters/tools/">https://www.google.com/webmasters/tools/</a></li> 
+      <li><a href="http://www.seozac.com/">SEO每日一帖</a></li> 
+      <li><a href="http://www.opensiteexplorer.org">反向链接分析工具-opensiteexplorer</a></li> 
+      <li><a href="http://www.seomoz.org/">seomoz的seo工具群</a></li> 
+      <li><a href="http://www.cheatography.com/colinbancmedia/cheat-sheets/onsite-seo-cheatsheet/pdf/">Onsite SEO Cheatsheet Cheat Sheet</a> **</li> 
+     </ol> 
+     <h2 id="ops">Ops</h2> 
+     <ol type="1"> 
+      <li><a href="http://www.thegeekstuff.com/" class="uri">http://www.thegeekstuff.com/</a></li> 
+      <li><a href="http://www.commandlinefu.com/commands/browse" class="uri">http://www.commandlinefu.com/commands/browse</a> 
+       <ul> 
+        <li>many commands demonstrated for misc. senarios</li> 
+       </ul></li> 
+      <li><a href="https://sysadmincasts.com/" class="uri">https://sysadmincasts.com/</a> 
+       <ul> 
+        <li>Sysadmin Casts - bite-sized sysadmin screencasts (released weekly)</li> 
+       </ul></li> 
+      <li><a href="http://sroberts.github.io//2015/04/21/hunting-tools/">Incident Response Hunting Tools</a></li> 
+     </ol> 
+     <h3 id="docker">Docker</h3> 
+     <ol type="1"> 
+      <li><a href="https://www.dockboard.org/">Docker 中文社区</a></li> 
+      <li><a href="https://hub.docker.com/" class="uri">https://hub.docker.com/</a></li> 
+      <li><a href="http://yuedu.baidu.com/ebook/d817967416fc700abb68fca1?pn=1&amp;rf=http%3A%2F%2Fdockerone.com%2Farticle%2F233">Docker入门实战(在线阅读)</a></li> 
+     </ol> 
+     <h2 id="blade">Blade</h2> 
+     <ol type="1"> 
+      <li><a href="http://www.balisung.com/">蝴蝶刀(balisung)</a></li> 
+     </ol> 
+     <h2 id="tools">Tools</h2> 
+     <ol type="1"> 
+      <li><a href="http://phabricator.org/">Phabricator</a> created by Facebook 
+       <ul> 
+        <li>a suite of web applications that help software companies communicate about software effectively</li> 
+       </ul></li> 
+      <li>Tag Cloud Generator 
+       <ul> 
+        <li><a href="http://worditout.com/word-cloud/make-a-new-one" class="uri">http://worditout.com/word-cloud/make-a-new-one</a></li> 
+        <li><a href="http://www.tagcloud-generator.com/generator.php" class="uri">http://www.tagcloud-generator.com/generator.php</a></li> 
+        <li><a href="https://tagul.com/cloud/1" class="uri">https://tagul.com/cloud/1</a> ****</li> 
+       </ul></li> 
+      <li><a href="https://gomockingbird.com/mockingbird/">MockingGrid - 页面草案</a></li> 
+      <li><a href="http://ascii.mastervb.net/" class="uri">http://ascii.mastervb.net/</a> - ASCII generator</li> 
+      <li><a href="http://asciinema.org/">http://asciinema.org/</a> 
+       <ul> 
+        <li>纯文字录屏， 不需要浏览器插件</li> 
+       </ul></li> 
+      <li><a href="http://tool.17mon.cn/">http://tool.17mon.cn/</a></li> 
+      <li><a href="http://www.springfrog.com/converter/ascii-text-art/">http://www.springfrog.com/converter/ascii-text-art/</a></li> 
+      <li><a href="http://www.jsnice.org/">JS Nice</a> - 在线格式化js代码的工具</li> 
+      <li><a href="http://www.favicon.cc/">favicon.ico Generator</a></li> 
+      <li><a href="https://infogr.am/">https://infogr.am/</a> - 在线图表制作工具，比如制作报告</li> 
+      <li><a href="http://asciiflow.com/">http://asciiflow.com/</a> - 在线画ASCII arts， 比如搞个有个性的代码中的注释</li> 
+      <li><a href="http://schemaspy.sourceforge.net/" class="uri">http://schemaspy.sourceforge.net/</a> - 基于Java的图形化工具，用于分析数据库schema的关系</li> 
+      <li><a href="https://www.iconfinder.com/free_icons" class="uri">https://www.iconfinder.com/free_icons</a> - 免费图标</li> 
+      <li><a href="https://iconverticons.com/online/">https://iconverticons.com/online/</a> - iConvert Icons converts and creates custom icons for Windows, Mac OS X, Linux, iOS, and Android.</li> 
+      <li><a href="http://ericandrewlewis.github.io/emoji-mosaic/" class="uri">http://ericandrewlewis.github.io/emoji-mosaic/</a> - 图片模糊</li> 
+      <li><a href="https://infogr.am/" class="uri">https://infogr.am/</a> - 根据数据制作报告或者报表并且分享的在线工具</li> 
+      <li><a href="https://www.typeform.com/" class="uri">https://www.typeform.com/</a> - 动态表单****</li> 
+      <li><a href="http://crontab.guru/" class="uri">http://crontab.guru/</a> - cron表达式解释</li> 
+     </ol> 
+     <h2 id="素材">素材</h2> 
+     <ol type="1"> 
+      <li><a href="https://pixabay.com/">https://pixabay.com/</a> - 高清</li> 
+      <li><a href="http://www.iconfont.cn/">http://www.iconfont.cn/</a> - 矢量图</li> 
+     </ol> 
+     <h2 id="mac-os-x">Mac OS X</h2> 
+     <ol type="1"> 
+      <li><a href="http://www.techrepublic.com/blog/mac/how-to-create-a-bootable-usb-to-install-os-x/2699">How to create a bootable USB to install OS X</a></li> 
+     </ol> 
+     <h2 id="安全">安全</h2> 
+     <ol type="1"> 
+      <li><a href="http://webapp-hardening.heroku.com/">Harden Your Web App - A developer oriented repository of attacks and defenses.</a></li> 
+      <li><a href="http://fofa.so/fofacli">Fofacli 全网漏洞扫描器</a></li> 
+      <li><a href="http://www.weigongkai.com/">社工库</a></li> 
+      <li><a href="http://www.findmima.com/">密码网 - http://www.findmima.com/</a></li> 
+      <li><a href="http://www.273tech.com/" class="uri">http://www.273tech.com/</a></li> 
+      <li><a href="https://veracrypt.codeplex.com/" class="uri">https://veracrypt.codeplex.com/</a> - Veracrpyt, enhanced truecrypt</li> 
+      <li><a href="https://osquery.io/">osquery</a> 
+       <ul> 
+        <li>osquery gives you the ability to query and log things like running processes, logged in users, password changes, usb devices, firewall exceptions, listening ports, and more. You can perform ad-hoc queries or schedule them.</li> 
+       </ul></li> 
+      <li><a href="https://asecuritysite.com/encryption/shamir" class="uri">https://asecuritysite.com/encryption/shamir</a></li> 
+     </ol> 
+     <h2 id="shell">Shell</h2> 
+     <ol type="1"> 
+      <li><a href="http://explainshell.com/">http://explainshell.com/</a></li> 
+      <li><a href="http://www.commandlinefu.com/">http://www.commandlinefu.com/</a></li> 
+      <li><a href="http://www.tldp.org/LDP/abs/html/index.html">Advanced Bash-Scripting Guide</a></li> 
+      <li><a href="http://billie66.github.io/TLCL/book/">The Linux Command Line 的中文版</a></li> 
+     </ol> 
+     <h2 id="bootstrap">Bootstrap</h2> 
+     <ol type="1"> 
+      <li><a href="http://startbootstrap.com/">http://startbootstrap.com/</a></li> 
+      <li><a href="https://bootswatch.com/" class="uri">https://bootswatch.com/</a> - Free themes for Bootstrap</li> 
+     </ol> 
+     <h2 id="android">Android</h2> 
+     <ol type="1"> 
+      <li><a href="https://tutsplus.com/course/android-for-the-busy-developer/">Android for the Busy Developer</a></li> 
+     </ol> 
+     <h2 id="unicode">Unicode</h2> 
+     <ul> 
+      <li><a href="http://www.joelonsoftware.com/articles/Unicode.html">The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)</a></li> 
+     </ul> 
+     <h2 id="web">Web</h2> 
+     <ol type="1"> 
+      <li><a href="http://bradfrost.github.io/this-is-responsive/resources.html">响应式 Web 设计资源集合 - responsive web design resources</a></li> 
+      <li><a href="https://developers.google.com/web/fundamentals/">Google Web Fundamentals</a></li> 
+      <li><a href="http://www.fontsquirrel.com/tools/webfont-generator">Webfont Generator</a></li> 
+     </ol> 
+     <h2 id="ebooks">ebooks</h2> 
+     <ol type="1"> 
+      <li><a href="https://www.mlook.mobi/" class="uri">https://www.mlook.mobi/</a></li> 
+      <li><a href="http://book.zi5.me/" class="uri">http://book.zi5.me/</a></li> 
+      <li><a href="http://www.itpub.net/forum-61-1.html">IT类电子书@itpub.net</a></li> 
+      <li><a href="http://it-ebooks.info/" class="uri">http://it-ebooks.info/</a></li> 
+     </ol> 
+     <h2 id="movies电影">Movies(电影)</h2> 
+     <ol start="0" type="1"> 
+      <li><a href="http://www.yizhansou.com/">一站搜(美剧)</a></li> 
+      <li><a href="http://www.ttmeiju.com/">天天美剧</a></li> 
+      <li><a href="http://www.ed2000.com/FileList.asp?FileCategory=%E7%94%B5%E5%BD%B1">ed2000电影</a></li> 
+      <li><a href="http://www.ygdy8.com/">阳光电影</a></li> 
+      <li><a href="http://www.dytt8.net">电影天堂</a></li> 
+      <li><del><a href="http://www.yyets.com">人人影视</a></del></li> 
+      <li><a href="http://www.piaohua.com/">飘花资源网</a></li> 
+      <li><a href="http://www.bttiantang.cc/">BT天堂</a></li> 
+      <li><a href="http://yzys.tv/">人人影视海外版</a></li> 
+      <li><a href="http://sub.makedie.me/">伪射手网</a></li> 
+      <li><a href="http://kickass.to" class="uri">http://kickass.to</a></li> 
+      <li><a href="http://www.btsoso.me" class="uri">http://www.btsoso.me</a></li> 
+      <li><a href="http://www.shinybbs.com/forum.php" class="uri">http://www.shinybbs.com/forum.php</a></li> 
+      <li><a href="http://subhd.com/" class="uri">http://subhd.com/</a> - 字幕网站</li> 
+      <li><a href="http://www.bthave.com/" class="uri">http://www.bthave.com/</a> ****</li> 
+     </ol> 
+     <h2 id="bt-search">BT Search</h2> 
+     <ol start="0" type="1"> 
+      <li><a href="https://www.skytorrents.in/" class="uri">https://www.skytorrents.in/</a></li> 
+      <li><a href="http://kaopu.so/" class="uri">http://kaopu.so/</a> 搜百度云盘</li> 
+      <li><a href="http://www.daimugua.com" class="uri">http://www.daimugua.com</a> ****</li> 
+      <li><a href="http://www.jiumodiary.com/" class="uri">http://www.jiumodiary.com/</a> - Jiumo Ebook Search</li> 
+      <li><a href="http://www.btbook.net/" class="uri">http://www.btbook.net/</a></li> 
+      <li><a href="http://btdigg.org/" class="uri">http://btdigg.org/</a></li> 
+      <li><a href="http://www.torrentkitty.org/" class="uri">http://www.torrentkitty.org/</a></li> 
+      <li><a href="http://torrentz.eu/" class="uri">http://torrentz.eu/</a></li> 
+      <li><a href="http://www.xunl.us/" class="uri">http://www.xunl.us/</a></li> 
+      <li><a href="http://acgcomic.com/" class="uri">http://acgcomic.com/</a></li> 
+      <li><a href="http://www.bttiantang.com" class="uri">http://www.bttiantang.com</a></li> 
+      <li><a href="http://imax.im" class="uri">http://imax.im</a></li> 
+     </ol> 
+     <h2 id="汽车">汽车</h2> 
+     <ol type="1"> 
+      <li><a href="http://www.4x4emag.com/">4*4 Magazine</a></li> 
+     </ol> 
+     <h2 id="字体fonts">字体FONTS</h2> 
+     <ul> 
+      <li><a href="http://www.youziku.com/Home/Index">有字库</a> - 中文webfont</li> 
+      <li><a href="http://fonts.mobanwang.com/">模板王字体</a> ****</li> 
+     </ul> 
+     <hr> 
+     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+     </div> 
+     <div id="random_posts"> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2020-01-12-cost-of-cognition-upgrade.html">认知的成本 </a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2023-04-20-truthgpt-minigpt-and-stableLM.html">truthgpt、MiniGPT和StableLM </a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2015-04-22-ops-platform-recruit-jd.html">运维支撑平台高级开发工程师招聘JD</a> 
+      </div> 
+     </div> 
+     <hr> 
+     <div> 
+      <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+      <ol> 
+       <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+       <li>还分享AI工具、产品方法和商业机会</li> 
+       <li>更有体系化精品付费内容等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取。(加入之后<b>一定记得看置顶消息</b>呀！)</li> 
+      </ol> 
+      <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+     </div> 
+     <hr> 
+     <p> <span style="font-size: xx-large;">存量的时代，省钱就是赚钱。</span> <br> <span style="font-size: xx-large;">在增量的时代，省钱其实是亏钱。</span> <br> 避坑儿是省钱的一种形式，更是真正聪明人的选择！ <br> 弯路虽然也是路，但还是能少走就少走，背后都是高昂的试错成本。 <br> <b>订阅「福报」</b>，少踩坑，少走弯路，多走一步，就是不一样的胜率！ </p> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
+     <hr> 
+     <div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"> 
+      <div id="tfloader" class="x-indicator"> 
+       <svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"> <g fill="none" fill-rule="evenodd"> 
+         <g transform="translate(1 1)" stroke-width="2"> 
+          <circle cx="5" cy="50" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+          <circle cx="27" cy="5" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+          <circle cx="49" cy="50" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+         </g> 
+        </g> 
+       </svg> 
+      </div> 
+     </div> 
+     <hr> 
+     <div id="comments"></div> 
+    </div> 
+   </section> 
+  </main> 
+  <footer class="border-t border-gray-200 dark:border-slate-800"> 
+   <div class="max-w-6xl mx-auto px-4 sm:px-6"> 
+    <div class="md:flex md:items-center md:justify-between py-6 md:py-8"> 
+     <ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0"> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Twitter" href="https://twitter.com/fujohnwang"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-twitter"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z"> 
+         </path> 
+        </svg> </a> </li> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Facebook" href="https://www.facebook.com/fujohnwang/"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-facebook"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2H7"></path> 
+        </svg> </a> </li> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Github" href="https://github.com/fujohnwang"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-github"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"> 
+         </path> 
+        </svg> </a> </li> 
+     </ul> 
+     <div class="text-sm text-gray-700 mr-4 dark:text-slate-400"> <span class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 float-left rounded-sm"> <img src="https://afoo.me/favicon.svg" class="rounded-md" alt> </span> Copyright © 王福强个人版权所有 - Since 2004 (Everything is homebrewed with <a href="https://pandoc.org/">Pandoc</a> and Markdown, little <a href="https://www.scala-lang.org/">Scala</a> also included.) 
+     </div> 
+    </div> 
+   </div> 
+  </footer> 
+  <script>
+        // Set "light" theme as default
+        if (!localStorage.theme) {
+            localStorage.theme = "light";
+        }
 
-gitalk.render('comments')
+        if (
+            localStorage.theme === 'dark' ||
+            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function attachEvent(selector, event, fn) {
+            const matches = document.querySelectorAll(selector);
+            if (matches && matches.length) {
+                matches.forEach((elem) => {
+                    elem.addEventListener(event, () => fn(elem), false);
+                });
+            }
+        }
+
+        window.onload = function () {
+            attachEvent('[data-toggle-menu]', 'click', function (elem) {
+                elem.classList.toggle('expanded');
+                document.body.classList.toggle('overflow-hidden');
+                document.getElementById('header')?.classList.toggle('h-screen');
+                document.querySelector('#header nav')?.classList.toggle('hidden');
+            });
+            attachEvent('[data-toggle-color-scheme]', 'click', function () {
+                document.documentElement.classList.toggle('dark');
+                localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            });
+        };
+        window.onpageshow = function () {
+            const elem = document.querySelector('[data-toggle-menu]');
+            if (elem) {
+                elem.classList.remove('expanded');
+            }
+            document.body.classList.remove('overflow-hidden');
+            document.getElementById('header')?.classList.remove('h-screen');
+            document.querySelector('#header nav')?.classList.add('hidden');
+        };
     </script> 
-  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
-  <script>
-  kofiWidgetOverlay.draw('fff000', {
-    'type': 'floating-chat',
-    'floating-chat.donateButton.text': 'Support me',
-    'floating-chat.donateButton.background-color': 'red',
-    'floating-chat.donateButton.text-color': 'white'
-  });
-</script> 
-  <script>
-  fetch('https://jsonld.afoo.me', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      url: window.location.href
-    })
-  }).then(response => response.text()).then(structuredDataText => {
-    const script = document.createElement('script');
-    script.setAttribute('type', 'application/ld+json');
-    script.textContent = structuredDataText;
-    document.head.appendChild(script);
-  });
-</script>  
-  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+  <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '518a605d711883414ac0',
+          clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+          repo: 'afoo.me.comments',
+          owner: 'fujohnwang',
+          admin: ['fujohnwang'],
+          id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+        gitalk.render('comments')
+    </script>  
  </body>
 </html>

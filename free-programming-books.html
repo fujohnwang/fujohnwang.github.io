@@ -1,635 +1,741 @@
 <!doctype html>
-<html lang="zh"> 
+<html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]"> 
  <head> 
   <meta charset="utf-8"> 
-  <meta name="keywords" content="free-programming-books - 架构教练,架构师个人成长教练,个人成长,组织成长,个人与组织成长顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
-  <meta name="description" content="free-programming-books - 扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="keywords" content="free-programming-books - 架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="free-programming-books - 福强说，扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+  <meta name="robots" content="index,follow"> 
   <title>free-programming-books -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <link rel="shortcut icon" href="/favicon.ico"> 
-  <style type="text/css">code{white-space: pre;}</style> 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> 
-  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
-  <script type="text/javascript" src="/js/watermark.js"></script> <!-- Bootstrap core CSS --> 
-  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- Custom fonts for this template --> 
-  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> <!-- Custom styles for this template --> 
-  <link href="/css/freelancer.css" rel="stylesheet"> 
+  <link rel="canonical" href="https://afoo.me/free-programming-books.html"> 
+  <link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"> 
+  <link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8"> 
+  <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
   <style type="text/css">
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      text-align: left;
-      position: relative;
-      -webkit-font-smoothing: antialiased;
-    }
-    
+        pre > code{white-space: pre-line;}
 
-    h1{
-      margin-top: 3rem;
+        .x-indicator{
+            display:none;
+        }
+        .htmx-request .x-indicator{
+            display:inline;
+        }
+        .htmx-request.x-indicator{
+            display:inline;
+        }
+    </style> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "",
+      "image": [
+        "https://afoo.me/images/fb_subscribe.jpg"
+       ],
+      "datePublished": "0000-00-00",
+      "author": [{
+          "@type": "Person",
+          "name": "王福强",
+          "url": "https://afoo.me"
+        }]
     }
-  </style> 
- </head> 
- <body id="page-top"> <!-- Navigation --> 
-  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"> 
-   <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/"> <img src="/images/profile.jpeg" alt="" style="display: inline; border-radius: 50%; height: 50px;">王福强的个人博客 </a> <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fas fa-bars"></i> </button> 
-    <div class="collapse navbar-collapse" id="navbarResponsive"> 
-     <ul class="navbar-nav ml-auto"> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/posts.html">博客文章</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/books.html">创作出版</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="https://edu.afoo.me">福强AI学堂</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/crosslinks.html">更多链接</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/whoami.html">关于我</a> </li> 
-      <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3" href="/feeds.xml">RSS订阅</a> </li> 
-     </ul> 
-    </div> 
-   </div> 
-  </nav> 
-  <section> 
-   <div class="container"> <!--        <div class="row">--> <!--          <div class="col-lg-8 mx-auto">--> 
-    <hr> 
-    <p>###Index * <a href="#meta-lists">Meta-Lists</a> * <a href="#graphics-programming">Graphics Programming</a> * <a href="#language-agnostic">Language Agnostic</a> * <a href="#android">Android</a> * <a href="#autotools">Autotools</a> * <a href="#aspnet-mvc">ASP.NET MVC</a> * <a href="#assembly-language">Assembly Language</a> * <a href="#bash">Bash</a> * <a href="#c-c">C / C++</a> * <a href="#clojure">Clojure</a> * <a href="#coffeescript">CoffeeScript</a> * <a href="#coldfusion">ColdFusion</a> * <a href="#d--dtrace">D / DTrace</a> * <a href="#db2">DB2</a> * <a href="#delphi--pascal">Delphi / Pascal</a> * <a href="#django">Django</a> * <a href="#emacs">Emacs</a> * <a href="#erlang">Erlang</a> * <a href="#flex">Flex</a> * <a href="#f-sharp">F#</a> * <a href="#forth">Forth</a> * <a href="#git">Git</a> * <a href="#go">Go</a> * <a href="#grails">Grails</a> * <a href="#haskell">Haskell</a> * <a href="#html--css">HTML / CSS</a> * <a href="#java">Java</a> * <a href="#javascript">JavaScript</a> * <a href="#javascript-nodejs-specific">JavaScript (Node.js specific)</a> * <a href="#javascript-d3js-specific">JavaScript (D3.js specific)</a> * <a href="#latex">LaTeX</a> * <a href="#linux">Linux</a> * <a href="#lisp">Lisp</a> * <a href="#lua">Lua</a> * <a href="#mathematica">Mathematica</a> * <a href="#maven">Maven</a> * <a href="#mercurial">Mercurial</a> * <a href="#nemerle">Nemerle</a> * <a href="#net-c--vb--nemerle--visual-studio">.NET (C# / VB / Nemerle / Visual Studio)</a> * <a href="#nosql">NoSQL</a> * <a href="#oberon">Oberon</a> * <a href="#objective-c">Objective-C</a> * <a href="#ocaml">OCaml</a> * <a href="#oracle-server">Oracle Server</a> * <a href="#oracle-plsql">Oracle PL/SQL</a> * <a href="#parrot-perl-6">Parrot / Perl 6</a> * <a href="#perl">Perl</a> * <a href="#php">PHP</a> * <a href="#powershell">PowerShell</a> * <a href="#prolog">Prolog</a> * <a href="#postgresql">PostgreSQL</a> * <a href="#python">Python</a> * <a href="#r">R</a> * <a href="#ruby">Ruby</a> * <a href="#ruby-on-rails">Ruby on Rails</a> * <a href="#rust">Rust</a> * <a href="#scala">Scala</a> * <a href="#scheme">Scheme</a> * <a href="#sed">Sed</a> * <a href="#smalltalk">Smalltalk</a> * <a href="#subversion">Subversion</a> * <a href="#sql-implementation-agnostic">SQL (implementation agnostic)</a> * <a href="#teradata">Teradata</a> * <a href="#vim">Vim</a> * <a href="#websphere">Websphere</a> * <a href="#windows-phone">Windows Phone</a></p> 
-    <p>###Meta-Lists</p> 
-    <ul> 
-     <li><a href="http://www.coderholic.com/25-free-computer-science-books/">25 Free Computer Science Ebooks</a></li> 
-     <li><a href="http://refcardz.dzone.com/">Cheat Sheets (Free)</a></li> 
-     <li><a href="http://www.freetechbooks.com/">Free Tech Books</a></li> 
-     <li><a href="http://blogs.msdn.com/b/microsoft_press/archive/2011/03/03/ebooks-list-of-our-free-books.aspx">Microsoft Press: Free E-Books</a></li> 
-     <li><a href="http://www.mindviewinc.com/Books/">MindView Inc</a></li> 
-     <li><a href="http://oreilly.com/openbook/">O’Reilly’s Open Books Project</a></li> 
-     <li><a href="http://www.techbooksforfree.com/">TechBooksForFree.com</a></li> 
-     <li><a href="http://theassayer.org/">Theassayer.org</a></li> 
-     <li><a href="http://en.wikibooks.org/wiki/Category%3aComputer_programming">Wikibooks: Programming</a></li> 
-    </ul> 
-    <p>###Graphics Programming</p> 
-    <ul> 
-     <li><a href="http://www.xmission.com/~legalize/book/download/index.html">DirectX manual</a> (draft)</li> 
-     <li><a href="http://www.arcsynthesis.org/gltut/">Learning Modern 3D Graphics Programming</a> (draft)</li> 
-     <li><a href="http://http.developer.nvidia.com/GPUGems/gpugems_part01.html">GPU Gems</a></li> 
-     <li><a href="http://http.developer.nvidia.com/GPUGems2/gpugems2_part01.html">GPU Gems 2</a> - <a href="ftp://download.nvidia.com/developer/GPU_Gems_2/">ch 8,14,18,29,30 as pdf</a></li> 
-     <li><a href="http://http.developer.nvidia.com/GPUGems3/gpugems3_part01.html">GPU Gems 3</a></li> 
-     <li><a href="http://www.gamedev.net/reference/articles/article1698.asp">Graphics Programming Black Book</a></li> 
-     <li><a href="http://tog.acm.org/resources/shaderx/">ShaderX series</a></li> 
-    </ul> 
-    <p>###Language Agnostic</p> 
-    <ul> 
-     <li><a href="http://programmer.97things.oreilly.com/">97 Things Every Programmer Should Know</a></li> 
-     <li><a href="https://leanpub.com/97-Things-Every-Programmer-Should-Know-Extended">97 Things Every Programmer Should Know - Extended</a></li> 
-     <li><a href="http://www.ethoberon.ethz.ch/WirthPubl/AD.pdf">Algorithms and Data-Structures</a> (PDF)</li> 
-     <li><a href="http://www.cs.berkeley.edu/~vazirani/algorithms.html">Algorithms</a> (draft)</li> 
-     <li><a href="http://www.aosabook.org/en/index.html">The Architecture of Open Source Applications</a></li> 
-     <li><a href="http://catb.org/esr/writings/taoup/html/">The Art of Unix Programming</a></li> 
-     <li><a href="http://smartbear.com/codecollab-code-review-book.php">Best Kept Secrets of Peer Code Review</a></li> 
-     <li><a href="http://cslibrary.stanford.edu/110/BinaryTrees.pdf">Binary Trees</a></li> 
-     <li><a href="http://www.math.mcgill.ca/triples/Barr-Wells-ctcs.pdf">Category Theory for Computing Science</a></li> 
-     <li><a href="http://www.catb.org/esr/writings/cathedral-bazaar/">The Cathedral and the Bazaar</a></li> 
-     <li><a href="http://www.cleveralgorithms.com/nature-inspired/index.html">Clever Algorithms</a></li> 
-     <li><a href="http://www.usingcsp.com/cspbook.pdf">Communicating Sequential Processes (PDF)</a> - Tony Hoare</li> 
-     <li><a href="http://www-old.oberon.ethz.ch/WirthPubl/CBEAll.pdf">Compiler Construction</a> (PDF)</li> 
-     <li><a href="http://scpd.stanford.edu/knuth/index.jsp">Computer Musings</a> (lectures by Donald Knuth)</li> 
-     <li><a href="http://dotnetslackers.com/projects/Data-Structures-And-Algorithms/">Data Structures and Algorithms: Annotated Reference with Examples</a></li> 
-     <li><a href="http://public.dhe.ibm.com/software/dw/db2/express-c/wiki/Database_fundamentals.pdf">Database Fundamentals</a> (PDF)</li> 
-     <li><a href="http://www.umiacs.umd.edu/~jimmylin/MapReduce-book-final.pdf">Data-Intensive Text Processing with MapReduce</a> (PDF)</li> 
-     <li><a href="http://nexus.realtimepublishers.com/dgbcq.php">The Definitive Guide to Building Code Quality</a></li> 
-     <li><a href="http://designinginterfaces.com">Designing Interfaces</a> by Jennifer Tidwell</li> 
-     <li><a href="http://www.dspguide.com/">Digital Signal Processing For Engineers and Scientists</a></li> 
-     <li><a href="http://book.mixu.net/distsys/single-page.html">Distributed systems for fun and profit</a></li> 
-     <li><a href="http://www.infoq.com/minibooks/domain-driven-design-quickly">Domain Driven Design Quickly</a></li> 
-     <li><a href="http://www.neildavidson.com/dontjustrollthedice.html">Don’t Just Roll the Dice</a></li> 
-     <li><a href="http://cs.gmu.edu/~sean/book/metaheuristics/">Essentials of Metaheuristics</a> by Sean Luke</li> 
-     <li><a href="http://elliottback.com/wp/essential-skills-for-agile-development/">Essential Skills for Agile Development</a></li> 
-     <li><a href="http://dces.essex.ac.uk/staff/rpoli/gp-field-guide/toc.html">A Field Guide To Genetic Programming</a></li> 
-     <li><a href="http://jpaulmorrison.com/fbp/#book">Flow based Programming</a></li> 
-     <li><a href="http://infolab.stanford.edu/~ullman/focs.html">Foundations of Computer Science</a> - Al Aho and Jeff Ullman</li> 
-     <li><a href="http://codebetter.com/files/folders/codebetter_downloads/entry179694.aspx">Foundations of Programming</a></li> 
-     <li><a href="http://gettingreal.37signals.com/">Getting Real</a></li> 
-     <li><a href="http://public.dhe.ibm.com/software/dw/db2/express-c/wiki/Getting_started_with_open_source_development_p2.pdf">Getting started with Open source development</a> (PDF)</li> 
-     <li><a href="http://cslibrary.stanford.edu/109/TreeListRecursion.pdf">The Great Tree List Recursion Problem</a></li> 
-     <li><a href="http://www.computer.org/portal/web/swebok">Guide to the Software Engineering Body of Knowledge</a></li> 
-     <li><a href="http://www.fastchip.net/howcomputerswork/p1.html">How Computers Work</a></li> 
-     <li><a href="http://www.htdp.org/">How to Design Programs</a></li> 
-     <li><a href="http://openbookproject.net/thinkcs/">How to Think Like a Computer Scientist</a></li> 
-     <li><a href="http://www.lindaspaces.com/book/">How to Write Parallel Programs</a></li> 
-     <li><a href="http://mindprod.com/jgloss/unmain.html">How to write Unmaintainable Code</a></li> 
-     <li><a href="http://www.amibug.com/iamabug/p01.html">I Am a Bug</a></li> 
-     <li><a href="http://www.cse.ohio-state.edu/~gurari/theory-bk/theory-bk.html">An Introduction to the Theory of Computation</a></li> 
-     <li><a href="http://www.cl.cam.ac.uk/teaching/Lectures/funprog-jrh-1996/">Introduction to Functional Programming</a> (class lectures and slides)</li> 
-     <li><a href="http://nlp.stanford.edu/IR-book/information-retrieval-book.html">Introduction to Information Retrieval</a></li> 
-     <li><a href="http://kernel.org/pub/linux/kernel/people/paulmck/perfbook/perfbook.html">Is Parallel Programming Hard, And, If So, What Can You Do About It?</a></li> 
-     <li><a href="http://pine.fm/LearnToProgram/">Learn to Program</a></li> 
-     <li><a href="http://www.stack.nl/~marcov/compiler.pdf">Let’s Build a Compiler</a></li> 
-     <li><a href="http://www.iecc.com/linker/">Linkers and loaders</a></li> 
-     <li><a href="http://cslibrary.stanford.edu/103/LinkedListBasics.pdf">Linked List Basics</a></li> 
-     <li><a href="http://cslibrary.stanford.edu/105/LinkedListProblems.pdf">Linked List Problems</a></li> 
-     <li><a href="http://www.ii.uib.no/~michal/und/i227/book/book.pdf">Mathematical Logic - an Introduction</a> (PDF)</li> 
-     <li><a href="http://www.jjj.de/fxt/#fxtbook">Matters Computational</a></li> 
-     <li><a href="http://infolab.stanford.edu/~ullman/mmds.html">Mining of Massive Datasets</a></li> 
-     <li><a href="http://homepages.inf.ed.ac.uk/dts/pm/Papers/nasa-manage.pdf">NASA Manager Handbook for Software Development</a> (PDF)</li> 
-     <li><a href="http://www.scribd.com/doc/7181362/NASA-Software-Measurement-Guidebook">NASA Software Measurement Handbook</a></li> 
-     <li><a href="http://scg.unibe.ch/download/oorp/">Object-Oriented Reengineering Patterns</a></li> 
-     <li><a href="http://ocw.mit.edu/OcwWeb/web/home/home/index.htm">Online Course Materials</a></li> 
-     <li><a href="http://homepage.mac.com/s_lott/books/oodesign.html">OO Design</a></li> 
-     <li><a href="https://gustavus.edu/mcs/max/os-book/">Operating Systems and Middleware</a> (PDF and LaTeX)</li> 
-     <li><a href="http://www.codeplex.com/AppArchGuide">Patterns and Practices: Application Architecture Guide 2.0</a></li> 
-     <li><a href="http://www.dreamsongs.com/Files/PatternsOfSoftware.pdf">Patterns of Software: Tales from the Software Community</a> (PDF)</li> 
-     <li><a href="http://planning.cs.uiuc.edu/">Planning Algorithms</a></li> 
-     <li><a href="http://www.libpng.org/pub/png/book/">PNG: The Definitive Guide</a></li> 
-     <li><a href="http://cslibrary.stanford.edu/102/PointersAndMemory.pdf">Pointers And Memory</a></li> 
-     <li><a href="http://producingoss.com/">Producing Open Source Software</a></li> 
-     <li><a href="http://www.cs.brown.edu/~sk/Publications/Books/ProgLangs/">Programming Languages: Application and Interpretation</a></li> 
-     <li><a href="http://www.stanford.edu/class/cs106a/cgi-bin/handouts/">Programming Methodology</a></li> 
-     <li><a href="http://cs.bell-labs.com/cm/cs/pearls/">Programming Pearls</a></li> 
-     <li><a href="http://www-old.oberon.ethz.ch/WirthPubl/ProjectOberon.pdf">Project Oberon</a> (PDF)</li> 
-     <li><a href="http://www.bon-method.com/book_print_a4.pdf">Seamless Object-Oriented Software Architecture</a></li> 
-     <li><a href="http://www.cl.cam.ac.uk/~rja14/book.html">Security Engineering</a></li> 
-     <li><a href="http://mitpress.mit.edu/sicp/">Structure and Interpretation of Computer Programs</a></li> 
-     <li><a href="http://domaindrivendesign.org/sites/default/files/discussion/PatternSummariesUnderCreativeCommons.doc">Summary of the GoF Design Patterns</a></li> 
-     <li><a href="http://greenteapress.com/semaphores/">The Little Book of Semaphores</a> - Allen B. Downey</li> 
-     <li><a href="http://www.tcpipguide.com/free/t_toc.htm">The TCP/IP Guide</a></li> 
-     <li>[Think Bayes: Bayesian Statistics Made Simple] (http://www.greenteapress.com/thinkbayes/) - Allen B. Downey</li> 
-     <li><a href="http://greenteapress.com/thinkstats/">Think Stats: Probability and Statistics for Programmers</a> (PDF, code written in Python) - Allen B. Downey</li> 
-     <li>[Think Complexity] (http://www.greenteapress.com/compmod/) - Allen B. Downey</li> 
-     <li><a href="https://www.cs.kent.ac.uk/people/staff/sjt/TTFP/">Type Theory and Functional Programming</a></li> 
-     <li><a href="http://www.apnic.net/__data/assets/pdf_file/0020/8147/501302.pdf">Understanding IP Addressing: Everything you ever wanted to know</a> (PDF)</li> 
-    </ul> 
-    <p>###Android</p> 
-    <p>###Autotools</p> 
-    <ul> 
-     <li><a href="http://sourceware.org/autobook/">GNU Autoconf, Automake and Libtool</a></li> 
-    </ul> 
-    <p>###ASP.NET MVC</p> 
-    <ul> 
-     <li><a href="http://weblogs.asp.net/scottgu/archive/2009/03/10/free-asp-net-mvc-ebook-tutorial.aspx">NerdDinner Walkthrough</a></li> 
-    </ul> 
-    <p>###Assembly Language</p> 
-    <ul> 
-     <li><a href="http://download.savannah.gnu.org/releases/pgubook/ProgrammingGroundUp-1-0-booksize.pdf">Programming from the Ground Up</a> (PDF)</li> 
-     <li><a href="http://drpaulcarter.com/pcasm/">Paul Carter’s Tutorial on x86 Assembly</a></li> 
-     <li><a href="http://www.agner.org/optimize/">Software optimization resources by Agner Fog</a></li> 
-    </ul> 
-    <p>###Bash</p> 
-    <ul> 
-     <li><a href="http://tldp.org/LDP/abs/html/">Advanced Bash-Scripting Guide</a></li> 
-     <li><a href="http://www.tldp.org/LDP/Bash-Beginners-Guide/html/">Bash Guide for Beginners</a> by Machtelt Garrels</li> 
-     <li><a href="http://mywiki.wooledge.org/BashGuide">Lhunath’s Bash Guide</a></li> 
-     <li><a href="http://learncodethehardway.org/cli/book/">The Command Line Crash Course</a> (also a Powershell reference)</li> 
-    </ul> 
-    <p>###C / C++</p> 
-    <ul> 
-     <li><a href="http://beej.us/guide/bgnet/">Beej’s Guide to Network Programming</a></li> 
-     <li><a href="http://beej.us/guide/bgc/">Beej’s Guide to C Programming</a></li> 
-     <li><a href="http://publications.gbdirect.co.uk/c_book/">The C book</a></li> 
-     <li><a href="http://cppannotations.sourceforge.net/">C++ Annotations</a></li> 
-     <li><a href="http://www.computer-books.us/cpp_0010.php">C++ GUI Programming With Qt 3</a></li> 
-     <li><a href="http://www.stanford.edu/class/cs106x/">CS106X Programming Abstractions in C++</a></li> 
-     <li><a href="http://cslibrary.stanford.edu/101/EssentialC.pdf">Essential C</a></li> 
-     <li><a href="http://cartan.cas.suffolk.edu/oopdocbook/opensource/index.html">Introduction to Design Patterns in C++ with Qt 4</a> (<a href="http://www.informit.com/store/product.aspx?isbn=0131879057">PDF</a>)</li> 
-     <li><a href="http://c.learncodethehardway.org/book/">Learn C the hard way</a></li> 
-     <li><a href="http://www.jjj.de/fxt/fxtbook.pdf">Matters Computational: Ideas, Algorithms, Source Code, by Jorg Arndt</a></li> 
-     <li><a href="http://www.knosof.co.uk/cbook/cbook.html">The new C standard - an annotated reference</a></li> 
-     <li><a href="http://www.planetpdf.com/codecuts/pdfs/ooc.pdf">Object Oriented Programming in C</a> (PDF)</li> 
-     <li><a href="http://www.agner.org/optimize/">Software optimization resources by Agner Fog</a></li> 
-     <li><a href="http://www.mindview.net/Books/TICPP/ThinkingInCPP2e.html">Thinking in C++, Second Edition</a></li> 
-     <li>Also see: <a href="http://stackoverflow.com/q/388242/511601">The Definitive C++ Book Guide and List</a></li> 
-    </ul> 
-    <p>###Clojure</p> 
-    <ul> 
-     <li><a href="http://en.wikibooks.org/wiki/Clojure_Programming">Clojure Programming</a></li> 
-     <li><a href="http://java.ociweb.com/mark/clojure/article.html">Clojure - Functional Programming for the JVM</a></li> 
-     <li><a href="http://data-sorcery.org/contents/">Data Sorcery with Clojure</a></li> 
-    </ul> 
-    <p>###CoffeeScript</p> 
-    <ul> 
-     <li><a href="http://autotelicum.github.com/Smooth-CoffeeScript/SmoothCoffeeScript.html">Smooth CoffeeScript</a></li> 
-     <li><a href="http://arcturo.github.com/library/coffeescript/">The Little Book on CoffeeScript</a></li> 
-    </ul> 
-    <p>###ColdFusion</p> 
-    <ul> 
-     <li><a href="https://github.com/mhenke/CFML-in-100-minutes/blob/master/cfml100mins.markdown">CFML In 100 Minutes</a></li> 
-    </ul> 
-    <p>###D / DTrace * <a href="http://dtrace.org/guide/preface.html">IllumOS Dynamic Tracing Guide</a></p> 
-    <p>###DB2</p> 
-    <ul> 
-     <li><a href="http://public.dhe.ibm.com/software/dw/db2/express-c/wiki/Getting_Started_with_DB2_Express_v9.7_p4.pdf">Getting started with DB2 Express-C</a> (PDF)</li> 
-     <li><a href="http://public.dhe.ibm.com/software/dw/db2/express-c/wiki/Getting_Started_with_IBM_Data_Studio_for_DB2_p3.pdf">Getting started with IBM Data Studio for DB2</a> (PDF)</li> 
-     <li><a href="http://public.dhe.ibm.com/software/dw/db2/express-c/wiki/Getting_Started_with_DB2_App_Dev_p2.pdf">Getting started with IBM DB2 development</a> (PDF)</li> 
-    </ul> 
-    <p>###Delphi / Pascal</p> 
-    <ul> 
-     <li><a href="http://www.marcocantu.com/epascal/">Essential Pascal Version 1 and 2</a></li> 
-     <li><a href="http://www.lulu.com/content/435417">The Tomes of Delphi</a></li> 
-    </ul> 
-    <p>###Django * <a href="http://agiliq.com/books/djenofdjango/">Djen of Django</a> * <a href="http://www.lightbird.net/dbe/">Django by Example</a></p> 
-    <p>###Emacs</p> 
-    <ul> 
-     <li><a href="http://shop.fsf.org/product/Emacs_Manual_24/">GNU Emacs Manual, 17th Edition, v. 24.2</a></li> 
-     <li><a href="https://www.gnu.org/software/emacs/manual/html_node/eintr/index.html">An Introduction to Programming in Emacs Lisp, 3rd Edition</a></li> 
-    </ul> 
-    <p>###Erlang</p> 
-    <ul> 
-     <li><a href="http://learnyousomeerlang.com/">Learn You Some Erlang For Great Good</a></li> 
-    </ul> 
-    <p>###Flex</p> 
-    <ul> 
-     <li><a href="http://public.dhe.ibm.com/software/dw/db2/express-c/wiki/Getting_Started_with_Adobe_Flex_p2.pdf">Getting started with Adobe Flex</a> (PDF)</li> 
-    </ul> 
-    <p>###F Sharp</p> 
-    <ul> 
-     <li><a href="http://www.ctocorner.com/fsharp/book/ch0.aspx">The F# Survival Guide</a></li> 
-     <li><a href="http://en.wikibooks.org/wiki/F_Sharp_Programming">F Sharp Programming</a> in Wikibooks</li> 
-     <li><a href="http://msdn.microsoft.com/en-us/library/hh314518.aspx">Real World Functional Programming</a> (MSDN Chapters)</li> 
-    </ul> 
-    <p>###Forth</p> 
-    <ul> 
-     <li><a href="http://home.iae.nl/users/mhx/sf.html">Starting Forth</a></li> 
-     <li><a href="http://thinking-forth.sourceforge.net/">Thinking Forth</a></li> 
-    </ul> 
-    <p>###Git</p> 
-    <ul> 
-     <li><a href="http://git-scm.com/book">Pro Git</a></li> 
-     <li><a href="http://ftp.newartisans.com/pub/git.from.bottom.up.pdf">Git From The Bottom Up</a> (PDF)</li> 
-    </ul> 
-    <p>###Go</p> 
-    <ul> 
-     <li><a href="http://golang.org/doc/go_tutorial.html">The Go Tutorial</a></li> 
-     <li><a href="https://gobyexample.com/">Go by Example</a></li> 
-     <li><a href="http://www.golang-book.com/">An Introduction to Programming in Go</a></li> 
-    </ul> 
-    <p>###Grails</p> 
-    <ul> 
-     <li><a href="http://www.infoq.com/minibooks/grails-getting-started">Getting Start with Grails</a></li> 
-    </ul> 
-    <p>###Haskell</p> 
-    <ul> 
-     <li><a href="http://learnyouahaskell.com/">Learn You a Haskell</a></li> 
-     <li><a href="http://book.realworldhaskell.org/">Real World Haskell</a></li> 
-     <li><a href="http://en.wikibooks.org/wiki/Haskell">Wikibook Haskell</a></li> 
-    </ul> 
-    <p>###HTML / CSS</p> 
-    <ul> 
-     <li><a href="http://fortuito.us/diveintohtml5/">Dive Into HTML5</a></li> 
-     <li><a href="http://www.htmldog.com/">HTML Dog Tutorials</a></li> 
-    </ul> 
-    <p>###Java</p> 
-    <ul> 
-     <li><a href="http://www.phptr.com/content/images/013143697X/downloads/013143697X_book.pdf">Java Application Development on Linux by Carl Albing and Michael Schwarz(PDF)</a></li> 
-     <li><a href="http://greenteapress.com/thinkapjava/">How to Think Like a Computer Scientist</a></li> 
-     <li><a href="http://download.oracle.com/javaee/6/tutorial/doc/javaeetutorial6.pdf">The Java EE6 Tutorial</a> (PDF)</li> 
-     <li><a href="http://www.redbooks.ibm.com/redbooks/SG245118.html">Java Thin-Client Programming</a></li> 
-     <li><a href="http://download.oracle.com/javase/tutorial/">Sun’s Java Tutorials</a></li> 
-     <li><a href="http://www.mindview.net/Books/TIJ/">Thinking in Java</a></li> 
-     <li><a href="http://njbartlett.name/files/osgibook_preview_20091217.pdf">OSGi in Practice</a> (PDF)</li> 
-     <li><a href="http://www.mkyong.com/">Category wise tutorials - J2EE</a></li> 
-     <li><a href="http://math.hws.edu/javanotes/index.html">Introduction to Programming Using Java - David J. Eck</a></li> 
-     <li><a href="http://www.oracle.com/technetwork/java/effectivejava-136174.html">Effective Java</a></li> 
-     <li><a href="http://math.hws.edu/javanotes/">Introduction to Programming Using Java</a></li> 
-    </ul> 
-    <p>###JavaScript</p> 
-    <ul> 
-     <li><a href="http://www.crockford.com/javascript/">Crockford’s JavaScript</a></li> 
-     <li><a href="http://eloquentjavascript.net/">Eloquent JavaScript</a></li> 
-     <li><a href="http://www.addyosmani.com/resources/essentialjsdesignpatterns/book/">Essential Javascript &amp; jQuery Design Patterns for Beginners</a></li> 
-     <li><a href="http://www.techotopia.com/index.php/JavaScript_Essentials">JavaScript Essentials</a></li> 
-     <li><a href="http://jqfundamentals.com/book/">jQuery Fundamentals</a> (starts with JavaScript basics)</li> 
-     <li><a href="https://developer.mozilla.org/en/JavaScript/Guide">Mozilla Developer Network’s JavaScript Guide</a></li> 
-     <li><a href="https://leanpub.com/javascript-allonge/read">JavaScript Allongé</a></li> 
-     <li><a href="http://addyosmani.com/resources/essentialjsdesignpatterns/book/">Learning JavaScript Design Patterns</a></li> 
-     <li><a href="http://chimera.labs.oreilly.com/books/1234000000262/index.html">O’Reilly Programming JavaScript Applications - Early Release</a></li> 
-    </ul> 
-    <p>###JavaScript (Node.js specific)</p> 
-    <ul> 
-     <li><a href="http://ofps.oreilly.com/titles/9781449398583/">Up and Running with Node</a></li> 
-     <li><a href="http://nodebeginner.org/">The Node Beginner Book</a></li> 
-     <li><a href="http://visionmedia.github.com/masteringnode/">Mastering Node.js</a></li> 
-     <li><a href="http://book.mixu.net/">Mixu’s Node Book</a></li> 
-    </ul> 
-    <p>###JavaScript (D3.js specific)</p> 
-    <ul> 
-     <li><a href="http://chimera.labs.oreilly.com/books/1230000000345/index.html">Interactive Data Visualization for the Web</a></li> 
-    </ul> 
-    <p>###LaTeX</p> 
-    <ul> 
-     <li><a href="http://tobi.oetiker.ch/lshort/lshort.pdf">The Not So Short Introduction to LaTeX</a></li> 
-    </ul> 
-    <p>###Linux</p> 
-    <ul> 
-     <li><a href="http://www.advancedlinuxprogramming.com/">Advanced Linux Programming</a></li> 
-     <li><a href="http://sources.redhat.com/autobook/download.html">GNU Autoconf, Automake and Libtool</a></li> 
-     <li><a href="http://www.linuxtopia.org/online_books/gui_toolkit_guides/gtk+_gnome_application_development/index.html">GTK+/Gnome Application Development</a></li> 
-     <li><a href="http://www.informit.com/content/downloads/perens/0130091154.pdf">The Linux Development Platform (PDF)</a></li> 
-     <li><a href="http://lwn.net/Kernel/LDD3/">Linux Device Drivers</a> by Jonathan Corbet, Alessandro Rubini, and Greg Kroah-Hartman</li> 
-     <li><a href="http://tldp.org/LDP/lkmpg/2.6/html/">The Linux Kernel Module Programming Guide</a></li> 
-     <li><a href="http://www.dwheeler.com/secure-programs/Secure-Programs-HOWTO.html">Secure Programming for Linux and Unix</a></li> 
-    </ul> 
-    <p>###Lisp</p> 
-    <ul> 
-     <li><a href="http://www.cs.cmu.edu/Groups/AI/html/cltl/mirrors.html">Common Lisp the Language, 2nd Edition</a></li> 
-     <li><a href="http://www.cs.cmu.edu/~dst/LispBook/">Common Lisp: A Gentle Introduction to Symbolic Computation</a> - David S. Touretzky</li> 
-     <li><a href="http://clqr.boundp.org/">Common Lisp Quick Reference</a></li> 
-     <li><a href="http://letoverlambda.com/index.cl/toc">Let Over Lambda - 50 Years of Lisp</a></li> 
-     <li><a href="http://www.informatics.susx.ac.uk/research/groups/nlp/gazdar/nlp-in-lisp/index.html">Natural Language Processing in Lisp</a></li> 
-     <li><a href="http://www.paulgraham.com/onlisp.html">On Lisp</a></li> 
-     <li><a href="http://www.gigamonkeys.com/book/">Practical Common Lisp</a></li> 
-     <li><a href="http://psg.com/~dlamkins/sl/">Successful Lisp: How to Understand and Use Common Lisp</a> - David Lamkins</li> 
-     <li><a href="http://www.bcl.hamilton.ie/~nmh/t3x.org/zzz/">Sketchy LISP</a> - Nils Holm</li> 
-    </ul> 
-    <p>###Lua</p> 
-    <ul> 
-     <li><a href="http://www.lua.org/pil/">Programming In Lua</a> (for version 5)</li> 
-    </ul> 
-    <p>###Mathematica</p> 
-    <ul> 
-     <li><a href="http://www.mathprogramming-intro.org/">Mathematica® programming: an advanced introduction by Leonid Shifrin</a></li> 
-    </ul> 
-    <p>###Maven</p> 
-    <ul> 
-     <li><a href="http://www.maestrodev.com/better-build-maven">Better Builds with Maven</a></li> 
-     <li><a href="http://www.sonatype.com/books/mvnex-book/reference/public-book.html">Maven by Example</a></li> 
-     <li><a href="http://www.sonatype.com/books/mvnref-book/reference/public-book.html">Maven: The Complete Reference</a></li> 
-     <li><a href="http://www.sonatype.com/books/nexus-book/reference/">Repository Management with Nexus</a></li> 
-     <li><a href="http://www.sonatype.com/books/m2eclipse-book/reference/">Developing with Eclipse and Maven</a></li> 
-    </ul> 
-    <p>###Mercurial</p> 
-    <ul> 
-     <li><a href="http://hgbook.red-bean.com/">Mercurial: The Definitive Guide</a></li> 
-     <li><a href="http://hginit.com/">HGInit - Mercurial Tutorial by Joel Spolsky</a></li> 
-    </ul> 
-    <p>###.NET (C# / VB / Nemerle / Visual Studio)</p> 
-    <ul> 
-     <li><a href="http://www.techotopia.com/index.php/C_Sharp_Essentials">C# Essentials</a></li> 
-     <li><a href="http://en.wikibooks.org/wiki/C_Sharp_Programming">C# Programming - Wikibook</a></li> 
-     <li><a href="http://www.csharpcourse.com/">C# Yellow Book</a> (intro to programming)</li> 
-     <li><a href="http://www.charlespetzold.com/dotnet/index.html">Charles Petzold’s .NET Book Zero</a></li> 
-     <li><a href="http://www.brpreiss.com/books/opus6/">Data Structures and Algorithms with Object-Oriented Design Patterns in C#</a></li> 
-     <li><a href="http://weblogs.asp.net/zeeshanhirani/archive/2008/12/05/my-christmas-present-to-the-entity-framework-community.aspx">Entity Framework</a></li> 
-     <li><a href="http://blogs.msdn.com/b/microsoft_press/archive/2010/09/13/free-ebook-moving-to-microsoft-visual-studio-2010.aspx">Moving to Microsoft Visual Studio 2010</a></li> 
-     <li><a href="http://asaha.com/ebook/AMTQ2NjA-/Nemerle.pdf">Nemerle</a></li> 
-     <li><a href="http://www.programmersheaven.com/2/CSharpBook">Programmer’s Heaven C# School Book</a> (covers C# 1.0 and 2.0)</li> 
-     <li><a href="http://www.albahari.com/threading/">Threading in C#</a></li> 
-     <li><a href="http://www.techotopia.com/index.php/Visual_Basic_Essentials">Visual Basic Essentials</a></li> 
-     <li><a href="http://www.infoq.com/minibooks/vsnettt">Visual Studio Tips and Tricks</a> (VS 2003-2005 only)</li> 
-    </ul> 
-    <p>###NoSQL</p> 
-    <ul> 
-     <li><a href="http://books.couchdb.org/relax/">CouchDB: The Definitive Guide</a></li> 
-     <li><a href="http://openmymind.net/2011/3/28/The-Little-MongoDB-Book">The Little MongoDB Book</a></li> 
-     <li><a href="http://openmymind.net/2012/1/23/The-Little-Redis-Book/">The Little Redis Book</a></li> 
-     <li><a href="http://littleriakbook.com/">The Little Riak Book</a></li> 
-     <li><a href="http://graphdatabases.com/">Graph Databases</a></li> 
-    </ul> 
-    <p>###Oberon</p> 
-    <ul> 
-     <li><a href="http://www-old.oberon.ethz.ch/WirthPubl/ProgInOberon.pdf">Programming in Oberon</a> (PDF)</li> 
-    </ul> 
-    <p>###Objective-C</p> 
-    <ul> 
-     <li><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/ProgrammingWithObjectiveC.pdf">Programming With Objective-C</a></li> 
-     <li><a href="http://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/OOP_ObjC/OOP_ObjC.pdf">Object-Oriented Programming with Objective-C</a></li> 
-    </ul> 
-    <p>###OCaml</p> 
-    <ul> 
-     <li><a href="http://courses.cms.caltech.edu/cs134/cs134b/book.pdf">Introduction to Objective Caml</a> (PDF)</li> 
-     <li><a href="http://www.ffconsultancy.com/products/ocaml_for_scientists/chapter1.html">Objective Caml for Scientists (first chapter only)</a></li> 
-     <li><a href="http://ocamlunix.forge.ocamlcore.org/">Unix System Programming in OCaml</a></li> 
-     <li><a href="http://caml.inria.fr/pub/docs/oreilly-book/">Developing Applications With Objective Caml</a></li> 
-    </ul> 
-    <p>###Oracle Server</p> 
-    <ul> 
-     <li>Oracle’s <a href="http://tahiti.oracle.com/">Guides and Manuals</a></li> 
-    </ul> 
-    <p>###Oracle PL/SQL</p> 
-    <ul> 
-     <li><a href="http://download.oracle.com/docs/cd/E11882_01/appdev.112/e17126/toc.htm">PL/SQL Language Reference</a></li> 
-     <li><a href="http://download.oracle.com/docs/cd/E11882_01/appdev.112/e16760/toc.htm">PL/SQL Packages and Types Reference</a></li> 
-     <li><a href="http://www.toadworld.com/Knowledge/DatabaseKnowledge/StevenFeuersteinsPLSQLObsession/tabid/153/Default.aspx">Steven Feuerstein’s PL/SQL Obsession - Videos and Presentations</a></li> 
-    </ul> 
-    <p>###Parrot / Perl 6</p> 
-    <ul> 
-     <li><a href="http://github.com/perl6/book/">Using Perl 6</a> (work in progress)</li> 
-    </ul> 
-    <p>###Perl</p> 
-    <ul> 
-     <li><a href="http://www.perl.org/books/beginning-perl/">Beginning Perl</a></li> 
-     <li><a href="http://www.masonbook.com/book/">Embedding Perl in HTML with Mason</a></li> 
-     <li><a href="http://cslibrary.stanford.edu/108/EssentialPerl.pdf">Essential Perl</a></li> 
-     <li><a href="http://www.extremeperl.org/bk/home">Extreme Perl</a></li> 
-     <li><a href="http://hop.perl.plover.com/book/">Higher-Order Perl</a></li> 
-     <li><a href="http://www.masonbook.com/book/">The Mason Book</a></li> 
-     <li><a href="http://www.onyxneon.com/books/modern_perl/index.html">Modern Perl 5</a></li> 
-     <li><a href="http://lwp.interglacial.com/index.html">Perl &amp; LWP</a></li> 
-     <li><a href="http://www.globalspin.com/thebook/">Perl for the Web</a></li> 
-     <li><a href="http://linkmingle.com/list/13-plus-List-of-Free-Great-Perl-Books-available-Online-freebooksandarticles">Perl Free Online EBooks</a> (meta-list)</li> 
-     <li><a href="http://www.greenteapress.com/perl/">Perl The Hard Way</a></li> 
-     <li><a href="http://modperlbook.org/">Practical mod_perl</a></li> 
-     <li><a href="http://oreilly.com/openbook/webclient/">Web Client Programming with Perl</a></li> 
-    </ul> 
-    <p>###PHP</p> 
-    <ul> 
-     <li><a href="http://www.techotopia.com/index.php/PHP_Essentials">PHP Essentials</a></li> 
-     <li><a href="http://www.tuxradar.com/practicalphp">Practical PHP Programming</a> (wiki containing O’Reilly’s <em>PHP In a Nutshell</em>)</li> 
-     <li><a href="http://symfony.com/doc/current/book/index.html">Symfony2</a></li> 
-     <li><a href="http://www.survivethedeepend.com/">Zend Framework: Survive the Deep End</a></li> 
-    </ul> 
-    <p>###PowerShell</p> 
-    <ul> 
-     <li><a href="http://powershell.com/cs/blogs/ebook/">Mastering PowerShell</a></li> 
-    </ul> 
-    <p>###Prolog</p> 
-    <ul> 
-     <li><a href="http://www.amzi.com/AdventureInProlog/advfrtop.htm">Adventure in Prolog</a></li> 
-     <li><a href="http://bookboon.com/int/student/it/applications-of-prolog">Applications of Prolog</a></li> 
-     <li><a href="http://www.amzi.com/ExpertSystemsInProlog/">Building Expert Systems in Prolog</a></li> 
-     <li><a href="http://www.j-paine.org/prolog/mathnotes/files/pms/pms.html">Introduction to Prolog for Mathematicians</a></li> 
-     <li><a href="http://www.learnprolognow.org/">Learn Prolog Now!</a></li> 
-     <li><a href="http://www.ida.liu.se/~ulfni/lpp/">Logic, Programming and Prolog (2ed)</a></li> 
-     <li><a href="http://www.informatics.susx.ac.uk/research/groups/nlp/gazdar/nlp-in-prolog/index.html">Natural Language Processing in Prolog</a></li> 
-     <li><a href="http://cs.union.edu/~striegnk/courses/nlp-with-prolog/html/">Natural Language Processing Techniques in Prolog</a></li> 
-     <li><a href="http://computing.unn.ac.uk/staff/cgpb4/prologbook/">Prolog Programming A First Course</a></li> 
-     <li><a href="http://bookboon.com/int/student/it/prolog-techniques-applications-of-prolog">Prolog Techniques</a></li> 
-     <li><a href="http://www.cs.bris.ac.uk/~flach/SimplyLogical.html">Simply Logical</a></li> 
-     <li><a href="http://download.pdc.dk/vip/72/books/tyros/tyros72.pdf">Visual Prolog 7.2 for Tyros</a></li> 
-    </ul> 
-    <p>###PostgreSQL</p> 
-    <ul> 
-     <li><a href="http://www.commandprompt.com/ppbook/">Practical PostgreSQL</a></li> 
-    </ul> 
-    <p>###Python</p> 
-    <ul> 
-     <li><a href="http://www.swaroopch.com/notes/Python">Byte of Python</a></li> 
-     <li><a href="http://www.brpreiss.com/books/opus7/html/book.html">Data Structures and Algorithms in Python</a></li> 
-     <li><a href="http://www.diveintopython.net/">Dive into Python</a></li> 
-     <li><a href="http://getpython3.com/diveintopython3/">Dive into Python 3</a></li> 
-     <li>[Hacking Secret Cyphers with Python] (http://inventwithpython.com/hacking/chapters/) - Al Sweigart</li> 
-     <li><a href="http://www.greenteapress.com/thinkpython/thinkCSpy/">How to Think Like a Computer Scientist: Learning with Python</a></li> 
-     <li><a href="http://inventwithpython.com/chapters/">Invent Your Own Computer Games With Python</a> - Al Sweigart</li> 
-     <li><a href="http://learnpythonthehardway.org/book/">Learn Python The Hard Way</a></li> 
-     <li><a href="http://www.nltk.org/book">Natural Language Processing with Python</a></li> 
-     <li><a href="http://openbookproject.net/pybiblio/">Python Bibliotheca</a></li> 
-     <li><a href="http://www.openbookproject.net/py4fun/">Python for Fun</a></li> 
-     <li><a href="http://www.pythonlearn.com/book.php">Python for Informatics: Exploring Information</a></li> 
-     <li><a href="http://pymbook.readthedocs.org/en/latest/">Python for you and me</a></li> 
-     <li><a href="http://www.briggs.net.nz/snake-wrangling-for-kids.html">Snake Wrangling For Kids</a></li> 
-     <li><a href="http://www.greenteapress.com/thinkpython/thinkpython.pdf">Think Python</a> (PDF) - Allen B. Downey</li> 
-    </ul> 
-    <p>###R</p> 
-    <ul> 
-     <li><a href="http://cran.r-project.org/manuals.html">The R Manuals</a></li> 
-     <li><a href="http://stat.ethz.ch/R-manual/R-patched/doc/html/">The R Language</a></li> 
-     <li><a href="http://www.mayin.org/ajayshah/KB/R/index.html">R by example</a></li> 
-     <li><a href="http://stats.lse.ac.uk/penzer/ST419materials/">Computational Statistics, Jeremy Penzer</a></li> 
-    </ul> 
-    <p>###Ruby</p> 
-    <ul> 
-     <li><a href="http://ruby.learncodethehardway.org/book/">Learn Ruby the hard way</a></li> 
-     <li><a href="http://macruby.labs.oreilly.com/">MacRuby: The Definitive Guide</a></li> 
-     <li><a href="http://www.humblelittlerubybook.com/">Mr.&nbsp;Neighborly’s Humble Little Ruby Book</a></li> 
-     <li><a href="http://www.ruby-doc.org/docs/ProgrammingRuby/">Programming Ruby</a></li> 
-     <li><a href="http://rubybestpractices.com/">Ruby Best Practices</a></li> 
-     <li><a href="http://mislav.uniqpath.com/poignant-guide/">Why’s (Poignant) Guide to Ruby</a> (<a href="http://www.scribd.com/doc/2236084/Whys-Poignant-Guide-to-Ruby">mirror</a>)</li> 
-    </ul> 
-    <p>###Ruby on Rails</p> 
-    <ul> 
-     <li><a href="http://ruby.railstutorial.org/ruby-on-rails-tutorial-book">Ruby on Rails Tutorial: Learn Rails By Example</a></li> 
-    </ul> 
-    <p>###Rust</p> 
-    <ul> 
-     <li><a href="http://www.rustforrubyists.com/book/index.html">Rust for Rubyists</a></li> 
-    </ul> 
-    <p>###Scala</p> 
-    <ul> 
-     <li><a href="http://exploring.liftweb.net/">Exploring Lift</a> (published earlier as “The Definitive Guide to Lift”, <a href="http://groups.google.com/group/the-lift-book">PDF</a>)</li> 
-     <li><a href="http://github.com/tjweir/liftbook">Lift</a></li> 
-     <li><a href="http://github.com/leithaus/XTrace/tree/monadic/src/main/book/content/">Pro Scala: Monadic Design Patterns for the Web</a></li> 
-     <li><a href="http://www.artima.com/pins1ed/">Programming in Scala, First Edition</a></li> 
-     <li><a href="http://programming-scala.labs.oreilly.com/index.html">Programming Scala</a></li> 
-     <li><a href="http://www.scala-lang.org/docu/files/ScalaByExample.pdf">Scala By Example</a> (PDF)</li> 
-     <li><a href="http://www.scala-lang.org/docu/files/ScalaTutorial.pdf">A Scala Tutorial for Java programmers</a> (PDF)</li> 
-     <li><a href="http://github.com/leithaus/XTrace/tree/monadic/src/main/book/content/">Xtrace</a></li> 
-     <li><a href="http://naildrivin5.com/scalatour">Another tour of Scala</a></li> 
-    </ul> 
-    <p>###Scheme</p> 
-    <ul> 
-     <li><a href="https://gustavus.edu/+max/concrete-abstractions.html">Concrete Abstractions: An Introduction to Computer Science Using Scheme</a></li> 
-     <li>The Scheme Programming Language <a href="http://www.scheme.com/tspl3/">Edition 3</a>, <a href="http://www.scheme.com/tspl4/">Edition 4</a></li> 
-     <li><a href="http://www.cs.berkeley.edu/~bh/ss-toc2.html">Simply Scheme: Introducing Computer Science</a></li> 
-    </ul> 
-    <p>###Sed</p> 
-    <ul> 
-     <li><a href="http://www.grymoire.com/Unix/Sed.html">Sed - An Introduction and Tutorial</a></li> 
-    </ul> 
-    <p>###Smalltalk</p> 
-    <ul> 
-     <li><a href="http://book.seaside.st/book/table-of-contents">Dynamic Web Development with Seaside</a></li> 
-     <li><a href="http://stephane.ducasse.free.fr/FreeBooks.html">Free Online Smalltalk Books</a> (meta-list)</li> 
-     <li><a href="http://www.squeakbyexample.org/">Squeak By Example</a> (Smalltalk IDE)</li> 
-    </ul> 
-    <p>###Subversion</p> 
-    <ul> 
-     <li><a href="http://www.phptr.com/content/images/0131855182/downloads/Nagel_book.pdf">Subversion Version Control</a> (PDF)</li> 
-     <li><a href="http://svnbook.red-bean.com/">Version Control with Subversion</a></li> 
-    </ul> 
-    <p>###SQL (implementation agnostic)</p> 
-    <ul> 
-     <li><a href="http://www.cs.arizona.edu/people/rts/publications.html">Developing Time-Oriented Database Applications in SQL</a></li> 
-     <li><a href="http://use-the-index-luke.com/">Use The Index, Luke!: A Guide To SQL Database Performance</a></li> 
-     <li><a href="http://sql.learncodethehardway.org/">Learn SQL The Hard Way</a></li> 
-    </ul> 
-    <p>###Teradata</p> 
-    <ul> 
-     <li><a href="http://www.info.teradata.com/">Teradata Books</a></li> 
-    </ul> 
-    <p>###Vim</p> 
-    <ul> 
-     <li><a href="http://www.swaroopch.com/notes/Vim">A Byte of Vim</a></li> 
-     <li><a href="http://vim.runpaint.org/toc/">Vim Recipes</a></li> 
-     <li><a href="http://www.truth.sk/vim/vimbook-OPL.pdf">Vi Improved – Vim</a> by Steve Oualline</li> 
-     <li><a href="http://learnvimscriptthehardway.stevelosh.com/">Learn Vimscript the Hard Way</a></li> 
-    </ul> 
-    <p>###Websphere</p> 
-    <ul> 
-     <li><a href="http://public.dhe.ibm.com/software/dw/db2/express-c/wiki/Getting_Started_with_WASCE_p2.pdf">Getting started with WebSphere</a> (PDF)</li> 
-    </ul> 
-    <p>###Windows Phone</p> 
-    <ul> 
-     <li><a href="http://blogs.msdn.com/b/microsoft_press/archive/2010/10/28/free-ebook-programming-windows-phone-7-by-charles-petzold.aspx">Programming Windows Phone 7</a></li> 
-    </ul> <!--          </div>--> <!--        </div>--> 
-    <hr> 
-    <div> 
-     <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
-     <ol> 
-      <li>不但有及时新鲜的AI资讯和深度探讨</li> 
-      <li>还分享AI工具、产品方法和商业机会</li> 
-      <li>更有原价1000多的付费内容(近500分钟)等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取! </li> 
-     </ol> 
-     <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
-    </div> 
-    <hr> 
-    <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
-    </div> 
-    <div id="random_posts"> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2010-08-11-netty-gotchas-and-tips.html">Netty Framework Tips And Gotchas </a> 
-     </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2009-08-25-coc-in-embarrassment.html">尴尬的COC </a> 
-     </div> 
-     <div class="alert alert-light" role="alert"> <a href="/posts/2019-09-10-humble-to-serve.html">事情要做好，多走用户视角 </a> 
-     </div> 
-    </div> 
-    <hr> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
-    <div id="comments"></div> 
-    <hr> 
-    <div class="text-center"> <a href="https://twitter.com/fujohnwang"> <img src="/images/Twitter-logo.png" class="img-responsive" loading="lazy" style="width: fit-content;"> </a> 
-    </div> 
-   </div> 
-  </section> 
-  <div style="color:white; visibility: collapse; height: 0;">
-   ©<a href="/whoami.html">王福强</a>个人版权所有, All Rights Reserved.
-  </div> 
-  <div class="copyright py-4 text-center text-white"> 
-   <div class="container"> <small>Copyright © <a href="/whoami.html">王福强</a>个人版权所有 - Since 2004</small> 
-    <br><small>Everything is homebrewed with <a href="https://pandoc.org/">pandoc</a> and <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>, little <a href="https://www.scala-lang.org/">Scala</a> also included.</small> 
-   </div> 
-  </div> 
+  </script> 
   <script type="text/javascript">
-var gitalk = new Gitalk({
-  clientID: '518a605d711883414ac0',
-  clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-  repo: 'afoo.me.comments',
-  owner: 'fujohnwang',
-  admin: ['fujohnwang'],
-  id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-  distractionFreeMode: false  // Facebook-like distraction free mode
-})
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "irqzhxtyzn");
+  </script> 
+ </head> 
+ <body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"> 
+  <header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"> 
+   <div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"> 
+    <div class="flex justify-between"> <a class="flex items-center" href="https://afoo.me"> <span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"> <h1>王福强的个人博客</h1> </span> </a> 
+     <div class="flex items-center md:hidden"> <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""> 
+       <svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+         <circle cx="12" cy="12" r="4"></circle> 
+         <path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"> 
+         </path> 
+        </g> 
+       </svg> </button> <button type="button" class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition" aria-label="Toggle Menu" data-toggle-menu=""> 
+       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:menu"> <g class="icon-tabler" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+         <path d="M4 8h16"></path> 
+         <path d="M4 16h16"></path> 
+        </g> 
+       </svg> </button> 
+     </div> 
+    </div> 
+    <nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"> 
+     <ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me">福强AI学堂</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com">架构百科</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html">博客文章 </a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html">创作出版</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me">产品与服务</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/crosslinks.html">更多链接</a> </li> 
+     </ul> 
+     <div class="md:self-center flex items-center mb-4 md:mb-0 ml-2"> 
+      <div class="hidden items-center md:flex"> <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+          <circle cx="12" cy="12" r="4"></circle> 
+          <path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"> 
+          </path> 
+         </g> 
+        </svg> </button> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="RSS Feed" href="http://afoo.me/feeds.xml"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:rss"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+          <circle cx="5" cy="19" r="1"></circle> 
+          <path d="M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"></path> 
+         </g> 
+        </svg> </a> 
+      </div> 
+     </div> 
+    </nav> 
+   </div> 
+  </header> 
+  <main> 
+   <section class="text-gray-600 body-font relative"> 
+    <div class="container px-5 py-24 mx-auto mb-12 prose prose-lg dark:prose-invert"> 
+     <hr> 
+     <p>###Index * <a href="#meta-lists">Meta-Lists</a> * <a href="#graphics-programming">Graphics Programming</a> * <a href="#language-agnostic">Language Agnostic</a> * <a href="#android">Android</a> * <a href="#autotools">Autotools</a> * <a href="#aspnet-mvc">ASP.NET MVC</a> * <a href="#assembly-language">Assembly Language</a> * <a href="#bash">Bash</a> * <a href="#c-c">C / C++</a> * <a href="#clojure">Clojure</a> * <a href="#coffeescript">CoffeeScript</a> * <a href="#coldfusion">ColdFusion</a> * <a href="#d--dtrace">D / DTrace</a> * <a href="#db2">DB2</a> * <a href="#delphi--pascal">Delphi / Pascal</a> * <a href="#django">Django</a> * <a href="#emacs">Emacs</a> * <a href="#erlang">Erlang</a> * <a href="#flex">Flex</a> * <a href="#f-sharp">F#</a> * <a href="#forth">Forth</a> * <a href="#git">Git</a> * <a href="#go">Go</a> * <a href="#grails">Grails</a> * <a href="#haskell">Haskell</a> * <a href="#html--css">HTML / CSS</a> * <a href="#java">Java</a> * <a href="#javascript">JavaScript</a> * <a href="#javascript-nodejs-specific">JavaScript (Node.js specific)</a> * <a href="#javascript-d3js-specific">JavaScript (D3.js specific)</a> * <a href="#latex">LaTeX</a> * <a href="#linux">Linux</a> * <a href="#lisp">Lisp</a> * <a href="#lua">Lua</a> * <a href="#mathematica">Mathematica</a> * <a href="#maven">Maven</a> * <a href="#mercurial">Mercurial</a> * <a href="#nemerle">Nemerle</a> * <a href="#net-c--vb--nemerle--visual-studio">.NET (C# / VB / Nemerle / Visual Studio)</a> * <a href="#nosql">NoSQL</a> * <a href="#oberon">Oberon</a> * <a href="#objective-c">Objective-C</a> * <a href="#ocaml">OCaml</a> * <a href="#oracle-server">Oracle Server</a> * <a href="#oracle-plsql">Oracle PL/SQL</a> * <a href="#parrot-perl-6">Parrot / Perl 6</a> * <a href="#perl">Perl</a> * <a href="#php">PHP</a> * <a href="#powershell">PowerShell</a> * <a href="#prolog">Prolog</a> * <a href="#postgresql">PostgreSQL</a> * <a href="#python">Python</a> * <a href="#r">R</a> * <a href="#ruby">Ruby</a> * <a href="#ruby-on-rails">Ruby on Rails</a> * <a href="#rust">Rust</a> * <a href="#scala">Scala</a> * <a href="#scheme">Scheme</a> * <a href="#sed">Sed</a> * <a href="#smalltalk">Smalltalk</a> * <a href="#subversion">Subversion</a> * <a href="#sql-implementation-agnostic">SQL (implementation agnostic)</a> * <a href="#teradata">Teradata</a> * <a href="#vim">Vim</a> * <a href="#websphere">Websphere</a> * <a href="#windows-phone">Windows Phone</a></p> 
+     <p>###Meta-Lists</p> 
+     <ul> 
+      <li><a href="http://www.coderholic.com/25-free-computer-science-books/">25 Free Computer Science Ebooks</a></li> 
+      <li><a href="http://refcardz.dzone.com/">Cheat Sheets (Free)</a></li> 
+      <li><a href="http://www.freetechbooks.com/">Free Tech Books</a></li> 
+      <li><a href="http://blogs.msdn.com/b/microsoft_press/archive/2011/03/03/ebooks-list-of-our-free-books.aspx">Microsoft Press: Free E-Books</a></li> 
+      <li><a href="http://www.mindviewinc.com/Books/">MindView Inc</a></li> 
+      <li><a href="http://oreilly.com/openbook/">O’Reilly’s Open Books Project</a></li> 
+      <li><a href="http://www.techbooksforfree.com/">TechBooksForFree.com</a></li> 
+      <li><a href="http://theassayer.org/">Theassayer.org</a></li> 
+      <li><a href="http://en.wikibooks.org/wiki/Category%3aComputer_programming">Wikibooks: Programming</a></li> 
+     </ul> 
+     <p>###Graphics Programming</p> 
+     <ul> 
+      <li><a href="http://www.xmission.com/~legalize/book/download/index.html">DirectX manual</a> (draft)</li> 
+      <li><a href="http://www.arcsynthesis.org/gltut/">Learning Modern 3D Graphics Programming</a> (draft)</li> 
+      <li><a href="http://http.developer.nvidia.com/GPUGems/gpugems_part01.html">GPU Gems</a></li> 
+      <li><a href="http://http.developer.nvidia.com/GPUGems2/gpugems2_part01.html">GPU Gems 2</a> - <a href="ftp://download.nvidia.com/developer/GPU_Gems_2/">ch 8,14,18,29,30 as pdf</a></li> 
+      <li><a href="http://http.developer.nvidia.com/GPUGems3/gpugems3_part01.html">GPU Gems 3</a></li> 
+      <li><a href="http://www.gamedev.net/reference/articles/article1698.asp">Graphics Programming Black Book</a></li> 
+      <li><a href="http://tog.acm.org/resources/shaderx/">ShaderX series</a></li> 
+     </ul> 
+     <p>###Language Agnostic</p> 
+     <ul> 
+      <li><a href="http://programmer.97things.oreilly.com/">97 Things Every Programmer Should Know</a></li> 
+      <li><a href="https://leanpub.com/97-Things-Every-Programmer-Should-Know-Extended">97 Things Every Programmer Should Know - Extended</a></li> 
+      <li><a href="http://www.ethoberon.ethz.ch/WirthPubl/AD.pdf">Algorithms and Data-Structures</a> (PDF)</li> 
+      <li><a href="http://www.cs.berkeley.edu/~vazirani/algorithms.html">Algorithms</a> (draft)</li> 
+      <li><a href="http://www.aosabook.org/en/index.html">The Architecture of Open Source Applications</a></li> 
+      <li><a href="http://catb.org/esr/writings/taoup/html/">The Art of Unix Programming</a></li> 
+      <li><a href="http://smartbear.com/codecollab-code-review-book.php">Best Kept Secrets of Peer Code Review</a></li> 
+      <li><a href="http://cslibrary.stanford.edu/110/BinaryTrees.pdf">Binary Trees</a></li> 
+      <li><a href="http://www.math.mcgill.ca/triples/Barr-Wells-ctcs.pdf">Category Theory for Computing Science</a></li> 
+      <li><a href="http://www.catb.org/esr/writings/cathedral-bazaar/">The Cathedral and the Bazaar</a></li> 
+      <li><a href="http://www.cleveralgorithms.com/nature-inspired/index.html">Clever Algorithms</a></li> 
+      <li><a href="http://www.usingcsp.com/cspbook.pdf">Communicating Sequential Processes (PDF)</a> - Tony Hoare</li> 
+      <li><a href="http://www-old.oberon.ethz.ch/WirthPubl/CBEAll.pdf">Compiler Construction</a> (PDF)</li> 
+      <li><a href="http://scpd.stanford.edu/knuth/index.jsp">Computer Musings</a> (lectures by Donald Knuth)</li> 
+      <li><a href="http://dotnetslackers.com/projects/Data-Structures-And-Algorithms/">Data Structures and Algorithms: Annotated Reference with Examples</a></li> 
+      <li><a href="http://public.dhe.ibm.com/software/dw/db2/express-c/wiki/Database_fundamentals.pdf">Database Fundamentals</a> (PDF)</li> 
+      <li><a href="http://www.umiacs.umd.edu/~jimmylin/MapReduce-book-final.pdf">Data-Intensive Text Processing with MapReduce</a> (PDF)</li> 
+      <li><a href="http://nexus.realtimepublishers.com/dgbcq.php">The Definitive Guide to Building Code Quality</a></li> 
+      <li><a href="http://designinginterfaces.com">Designing Interfaces</a> by Jennifer Tidwell</li> 
+      <li><a href="http://www.dspguide.com/">Digital Signal Processing For Engineers and Scientists</a></li> 
+      <li><a href="http://book.mixu.net/distsys/single-page.html">Distributed systems for fun and profit</a></li> 
+      <li><a href="http://www.infoq.com/minibooks/domain-driven-design-quickly">Domain Driven Design Quickly</a></li> 
+      <li><a href="http://www.neildavidson.com/dontjustrollthedice.html">Don’t Just Roll the Dice</a></li> 
+      <li><a href="http://cs.gmu.edu/~sean/book/metaheuristics/">Essentials of Metaheuristics</a> by Sean Luke</li> 
+      <li><a href="http://elliottback.com/wp/essential-skills-for-agile-development/">Essential Skills for Agile Development</a></li> 
+      <li><a href="http://dces.essex.ac.uk/staff/rpoli/gp-field-guide/toc.html">A Field Guide To Genetic Programming</a></li> 
+      <li><a href="http://jpaulmorrison.com/fbp/#book">Flow based Programming</a></li> 
+      <li><a href="http://infolab.stanford.edu/~ullman/focs.html">Foundations of Computer Science</a> - Al Aho and Jeff Ullman</li> 
+      <li><a href="http://codebetter.com/files/folders/codebetter_downloads/entry179694.aspx">Foundations of Programming</a></li> 
+      <li><a href="http://gettingreal.37signals.com/">Getting Real</a></li> 
+      <li><a href="http://public.dhe.ibm.com/software/dw/db2/express-c/wiki/Getting_started_with_open_source_development_p2.pdf">Getting started with Open source development</a> (PDF)</li> 
+      <li><a href="http://cslibrary.stanford.edu/109/TreeListRecursion.pdf">The Great Tree List Recursion Problem</a></li> 
+      <li><a href="http://www.computer.org/portal/web/swebok">Guide to the Software Engineering Body of Knowledge</a></li> 
+      <li><a href="http://www.fastchip.net/howcomputerswork/p1.html">How Computers Work</a></li> 
+      <li><a href="http://www.htdp.org/">How to Design Programs</a></li> 
+      <li><a href="http://openbookproject.net/thinkcs/">How to Think Like a Computer Scientist</a></li> 
+      <li><a href="http://www.lindaspaces.com/book/">How to Write Parallel Programs</a></li> 
+      <li><a href="http://mindprod.com/jgloss/unmain.html">How to write Unmaintainable Code</a></li> 
+      <li><a href="http://www.amibug.com/iamabug/p01.html">I Am a Bug</a></li> 
+      <li><a href="http://www.cse.ohio-state.edu/~gurari/theory-bk/theory-bk.html">An Introduction to the Theory of Computation</a></li> 
+      <li><a href="http://www.cl.cam.ac.uk/teaching/Lectures/funprog-jrh-1996/">Introduction to Functional Programming</a> (class lectures and slides)</li> 
+      <li><a href="http://nlp.stanford.edu/IR-book/information-retrieval-book.html">Introduction to Information Retrieval</a></li> 
+      <li><a href="http://kernel.org/pub/linux/kernel/people/paulmck/perfbook/perfbook.html">Is Parallel Programming Hard, And, If So, What Can You Do About It?</a></li> 
+      <li><a href="http://pine.fm/LearnToProgram/">Learn to Program</a></li> 
+      <li><a href="http://www.stack.nl/~marcov/compiler.pdf">Let’s Build a Compiler</a></li> 
+      <li><a href="http://www.iecc.com/linker/">Linkers and loaders</a></li> 
+      <li><a href="http://cslibrary.stanford.edu/103/LinkedListBasics.pdf">Linked List Basics</a></li> 
+      <li><a href="http://cslibrary.stanford.edu/105/LinkedListProblems.pdf">Linked List Problems</a></li> 
+      <li><a href="http://www.ii.uib.no/~michal/und/i227/book/book.pdf">Mathematical Logic - an Introduction</a> (PDF)</li> 
+      <li><a href="http://www.jjj.de/fxt/#fxtbook">Matters Computational</a></li> 
+      <li><a href="http://infolab.stanford.edu/~ullman/mmds.html">Mining of Massive Datasets</a></li> 
+      <li><a href="http://homepages.inf.ed.ac.uk/dts/pm/Papers/nasa-manage.pdf">NASA Manager Handbook for Software Development</a> (PDF)</li> 
+      <li><a href="http://www.scribd.com/doc/7181362/NASA-Software-Measurement-Guidebook">NASA Software Measurement Handbook</a></li> 
+      <li><a href="http://scg.unibe.ch/download/oorp/">Object-Oriented Reengineering Patterns</a></li> 
+      <li><a href="http://ocw.mit.edu/OcwWeb/web/home/home/index.htm">Online Course Materials</a></li> 
+      <li><a href="http://homepage.mac.com/s_lott/books/oodesign.html">OO Design</a></li> 
+      <li><a href="https://gustavus.edu/mcs/max/os-book/">Operating Systems and Middleware</a> (PDF and LaTeX)</li> 
+      <li><a href="http://www.codeplex.com/AppArchGuide">Patterns and Practices: Application Architecture Guide 2.0</a></li> 
+      <li><a href="http://www.dreamsongs.com/Files/PatternsOfSoftware.pdf">Patterns of Software: Tales from the Software Community</a> (PDF)</li> 
+      <li><a href="http://planning.cs.uiuc.edu/">Planning Algorithms</a></li> 
+      <li><a href="http://www.libpng.org/pub/png/book/">PNG: The Definitive Guide</a></li> 
+      <li><a href="http://cslibrary.stanford.edu/102/PointersAndMemory.pdf">Pointers And Memory</a></li> 
+      <li><a href="http://producingoss.com/">Producing Open Source Software</a></li> 
+      <li><a href="http://www.cs.brown.edu/~sk/Publications/Books/ProgLangs/">Programming Languages: Application and Interpretation</a></li> 
+      <li><a href="http://www.stanford.edu/class/cs106a/cgi-bin/handouts/">Programming Methodology</a></li> 
+      <li><a href="http://cs.bell-labs.com/cm/cs/pearls/">Programming Pearls</a></li> 
+      <li><a href="http://www-old.oberon.ethz.ch/WirthPubl/ProjectOberon.pdf">Project Oberon</a> (PDF)</li> 
+      <li><a href="http://www.bon-method.com/book_print_a4.pdf">Seamless Object-Oriented Software Architecture</a></li> 
+      <li><a href="http://www.cl.cam.ac.uk/~rja14/book.html">Security Engineering</a></li> 
+      <li><a href="http://mitpress.mit.edu/sicp/">Structure and Interpretation of Computer Programs</a></li> 
+      <li><a href="http://domaindrivendesign.org/sites/default/files/discussion/PatternSummariesUnderCreativeCommons.doc">Summary of the GoF Design Patterns</a></li> 
+      <li><a href="http://greenteapress.com/semaphores/">The Little Book of Semaphores</a> - Allen B. Downey</li> 
+      <li><a href="http://www.tcpipguide.com/free/t_toc.htm">The TCP/IP Guide</a></li> 
+      <li>[Think Bayes: Bayesian Statistics Made Simple] (http://www.greenteapress.com/thinkbayes/) - Allen B. Downey</li> 
+      <li><a href="http://greenteapress.com/thinkstats/">Think Stats: Probability and Statistics for Programmers</a> (PDF, code written in Python) - Allen B. Downey</li> 
+      <li>[Think Complexity] (http://www.greenteapress.com/compmod/) - Allen B. Downey</li> 
+      <li><a href="https://www.cs.kent.ac.uk/people/staff/sjt/TTFP/">Type Theory and Functional Programming</a></li> 
+      <li><a href="http://www.apnic.net/__data/assets/pdf_file/0020/8147/501302.pdf">Understanding IP Addressing: Everything you ever wanted to know</a> (PDF)</li> 
+     </ul> 
+     <p>###Android</p> 
+     <p>###Autotools</p> 
+     <ul> 
+      <li><a href="http://sourceware.org/autobook/">GNU Autoconf, Automake and Libtool</a></li> 
+     </ul> 
+     <p>###ASP.NET MVC</p> 
+     <ul> 
+      <li><a href="http://weblogs.asp.net/scottgu/archive/2009/03/10/free-asp-net-mvc-ebook-tutorial.aspx">NerdDinner Walkthrough</a></li> 
+     </ul> 
+     <p>###Assembly Language</p> 
+     <ul> 
+      <li><a href="http://download.savannah.gnu.org/releases/pgubook/ProgrammingGroundUp-1-0-booksize.pdf">Programming from the Ground Up</a> (PDF)</li> 
+      <li><a href="http://drpaulcarter.com/pcasm/">Paul Carter’s Tutorial on x86 Assembly</a></li> 
+      <li><a href="http://www.agner.org/optimize/">Software optimization resources by Agner Fog</a></li> 
+     </ul> 
+     <p>###Bash</p> 
+     <ul> 
+      <li><a href="http://tldp.org/LDP/abs/html/">Advanced Bash-Scripting Guide</a></li> 
+      <li><a href="http://www.tldp.org/LDP/Bash-Beginners-Guide/html/">Bash Guide for Beginners</a> by Machtelt Garrels</li> 
+      <li><a href="http://mywiki.wooledge.org/BashGuide">Lhunath’s Bash Guide</a></li> 
+      <li><a href="http://learncodethehardway.org/cli/book/">The Command Line Crash Course</a> (also a Powershell reference)</li> 
+     </ul> 
+     <p>###C / C++</p> 
+     <ul> 
+      <li><a href="http://beej.us/guide/bgnet/">Beej’s Guide to Network Programming</a></li> 
+      <li><a href="http://beej.us/guide/bgc/">Beej’s Guide to C Programming</a></li> 
+      <li><a href="http://publications.gbdirect.co.uk/c_book/">The C book</a></li> 
+      <li><a href="http://cppannotations.sourceforge.net/">C++ Annotations</a></li> 
+      <li><a href="http://www.computer-books.us/cpp_0010.php">C++ GUI Programming With Qt 3</a></li> 
+      <li><a href="http://www.stanford.edu/class/cs106x/">CS106X Programming Abstractions in C++</a></li> 
+      <li><a href="http://cslibrary.stanford.edu/101/EssentialC.pdf">Essential C</a></li> 
+      <li><a href="http://cartan.cas.suffolk.edu/oopdocbook/opensource/index.html">Introduction to Design Patterns in C++ with Qt 4</a> (<a href="http://www.informit.com/store/product.aspx?isbn=0131879057">PDF</a>)</li> 
+      <li><a href="http://c.learncodethehardway.org/book/">Learn C the hard way</a></li> 
+      <li><a href="http://www.jjj.de/fxt/fxtbook.pdf">Matters Computational: Ideas, Algorithms, Source Code, by Jorg Arndt</a></li> 
+      <li><a href="http://www.knosof.co.uk/cbook/cbook.html">The new C standard - an annotated reference</a></li> 
+      <li><a href="http://www.planetpdf.com/codecuts/pdfs/ooc.pdf">Object Oriented Programming in C</a> (PDF)</li> 
+      <li><a href="http://www.agner.org/optimize/">Software optimization resources by Agner Fog</a></li> 
+      <li><a href="http://www.mindview.net/Books/TICPP/ThinkingInCPP2e.html">Thinking in C++, Second Edition</a></li> 
+      <li>Also see: <a href="http://stackoverflow.com/q/388242/511601">The Definitive C++ Book Guide and List</a></li> 
+     </ul> 
+     <p>###Clojure</p> 
+     <ul> 
+      <li><a href="http://en.wikibooks.org/wiki/Clojure_Programming">Clojure Programming</a></li> 
+      <li><a href="http://java.ociweb.com/mark/clojure/article.html">Clojure - Functional Programming for the JVM</a></li> 
+      <li><a href="http://data-sorcery.org/contents/">Data Sorcery with Clojure</a></li> 
+     </ul> 
+     <p>###CoffeeScript</p> 
+     <ul> 
+      <li><a href="http://autotelicum.github.com/Smooth-CoffeeScript/SmoothCoffeeScript.html">Smooth CoffeeScript</a></li> 
+      <li><a href="http://arcturo.github.com/library/coffeescript/">The Little Book on CoffeeScript</a></li> 
+     </ul> 
+     <p>###ColdFusion</p> 
+     <ul> 
+      <li><a href="https://github.com/mhenke/CFML-in-100-minutes/blob/master/cfml100mins.markdown">CFML In 100 Minutes</a></li> 
+     </ul> 
+     <p>###D / DTrace * <a href="http://dtrace.org/guide/preface.html">IllumOS Dynamic Tracing Guide</a></p> 
+     <p>###DB2</p> 
+     <ul> 
+      <li><a href="http://public.dhe.ibm.com/software/dw/db2/express-c/wiki/Getting_Started_with_DB2_Express_v9.7_p4.pdf">Getting started with DB2 Express-C</a> (PDF)</li> 
+      <li><a href="http://public.dhe.ibm.com/software/dw/db2/express-c/wiki/Getting_Started_with_IBM_Data_Studio_for_DB2_p3.pdf">Getting started with IBM Data Studio for DB2</a> (PDF)</li> 
+      <li><a href="http://public.dhe.ibm.com/software/dw/db2/express-c/wiki/Getting_Started_with_DB2_App_Dev_p2.pdf">Getting started with IBM DB2 development</a> (PDF)</li> 
+     </ul> 
+     <p>###Delphi / Pascal</p> 
+     <ul> 
+      <li><a href="http://www.marcocantu.com/epascal/">Essential Pascal Version 1 and 2</a></li> 
+      <li><a href="http://www.lulu.com/content/435417">The Tomes of Delphi</a></li> 
+     </ul> 
+     <p>###Django * <a href="http://agiliq.com/books/djenofdjango/">Djen of Django</a> * <a href="http://www.lightbird.net/dbe/">Django by Example</a></p> 
+     <p>###Emacs</p> 
+     <ul> 
+      <li><a href="http://shop.fsf.org/product/Emacs_Manual_24/">GNU Emacs Manual, 17th Edition, v. 24.2</a></li> 
+      <li><a href="https://www.gnu.org/software/emacs/manual/html_node/eintr/index.html">An Introduction to Programming in Emacs Lisp, 3rd Edition</a></li> 
+     </ul> 
+     <p>###Erlang</p> 
+     <ul> 
+      <li><a href="http://learnyousomeerlang.com/">Learn You Some Erlang For Great Good</a></li> 
+     </ul> 
+     <p>###Flex</p> 
+     <ul> 
+      <li><a href="http://public.dhe.ibm.com/software/dw/db2/express-c/wiki/Getting_Started_with_Adobe_Flex_p2.pdf">Getting started with Adobe Flex</a> (PDF)</li> 
+     </ul> 
+     <p>###F Sharp</p> 
+     <ul> 
+      <li><a href="http://www.ctocorner.com/fsharp/book/ch0.aspx">The F# Survival Guide</a></li> 
+      <li><a href="http://en.wikibooks.org/wiki/F_Sharp_Programming">F Sharp Programming</a> in Wikibooks</li> 
+      <li><a href="http://msdn.microsoft.com/en-us/library/hh314518.aspx">Real World Functional Programming</a> (MSDN Chapters)</li> 
+     </ul> 
+     <p>###Forth</p> 
+     <ul> 
+      <li><a href="http://home.iae.nl/users/mhx/sf.html">Starting Forth</a></li> 
+      <li><a href="http://thinking-forth.sourceforge.net/">Thinking Forth</a></li> 
+     </ul> 
+     <p>###Git</p> 
+     <ul> 
+      <li><a href="http://git-scm.com/book">Pro Git</a></li> 
+      <li><a href="http://ftp.newartisans.com/pub/git.from.bottom.up.pdf">Git From The Bottom Up</a> (PDF)</li> 
+     </ul> 
+     <p>###Go</p> 
+     <ul> 
+      <li><a href="http://golang.org/doc/go_tutorial.html">The Go Tutorial</a></li> 
+      <li><a href="https://gobyexample.com/">Go by Example</a></li> 
+      <li><a href="http://www.golang-book.com/">An Introduction to Programming in Go</a></li> 
+     </ul> 
+     <p>###Grails</p> 
+     <ul> 
+      <li><a href="http://www.infoq.com/minibooks/grails-getting-started">Getting Start with Grails</a></li> 
+     </ul> 
+     <p>###Haskell</p> 
+     <ul> 
+      <li><a href="http://learnyouahaskell.com/">Learn You a Haskell</a></li> 
+      <li><a href="http://book.realworldhaskell.org/">Real World Haskell</a></li> 
+      <li><a href="http://en.wikibooks.org/wiki/Haskell">Wikibook Haskell</a></li> 
+     </ul> 
+     <p>###HTML / CSS</p> 
+     <ul> 
+      <li><a href="http://fortuito.us/diveintohtml5/">Dive Into HTML5</a></li> 
+      <li><a href="http://www.htmldog.com/">HTML Dog Tutorials</a></li> 
+     </ul> 
+     <p>###Java</p> 
+     <ul> 
+      <li><a href="http://www.phptr.com/content/images/013143697X/downloads/013143697X_book.pdf">Java Application Development on Linux by Carl Albing and Michael Schwarz(PDF)</a></li> 
+      <li><a href="http://greenteapress.com/thinkapjava/">How to Think Like a Computer Scientist</a></li> 
+      <li><a href="http://download.oracle.com/javaee/6/tutorial/doc/javaeetutorial6.pdf">The Java EE6 Tutorial</a> (PDF)</li> 
+      <li><a href="http://www.redbooks.ibm.com/redbooks/SG245118.html">Java Thin-Client Programming</a></li> 
+      <li><a href="http://download.oracle.com/javase/tutorial/">Sun’s Java Tutorials</a></li> 
+      <li><a href="http://www.mindview.net/Books/TIJ/">Thinking in Java</a></li> 
+      <li><a href="http://njbartlett.name/files/osgibook_preview_20091217.pdf">OSGi in Practice</a> (PDF)</li> 
+      <li><a href="http://www.mkyong.com/">Category wise tutorials - J2EE</a></li> 
+      <li><a href="http://math.hws.edu/javanotes/index.html">Introduction to Programming Using Java - David J. Eck</a></li> 
+      <li><a href="http://www.oracle.com/technetwork/java/effectivejava-136174.html">Effective Java</a></li> 
+      <li><a href="http://math.hws.edu/javanotes/">Introduction to Programming Using Java</a></li> 
+     </ul> 
+     <p>###JavaScript</p> 
+     <ul> 
+      <li><a href="http://www.crockford.com/javascript/">Crockford’s JavaScript</a></li> 
+      <li><a href="http://eloquentjavascript.net/">Eloquent JavaScript</a></li> 
+      <li><a href="http://www.addyosmani.com/resources/essentialjsdesignpatterns/book/">Essential Javascript &amp; jQuery Design Patterns for Beginners</a></li> 
+      <li><a href="http://www.techotopia.com/index.php/JavaScript_Essentials">JavaScript Essentials</a></li> 
+      <li><a href="http://jqfundamentals.com/book/">jQuery Fundamentals</a> (starts with JavaScript basics)</li> 
+      <li><a href="https://developer.mozilla.org/en/JavaScript/Guide">Mozilla Developer Network’s JavaScript Guide</a></li> 
+      <li><a href="https://leanpub.com/javascript-allonge/read">JavaScript Allongé</a></li> 
+      <li><a href="http://addyosmani.com/resources/essentialjsdesignpatterns/book/">Learning JavaScript Design Patterns</a></li> 
+      <li><a href="http://chimera.labs.oreilly.com/books/1234000000262/index.html">O’Reilly Programming JavaScript Applications - Early Release</a></li> 
+     </ul> 
+     <p>###JavaScript (Node.js specific)</p> 
+     <ul> 
+      <li><a href="http://ofps.oreilly.com/titles/9781449398583/">Up and Running with Node</a></li> 
+      <li><a href="http://nodebeginner.org/">The Node Beginner Book</a></li> 
+      <li><a href="http://visionmedia.github.com/masteringnode/">Mastering Node.js</a></li> 
+      <li><a href="http://book.mixu.net/">Mixu’s Node Book</a></li> 
+     </ul> 
+     <p>###JavaScript (D3.js specific)</p> 
+     <ul> 
+      <li><a href="http://chimera.labs.oreilly.com/books/1230000000345/index.html">Interactive Data Visualization for the Web</a></li> 
+     </ul> 
+     <p>###LaTeX</p> 
+     <ul> 
+      <li><a href="http://tobi.oetiker.ch/lshort/lshort.pdf">The Not So Short Introduction to LaTeX</a></li> 
+     </ul> 
+     <p>###Linux</p> 
+     <ul> 
+      <li><a href="http://www.advancedlinuxprogramming.com/">Advanced Linux Programming</a></li> 
+      <li><a href="http://sources.redhat.com/autobook/download.html">GNU Autoconf, Automake and Libtool</a></li> 
+      <li><a href="http://www.linuxtopia.org/online_books/gui_toolkit_guides/gtk+_gnome_application_development/index.html">GTK+/Gnome Application Development</a></li> 
+      <li><a href="http://www.informit.com/content/downloads/perens/0130091154.pdf">The Linux Development Platform (PDF)</a></li> 
+      <li><a href="http://lwn.net/Kernel/LDD3/">Linux Device Drivers</a> by Jonathan Corbet, Alessandro Rubini, and Greg Kroah-Hartman</li> 
+      <li><a href="http://tldp.org/LDP/lkmpg/2.6/html/">The Linux Kernel Module Programming Guide</a></li> 
+      <li><a href="http://www.dwheeler.com/secure-programs/Secure-Programs-HOWTO.html">Secure Programming for Linux and Unix</a></li> 
+     </ul> 
+     <p>###Lisp</p> 
+     <ul> 
+      <li><a href="http://www.cs.cmu.edu/Groups/AI/html/cltl/mirrors.html">Common Lisp the Language, 2nd Edition</a></li> 
+      <li><a href="http://www.cs.cmu.edu/~dst/LispBook/">Common Lisp: A Gentle Introduction to Symbolic Computation</a> - David S. Touretzky</li> 
+      <li><a href="http://clqr.boundp.org/">Common Lisp Quick Reference</a></li> 
+      <li><a href="http://letoverlambda.com/index.cl/toc">Let Over Lambda - 50 Years of Lisp</a></li> 
+      <li><a href="http://www.informatics.susx.ac.uk/research/groups/nlp/gazdar/nlp-in-lisp/index.html">Natural Language Processing in Lisp</a></li> 
+      <li><a href="http://www.paulgraham.com/onlisp.html">On Lisp</a></li> 
+      <li><a href="http://www.gigamonkeys.com/book/">Practical Common Lisp</a></li> 
+      <li><a href="http://psg.com/~dlamkins/sl/">Successful Lisp: How to Understand and Use Common Lisp</a> - David Lamkins</li> 
+      <li><a href="http://www.bcl.hamilton.ie/~nmh/t3x.org/zzz/">Sketchy LISP</a> - Nils Holm</li> 
+     </ul> 
+     <p>###Lua</p> 
+     <ul> 
+      <li><a href="http://www.lua.org/pil/">Programming In Lua</a> (for version 5)</li> 
+     </ul> 
+     <p>###Mathematica</p> 
+     <ul> 
+      <li><a href="http://www.mathprogramming-intro.org/">Mathematica® programming: an advanced introduction by Leonid Shifrin</a></li> 
+     </ul> 
+     <p>###Maven</p> 
+     <ul> 
+      <li><a href="http://www.maestrodev.com/better-build-maven">Better Builds with Maven</a></li> 
+      <li><a href="http://www.sonatype.com/books/mvnex-book/reference/public-book.html">Maven by Example</a></li> 
+      <li><a href="http://www.sonatype.com/books/mvnref-book/reference/public-book.html">Maven: The Complete Reference</a></li> 
+      <li><a href="http://www.sonatype.com/books/nexus-book/reference/">Repository Management with Nexus</a></li> 
+      <li><a href="http://www.sonatype.com/books/m2eclipse-book/reference/">Developing with Eclipse and Maven</a></li> 
+     </ul> 
+     <p>###Mercurial</p> 
+     <ul> 
+      <li><a href="http://hgbook.red-bean.com/">Mercurial: The Definitive Guide</a></li> 
+      <li><a href="http://hginit.com/">HGInit - Mercurial Tutorial by Joel Spolsky</a></li> 
+     </ul> 
+     <p>###.NET (C# / VB / Nemerle / Visual Studio)</p> 
+     <ul> 
+      <li><a href="http://www.techotopia.com/index.php/C_Sharp_Essentials">C# Essentials</a></li> 
+      <li><a href="http://en.wikibooks.org/wiki/C_Sharp_Programming">C# Programming - Wikibook</a></li> 
+      <li><a href="http://www.csharpcourse.com/">C# Yellow Book</a> (intro to programming)</li> 
+      <li><a href="http://www.charlespetzold.com/dotnet/index.html">Charles Petzold’s .NET Book Zero</a></li> 
+      <li><a href="http://www.brpreiss.com/books/opus6/">Data Structures and Algorithms with Object-Oriented Design Patterns in C#</a></li> 
+      <li><a href="http://weblogs.asp.net/zeeshanhirani/archive/2008/12/05/my-christmas-present-to-the-entity-framework-community.aspx">Entity Framework</a></li> 
+      <li><a href="http://blogs.msdn.com/b/microsoft_press/archive/2010/09/13/free-ebook-moving-to-microsoft-visual-studio-2010.aspx">Moving to Microsoft Visual Studio 2010</a></li> 
+      <li><a href="http://asaha.com/ebook/AMTQ2NjA-/Nemerle.pdf">Nemerle</a></li> 
+      <li><a href="http://www.programmersheaven.com/2/CSharpBook">Programmer’s Heaven C# School Book</a> (covers C# 1.0 and 2.0)</li> 
+      <li><a href="http://www.albahari.com/threading/">Threading in C#</a></li> 
+      <li><a href="http://www.techotopia.com/index.php/Visual_Basic_Essentials">Visual Basic Essentials</a></li> 
+      <li><a href="http://www.infoq.com/minibooks/vsnettt">Visual Studio Tips and Tricks</a> (VS 2003-2005 only)</li> 
+     </ul> 
+     <p>###NoSQL</p> 
+     <ul> 
+      <li><a href="http://books.couchdb.org/relax/">CouchDB: The Definitive Guide</a></li> 
+      <li><a href="http://openmymind.net/2011/3/28/The-Little-MongoDB-Book">The Little MongoDB Book</a></li> 
+      <li><a href="http://openmymind.net/2012/1/23/The-Little-Redis-Book/">The Little Redis Book</a></li> 
+      <li><a href="http://littleriakbook.com/">The Little Riak Book</a></li> 
+      <li><a href="http://graphdatabases.com/">Graph Databases</a></li> 
+     </ul> 
+     <p>###Oberon</p> 
+     <ul> 
+      <li><a href="http://www-old.oberon.ethz.ch/WirthPubl/ProgInOberon.pdf">Programming in Oberon</a> (PDF)</li> 
+     </ul> 
+     <p>###Objective-C</p> 
+     <ul> 
+      <li><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/ProgrammingWithObjectiveC.pdf">Programming With Objective-C</a></li> 
+      <li><a href="http://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/OOP_ObjC/OOP_ObjC.pdf">Object-Oriented Programming with Objective-C</a></li> 
+     </ul> 
+     <p>###OCaml</p> 
+     <ul> 
+      <li><a href="http://courses.cms.caltech.edu/cs134/cs134b/book.pdf">Introduction to Objective Caml</a> (PDF)</li> 
+      <li><a href="http://www.ffconsultancy.com/products/ocaml_for_scientists/chapter1.html">Objective Caml for Scientists (first chapter only)</a></li> 
+      <li><a href="http://ocamlunix.forge.ocamlcore.org/">Unix System Programming in OCaml</a></li> 
+      <li><a href="http://caml.inria.fr/pub/docs/oreilly-book/">Developing Applications With Objective Caml</a></li> 
+     </ul> 
+     <p>###Oracle Server</p> 
+     <ul> 
+      <li>Oracle’s <a href="http://tahiti.oracle.com/">Guides and Manuals</a></li> 
+     </ul> 
+     <p>###Oracle PL/SQL</p> 
+     <ul> 
+      <li><a href="http://download.oracle.com/docs/cd/E11882_01/appdev.112/e17126/toc.htm">PL/SQL Language Reference</a></li> 
+      <li><a href="http://download.oracle.com/docs/cd/E11882_01/appdev.112/e16760/toc.htm">PL/SQL Packages and Types Reference</a></li> 
+      <li><a href="http://www.toadworld.com/Knowledge/DatabaseKnowledge/StevenFeuersteinsPLSQLObsession/tabid/153/Default.aspx">Steven Feuerstein’s PL/SQL Obsession - Videos and Presentations</a></li> 
+     </ul> 
+     <p>###Parrot / Perl 6</p> 
+     <ul> 
+      <li><a href="http://github.com/perl6/book/">Using Perl 6</a> (work in progress)</li> 
+     </ul> 
+     <p>###Perl</p> 
+     <ul> 
+      <li><a href="http://www.perl.org/books/beginning-perl/">Beginning Perl</a></li> 
+      <li><a href="http://www.masonbook.com/book/">Embedding Perl in HTML with Mason</a></li> 
+      <li><a href="http://cslibrary.stanford.edu/108/EssentialPerl.pdf">Essential Perl</a></li> 
+      <li><a href="http://www.extremeperl.org/bk/home">Extreme Perl</a></li> 
+      <li><a href="http://hop.perl.plover.com/book/">Higher-Order Perl</a></li> 
+      <li><a href="http://www.masonbook.com/book/">The Mason Book</a></li> 
+      <li><a href="http://www.onyxneon.com/books/modern_perl/index.html">Modern Perl 5</a></li> 
+      <li><a href="http://lwp.interglacial.com/index.html">Perl &amp; LWP</a></li> 
+      <li><a href="http://www.globalspin.com/thebook/">Perl for the Web</a></li> 
+      <li><a href="http://linkmingle.com/list/13-plus-List-of-Free-Great-Perl-Books-available-Online-freebooksandarticles">Perl Free Online EBooks</a> (meta-list)</li> 
+      <li><a href="http://www.greenteapress.com/perl/">Perl The Hard Way</a></li> 
+      <li><a href="http://modperlbook.org/">Practical mod_perl</a></li> 
+      <li><a href="http://oreilly.com/openbook/webclient/">Web Client Programming with Perl</a></li> 
+     </ul> 
+     <p>###PHP</p> 
+     <ul> 
+      <li><a href="http://www.techotopia.com/index.php/PHP_Essentials">PHP Essentials</a></li> 
+      <li><a href="http://www.tuxradar.com/practicalphp">Practical PHP Programming</a> (wiki containing O’Reilly’s <em>PHP In a Nutshell</em>)</li> 
+      <li><a href="http://symfony.com/doc/current/book/index.html">Symfony2</a></li> 
+      <li><a href="http://www.survivethedeepend.com/">Zend Framework: Survive the Deep End</a></li> 
+     </ul> 
+     <p>###PowerShell</p> 
+     <ul> 
+      <li><a href="http://powershell.com/cs/blogs/ebook/">Mastering PowerShell</a></li> 
+     </ul> 
+     <p>###Prolog</p> 
+     <ul> 
+      <li><a href="http://www.amzi.com/AdventureInProlog/advfrtop.htm">Adventure in Prolog</a></li> 
+      <li><a href="http://bookboon.com/int/student/it/applications-of-prolog">Applications of Prolog</a></li> 
+      <li><a href="http://www.amzi.com/ExpertSystemsInProlog/">Building Expert Systems in Prolog</a></li> 
+      <li><a href="http://www.j-paine.org/prolog/mathnotes/files/pms/pms.html">Introduction to Prolog for Mathematicians</a></li> 
+      <li><a href="http://www.learnprolognow.org/">Learn Prolog Now!</a></li> 
+      <li><a href="http://www.ida.liu.se/~ulfni/lpp/">Logic, Programming and Prolog (2ed)</a></li> 
+      <li><a href="http://www.informatics.susx.ac.uk/research/groups/nlp/gazdar/nlp-in-prolog/index.html">Natural Language Processing in Prolog</a></li> 
+      <li><a href="http://cs.union.edu/~striegnk/courses/nlp-with-prolog/html/">Natural Language Processing Techniques in Prolog</a></li> 
+      <li><a href="http://computing.unn.ac.uk/staff/cgpb4/prologbook/">Prolog Programming A First Course</a></li> 
+      <li><a href="http://bookboon.com/int/student/it/prolog-techniques-applications-of-prolog">Prolog Techniques</a></li> 
+      <li><a href="http://www.cs.bris.ac.uk/~flach/SimplyLogical.html">Simply Logical</a></li> 
+      <li><a href="http://download.pdc.dk/vip/72/books/tyros/tyros72.pdf">Visual Prolog 7.2 for Tyros</a></li> 
+     </ul> 
+     <p>###PostgreSQL</p> 
+     <ul> 
+      <li><a href="http://www.commandprompt.com/ppbook/">Practical PostgreSQL</a></li> 
+     </ul> 
+     <p>###Python</p> 
+     <ul> 
+      <li><a href="http://www.swaroopch.com/notes/Python">Byte of Python</a></li> 
+      <li><a href="http://www.brpreiss.com/books/opus7/html/book.html">Data Structures and Algorithms in Python</a></li> 
+      <li><a href="http://www.diveintopython.net/">Dive into Python</a></li> 
+      <li><a href="http://getpython3.com/diveintopython3/">Dive into Python 3</a></li> 
+      <li>[Hacking Secret Cyphers with Python] (http://inventwithpython.com/hacking/chapters/) - Al Sweigart</li> 
+      <li><a href="http://www.greenteapress.com/thinkpython/thinkCSpy/">How to Think Like a Computer Scientist: Learning with Python</a></li> 
+      <li><a href="http://inventwithpython.com/chapters/">Invent Your Own Computer Games With Python</a> - Al Sweigart</li> 
+      <li><a href="http://learnpythonthehardway.org/book/">Learn Python The Hard Way</a></li> 
+      <li><a href="http://www.nltk.org/book">Natural Language Processing with Python</a></li> 
+      <li><a href="http://openbookproject.net/pybiblio/">Python Bibliotheca</a></li> 
+      <li><a href="http://www.openbookproject.net/py4fun/">Python for Fun</a></li> 
+      <li><a href="http://www.pythonlearn.com/book.php">Python for Informatics: Exploring Information</a></li> 
+      <li><a href="http://pymbook.readthedocs.org/en/latest/">Python for you and me</a></li> 
+      <li><a href="http://www.briggs.net.nz/snake-wrangling-for-kids.html">Snake Wrangling For Kids</a></li> 
+      <li><a href="http://www.greenteapress.com/thinkpython/thinkpython.pdf">Think Python</a> (PDF) - Allen B. Downey</li> 
+     </ul> 
+     <p>###R</p> 
+     <ul> 
+      <li><a href="http://cran.r-project.org/manuals.html">The R Manuals</a></li> 
+      <li><a href="http://stat.ethz.ch/R-manual/R-patched/doc/html/">The R Language</a></li> 
+      <li><a href="http://www.mayin.org/ajayshah/KB/R/index.html">R by example</a></li> 
+      <li><a href="http://stats.lse.ac.uk/penzer/ST419materials/">Computational Statistics, Jeremy Penzer</a></li> 
+     </ul> 
+     <p>###Ruby</p> 
+     <ul> 
+      <li><a href="http://ruby.learncodethehardway.org/book/">Learn Ruby the hard way</a></li> 
+      <li><a href="http://macruby.labs.oreilly.com/">MacRuby: The Definitive Guide</a></li> 
+      <li><a href="http://www.humblelittlerubybook.com/">Mr.&nbsp;Neighborly’s Humble Little Ruby Book</a></li> 
+      <li><a href="http://www.ruby-doc.org/docs/ProgrammingRuby/">Programming Ruby</a></li> 
+      <li><a href="http://rubybestpractices.com/">Ruby Best Practices</a></li> 
+      <li><a href="http://mislav.uniqpath.com/poignant-guide/">Why’s (Poignant) Guide to Ruby</a> (<a href="http://www.scribd.com/doc/2236084/Whys-Poignant-Guide-to-Ruby">mirror</a>)</li> 
+     </ul> 
+     <p>###Ruby on Rails</p> 
+     <ul> 
+      <li><a href="http://ruby.railstutorial.org/ruby-on-rails-tutorial-book">Ruby on Rails Tutorial: Learn Rails By Example</a></li> 
+     </ul> 
+     <p>###Rust</p> 
+     <ul> 
+      <li><a href="http://www.rustforrubyists.com/book/index.html">Rust for Rubyists</a></li> 
+     </ul> 
+     <p>###Scala</p> 
+     <ul> 
+      <li><a href="http://exploring.liftweb.net/">Exploring Lift</a> (published earlier as “The Definitive Guide to Lift”, <a href="http://groups.google.com/group/the-lift-book">PDF</a>)</li> 
+      <li><a href="http://github.com/tjweir/liftbook">Lift</a></li> 
+      <li><a href="http://github.com/leithaus/XTrace/tree/monadic/src/main/book/content/">Pro Scala: Monadic Design Patterns for the Web</a></li> 
+      <li><a href="http://www.artima.com/pins1ed/">Programming in Scala, First Edition</a></li> 
+      <li><a href="http://programming-scala.labs.oreilly.com/index.html">Programming Scala</a></li> 
+      <li><a href="http://www.scala-lang.org/docu/files/ScalaByExample.pdf">Scala By Example</a> (PDF)</li> 
+      <li><a href="http://www.scala-lang.org/docu/files/ScalaTutorial.pdf">A Scala Tutorial for Java programmers</a> (PDF)</li> 
+      <li><a href="http://github.com/leithaus/XTrace/tree/monadic/src/main/book/content/">Xtrace</a></li> 
+      <li><a href="http://naildrivin5.com/scalatour">Another tour of Scala</a></li> 
+     </ul> 
+     <p>###Scheme</p> 
+     <ul> 
+      <li><a href="https://gustavus.edu/+max/concrete-abstractions.html">Concrete Abstractions: An Introduction to Computer Science Using Scheme</a></li> 
+      <li>The Scheme Programming Language <a href="http://www.scheme.com/tspl3/">Edition 3</a>, <a href="http://www.scheme.com/tspl4/">Edition 4</a></li> 
+      <li><a href="http://www.cs.berkeley.edu/~bh/ss-toc2.html">Simply Scheme: Introducing Computer Science</a></li> 
+     </ul> 
+     <p>###Sed</p> 
+     <ul> 
+      <li><a href="http://www.grymoire.com/Unix/Sed.html">Sed - An Introduction and Tutorial</a></li> 
+     </ul> 
+     <p>###Smalltalk</p> 
+     <ul> 
+      <li><a href="http://book.seaside.st/book/table-of-contents">Dynamic Web Development with Seaside</a></li> 
+      <li><a href="http://stephane.ducasse.free.fr/FreeBooks.html">Free Online Smalltalk Books</a> (meta-list)</li> 
+      <li><a href="http://www.squeakbyexample.org/">Squeak By Example</a> (Smalltalk IDE)</li> 
+     </ul> 
+     <p>###Subversion</p> 
+     <ul> 
+      <li><a href="http://www.phptr.com/content/images/0131855182/downloads/Nagel_book.pdf">Subversion Version Control</a> (PDF)</li> 
+      <li><a href="http://svnbook.red-bean.com/">Version Control with Subversion</a></li> 
+     </ul> 
+     <p>###SQL (implementation agnostic)</p> 
+     <ul> 
+      <li><a href="http://www.cs.arizona.edu/people/rts/publications.html">Developing Time-Oriented Database Applications in SQL</a></li> 
+      <li><a href="http://use-the-index-luke.com/">Use The Index, Luke!: A Guide To SQL Database Performance</a></li> 
+      <li><a href="http://sql.learncodethehardway.org/">Learn SQL The Hard Way</a></li> 
+     </ul> 
+     <p>###Teradata</p> 
+     <ul> 
+      <li><a href="http://www.info.teradata.com/">Teradata Books</a></li> 
+     </ul> 
+     <p>###Vim</p> 
+     <ul> 
+      <li><a href="http://www.swaroopch.com/notes/Vim">A Byte of Vim</a></li> 
+      <li><a href="http://vim.runpaint.org/toc/">Vim Recipes</a></li> 
+      <li><a href="http://www.truth.sk/vim/vimbook-OPL.pdf">Vi Improved – Vim</a> by Steve Oualline</li> 
+      <li><a href="http://learnvimscriptthehardway.stevelosh.com/">Learn Vimscript the Hard Way</a></li> 
+     </ul> 
+     <p>###Websphere</p> 
+     <ul> 
+      <li><a href="http://public.dhe.ibm.com/software/dw/db2/express-c/wiki/Getting_Started_with_WASCE_p2.pdf">Getting started with WebSphere</a> (PDF)</li> 
+     </ul> 
+     <p>###Windows Phone</p> 
+     <ul> 
+      <li><a href="http://blogs.msdn.com/b/microsoft_press/archive/2010/10/28/free-ebook-programming-windows-phone-7-by-charles-petzold.aspx">Programming Windows Phone 7</a></li> 
+     </ul> 
+     <hr> 
+     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+     </div> 
+     <div id="random_posts"> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2007-04-09-choose-your-life-style.html">介于极端之间的是什么 </a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2010-09-13-its-a-loooong-day.html">It's a looooong day</a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2008-04-11-trumps-seven-critical-traits.html">Trump’s Seven Critical Traits </a> 
+      </div> 
+     </div> 
+     <hr> 
+     <div> 
+      <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+      <ol> 
+       <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+       <li>还分享AI工具、产品方法和商业机会</li> 
+       <li>更有体系化精品付费内容等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取。(加入之后<b>一定记得看置顶消息</b>呀！)</li> 
+      </ol> 
+      <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+     </div> 
+     <hr> 
+     <p> <span style="font-size: xx-large;">存量的时代，省钱就是赚钱。</span> <br> <span style="font-size: xx-large;">在增量的时代，省钱其实是亏钱。</span> <br> 避坑儿是省钱的一种形式，更是真正聪明人的选择！ <br> 弯路虽然也是路，但还是能少走就少走，背后都是高昂的试错成本。 <br> <b>订阅「福报」</b>，少踩坑，少走弯路，多走一步，就是不一样的胜率！ </p> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
+     <hr> 
+     <div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"> 
+      <div id="tfloader" class="x-indicator"> 
+       <svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"> <g fill="none" fill-rule="evenodd"> 
+         <g transform="translate(1 1)" stroke-width="2"> 
+          <circle cx="5" cy="50" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+          <circle cx="27" cy="5" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+          <circle cx="49" cy="50" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+         </g> 
+        </g> 
+       </svg> 
+      </div> 
+     </div> 
+     <hr> 
+     <div id="comments"></div> 
+    </div> 
+   </section> 
+  </main> 
+  <footer class="border-t border-gray-200 dark:border-slate-800"> 
+   <div class="max-w-6xl mx-auto px-4 sm:px-6"> 
+    <div class="md:flex md:items-center md:justify-between py-6 md:py-8"> 
+     <ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0"> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Twitter" href="https://twitter.com/fujohnwang"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-twitter"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z"> 
+         </path> 
+        </svg> </a> </li> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Facebook" href="https://www.facebook.com/fujohnwang/"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-facebook"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2H7"></path> 
+        </svg> </a> </li> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Github" href="https://github.com/fujohnwang"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-github"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"> 
+         </path> 
+        </svg> </a> </li> 
+     </ul> 
+     <div class="text-sm text-gray-700 mr-4 dark:text-slate-400"> <span class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 float-left rounded-sm"> <img src="https://afoo.me/favicon.svg" class="rounded-md" alt> </span> Copyright © 王福强个人版权所有 - Since 2004 (Everything is homebrewed with <a href="https://pandoc.org/">Pandoc</a> and Markdown, little <a href="https://www.scala-lang.org/">Scala</a> also included.) 
+     </div> 
+    </div> 
+   </div> 
+  </footer> 
+  <script>
+        // Set "light" theme as default
+        if (!localStorage.theme) {
+            localStorage.theme = "light";
+        }
 
-gitalk.render('comments')
+        if (
+            localStorage.theme === 'dark' ||
+            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function attachEvent(selector, event, fn) {
+            const matches = document.querySelectorAll(selector);
+            if (matches && matches.length) {
+                matches.forEach((elem) => {
+                    elem.addEventListener(event, () => fn(elem), false);
+                });
+            }
+        }
+
+        window.onload = function () {
+            attachEvent('[data-toggle-menu]', 'click', function (elem) {
+                elem.classList.toggle('expanded');
+                document.body.classList.toggle('overflow-hidden');
+                document.getElementById('header')?.classList.toggle('h-screen');
+                document.querySelector('#header nav')?.classList.toggle('hidden');
+            });
+            attachEvent('[data-toggle-color-scheme]', 'click', function () {
+                document.documentElement.classList.toggle('dark');
+                localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            });
+        };
+        window.onpageshow = function () {
+            const elem = document.querySelector('[data-toggle-menu]');
+            if (elem) {
+                elem.classList.remove('expanded');
+            }
+            document.body.classList.remove('overflow-hidden');
+            document.getElementById('header')?.classList.remove('h-screen');
+            document.querySelector('#header nav')?.classList.add('hidden');
+        };
     </script> 
-  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script> 
-  <script>
-  kofiWidgetOverlay.draw('fff000', {
-    'type': 'floating-chat',
-    'floating-chat.donateButton.text': 'Support me',
-    'floating-chat.donateButton.background-color': 'red',
-    'floating-chat.donateButton.text-color': 'white'
-  });
-</script> 
-  <script>
-  fetch('https://jsonld.afoo.me', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      url: window.location.href
-    })
-  }).then(response => response.text()).then(structuredDataText => {
-    const script = document.createElement('script');
-    script.setAttribute('type', 'application/ld+json');
-    script.textContent = structuredDataText;
-    document.head.appendChild(script);
-  });
-</script>  
-  <script>watermark.init({ watermark_txt: "©王福强个人版权所有, All Rights Reserved." , watermark_width:200})</script> 
+  <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '518a605d711883414ac0',
+          clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+          repo: 'afoo.me.comments',
+          owner: 'fujohnwang',
+          admin: ['fujohnwang'],
+          id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+        gitalk.render('comments')
+    </script>  
  </body>
 </html>
