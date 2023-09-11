@@ -50,7 +50,7 @@
 				<div class="flex items-center md:hidden">
 					<button type="button"
 						class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center"
-						aria-label="Toggle between Dark and Light mode" data-aw-toggle-color-scheme="">
+						aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme="">
 						<svg viewBox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun">
 							<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
 								stroke-width="2" class="icon-tabler">
@@ -62,7 +62,7 @@
 					</button>
 					<button type="button"
 						class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition"
-						aria-label="Toggle Menu" data-aw-toggle-menu="">
+						aria-label="Toggle Menu" data-toggle-menu="">
 						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
 							preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" class="w-6 h-6"
 							astro-icon="tabler:menu">
@@ -105,7 +105,7 @@
 					<div class="hidden items-center md:flex">
 						<button type="button"
 							class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center"
-							aria-label="Toggle between Dark and Light mode" data-aw-toggle-color-scheme="">
+							aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme="">
 							<svg viewBox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun">
 								<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
 									stroke-width="2" class="icon-tabler">
@@ -579,22 +579,22 @@
 		}
 
 		window.onload = function () {
-			attachEvent('[data-aw-toggle-menu]', 'click', function (elem) {
+			attachEvent('[data-toggle-menu]', 'click', function (elem) {
 				elem.classList.toggle('expanded');
 				document.body.classList.toggle('overflow-hidden');
 				document.getElementById('header')?.classList.toggle('h-screen');
 				document.querySelector('#header nav')?.classList.toggle('hidden');
 			});
 
-			attachEvent('[data-aw-toggle-color-scheme]', 'click', function () {
+			attachEvent('[data-toggle-color-scheme]', 'click', function () {
 				document.documentElement.classList.toggle('dark');
 				localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
 			});
 
-			attachEvent('[data-aw-social-share]', 'click', function (elem) {
-				const network = elem.getAttribute('data-aw-social-share');
-				const url = encodeURIComponent(elem.getAttribute('data-aw-url'));
-				const text = encodeURIComponent(elem.getAttribute('data-aw-text'));
+			attachEvent('[data-social-share]', 'click', function (elem) {
+				const network = elem.getAttribute('data-social-share');
+				const url = encodeURIComponent(elem.getAttribute('data-url'));
+				const text = encodeURIComponent(elem.getAttribute('data-text'));
 
 				let href;
 				switch (network) {
@@ -622,7 +622,7 @@
 			});
 		};
 		window.onpageshow = function () {
-			const elem = document.querySelector('[data-aw-toggle-menu]');
+			const elem = document.querySelector('[data-toggle-menu]');
 			if (elem) {
 				elem.classList.remove('expanded');
 			}
@@ -631,16 +631,6 @@
 			document.querySelector('#header nav')?.classList.add('hidden');
 		};
 	</script>
-
-<script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
-<script>
-  kofiWidgetOverlay.draw('fff000', {
-    'type': 'floating-chat',
-    'floating-chat.donateButton.text': 'Support me',
-    'floating-chat.donateButton.background-color': 'red',
-    'floating-chat.donateButton.text-color': 'white'
-  });
-</script>
 
 </body>
 
