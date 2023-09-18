@@ -21,12 +21,11 @@
 	<link rel="shortcut icon" href="https://afoo.me/favicon.ico">
 	<link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg">
 	<link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8">
-	<link rel="stylesheet" href="/css/af.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.6.0/cdn/themes/light.css" />
-	<script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.6.0/cdn/shoelace-autoloader.js"></script>
+	<link rel="stylesheet" href="/css/af.css"/>
+	<link rel="stylesheet" href="/css/popup.css"/>
 	<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
 	<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-	<script src='/js/overlay-widget.js'></script>
+	<!-- <script src='/js/overlay-widget.js'></script> -->
 </head>
 
 <body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized">
@@ -165,15 +164,14 @@
 				</article>
 				<article class="mb-6 transition">
 					<div
-						class="relative h-0 pb-[56.25%] lg:h-64 overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg mb-6">
+						class="popover__wrapper relative h-0 pb-[56.25%] lg:h-64 overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg mb-6">
 						<picture>
-								<a href="#" 
-								onclick="document.querySelector('.drawer-placement-bottom').show();" >
+								<a href="https://store.afoo.me/l/simple_svelte">
 									<img width="900" height="506" src="http://afoo.me/images/cover_simple_svelte.jpg"
 										loading="lazy" decoding="async" alt="Simple Svelte"
 										class="object-cover object-top w-full lg:h-64 rounded shadow-lg bg-gray-400 dark:bg-slate-700">
 								</a>
-								<sl-drawer label="About Simple Svelte" placement="bottom" class="drawer-placement-bottom">
+								<div label="About Simple Svelte" placement="bottom" class="popover__content">
 									<div style="padding-left: 3rem; padding-right: 3rem;">
 										<p>
 											Have you ever...
@@ -186,25 +184,25 @@
 										<p class="mt-4">
 											《Simple Svelte》 will cover from product design to technology implementations, I will guide you thru how to think, how to design and how to build even how to operate. With this book, you will learn more than just svelte3 and technology things, but also product, marketing and human natures.
 										</p>
+										<p>
+											<button onclick="window.location.href='https://store.afoo.me/l/simple_svelte';" class="rounded bg-blue-600 text-white p-2 mt-3 text-center">点击购买</button>
+										</p>
 									</div>
-									<sl-button slot="footer" variant="primary" onclick="this.href='https://store.afoo.me/l/simple_svelte';">点击购买</sl-button>
-								</sl-drawer>
+								</div>
 						</picture>
 					</div>
 				</article>
 
 				<article class="mb-6 transition">
 					<div
-						class="relative h-0 pb-[56.25%] lg:h-64 overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg mb-6">
+						class="popover__wrapper relative h-0 pb-[56.25%] lg:h-64 overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg mb-6">
 						<picture>
-								<a href="#" 
-								onclick="document.querySelector('#htmx_pop').show();" >
+								<a href="https://store.afoo.me/l/htmx">
 									<img width="900" height="506" src="/images/cover_unveil_htmx.jpg"
 										loading="lazy" decoding="async" alt="Unveiling HTMX"
 										class="object-cover object-top w-full lg:h-64 rounded shadow-lg bg-gray-400 dark:bg-slate-700">
 								</a>
-								<sl-drawer label="About Unveiling HTMX" placement="bottom" id="htmx_pop">
-									<div style="padding-left: 3rem; padding-right: 3rem;">
+									<div style="padding-left: 3rem; padding-right: 3rem;" class="popover__content">
 										<p>
 											对于高度内聚的软件研发活动来说（比如全栈-fullstack，比如独立开发者，比如精英小团队），
 											HTMX提供了一种小众但全新的开发体验。尤其对于后端开发者以及MPA时代走过来的开发者，HTMX可以让你的传统艺能继续发扬光大。
@@ -214,9 +212,11 @@
 											工欲善其事，必先利其器，HTMX就是一把认知门槛不高的利器，
 											帮助我们在打造受欢迎的Web产品之路上狂奔。
 										</p>
+										<p>
+											<button slot="footer" onclick="window.location.href='https://store.afoo.me/l/htmx';" class="rounded bg-blue-600 text-white p-2 mt-3 text-center">点击购买</button>
+										</p>
 									</div>
-									<sl-button slot="footer" variant="primary" onclick="this.href='https://store.afoo.me/l/htmx';">点击购买</sl-button>
-								</sl-drawer>
+
 						</picture>
 					</div>
 				</article>
@@ -250,7 +250,7 @@
 						class="relative h-0 pb-[56.25%] lg:h-64 overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg mb-6">
 						<picture>
 							<acronym title="实际上，本书中所提及的内容并非普遍适用，需要读者和管理者们根据自身情况、自身企业情况等因素做出权衡与取舍。	"></acronym>
-							<a href="https://store.afoo.me/">
+							<a href="http://store.afoo.me/l/simple_mgt">
 								<img width="900" height="506" src="https://afoo.me/images/book_cover_mgt_class.jpg"
 									loading="lazy" decoding="async"
 									alt="Get started with AstroWind to create a website using Astro and Tailwind CSS"
@@ -295,7 +295,7 @@
 					<div
 						class="relative h-0 pb-[56.25%] lg:h-64 overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg mb-6">
 						<picture>
-							<a href="https://store.afoo.me/">
+							<a href="https://store.afoo.me/l/kenghuo">
 								<img width="900" height="506"
 									src="https://afoo.me/images/book_cover_trial_and_error.jpg" loading="lazy"
 									decoding="async" alt="坑获"
@@ -308,7 +308,7 @@
 					<div
 						class="relative h-0 pb-[56.25%] lg:h-64 overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg mb-6">
 						<picture>
-							<a href="https://store.afoo.me/">
+							<a href="http://store.afoo.me/l/tek_biz_hb">
 								<img width="900" height="506"
 									src="https://afoo.me/images/cover_of_tek_commerce_and_human_beings.jpg"
 									loading="lazy" decoding="async" alt="《技术、商业与人》"
@@ -321,7 +321,7 @@
 					<div
 						class="relative h-0 pb-[56.25%] lg:h-64 overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg mb-6">
 						<picture>
-							<a href="https://store.afoo.me/">
+							<a href="http://store.afoo.me/l/tek_biz_h_2">
 								<img width="900" height="506"
 									src="https://afoo.me/images/cover_of_tek_commerce_and_human_beings2.jpg"
 									loading="lazy" decoding="async" alt="《技术、商业与人 II》"
@@ -352,7 +352,7 @@
 					<div
 						class="relative h-0 pb-[56.25%] lg:h-64 overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg mb-6">
 						<picture>
-							<a href="https://store.afoo.me/">
+							<a href="http://store.afoo.me/l/way_of_deep_thinking">
 								<img width="900" height="506"
 									src="https://afoo.me/images/book_cover_way_of_deep_thinking.jpg" loading="lazy"
 									decoding="async" alt="How to customize AstroWind template to suit your branding"
@@ -432,8 +432,19 @@
 								<br>
 								发现有的同学对最终交付形式有疑惑，所以这里特意提醒一下。
 							</blockquote>
+							
+							<form class="mt-12" action="https://app.gumroad.com/follow_from_embed_form" method="post" id="gumroad-follow-form-embed">
+								<input type="hidden" name="seller_id" value="9527565973752"/>
+								<input id="gumroad-follow-form-embed-input" type="email" placeholder="Your email address" name="email" value="" 
+									class="border rounded w-full lg:w-2/3 h-10 p-2"/>
+								<button id="gumroad-follow-form-embed-button" class="relative text-center h-10 w-full lg:w-1/4 mt-2 lg:mt-0 round bg-black text-white transition-all duration-500 bg-blue-600
+								before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-black  before:transition-all
+								before:duration-300 before:opacity-10 before:hover:opacity-0 before:hover:scale-50
+								after:absolute after:top-0 after:left-0 after:w-full after:h-full after:opacity-0 after:transition-all after:duration-300
+								after:border after:border-white/50 after:scale-125 after:hover:opacity-100 after:hover:scale-100" 
+									type="submit">订阅内容更新</button>
+							</form>
 						</div>
-
 					</div>
 				</div>
 			</div>
@@ -586,14 +597,14 @@
 		};
 	</script>
 
-	<script>
+	<!-- <script>
 		kofiWidgetOverlay.draw('fff000', {
 			'type': 'floating-chat',
 			'floating-chat.donateButton.text': 'Support me',
 			'floating-chat.donateButton.background-color': 'red',
 			'floating-chat.donateButton.text-color': 'white'
 		});
-	</script>
+	</script> -->
 
 	<script>
 		var gitalk = new Gitalk({

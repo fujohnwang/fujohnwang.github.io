@@ -11,6 +11,7 @@
 - [福强为个人提供的产品与服务](consulting.html)
   - [福强的书](https://afoo.me/books.html)
 - [福强的stop doing list](https://keevol.cn/stop-doing-list.html)
+- [Follow Me on Gumroad](https://wfq.gumroad.com/subscribe)
 - [咨询密室](https://fuqiang.circleo.me/)
 
 # [工具福强造](https://afoo.me/tools.html)
