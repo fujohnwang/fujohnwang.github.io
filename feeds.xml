@@ -5,6 +5,273 @@
     <link>http://afoo.me</link>
     <description>王福强的个人博客：一个架构士的思考与沉淀</description>
     <item>
+      <title>SSG与CMS</title>
+      <link>http://afoo.me/posts/2023-10-03-ssg_and_cms.html</link>
+      <description>&lt;!doctype html&gt;
+&lt;html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]"&gt; 
+ &lt;head&gt; 
+  &lt;meta charset="utf-8"&gt; 
+  &lt;meta name="keywords" content="SSG与CMS - 架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
+  &lt;meta name="description" content="SSG与CMS - 福强说，扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
+  &lt;meta name="author" content="王福强"&gt; 
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
+  &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt; 
+  &lt;meta name="robots" content="index,follow"&gt; 
+  &lt;title&gt;SSG与CMS -王福强的个人博客：一个架构士的思考与沉淀&lt;/title&gt; 
+  &lt;meta name="date" content="2023-10-03"&gt; 
+  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
+  &lt;link rel="canonical" href="https://afoo.me/posts/2023-10-03-ssg_and_cms.html"&gt; 
+  &lt;link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"&gt; 
+  &lt;link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8"&gt; 
+  &lt;script src="https://unpkg.com/htmx.org@1.9.5"&gt;&lt;/script&gt; 
+  &lt;link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"&gt; 
+  &lt;script src="https://unpkg.com/gitalk/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;style type="text/css"&gt;
+        pre &gt; code{white-space: pre-line;}
+
+        .x-indicator{
+            display:none;
+        }
+        .htmx-request .x-indicator{
+            display:inline;
+        }
+        .htmx-request.x-indicator{
+            display:inline;
+        }
+    &lt;/style&gt; 
+  &lt;link rel="stylesheet" href="/css/af.css"&gt; 
+  &lt;script type="application/ld+json"&gt;
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "SSG与CMS",
+      "image": [
+        "https://afoo.me/images/fb_subscribe.jpg"
+       ],
+      "datePublished": "2023-10-03",
+      "author": [{
+          "@type": "Person",
+          "name": "王福强",
+          "url": "https://afoo.me"
+        }]
+    }
+  &lt;/script&gt; 
+  &lt;script type="text/javascript"&gt;
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "irqzhxtyzn");
+  &lt;/script&gt; 
+ &lt;/head&gt; 
+ &lt;body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"&gt; 
+  &lt;header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"&gt; 
+   &lt;div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"&gt; 
+    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"&gt; &lt;h1&gt;王福强的个人博客&lt;/h1&gt; &lt;/span&gt; &lt;/a&gt; 
+     &lt;div class="flex items-center md:hidden"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
+       &lt;svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
+         &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
+         &lt;path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"&gt; 
+         &lt;/path&gt; 
+        &lt;/g&gt; 
+       &lt;/svg&gt; &lt;/button&gt; &lt;button type="button" class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition" aria-label="Toggle Menu" data-toggle-menu=""&gt; 
+       &lt;svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:menu"&gt; &lt;g class="icon-tabler" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"&gt; 
+         &lt;path d="M4 8h16"&gt;&lt;/path&gt; 
+         &lt;path d="M4 16h16"&gt;&lt;/path&gt; 
+        &lt;/g&gt; 
+       &lt;/svg&gt; &lt;/button&gt; 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+    &lt;nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"&gt; 
+     &lt;ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me"&gt;福强AI学堂&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com"&gt;架构百科&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html"&gt;博客文章 &lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html"&gt;创作出版&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me"&gt;产品与服务&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
+     &lt;/ul&gt; 
+     &lt;div class="md:self-center flex items-center mb-4 md:mb-0 ml-2"&gt; 
+      &lt;div class="hidden items-center md:flex"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
+        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
+          &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
+          &lt;path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"&gt; 
+          &lt;/path&gt; 
+         &lt;/g&gt; 
+        &lt;/svg&gt; &lt;/button&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="RSS Feed" href="http://afoo.me/feeds.xml"&gt; 
+        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:rss"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
+          &lt;circle cx="5" cy="19" r="1"&gt;&lt;/circle&gt; 
+          &lt;path d="M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"&gt;&lt;/path&gt; 
+         &lt;/g&gt; 
+        &lt;/svg&gt; &lt;/a&gt; 
+      &lt;/div&gt; 
+     &lt;/div&gt; 
+    &lt;/nav&gt; 
+   &lt;/div&gt; 
+  &lt;/header&gt; 
+  &lt;main&gt; 
+   &lt;section class="text-gray-600 body-font relative"&gt; 
+    &lt;div class="container px-5 py-24 mx-auto mb-12 prose prose-lg dark:prose-invert"&gt; 
+     &lt;p class="lead"&gt; &lt;/p&gt;
+     &lt;h1 class="title"&gt;SSG与CMS&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt; 
+      &lt;div style="text-align: left;"&gt;
+       2023-10-03
+      &lt;/div&gt; &lt;/small&gt; 
+     &lt;p&gt;&lt;/p&gt; 
+     &lt;hr&gt; 
+     &lt;p&gt;那天果总群里在讨论SSG &lt;a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;话题的时候，看很多人好像分不清楚SSG与CMS之间的关系，所以就随手画张图…​&lt;/p&gt; 
+     &lt;p&gt;&lt;img src="images/SSG_and_CMS.jpg"&gt;&lt;/p&gt; 
+     &lt;p&gt;基本上的逻辑就是，从传统静态页面的网站（web1.0）时代走出两条路径：&lt;/p&gt; 
+     &lt;ol type="1"&gt; 
+      &lt;li&gt;一条是引入数据库，增加动态性内容的管理；（web 2.0）&lt;/li&gt; 
+      &lt;li&gt;一条是引入编译期间的转换和组合，但保留交付的静态特性；（web 1.5？）&lt;/li&gt; 
+     &lt;/ol&gt; 
+     &lt;p&gt;原本一个web应用都会有个前台程序和后台程序， 中间用数据库维持共享状态。CMS作为动态内容管理的一类web应用，也是这样的结构，只不过实现细节上增加了版本化、CDN加速、发布部署等一系列周边和运行时基础设施。&lt;/p&gt; 
+     &lt;p&gt;今天，这种场景基本上被云上的Block-based内容管理方案给升级换代了，比如Notion/飞书文档等。 但底层逻辑其实没变，还是运行期的前台+数据库+后台程序的结构。&lt;/p&gt; 
+     &lt;p&gt;不过，生态是多样性的，将传统的静态化方案跟CMS方案结合（杂交不好听，hybrid比较高级些），也形成了一个新的生态样貌，即SSG + headless CMS的方案。 用户编辑内容和贡献内容还在CMS里干，只不过，如果对CMS默认的前端不爽或者想要用其它方案另作定制，那么，可以通过headless CMS提供的API拉取CMS中的内容，然后再在自己的SSG方案或者SSR方案里使用。&lt;/p&gt; 
+     &lt;p&gt;这就是上图的简单解读。&lt;/p&gt; 
+     &lt;section class="footnotes" role="doc-endnotes"&gt; 
+      &lt;hr&gt; 
+      &lt;ol&gt; 
+       &lt;li id="fn1" role="doc-endnote"&gt;&lt;p&gt;不了解什么是SSG的同学，可以移步&lt;a href="https://jiagoubaike.com/"&gt;架构百科&lt;/a&gt;相关&lt;a href="https://jiagoubaike.com/posts/Islands/"&gt;专题&lt;/a&gt;&lt;a href="#fnref1" class="footnote-back" role="doc-backlink"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt; 
+      &lt;/ol&gt; 
+     &lt;/section&gt; 
+     &lt;hr&gt; 
+     &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div id="random_posts"&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2011-12-16-first-meet-hadoop-mrv2.html"&gt;“初探Hadoop MapReduce NextGen|MRv2|YARN(工作上下文紧急切换， 该篇待续)” &lt;/a&gt; 
+      &lt;/div&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2013-12-08-typeclass-made-easy-in-scala.html"&gt;Understanding Typeclass In Scala The Easy Way &lt;/a&gt; 
+      &lt;/div&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2021-09-27-dillema-of-processes.html"&gt;流程悖论 &lt;/a&gt; 
+      &lt;/div&gt; 
+     &lt;/div&gt; 
+     &lt;hr&gt; 
+     &lt;div&gt; 
+      &lt;p&gt; 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^&lt;br&gt; 这里 &lt;/p&gt;
+      &lt;ol&gt; 
+       &lt;li&gt;不但有及时新鲜的AI资讯和深度探讨&lt;/li&gt; 
+       &lt;li&gt;还分享AI工具、产品方法和商业机会&lt;/li&gt; 
+       &lt;li&gt;更有体系化精品付费内容等着你，&lt;a href="https://t.zsxq.com/0dI3ZA0sL"&gt;加入星球(https://t.zsxq.com/0dI3ZA0sL)&lt;/a&gt; 即可免费领取。(加入之后&lt;b&gt;一定记得看置顶消息&lt;/b&gt;呀！)&lt;/li&gt; 
+      &lt;/ol&gt; 
+      &lt;p&gt;&lt;/p&gt; &lt;a href="https://t.zsxq.com/0dI3ZA0sL"&gt; &lt;img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"&gt; &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;hr&gt; 
+     &lt;p&gt; &lt;span style="font-size: xx-large;"&gt;存量的时代，省钱就是赚钱。&lt;/span&gt; &lt;br&gt; &lt;span style="font-size: xx-large;"&gt;在增量的时代，省钱其实是亏钱。&lt;/span&gt; &lt;br&gt; 避坑儿是省钱的一种形式，更是真正聪明人的选择！ &lt;br&gt; 弯路虽然也是路，但还是能少走就少走，背后都是高昂的试错成本。 &lt;br&gt; &lt;b&gt;订阅「福报」&lt;/b&gt;，少踩坑，少走弯路，多走一步，就是不一样的胜率！ &lt;/p&gt; &lt;a href="https://wfq.gumroad.com/l/fb"&gt; &lt;img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"&gt; &lt;/a&gt; 
+     &lt;hr&gt; 
+     &lt;div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"&gt; 
+      &lt;div id="tfloader" class="x-indicator"&gt; 
+       &lt;svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"&gt; &lt;g fill="none" fill-rule="evenodd"&gt; 
+         &lt;g transform="translate(1 1)" stroke-width="2"&gt; 
+          &lt;circle cx="5" cy="50" r="5"&gt; 
+           &lt;animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /&gt; 
+           &lt;animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /&gt; 
+          &lt;/circle&gt; 
+          &lt;circle cx="27" cy="5" r="5"&gt; 
+           &lt;animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /&gt; 
+           &lt;animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /&gt; 
+          &lt;/circle&gt; 
+          &lt;circle cx="49" cy="50" r="5"&gt; 
+           &lt;animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /&gt; 
+           &lt;animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /&gt; 
+          &lt;/circle&gt; 
+         &lt;/g&gt; 
+        &lt;/g&gt; 
+       &lt;/svg&gt; 
+      &lt;/div&gt; 
+     &lt;/div&gt; 
+     &lt;hr&gt; 
+     &lt;div id="comments"&gt;&lt;/div&gt; 
+    &lt;/div&gt; 
+   &lt;/section&gt; 
+  &lt;/main&gt; 
+  &lt;footer class="border-t border-gray-200 dark:border-slate-800"&gt; 
+   &lt;div class="max-w-6xl mx-auto px-4 sm:px-6"&gt; 
+    &lt;div class="md:flex md:items-center md:justify-between py-6 md:py-8"&gt; 
+     &lt;ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0"&gt; 
+      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Twitter" href="https://twitter.com/fujohnwang"&gt; 
+        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-twitter"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z"&gt; 
+         &lt;/path&gt; 
+        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Facebook" href="https://www.facebook.com/fujohnwang/"&gt; 
+        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-facebook"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2H7"&gt;&lt;/path&gt; 
+        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Github" href="https://github.com/fujohnwang"&gt; 
+        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-github"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"&gt; 
+         &lt;/path&gt; 
+        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
+     &lt;/ul&gt; 
+     &lt;div class="text-sm text-gray-700 mr-4 dark:text-slate-400"&gt; &lt;span class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 float-left rounded-sm"&gt; &lt;img src="https://afoo.me/favicon.svg" class="rounded-md" alt&gt; &lt;/span&gt; Copyright © 王福强个人版权所有 - Since 2004 (Everything is homebrewed with &lt;a href="https://pandoc.org/"&gt;Pandoc&lt;/a&gt; and Markdown, little &lt;a href="https://www.scala-lang.org/"&gt;Scala&lt;/a&gt; also included.) 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/footer&gt; 
+  &lt;script&gt;
+        // Set "light" theme as default
+        if (!localStorage.theme) {
+            localStorage.theme = "light";
+        }
+
+        if (
+            localStorage.theme === 'dark' ||
+            (!('theme' in localStorage) &amp;&amp; window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function attachEvent(selector, event, fn) {
+            const matches = document.querySelectorAll(selector);
+            if (matches &amp;&amp; matches.length) {
+                matches.forEach((elem) =&gt; {
+                    elem.addEventListener(event, () =&gt; fn(elem), false);
+                });
+            }
+        }
+
+        window.onload = function () {
+            attachEvent('[data-toggle-menu]', 'click', function (elem) {
+                elem.classList.toggle('expanded');
+                document.body.classList.toggle('overflow-hidden');
+                document.getElementById('header')?.classList.toggle('h-screen');
+                document.querySelector('#header nav')?.classList.toggle('hidden');
+            });
+            attachEvent('[data-toggle-color-scheme]', 'click', function () {
+                document.documentElement.classList.toggle('dark');
+                localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            });
+        };
+        window.onpageshow = function () {
+            const elem = document.querySelector('[data-toggle-menu]');
+            if (elem) {
+                elem.classList.remove('expanded');
+            }
+            document.body.classList.remove('overflow-hidden');
+            document.getElementById('header')?.classList.remove('h-screen');
+            document.querySelector('#header nav')?.classList.add('hidden');
+        };
+    &lt;/script&gt; 
+  &lt;script type="text/javascript"&gt;
+        var gitalk = new Gitalk({
+          clientID: '518a605d711883414ac0',
+          clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+          repo: 'afoo.me.comments',
+          owner: 'fujohnwang',
+          admin: ['fujohnwang'],
+          id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+        gitalk.render('comments')
+    &lt;/script&gt;  
+ &lt;/body&gt;
+&lt;/html&gt;</description>
+      <pubDate>Mon, 02 Oct 2023 16:00:00 GMT</pubDate>
+      <guid>http://afoo.me/posts/2023-10-03-ssg_and_cms.html</guid>
+      <dc:date>2023-10-02T16:00:00Z</dc:date>
+    </item>
+    <item>
       <title>中国咨询之父是谁？</title>
       <link>http://afoo.me/posts/2023-09-27-the-first-consultant-of-China.html</link>
       <description>&lt;!doctype html&gt;
@@ -2679,267 +2946,6 @@
       <pubDate>Fri, 18 Aug 2023 16:00:00 GMT</pubDate>
       <guid>http://afoo.me/posts/2023-08-19-business-goes-its-own-way.html</guid>
       <dc:date>2023-08-18T16:00:00Z</dc:date>
-    </item>
-    <item>
-      <title>Gumroad的分销功能看这篇就够了！</title>
-      <link>http://afoo.me/posts/2023-08-17-gumroad-affiliates.html</link>
-      <description>&lt;!doctype html&gt;
-&lt;html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]"&gt; 
- &lt;head&gt; 
-  &lt;meta charset="utf-8"&gt; 
-  &lt;meta name="keywords" content="Gumroad的分销功能看这篇就够了！ - 架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
-  &lt;meta name="description" content="Gumroad的分销功能看这篇就够了！ - 福强说，扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
-  &lt;meta name="author" content="王福强"&gt; 
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
-  &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt; 
-  &lt;meta name="robots" content="index,follow"&gt; 
-  &lt;title&gt;Gumroad的分销功能看这篇就够了！ -王福强的个人博客：一个架构士的思考与沉淀&lt;/title&gt; 
-  &lt;meta name="date" content="2023-08-17"&gt; 
-  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
-  &lt;link rel="canonical" href="https://afoo.me/posts/2023-08-17-gumroad-affiliates.html"&gt; 
-  &lt;link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"&gt; 
-  &lt;link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8"&gt; 
-  &lt;script src="https://unpkg.com/htmx.org@1.9.5"&gt;&lt;/script&gt; 
-  &lt;link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"&gt; 
-  &lt;script src="https://unpkg.com/gitalk/dist/gitalk.min.js"&gt;&lt;/script&gt; 
-  &lt;style type="text/css"&gt;
-        pre &gt; code{white-space: pre-line;}
-
-        .x-indicator{
-            display:none;
-        }
-        .htmx-request .x-indicator{
-            display:inline;
-        }
-        .htmx-request.x-indicator{
-            display:inline;
-        }
-    &lt;/style&gt; 
-  &lt;link rel="stylesheet" href="/css/af.css"&gt; 
-  &lt;script type="application/ld+json"&gt;
-    {
-      "@context": "https://schema.org",
-      "@type": "NewsArticle",
-      "headline": "Gumroad的分销功能看这篇就够了！",
-      "image": [
-        "https://afoo.me/images/fb_subscribe.jpg"
-       ],
-      "datePublished": "2023-08-17",
-      "author": [{
-          "@type": "Person",
-          "name": "王福强",
-          "url": "https://afoo.me"
-        }]
-    }
-  &lt;/script&gt; 
-  &lt;script type="text/javascript"&gt;
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "irqzhxtyzn");
-  &lt;/script&gt; 
- &lt;/head&gt; 
- &lt;body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"&gt; 
-  &lt;header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"&gt; 
-   &lt;div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"&gt; 
-    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"&gt; &lt;h1&gt;王福强的个人博客&lt;/h1&gt; &lt;/span&gt; &lt;/a&gt; 
-     &lt;div class="flex items-center md:hidden"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
-       &lt;svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
-         &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
-         &lt;path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"&gt; 
-         &lt;/path&gt; 
-        &lt;/g&gt; 
-       &lt;/svg&gt; &lt;/button&gt; &lt;button type="button" class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition" aria-label="Toggle Menu" data-toggle-menu=""&gt; 
-       &lt;svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:menu"&gt; &lt;g class="icon-tabler" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"&gt; 
-         &lt;path d="M4 8h16"&gt;&lt;/path&gt; 
-         &lt;path d="M4 16h16"&gt;&lt;/path&gt; 
-        &lt;/g&gt; 
-       &lt;/svg&gt; &lt;/button&gt; 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-    &lt;nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"&gt; 
-     &lt;ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me"&gt;福强AI学堂&lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com"&gt;架构百科&lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html"&gt;博客文章 &lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html"&gt;创作出版&lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me"&gt;产品与服务&lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
-     &lt;/ul&gt; 
-     &lt;div class="md:self-center flex items-center mb-4 md:mb-0 ml-2"&gt; 
-      &lt;div class="hidden items-center md:flex"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
-        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
-          &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
-          &lt;path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"&gt; 
-          &lt;/path&gt; 
-         &lt;/g&gt; 
-        &lt;/svg&gt; &lt;/button&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="RSS Feed" href="http://afoo.me/feeds.xml"&gt; 
-        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:rss"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
-          &lt;circle cx="5" cy="19" r="1"&gt;&lt;/circle&gt; 
-          &lt;path d="M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"&gt;&lt;/path&gt; 
-         &lt;/g&gt; 
-        &lt;/svg&gt; &lt;/a&gt; 
-      &lt;/div&gt; 
-     &lt;/div&gt; 
-    &lt;/nav&gt; 
-   &lt;/div&gt; 
-  &lt;/header&gt; 
-  &lt;main&gt; 
-   &lt;section class="text-gray-600 body-font relative"&gt; 
-    &lt;div class="container px-5 py-24 mx-auto mb-12 prose prose-lg dark:prose-invert"&gt; 
-     &lt;p class="lead"&gt; &lt;/p&gt;
-     &lt;h1 class="title"&gt;Gumroad的分销功能看这篇就够了！&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt; 
-      &lt;div style="text-align: left;"&gt;
-       2023-08-17
-      &lt;/div&gt; &lt;/small&gt; 
-     &lt;p&gt;&lt;/p&gt; 
-     &lt;hr&gt; 
-     &lt;p&gt;Gumroad的分销机制主要分两种：&lt;/p&gt; 
-     &lt;p&gt;第一种类似国内的带货，针对单一产品，你如果觉得某个产品不错，那么，就可以只针对这个产品分享链接给自己的朋友或者朋友圈（😉），Gumroad会分配一个id用来关联产品销售与你之间的关系，7天有效期内产品售出，你可以分得10%的佣金。(如果觉得福强的产品不错（&lt;a href="https://wfq.gumroad.com" class="uri"&gt;https://wfq.gumroad.com&lt;/a&gt;)，也欢迎各位老铁帮忙带带货呀～)&lt;/p&gt; 
-     &lt;p&gt;这个功能的入口在Gumroad后台的&lt;code&gt;Products -&amp;gt; Affiliated&lt;/code&gt;:&lt;/p&gt; 
-     &lt;p&gt;&lt;img src="images/2023-08-17-13-08-49.jpg"&gt;&lt;/p&gt; 
-     &lt;p&gt;第二种类似于代理商（现在好像喜欢称呼“超级个体”？）， 你可以申请成为某个创作者的affiliate（分销成员？分公司？），之后就可以代理这个创作者的所有产品了，一般每个创作者都会有一个独有的affiliate申请连接，比如福强的affiliate链接就是 &lt;a href="https://wfq.gumroad.com/affiliates" class="uri"&gt;https://wfq.gumroad.com/affiliates&lt;/a&gt;, 欢迎大家加入福强的联盟，一起为大家带去有价值的原创内容，“赠人玫瑰，手有余香（饷）”， 何乐而不为呢？&lt;/p&gt; 
-     &lt;p&gt;不过，从创作者角度来看，affiliate链接和产品分佣比例的管理这些功能的入口不太好找，这个功能入口是在Gumroad后台的个人资料（Profile）下拉菜单里：&lt;/p&gt; 
-     &lt;p&gt;&lt;img src="images/2023-08-17-13-16-14.jpg"&gt;&lt;/p&gt; 
-     &lt;p&gt;点击Affiliates之后，就可以进入下面的页面，选择第二个Tab（Affiliate Signup Form），这个页面下可以管理创作者的&lt;a href="https://wfq.gumroad.com/affiliates"&gt;affiliate link&lt;/a&gt;，并对要分销的产品进行管理，比如哪些产品开启分销，开启后，分佣比例设置为多少等：&lt;/p&gt; 
-     &lt;p&gt;&lt;img src="images/2023-08-17-13-18-11.jpg"&gt;&lt;/p&gt; 
-     &lt;p&gt;针对&lt;a href="https://wfq.gumroad.com/affiliates"&gt;affiliate link&lt;/a&gt;来说，创作者可以将其分享出去，然后假如有朋友感兴趣，就可以访问&lt;a href="https://wfq.gumroad.com/affiliates"&gt;affiliate link&lt;/a&gt;并申请成为创作者的affilate（分销成员/公司）。&lt;/p&gt; 
-     &lt;p&gt;另外就是，假如有朋友主动找创作者要成为自己的affilate（分销成员/公司），创作者也可以在后台的这个页面右上角点击“Add affiliate”将之加入自己的affilate（分销成员/公司）。&lt;/p&gt; 
-     &lt;hr&gt; 
-     &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div id="random_posts"&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2021-02-19-tech-releases-looking-forward-to-this-year.html"&gt;今年值得期待的几个技术发布 &lt;/a&gt; 
-      &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2021-11-04-industy-soft.html"&gt;聊聊我理解的工业软件 &lt;/a&gt; 
-      &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-10-09-thread-safe-and-state.html"&gt;ThreadSafety, Non&lt;/a&gt; 
-      &lt;/div&gt; 
-     &lt;/div&gt; 
-     &lt;hr&gt; 
-     &lt;div&gt; 
-      &lt;p&gt; 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^&lt;br&gt; 这里 &lt;/p&gt;
-      &lt;ol&gt; 
-       &lt;li&gt;不但有及时新鲜的AI资讯和深度探讨&lt;/li&gt; 
-       &lt;li&gt;还分享AI工具、产品方法和商业机会&lt;/li&gt; 
-       &lt;li&gt;更有体系化精品付费内容等着你，&lt;a href="https://t.zsxq.com/0dI3ZA0sL"&gt;加入星球(https://t.zsxq.com/0dI3ZA0sL)&lt;/a&gt; 即可免费领取。(加入之后&lt;b&gt;一定记得看置顶消息&lt;/b&gt;呀！)&lt;/li&gt; 
-      &lt;/ol&gt; 
-      &lt;p&gt;&lt;/p&gt; &lt;a href="https://t.zsxq.com/0dI3ZA0sL"&gt; &lt;img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"&gt; &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;hr&gt; 
-     &lt;p&gt; &lt;span style="font-size: xx-large;"&gt;存量的时代，省钱就是赚钱。&lt;/span&gt; &lt;br&gt; &lt;span style="font-size: xx-large;"&gt;在增量的时代，省钱其实是亏钱。&lt;/span&gt; &lt;br&gt; 避坑儿是省钱的一种形式，更是真正聪明人的选择！ &lt;br&gt; 弯路虽然也是路，但还是能少走就少走，背后都是高昂的试错成本。 &lt;br&gt; &lt;b&gt;订阅「福报」&lt;/b&gt;，少踩坑，少走弯路，多走一步，就是不一样的胜率！ &lt;/p&gt; &lt;a href="https://wfq.gumroad.com/l/fb"&gt; &lt;img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"&gt; &lt;/a&gt; 
-     &lt;hr&gt; 
-     &lt;div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"&gt; 
-      &lt;div id="tfloader" class="x-indicator"&gt; 
-       &lt;svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"&gt; &lt;g fill="none" fill-rule="evenodd"&gt; 
-         &lt;g transform="translate(1 1)" stroke-width="2"&gt; 
-          &lt;circle cx="5" cy="50" r="5"&gt; 
-           &lt;animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /&gt; 
-           &lt;animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /&gt; 
-          &lt;/circle&gt; 
-          &lt;circle cx="27" cy="5" r="5"&gt; 
-           &lt;animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /&gt; 
-           &lt;animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /&gt; 
-          &lt;/circle&gt; 
-          &lt;circle cx="49" cy="50" r="5"&gt; 
-           &lt;animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /&gt; 
-           &lt;animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /&gt; 
-          &lt;/circle&gt; 
-         &lt;/g&gt; 
-        &lt;/g&gt; 
-       &lt;/svg&gt; 
-      &lt;/div&gt; 
-     &lt;/div&gt; 
-     &lt;hr&gt; 
-     &lt;div id="comments"&gt;&lt;/div&gt; 
-    &lt;/div&gt; 
-   &lt;/section&gt; 
-  &lt;/main&gt; 
-  &lt;footer class="border-t border-gray-200 dark:border-slate-800"&gt; 
-   &lt;div class="max-w-6xl mx-auto px-4 sm:px-6"&gt; 
-    &lt;div class="md:flex md:items-center md:justify-between py-6 md:py-8"&gt; 
-     &lt;ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0"&gt; 
-      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Twitter" href="https://twitter.com/fujohnwang"&gt; 
-        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-twitter"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z"&gt; 
-         &lt;/path&gt; 
-        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Facebook" href="https://www.facebook.com/fujohnwang/"&gt; 
-        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-facebook"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2H7"&gt;&lt;/path&gt; 
-        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Github" href="https://github.com/fujohnwang"&gt; 
-        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-github"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"&gt; 
-         &lt;/path&gt; 
-        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
-     &lt;/ul&gt; 
-     &lt;div class="text-sm text-gray-700 mr-4 dark:text-slate-400"&gt; &lt;span class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 float-left rounded-sm"&gt; &lt;img src="https://afoo.me/favicon.svg" class="rounded-md" alt&gt; &lt;/span&gt; Copyright © 王福强个人版权所有 - Since 2004 (Everything is homebrewed with &lt;a href="https://pandoc.org/"&gt;Pandoc&lt;/a&gt; and Markdown, little &lt;a href="https://www.scala-lang.org/"&gt;Scala&lt;/a&gt; also included.) 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/footer&gt; 
-  &lt;script&gt;
-        // Set "light" theme as default
-        if (!localStorage.theme) {
-            localStorage.theme = "light";
-        }
-
-        if (
-            localStorage.theme === 'dark' ||
-            (!('theme' in localStorage) &amp;&amp; window.matchMedia('(prefers-color-scheme: dark)').matches)
-        ) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-
-        function attachEvent(selector, event, fn) {
-            const matches = document.querySelectorAll(selector);
-            if (matches &amp;&amp; matches.length) {
-                matches.forEach((elem) =&gt; {
-                    elem.addEventListener(event, () =&gt; fn(elem), false);
-                });
-            }
-        }
-
-        window.onload = function () {
-            attachEvent('[data-toggle-menu]', 'click', function (elem) {
-                elem.classList.toggle('expanded');
-                document.body.classList.toggle('overflow-hidden');
-                document.getElementById('header')?.classList.toggle('h-screen');
-                document.querySelector('#header nav')?.classList.toggle('hidden');
-            });
-            attachEvent('[data-toggle-color-scheme]', 'click', function () {
-                document.documentElement.classList.toggle('dark');
-                localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-            });
-        };
-        window.onpageshow = function () {
-            const elem = document.querySelector('[data-toggle-menu]');
-            if (elem) {
-                elem.classList.remove('expanded');
-            }
-            document.body.classList.remove('overflow-hidden');
-            document.getElementById('header')?.classList.remove('h-screen');
-            document.querySelector('#header nav')?.classList.add('hidden');
-        };
-    &lt;/script&gt; 
-  &lt;script type="text/javascript"&gt;
-        var gitalk = new Gitalk({
-          clientID: '518a605d711883414ac0',
-          clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-          repo: 'afoo.me.comments',
-          owner: 'fujohnwang',
-          admin: ['fujohnwang'],
-          id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-          distractionFreeMode: false  // Facebook-like distraction free mode
-        })
-        gitalk.render('comments')
-    &lt;/script&gt;  
- &lt;/body&gt;
-&lt;/html&gt;</description>
-      <pubDate>Wed, 16 Aug 2023 16:00:00 GMT</pubDate>
-      <guid>http://afoo.me/posts/2023-08-17-gumroad-affiliates.html</guid>
-      <dc:date>2023-08-16T16:00:00Z</dc:date>
     </item>
   </channel>
 </rss>
