@@ -14,7 +14,9 @@ It's build with #JavaFX and #Scala, aimed to scenarios where composing plist xml
 
 ![](images/launchd-plist-composer-screenshot.jpg)
 
-It's also released at github: <https://github.com/fujohnwang/launchctl-generator/releases/tag/v1.0.0>
+It's also released [^1] at github: <https://github.com/fujohnwang/launchctl-generator/releases/tag/v1.0.0> 
+
+[^1]: 昨天有同学反馈404，其实是github返回的status code不对，应该是401，因为这初始化成了private repo，现在转成[public](https://github.com/fujohnwang/launchctl-generator)的了(<https://github.com/fujohnwang/launchctl-generator>)，欢迎code review ；）
 
 
 写这个工具的初衷是有很多MacOS的后台服务或者调度服务需要写配置文件，尤其是调度规则的编写，[Launchd](https://jiagoubaike.com/posts/launchd/)的plist配置文件没法像crontab那样写个简单的表达式，手工编写xml又比较繁琐，所以，就有了这个工具的编写动力。
