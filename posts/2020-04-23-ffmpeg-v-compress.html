@@ -17,8 +17,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -30,7 +32,6 @@
             display:inline;
         }
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -126,11 +127,11 @@
      <p>什么bit rate啊， FPS啊， CRF啊，google了一大通， 嗯，终于心里有数了…</p> 
      <p>不用通过bit rate或者crf压缩了，直接对标上网本的分辨率，因为我发现原始视频的分辨率远比上网本的(1024*800)高得多的多：</p> 
      <pre><code>$ ffmpeg -i 视频文件.mp4   // 查看视频文件相关信息，这里是已经压缩过几次的文件
-            ...
-            Stream #0:0(und): Video: h264 (High) (avc1 / 0x31637661), yuvj420p(pc), 886x1920, 795 kb/s, 60 fps, 60 tbr, 15360 tbn, 120 tbc (default) 
-            ...
+...
+Stream #0:0(und): Video: h264 (High) (avc1 / 0x31637661), yuvj420p(pc), 886x1920, 795 kb/s, 60 fps, 60 tbr, 15360 tbn, 120 tbc (default) 
+...
 
-            $ ffmpeg -i o2.mp4 -vf "scale=-2:960" o3.mp4  // 在压缩了好几遍，1G左右文件的基础上分辨率减半</code></pre> 
+$ ffmpeg -i o2.mp4 -vf "scale=-2:960" o3.mp4  // 在压缩了好几遍，1G左右文件的基础上分辨率减半</code></pre> 
      <p>哗啦， 终于可以音频和视频都对上， 还能流畅播放了，最终压缩后的文件大小是470.6M！</p> 
      <h1 id="遇到的问题">遇到的问题</h1> 
      <h2 id="设备接口不兼容的问题">设备接口不兼容的问题</h2> 
@@ -140,7 +141,7 @@
      <p><code>ffmpeg -i o2.mp4 -vf "scale=443:960" o3.mp4</code>或者<code>ffmpeg -i o2.mp4 -vf "scale=iw/2:ih/2" o3.mp4</code></p> 
      <p>都会抛出异常：</p> 
      <pre><code>[libx264 @ 0x7fd37b81e400] width not divisible by 2 (443x960)
-            ...</code></pre> 
+...</code></pre> 
      <p>原来是ffmpeg对像素数值有要求（奇数反正是不行的）， 所以最后采用了这种方案：</p> 
      <p><code>ffmpeg -i o2.mp4 -vf "scale=-2:960" o3.mp4</code></p> 
      <p>但<code>-2</code>只能用在一个位置，不能宽和高都用。</p> 
@@ -158,11 +159,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2008-01-14-jta-interactive-flow-in-my-words.html">JTA interactive flow in my words </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2010-08-02-photography3.html">拍荷花</a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2004-00-00-some-tips-of-ssl.html">有关SSL的一些tips </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2005-00-00-smtp-mail-send-in-spring.html">在spring中发信的时候 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2008-09-14-mid-autumn-day.html">不一样的中秋 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2009-02-20-jms-durable-subscription-tutorial.html">JMS Durable Subscription Tutorial </a> 
       </div> 
      </div> 
      <hr> 

@@ -17,8 +17,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -95,7 +97,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -178,16 +179,16 @@
      <h1 id="手动作业过程说明">手动作业过程说明</h1> 
      <p>我是先在本地创建一个项目， 目录结构参考：</p> 
      <pre><code>homebrew-keenotes/
-                Casks/
-                    keenotes.rb
-                Formula/
-                    keenotes.rb
-                README.md</code></pre> 
+    Casks/
+        keenotes.rb
+    Formula/
+        keenotes.rb
+    README.md</code></pre> 
      <p>然后拷贝一个Formula的定义模板并修改相应值。</p> 
      <p>比如<code>sha256 "xxxx"</code>的配置行， 其值我们使用如下命令获得并更换：</p> 
      <div class="sourceCode" id="cb2">
       <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">base</span><span class="kw">)</span> <span class="ex">➜</span>  KeeNotes git:<span class="er">(</span><span class="ex">master</span><span class="kw">)</span> <span class="op">&gt;</span> shasum <span class="ex">-a</span> 256 <span class="st">"KeeNotes Desktop-1.2.2.dmg"</span></span>
-            <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">e3731d376958ba68e927f876b27ade5a9d049461d59af2c4c32dc0df6db12a75</span>  KeeNotes Desktop-1.2.2.dmg</span></code></pre>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">e3731d376958ba68e927f876b27ade5a9d049461d59af2c4c32dc0df6db12a75</span>  KeeNotes Desktop-1.2.2.dmg</span></code></pre>
      </div> 
      <p>比如url指向的安装文件位置，我们直接用github上的releases里的下载文件地址：</p> 
      <div class="sourceCode" id="cb3">
@@ -201,7 +202,7 @@
      <p>所有这些做完之后，就可以：</p> 
      <div class="sourceCode" id="cb4">
       <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask install keenotes</span>
-            <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install <span class="at">--cask</span> keenotes</span></code></pre>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install <span class="at">--cask</span> keenotes</span></code></pre>
      </div> 
      <blockquote> 
       <p>TIPS</p> 
@@ -223,17 +224,17 @@
      <h1 id="本地作业不分享local-workout-only">本地作业不分享(Local Workout Only)</h1> 
      <p>如果只是本地开发和使用， 可以不用跟github打交道：</p> 
      <pre><code>brew tap-new keevol/keenotes
-            cd $(brew --repo keevol/keenotes)
-            pwd
+cd $(brew --repo keevol/keenotes)
+pwd
 
-            brew create --tap=keevol/keenotes &lt;URL&gt; 
-                where `&lt;URL&gt;` is a zip or tarball, installed with `brew install &lt;formula&gt;`, and debugged with `brew install --debug --verbose &lt;formula&gt;`.
-            然后根据需求手动改动一些必要信息即可。</code></pre> 
+brew create --tap=keevol/keenotes &lt;URL&gt; 
+    where `&lt;URL&gt;` is a zip or tarball, installed with `brew install &lt;formula&gt;`, and debugged with `brew install --debug --verbose &lt;formula&gt;`.
+然后根据需求手动改动一些必要信息即可。</code></pre> 
      <h1 id="其它需要注意的点attentions">其它需要注意的点(Attentions)</h1> 
      <h2 id="cask-file-name-and-cask-token-in-the-file">cask file name and cask token in the file</h2> 
      <p>The first non-comment line in a Cask follows the form:</p> 
      <pre><code>cask "&lt;cask-token&gt;" do
-                ...</code></pre> 
+    ...</code></pre> 
      <p><code>&lt;cask-token&gt;</code> should match the Cask filename, without the .rb extension, enclosed in single quotes.</p> 
      <h1 id="参考资料ref">参考资料(Ref)</h1> 
      <ul> 
@@ -245,11 +246,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2018-05-27-we_all_need_grow_up_independently.html">你弱你有理，只能抛弃你 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2022-07-14-ivory-tower-vs-suburban.html">象牙塔理解不了外围的杂乱差！ </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2008-05-13-finish-unveil-spring-book-draft.html">万里长征第一步，搞定～ </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2009-10-29-create-custom-maven-archetype.html">自定义Maven archetype的创建 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2022-11-11-LoD-explained.html">LOD Explained </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2018-05-26-how_to_find_proper_CTO.html">要找CTO， 你有没有想好选I还是选E？ </a> 
       </div> 
      </div> 
      <hr> 

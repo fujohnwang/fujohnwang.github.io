@@ -48,3 +48,11 @@ module.exports = {
       themes: ["light", "dark", "winter"],
     },
 }
+
+
+
+// other options to disable prose css: 
+// - https://nikitagoncharuk.com/blog/my-custom-code-style-for-typography-by-tailwindcss-highlightjs/
+
+
+

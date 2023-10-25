@@ -17,8 +17,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -30,7 +32,6 @@
             display:inline;
         }
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -128,10 +129,10 @@
      <p>话说扶墙老师刚到<a href="http://www.wacai.com">挖财</a>的时候， 需要帮助业务线技术团队梳理各方面的关注点并解决相应的问题和瓶颈， 其中一个场景是， 团队发布经常延期，而且很容易出事故， 一开始以为只是SCM之类实践方式有待改进，真的钻下去看工程和代码才发现真正的问题之所在。</p> 
      <p>我发现， 业务线的projects是根据逻辑层来设置的， 类似于：</p> 
      <pre><code>* func-web(project)
-            * func-serivces(project)
-            * func-dao(project)
-            * func-utils(project)
-            * ...</code></pre> 
+* func-serivces(project)
+* func-dao(project)
+* func-utils(project)
+* ...</code></pre> 
      <p>有没有觉得很匪夷所思？！ 其实一点儿也不用匪夷所思，我想在很多团队中也有可能存在这种现象（那些闷声发大财使用SOA很多年的公司现在是不是对此很不屑？）， 为什么那？ 因为如果你没有真正理解SOA的理念，或者你缺少一些正确的指引，只能自己摸着石头过河，那么你就是会做出这样的实践方式，要知道SOA更多强调的是逻辑上的理念， 而分层架构恰好又是提到的最多的架构逻辑上的典范， 自然而然的，按照分层(layers)将项目划分为如上结构，也就很是“自然”了！</p> 
      <p>但是，这样设置项目结构所带来的影响却是：</p> 
      <ol type="1"> 
@@ -140,20 +141,20 @@
      </ol> 
      <p>那么，我们要怎么打破这种窘境那？其实也很简单， 以功能为划分关注点的纬度进行服务和项目的划分， 而各个服务在实现的时候要用到的各逻辑层的功能则纳入服务自己的project中， 现在的project结构就变成了：</p> 
      <pre><code>* func1(project)
-                - com.wacai.func1.controllers
-                - com.wacai.func1.services
-                - com.wacai.func1.dao
-                - com.wacai.func1.utils
-                - ...
-            * func2(project)
-                - com.wacai.func2.controllers
-                - com.wacai.func2.services
-                - com.wacai.func2.dao
-                - com.wacai.func2.utils
-                - ...
-            * func3(project)
-                - ...
-            * ...</code></pre> 
+    - com.wacai.func1.controllers
+    - com.wacai.func1.services
+    - com.wacai.func1.dao
+    - com.wacai.func1.utils
+    - ...
+* func2(project)
+    - com.wacai.func2.controllers
+    - com.wacai.func2.services
+    - com.wacai.func2.dao
+    - com.wacai.func2.utils
+    - ...
+* func3(project)
+    - ...
+* ...</code></pre> 
      <p>现在这种落地方式(into the ground)带来了哪些好的转变那？</p> 
      <ol type="1"> 
       <li>功能独立开发和测试，开发一个功能不要在多个project之间“辗转腾挪”，团队成员分工有明确分配的目标指向，工作的目的project明确而单一，而原来你开发一个功能要同时面对多个project；</li> 
@@ -254,11 +255,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2010-11-25-jvm_attach_api_introduction_and_practice.html">JVM Attach API Introducation And Practice </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2007-08-14-laosao.html">发发牢骚 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2021-06-27-kafka-eromanga-and-confluent-IPO.html">Kafka、Eromanga与Confluent IPO </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2009-01-03-the-curious-case-of-benjamin-button.html">返老还童(The Curious Case of Benjamin Button) </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2007-06-20-stock-t+0-trade.html">股票的T+0操作 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2021-03-14-cost-everywhere.html">进击的成本 </a> 
       </div> 
      </div> 
      <hr> 

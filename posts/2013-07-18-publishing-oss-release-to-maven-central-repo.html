@@ -16,8 +16,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -94,7 +96,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -188,103 +189,103 @@
      <h1 id="规范pom">规范POM</h1> 
      <p>这些element人家说了，必须要：</p> 
      <pre><code>&lt;modelVersion&gt;
-            &lt;groupId&gt;
-            &lt;artifactId&gt;
-            &lt;version&gt;
-            &lt;packaging&gt;
-            &lt;name&gt;
-            &lt;description&gt;
-            &lt;url&gt;
-            &lt;licenses&gt;
-            &lt;scm&gt;&lt;url&gt;
-            &lt;scm&gt;&lt;connection&gt;
-            &lt;developers&gt;</code></pre> 
+&lt;groupId&gt;
+&lt;artifactId&gt;
+&lt;version&gt;
+&lt;packaging&gt;
+&lt;name&gt;
+&lt;description&gt;
+&lt;url&gt;
+&lt;licenses&gt;
+&lt;scm&gt;&lt;url&gt;
+&lt;scm&gt;&lt;connection&gt;
+&lt;developers&gt;</code></pre> 
      <p>另外， 除了二进制jar包，相对应的-sources.jar和-javadoc.jar也是必须的，所有这些jar以及pom.xml都需要通过PGP签名，所以，我们需要在pom.xml里添加相应的maven插件来帮助我们搞定这些：</p> 
      <pre><code>            &lt;plugin&gt;
-                            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-                            &lt;artifactId&gt;maven-source-plugin&lt;/artifactId&gt;
-                            &lt;executions&gt;
-                                &lt;execution&gt;
-                                    &lt;id&gt;attach-sources&lt;/id&gt;
-                                    &lt;goals&gt;
-                                        &lt;goal&gt;jar&lt;/goal&gt;
-                                    &lt;/goals&gt;
-                                &lt;/execution&gt;
-                            &lt;/executions&gt;
-                        &lt;/plugin&gt;
-                        &lt;plugin&gt;
-                            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-                            &lt;artifactId&gt;maven-javadoc-plugin&lt;/artifactId&gt;
-                            &lt;configuration&gt;
-                                &lt;charset&gt;${file_encoding}&lt;/charset&gt;
-                                &lt;encoding&gt;${file_encoding}&lt;/encoding&gt;
-                            &lt;/configuration&gt;
-                            &lt;executions&gt;
-                                &lt;execution&gt;
-                                    &lt;id&gt;attach-javadocs&lt;/id&gt;
-                                    &lt;goals&gt;
-                                        &lt;goal&gt;jar&lt;/goal&gt;
-                                    &lt;/goals&gt;
-                                &lt;/execution&gt;
-                            &lt;/executions&gt;
-                        &lt;/plugin&gt;</code></pre> 
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-source-plugin&lt;/artifactId&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;attach-sources&lt;/id&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;jar&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-javadoc-plugin&lt;/artifactId&gt;
+                &lt;configuration&gt;
+                    &lt;charset&gt;${file_encoding}&lt;/charset&gt;
+                    &lt;encoding&gt;${file_encoding}&lt;/encoding&gt;
+                &lt;/configuration&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;attach-javadocs&lt;/id&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;jar&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;</code></pre> 
      <p>我们不想任何时候都做pgp签名，这样会比较耗费时间，一般只是在发布的时候才执行pgp前面，所以，我们将maven的pgp插件放入pom.xml里单独的一个profile中：</p> 
      <pre><code>    &lt;profiles&gt;
-                    &lt;profile&gt;
-                        &lt;id&gt;release-sign-artifacts&lt;/id&gt;
-                        &lt;activation&gt;
-                            &lt;property&gt;
-                                &lt;name&gt;performRelease&lt;/name&gt;
-                                &lt;value&gt;true&lt;/value&gt;
-                            &lt;/property&gt;
-                        &lt;/activation&gt;
-                        &lt;build&gt;
-                            &lt;plugins&gt;
-                                &lt;plugin&gt;
-                                    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-                                    &lt;artifactId&gt;maven-gpg-plugin&lt;/artifactId&gt;
-                                    &lt;version&gt;1.1&lt;/version&gt;
-                                    &lt;executions&gt;
-                                        &lt;execution&gt;
-                                            &lt;id&gt;sign-artifacts&lt;/id&gt;
-                                            &lt;phase&gt;verify&lt;/phase&gt;
-                                            &lt;goals&gt;
-                                                &lt;goal&gt;sign&lt;/goal&gt;
-                                            &lt;/goals&gt;
-                                        &lt;/execution&gt;
-                                    &lt;/executions&gt;
-                                &lt;/plugin&gt;
-                            &lt;/plugins&gt;
-                        &lt;/build&gt;
-                    &lt;/profile&gt;
-                &lt;/profiles&gt;</code></pre> 
+        &lt;profile&gt;
+            &lt;id&gt;release-sign-artifacts&lt;/id&gt;
+            &lt;activation&gt;
+                &lt;property&gt;
+                    &lt;name&gt;performRelease&lt;/name&gt;
+                    &lt;value&gt;true&lt;/value&gt;
+                &lt;/property&gt;
+            &lt;/activation&gt;
+            &lt;build&gt;
+                &lt;plugins&gt;
+                    &lt;plugin&gt;
+                        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                        &lt;artifactId&gt;maven-gpg-plugin&lt;/artifactId&gt;
+                        &lt;version&gt;1.1&lt;/version&gt;
+                        &lt;executions&gt;
+                            &lt;execution&gt;
+                                &lt;id&gt;sign-artifacts&lt;/id&gt;
+                                &lt;phase&gt;verify&lt;/phase&gt;
+                                &lt;goals&gt;
+                                    &lt;goal&gt;sign&lt;/goal&gt;
+                                &lt;/goals&gt;
+                            &lt;/execution&gt;
+                        &lt;/executions&gt;
+                    &lt;/plugin&gt;
+                &lt;/plugins&gt;
+            &lt;/build&gt;
+        &lt;/profile&gt;
+    &lt;/profiles&gt;</code></pre> 
      <p>除此之外， 我们的pom应该继承自sonatype oss:</p> 
      <pre><code>  &lt;parent&gt;
-                &lt;groupId&gt;org.sonatype.oss&lt;/groupId&gt;
-                &lt;artifactId&gt;oss-parent&lt;/artifactId&gt;
-                &lt;version&gt;7&lt;/version&gt;
-              &lt;/parent&gt;</code></pre> 
+    &lt;groupId&gt;org.sonatype.oss&lt;/groupId&gt;
+    &lt;artifactId&gt;oss-parent&lt;/artifactId&gt;
+    &lt;version&gt;7&lt;/version&gt;
+  &lt;/parent&gt;</code></pre> 
      <p>并且，有关SCM的信息需要严格填写， maven将在发布的时候自动checkout并打标发布。</p> 
      <h1 id="配置pgp">配置PGP</h1> 
      <p>如果发布机上没有安装，需要安装一下， 俺本地因为是mac，所以直接下了pgptools，一键安装， very easy～</p> 
      <p>安装后，创建一个pgp key，并发布到指定的key server - <code>hkp://pool.sks-keyservers.net</code>， 因为pgptools默认是发布到gnu的key server，所以，需要在PGP Keychain Access.app的Preferences里将key server选择为hkp://pool.sks-keyservers.net</p> 
      <p>所有这些搞定之后，在~/.m2/settings.xml中添加：</p> 
      <pre><code>&lt;settings&gt;
-              ...
-              &lt;servers&gt;
-                &lt;server&gt;
-                  &lt;id&gt;sonatype-nexus-snapshots&lt;/id&gt;
-                  &lt;username&gt;your-jira-id&lt;/username&gt;
-                  &lt;password&gt;your-jira-pwd&lt;/password&gt;
-                &lt;/server&gt;
-                &lt;server&gt;
-                  &lt;id&gt;sonatype-nexus-staging&lt;/id&gt;
-                  &lt;username&gt;your-jira-id&lt;/username&gt;
-                  &lt;password&gt;your-jira-pwd&lt;/password&gt;
-                &lt;/server&gt;
-              &lt;/servers&gt;
-              ...
-            &lt;/settings&gt;</code></pre> 
+  ...
+  &lt;servers&gt;
+    &lt;server&gt;
+      &lt;id&gt;sonatype-nexus-snapshots&lt;/id&gt;
+      &lt;username&gt;your-jira-id&lt;/username&gt;
+      &lt;password&gt;your-jira-pwd&lt;/password&gt;
+    &lt;/server&gt;
+    &lt;server&gt;
+      &lt;id&gt;sonatype-nexus-staging&lt;/id&gt;
+      &lt;username&gt;your-jira-id&lt;/username&gt;
+      &lt;password&gt;your-jira-pwd&lt;/password&gt;
+    &lt;/server&gt;
+  &lt;/servers&gt;
+  ...
+&lt;/settings&gt;</code></pre> 
      <p>用户名和密码在一开始已经申请过了，填上即可。</p> 
      <p>更详细步骤参看<a href="https://docs.sonatype.org/display/Repository/How+To+Generate+PGP+Signatures+With+Maven" class="uri">https://docs.sonatype.org/display/Repository/How+To+Generate+PGP+Signatures+With+Maven</a></p> 
      <h1 id="发布snapshot版本">发布SNAPSHOT版本</h1> 
@@ -294,12 +295,12 @@
      <h1 id="发布staging版本">发布Staging版本</h1> 
      <div class="sourceCode" id="cb7">
       <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> mvn release:clean</span>
-            <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> mvn release:prepare</span>
-            <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> mvn release:perform</span></code></pre>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> mvn release:prepare</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> mvn release:perform</span></code></pre>
      </div> 
      <p>期间会提示需要输入pgp key的passphrase，照办就是了。</p> 哥的Ticket当天没批下来，所以，运行会告诉我没有权限上传artifacts: 
-     <pre>             [ERROR] Failed to execute goal org.apache.maven.plugins:maven-deploy-plugin:2.5:deploy (default-deploy) on project cobar-client: Failed to deploy artifacts: Could not transfer artifact com.alibaba.cobar:cobar-client:jar:1.0.5 from/to sonatype-nexus-staging (https://oss.sonatype.org/service/local/staging/deploy/maven2/): Access denied to: https://oss.sonatype.org/service/local/staging/deploy/maven2/com/alibaba/cobar/cobar-client/1.0.5/cobar-client-1.0.5.jar -&gt; [Help 1]
-            </pre> 
+     <pre> [ERROR] Failed to execute goal org.apache.maven.plugins:maven-deploy-plugin:2.5:deploy (default-deploy) on project cobar-client: Failed to deploy artifacts: Could not transfer artifact com.alibaba.cobar:cobar-client:jar:1.0.5 from/to sonatype-nexus-staging (https://oss.sonatype.org/service/local/staging/deploy/maven2/): Access denied to: https://oss.sonatype.org/service/local/staging/deploy/maven2/com/alibaba/cobar/cobar-client/1.0.5/cobar-client-1.0.5.jar -&gt; [Help 1]
+</pre> 
      <p>没办法，等吧～</p> 
      <h1 id="正式发布">正式发布</h1> 
      <p>访问web地址：<a href="https://oss.sonatype.org/" class="uri">https://oss.sonatype.org/</a></p> 
@@ -316,11 +317,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2005-06-18-xindice-intro.html">Xindice随笔 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2020-03-25-undercover-billionaire.html">Undercover Billionaire, Another Donald J. Trump’s Apprentice Show? </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2021-02-11-release-keenotes-v1-2-3-for-spring-festival.html">KeeNotes发布新版恭祝大家新春快乐~ </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2005-00-00-spring-without-ioc.html">Spring Without IoC </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2009-06-02-work-fucking-late-again.html">又是加班到这个点儿 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2021-11-25-fund-service-and-satisfication.html">垫付、服务与客户满意度 </a> 
       </div> 
      </div> 
      <hr> 

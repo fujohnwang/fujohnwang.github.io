@@ -16,8 +16,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -94,7 +96,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -183,21 +184,21 @@
       <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pandoc</span> <span class="at">--latex-engine</span><span class="op">=</span>xelatex <span class="at">-V</span> mainfont=<span class="st">'LiHei Pro'</span> <span class="at">--template</span><span class="op">=</span>pm-template 统一投放平台规划与设想.md <span class="at">-o</span> tek.pdf</span></code></pre>
      </div> 
      <p>But， Shit happens…</p> 
-     <pre>            pandoc: Error producing PDF from TeX source.
-            ! LaTeX Error: File `titling.sty' not found.
+     <pre>pandoc: Error producing PDF from TeX source.
+! LaTeX Error: File `titling.sty' not found.
 
-            Type X to quit or <return>
+Type X to quit or <return>
         to proceed,
-            or enter new name. (Default extension: sty)
+or enter new name. (Default extension: sty)
 
-            Enter file name:
-            ! Emergency stop.
-            
+Enter file name:
+! Emergency stop.
+
        <read *>
         
 
-            l.65 \setlength
-            
+l.65 \setlength
+
        </read>
       </return></pre> 
      <p>没关系， 继续google， 嗯，貌似是某个Latex包没有， 发现CTAN有这么个包下载，可下下来也不会安装啊，应该有现成的包管理器吧？！ 搜来搜去，果然有，嘿嘿:</p> 
@@ -217,9 +218,9 @@
      <hr> 
      <p><strong>补充部分</strong></p> 
      <p>有些时候， 默认的repository下找不到相应的包，所以， 这个时候可以使用<code>sudo tlmgr --repository http://mirrors.ustc.edu.cn/CTAN/systems/texlive/tlnet install CJKfntef</code>类似的命令来安装，但是，因为授权协议之类问题， 即使指定repository也不一定找得到， 最后就得手动安装了。</p> 首先运行<code>kpsewhich -var-value=TEXMFHOME</code>找出tex安装目录（我本地系统是在/Users/fujohnwang/Library/texmf）， 然后： 
-     <pre>            sudo mkdir -p texmf/tex/latex/local/
-            sudo cp Downloads/CJKfntef.sty ~/Library/texmf/tex/latex/local
-            </pre> 
+     <pre>sudo mkdir -p texmf/tex/latex/local/
+sudo cp Downloads/CJKfntef.sty ~/Library/texmf/tex/latex/local
+</pre> 
      <blockquote> 
       <p>MMD， pandoc的markdown中如果插入图片的话，经常报错， 这个时候，检查一下图片是否是gif格式，如果是，那么将其转成png格式， 这真是一个大坑，老子耗费了差不多一天的时间来解决这个问题， 因为报错信息基本没参考价值， 就各种google， 各种装依赖尝试， 各种改模板，总之各种折腾， 最后是通过先转成latex中间格式，然后再使用xelatex从latex格式转pdf的log中才瞅出些许端倪，然后将gif改成png格式之后， 哇啦， 顺利通关！</p> 
      </blockquote> 
@@ -227,11 +228,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2008-10-18-she-is-my-world.html">She is my world </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2011-06-23-a-custom-cfg-impl-with-scala.html">一个简单的自定义配置格式的Scala实现 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2021-09-27-dillema-of-processes.html">流程悖论 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2022-09-06-he-suan-ma.html">核酸码系统拆解与设计推演 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2009-05-24-next-stop-hangzhou.html">奔向下一站… </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2005-00-00-launch-excel-with-jacob.html">使用jacob来launch Excel文件 </a> 
       </div> 
      </div> 
      <hr> 

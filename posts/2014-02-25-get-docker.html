@@ -16,8 +16,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -94,7 +96,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -193,14 +194,14 @@
       <li>然后<code>sudo grub-update &amp;&amp; sudo reboot</code></li> 
      </ol> 
      <h2 id="使用非root用户使用docker不用每次sudo">使用非root用户使用docker(不用每次sudo)</h2> 
-     <pre>            $ sudo groupadd docker
-            $ sudo gpasswd -a ${USER} docker  # 当前用户添加到docker group
-            $ sudo reboot  # 切记，是reboot，而不是像官方文档那样restart， 否则，用户即使在第二步添加成功，但使用`groups`命令查看用户会显示还是没有被添加
-            </pre> 
+     <pre>$ sudo groupadd docker
+$ sudo gpasswd -a ${USER} docker  # 当前用户添加到docker group
+$ sudo reboot  # 切记，是reboot，而不是像官方文档那样restart， 否则，用户即使在第二步添加成功，但使用`groups`命令查看用户会显示还是没有被添加
+</pre> 
      <h2 id="升级">升级</h2> 
-     <pre>            $ sudo apt-get update
-            $ sudo apt-get install lxc-docker
-            </pre> 
+     <pre>$ sudo apt-get update
+$ sudo apt-get install lxc-docker
+</pre> 
      <hr> 
      <h1 id="使用">使用</h1> 
      <h2 id="docker-daemon">docker daemon</h2> 
@@ -216,22 +217,22 @@
      <p>使用-p参数:</p> 
      <p><code>$&gt; docker run –p 49200:8080 gcm http://localhost:49200</code></p> 
      <p>http://localhost:49200， 8080是private port， 49200是public port；</p> 或者只指定private port，由docker决定最终的public port是哪个: 
-     <pre>            JOB=$(sudo docker run -d -p 4444 ubuntu:12.10 /bin/nc -l 4444)         //Bind port 4444 of this container, and tell netcat to listen on it
+     <pre>JOB=$(sudo docker run -d -p 4444 ubuntu:12.10 /bin/nc -l 4444)         //Bind port 4444 of this container, and tell netcat to listen on it
 
-            PORT=$(sudo docker port $JOB 4444 | awk -F: '{ print $2 }')            // Which public port is NATed to my container?
+PORT=$(sudo docker port $JOB 4444 | awk -F: '{ print $2 }')            // Which public port is NATed to my container?
 
-            echo hello world | nc 127.0.0.1 $PORT                                  // Connect to the public port
+echo hello world | nc 127.0.0.1 $PORT                                  // Connect to the public port
 
-            echo "Daemon received: $(sudo docker logs $JOB)"                       // Verify that the network connection worked
-            </pre> 又或者: 
-     <pre>            // Bind to a dynamically allocated port
-            $ docker run -p 127.0.0.1::8080 --name dyn-bound <img> <cmd>
+echo "Daemon received: $(sudo docker logs $JOB)"                       // Verify that the network connection worked
+</pre> 又或者: 
+     <pre>// Bind to a dynamically allocated port
+$ docker run -p 127.0.0.1::8080 --name dyn-bound <img> <cmd>
        
 
-            // Lookup the actual port
-            $ docker port dyn-bound 8080
-            // 127.0.0.1:49160
-            
+// Lookup the actual port
+$ docker port dyn-bound 8080
+// 127.0.0.1:49160
+
       </cmd></pre> 
      <h3 id="以deamon形式运行">以deamon形式运行</h3> 
      <p>使用-d参数：</p> 
@@ -241,10 +242,10 @@
      <p><code>docker ps -a</code>查看所有已经停止的containers;</p> 
      <p><code>docker ps -l</code>查看上一个停止的container;</p> 
      <h2 id="attach到运行的container">attach到运行的container</h2> 
-     <pre>            CONTAINER_ID=$(sudo docker run -d ubuntu /bin/sh -c "while true; do echo hello world; sleep 1; done")
-            sudo docker logs $CONTAINER_ID                           // “docker logs” This will return the logs for a container
-            sudo docker attach -sig-proxy=false $CONTAINER_ID        // “-sig-proxy=false” Do not forward signals to the container; allows us to exit the attachment using Control-C without stopping the container.
-            </pre> 
+     <pre>CONTAINER_ID=$(sudo docker run -d ubuntu /bin/sh -c "while true; do echo hello world; sleep 1; done")
+sudo docker logs $CONTAINER_ID                           // “docker logs” This will return the logs for a container
+sudo docker attach -sig-proxy=false $CONTAINER_ID        // “-sig-proxy=false” Do not forward signals to the container; allows us to exit the attachment using Control-C without stopping the container.
+</pre> 
      <h1 id="private-registry">Private Registry</h1> 
      <p>fast way to install/setup a private registry:</p> 
      <div class="sourceCode" id="cb1">
@@ -257,30 +258,30 @@
      <p>Docker uses the namespace to know where to push, if the namespace is an url, it will push on this url:</p> 
      <div class="sourceCode" id="cb3">
       <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#push the &lt;name&gt; to your a private registry &lt;url&gt;</span></span>
-            <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> docker push <span class="op">&lt;</span>url<span class="op">&gt;</span>/<span class="op">&lt;</span>name<span class="op">&gt;</span></span></code></pre>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> docker push <span class="op">&lt;</span>url<span class="op">&gt;</span>/<span class="op">&lt;</span>name<span class="op">&gt;</span></span></code></pre>
      </div> 
      <h1 id="系统细节">系统细节</h1> 
      <h2 id="docker元数据存放位置">docker元数据存放位置</h2> 
-     <pre>            The images are stored in /var/lib/docker/graph/<id>
+     <pre>The images are stored in /var/lib/docker/graph/<id>
        /layer.
 
-            Note that images are just diffs from the parent image. The parent ID is stored with the image's metadata /var/lib/docker/graph/
+Note that images are just diffs from the parent image. The parent ID is stored with the image's metadata /var/lib/docker/graph/
        <id>
         /json.
 
-            When you docker run an image. AUFS will 'merge' all layers into one usable file system.
-            
+When you docker run an image. AUFS will 'merge' all layers into one usable file system.
+
        </id>
       </id></pre> 
      <p>默认路径是<code>/var/lib/docker</code>， 如果要定制， 则修改”/etc/default/docker”配置文件， 增加如下配置项内容: <code>DOCKER_OPTS="-g /path/to/docker/data"</code>, 即”use the -g option when starting the docker daemon to specify where you want /var/lib/docker to live”</p> 
      <h2 id="使用data-volumes">使用Data Volumes</h2> 
      <p>不想将应用数据存放和docker的各种元数据/系统数据混在一起？ “快使用Data Volume， 哼哼哈嘿”</p> 可以为container制定多个data volumes: <code>$ docker run -v /var/volume1 -v /var/volume2 busybox true</code>， 或者使用Dockerfile指定： 
-     <pre>            // BUILD-USING:        docker build -t data .
-            // RUN-USING:          docker run -name DATA data
-            FROM          busybox
-            VOLUME        ["/var/volume1", "/var/volume2"]
-            CMD           ["/bin/true"]
-            </pre> 
+     <pre>// BUILD-USING:        docker build -t data .
+// RUN-USING:          docker run -name DATA data
+FROM          busybox
+VOLUME        ["/var/volume1", "/var/volume2"]
+CMD           ["/bin/true"]
+</pre> 
      <p>我们可以使用“–volumes-from”来指定新的container可以使用之前container指定的data volumes: <code>$ docker run -t -i -rm -volumes-from DATA -name client1 ubuntu bash</code> （-rm - remove the container when it exits）</p> 
      <p>只要有container还在引用data volumes，即使rm了相应的container， data volumes将持续保存直到没有任何一个container再引用它。</p> 
      <h1 id="参考">参考</h1> 
@@ -296,11 +297,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2009-05-17-wan-ge.html">挽歌 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2005-02-25-try-springframework.html">闲话spring在系统实现中的应用 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2021-02-04-homebrew-KeeNotes.html">How To Homebrew KeeNotes </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2023-06-20-jte3.html">借着Jte发新版，介绍下AI学堂背后的技术栈吧！ </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2013-06-25-logging-framework-explained.html">Logging Framework Explained (afoo.me) </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2021-04-01-deprecated-software-methodology.html">那些曾经风靡一时的研发方法论 </a> 
       </div> 
      </div> 
      <hr> 

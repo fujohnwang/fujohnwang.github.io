@@ -17,8 +17,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -30,7 +32,6 @@
             display:inline;
         }
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -146,11 +147,11 @@
      <h2 id="安装和启动slardar">安装和启动slardar</h2> 
      <p><a href="https://github.com/upyun/slardar">Slardar项目</a>的README.md有很相近的安装和配置说明， 我们选择源码编译安装：</p> 
      <pre><code>git clone https://github.com/upyun/slardar.git
-            cd slardar
-            brew install wget gcc gcc-c++ patch zlib-devel
-            make configure
-            make
-            make install</code></pre> 
+cd slardar
+brew install wget gcc gcc-c++ patch zlib-devel
+make configure
+make
+make install</code></pre> 
      <p>其中， <code>brew install wget gcc gcc-c++ patch zlib-devel</code>是参考Dockerfile中需要的编译依赖，转换为mac下的依赖安装命令。</p> 
      <p>一般情况下， 编译和安装会成功完成， 之后，只要执行如下命令，启动slardar即可：</p> 
      <p><code>/usr/local/slardar/nginx/sbin/nginx</code></p> 
@@ -162,23 +163,23 @@
      <p>默认情况下，我们没有配置任何的域名与upstreams映射信息，所以访问localhost会返回502 Bad Gateway。</p> 
      <p>演示用， 我们启动一个mkdocs文档服务：</p> 
      <pre><code>➜  mkdocs git:(master) ✗ mkdocs serve
-            INFO    -  Building documentation...
-            INFO    -  Cleaning site directory
-            [I 170129 16:35:41 server:283] Serving on http://127.0.0.1:8000
-            [I 170129 16:35:41 handlers:60] Start watching changes
-            [I 170129 16:35:41 handlers:62] Start detecting changes</code></pre> 
+INFO    -  Building documentation...
+INFO    -  Cleaning site directory
+[I 170129 16:35:41 server:283] Serving on http://127.0.0.1:8000
+[I 170129 16:35:41 handlers:60] Start watching changes
+[I 170129 16:35:41 handlers:62] Start detecting changes</code></pre> 
      <p>然后，我们通过slardar的HTTP管理API将这个mkdocs服务的HTTP结点动态更新为upstreams之一：</p> 
      <pre><code>➜  ~ curl 127.0.0.1:1995/upstream/localhost -d '{"servers":[{"host":"127.0.0.1", "port": 8000}]}'
-            {"status":200}%</code></pre> 
+{"status":200}%</code></pre> 
      <p>现在访问<code>http://localhost</code>(而不是<code>http://localhost:8000</code>)就可以直接访问到这个mkdocs服务啦， 如果愿意，我们可以启动多个mkdocs文档服务结点，并均注册为localhost的upstreams结点。</p> 
      <h1 id="todo">TODO</h1> 
      <p>目前为止， slardar和consul更多只是作为服务注册和发现的基础设施（接入网关）， 要让slardar作为API Gateway进行服务， 还需要更多lua编程， 此为后话， stay tuned~</p> 
      <h1 id="附加说明">附加说明</h1> 
      <h2 id="slardarnginx启动错误">slardar/nginx启动错误</h2> 
      <pre><code>➜  nginx sudo /usr/local/slardar/nginx/sbin/nginx
-            nginx: [error] [lua] consul.lua:39: get_servers(): get config from http://127.0.0.1:8500/v1/kv/config/slardar/upstreams?keys failed
-            nginx: [error] [lua] consul.lua:60: get_script_blocking(): get config from http://127.0.0.1:8500/v1/kv/config/slardar/lua/?keys failed
-            nginx: [warn] [lua] load.lua:234: no code in consul</code></pre> 
+nginx: [error] [lua] consul.lua:39: get_servers(): get config from http://127.0.0.1:8500/v1/kv/config/slardar/upstreams?keys failed
+nginx: [error] [lua] consul.lua:60: get_script_blocking(): get config from http://127.0.0.1:8500/v1/kv/config/slardar/lua/?keys failed
+nginx: [warn] [lua] load.lua:234: no code in consul</code></pre> 
      <blockquote> 
       <p>这个错误不影响slardar/nginx的启动， 原因和如何消弭这里不做说明。</p> 
      </blockquote> 
@@ -188,11 +189,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2009-05-04-some-words.html">那些话儿 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2020-11-23-how-to-make-a-great-share-training.html">怎么做好一场分享或者培训 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2014-07-11-publish-sbt-project-to-maven-repo.html">Publish SBT project to Maven repo(Nexus?) </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2010-07-12-prefer-event-driven-api-design.html">Event Driven Style API Design Instead of Old Procedure Style Ones </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2020-07-09-expensive-software.html">太多人对互联网的重投入一无所知 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2009-08-25-coc-in-embarrassment.html">尴尬的COC </a> 
       </div> 
      </div> 
      <hr> 

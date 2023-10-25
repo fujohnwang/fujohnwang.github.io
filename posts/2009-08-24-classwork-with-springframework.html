@@ -16,8 +16,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -94,7 +96,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -180,20 +181,20 @@
      <p>org.springframework.core.GenericTypeResolver跟GenericCollectionTypeResolver类似， 只不过， 现在不是针对Collection类型， 而是针对一般的Generic类。</p> 
      <h2 id="org.springframework.core.annotation.annotationutils">org.springframework.core.annotation.AnnotationUtils</h2> 
      <p>AnnotationUtils填补了默认的反射API中有关Annotation相关的几个功能，比如， 使用默认的反射API你只能读取当前class上的Annotation，而通过AnnotationUtils， 我们则可以获取当前class继承层次上的所有标注的Annotation， 更多信息可以参考该类的Javadoc.</p> 
-     <pre>            Tip
+     <pre>Tip
 
-            有关Annotation的继承， 这里可以总结几句：
+有关Annotation的继承， 这里可以总结几句：
 
-            1. 如果Annotation是标注于Interface之上的话， 不管该Annotation类型是否标注了@Inherited这个Annotation， 被标注的Interface的实现类都不会“继承” 这一Annotation。 也就是说，标注于Interface上的Annotation，通过反射API只能在这个Interface上才能读取到这一Annotation。
+1. 如果Annotation是标注于Interface之上的话， 不管该Annotation类型是否标注了@Inherited这个Annotation， 被标注的Interface的实现类都不会“继承” 这一Annotation。 也就是说，标注于Interface上的Annotation，通过反射API只能在这个Interface上才能读取到这一Annotation。
 
-            2. 如果Annotation是标注于Class之上的话， 分两种情况：
+2. 如果Annotation是标注于Class之上的话， 分两种情况：
 
-                - 如果当前的Annotation类型被标注了@Inherited，那么， 标注了当前Annotation的Class的子类会获得当前Annotation的“继承”， 也就是说， 即使子类没有标注这个Annotation，通过subClass.getClass().getAnnoation(currentAnnotation)也会获得这个Annotation所持有的元数据信息。
+    - 如果当前的Annotation类型被标注了@Inherited，那么， 标注了当前Annotation的Class的子类会获得当前Annotation的“继承”， 也就是说， 即使子类没有标注这个Annotation，通过subClass.getClass().getAnnoation(currentAnnotation)也会获得这个Annotation所持有的元数据信息。
 
-                - 如果这个Annotation没有被标注@Inherited，那么， 子类不会获得这种继承。
+    - 如果这个Annotation没有被标注@Inherited，那么， 子类不会获得这种继承。
 
-            结合以上信息， 也就不难想到为什么Spring会倡导将Transactional之类的Annotation标注在具体的实现类上，而不是Interface之上了。
-            </pre> 
+结合以上信息， 也就不难想到为什么Spring会倡导将Transactional之类的Annotation标注在具体的实现类上，而不是Interface之上了。
+</pre> 
      <h2 id="org.springframework.util.classutils">org.springframework.util.ClassUtils</h2> 
      <p>在 org.apache.commons.lang.ClassUtils存在的前提下，有重新发明轮子之嫌， 不过， 还是有一些补足的， 用与不用完全看你个人口味啦。不过，千万别跟我提“绑定到XX框架”这样的论调， 除非你真的能够像古代那样做个自给自足的隐士！</p> 
      <h2 id="org.springframework.util.methodinvoker">org.springframework.util.MethodInvoker</h2> 
@@ -225,48 +226,48 @@
      <p>以下是LocalVariableTableParameterNameDiscoverer和ParaNamer的简单使用代码示例：</p> 
      <div class="sourceCode" id="cb1">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Class</span><span class="op">&lt;</span>SubscriptionServiceImpl<span class="op">&gt;</span> clazz <span class="op">=</span> SubscriptionServiceImpl<span class="op">.</span><span class="fu">class</span><span class="op">;</span></span>
-            <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Method</span> method <span class="op">=</span> ReflectionUtils<span class="op">.</span><span class="fu">findMethod</span><span class="op">(</span>clazz<span class="op">,</span> <span class="st">"listAllSubscription"</span><span class="op">,</span><span class="kw">new</span> <span class="bu">Class</span><span class="op">&lt;?&gt;[]{</span><span class="bu">String</span><span class="op">.</span><span class="fu">class</span><span class="op">,</span> <span class="bu">Integer</span><span class="op">.</span><span class="fu">class</span><span class="op">,</span><span class="bu">Date</span><span class="op">.</span><span class="fu">class</span><span class="op">,</span><span class="bu">Date</span><span class="op">.</span><span class="fu">class</span><span class="op">}</span> <span class="op">);</span></span>
-            <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>ParameterNameDiscoverer pmDiscoverer <span class="op">=</span> <span class="kw">new</span> <span class="fu">LocalVariableTableParameterNameDiscoverer</span><span class="op">();</span></span>
-            <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span><span class="op">[]</span> parameterNames <span class="op">=</span> pmDiscoverer<span class="op">.</span><span class="fu">getParameterNames</span><span class="op">(</span>method<span class="op">);</span></span>
-            <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">//        BytecodeReadingParanamer reader = new BytecodeReadingParanamer();</span></span>
-            <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">//        String[] parameterNames = reader.lookupParameterNames(method);</span></span>
-            <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span><span class="op">(</span><span class="bu">String</span> parameterName <span class="op">:</span> parameterNames<span class="op">)</span></span>
-            <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-            <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>parameterName<span class="op">);</span></span>
-            <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>    </span></code></pre>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Method</span> method <span class="op">=</span> ReflectionUtils<span class="op">.</span><span class="fu">findMethod</span><span class="op">(</span>clazz<span class="op">,</span> <span class="st">"listAllSubscription"</span><span class="op">,</span><span class="kw">new</span> <span class="bu">Class</span><span class="op">&lt;?&gt;[]{</span><span class="bu">String</span><span class="op">.</span><span class="fu">class</span><span class="op">,</span> <span class="bu">Integer</span><span class="op">.</span><span class="fu">class</span><span class="op">,</span><span class="bu">Date</span><span class="op">.</span><span class="fu">class</span><span class="op">,</span><span class="bu">Date</span><span class="op">.</span><span class="fu">class</span><span class="op">}</span> <span class="op">);</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>ParameterNameDiscoverer pmDiscoverer <span class="op">=</span> <span class="kw">new</span> <span class="fu">LocalVariableTableParameterNameDiscoverer</span><span class="op">();</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span><span class="op">[]</span> parameterNames <span class="op">=</span> pmDiscoverer<span class="op">.</span><span class="fu">getParameterNames</span><span class="op">(</span>method<span class="op">);</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">//        BytecodeReadingParanamer reader = new BytecodeReadingParanamer();</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">//        String[] parameterNames = reader.lookupParameterNames(method);</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span><span class="op">(</span><span class="bu">String</span> parameterName <span class="op">:</span> parameterNames<span class="op">)</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>parameterName<span class="op">);</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>    </span></code></pre>
      </div> 
      <h1 id="classpath-auto-scanning-功能">classpath auto scanning 功能</h1> 
      <p>我们知道，Spring2.5之后引入了类路径的自动扫描功能，Spring框架为这一功能提供了很好的扩展点，我们可以通过BeanNameGenerator或者自定义的org.springframework.core.type.filter.TypeFilter来定制自动扫描的行为， 比如：</p> 
      <div class="sourceCode" id="cb2">
       <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">context:component-scan</span><span class="ot"> base-package=</span><span class="st">"..."</span><span class="ot"> name-generator=</span><span class="st">".."</span>&gt;</span>
-            <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">context:exclude-filter</span><span class="ot"> type=</span><span class="st">"annotation"</span><span class="ot"> expression=</span><span class="st">"..."</span>/&gt;</span>
-            <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">context:include-filter</span><span class="ot"> type=</span><span class="st">"annotation"</span><span class="ot"> expression=</span><span class="st">"..."</span>/&gt;</span>
-            <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a> &lt;/<span class="kw">context:component-scan</span>&gt;</span></code></pre>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">context:exclude-filter</span><span class="ot"> type=</span><span class="st">"annotation"</span><span class="ot"> expression=</span><span class="st">"..."</span>/&gt;</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">context:include-filter</span><span class="ot"> type=</span><span class="st">"annotation"</span><span class="ot"> expression=</span><span class="st">"..."</span>/&gt;</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a> &lt;/<span class="kw">context:component-scan</span>&gt;</span></code></pre>
      </div> 
      <p>除此之外，我们实际上还可以较为独立的形式来使用Spring框架提供的这一类路径自动扫描功能，或者说， class的元数据信息读取功能。 这一功能的核心类为MetadataReader， 以下代码给出了使用这一核心类的简单示例代码：</p> 
      <div class="sourceCode" id="cb3">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ResourcePatternResolver resourcePatternResolver <span class="op">=</span> <span class="kw">new</span> <span class="fu">PathMatchingResourcePatternResolver</span><span class="op">();</span></span>
-            <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>MetadataReaderFactory metadataReaderFactory <span class="op">=</span> <span class="kw">new</span> <span class="fu">CachingMetadataReaderFactory</span><span class="op">(</span>resourcePatternResolver<span class="op">);</span></span>
-            <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">// or new SimpleMetadataReaderFactory()</span></span>
-            <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>MetadataReader reader <span class="op">=</span> metadataReaderFactory<span class="op">.</span><span class="fu">getMetadataReader</span><span class="op">(</span><span class="st">"cn/spring21/code/samples/spring/controller/SimpleController"</span><span class="op">);</span></span>
-            <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>AnnotationMetadata annotationMD <span class="op">=</span> reader<span class="op">.</span><span class="fu">getAnnotationMetadata</span><span class="op">();</span></span>
-            <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>ClassMetadata clazzMD <span class="op">=</span> reader<span class="op">.</span><span class="fu">getClassMetadata</span><span class="op">();</span></span>
-            <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>annotationMD<span class="op">.</span><span class="fu">hasAnnotation</span><span class="op">(</span><span class="st">"org.springframework.stereotype.Component"</span><span class="op">));</span></span>
-            <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>clazzMD<span class="op">.</span><span class="fu">getClassName</span><span class="op">());</span></span></code></pre>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>MetadataReaderFactory metadataReaderFactory <span class="op">=</span> <span class="kw">new</span> <span class="fu">CachingMetadataReaderFactory</span><span class="op">(</span>resourcePatternResolver<span class="op">);</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">// or new SimpleMetadataReaderFactory()</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>MetadataReader reader <span class="op">=</span> metadataReaderFactory<span class="op">.</span><span class="fu">getMetadataReader</span><span class="op">(</span><span class="st">"cn/spring21/code/samples/spring/controller/SimpleController"</span><span class="op">);</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>AnnotationMetadata annotationMD <span class="op">=</span> reader<span class="op">.</span><span class="fu">getAnnotationMetadata</span><span class="op">();</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>ClassMetadata clazzMD <span class="op">=</span> reader<span class="op">.</span><span class="fu">getClassMetadata</span><span class="op">();</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>annotationMD<span class="op">.</span><span class="fu">hasAnnotation</span><span class="op">(</span><span class="st">"org.springframework.stereotype.Component"</span><span class="op">));</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>clazzMD<span class="op">.</span><span class="fu">getClassName</span><span class="op">());</span></span></code></pre>
      </div> 
      <p>ResourcePatternResolver主要用于加载相应的Resources， 这里就是class文件， MetadataReaderFactory用于构造相应的MetadataReader，它有两个实现类，即SimpleMetadataReaderFactory和CachingMetadataReaderFactory。通过相应MetadataReaderFactory实现类获得可用的MetadataReader之后，就可以根据MetadataReader的getAnnotationMetadata()和getClassMetadata()返回的值对象来提取自己需要的信息了。</p> 
      <hr> 
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2008-06-02-days-go-on.html">days go on… </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2020-04-08-tech-and-people-paces.html">你是否还在沿用十多年前的思维和做事方式而不自知？ </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2022-01-20-invest-driven-days-no-more.html">战投部没了，大家后面的日子还会好吗？ </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2010-02-18-got-cheated.html">今天,你被宰了吗? </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2009-07-08-encounter-FENG.html">巧遇冯大辉さん </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2023-02-08-chatgpt-integrated-future.html">ChatGPT的宿命 </a> 
       </div> 
      </div> 
      <hr> 

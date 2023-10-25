@@ -19,7 +19,7 @@ javafx.scene.control.Dialog是个范型类：`Class Dialog<R>`
 
 一个常见的resultConverter实现逻辑类似于：
 
-```
+```scala
 setResultConverter((buttonType) => if (buttonType == ButtonType.OK) Some(passwordF.getText) else None)
 ```
 
@@ -27,7 +27,7 @@ setResultConverter((buttonType) => if (buttonType == ButtonType.OK) Some(passwor
 
 这样，当调用者获得对话框返回结果之后，就可以进行类似如下的处理：
 
-```
+```scala
 val dlg = new CustomDialog[Option[String]]()
 dlg.showAndWait().ifPresent(result => 
     result.foreach(password => {
@@ -49,7 +49,7 @@ Dialog的UI主要通过设置Dialog对应的DialogPane的内容来实现，而Di
 
 除此之外，最后一个要定制的就是要显示什么按钮以及显示几个按钮，这是通过`getDialogPane.getButtonTypes.addAll(ButtonType.OK, ButtonType.CANCEL,...)`来实现的，如果要对具体哪个按钮进行进一步的设置，则需要先取得这个按钮对应的组件，然后再进行设置：
 
-```
+```scala
 val okButton = getDialogPane.lookupButton(ButtonType.OK)
 okButton.disableProperty().bind(Bindings.createBooleanBinding(() => StringUtils.isEmpty(passwordF.textProperty().get()), passwordF.textProperty()))
 ```

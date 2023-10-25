@@ -17,8 +17,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -95,7 +97,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -207,20 +208,20 @@
      <p>作为一个技术人，最自然的行为会去考虑如何实现功能，比如一个XXClient， 我们会很自然认为，先要有如何连接，如何通信，如何关闭等功能实现，然后自然而然的，这些功能实现的想法又会反映到我们提供给用户的API上（当然，这里的用户是使用你的XXClient的开发者），从而设计出如下类似的API接口：</p> 
      <div class="sourceCode" id="cb1">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">interface</span> XXClient<span class="op">{</span></span>
-            <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">connect</span><span class="op">()</span> <span class="kw">throws</span> <span class="bu">IOException</span><span class="op">;</span></span>
-            <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    </span>
-            <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">upload</span><span class="op">(</span><span class="bu">File</span> payload<span class="op">)</span> <span class="kw">throws</span> <span class="bu">IOException</span><span class="op">;</span></span>
-            <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    </span>
-            <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">close</span><span class="op">()</span> <span class="kw">throws</span> <span class="bu">IOException</span><span class="op">;</span></span>
-            <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">connect</span><span class="op">()</span> <span class="kw">throws</span> <span class="bu">IOException</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">upload</span><span class="op">(</span><span class="bu">File</span> payload<span class="op">)</span> <span class="kw">throws</span> <span class="bu">IOException</span><span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">close</span><span class="op">()</span> <span class="kw">throws</span> <span class="bu">IOException</span><span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
      </div> 
      <p>可是作为API的使用者来说， 他最关心的是什么？ 他最关心的其实就一个功能：</p> 
      <div class="sourceCode" id="cb2">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">interface</span> XXClientLite <span class="op">{</span></span>
-            <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">upload</span><span class="op">(</span><span class="bu">File</span> payload<span class="op">)</span> <span class="kw">throws</span> <span class="bu">IOException</span><span class="op">;</span></span>
-            <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-            <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">// client.upload(file);</span></span></code></pre>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">upload</span><span class="op">(</span><span class="bu">File</span> payload<span class="op">)</span> <span class="kw">throws</span> <span class="bu">IOException</span><span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">// client.upload(file);</span></span></code></pre>
      </div> 
      <p>至于你如何复杂，如何牛B的实现这个接口， 其实用户真不那么关心！</p> 
      <p>道理其实很简单， 列位估计也已经对扶墙老师就这么弱的问题还blablabla说个不停嗤之以鼻了吧？</p> 
@@ -228,16 +229,16 @@
      <p>为了更好的推广Web API的规范， 扶墙老师写了一个webapi的library用于简化Web API的开发，开发者只要maven里依赖一下就可以写写SpringMVC的Controller， 从而自动享受到Web API文档的支持，享受到返回遵循挖财web api规范的Json格式响应， 享受到统一的异常处理， 但是， 也许是扶墙老师‘利欲熏心’，太要强于推广web api规范落地了，所以，硬生生的要求通过强类型的约束来编写Controller:</p> 
      <div class="sourceCode" id="cb3">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="at">@RequestMapping</span><span class="op">(</span>value <span class="op">=</span> <span class="st">"/api/v1.1/{endpoint}"</span><span class="op">,</span> method <span class="op">=</span> RequestMethod<span class="op">.</span><span class="fu">GET</span><span class="op">)</span></span>
-            <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> WebApiResponse<span class="op">&lt;</span><span class="bu">String</span><span class="op">&gt;</span> <span class="fu">endpointApi2</span><span class="op">(</span><span class="at">@PathVariable</span><span class="op">(</span><span class="st">"endpoint"</span><span class="op">)</span> <span class="bu">String</span> endpoint<span class="op">)</span> <span class="op">{</span></span>
-            <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> WebApiResponse<span class="op">.</span><span class="fu">success</span><span class="op">(</span><span class="st">"just test payload"</span><span class="op">);</span></span>
-            <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> WebApiResponse<span class="op">&lt;</span><span class="bu">String</span><span class="op">&gt;</span> <span class="fu">endpointApi2</span><span class="op">(</span><span class="at">@PathVariable</span><span class="op">(</span><span class="st">"endpoint"</span><span class="op">)</span> <span class="bu">String</span> endpoint<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> WebApiResponse<span class="op">.</span><span class="fu">success</span><span class="op">(</span><span class="st">"just test payload"</span><span class="op">);</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
      </div> 
      <p>即使是到这一步，我们也演化了很久，但实际上我们却忽略了最基本的用户体验， 对于一般的应用开发者来说，他们希望的其实就是， 直接返回相应的值对象(Value Object)类型，而不是通过WebApiResponse封装的类型， 你框架背后怎么把这些结果转化为符合web api规范的json响应，我干嘛要关心？</p> 
      <div class="sourceCode" id="cb4">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="at">@RequestMapping</span><span class="op">(</span>value <span class="op">=</span> <span class="st">"/api/v1.1/{endpoint}"</span><span class="op">,</span> method <span class="op">=</span> RequestMethod<span class="op">.</span><span class="fu">GET</span><span class="op">)</span></span>
-            <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> ValueObject <span class="fu">endpointApi</span><span class="op">(</span><span class="at">@PathVariable</span><span class="op">(</span><span class="st">"endpoint"</span><span class="op">)</span> <span class="bu">String</span> endpoint<span class="op">)</span> <span class="op">{</span></span>
-            <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> <span class="kw">new</span> <span class="fu">ValueObject</span><span class="op">();</span></span>
-            <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> ValueObject <span class="fu">endpointApi</span><span class="op">(</span><span class="at">@PathVariable</span><span class="op">(</span><span class="st">"endpoint"</span><span class="op">)</span> <span class="bu">String</span> endpoint<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> <span class="kw">new</span> <span class="fu">ValueObject</span><span class="op">();</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
      </div> 
      <p>恍然一惊之后， 才发现原来之前太过于执着规范的落地了， 太过于从自己出发，反而这样简单的API设计道理都忘记了， ：（</p> 
      <p>遂痛改前非，稍作coding， 让以上两种形式都可以工作。</p> 
@@ -280,11 +281,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2018-09-17-AI-panic.html">人工智能恐慌（AI Panic） </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2023-03-23-3-way-to-deploy-own-chatgpt.html">部署属于自己的ChatGPT的三种方式 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2020-10-25-saas-evolution-path.html">我对SaaS产品研发的些许观点分享 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2007-08-10-what-bad-guys-more-nb.html">为啥bad guys都那么nb </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2017-10-14-when-to-encourage-when-to-criticize.html">到底应该”扬善于公堂，规过于私室”还是“扬善于私室，规过于公堂”？ </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2010-06-24-flowers.html">暗香， 哈哈</a> 
       </div> 
      </div> 
      <hr> 

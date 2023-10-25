@@ -16,8 +16,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -94,7 +96,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -180,21 +181,21 @@
      <p>通常你可以只要以下2行代码就可以完成log4j的初始化：</p> 
      <div class="sourceCode" id="cb1">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">URL</span> resourceURL <span class="op">=</span> ResourceManager<span class="op">.</span><span class="fu">getResource</span><span class="op">(</span><span class="st">"config/log4j.xml"</span><span class="op">);</span></span>
-            <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>DOMConfigurator<span class="op">.</span><span class="fu">configure</span><span class="op">(</span>w3cDocument<span class="op">.</span><span class="fu">getDocumentElement</span><span class="op">());</span></span></code></pre>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>DOMConfigurator<span class="op">.</span><span class="fu">configure</span><span class="op">(</span>w3cDocument<span class="op">.</span><span class="fu">getDocumentElement</span><span class="op">());</span></span></code></pre>
      </div> 
      <p>但是，这样的话，你的log文件生成位置就写死到log4j.xml中了，为了能够在程序中动态变更这个位置，或者其他配置信息，我们可以采取以下方式：</p> 
      <div class="sourceCode" id="cb2">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">URL</span> resourceURL <span class="op">=</span> ResourceManager<span class="op">.</span><span class="fu">getResource</span><span class="op">(</span><span class="st">"config/log4j.xml"</span><span class="op">);</span></span>
-            <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>SAXBuilder saxBuilder <span class="op">=</span> <span class="kw">new</span> <span class="fu">SAXBuilder</span><span class="op">();</span></span>
-            <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">Document</span> jdomDocument <span class="op">=</span>    saxBuilder<span class="op">.</span><span class="fu">build</span><span class="op">(</span>resourceURL<span class="op">);</span></span>
-            <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="bu">XPath</span> xpath <span class="op">=</span> <span class="bu">XPath</span><span class="op">.</span><span class="fu">newInstance</span><span class="op">(</span><span class="st">"/log4j:configuration/appender[@name='file']/param[@name='File']/@value"</span><span class="op">);</span></span>
-            <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="bu">Attribute</span> valueAttr <span class="op">=</span> <span class="op">(</span><span class="bu">Attribute</span><span class="op">)</span>xpath<span class="op">.</span><span class="fu">selectSingleNode</span><span class="op">(</span>jdomDocument<span class="op">);</span></span>
-            <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> winPath <span class="op">=</span> <span class="kw">new</span> <span class="bu">StringBuffer</span><span class="op">().</span><span class="fu">append</span><span class="op">(</span>Admin<span class="op">.</span><span class="fu">getCreditPathUtils</span><span class="op">().</span><span class="fu">getLogDirPath</span><span class="op">()).</span><span class="fu">append</span><span class="op">(</span><span class="st">"terminal.log"</span><span class="op">).</span><span class="fu">toString</span><span class="op">();</span></span>
-            <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">// If you set this platform independent path into jdom without any process, the File.Seperator will cause some problem.</span></span>
-            <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>valueAttr<span class="op">.</span><span class="fu">setValue</span><span class="op">(</span>FilenameUtils<span class="op">.</span><span class="fu">separatorsToUnix</span><span class="op">(</span>winPath<span class="op">));</span></span>
-            <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>DOMOutputter outputter <span class="op">=</span> <span class="kw">new</span>  <span class="fu">DOMOutputter</span><span class="op">();</span></span>
-            <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>org<span class="op">.</span><span class="fu">w3c</span><span class="op">.</span><span class="fu">dom</span><span class="op">.</span><span class="fu">Document</span> w3cDocument <span class="op">=</span> outputter<span class="op">.</span><span class="fu">output</span><span class="op">(</span>jdomDocument<span class="op">);</span></span>
-            <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>DOMConfigurator<span class="op">.</span><span class="fu">configure</span><span class="op">(</span>w3cDocument<span class="op">.</span><span class="fu">getDocumentElement</span><span class="op">());</span></span></code></pre>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>SAXBuilder saxBuilder <span class="op">=</span> <span class="kw">new</span> <span class="fu">SAXBuilder</span><span class="op">();</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">Document</span> jdomDocument <span class="op">=</span>    saxBuilder<span class="op">.</span><span class="fu">build</span><span class="op">(</span>resourceURL<span class="op">);</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="bu">XPath</span> xpath <span class="op">=</span> <span class="bu">XPath</span><span class="op">.</span><span class="fu">newInstance</span><span class="op">(</span><span class="st">"/log4j:configuration/appender[@name='file']/param[@name='File']/@value"</span><span class="op">);</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="bu">Attribute</span> valueAttr <span class="op">=</span> <span class="op">(</span><span class="bu">Attribute</span><span class="op">)</span>xpath<span class="op">.</span><span class="fu">selectSingleNode</span><span class="op">(</span>jdomDocument<span class="op">);</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> winPath <span class="op">=</span> <span class="kw">new</span> <span class="bu">StringBuffer</span><span class="op">().</span><span class="fu">append</span><span class="op">(</span>Admin<span class="op">.</span><span class="fu">getCreditPathUtils</span><span class="op">().</span><span class="fu">getLogDirPath</span><span class="op">()).</span><span class="fu">append</span><span class="op">(</span><span class="st">"terminal.log"</span><span class="op">).</span><span class="fu">toString</span><span class="op">();</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">// If you set this platform independent path into jdom without any process, the File.Seperator will cause some problem.</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>valueAttr<span class="op">.</span><span class="fu">setValue</span><span class="op">(</span>FilenameUtils<span class="op">.</span><span class="fu">separatorsToUnix</span><span class="op">(</span>winPath<span class="op">));</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>DOMOutputter outputter <span class="op">=</span> <span class="kw">new</span>  <span class="fu">DOMOutputter</span><span class="op">();</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>org<span class="op">.</span><span class="fu">w3c</span><span class="op">.</span><span class="fu">dom</span><span class="op">.</span><span class="fu">Document</span> w3cDocument <span class="op">=</span> outputter<span class="op">.</span><span class="fu">output</span><span class="op">(</span>jdomDocument<span class="op">);</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>DOMConfigurator<span class="op">.</span><span class="fu">configure</span><span class="op">(</span>w3cDocument<span class="op">.</span><span class="fu">getDocumentElement</span><span class="op">());</span></span></code></pre>
      </div> 
      <p>也就是，通过DOM来加载配置，这样在配置之前就可以使用xpath查询相应位置并更改相应值。</p> 
      <p>it’s just a piece of cake, but gotchas still there.</p> 
@@ -206,11 +207,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2010-11-24-understanding_sbt_in_my_way.html">Understanding SBT In My Way </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2014-07-11-quick-start-maven-project-deployment.html">Maven项目发布到公司内部Repository(Nexus) #阶段性反刍# </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2004-00-00-some-tips-of-ssl.html">有关SSL的一些tips </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2017-05-04-what-makes-an-architect.html">架构师不是你想的那样 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2013-04-23-transfer-file-with-nc-and-tar.html">使用nc或者结合tar进行文件传输 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2007-03-24-business-is-business.html">就事儿论事儿 </a> 
       </div> 
      </div> 
      <hr> 

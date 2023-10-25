@@ -16,8 +16,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -94,7 +96,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -180,40 +181,40 @@
      <p>比如，我们要在应用中使用spring提供的发送mail的API的支持，那么现在我们现在就可以这样写：</p> 
      <div class="sourceCode" id="cb1">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>JavaMailSender mailSender <span class="op">=</span> <span class="kw">new</span> <span class="fu">JavaMailSenderImpl</span><span class="op">();</span></span>
-            <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">((</span>JavaMailSenderImpl<span class="op">)</span>mailSender<span class="op">).</span><span class="fu">setHost</span><span class="op">(</span><span class="st">"mail.livedoor.cn"</span><span class="op">);</span></span>
-            <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">((</span>JavaMailSenderImpl<span class="op">)</span>mailSender<span class="op">).</span><span class="fu">setUsername</span><span class="op">(</span><span class="st">"wfq@livedoor.cn"</span><span class="op">);</span></span>
-            <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">((</span>JavaMailSenderImpl<span class="op">)</span>mailSender<span class="op">).</span><span class="fu">setPassword</span><span class="op">(</span><span class="st">"458524033931"</span><span class="op">);</span></span>
-            <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">// IF your Mail Server request SMTP authentication, you must set properties below,</span></span>
-            <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">// Otherwise, mail sending will fail.</span></span>
-            <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">Properties</span> prop <span class="op">=</span> <span class="kw">new</span> <span class="bu">Properties</span><span class="op">();</span></span>
-            <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>prop<span class="op">.</span><span class="fu">setProperty</span><span class="op">(</span><span class="st">"mail.smtp.auth"</span><span class="op">,</span><span class="st">"true"</span><span class="op">);</span></span>
-            <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="op">((</span>JavaMailSenderImpl<span class="op">)</span>mailSender<span class="op">).</span><span class="fu">setJavaMailProperties</span><span class="op">(</span>prop<span class="op">);</span></span>
-            <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>mailSender<span class="op">.</span><span class="fu">send</span><span class="op">(</span><span class="kw">new</span> <span class="fu">MimeMessagePreparator</span><span class="op">(){</span></span>
-            <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">void</span> <span class="fu">prepare</span><span class="op">(</span>MimeMessage message<span class="op">)</span> <span class="kw">throws</span> <span class="bu">Exception</span></span>
-            <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-            <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>MimeMessageHelper helper <span class="op">=</span> <span class="kw">new</span> <span class="fu">MimeMessageHelper</span><span class="op">(</span>message<span class="op">);</span></span>
-            <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>helper<span class="op">.</span><span class="fu">setTo</span><span class="op">(</span><span class="st">"wfq@livedoor.cn"</span><span class="op">);</span></span>
-            <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>helper<span class="op">.</span><span class="fu">setFrom</span><span class="op">(</span><span class="st">"wfq@livedoor.cn"</span><span class="op">);</span></span>
-            <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>helper<span class="op">.</span><span class="fu">setSubject</span><span class="op">(</span><span class="st">"Spring Mail Test Without IoC"</span><span class="op">);</span></span>
-            <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>helper<span class="op">.</span><span class="fu">setText</span><span class="op">(</span><span class="st">"Spring Mail is cool!"</span><span class="op">);</span></span>
-            <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-            <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="op">});</span></span></code></pre>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">((</span>JavaMailSenderImpl<span class="op">)</span>mailSender<span class="op">).</span><span class="fu">setHost</span><span class="op">(</span><span class="st">"mail.livedoor.cn"</span><span class="op">);</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">((</span>JavaMailSenderImpl<span class="op">)</span>mailSender<span class="op">).</span><span class="fu">setUsername</span><span class="op">(</span><span class="st">"wfq@livedoor.cn"</span><span class="op">);</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">((</span>JavaMailSenderImpl<span class="op">)</span>mailSender<span class="op">).</span><span class="fu">setPassword</span><span class="op">(</span><span class="st">"458524033931"</span><span class="op">);</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">// IF your Mail Server request SMTP authentication, you must set properties below,</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">// Otherwise, mail sending will fail.</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">Properties</span> prop <span class="op">=</span> <span class="kw">new</span> <span class="bu">Properties</span><span class="op">();</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>prop<span class="op">.</span><span class="fu">setProperty</span><span class="op">(</span><span class="st">"mail.smtp.auth"</span><span class="op">,</span><span class="st">"true"</span><span class="op">);</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="op">((</span>JavaMailSenderImpl<span class="op">)</span>mailSender<span class="op">).</span><span class="fu">setJavaMailProperties</span><span class="op">(</span>prop<span class="op">);</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>mailSender<span class="op">.</span><span class="fu">send</span><span class="op">(</span><span class="kw">new</span> <span class="fu">MimeMessagePreparator</span><span class="op">(){</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">void</span> <span class="fu">prepare</span><span class="op">(</span>MimeMessage message<span class="op">)</span> <span class="kw">throws</span> <span class="bu">Exception</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>MimeMessageHelper helper <span class="op">=</span> <span class="kw">new</span> <span class="fu">MimeMessageHelper</span><span class="op">(</span>message<span class="op">);</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>helper<span class="op">.</span><span class="fu">setTo</span><span class="op">(</span><span class="st">"wfq@livedoor.cn"</span><span class="op">);</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>helper<span class="op">.</span><span class="fu">setFrom</span><span class="op">(</span><span class="st">"wfq@livedoor.cn"</span><span class="op">);</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>helper<span class="op">.</span><span class="fu">setSubject</span><span class="op">(</span><span class="st">"Spring Mail Test Without IoC"</span><span class="op">);</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>helper<span class="op">.</span><span class="fu">setText</span><span class="op">(</span><span class="st">"Spring Mail is cool!"</span><span class="op">);</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="op">});</span></span></code></pre>
      </div> 
      <p>或者，我们仅仅为了拦截某个对象的方法，而不是很普遍，那么我们也可以这样：</p> 
      <div class="sourceCode" id="cb2">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>BusinessImpl impl <span class="op">=</span> <span class="kw">new</span> <span class="fu">BusinessImpl</span><span class="op">();</span></span>
-            <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>BusinessBeforeAdvice advice <span class="op">=</span> <span class="kw">new</span> <span class="fu">BusinessBeforeAdvice</span><span class="op">();</span></span>
-            <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">// construct advisor in Regexp Way</span></span>
-            <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>RegexpMethodPointcutAdvisor advisor <span class="op">=</span> <span class="kw">new</span> <span class="fu">RegexpMethodPointcutAdvisor</span><span class="op">();</span></span>
-            <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>advisor<span class="op">.</span><span class="fu">setAdvice</span><span class="op">(</span>advice<span class="op">);</span></span>
-            <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>advisor<span class="op">.</span><span class="fu">setPattern</span><span class="op">(</span><span class="st">".*doSomething.*"</span><span class="op">);</span></span>
-            <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>ProxyFactory factory <span class="op">=</span> <span class="kw">new</span> <span class="fu">ProxyFactory</span><span class="op">();</span></span>
-            <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>factory<span class="op">.</span><span class="fu">setTarget</span><span class="op">(</span>impl<span class="op">);</span></span>
-            <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>factory<span class="op">.</span><span class="fu">addAdvisor</span><span class="op">(</span>advisor<span class="op">);</span></span>
-            <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>IBusiness bo <span class="op">=</span> <span class="op">(</span>IBusiness<span class="op">)</span>factory<span class="op">.</span><span class="fu">getProxy</span><span class="op">();</span></span>
-            <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>bo<span class="op">.</span><span class="fu">doSomething</span><span class="op">();</span></span></code></pre>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>BusinessBeforeAdvice advice <span class="op">=</span> <span class="kw">new</span> <span class="fu">BusinessBeforeAdvice</span><span class="op">();</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">// construct advisor in Regexp Way</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>RegexpMethodPointcutAdvisor advisor <span class="op">=</span> <span class="kw">new</span> <span class="fu">RegexpMethodPointcutAdvisor</span><span class="op">();</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>advisor<span class="op">.</span><span class="fu">setAdvice</span><span class="op">(</span>advice<span class="op">);</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>advisor<span class="op">.</span><span class="fu">setPattern</span><span class="op">(</span><span class="st">".*doSomething.*"</span><span class="op">);</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>ProxyFactory factory <span class="op">=</span> <span class="kw">new</span> <span class="fu">ProxyFactory</span><span class="op">();</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>factory<span class="op">.</span><span class="fu">setTarget</span><span class="op">(</span>impl<span class="op">);</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>factory<span class="op">.</span><span class="fu">addAdvisor</span><span class="op">(</span>advisor<span class="op">);</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>IBusiness bo <span class="op">=</span> <span class="op">(</span>IBusiness<span class="op">)</span>factory<span class="op">.</span><span class="fu">getProxy</span><span class="op">();</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>bo<span class="op">.</span><span class="fu">doSomething</span><span class="op">();</span></span></code></pre>
      </div> 
      <p>怎么样？！是不是很容易那？</p> 
      <p>仅仅是这几天实在想不出写些什么，故此闲话些许。</p> 
@@ -221,11 +222,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2020-04-23-ffmpeg-v-compress.html">使用ffmpeg压缩视频复盘 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2021-09-20-talk-rooster.html">说鸡 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2020-03-08-just-respect-the-professionals.html">自己不专业就别瞎bb </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2009-03-01-go-on-with-my-journey.html">go on with the journey, my journey </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2011-05-31-multiple_mysql_slaves_with_same_serverid.html">mysql多个slave使用同一个server id会怎样？ </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2017-10-24-programmer-levels.html">程序员的手感 </a> 
       </div> 
      </div> 
      <hr> 

@@ -16,8 +16,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -94,7 +96,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -177,28 +178,28 @@
      </blockquote> 
      <p>不知道大家在日常开发过程中有没有碰到类似的场景，即根据一个条件，后面会跟着多个（通常是两个）处理逻辑。我想，或多或少的会碰到这样的场景吧！反正，我回头想想，加上近期工作，也不少地方遇到了，所以，就想总结一下类似问题，能够列为best practice当然就更好了。</p> 
      <p>以近来做的一个报表为例吧，这个报表逻辑很简单，根据顾客支付利息的方式是先期支付还是后期支付或者是按月支付方式来打印不同的报表样式，这样总结到上面一般的情况就是，根据支付方式这一个条件，后继处理需要首先根据这种方式取得相应的报表样式（处理1），然后根据这种支付方式实现相应的报表render逻辑（处理2）。</p> 伪代码的形式可能是： 
-     <pre>            // get paymethod in your own way
-            if(paymethod==1)
-            {
-            //get template for paymethod 1
-            // render report for paymethod 1
-            }
-            if(paymethod == 2)
-            {
-            // get template for paymethod 2
-            // render report for paymethod2
-            }
-            // ...etc.
-            </pre> 
+     <pre>// get paymethod in your own way
+if(paymethod==1)
+{
+//get template for paymethod 1
+// render report for paymethod 1
+}
+if(paymethod == 2)
+{
+// get template for paymethod 2
+// render report for paymethod2
+}
+// ...etc.
+</pre> 
      <p>我想这个是最一般的实现了，但是，最一般的实现通常也是最有改进余地的实现，所以，让我们来看一下如何对这个进行改进吧！ 我们的目的是去除代码中的条件判断，而实现这个目的，我这里给出2个实现途径：</p> 
      <ol type="1"> 
       <li>使用反射（java reflection）支持</li> 
       <li>使用FunctionJ的支持</li> 
      </ol> 不过，在此之前，我还是先说一下配置问题吧，为了简单，我们直接将条件和相应的处理映射放到properties文件中，这样，我们有了类似于如下内容的mapping-config.xml： 
-     <pre>            1=templateLocation4PayMethod1,renderReport4PayMethod1
-            2=templateLocation4PayMethod2,renderReport4PayMethod2
-            ...
-            </pre> 
+     <pre>1=templateLocation4PayMethod1,renderReport4PayMethod1
+2=templateLocation4PayMethod2,renderReport4PayMethod2
+...
+</pre> 
      <p>其中，等号前面是以payMethod的值作为key，出于其他情况考虑，你也可以使用其他的作为key，只要保证唯一性就可以；等号后面第一项为对应的模板的位置，第二项为对应的报表render方法，这个方法通常在实现类里实现。</p> 
      <p>（注：以上配置也可以通过Jakarta commons Configuration来实现或者自己写一个实现也可以）</p> 
      <p>东风有了之后，我们开始行船啦。</p> 
@@ -206,14 +207,14 @@
      <h1 id="使用反射的方式异常处理这里忽略">使用反射的方式(异常处理这里忽略）</h1> 
      <div class="sourceCode" id="cb1">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Properties</span> mapping <span class="op">=</span> <span class="kw">new</span> <span class="bu">Properties</span><span class="op">();</span></span>
-            <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>mapping<span class="op">.</span><span class="fu">load</span><span class="op">(</span><span class="fu">getClass</span><span class="op">().</span><span class="fu">getResourceAsStream</span><span class="op">(</span><span class="st">"mapping-config.properties"</span><span class="op">);</span></span>
-            <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">// get PayMethod in your own Way</span></span>
-            <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">// get Properties with your PayMethod as Key to Properties</span></span>
-            <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">InputStream</span> templateIns <span class="op">=</span> <span class="fu">getClass</span><span class="op">().</span><span class="fu">getResourceAsStream</span><span class="op">(</span>properties<span class="op">[</span><span class="dv">0</span><span class="op">]);</span><span class="co">// get Template For payMethod</span></span>
-            <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> renderMethod <span class="op">=</span> properties<span class="op">[</span><span class="dv">1</span><span class="op">];</span></span>
-            <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">Method</span> method <span class="op">=</span> <span class="fu">getClass</span><span class="op">().</span><span class="fu">getDeclaredMethod</span><span class="op">(</span>renderMethod<span class="op">,</span><span class="kw">new</span> <span class="bu">Class</span><span class="op">[]{</span><span class="bu">InputStream</span><span class="op">.</span><span class="fu">class</span><span class="op">,</span>other<span class="op">.</span><span class="fu">class</span><span class="op">});</span></span>
-            <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>method<span class="op">.</span><span class="fu">invoke</span><span class="op">(</span><span class="kw">this</span><span class="op">,</span><span class="kw">new</span> <span class="bu">Object</span><span class="op">[]{</span>templateIns<span class="op">,</span>otherObjects<span class="op">});</span><span class="co">// invoke render method for corresponding paymethod</span></span>
-            <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">// DONE!</span></span></code></pre>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>mapping<span class="op">.</span><span class="fu">load</span><span class="op">(</span><span class="fu">getClass</span><span class="op">().</span><span class="fu">getResourceAsStream</span><span class="op">(</span><span class="st">"mapping-config.properties"</span><span class="op">);</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">// get PayMethod in your own Way</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">// get Properties with your PayMethod as Key to Properties</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">InputStream</span> templateIns <span class="op">=</span> <span class="fu">getClass</span><span class="op">().</span><span class="fu">getResourceAsStream</span><span class="op">(</span>properties<span class="op">[</span><span class="dv">0</span><span class="op">]);</span><span class="co">// get Template For payMethod</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> renderMethod <span class="op">=</span> properties<span class="op">[</span><span class="dv">1</span><span class="op">];</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">Method</span> method <span class="op">=</span> <span class="fu">getClass</span><span class="op">().</span><span class="fu">getDeclaredMethod</span><span class="op">(</span>renderMethod<span class="op">,</span><span class="kw">new</span> <span class="bu">Class</span><span class="op">[]{</span><span class="bu">InputStream</span><span class="op">.</span><span class="fu">class</span><span class="op">,</span>other<span class="op">.</span><span class="fu">class</span><span class="op">});</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>method<span class="op">.</span><span class="fu">invoke</span><span class="op">(</span><span class="kw">this</span><span class="op">,</span><span class="kw">new</span> <span class="bu">Object</span><span class="op">[]{</span>templateIns<span class="op">,</span>otherObjects<span class="op">});</span><span class="co">// invoke render method for corresponding paymethod</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">// DONE!</span></span></code></pre>
      </div> 
      <p>这里省略掉一些读取配置信息的代码，只保留了可以说明问题的部分，在这里，我们首先load配置文件，然后，根据取得的PayMethod取得相应的Property值（这里要对取得的值进行相应处理，因为2个值是以一个字符串的形式返回的），之后，根据取得的模板位置取得模板，根据取得的方法名取得Method实例，最后，反射调用Method就可以了，只是，传入的参数要根据你的实现来决定。</p> 
      <p>（注：取得多个Property值最简单的方式就是用String的split方法来分割，你可以根据情况给出一个通用的实现，extends java.util.Properties类或者delegate it）</p> 
@@ -222,10 +223,10 @@
      <p>加载配置文件和加载模板的部分是相同的，我们只是列出方法调用部分的代码以示差别：</p> 
      <div class="sourceCode" id="cb2">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">// ...same as above codes</span></span>
-            <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> renderMethod <span class="op">=</span> properties<span class="op">[</span><span class="dv">1</span><span class="op">];</span></span>
-            <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Function f <span class="op">=</span> <span class="kw">new</span> <span class="fu">InstanceFunction</span><span class="op">(</span>CurrentClass<span class="op">.</span><span class="fu">class</span><span class="op">,</span> renderMethod<span class="op">,</span> <span class="kw">this</span><span class="op">);</span></span>
-            <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>f<span class="op">.</span><span class="fu">addParameters</span><span class="op">(</span><span class="kw">new</span> <span class="bu">Object</span><span class="op">[]{</span>parameters<span class="op">}).</span><span class="fu">call</span><span class="op">();</span></span>
-            <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">// DONE!</span></span></code></pre>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> renderMethod <span class="op">=</span> properties<span class="op">[</span><span class="dv">1</span><span class="op">];</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Function f <span class="op">=</span> <span class="kw">new</span> <span class="fu">InstanceFunction</span><span class="op">(</span>CurrentClass<span class="op">.</span><span class="fu">class</span><span class="op">,</span> renderMethod<span class="op">,</span> <span class="kw">this</span><span class="op">);</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>f<span class="op">.</span><span class="fu">addParameters</span><span class="op">(</span><span class="kw">new</span> <span class="bu">Object</span><span class="op">[]{</span>parameters<span class="op">}).</span><span class="fu">call</span><span class="op">();</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">// DONE!</span></span></code></pre>
      </div> 
      <p>怎么样？！没啥大的差别吧，呵呵，其实他的大部分实现类都是扩展的ReflectionFunction，这就是我为什么说他也仅仅是对reflection进行了一下封装。不过，你可以通过fuctionJ了解一些概念性的东西。</p> 
      <p>OK，我们通过以上两种方式都去除了多重的条件判断，目的达到，虽然看起来没有省去太多代码，不过，如果你的条件判断语句很多的话，你就不会这么说了，而且，这种方式的可扩展性很好，不妨试试？！:-)</p> 
@@ -233,11 +234,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2010-04-06-smilence.html">很是哭笑不得… </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2007-10-25-BF4768EE8B110260_625.html">答题，答题...</a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2021-03-20-why-no-unveil-springcloud.html">我为什么没写《SpringCloud揭秘》？ </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2021-05-16-love-death-robots2-in-my-eyes.html">扶墙短评《Love、Death+Robots 2》 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2014-07-06-share-the-profit.html">分润 #What’s in a story# </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2009-02-27-movie-the-wrestler.html">看完《The Wrestler》心里挺不是滋味… </a> 
       </div> 
      </div> 
      <hr> 

@@ -16,8 +16,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -94,7 +96,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -184,31 +185,31 @@
      <p>假设我们的系统实现存在一个Dao层，而该层的Dao中一般都会存在更新数据库或者查询数据库的操作，那么现在因为某种原因，我们的系统在数据库交换方面存在瓶颈，我们需要知道到底问题出在什么地方，所以，我们实现了一个ProfileInterceptor用来统计方法的执行时间，下面是该类的简单实现：</p> 
      <div class="sourceCode" id="cb1">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> ProfileInterceptor <span class="kw">implements</span> MethodInterceptor <span class="op">{</span></span>
-            <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">private</span> <span class="dt">static</span> <span class="dt">final</span> <span class="bu">Logger</span> logger <span class="op">=</span> <span class="bu">Logger</span><span class="op">.</span><span class="fu">getLogger</span><span class="op">(</span>ProfileInterceptor<span class="op">.</span><span class="fu">class</span><span class="op">);</span> </span>
-            <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="bu">Object</span> <span class="fu">invoke</span><span class="op">(</span>MethodInvocation invocation<span class="op">)</span> <span class="kw">throws</span> <span class="bu">Throwable</span> <span class="op">{</span></span>
-            <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">long</span> t <span class="op">=</span> <span class="bu">System</span><span class="op">.</span><span class="fu">currentTimeMillis</span><span class="op">();</span></span>
-            <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">Object</span> o <span class="op">=</span> invocation<span class="op">.</span><span class="fu">proceed</span><span class="op">();</span></span>
-            <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> <span class="bu">System</span><span class="op">.</span><span class="fu">currentTimeMillis</span><span class="op">()</span> <span class="op">-</span> t<span class="op">;</span></span>
-            <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>logger<span class="op">.</span><span class="fu">info</span><span class="op">(</span>invocation<span class="op">.</span><span class="fu">getMethod</span><span class="op">().</span><span class="fu">gatName</span><span class="op">()+</span>”consumed<span class="op">:</span>”<span class="op">+</span>t<span class="op">);</span></span>
-            <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> o<span class="op">;</span></span>
-            <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">private</span> <span class="dt">static</span> <span class="dt">final</span> <span class="bu">Logger</span> logger <span class="op">=</span> <span class="bu">Logger</span><span class="op">.</span><span class="fu">getLogger</span><span class="op">(</span>ProfileInterceptor<span class="op">.</span><span class="fu">class</span><span class="op">);</span> </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="bu">Object</span> <span class="fu">invoke</span><span class="op">(</span>MethodInvocation invocation<span class="op">)</span> <span class="kw">throws</span> <span class="bu">Throwable</span> <span class="op">{</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">long</span> t <span class="op">=</span> <span class="bu">System</span><span class="op">.</span><span class="fu">currentTimeMillis</span><span class="op">();</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">Object</span> o <span class="op">=</span> invocation<span class="op">.</span><span class="fu">proceed</span><span class="op">();</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> <span class="bu">System</span><span class="op">.</span><span class="fu">currentTimeMillis</span><span class="op">()</span> <span class="op">-</span> t<span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>logger<span class="op">.</span><span class="fu">info</span><span class="op">(</span>invocation<span class="op">.</span><span class="fu">getMethod</span><span class="op">().</span><span class="fu">gatName</span><span class="op">()+</span>”consumed<span class="op">:</span>”<span class="op">+</span>t<span class="op">);</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> o<span class="op">;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
      </div> 
      <p>当然，我们不会单单将这个ProfileInterceptor应用于单一的一个dao上面，我们需要对所有存在于dao层的dao实现进行检测，故此，我们定义我们需要的BeanNameAutoProxyCreator如下：</p> 
      <div class="sourceCode" id="cb2">
       <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">bean</span><span class="ot"> id=</span><span class="st">"profileInterceptor"</span><span class="ot"> class=</span><span class="st">"net.darrenstudio.springaop.advice.ProfileInerceptor”&gt;</span><span class="er">&lt;</span><span class="st">/bean&gt;</span></span>
-            <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;</span><span class="st">bean id="</span><span class="ot">profileAutoProxyCreator</span><span class="er">"</span> <span class="er">class</span><span class="ot">=</span><span class="st">"org.springframework.aop.framework.</span></span>
-            <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="st">autoproxy.BeanNameAutoProxyProxyCreator"</span>&gt;</span>
-            <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">bean</span>&gt;</span>
-            <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"beanNames"</span>&gt;</span>
-            <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">list</span>&gt;</span>
-            <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">value</span>&gt;*Dao&lt;/<span class="kw">value</span>&gt;</span>
-            <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">list</span>&gt;</span>
-            <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">property</span>&gt;</span>
-            <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"interceptorNames"</span>&gt;</span>
-            <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">value</span>&gt; profileInterceptor &lt;/<span class="kw">value</span>&gt;</span>
-            <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">property</span>&gt;</span>
-            <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">bean</span>&gt;</span></code></pre>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;</span><span class="st">bean id="</span><span class="ot">profileAutoProxyCreator</span><span class="er">"</span> <span class="er">class</span><span class="ot">=</span><span class="st">"org.springframework.aop.framework.</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="st">autoproxy.BeanNameAutoProxyProxyCreator"</span>&gt;</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">bean</span>&gt;</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"beanNames"</span>&gt;</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">list</span>&gt;</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">value</span>&gt;*Dao&lt;/<span class="kw">value</span>&gt;</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">list</span>&gt;</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">property</span>&gt;</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"interceptorNames"</span>&gt;</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">value</span>&gt; profileInterceptor &lt;/<span class="kw">value</span>&gt;</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">property</span>&gt;</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">bean</span>&gt;</span></code></pre>
      </div> 
      <p>这样，在调用每个dao实现的时候，其所有的方法调用和执行情况就可以全部记录下来了，通过分析log就可以得出一定的结果并加以改进。如果说要对某些方法，比如查询方法（我们假设这类方法都是以query开头的），我们可以定义一个Advisor，比如以前提过的RegexpMethodPointcutAdvisor，并指定advice为ProfileInterceptor，pointcut的形式为query.*，最后使用该advisor代替直接将ProfileInterceptor提供给BeanNameAutoProxyCreator类的interceptorNames属性就可以了。而且，如果说以后系统成熟之后不想用profile功能了，直接在spring的配置文件中注释掉上面的配置信息就可以了。当然，以上功能要起作用，不要忘了你要用ApplicationContext而不是BeanFactory哦。</p> 
      <p>说过了BeanNameAutoProxyCreator，下面我们说说DefaultAdvisorAutoProxyCreator吧！这个比前者更加智能，你都不用指定要处理哪些beans，也不用指定那个advice要应用到那个bean上面，你唯一需要关心的就是要注意这个类只会处理advisor类型的interceptor类型，而不会关心你到底提供了多少正常的MethodInterceptor或者advice。</p> 
@@ -222,11 +223,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2021-07-09-recruit-becomes-harder.html">前端难招？ </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2010-06-28-cars-in-back-mirror.html">后视镜中的车流</a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2007-07-25-BF4768EE8B110260_502.html">我是一个没素质的人</a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2011-11-28-Scala_continuations_revisited.html">Scala Continuations Revisited </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2013-12-08-typeclass-made-easy-in-scala.html">Understanding Typeclass In Scala The Easy Way </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2021-06-22-svelte3-gotcha-cherish.html">《技术、商业与人》番外篇 </a> 
       </div> 
      </div> 
      <hr> 

@@ -17,8 +17,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -30,7 +32,6 @@
             display:inline;
         }
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -116,27 +117,27 @@
      <h2 id="章节排序">章节排序</h2> 
      <p><code>使用数字进行排序便于为pandoc输入文件的做法</code>带来的不便是，中间插入其他内容或者章节的时候需要很多调整：</p> 
      <pre><code>01_preface.md
-            02_introduction.md
-            03_why_markdown_is_useful.md
-            04_limitations_of_markdown.md
-            05_conclusions.md
-            06_links.md</code></pre> 
+02_introduction.md
+03_why_markdown_is_useful.md
+04_limitations_of_markdown.md
+05_conclusions.md
+06_links.md</code></pre> 
      <h2 id="无法层次化内容">无法层次化内容</h2> 
      <p>很多章节是嵌套有层次化的， 最直觉性的管理方式是使用目录， 但这样又会导致pandoc编译的时候资源引用错误，因为我们在编写的时候实际上使用的资源引用都是相对路径， 比如images/xx.png， 而如果我们嵌套了目录， 那么， 这个图片资源可能存在于chapter3/images/xx.png, 因为我们是在顶层目录执行pandoc命令的：</p> 
      <pre><code>pandoc_compile_command.sh
-            preface.md
-            chapter1/
-            chapter2/
-                images/
-                    xx.png
-                section1.md
-                section2.md
-                ...
-            chapter3/
-            ...</code></pre> 
+preface.md
+chapter1/
+chapter2/
+    images/
+        xx.png
+    section1.md
+    section2.md
+    ...
+chapter3/
+...</code></pre> 
      <p>为了规避这种问题，我们要么就把所有md和images文件拉平(flatten)到同一个目录下面， 要么，就使用pandoc命令的时候，明确指定输入顺序, <strong>但依然无法解决图片路径引用的在编写和编译期间的差异问题</strong>:</p> 
      <pre><code>➜  pandoc_book_starter git:(master) ✗ pandoc -s -N --toc --toc-depth=4 --self-contained -c ~/FuqiangWorks/templates/pandoc/ivy.css "index.md" &gt; "index.html"
-            File images/ipfs.jpeg not found in resource path</code></pre> 
+File images/ipfs.jpeg not found in resource path</code></pre> 
      <h1 id="我的想法">我的想法</h1> 
      <p>使用嵌套目录的形式管理层次化内容， 便于编写和管理， 在编译期间，使用某种filter机制， 将各个子目录的内容归并到同一个md文件， 同时修改图片引用地址， 最终从合并后的md文件进行编译。</p> 
      <p>filter主要做两个事情：</p> 
@@ -166,11 +167,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2017-07-11-startup-uncertainty.html">选择了创业，你就选择了不确定性！ </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2007-09-08-BF4768EE8B110260_603.html">赐予我力量吧,我是希曼~</a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2020-01-12-cost-of-cognition-upgrade.html">认知的成本 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2022-11-11-LoD-explained.html">LOD Explained </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2014-08-06-cards-intro.html">借记卡</a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2009-07-27-depressing-days.html">再这样下去有点儿不像话了 </a> 
       </div> 
      </div> 
      <hr> 

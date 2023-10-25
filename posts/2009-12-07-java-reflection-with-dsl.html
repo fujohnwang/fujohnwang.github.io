@@ -16,8 +16,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -94,7 +96,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -174,9 +175,9 @@
      <p>I know someone must have heard or known about a library named FEST-Reflect, and maybe you are just using it. It’s an interesting library that let you write code of java reflection in a DSL-like style. For example:</p> 
      <div class="sourceCode" id="cb1">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> name <span class="op">=</span> <span class="fu">method</span><span class="op">(</span><span class="st">"get"</span><span class="op">).</span><span class="fu">withReturnType</span><span class="op">(</span><span class="bu">String</span><span class="op">.</span><span class="fu">class</span><span class="op">)</span>  </span>
-            <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                           <span class="op">.</span><span class="fu">withParameterTypes</span><span class="op">(</span><span class="dt">int</span><span class="op">.</span><span class="fu">class</span><span class="op">)</span>  </span>
-            <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                           <span class="op">.</span><span class="fu">in</span><span class="op">(</span>names<span class="op">)</span>  </span>
-            <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                           <span class="op">.</span><span class="fu">invoke</span><span class="op">(</span><span class="dv">8</span><span class="op">);</span>  </span></code></pre>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                           <span class="op">.</span><span class="fu">withParameterTypes</span><span class="op">(</span><span class="dt">int</span><span class="op">.</span><span class="fu">class</span><span class="op">)</span>  </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                           <span class="op">.</span><span class="fu">in</span><span class="op">(</span>names<span class="op">)</span>  </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                           <span class="op">.</span><span class="fu">invoke</span><span class="op">(</span><span class="dv">8</span><span class="op">);</span>  </span></code></pre>
      </div> 
      <p>It’s just another way to express same logic, but it give you another way to write your code which make your code more readable. If you want to write your code this way, of course, you can use FEST-reflect directly, but that’s not why wrote words below, what I try to tell you is, you can implement such things yourself with little effort. I will draft a prototype to implement such a DSL-like style Java Reflection usage API, If you are interested, read on…</p> 
      <p>To enable the users to use our API in a DSL-like style like code sample above, it’s easy to figure out 2 things:</p> 
@@ -188,148 +189,148 @@
      <p>We focus on only java reflection usage on Instance Method, since it’s not a difficult thing to find out what we can do with Method, An abstraction can be given below:</p> 
      <div class="sourceCode" id="cb2">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span> </span>
-            <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> method<span class="co">("</span>name<span class="co">").</span>on<span class="co">(</span>targetobject<span class="co">).</span>withArgumentTypes<span class="co">(...).</span>invoke<span class="co">(...);</span> </span>
-            <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span>  </span>
-            <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"> * @</span>author fujohnwang </span>
-            <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="co">@</span>since  <span class="co">1.0</span>  </span>
-            <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a> <span class="co">*/</span>  </span>
-            <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">interface</span> IMethodDSL <span class="op">{</span>  </span>
-            <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>      </span>
-            <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    IMethodDSL <span class="fu">on</span><span class="op">(</span><span class="bu">Object</span> target<span class="op">);</span>  </span>
-            <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>      </span>
-            <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    IMethodDSL <span class="fu">withArgumentTypes</span><span class="op">(</span><span class="bu">Class</span><span class="op">&lt;?&gt;</span><span class="kw">...</span> args<span class="op">);</span>  </span>
-            <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>      </span>
-            <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    IMethodDSL <span class="fu">makeAccessible</span><span class="op">(</span><span class="dt">boolean</span> flag<span class="op">);</span>  </span>
-            <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>      </span>
-            <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>T<span class="op">&gt;</span> T <span class="fu">invoke</span><span class="op">(</span><span class="bu">Object</span><span class="kw">...</span> args<span class="op">)</span> <span class="kw">throws</span> <span class="bu">InvocationTargetException</span><span class="op">;</span>  </span>
-            <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>  </span></code></pre>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> method<span class="co">("</span>name<span class="co">").</span>on<span class="co">(</span>targetobject<span class="co">).</span>withArgumentTypes<span class="co">(...).</span>invoke<span class="co">(...);</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span>  </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"> * @</span>author fujohnwang </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="co">@</span>since  <span class="co">1.0</span>  </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a> <span class="co">*/</span>  </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">interface</span> IMethodDSL <span class="op">{</span>  </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    IMethodDSL <span class="fu">on</span><span class="op">(</span><span class="bu">Object</span> target<span class="op">);</span>  </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    IMethodDSL <span class="fu">withArgumentTypes</span><span class="op">(</span><span class="bu">Class</span><span class="op">&lt;?&gt;</span><span class="kw">...</span> args<span class="op">);</span>  </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    IMethodDSL <span class="fu">makeAccessible</span><span class="op">(</span><span class="dt">boolean</span> flag<span class="op">);</span>  </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>T<span class="op">&gt;</span> T <span class="fu">invoke</span><span class="op">(</span><span class="bu">Object</span><span class="kw">...</span> args<span class="op">)</span> <span class="kw">throws</span> <span class="bu">InvocationTargetException</span><span class="op">;</span>  </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>  </span></code></pre>
      </div> 
      <p>We express the abstraction in an Java interface, except for the last “invoke” method, other operations have a return type of the same interface, that’s, IMethodDSL itself. That’s the way we implement a method chaining behavior.</p> 
      <p>Since we have had the key abstraction, we can give it an implementation now, it looks like below:</p> 
      <div class="sourceCode" id="cb3">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span> </span>
-            <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> Default IMethodDSL implementation<span class="co">.</span><span class="kw">&lt;br&gt;</span> </span>
-            <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span>  </span>
-            <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"> * @</span>author fujohnwang </span>
-            <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="co">@</span>since  <span class="co">1.0</span>  </span>
-            <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="co">@</span>see    ReflectDSL </span>
-            <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="co">@</span>see    IMethodDSL </span>
-            <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a> <span class="co">*/</span>  </span>
-            <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> MethodDSL <span class="kw">implements</span> IMethodDSL <span class="op">{</span>  </span>
-            <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  </span>
-            <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">static</span> <span class="dt">final</span> <span class="bu">Logger</span> logger <span class="op">=</span> LoggerFactory<span class="op">.</span><span class="fu">getLogger</span><span class="op">(</span>MethodDSL<span class="op">.</span><span class="fu">class</span><span class="op">);</span>  </span>
-            <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  </span>
-            <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> methodName<span class="op">;</span>  </span>
-            <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">Object</span> target<span class="op">;</span>  </span>
-            <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">Class</span><span class="op">&lt;?&gt;[]</span> argTypes<span class="op">;</span>  </span>
-            <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">boolean</span> accessible<span class="op">;</span>  </span>
-            <span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  </span>
-            <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="fu">MethodDSL</span><span class="op">(</span><span class="bu">String</span> methodName<span class="op">)</span> <span class="op">{</span>  </span>
-            <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">methodName</span> <span class="op">=</span> methodName<span class="op">;</span>  </span>
-            <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
-            <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  </span>
-            <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="op">&lt;</span>T<span class="op">&gt;</span> T <span class="fu">invoke</span><span class="op">(</span><span class="bu">Object</span><span class="kw">...</span> args<span class="op">)</span> <span class="kw">throws</span> <span class="bu">InvocationTargetException</span> <span class="op">{</span>  </span>
-            <span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        <span class="fu">checkInvokeDependencies</span><span class="op">();</span>  </span>
-            <span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span> <span class="op">{</span>  </span>
-            <span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>            <span class="bu">Method</span> method <span class="op">=</span> <span class="fu">findQualifiedMethod</span><span class="op">(</span>target<span class="op">.</span><span class="fu">getClass</span><span class="op">());</span>  </span>
-            <span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span><span class="op">(</span><span class="kw">this</span><span class="op">.</span><span class="fu">accessible</span><span class="op">)</span>  </span>
-            <span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span>  </span>
-            <span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>                method<span class="op">.</span><span class="fu">setAccessible</span><span class="op">(</span><span class="kw">true</span><span class="op">);</span>  </span>
-            <span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span>  </span>
-            <span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>            <span class="co">/**</span> </span>
-            <span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>             <span class="co">*</span> usually<span class="co">,</span> the caller will be required to declare proper return type of the method invocation<span class="co">,</span> </span>
-            <span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>             <span class="co">*</span> so cast to the type they declared is acceptable<span class="co">.  </span></span>
-            <span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>             <span class="co">*</span> the return type the caller declared should be the returnType they have assigned<span class="co">.</span> </span>
-            <span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>             <span class="co">*/</span>  </span>
-            <span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>            <span class="at">@SuppressWarnings</span><span class="op">(</span><span class="st">"unchecked"</span><span class="op">)</span>  </span>
-            <span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>            T result <span class="op">=</span> <span class="op">(</span>T<span class="op">)</span>method<span class="op">.</span><span class="fu">invoke</span><span class="op">(</span>target<span class="op">,</span> PreConditions<span class="op">.</span><span class="fu">nullAsEmpty</span><span class="op">(</span>args<span class="op">,</span><span class="bu">Object</span><span class="op">.</span><span class="fu">class</span><span class="op">));</span>  </span>
-            <span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> result<span class="op">;</span>  </span>
-            <span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">SecurityException</span> e<span class="op">)</span> <span class="op">{</span>  </span>
-            <span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>            <span class="cf">throw</span> <span class="kw">new</span> <span class="bu">InvocationTargetException</span><span class="op">(</span>e<span class="op">);</span>  </span>
-            <span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">NoSuchMethodException</span> e<span class="op">)</span> <span class="op">{</span>  </span>
-            <span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>            <span class="cf">throw</span> <span class="kw">new</span> <span class="bu">InvocationTargetException</span><span class="op">(</span>e<span class="op">);</span>  </span>
-            <span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">IllegalArgumentException</span> e<span class="op">)</span> <span class="op">{</span>  </span>
-            <span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>            <span class="cf">throw</span> <span class="kw">new</span> <span class="bu">InvocationTargetException</span><span class="op">(</span>e<span class="op">);</span>  </span>
-            <span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">IllegalAccessException</span> e<span class="op">)</span> <span class="op">{</span>  </span>
-            <span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>            <span class="cf">throw</span> <span class="kw">new</span> <span class="bu">InvocationTargetException</span><span class="op">(</span>e<span class="op">);</span>  </span>
-            <span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span>  </span>
-            <span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
-            <span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>  </span>
-            <span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="bu">Method</span> <span class="fu">findQualifiedMethod</span><span class="op">(</span><span class="bu">Class</span><span class="op">&lt;?&gt;</span> clazz<span class="op">)</span> <span class="kw">throws</span> <span class="bu">SecurityException</span><span class="op">,</span> <span class="bu">NoSuchMethodException</span> <span class="op">{</span>  </span>
-            <span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span><span class="op">(</span><span class="kw">this</span><span class="op">.</span><span class="fu">argTypes</span> <span class="op">==</span> <span class="kw">null</span><span class="op">)</span>  </span>
-            <span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span>  </span>
-            <span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>            <span class="bu">Method</span> qualifiedMethod <span class="op">=</span> <span class="kw">null</span><span class="op">;</span>  </span>
-            <span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span><span class="op">(</span><span class="bu">Method</span> method <span class="op">:</span> clazz<span class="op">.</span><span class="fu">getDeclaredMethods</span><span class="op">())</span>  </span>
-            <span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span>  </span>
-            <span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span><span class="op">(</span>method<span class="op">.</span><span class="fu">getName</span><span class="op">().</span><span class="fu">equals</span><span class="op">(</span><span class="kw">this</span><span class="op">.</span><span class="fu">methodName</span><span class="op">))</span>  </span>
-            <span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>                <span class="op">{</span>  </span>
-            <span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span><span class="op">(</span>qualifiedMethod <span class="op">!=</span> <span class="kw">null</span><span class="op">)</span>  </span>
-            <span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>                    <span class="op">{</span>  </span>
-            <span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">throw</span> <span class="kw">new</span> <span class="bu">IllegalStateException</span><span class="op">(</span><span class="st">"please provide arguments of method if you want to invoke on overloaded methods."</span><span class="op">);</span>  </span>
-            <span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>                    <span class="op">}</span>  </span>
-            <span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>                    qualifiedMethod <span class="op">=</span> method<span class="op">;</span>  </span>
-            <span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>                <span class="op">}</span>  </span>
-            <span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span>  </span>
-            <span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span><span class="op">(</span>qualifiedMethod <span class="op">==</span> <span class="kw">null</span><span class="op">)</span>  </span>
-            <span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span>  </span>
-            <span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>                <span class="cf">throw</span> <span class="kw">new</span> <span class="bu">NoSuchMethodException</span><span class="op">();</span>  </span>
-            <span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span>  </span>
-            <span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> qualifiedMethod<span class="op">;</span>  </span>
-            <span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span>  </span>
-            <span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>  </span>
-            <span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span>  </span>
-            <span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> clazz<span class="op">.</span><span class="fu">getDeclaredMethod</span><span class="op">(</span><span class="kw">this</span><span class="op">.</span><span class="fu">methodName</span><span class="op">,</span> <span class="kw">this</span><span class="op">.</span><span class="fu">argTypes</span><span class="op">);</span>  </span>
-            <span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span>  </span>
-            <span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
-            <span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>    <span class="co">/**</span> </span>
-            <span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> usually<span class="co">,</span> these information like <span class="co">"</span>methodName<span class="co">",</span> <span class="co">"</span>target<span class="co">"</span> are required<span class="co">,</span> <span class="kw">&lt;br&gt;</span> </span>
-            <span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> but in case special situations<span class="co">,</span> this method is declared protected so that in those situations<span class="co">,</span>  </span>
-            <span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> others can override this default behavior<span class="co">. </span></span>
-            <span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>     <span class="co">*/</span>  </span>
-            <span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="dt">void</span> <span class="fu">checkInvokeDependencies</span><span class="op">()</span> <span class="op">{</span>  </span>
-            <span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>        logger<span class="op">.</span><span class="fu">info</span><span class="op">(</span><span class="st">"the data is lazily bound before the real invocation of the method, check before invocation here."</span><span class="op">);</span>  </span>
-            <span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a>        PreConditions<span class="op">.</span><span class="fu">isNotEmpty</span><span class="op">(</span>methodName<span class="op">);</span>  </span>
-            <span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>        PreConditions<span class="op">.</span><span class="fu">isNotNull</span><span class="op">(</span>target<span class="op">);</span>  </span>
-            <span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
-            <span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>  </span>
-            <span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> IMethodDSL <span class="fu">on</span><span class="op">(</span><span class="bu">Object</span> target<span class="op">)</span> <span class="op">{</span>  </span>
-            <span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">target</span> <span class="op">=</span> target<span class="op">;</span>  </span>
-            <span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">this</span><span class="op">;</span>  </span>
-            <span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
-            <span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>  </span>
-            <span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> IMethodDSL <span class="fu">withArgumentTypes</span><span class="op">(</span><span class="bu">Class</span><span class="op">&lt;?&gt;</span><span class="kw">...</span> args<span class="op">)</span> <span class="op">{</span>  </span>
-            <span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">argTypes</span> <span class="op">=</span> args<span class="op">;</span>  </span>
-            <span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">this</span><span class="op">;</span>  </span>
-            <span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
-            <span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>  </span>
-            <span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> IMethodDSL <span class="fu">makeAccessible</span><span class="op">(</span><span class="dt">boolean</span> flag<span class="op">)</span> <span class="op">{</span>  </span>
-            <span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">accessible</span> <span class="op">=</span> flag<span class="op">;</span>  </span>
-            <span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">this</span><span class="op">;</span>  </span>
-            <span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
-            <span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a>  </span>
-            <span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>  </span></code></pre>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> Default IMethodDSL implementation<span class="co">.</span><span class="kw">&lt;br&gt;</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span>  </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"> * @</span>author fujohnwang </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="co">@</span>since  <span class="co">1.0</span>  </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="co">@</span>see    ReflectDSL </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="co">@</span>see    IMethodDSL </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a> <span class="co">*/</span>  </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> MethodDSL <span class="kw">implements</span> IMethodDSL <span class="op">{</span>  </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">static</span> <span class="dt">final</span> <span class="bu">Logger</span> logger <span class="op">=</span> LoggerFactory<span class="op">.</span><span class="fu">getLogger</span><span class="op">(</span>MethodDSL<span class="op">.</span><span class="fu">class</span><span class="op">);</span>  </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> methodName<span class="op">;</span>  </span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">Object</span> target<span class="op">;</span>  </span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">Class</span><span class="op">&lt;?&gt;[]</span> argTypes<span class="op">;</span>  </span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">boolean</span> accessible<span class="op">;</span>  </span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="fu">MethodDSL</span><span class="op">(</span><span class="bu">String</span> methodName<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">methodName</span> <span class="op">=</span> methodName<span class="op">;</span>  </span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="op">&lt;</span>T<span class="op">&gt;</span> T <span class="fu">invoke</span><span class="op">(</span><span class="bu">Object</span><span class="kw">...</span> args<span class="op">)</span> <span class="kw">throws</span> <span class="bu">InvocationTargetException</span> <span class="op">{</span>  </span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        <span class="fu">checkInvokeDependencies</span><span class="op">();</span>  </span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span> <span class="op">{</span>  </span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>            <span class="bu">Method</span> method <span class="op">=</span> <span class="fu">findQualifiedMethod</span><span class="op">(</span>target<span class="op">.</span><span class="fu">getClass</span><span class="op">());</span>  </span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span><span class="op">(</span><span class="kw">this</span><span class="op">.</span><span class="fu">accessible</span><span class="op">)</span>  </span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span>  </span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>                method<span class="op">.</span><span class="fu">setAccessible</span><span class="op">(</span><span class="kw">true</span><span class="op">);</span>  </span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span>  </span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>            <span class="co">/**</span> </span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>             <span class="co">*</span> usually<span class="co">,</span> the caller will be required to declare proper return type of the method invocation<span class="co">,</span> </span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>             <span class="co">*</span> so cast to the type they declared is acceptable<span class="co">.  </span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>             <span class="co">*</span> the return type the caller declared should be the returnType they have assigned<span class="co">.</span> </span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>             <span class="co">*/</span>  </span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>            <span class="at">@SuppressWarnings</span><span class="op">(</span><span class="st">"unchecked"</span><span class="op">)</span>  </span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>            T result <span class="op">=</span> <span class="op">(</span>T<span class="op">)</span>method<span class="op">.</span><span class="fu">invoke</span><span class="op">(</span>target<span class="op">,</span> PreConditions<span class="op">.</span><span class="fu">nullAsEmpty</span><span class="op">(</span>args<span class="op">,</span><span class="bu">Object</span><span class="op">.</span><span class="fu">class</span><span class="op">));</span>  </span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> result<span class="op">;</span>  </span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">SecurityException</span> e<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>            <span class="cf">throw</span> <span class="kw">new</span> <span class="bu">InvocationTargetException</span><span class="op">(</span>e<span class="op">);</span>  </span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">NoSuchMethodException</span> e<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>            <span class="cf">throw</span> <span class="kw">new</span> <span class="bu">InvocationTargetException</span><span class="op">(</span>e<span class="op">);</span>  </span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">IllegalArgumentException</span> e<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>            <span class="cf">throw</span> <span class="kw">new</span> <span class="bu">InvocationTargetException</span><span class="op">(</span>e<span class="op">);</span>  </span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">IllegalAccessException</span> e<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>            <span class="cf">throw</span> <span class="kw">new</span> <span class="bu">InvocationTargetException</span><span class="op">(</span>e<span class="op">);</span>  </span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span>  </span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="bu">Method</span> <span class="fu">findQualifiedMethod</span><span class="op">(</span><span class="bu">Class</span><span class="op">&lt;?&gt;</span> clazz<span class="op">)</span> <span class="kw">throws</span> <span class="bu">SecurityException</span><span class="op">,</span> <span class="bu">NoSuchMethodException</span> <span class="op">{</span>  </span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span><span class="op">(</span><span class="kw">this</span><span class="op">.</span><span class="fu">argTypes</span> <span class="op">==</span> <span class="kw">null</span><span class="op">)</span>  </span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span>  </span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>            <span class="bu">Method</span> qualifiedMethod <span class="op">=</span> <span class="kw">null</span><span class="op">;</span>  </span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span><span class="op">(</span><span class="bu">Method</span> method <span class="op">:</span> clazz<span class="op">.</span><span class="fu">getDeclaredMethods</span><span class="op">())</span>  </span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span>  </span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span><span class="op">(</span>method<span class="op">.</span><span class="fu">getName</span><span class="op">().</span><span class="fu">equals</span><span class="op">(</span><span class="kw">this</span><span class="op">.</span><span class="fu">methodName</span><span class="op">))</span>  </span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>                <span class="op">{</span>  </span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span><span class="op">(</span>qualifiedMethod <span class="op">!=</span> <span class="kw">null</span><span class="op">)</span>  </span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>                    <span class="op">{</span>  </span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">throw</span> <span class="kw">new</span> <span class="bu">IllegalStateException</span><span class="op">(</span><span class="st">"please provide arguments of method if you want to invoke on overloaded methods."</span><span class="op">);</span>  </span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>                    <span class="op">}</span>  </span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>                    qualifiedMethod <span class="op">=</span> method<span class="op">;</span>  </span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>                <span class="op">}</span>  </span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span>  </span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span><span class="op">(</span>qualifiedMethod <span class="op">==</span> <span class="kw">null</span><span class="op">)</span>  </span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span>  </span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>                <span class="cf">throw</span> <span class="kw">new</span> <span class="bu">NoSuchMethodException</span><span class="op">();</span>  </span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span>  </span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> qualifiedMethod<span class="op">;</span>  </span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span>  </span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>  </span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span>  </span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> clazz<span class="op">.</span><span class="fu">getDeclaredMethod</span><span class="op">(</span><span class="kw">this</span><span class="op">.</span><span class="fu">methodName</span><span class="op">,</span> <span class="kw">this</span><span class="op">.</span><span class="fu">argTypes</span><span class="op">);</span>  </span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span>  </span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>    <span class="co">/**</span> </span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> usually<span class="co">,</span> these information like <span class="co">"</span>methodName<span class="co">",</span> <span class="co">"</span>target<span class="co">"</span> are required<span class="co">,</span> <span class="kw">&lt;br&gt;</span> </span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> but in case special situations<span class="co">,</span> this method is declared protected so that in those situations<span class="co">,</span>  </span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> others can override this default behavior<span class="co">. </span></span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>     <span class="co">*/</span>  </span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="dt">void</span> <span class="fu">checkInvokeDependencies</span><span class="op">()</span> <span class="op">{</span>  </span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>        logger<span class="op">.</span><span class="fu">info</span><span class="op">(</span><span class="st">"the data is lazily bound before the real invocation of the method, check before invocation here."</span><span class="op">);</span>  </span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a>        PreConditions<span class="op">.</span><span class="fu">isNotEmpty</span><span class="op">(</span>methodName<span class="op">);</span>  </span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>        PreConditions<span class="op">.</span><span class="fu">isNotNull</span><span class="op">(</span>target<span class="op">);</span>  </span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> IMethodDSL <span class="fu">on</span><span class="op">(</span><span class="bu">Object</span> target<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">target</span> <span class="op">=</span> target<span class="op">;</span>  </span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">this</span><span class="op">;</span>  </span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> IMethodDSL <span class="fu">withArgumentTypes</span><span class="op">(</span><span class="bu">Class</span><span class="op">&lt;?&gt;</span><span class="kw">...</span> args<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">argTypes</span> <span class="op">=</span> args<span class="op">;</span>  </span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">this</span><span class="op">;</span>  </span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> IMethodDSL <span class="fu">makeAccessible</span><span class="op">(</span><span class="dt">boolean</span> flag<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">accessible</span> <span class="op">=</span> flag<span class="op">;</span>  </span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">this</span><span class="op">;</span>  </span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>  </span></code></pre>
      </div> 
      <p>The intermediate operations just accept the parameter value and “return this;” to achieve method chaining, the key point is the last operation, that’s, the “invoke” method, this is where all of the real stuff take effect. We check the preconditions before invoking Java Reflection API, and then find proper Method with attribute the API user have passed in as chaining-method’s parameter. At last, cast the invocation result to the type the users expect to get. That’s all, very simple , isn’t it?</p> 
      <p>To make API users to use this more DSL-likely, we need to offer a Factory-method for our MethodDSL, it looks like:</p> 
      <div class="sourceCode" id="cb4">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">abstract</span> <span class="kw">class</span> ReflectDSL <span class="op">{</span>  </span>
-            <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>      </span>
-            <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> IMethodDSL <span class="fu">method</span><span class="op">(</span><span class="bu">String</span> methodName<span class="op">)</span>  </span>
-            <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span>  </span>
-            <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">new</span> <span class="fu">MethodDSL</span><span class="op">(</span>methodName<span class="op">);</span>  </span>
-            <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
-            <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">...</span>  </span>
-            <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>  </span></code></pre>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> IMethodDSL <span class="fu">method</span><span class="op">(</span><span class="bu">String</span> methodName<span class="op">)</span>  </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span>  </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">new</span> <span class="fu">MethodDSL</span><span class="op">(</span>methodName<span class="op">);</span>  </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">...</span>  </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>  </span></code></pre>
      </div> 
      <p>With this, we can use our DSL-like Java Reflection API this way:</p> 
      <div class="sourceCode" id="cb5">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="kw">static</span><span class="im"> </span><span class="op">..</span><span class="im">ReflectionDSL</span><span class="op">.*;</span>  </span>
-            <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  </span>
-            <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">method</span><span class="op">(</span><span class="st">"methodName"</span><span class="op">)</span>  </span>
-            <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">on</span><span class="op">(</span>targetObject<span class="op">)</span>  </span>
-            <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">withArgumentTypes</span><span class="op">(</span><span class="kw">...</span><span class="op">)</span>  </span>
-            <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">makeAccessable</span><span class="op">(</span><span class="kw">true</span><span class="op">)</span>  </span>
-            <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">invoke</span><span class="op">(</span><span class="kw">...</span><span class="op">);</span> </span></code></pre>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">method</span><span class="op">(</span><span class="st">"methodName"</span><span class="op">)</span>  </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">on</span><span class="op">(</span>targetObject<span class="op">)</span>  </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">withArgumentTypes</span><span class="op">(</span><span class="kw">...</span><span class="op">)</span>  </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">makeAccessable</span><span class="op">(</span><span class="kw">true</span><span class="op">)</span>  </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">invoke</span><span class="op">(</span><span class="kw">...</span><span class="op">);</span> </span></code></pre>
      </div> 
      <p>Of course, some parameters are optional, like the makeAccessable() if it’s a public method.</p> 
      <p>Until now, we have implement a simple DSL-like style java reflection AP for method, you can move on to provide such similar APIs for Field and Constructor and Static Method and so on.</p> 
@@ -342,11 +343,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2008-04-22-what-drives-your-life.html">不一样的人生理念 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2023-04-29-stablediffusion-webui-alternatives.html">不知道Stable Diffusion Web UI应该怎么选？ 看这一篇就够了！ </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2014-05-22-what-u-know-about-seo-is-wrong.html">N个对SEO的错误认知 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2008-11-29-underwear-girls.html">《内衣少女》 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2009-04-30-travel-to-lijiang-chap0.html">终于成行的丽江之旅(1) </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2018-10-27-thinking_replace.html">王福强：以替换思维思考投资 </a> 
       </div> 
      </div> 
      <hr> 

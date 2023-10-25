@@ -16,8 +16,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -94,7 +96,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -184,24 +185,24 @@
      <p>首先， 要创建archetype，当然是要先把maven的archetype plugin添加到pom.xml中啦：</p> 
      <div class="sourceCode" id="cb1">
       <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">plugins</span>&gt;  </span>
-            <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">plugin</span>&gt;  </span>
-            <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">groupId</span>&gt;org.apache.maven.plugins&lt;<span class="kw">groupId</span>&gt;  </span>
-            <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">artifactId</span>&gt;maven-archetype-plugin&lt;<span class="kw">artifactId</span>&gt;  </span>
-            <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">version</span>&gt;2.0-alpha-4&lt;<span class="kw">version</span>&gt;  </span>
-            <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">plugin</span>&gt;  </span>
-            <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>...  </span>
-            <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">plugins</span>&gt; </span></code></pre>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">plugin</span>&gt;  </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">groupId</span>&gt;org.apache.maven.plugins&lt;<span class="kw">groupId</span>&gt;  </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">artifactId</span>&gt;maven-archetype-plugin&lt;<span class="kw">artifactId</span>&gt;  </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">version</span>&gt;2.0-alpha-4&lt;<span class="kw">version</span>&gt;  </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">plugin</span>&gt;  </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>...  </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">plugins</span>&gt; </span></code></pre>
      </div> 
      <p>之后， 就可以开个命令行窗口，进入当前project所在目录，敲下：</p> 
-     <pre>            $ mvn archetype:create-from-project 
-            </pre> 
+     <pre>$ mvn archetype:create-from-project 
+</pre> 
      <p>之后， 创建好的archetype就跑到了当前目录下的次一级目录target/generated-sources/archetype/ ，所以，我们接着敲键盘：</p> 
-     <pre>            $ cd target/generated-sources/archetype/  
-            $ mvn install
-            </pre> 
+     <pre>$ cd target/generated-sources/archetype/  
+$ mvn install
+</pre> 
      <p>将该创建好的archetype安装到本地的repository之后， 我们就可以使用它了：</p> 
-     <pre>            $ mvn archetype:generate -DarchetypeCatalog=local  
-            </pre> 
+     <pre>$ mvn archetype:generate -DarchetypeCatalog=local  
+</pre> 
      <p>如果使用m2eclipse，那在创建项目的时候，选择使用Default Local的Catalog，应该也可以看到并选择新安装到这个archetype。 安装到本地的repository只能自己用，所以，如果是比较通用的archetype，可以deploy到组织内部架设的maven repository服务上去。</p> 
      <h1 id="可能遇到的一些问题">可能遇到的一些问题</h1> 
      <p>直接使用archetype:create-from-project 比起手工去打造一个archetype要便捷的多，但， 有时候偷懒会有些不靠谱，archetype:create-from-project 的某些行为可能会与我们最初的设想有出入，这个时候就需要我们在最终发布新创建的archetype之前，做有些后继处理，比如：</p> 
@@ -212,14 +213,14 @@
      <p>首先， 我们编辑文件target/generated-sources/archetype/src/main/resources/META-INF/maven/archetype.xml ，它记载了archetype里都包含哪些文件和目录结构，将如下内容：</p> 
      <div class="sourceCode" id="cb2">
       <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">sources</span>&gt;  </span>
-            <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">source</span>&gt;src/main/java/QuickStartController.java&lt;/<span class="kw">source</span>&gt;  </span>
-            <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">sources</span>&gt; </span></code></pre>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">source</span>&gt;src/main/java/QuickStartController.java&lt;/<span class="kw">source</span>&gt;  </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">sources</span>&gt; </span></code></pre>
      </div> 
      <p>变更为:</p> 
      <div class="sourceCode" id="cb3">
       <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">sources</span>&gt;  </span>
-            <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">source</span>&gt;src/main/java/cn/spring21/app/defaults/controller/QuickStartController.java&lt;/<span class="kw">source</span>&gt;  </span>
-            <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">sources</span>&gt;  </span></code></pre>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">source</span>&gt;src/main/java/cn/spring21/app/defaults/controller/QuickStartController.java&lt;/<span class="kw">source</span>&gt;  </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">sources</span>&gt;  </span></code></pre>
      </div> 
      <p>然后，将以上文件和目录结构创建或者Copy到如下目录：</p> 
      <blockquote> 
@@ -253,14 +254,14 @@
      <p>for java code we want to include into the archetype, the default behavior from “archetype:create-from-project” is that it will ignore the package structure, e.g.&nbsp;if we have a source folder with package structure , below: cn.spring21.app.defaults.controller.QuickStartController but with the default behavior from “archetype:create-from-project”, the final structure will be only java file left. that’s, QuickStartController that’s not what we want, we want to keep the package structure as it is. so we need to customize this. go to “target/generated-sources/archetype/src/main/resources/META-INF/maven/archetype.xml”, change following part:</p> 
      <div class="sourceCode" id="cb4">
       <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">sources</span>&gt;</span>
-            <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">source</span>&gt;src/main/java/QuickStartController.java&lt;/<span class="kw">source</span>&gt;</span>
-            <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">sources</span>&gt;</span></code></pre>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">source</span>&gt;src/main/java/QuickStartController.java&lt;/<span class="kw">source</span>&gt;</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">sources</span>&gt;</span></code></pre>
      </div> 
      <p>TO:</p> 
      <div class="sourceCode" id="cb5">
       <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">sources</span>&gt;</span>
-            <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">source</span>&gt;src/main/java/cn/spring21/app/defaults/controller/QuickStartController.java&lt;/<span class="kw">source</span>&gt;</span>
-            <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">sources</span>&gt;</span></code></pre>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">source</span>&gt;src/main/java/cn/spring21/app/defaults/controller/QuickStartController.java&lt;/<span class="kw">source</span>&gt;</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">sources</span>&gt;</span></code></pre>
      </div> 
      <p>then, copy or create such folder structure under :</p> 
      <blockquote> 
@@ -281,11 +282,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2013-06-05-install_java_on_pcduino.html">pcDuino上安装Java运行环境 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2014-02-18-sometimes-just-let-it-go.html">Sometimes, Just “Let it go” </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2022-03-13-chrome_extension_tips_and_gotchas.html">Chrome Extension Development Cookbook </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2008-11-14-am-I-too-hard-to-myself.html">是不是对自己太苛刻了？！ </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2006-07-28-springdoclet.html">使用springdoclet简化基于spring框架的应用开发 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2006-00-00-configure-log4j-programmatically.html">在程序中动态配置log4j(configure Log4j Programmatically) </a> 
       </div> 
      </div> 
      <hr> 

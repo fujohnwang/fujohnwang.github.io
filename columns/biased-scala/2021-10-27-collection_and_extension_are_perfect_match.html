@@ -17,8 +17,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -95,7 +97,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -180,16 +181,16 @@
      <p>To use collections of Java with FP support, We have to do it this way in Scala 2.12.x:</p> 
      <div class="sourceCode" id="cb1">
       <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> scala<span class="op">.</span>collection<span class="op">.</span>JavaConverters<span class="op">.</span>_</span>
-            <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> s<span class="op">:</span> java<span class="op">.</span>util<span class="op">.</span>Set<span class="op">[</span>String<span class="op">]</span> <span class="op">=</span> <span class="fu">Set</span><span class="op">(</span><span class="st">"one"</span><span class="op">,</span> <span class="st">"two"</span><span class="op">).</span>asJava</span>
-            <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> s2 <span class="op">=</span> FileUtils<span class="op">.</span><span class="fu">listFiles</span><span class="op">(...).</span>asScala</span></code></pre>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> s<span class="op">:</span> java<span class="op">.</span>util<span class="op">.</span>Set<span class="op">[</span>String<span class="op">]</span> <span class="op">=</span> <span class="fu">Set</span><span class="op">(</span><span class="st">"one"</span><span class="op">,</span> <span class="st">"two"</span><span class="op">).</span>asJava</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> s2 <span class="op">=</span> FileUtils<span class="op">.</span><span class="fu">listFiles</span><span class="op">(...).</span>asScala</span></code></pre>
      </div> 
      <p>In Scala 2.13.x this way:</p> 
      <div class="sourceCode" id="cb2">
       <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> scala<span class="op">.</span>jdk<span class="op">.</span>CollectionConverters<span class="op">.</span>_</span>
-            <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> s<span class="op">:</span> java<span class="op">.</span>util<span class="op">.</span>Set<span class="op">[</span>String<span class="op">]</span> <span class="op">=</span> <span class="fu">Set</span><span class="op">(</span><span class="st">"one"</span><span class="op">,</span> <span class="st">"two"</span><span class="op">).</span>asJava</span>
-            <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> s2 <span class="op">=</span> FileUtils<span class="op">.</span><span class="fu">listFiles</span><span class="op">(...).</span>asScala</span></code></pre>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> s<span class="op">:</span> java<span class="op">.</span>util<span class="op">.</span>Set<span class="op">[</span>String<span class="op">]</span> <span class="op">=</span> <span class="fu">Set</span><span class="op">(</span><span class="st">"one"</span><span class="op">,</span> <span class="st">"two"</span><span class="op">).</span>asJava</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> s2 <span class="op">=</span> FileUtils<span class="op">.</span><span class="fu">listFiles</span><span class="op">(...).</span>asScala</span></code></pre>
      </div> 
      <p>It’s not elegant and necessary, I think, especially when Scala 3 has introduced <code>extention</code> mechanism, If I want to use Java collections with additional FP support which scala collections offer, I should use these FP support directly without import anything:</p> 
      <div class="sourceCode" id="cb3">
@@ -201,11 +202,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2011-01-25-trivial_topics.html">扯一下这阵子摸索的一些东西 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2011-05-31-multiple_mysql_slaves_with_same_serverid.html">mysql多个slave使用同一个server id会怎样？ </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2010-04-06-smilence.html">很是哭笑不得… </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2023-07-05-art-qrcode-with-comfyui.html">生成艺术二维码的三种套路 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2022-07-05-GA-data-leak-incident.html">上海某特殊部门数据泄露事件分析与启示 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2017-02-22-guoqitixing-side-project-review.html">一个side project的原型构建过程与总结 </a> 
       </div> 
      </div> 
      <hr> 

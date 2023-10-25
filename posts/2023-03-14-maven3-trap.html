@@ -17,8 +17,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -30,7 +32,6 @@
             display:inline;
         }
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -117,17 +118,17 @@
      <p>虽然这个机制解决了一部分问题（一些group:artifact冲突的问题）， 但也不应该出现这样的结果啊！</p> 
      <p>解决方案就是移除这个元信息文件，可以只移除某个artifact的，也可以都移除，比如使用如下命令：</p> 
      <pre><code>cd ~/.m2
-            find . -name "_remote.repositories" -type f -delete</code></pre> 
+find . -name "_remote.repositories" -type f -delete</code></pre> 
      <p>oneliner也有： <code>find ~/.m2/repository -name _remote.repositories -exec rm -v {} \;</code></p> 
      <p>在Maven3的前期版本中，有些时候元信息文件名称是<code>_maven.repositories</code>，所以，也有用如下命令的资料：</p> 
      <pre><code>find ~/.m2/repository -name _maven.repositories -exec rm -v {} \;</code></pre> 
      <p>作者遇到这问题的时候是3.8.2：</p> 
      <pre><code>LuckinJohn ➜  youtubemp3 git:(master) ✗ mvn --version
-            Apache Maven 3.8.2 (ea98e05a04480131370aa0c110b8c54cf726c06f)
-            Maven home: /Users/fq/bin/apache-maven-3.8.2
-            Java version: 19.0.2, vendor: Oracle Corporation, runtime: /Users/fq/Library/Java/JavaVirtualMachines/openjdk-19.0.2/Contents/Home
-            Default locale: en_US, platform encoding: UTF-8
-            OS name: "mac os x", version: "13.2.1", arch: "x86_64", family: "mac"</code></pre> 
+Apache Maven 3.8.2 (ea98e05a04480131370aa0c110b8c54cf726c06f)
+Maven home: /Users/fq/bin/apache-maven-3.8.2
+Java version: 19.0.2, vendor: Oracle Corporation, runtime: /Users/fq/Library/Java/JavaVirtualMachines/openjdk-19.0.2/Contents/Home
+Default locale: en_US, platform encoding: UTF-8
+OS name: "mac os x", version: "13.2.1", arch: "x86_64", family: "mac"</code></pre> 
      <p>但每次mvn install之后都手工去移除这个文件也挺烦躁的，所以，除了手工移除元信息文件的方式，还有一个方式可以避免本地install的库识别不了的问题，那就是在执行<code>mvn clean install</code>的时候加上一个参数：</p> 
      <pre><code>mvn clean install -Daether.enhancedLocalRepository.trackingFilename=_ignore_remote.repositories</code></pre> 
      <p>这个参数的效果就是，生成一个名称为<code>_ignore_remote.repositories</code>的元信息文件，而不是默认的<code>_remote.repositories</code>，这样，maven3也不会出现识别不了本地新install的库的问题。</p> 
@@ -137,8 +138,8 @@
      <p>今天还遇到几个tricky的问题：</p> 
      <h2 id="spring-boot版本过低的问题">spring boot版本过低的问题</h2> 
      <pre><code>2023-03-14 20:32:11,708 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanDefinitionStoreException: Failed to read candidate component class: URL [jar:file:/Users/fq/workspace.keevol/KeeboxNative/target/keeboxfx-1.0.0-SNAPSHOT.jar!/BOOT-INF/classes!/com/keevol/keebox/annotations/ConfigSetting.class]; nested exception is org.springframework.core.NestedIOException: ASM ClassReader failed to parse class file - probably due to a new Java class file version that isn't supported yet: URL [jar:file:/Users/fq/workspace.keevol/KeeboxNative/target/keeboxfx-1.0.0-SNAPSHOT.jar!/BOOT-INF/classes!/com/keevol/keebox/annotations/ConfigSetting.class]; nested exception is java.lang.IllegalArgumentException: Unsupported class file major version 63
-            2023-03-14 20:32:11,755 ERROR [main] o.s.boot.SpringApplication - Application run failed
-            org.springframework.beans.factory.BeanDefinitionStoreException: Failed to read candidate component class: URL [jar:file:/Users/fq/workspace.keevol/KeeboxNative/target/keeboxfx-1.0.0-SNAPSHOT.jar!/BOOT-INF/classes!/com/keevol/keebox/annotations/ConfigSetting.class]; nested exception is org.springframework.core.NestedIOException: ASM ClassReader failed to parse class file - probably due to a new Java class file version that isn't supported yet: URL [jar:file:/Users/fq/workspace.keevol/KeeboxNative/target/keeboxfx-1.0.0-SNAPSHOT.jar!/BOOT-INF/classes!/com/keevol/keebox/annotations/ConfigSetting.class]; nested exception is java.lang.IllegalArgumentException: Unsupported class file major version 63</code></pre> 
+2023-03-14 20:32:11,755 ERROR [main] o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanDefinitionStoreException: Failed to read candidate component class: URL [jar:file:/Users/fq/workspace.keevol/KeeboxNative/target/keeboxfx-1.0.0-SNAPSHOT.jar!/BOOT-INF/classes!/com/keevol/keebox/annotations/ConfigSetting.class]; nested exception is org.springframework.core.NestedIOException: ASM ClassReader failed to parse class file - probably due to a new Java class file version that isn't supported yet: URL [jar:file:/Users/fq/workspace.keevol/KeeboxNative/target/keeboxfx-1.0.0-SNAPSHOT.jar!/BOOT-INF/classes!/com/keevol/keebox/annotations/ConfigSetting.class]; nested exception is java.lang.IllegalArgumentException: Unsupported class file major version 63</code></pre> 
      <p>升级了最新版本后，过。</p> 
      <p>但后来发现退出程序的时候，spring boot的生命周期与bean的生命周期一直错配导致异常，虽然是退出程序，但看着还是碍眼，最后，直接把spring boot全部干掉，毕竟，KEEBOX是个桌面程序，其实不需要spring boot这种服务器端框架。</p> 
      <h2 id="vertx版本冲突问题">vertx版本冲突问题</h2> 
@@ -149,11 +150,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2018-12-28-my_review_points_of_startups.html">2017</a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2015-02-04-why-sub-modules-or-sub-projects-sucks.html">我为什么不喜欢子项目或者子模块的概念 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2008-11-26-the-ways-to-achieve-modular-sys.html">The Ways To Achieve Your Modular System </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2023-02-21-old-notion-should-die.html">二月二，龙抬头，先把旧观念给休！ </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2008-10-31-fucking-calm.html">心如止水 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2022-02-15-keenotes-and-PKM.html">我的PKM理念与Keenotes产品实践 </a> 
       </div> 
      </div> 
      <hr> 

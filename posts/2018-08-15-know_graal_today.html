@@ -17,8 +17,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -95,7 +97,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -189,132 +190,132 @@
      <p>我们创建一个Java项目，还是典型的HelloWorld：</p> 
      <div class="sourceCode" id="cb1">
       <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span><span class="ot"> version=</span><span class="st">"1.0"</span><span class="ot"> encoding=</span><span class="st">"UTF-8"</span><span class="fu">?&gt;</span></span>
-            <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">project</span><span class="ot"> xmlns=</span><span class="st">"http://maven.apache.org/POM/4.0.0"</span><span class="ot"> xmlns:xsi=</span><span class="st">"http://www.w3.org/2001/XMLSchema-instance"</span></span>
-            <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ot">         xsi:schemaLocation=</span><span class="st">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span>
-            <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">modelVersion</span>&gt;4.0.0&lt;/<span class="kw">modelVersion</span>&gt;</span>
-            <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">groupId</span>&gt;com.example&lt;/<span class="kw">groupId</span>&gt;</span>
-            <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">artifactId</span>&gt;demo&lt;/<span class="kw">artifactId</span>&gt;</span>
-            <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">version</span>&gt;0.0.1-SNAPSHOT&lt;/<span class="kw">version</span>&gt;</span>
-            <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">packaging</span>&gt;jar&lt;/<span class="kw">packaging</span>&gt;</span>
-            <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">name</span>&gt;demo&lt;/<span class="kw">name</span>&gt;</span>
-            <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">description</span>&gt;Demo project for Spring Boot&lt;/<span class="kw">description</span>&gt;</span>
-            <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">properties</span>&gt;</span>
-            <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">project.build.sourceEncoding</span>&gt;UTF-8&lt;/<span class="kw">project.build.sourceEncoding</span>&gt;</span>
-            <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">project.reporting.outputEncoding</span>&gt;UTF-8&lt;/<span class="kw">project.reporting.outputEncoding</span>&gt;</span>
-            <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">java.version</span>&gt;1.8&lt;/<span class="kw">java.version</span>&gt;</span>
-            <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">properties</span>&gt;</span>
-            <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">dependencies</span>&gt;</span>
-            <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;</span>
-            <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.apache.commons&lt;/<span class="kw">groupId</span>&gt;</span>
-            <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;commons-lang3&lt;/<span class="kw">artifactId</span>&gt;</span>
-            <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">version</span>&gt;3.7&lt;/<span class="kw">version</span>&gt;</span>
-            <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span>
-            <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">dependencies</span>&gt;</span>
-            <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">build</span>&gt;</span>
-            <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">plugins</span>&gt;</span>
-            <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">plugin</span>&gt;</span>
-            <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">groupId</span>&gt;org.apache.maven.plugins&lt;/<span class="kw">groupId</span>&gt;</span>
-            <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">artifactId</span>&gt;maven-compiler-plugin&lt;/<span class="kw">artifactId</span>&gt;</span>
-            <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">configuration</span>&gt;</span>
-            <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">source</span>&gt;1.8&lt;/<span class="kw">source</span>&gt;</span>
-            <span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">target</span>&gt;1.8&lt;/<span class="kw">target</span>&gt;</span>
-            <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>                &lt;/<span class="kw">configuration</span>&gt;</span>
-            <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>            &lt;/<span class="kw">plugin</span>&gt;</span>
-            <span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">plugin</span>&gt;</span>
-            <span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">groupId</span>&gt;org.apache.maven.plugins&lt;/<span class="kw">groupId</span>&gt;</span>
-            <span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">artifactId</span>&gt;maven-shade-plugin&lt;/<span class="kw">artifactId</span>&gt;</span>
-            <span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">executions</span>&gt;</span>
-            <span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">execution</span>&gt;</span>
-            <span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">phase</span>&gt;package&lt;/<span class="kw">phase</span>&gt;</span>
-            <span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">goals</span>&gt;</span>
-            <span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>                            &lt;<span class="kw">goal</span>&gt;shade&lt;/<span class="kw">goal</span>&gt;</span>
-            <span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>                        &lt;/<span class="kw">goals</span>&gt;</span>
-            <span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">configuration</span>&gt;</span>
-            <span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>                            &lt;<span class="kw">transformers</span>&gt;</span>
-            <span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>                                &lt;<span class="kw">transformer</span></span>
-            <span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="ot">                                        implementation=</span><span class="st">"org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"</span>&gt;</span>
-            <span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>                                    &lt;<span class="kw">mainClass</span>&gt;com.example.demo.DemoApplication&lt;/<span class="kw">mainClass</span>&gt;</span>
-            <span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>                                &lt;/<span class="kw">transformer</span>&gt;</span>
-            <span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>                            &lt;/<span class="kw">transformers</span>&gt;</span>
-            <span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>                        &lt;/<span class="kw">configuration</span>&gt;</span>
-            <span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>                    &lt;/<span class="kw">execution</span>&gt;</span>
-            <span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>                &lt;/<span class="kw">executions</span>&gt;</span>
-            <span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>            &lt;/<span class="kw">plugin</span>&gt;</span>
-            <span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">plugins</span>&gt;</span>
-            <span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">build</span>&gt;</span>
-            <span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">project</span>&gt;</span></code></pre>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">project</span><span class="ot"> xmlns=</span><span class="st">"http://maven.apache.org/POM/4.0.0"</span><span class="ot"> xmlns:xsi=</span><span class="st">"http://www.w3.org/2001/XMLSchema-instance"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ot">         xsi:schemaLocation=</span><span class="st">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">modelVersion</span>&gt;4.0.0&lt;/<span class="kw">modelVersion</span>&gt;</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">groupId</span>&gt;com.example&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">artifactId</span>&gt;demo&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">version</span>&gt;0.0.1-SNAPSHOT&lt;/<span class="kw">version</span>&gt;</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">packaging</span>&gt;jar&lt;/<span class="kw">packaging</span>&gt;</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">name</span>&gt;demo&lt;/<span class="kw">name</span>&gt;</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">description</span>&gt;Demo project for Spring Boot&lt;/<span class="kw">description</span>&gt;</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">properties</span>&gt;</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">project.build.sourceEncoding</span>&gt;UTF-8&lt;/<span class="kw">project.build.sourceEncoding</span>&gt;</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">project.reporting.outputEncoding</span>&gt;UTF-8&lt;/<span class="kw">project.reporting.outputEncoding</span>&gt;</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">java.version</span>&gt;1.8&lt;/<span class="kw">java.version</span>&gt;</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">properties</span>&gt;</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">dependencies</span>&gt;</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.apache.commons&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;commons-lang3&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">version</span>&gt;3.7&lt;/<span class="kw">version</span>&gt;</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">dependencies</span>&gt;</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">build</span>&gt;</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">plugins</span>&gt;</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">plugin</span>&gt;</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">groupId</span>&gt;org.apache.maven.plugins&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">artifactId</span>&gt;maven-compiler-plugin&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">configuration</span>&gt;</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">source</span>&gt;1.8&lt;/<span class="kw">source</span>&gt;</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">target</span>&gt;1.8&lt;/<span class="kw">target</span>&gt;</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>                &lt;/<span class="kw">configuration</span>&gt;</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>            &lt;/<span class="kw">plugin</span>&gt;</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">plugin</span>&gt;</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">groupId</span>&gt;org.apache.maven.plugins&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">artifactId</span>&gt;maven-shade-plugin&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">executions</span>&gt;</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">execution</span>&gt;</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">phase</span>&gt;package&lt;/<span class="kw">phase</span>&gt;</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">goals</span>&gt;</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>                            &lt;<span class="kw">goal</span>&gt;shade&lt;/<span class="kw">goal</span>&gt;</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>                        &lt;/<span class="kw">goals</span>&gt;</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">configuration</span>&gt;</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>                            &lt;<span class="kw">transformers</span>&gt;</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>                                &lt;<span class="kw">transformer</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="ot">                                        implementation=</span><span class="st">"org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"</span>&gt;</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>                                    &lt;<span class="kw">mainClass</span>&gt;com.example.demo.DemoApplication&lt;/<span class="kw">mainClass</span>&gt;</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>                                &lt;/<span class="kw">transformer</span>&gt;</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>                            &lt;/<span class="kw">transformers</span>&gt;</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>                        &lt;/<span class="kw">configuration</span>&gt;</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>                    &lt;/<span class="kw">execution</span>&gt;</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>                &lt;/<span class="kw">executions</span>&gt;</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>            &lt;/<span class="kw">plugin</span>&gt;</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">plugins</span>&gt;</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">build</span>&gt;</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">project</span>&gt;</span></code></pre>
      </div> 
      <p>HelloWorld嘛， 你懂得：</p> 
      <div class="sourceCode" id="cb2">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> DemoApplication <span class="op">{</span></span>
-            <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
-            <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"Hello World"</span><span class="op">);</span></span>
-            <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-            <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"Hello World"</span><span class="op">);</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
      </div> 
      <p>执行<code>mvn package</code>之后我们就获得一个可执行的jar包（因为我们用了shade插件），我们针对这个可执行jar包执行native image命令：</p> 
      <pre><code>➜  one_jar_native_image_starter git:(master) ✗ $HOME/bin/graalvm-ce-1.0.0-rc5/Contents/Home/bin/native-image -jar target/demo-0.0.1-SNAPSHOT.jar
-            Build on Server(pid: 99502, port: 64944)
-               classlist:     616.43 ms
-                   (cap):   5,338.88 ms
-                   setup:   6,753.34 ms
-              (typeflow):   6,509.05 ms
-               (objects):   2,937.12 ms
-              (features):      62.18 ms
-                analysis:   9,645.27 ms
-                universe:     400.46 ms
-                 (parse):   2,275.13 ms
-                (inline):   1,730.84 ms
-               (compile):   8,492.76 ms
-                 compile:  13,170.85 ms
-                   image:   1,541.81 ms
-                   write:   1,703.71 ms
-                 [total]:  33,919.21 ms</code></pre> 
+Build on Server(pid: 99502, port: 64944)
+   classlist:     616.43 ms
+       (cap):   5,338.88 ms
+       setup:   6,753.34 ms
+  (typeflow):   6,509.05 ms
+   (objects):   2,937.12 ms
+  (features):      62.18 ms
+    analysis:   9,645.27 ms
+    universe:     400.46 ms
+     (parse):   2,275.13 ms
+    (inline):   1,730.84 ms
+   (compile):   8,492.76 ms
+     compile:  13,170.85 ms
+       image:   1,541.81 ms
+       write:   1,703.71 ms
+     [total]:  33,919.21 ms</code></pre> 
      <p>查看当前项目目录：</p> 
      <pre><code>➜  one_jar_native_image_starter git:(master) ✗ ll
-            total 11432
-            drwxr-xr-x@ 4 afuluo  staff      128 Apr 29 08:31 src
-            -rw-r--r--@ 1 afuluo  staff     2282 Apr 29 08:38 pom.xml
-            -rw-r--r--  1 afuluo  staff      931 Apr 29 08:38 demo.iml
-            drwxr-xr-x  8 afuluo  staff      256 Aug 15 16:25 target
-            -rw-r--r--  1 afuluo  staff     1507 Aug 15 16:25 dependency-reduced-pom.xml
-            -rwxr-xr-x  1 afuluo  staff  5840784 Aug 15 16:26 demo-0.0.1-SNAPSHOT</code></pre> 
+total 11432
+drwxr-xr-x@ 4 afuluo  staff      128 Apr 29 08:31 src
+-rw-r--r--@ 1 afuluo  staff     2282 Apr 29 08:38 pom.xml
+-rw-r--r--  1 afuluo  staff      931 Apr 29 08:38 demo.iml
+drwxr-xr-x  8 afuluo  staff      256 Aug 15 16:25 target
+-rw-r--r--  1 afuluo  staff     1507 Aug 15 16:25 dependency-reduced-pom.xml
+-rwxr-xr-x  1 afuluo  staff  5840784 Aug 15 16:26 demo-0.0.1-SNAPSHOT</code></pre> 
      <p>可以看大， demo-0.0.1-SNAPSHOT就是生成的可执行二进制文件，可以直接执行： <code>./demo-0.0.1-SNAPSHOT</code>，不过默认生成的名字实在丑陋，所以，我们可以通过<code>-H:Name=&lt;自定义名称&gt;</code>命令行选项自己指定：</p> 
      <pre><code>➜  one_jar_native_image_starter git:(master) ✗ $HOME/bin/graalvm-ce-1.0.0-rc5/Contents/Home/bin/native-image -jar target/demo-0.0.1-SNAPSHOT.jar -H:Name=hello
-            Build on Server(pid: 99502, port: 64944)
-               classlist:     464.16 ms
-                   (cap):   3,179.86 ms
-                   setup:   3,587.10 ms
-              (typeflow):   4,150.58 ms
-               (objects):   1,641.23 ms
-              (features):      40.68 ms
-                analysis:   5,951.36 ms
-                universe:     330.50 ms
-                 (parse):   1,210.82 ms
-                (inline):   2,054.93 ms
-               (compile):   7,206.31 ms
-                 compile:  11,043.39 ms
-                   image:     968.90 ms
-                   write:   1,257.79 ms
-                 [total]:  23,640.19 ms</code></pre> 
+Build on Server(pid: 99502, port: 64944)
+   classlist:     464.16 ms
+       (cap):   3,179.86 ms
+       setup:   3,587.10 ms
+  (typeflow):   4,150.58 ms
+   (objects):   1,641.23 ms
+  (features):      40.68 ms
+    analysis:   5,951.36 ms
+    universe:     330.50 ms
+     (parse):   1,210.82 ms
+    (inline):   2,054.93 ms
+   (compile):   7,206.31 ms
+     compile:  11,043.39 ms
+       image:     968.90 ms
+       write:   1,257.79 ms
+     [total]:  23,640.19 ms</code></pre> 
      <p>这样我们获得的二进制可执行文件名称就是hello：</p> 
      <pre><code>➜  one_jar_native_image_starter git:(master) ✗ ll
-            total 22840
-            drwxr-xr-x@ 4 afuluo  staff      128 Apr 29 08:31 src
-            -rw-r--r--@ 1 afuluo  staff     2282 Apr 29 08:38 pom.xml
-            -rw-r--r--  1 afuluo  staff      931 Apr 29 08:38 demo.iml
-            drwxr-xr-x  8 afuluo  staff      256 Aug 15 16:25 target
-            -rw-r--r--  1 afuluo  staff     1507 Aug 15 16:25 dependency-reduced-pom.xml
-            -rwxr-xr-x  1 afuluo  staff  5840784 Aug 15 16:26 demo-0.0.1-SNAPSHOT
-            -rwxr-xr-x  1 afuluo  staff  5840856 Aug 15 16:27 hello</code></pre> 
+total 22840
+drwxr-xr-x@ 4 afuluo  staff      128 Apr 29 08:31 src
+-rw-r--r--@ 1 afuluo  staff     2282 Apr 29 08:38 pom.xml
+-rw-r--r--  1 afuluo  staff      931 Apr 29 08:38 demo.iml
+drwxr-xr-x  8 afuluo  staff      256 Aug 15 16:25 target
+-rw-r--r--  1 afuluo  staff     1507 Aug 15 16:25 dependency-reduced-pom.xml
+-rwxr-xr-x  1 afuluo  staff  5840784 Aug 15 16:26 demo-0.0.1-SNAPSHOT
+-rwxr-xr-x  1 afuluo  staff  5840856 Aug 15 16:27 hello</code></pre> 
      <p>直接执行: <code>./hello</code>， Aha~</p> 
      <blockquote> 
       <p>NOTE</p> 
@@ -325,48 +326,48 @@
      <p>为了简化，我们使用<a href="https://www.keevol.com">KeeWeb(https://www.keevol.com)</a>框架 <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> 构建一个简单的Web API，只提供一个GET的Endpoint，返回”HelloWorld”作为结果：</p> 
      <div class="sourceCode" id="cb7">
       <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">package</span> com<span class="op">.</span>keevol<span class="op">.</span>demo<span class="op">.</span>hello<span class="op">.</span>webapinative</span>
-            <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> com<span class="op">.</span>keevol<span class="op">.</span>keeweb<span class="op">.{</span>KeeWeb<span class="op">,</span> Kontroller<span class="op">}</span></span>
-            <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> io<span class="op">.</span>vertx<span class="op">.</span>core<span class="op">.</span>Vertx</span>
-            <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> io<span class="op">.</span>vertx<span class="op">.</span>core<span class="op">.</span>http<span class="op">.</span>HttpMethod</span>
-            <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> io<span class="op">.</span>vertx<span class="op">.</span>ext<span class="op">.</span>web<span class="op">.</span>RoutingContext</span>
-            <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> HelloController <span class="kw">extends</span> Kontroller<span class="op">{</span></span>
-            <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">override</span> <span class="kw">val</span> path<span class="op">:</span> String <span class="op">=</span> <span class="st">"/"</span></span>
-            <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">override</span> <span class="kw">val</span> method<span class="op">:</span> HttpMethod <span class="op">=</span> HttpMethod<span class="op">.</span>GET</span>
-            <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">override</span> <span class="kw">def</span> <span class="fu">apply</span><span class="op">(</span>rc<span class="op">:</span> RoutingContext<span class="op">):</span> <span class="bu">Unit</span> <span class="op">=</span> <span class="op">{</span></span>
-            <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    rc<span class="op">.</span><span class="fu">response</span><span class="op">().</span><span class="fu">end</span><span class="op">(</span><span class="st">"Hello, there"</span><span class="op">)</span></span>
-            <span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
-            <span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-            <span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="kw">object</span> Hello<span class="op">{</span></span>
-            <span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="kw">val</span> helloController <span class="op">=</span> <span class="kw">new</span> HelloController</span>
-            <span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">main</span><span class="op">(</span>args<span class="op">:</span> <span class="bu">Array</span><span class="op">[</span>String<span class="op">]):</span> <span class="bu">Unit</span> <span class="op">=</span> <span class="op">{</span></span>
-            <span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> vertx <span class="op">=</span> Vertx<span class="op">.</span><span class="fu">vertx</span><span class="op">()</span></span>
-            <span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    KeeWeb<span class="op">.</span><span class="fu">start</span><span class="op">(</span>vertx<span class="op">,</span> <span class="bu">Seq</span><span class="op">(</span>helloController<span class="op">))</span></span>
-            <span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    System<span class="op">.</span>in<span class="op">.</span><span class="fu">read</span><span class="op">()</span>  <span class="co">// block server</span></span>
-            <span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    vertx<span class="op">.</span><span class="fu">close</span><span class="op">()</span></span>
-            <span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
-            <span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> com<span class="op">.</span>keevol<span class="op">.</span>keeweb<span class="op">.{</span>KeeWeb<span class="op">,</span> Kontroller<span class="op">}</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> io<span class="op">.</span>vertx<span class="op">.</span>core<span class="op">.</span>Vertx</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> io<span class="op">.</span>vertx<span class="op">.</span>core<span class="op">.</span>http<span class="op">.</span>HttpMethod</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> io<span class="op">.</span>vertx<span class="op">.</span>ext<span class="op">.</span>web<span class="op">.</span>RoutingContext</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> HelloController <span class="kw">extends</span> Kontroller<span class="op">{</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">override</span> <span class="kw">val</span> path<span class="op">:</span> String <span class="op">=</span> <span class="st">"/"</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">override</span> <span class="kw">val</span> method<span class="op">:</span> HttpMethod <span class="op">=</span> HttpMethod<span class="op">.</span>GET</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">override</span> <span class="kw">def</span> <span class="fu">apply</span><span class="op">(</span>rc<span class="op">:</span> RoutingContext<span class="op">):</span> <span class="bu">Unit</span> <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    rc<span class="op">.</span><span class="fu">response</span><span class="op">().</span><span class="fu">end</span><span class="op">(</span><span class="st">"Hello, there"</span><span class="op">)</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="kw">object</span> Hello<span class="op">{</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="kw">val</span> helloController <span class="op">=</span> <span class="kw">new</span> HelloController</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">main</span><span class="op">(</span>args<span class="op">:</span> <span class="bu">Array</span><span class="op">[</span>String<span class="op">]):</span> <span class="bu">Unit</span> <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> vertx <span class="op">=</span> Vertx<span class="op">.</span><span class="fu">vertx</span><span class="op">()</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    KeeWeb<span class="op">.</span><span class="fu">start</span><span class="op">(</span>vertx<span class="op">,</span> <span class="bu">Seq</span><span class="op">(</span>helloController<span class="op">))</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    System<span class="op">.</span>in<span class="op">.</span><span class="fu">read</span><span class="op">()</span>  <span class="co">// block server</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    vertx<span class="op">.</span><span class="fu">close</span><span class="op">()</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
      </div> 
      <p>生成onejar之后，用native-image编译成本地可执行文件：</p> 
      <pre><code>$HOME/bin/graalvm-ce-1.0.0-rc5/Contents/Home/bin/native-image -H:+ReportUnsupportedElementsAtRuntime -H:Name=hello-server -jar build/libs/hello-webapi-native-1.0.0-SNAPSHOT-all.jar</code></pre> 
      <p>然后执行： ``, 现在，我们就可以访问我们的web api了：</p> 
      <pre><code>➜  ~ http http://localhost:1979
-            HTTP/1.1 200 OK
-            Content-Length: 12
+HTTP/1.1 200 OK
+Content-Length: 12
 
-            Hello, there</code></pre> 
+Hello, there</code></pre> 
      <p>好吧，我其实把过程简化了，请注意<code>-H:+ReportUnsupportedElementsAtRuntime</code>这个参数，其实第一次编译，我们是编译不过的，通过这个参数，编译的结果就可以呈现给我们一些错误提示， 比如：</p> 
      <pre><code>Caused by: java.lang.ClassNotFoundException: com.jcraft.jzlib.Inflater
-                at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
-                ...</code></pre> 
+    at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
+    ...</code></pre> 
      <p>实际上， Graal native-image在有些方面是有功能限制的，比如java reflection， native-image干的事情是一种AOT（Ahead Of Time Compiling），要AOT，就需要提前知道程序依赖的Class有哪些， 所以，一些运行期（Runtime）加载的类在AOT的时候是无法知道的， 但我们可以通过一些手段预先知会native-image有哪些类需要用到：</p> 
      <ol type="1"> 
       <li>通过<code>-H:ReflectionConfigurationFiles=reflection.json</code>参数， 在reflection.json这样的配置文件中提供依赖信息；</li> 
@@ -376,8 +377,8 @@
      <pre><code>$HOME/bin/graalvm-ce-1.0.0-rc5/Contents/Home/bin/native-image --no-server -Djava.net.preferIPv4Stack=true -Dvertx.disableDnsResolver=true -jar build/libs/hello-webapi-native-1.0.0-SNAPSHOT-all.jar -H:Name=helloserver -H:+ReportUnsupportedElementsAtRuntime -H:ReflectionConfigurationFiles=reflection.json</code></pre> 
      <p>当然， 很不幸的是， 我用的graalvm-1.0.0-rc5版本还是有bug和不支持的特性，导致执行<code>./helloserver</code>的时候会抛出segment fault，或许等graal 1.0.0正式发布之后， 对各类库和框架的支持会更稳定些吧~</p> 
      <pre><code>➜  hello-webapi-native git:(master) ✗ ./helloserver
-            19:03:47.562 [main] INFO com.keevol.keeweb.KeeHttpServer - start http server...
-            [1]    7111 segmentation fault  ./helloserver</code></pre> 
+19:03:47.562 [main] INFO com.keevol.keeweb.KeeHttpServer - start http server...
+[1]    7111 segmentation fault  ./helloserver</code></pre> 
      <h1 id="限制与局限性">限制与局限性</h1> 
      <p>当然，除了反射之类的限制，将Java程序编译成native image还其他的限制，像JMX这种平台相关的特性就不要想了， 需要借助GraalVM Enterprise版提供的一些Profiler或者Debugger等商业特性， 或者自己加一些外围的监控支持，因为我们拿不到Truffle框架EST中添加的一些附加信息。</p> 
      <p>更多限制可以参考官方的文档： <a href="https://github.com/oracle/graal/blob/master/substratevm/LIMITATIONS.md" class="uri">https://github.com/oracle/graal/blob/master/substratevm/LIMITATIONS.md</a></p> 
@@ -404,11 +405,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2007-02-20-stories-on-photo-album.html">Stories on Photo Album 2007/02/20 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2021-07-09-recruit-becomes-harder.html">前端难招？ </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2021-05-23-price-lifting.html">赠品、新品与提价 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2007-09-08-BF4768EE8B110260_603.html">赐予我力量吧,我是希曼~</a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2007-06-11-about-the-wedding-of-bro5.html">About The Wedding </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2010-03-17-travel-to-nanjing.html">南京南京南京~ </a> 
       </div> 
      </div> 
      <hr> 

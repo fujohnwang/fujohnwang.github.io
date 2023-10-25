@@ -17,8 +17,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -30,7 +32,6 @@
             display:inline;
         }
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -120,149 +121,149 @@
      <h1 id="mate-of-attach-api-1---java-agent">Mate of Attach API [1] - Java Agent</h1> 
      <p>The Agents the Attach API use are standard java agent, see javadoc of JDK package “java.lang.instrument” , the package description gives a elaberate explanation on the java agent.</p> 
      <p>Simply put, a java agent is a jar, which has the MANIFEST.MF defined one or two entries that identify which class definition(s) is the main running entry. If you want to implement a java agent which will be used with “-javaagent:youragent.jar” command line option, which will run before the main method of your application, you should add an entry in MANIFEST.MF of your jar which of course has packaged in the class you want it to be the main entry:</p> 
-     <pre>            Premain-Class: xx.xx.AgentDefinitionClass
-            </pre> 
+     <pre>Premain-Class: xx.xx.AgentDefinitionClass
+</pre> 
      <p>If you want to implement a java agent which will be executed after the VM has started, add such similar entry:</p> 
-     <pre>            Agent-Class: xx.xx.AgentDefinitionClass
-            </pre> 
+     <pre>Agent-Class: xx.xx.AgentDefinitionClass
+</pre> 
      <p>That’s all? No…</p> 
      <p>The entry methods defined in java agent have no common “public static void main(String args[])” method sinature, there is a little difference. If your agent definition is only aimed for running before the main method of your application, you can just define a “premain” method as the execution entry:</p> 
-     <pre>            public static void premain(String agentArgs, Instrumentation inst)
-            </pre> 
+     <pre>public static void premain(String agentArgs, Instrumentation inst)
+</pre> 
      <p>you can leave out the second argument also:</p> 
-     <pre>            public static void premain(String agentArgs)
-            </pre> 
+     <pre>public static void premain(String agentArgs)
+</pre> 
      <p>If your agent is aimed to be run after the target application has been started, you should add a “agentmain” method into your agent defintion class:</p> 
-     <pre>            public static void agentmain(String agentArgs, Instrumentation inst)
-            </pre> 
+     <pre>public static void agentmain(String agentArgs, Instrumentation inst)
+</pre> 
      <p>or if you don’t need the second argument:</p> 
-     <pre>            public static void agentmain(String agentArgs)
-            </pre> 
+     <pre>public static void agentmain(String agentArgs)
+</pre> 
      <p>At last, If you want your agent to be run in both timing, you of course can define both “premain” and “agentmain” together inside too.</p> 
      <p>That’s all for java agent, more or less, if you still don’t get it, read the package description of java.lang.instrument for further information.(U do should read it to know what you can do in both “premain” and“agentmain” methods, or how they are loaded into the JVM, etc.)</p> 
      <h1 id="attach-api-family-hierarchy">Attach API Family Hierarchy</h1> 
      <p>The family of Attach API is small, so it’s not too hard to find out how it work.</p> 
      <p>There are 2 packages and 7 classes for Attach API with 3 exception classes, you can find details here . We mainly focus on 2 classes, “VirtualMachine” and “AttachProvider” , as you guess, since“AttachProvider” is under a spi package, its implementations will be responsible for providing different attach providers as per different operating systems. An attach provider will provide a“VirtualMachine” implementation as per its OS type. JVMs for different OS will provide different “AttachProvider” and corresponding “VirtualMachine” implementations.</p> Currently, we can get a simple class hierachy for this two: 
-     <pre>            AttachProvider                                                     VirtualMachine
-                                   |                                                                     |
-                         HotSpotAttachProvider                                                  HotSpotVirtualMachine
-                               /   |   \                                                          /      |       \
-            WindowsAttachProvider  |   LinuxAttachProvider                         LinuxVirtualMachine   |    WindowsVirtualMachine               
-                          MacosxAttachProvider                                                  MacosxVirtualMachine
+     <pre>AttachProvider                                                     VirtualMachine
+                       |                                                                     |
+             HotSpotAttachProvider                                                  HotSpotVirtualMachine
+                   /   |   \                                                          /      |       \
+WindowsAttachProvider  |   LinuxAttachProvider                         LinuxVirtualMachine   |    WindowsVirtualMachine               
+              MacosxAttachProvider                                                  MacosxVirtualMachine
 
-            </pre> 
+</pre> 
      <p>With This picture in mind, let’s go further to find out what the two abstractions can do.</p> 
      <p>“VirtualMachine” is the one class will interactive with when we use the AttachAPI, with “VirtualMachine” , we can attach our application to another target java application, and we can load agent into the target java application after attached to it. A conventional usage pattern looks like this:</p> 
-     <pre>            VirtualMachine vm = VirtualMachine.attach("18244");
-            try {
-                vm.loadAgent("/../agent.jar");
-                // System.out.println(vm.getAgentProperties().get("XXX"));
-            } finally {
-                vm.detach();
-            }
-            </pre> 
+     <pre>VirtualMachine vm = VirtualMachine.attach("18244");
+try {
+    vm.loadAgent("/../agent.jar");
+    // System.out.println(vm.getAgentProperties().get("XXX"));
+} finally {
+    vm.detach();
+}
+</pre> 
      <p>Usually, we attach to the target application by the process id (here our application’s pid is 18244), as the first line of the code states. If no exceptions are thrown after attaching, we can load our agent by“loadAgent(..)” method. At last, remember to detach from the target vm when things are done.</p> 
      <p>So until now, if “VirtualMachine” can do everything for us in such scenarios, what “AttachProvider” does? In fact, when we call attach method of “VirtualMachine” , underneath “AttachProvider” will be the real worker. A prototype code may seem like:</p> 
-     <pre>            // VirtualMachine vm = VirtualMachine.attach("pid");
+     <pre>// VirtualMachine vm = VirtualMachine.attach("pid");
 
-            VirtualMachine vm = null;
-            List<attachprovider>
+VirtualMachine vm = null;
+List<attachprovider>
         providers = AttachProvider.providers();
-            for (AttachProvider provider : providers) {
-                try {
-                    vm = provider.attachVirtualMachine("pid");
-                    break;
-                } catch (Exception e) {
-                    // do sth. necessary
-                    continue;
-                }
-            }
+for (AttachProvider provider : providers) {
+    try {
+        vm = provider.attachVirtualMachine("pid");
+        break;
+    } catch (Exception e) {
+        // do sth. necessary
+        continue;
+    }
+}
 
-            
+
       </attachprovider></pre> 
      <p>Just a lookup to find out which provider is qualified and return a corresponding “VirtualMachine” instance.</p> 
      <p>Now, I think you should have know something about JVM Attach API, but all of the above is theory, let’s get our hands dirty to write some code.</p> 
      <h1 id="code-speaks---a-simple-usage-demo">Code Speaks - A Simple Usage Demo</h1> 
      <p>In this sample, we will connect to the target application via JMX to dump an overview information of the application status. Since we just registered Mbeans onto Platform MBeanServer and didn’t expose MBeans remotely, we have to connect to the Platform MBeanServer locally. To do this, we have to resort to the AttachAPI after Java6, and luckily, we are using Java6 ;-)</p> 
      <pre><code>Tip
-            This things we are doing is a prototype monitoring application, you can escalate it to do more things.</code></pre> 
+This things we are doing is a prototype monitoring application, you can escalate it to do more things.</code></pre> 
      <p>Suppose we have defined our MBeans and registered them into JMX Platform MbeanSever:</p> 
-     <pre>            MBeanServer defaultMBeanServer = ManagementFactory.getPlatformMBeanServer();
-            for (Resource handle : resources) {
-                ObjectName oname = ..;
-                Monitor monitor = new Monitor();
-                monitor.setSomeAttrbutes(..);
-                defaultMBeanServer.registerMBean(monitor, oname);
-            }
-            </pre> 
+     <pre>MBeanServer defaultMBeanServer = ManagementFactory.getPlatformMBeanServer();
+for (Resource handle : resources) {
+    ObjectName oname = ..;
+    Monitor monitor = new Monitor();
+    monitor.setSomeAttrbutes(..);
+    defaultMBeanServer.registerMBean(monitor, oname);
+}
+</pre> 
      <p>After the target application is started, these Mbeans will be there for us. To connect to MBean Server locally, we resort Attach API to get the local JMX address first, then operate the MBeans with standard JMX API, here is the code:</p> 
-     <pre>            public class App
-            {
-              public static void main(String[] args)
-                throws Exception
-              {
-                if (args.length &lt; 1) {
-                  System.err.println("you must provide the pid and mbean domain name of the running application to monitor it.");
-                  System.exit(-1);
-                }
-                String domainName = "Erosa";
-                if (args.length == 2) {
-                  domainName = args[1];
-                }
-                String localJmxAddress = ConnectorAddressLink.importFrom(Integer.valueOf(args[0]).intValue());
-                if (localJmxAddress == null) {
-                  VirtualMachine vm = VirtualMachine.attach(args[0]);
-                  String connectorAddress = vm.getAgentProperties().getProperty("com.sun.management.jmxremote.localConnectorAddress");
-                  if (connectorAddress == null) {
-                    String agent = vm.getSystemProperties().getProperty("java.home") + File.separator + "lib" + File.separator + "management-agent.jar";
-                    vm.loadAgent(agent);
-                    connectorAddress = vm.getAgentProperties().getProperty("com.sun.management.jmxremote.localConnectorAddress");
-                  }
-                  if (connectorAddress == null) {
-                    System.err.println("Failed to get Local JMX Address by Pid. Exit Without Further Processing.");
-                    System.exit(-1);
-                  }
-                  localJmxAddress = connectorAddress;
-                }
+     <pre>public class App
+{
+  public static void main(String[] args)
+    throws Exception
+  {
+    if (args.length &lt; 1) {
+      System.err.println("you must provide the pid and mbean domain name of the running application to monitor it.");
+      System.exit(-1);
+    }
+    String domainName = "Erosa";
+    if (args.length == 2) {
+      domainName = args[1];
+    }
+    String localJmxAddress = ConnectorAddressLink.importFrom(Integer.valueOf(args[0]).intValue());
+    if (localJmxAddress == null) {
+      VirtualMachine vm = VirtualMachine.attach(args[0]);
+      String connectorAddress = vm.getAgentProperties().getProperty("com.sun.management.jmxremote.localConnectorAddress");
+      if (connectorAddress == null) {
+        String agent = vm.getSystemProperties().getProperty("java.home") + File.separator + "lib" + File.separator + "management-agent.jar";
+        vm.loadAgent(agent);
+        connectorAddress = vm.getAgentProperties().getProperty("com.sun.management.jmxremote.localConnectorAddress");
+      }
+      if (connectorAddress == null) {
+        System.err.println("Failed to get Local JMX Address by Pid. Exit Without Further Processing.");
+        System.exit(-1);
+      }
+      localJmxAddress = connectorAddress;
+    }
 
-                BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-                JMXConnector connector = JMXConnectorFactory.newJMXConnector(new JMXServiceURL(localJmxAddress), null);
-                try {
-                  connector.connect();
-                  MBeanServerConnection connection = connector.getMBeanServerConnection();
-                  Set set = connection.queryMBeans(new ObjectName(domainName + ":*"), null);
-                  for (ObjectInstance ins : set) {
-                    System.out.println("==================================================================");
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    JMXConnector connector = JMXConnectorFactory.newJMXConnector(new JMXServiceURL(localJmxAddress), null);
+    try {
+      connector.connect();
+      MBeanServerConnection connection = connector.getMBeanServerConnection();
+      Set set = connection.queryMBeans(new ObjectName(domainName + ":*"), null);
+      for (ObjectInstance ins : set) {
+        System.out.println("==================================================================");
 
-                    ObjectName name = ins.getObjectName();
+        ObjectName name = ins.getObjectName();
 
-                    System.out.println("MBean : " + name.toString());
+        System.out.println("MBean : " + name.toString());
 
-                    MBeanInfo beaninfo = connection.getMBeanInfo(name);
-                    MBeanAttributeInfo[] attributes = beaninfo.getAttributes();
-                    System.out.println("-----------Attributes------------");
-                    for (MBeanAttributeInfo attr : attributes) {
-                      System.out.println(attr.getName() + ": " + connection.getAttribute(name, attr.getName()));
-                    }
-                    MBeanOperationInfo[] operations = beaninfo.getOperations();
-                    System.out.println("-----------Operations------------");
-                    for (MBeanOperationInfo operation : operations) {
-                      System.out.println("operation: " + operation.getName() + " " + Arrays.toString(operation.getSignature()));
-                      if (operation.getName().startsWith("dump")) {
-                        System.out.println(connection.invoke(name, operation.getName(), new Object[0], new String[0]));
-                      }
-                    }
-                  }
-                  System.out.println("exit jmx client.");
-                }
-                finally
-                {
-                  connector.close();
-                  reader.close();
-                }
-              }
-            }
-            </pre> 
+        MBeanInfo beaninfo = connection.getMBeanInfo(name);
+        MBeanAttributeInfo[] attributes = beaninfo.getAttributes();
+        System.out.println("-----------Attributes------------");
+        for (MBeanAttributeInfo attr : attributes) {
+          System.out.println(attr.getName() + ": " + connection.getAttribute(name, attr.getName()));
+        }
+        MBeanOperationInfo[] operations = beaninfo.getOperations();
+        System.out.println("-----------Operations------------");
+        for (MBeanOperationInfo operation : operations) {
+          System.out.println("operation: " + operation.getName() + " " + Arrays.toString(operation.getSignature()));
+          if (operation.getName().startsWith("dump")) {
+            System.out.println(connection.invoke(name, operation.getName(), new Object[0], new String[0]));
+          }
+        }
+      }
+      System.out.println("exit jmx client.");
+    }
+    finally
+    {
+      connector.close();
+      reader.close();
+    }
+  }
+}
+</pre> 
      <p>we try “ConnectorAddressLink.importFrom” first to get the local JMX address , if failed, we turn to use Attach API. That’s, we attach to the target application by pid, and then check agent property<code>com.sun.management.jmxremote.localConnectorAddress</code> to see if it exists, if not, load management agent from JDK’s lib folder and then get agent property<code>com.sun.management.jmxremote.localConnectorAddress</code> again, If no errors, this time we will get the local JMX address of the target application. Whe local JMX address is fetched, we use standard JMX API to pull necessray information we want.</p> 
      <p>That’s the whole thing, read the code again and again to let you know this well if you cann’t figure out what’s going on here,^_^</p> 
      <h1 id="further-thoughts-on-usage-scenarios">Further Thoughts On Usage Scenarios</h1> 
@@ -285,11 +286,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2009-12-26-dependency-inject-extension-in-spring.html">扩展Spring的依赖注入行为两例 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2010-12-25-explore_the_scheduling_of_scala_actor.html">Explore The Scheduling of Scala Actors </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2010-02-09-tx-mgt-patterns.html">Transaction Management Patterns In Brief </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2008-05-13-finish-unveil-spring-book-draft.html">万里长征第一步，搞定～ </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2005-06-18-integrate-velocity-and-struts.html">实现Velocity和Struts的集成 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2009-03-03-required-rate-of-return.html">必要回报率(Required Rate Of Return) </a> 
       </div> 
      </div> 
      <hr> 

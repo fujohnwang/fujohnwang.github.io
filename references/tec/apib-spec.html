@@ -16,8 +16,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -29,7 +31,6 @@
             display:inline;
         }
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -177,40 +178,40 @@
      <h4 id="example-header-defined-sections">Example: Header-defined sections</h4> 
      <pre><code># &lt;keyword&gt; 
 
-             ...
+ ...
 
-            # &lt;keyword&gt; 
+# &lt;keyword&gt; 
 
-             ...</code></pre> 
+ ...</code></pre> 
      <blockquote> 
       <p><strong>NOTE:</strong> While this specification uses “atx” -style headers (using <code>#</code>s) you can also use “Setext” <a href="https://daringfireball.net/projects/markdown/syntax#header">header syntax</a> interchangeably:</p> 
       <pre><code>&lt;keyword&gt;
-            =========
+=========
 
-            ...
+...
 
-            &lt;keyword&gt;
-            =========
+&lt;keyword&gt;
+=========
 
-            ...</code></pre> 
+...</code></pre> 
      </blockquote> 
      <h4 id="example-list-defined-sections">Example: List-defined sections</h4> 
      <pre><code>+ &lt;keyword&gt;
 
-             ...
+ ...
 
-            + &lt;keyword&gt;
++ &lt;keyword&gt;
 
-             ...</code></pre> 
+ ...</code></pre> 
      <blockquote> 
       <p><strong>NOTE:</strong> While this specification uses pluses (<code>+</code>) as list markers you can use any Markdown <a href="https://daringfireball.net/projects/markdown/syntax#list">list syntax</a> using asterisks (<code>*</code>), pluses (<code>+</code>) and hyphens (<code>-</code>) interchangeably:</p> 
       <pre><code>* &lt;keyword&gt;
 
-            ...
+...
 
-            - &lt;keyword&gt;
+- &lt;keyword&gt;
 
-            ...</code></pre> 
+...</code></pre> 
      </blockquote> 
      <p><a name="def-section-types"></a></p> 
      <h3 id="section-types">4.1 Section types</h3> 
@@ -222,19 +223,19 @@
      <h4 id="example-header-defined-section-structure">Example: Header-defined section structure</h4> 
      <pre><code># &lt;keyword&gt; &lt;identifier&gt;
 
-            &lt;description&gt;
+&lt;description&gt;
 
-            &lt;specific content&gt;
+&lt;specific content&gt;
 
-            &lt;nested sections&gt;</code></pre> 
+&lt;nested sections&gt;</code></pre> 
      <h4 id="example-list-defined-section-structure">Example: List-defined section structure</h4> 
      <pre><code>+ &lt;keyword&gt; &lt;identifier&gt;
 
-                &lt;description&gt;
+    &lt;description&gt;
 
-                &lt;specific content&gt;
+    &lt;specific content&gt;
 
-                &lt;nested sections&gt;</code></pre> 
+    &lt;nested sections&gt;</code></pre> 
      <p><a name="def-keywords"></a></p> 
      <h3 id="keywords">4.3 Keywords</h3> 
      <p>Following reserved keywords are used in section definitions:</p> 
@@ -284,19 +285,19 @@
      <h4 id="example-nested-header-defined-section">Example: Nested header-defined section</h4> 
      <pre><code># &lt;section definition&gt; 
 
-             ... 
+ ... 
 
-            ## &lt;nested section definition&gt;
+## &lt;nested section definition&gt;
 
-             ...</code></pre> 
+ ...</code></pre> 
      <h4 id="example-nested-list-defined-section">Example: Nested list-defined section</h4> 
      <pre><code>+ &lt;section definition&gt;
 
-                 ... 
+     ... 
 
-                + &lt;nested section definition&gt;
+    + &lt;nested section definition&gt;
 
-                 ...</code></pre> 
+     ...</code></pre> 
      <blockquote> 
       <p><strong>NOTE:</strong> While not necessary it is a good habit to increase the level of a nested section markdown-header.</p> 
      </blockquote> 
@@ -326,13 +327,13 @@
      <p>Named section is the base section for most of the API Blueprint sections. It conforms to the <a href="#def-section-structure">general section</a> and as such it composes of a section name (identifier), description and nested sections or specific formatted content (see descendants descriptions).</p> 
      <h4 id="example-1">Example</h4> 
      <pre><code># &lt;keyword&gt; Section Name
-            This the `Section Name` description.
+This the `Section Name` description.
 
-            - one
-            - **two**
-            - three
+- one
+- **two**
+- three
 
-            &lt;nested sections&gt; |  &lt;formatted content&gt;</code></pre> 
+&lt;nested sections&gt; |  &lt;formatted content&gt;</code></pre> 
      <hr> 
      <p><a name="def-asset-section"></a></p> 
      <h2 id="asset-section">2. Asset section</h2> 
@@ -351,17 +352,17 @@
      <h4 id="example-2">Example</h4> 
      <pre><code>+ &lt;keyword&gt;
 
-                    {
-                        "message": "Hello"
-                    }</code></pre> 
+        {
+            "message": "Hello"
+        }</code></pre> 
      <h4 id="example-fenced-code-blocks">Example: Fenced code blocks</h4> 
      <pre><code>+ &lt;keyword&gt;
 
-                ```
-                {
-                    "message": "Hello"
-                }
-                ```</code></pre> 
+    ```
+    {
+        "message": "Hello"
+    }
+    ```</code></pre> 
      <hr> 
      <p><a name="def-payload-section"></a></p> 
      <h2 id="payload-section">3. Payload section</h2> 
@@ -395,23 +396,23 @@
      <h4 id="example-3">Example</h4> 
      <pre><code>+ &lt;keyword&gt; Payload Name (application/json)
 
-                This the `Payload Name` description.
+    This the `Payload Name` description.
 
-                + Headers
-                
-                 ...
+    + Headers
+    
+     ...
 
-                + Body
-                    
-                 ...
+    + Body
+        
+     ...
 
-                + Schema
-                
-                ...</code></pre> 
+    + Schema
+    
+    ...</code></pre> 
      <h4 id="example-referencing-model-payload">Example: Referencing model payload</h4> 
      <pre><code>+ &lt;keyword&gt; Payload Name
 
-                [Resource model identifier][]</code></pre> 
+    [Resource model identifier][]</code></pre> 
      <hr> 
      <p><a name="def-headers-section"></a></p> 
      <h2 id="headers-section">4. Headers section</h2> 
@@ -431,9 +432,9 @@
      <h4 id="example-4">Example</h4> 
      <pre><code>+ Headers
 
-                    Accept-Charset: utf-8
-                    Connection: keep-alive
-                    Content-Type: multipart/form-data, boundary=AaB03x</code></pre> 
+        Accept-Charset: utf-8
+        Connection: keep-alive
+        Content-Type: multipart/form-data, boundary=AaB03x</code></pre> 
      <hr> 
      <p><a name="def-body-section"></a></p> 
      <h2 id="body-section">5. Body section</h2> 
@@ -451,9 +452,9 @@
      <h4 id="example-5">Example</h4> 
      <pre><code>+ Body
 
-                    {
-                        "message": "Hello"
-                    }</code></pre> 
+        {
+            "message": "Hello"
+        }</code></pre> 
      <hr> 
      <p><a name="def-schema-section"></a></p> 
      <h2 id="schema-section">6. Schema section</h2> 
@@ -483,7 +484,7 @@
      <p>Metadata keys and its values are tool-specific. Refer to relevant tool documentation for the list of supported keys.</p> 
      <h4 id="example-6">Example</h4> 
      <pre><code>FORMAT: 1A
-            HOST: http://blog.acme.com</code></pre> 
+HOST: http://blog.acme.com</code></pre> 
      <hr> 
      <p><a name="def-api-name-section"></a></p> 
      <h2 id="api-name-overview-section">8. API name &amp; overview section</h2> 
@@ -499,7 +500,7 @@
      <p>Name and description of the API</p> 
      <h4 id="example-7">Example</h4> 
      <pre><code># Basic ACME Blog API
-            Welcome to the **ACME Blog** API. This API provides access to the **ACME Blog** service.</code></pre> 
+Welcome to the **ACME Blog** API. This API provides access to the **ACME Blog** service.</code></pre> 
      <hr> 
      <p><a name="def-resourcegroup-section"></a></p> 
      <h2 id="resource-group-section">9. Resource group section</h2> 
@@ -517,16 +518,16 @@
      <h4 id="example-8">Example</h4> 
      <pre><code># Group Blog Posts
 
-            ## Resource 1 [/resource1]
+## Resource 1 [/resource1]
 
-             ...
+ ...
 
-            # Group Authors
-            Resources in this groups are related to **ACME Blog** authors.    
+# Group Authors
+Resources in this groups are related to **ACME Blog** authors.    
 
-            ## Resource 2 [/resource2]
+## Resource 2 [/resource2]
 
-             ...</code></pre> 
+ ...</code></pre> 
      <hr> 
      <p><a name="def-resource-section"></a></p> 
      <h2 id="resource-section">10. Resource section</h2> 
@@ -561,7 +562,7 @@
      </blockquote> 
      <h4 id="example-9">Example</h4> 
      <pre><code># Blog Posts [/posts/{id}]
-            Resource representing **ACME Blog** posts.</code></pre> 
+Resource representing **ACME Blog** posts.</code></pre> 
      <pre><code># /posts/{id}</code></pre> 
      <pre><code># GET /posts/{id}</code></pre> 
      <hr> 
@@ -582,14 +583,14 @@
      <p>The payload defined in this section <strong>may</strong> be referenced in any response or request section in the document using parent section’s identifier. You can refer to this payload in any of the following <a href="#def-request-section">Request</a> or <a href="#def-response-section">Response</a> payload sections using the Markdown implicit <a href="http://daringfireball.net/projects/markdown/syntax#link">reference syntax</a>.</p> 
      <h4 id="example-10">Example</h4> 
      <pre><code># My Resource [/resource]
-            + Model (text/plain)
-                
-                    Hello World
-                    
-            ## Retrieve My Resource [GET]
-            + Response 200
-                
-                [My Resource][]</code></pre> 
++ Model (text/plain)
+    
+        Hello World
+        
+## Retrieve My Resource [GET]
++ Response 200
+    
+    [My Resource][]</code></pre> 
      <hr> 
      <p><a name="def-uriparameters-section"></a></p> 
      <h2 id="uri-parameters-section">12. URI parameters section</h2> 
@@ -607,13 +608,13 @@
      <p>This section <strong>must</strong> be composed of nested list items only. This section <strong>must not</strong> contain any other elements. One list item per URI parameter. The nested list items subsections inherit from the <a href="#def-named-section">Named section</a> and are subject to additional formatting as follows:</p> 
      <pre><code>+ &lt;parameter name&gt; = `&lt;default value&gt;` (required | optional , &lt;type&gt;, `&lt;example value&gt;`) ... &lt;description&gt;
 
-                &lt;additional description&gt;
-                
-                + Values
-                    + `&lt;enumeration element 1&gt;` 
-                    + `&lt;enumeration element 2&gt;`
-                    ...
-                    + `&lt;enumeration element N&gt;`</code></pre> 
+    &lt;additional description&gt;
+    
+    + Values
+        + `&lt;enumeration element 1&gt;` 
+        + `&lt;enumeration element 2&gt;`
+        ...
+        + `&lt;enumeration element N&gt;`</code></pre> 
      <p>Where:</p> 
      <ul> 
       <li><code>&lt;parameter name&gt;</code> is the parameter name as written in <a href="#ResourceSection">Resource Section</a>’s URI (e.g.&nbsp;“id”).</li> 
@@ -633,22 +634,22 @@
      <h4 id="example-11">Example</h4> 
      <pre><code># GET /posts/{id}</code></pre> 
      <pre><code>+ Parameters
-                + id ... Id of a post.</code></pre> 
+    + id ... Id of a post.</code></pre> 
      <pre><code>+ Parameters
-                + id (number) ... Id of a post.</code></pre> 
+    + id (number) ... Id of a post.</code></pre> 
      <pre><code>+ Parameters
-                + id (required, number, `1001`) ... Id of a post.</code></pre> 
+    + id (required, number, `1001`) ... Id of a post.</code></pre> 
      <pre><code>+ Parameters
-                + id = `20` (optional, number, `1001`) ... Id of a post.</code></pre> 
+    + id = `20` (optional, number, `1001`) ... Id of a post.</code></pre> 
      <pre><code>+ Parameters
-                + id (string)
+    + id (string)
 
-                    Id of a Post
+        Id of a Post
 
-                    + Values
-                        + `A`
-                        + `B`
-                        + `C`</code></pre> 
+        + Values
+            + `A`
+            + `B`
+            + `C`</code></pre> 
      <hr> 
      <p><a name="def-action-section"></a></p> 
      <h2 id="action-section">13. Action section</h2> 
@@ -672,61 +673,61 @@
      <p>Multiple Request and Response nested sections within one transaction example <strong>should</strong> have different identifiers.</p> 
      <h4 id="example-12">Example</h4> 
      <pre><code># Blog Posts [/posts{?limit}]
-             ...    
+ ...    
 
-            ## Retrieve Blog Posts [GET]
-            Retrieves the list of **ACME Blog** posts.
+## Retrieve Blog Posts [GET]
+Retrieves the list of **ACME Blog** posts.
 
-            + Parameters
-                + limit (optional, number) ... Maximum number of posts to retrieve
++ Parameters
+    + limit (optional, number) ... Maximum number of posts to retrieve
 
-            + Response 200
++ Response 200
 
-                    ...
+        ...
 
-            ### Create a Post [POST]
-            + Request
+### Create a Post [POST]
++ Request
 
-                    ...
+        ...
 
-            + Response 201
++ Response 201
 
-                    ...</code></pre> 
+        ...</code></pre> 
      <h4 id="example-multiple-transaction-examples">Example Multiple Transaction Examples</h4> 
      <pre><code># Resource [/resource]
-            ## Create Resource [POST]
+## Create Resource [POST]
 
-            + request A
-                
-                    ...
++ request A
+    
+        ...
 
-            + response 200
-                
-                    ...
++ response 200
+    
+        ...
 
-            + request B
-                
-                    ...
++ request B
+    
+        ...
 
-            + response 200    
-                    
-                    ...
++ response 200    
+        
+        ...
 
-            + response 500
-                
-                    ...
++ response 500
+    
+        ...
 
-            + request C
-                
-                    ...
++ request C
+    
+        ...
 
-            + request D
-                
-                    ...
++ request D
+    
+        ...
 
-            + response 200
-                
-                    ...</code></pre> 
++ response 200
+    
+        ...</code></pre> 
      <blockquote> 
       <p><strong>NOTE:</strong> The “Multiple Transaction Examples” example demonstrates three transaction examples for one given action:</p> 
       <ol type="1"> 
@@ -751,8 +752,8 @@
      <p>One HTTP request-message example – payload.</p> 
      <h4 id="example-13">Example</h4> 
      <pre><code>+ Request Create Blog Post (application/json)
-                
-                    { "message" : "Hello World." }</code></pre> 
+    
+        { "message" : "Hello World." }</code></pre> 
      <hr> 
      <p><a name="def-response-section"></a></p> 
      <h2 id="response-section">15. Response section</h2> 
@@ -770,8 +771,8 @@
      <p>One HTTP response-message example – payload.</p> 
      <h4 id="example-14">Example</h4> 
      <pre><code>+ Response 201 (application/json)
-                
-                        { "message" : "created" }</code></pre> 
+    
+            { "message" : "created" }</code></pre> 
      <hr> 
      <p><br></p> 
      <p><a name="def-appendix"></a></p> 
@@ -802,13 +803,13 @@
      </ul> 
      <h4 id="examples">Examples</h4> 
      <pre><code>{var}
-            {var1,var2,var3}
-            {#var}
-            {+var}
-            {?var}
-            {?var1,var2}
-            {?%24var}
-            {&amp;var}</code></pre> 
+{var1,var2,var3}
+{#var}
+{+var}
+{?var}
+{?var1,var2}
+{?%24var}
+{&amp;var}</code></pre> 
      <blockquote> 
       <p><strong>NOTE:</strong> The <a href="http://tools.ietf.org/html/rfc6570#section-2.4.2">explode variable modifier</a> is also supported. Refer to RFC6570 for its description.</p> 
      </blockquote> 
@@ -851,11 +852,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2009-11-30-catch-cold.html">感冒了，别是甲流就行… </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2015-03-17-api-design-and-documentation.html">API Design And Documentation </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2020-03-25-undercover-billionaire.html">Undercover Billionaire, Another Donald J. Trump’s Apprentice Show? </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2005-00-00-springaop-simple-intro3.html">闲话SpringAOP的应用(3) </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2020-11-23-how-to-make-a-great-share-training.html">怎么做好一场分享或者培训 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2020-12-06-TVP.html">腾讯云TVP深圳行小记 </a> 
       </div> 
      </div> 
      <hr> 

@@ -17,8 +17,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -95,7 +97,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -180,109 +181,109 @@
      <p>访问<a href="http://start.spring.io/" class="uri">http://start.spring.io/</a>， 填写必要的项目信息并选择必要的选项， 点击“Generate Project”下载预先生成的项目模板， 因为我只选择了web和actuator两个模块的依赖以及以jar的形式发布，所以得到如下的pom定义：</p> 
      <div class="sourceCode" id="cb1">
       <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span><span class="ot"> version=</span><span class="st">"1.0"</span><span class="ot"> encoding=</span><span class="st">"UTF-8"</span><span class="fu">?&gt;</span></span>
-            <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">project</span><span class="ot"> xmlns=</span><span class="st">"http://maven.apache.org/POM/4.0.0"</span><span class="ot"> xmlns:xsi=</span><span class="st">"http://www.w3.org/2001/XMLSchema-instance"</span></span>
-            <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ot">    xsi:schemaLocation=</span><span class="st">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span>
-            <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">modelVersion</span>&gt;4.0.0&lt;/<span class="kw">modelVersion</span>&gt;</span>
-            <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">groupId</span>&gt;org.test&lt;/<span class="kw">groupId</span>&gt;</span>
-            <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">artifactId</span>&gt;demo&lt;/<span class="kw">artifactId</span>&gt;</span>
-            <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">version</span>&gt;0.0.1-SNAPSHOT&lt;/<span class="kw">version</span>&gt;</span>
-            <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">packaging</span>&gt;jar&lt;/<span class="kw">packaging</span>&gt;</span>
-            <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">name</span>&gt;demo&lt;/<span class="kw">name</span>&gt;</span>
-            <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">description</span>&gt;Demo project for Spring Boot&lt;/<span class="kw">description</span>&gt;</span>
-            <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">parent</span>&gt;</span>
-            <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">groupId</span>&gt;org.springframework.boot&lt;/<span class="kw">groupId</span>&gt;</span>
-            <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">artifactId</span>&gt;spring-boot-starter-parent&lt;/<span class="kw">artifactId</span>&gt;</span>
-            <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">version</span>&gt;1.2.5.RELEASE&lt;/<span class="kw">version</span>&gt;</span>
-            <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">relativePath</span>/&gt; <span class="co">&lt;!-- lookup parent from repository --&gt;</span></span>
-            <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">parent</span>&gt;</span>
-            <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">properties</span>&gt;</span>
-            <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">project.build.sourceEncoding</span>&gt;UTF-8&lt;/<span class="kw">project.build.sourceEncoding</span>&gt;</span>
-            <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">java.version</span>&gt;1.8&lt;/<span class="kw">java.version</span>&gt;</span>
-            <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">properties</span>&gt;</span>
-            <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">dependencies</span>&gt;</span>
-            <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;</span>
-            <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.springframework.boot&lt;/<span class="kw">groupId</span>&gt;</span>
-            <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;spring-boot-starter-actuator&lt;/<span class="kw">artifactId</span>&gt;</span>
-            <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span>
-            <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;</span>
-            <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.springframework.boot&lt;/<span class="kw">groupId</span>&gt;</span>
-            <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;spring-boot-starter-web&lt;/<span class="kw">artifactId</span>&gt;</span>
-            <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span>
-            <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>        </span>
-            <span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;</span>
-            <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.springframework.boot&lt;/<span class="kw">groupId</span>&gt;</span>
-            <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;spring-boot-starter-test&lt;/<span class="kw">artifactId</span>&gt;</span>
-            <span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">scope</span>&gt;test&lt;/<span class="kw">scope</span>&gt;</span>
-            <span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span>
-            <span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">dependencies</span>&gt;</span>
-            <span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    </span>
-            <span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">build</span>&gt;</span>
-            <span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">plugins</span>&gt;</span>
-            <span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">plugin</span>&gt;</span>
-            <span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">groupId</span>&gt;org.springframework.boot&lt;/<span class="kw">groupId</span>&gt;</span>
-            <span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">artifactId</span>&gt;spring-boot-maven-plugin&lt;/<span class="kw">artifactId</span>&gt;</span>
-            <span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>            &lt;/<span class="kw">plugin</span>&gt;</span>
-            <span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">plugins</span>&gt;</span>
-            <span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">build</span>&gt;</span>
-            <span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>    </span>
-            <span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">project</span>&gt;</span></code></pre>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">project</span><span class="ot"> xmlns=</span><span class="st">"http://maven.apache.org/POM/4.0.0"</span><span class="ot"> xmlns:xsi=</span><span class="st">"http://www.w3.org/2001/XMLSchema-instance"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ot">    xsi:schemaLocation=</span><span class="st">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">modelVersion</span>&gt;4.0.0&lt;/<span class="kw">modelVersion</span>&gt;</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">groupId</span>&gt;org.test&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">artifactId</span>&gt;demo&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">version</span>&gt;0.0.1-SNAPSHOT&lt;/<span class="kw">version</span>&gt;</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">packaging</span>&gt;jar&lt;/<span class="kw">packaging</span>&gt;</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">name</span>&gt;demo&lt;/<span class="kw">name</span>&gt;</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">description</span>&gt;Demo project for Spring Boot&lt;/<span class="kw">description</span>&gt;</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">parent</span>&gt;</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">groupId</span>&gt;org.springframework.boot&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">artifactId</span>&gt;spring-boot-starter-parent&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">version</span>&gt;1.2.5.RELEASE&lt;/<span class="kw">version</span>&gt;</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">relativePath</span>/&gt; <span class="co">&lt;!-- lookup parent from repository --&gt;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">parent</span>&gt;</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">properties</span>&gt;</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">project.build.sourceEncoding</span>&gt;UTF-8&lt;/<span class="kw">project.build.sourceEncoding</span>&gt;</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">java.version</span>&gt;1.8&lt;/<span class="kw">java.version</span>&gt;</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">properties</span>&gt;</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">dependencies</span>&gt;</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.springframework.boot&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;spring-boot-starter-actuator&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.springframework.boot&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;spring-boot-starter-web&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.springframework.boot&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;spring-boot-starter-test&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">scope</span>&gt;test&lt;/<span class="kw">scope</span>&gt;</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">dependencies</span>&gt;</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">build</span>&gt;</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">plugins</span>&gt;</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">plugin</span>&gt;</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">groupId</span>&gt;org.springframework.boot&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">artifactId</span>&gt;spring-boot-maven-plugin&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>            &lt;/<span class="kw">plugin</span>&gt;</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">plugins</span>&gt;</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">build</span>&gt;</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">project</span>&gt;</span></code></pre>
      </div> 
      <p>这是为Java项目准备的， 要使用Scala在这个项目模板的基础上进行开发，我们需要在pom中再添加点儿“佐料” …</p> 
      <p>首先， 使用Scala进行开发，自然需要能够对Scala代码进行编译啦，所以，我们需要添加一个Maven的Scala编译插件：</p> 
      <div class="sourceCode" id="cb2">
       <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">plugin</span>&gt;</span>
-            <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">groupId</span>&gt;net.alchim31.maven&lt;/<span class="kw">groupId</span>&gt;</span>
-            <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">artifactId</span>&gt;scala-maven-plugin&lt;/<span class="kw">artifactId</span>&gt;</span>
-            <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">version</span>&gt;3.2.1&lt;/<span class="kw">version</span>&gt;</span>
-            <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">executions</span>&gt;</span>
-            <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">execution</span>&gt;</span>
-            <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">id</span>&gt;compile-scala&lt;/<span class="kw">id</span>&gt;</span>
-            <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">phase</span>&gt;compile&lt;/<span class="kw">phase</span>&gt;</span>
-            <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">goals</span>&gt;</span>
-            <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>                            &lt;<span class="kw">goal</span>&gt;add-source&lt;/<span class="kw">goal</span>&gt;</span>
-            <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>                            &lt;<span class="kw">goal</span>&gt;compile&lt;/<span class="kw">goal</span>&gt;</span>
-            <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>                        &lt;/<span class="kw">goals</span>&gt;</span>
-            <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>                    &lt;/<span class="kw">execution</span>&gt;</span>
-            <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">execution</span>&gt;</span>
-            <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">id</span>&gt;test-compile-scala&lt;/<span class="kw">id</span>&gt;</span>
-            <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">phase</span>&gt;test-compile&lt;/<span class="kw">phase</span>&gt;</span>
-            <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">goals</span>&gt;</span>
-            <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>                            &lt;<span class="kw">goal</span>&gt;add-source&lt;/<span class="kw">goal</span>&gt;</span>
-            <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>                            &lt;<span class="kw">goal</span>&gt;testCompile&lt;/<span class="kw">goal</span>&gt;</span>
-            <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>                        &lt;/<span class="kw">goals</span>&gt;</span>
-            <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>                    &lt;/<span class="kw">execution</span>&gt;</span>
-            <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>                &lt;/<span class="kw">executions</span>&gt;</span>
-            <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">configuration</span>&gt;</span>
-            <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">recompileMode</span>&gt;incremental&lt;/<span class="kw">recompileMode</span>&gt;</span>
-            <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">scalaVersion</span>&gt;${scala.version}&lt;/<span class="kw">scalaVersion</span>&gt;</span>
-            <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">args</span>&gt;</span>
-            <span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">arg</span>&gt;-deprecation&lt;/<span class="kw">arg</span>&gt;</span>
-            <span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>                    &lt;/<span class="kw">args</span>&gt;</span>
-            <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">jvmArgs</span>&gt;</span>
-            <span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">jvmArg</span>&gt;-Xms64m&lt;/<span class="kw">jvmArg</span>&gt;</span>
-            <span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">jvmArg</span>&gt;-Xmx1024m&lt;/<span class="kw">jvmArg</span>&gt;</span>
-            <span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>                    &lt;/<span class="kw">jvmArgs</span>&gt;</span>
-            <span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>                &lt;/<span class="kw">configuration</span>&gt;</span>
-            <span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>            &lt;/<span class="kw">plugin</span>&gt;</span></code></pre>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">groupId</span>&gt;net.alchim31.maven&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">artifactId</span>&gt;scala-maven-plugin&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">version</span>&gt;3.2.1&lt;/<span class="kw">version</span>&gt;</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">executions</span>&gt;</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">execution</span>&gt;</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">id</span>&gt;compile-scala&lt;/<span class="kw">id</span>&gt;</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">phase</span>&gt;compile&lt;/<span class="kw">phase</span>&gt;</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">goals</span>&gt;</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>                            &lt;<span class="kw">goal</span>&gt;add-source&lt;/<span class="kw">goal</span>&gt;</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>                            &lt;<span class="kw">goal</span>&gt;compile&lt;/<span class="kw">goal</span>&gt;</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>                        &lt;/<span class="kw">goals</span>&gt;</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>                    &lt;/<span class="kw">execution</span>&gt;</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">execution</span>&gt;</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">id</span>&gt;test-compile-scala&lt;/<span class="kw">id</span>&gt;</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">phase</span>&gt;test-compile&lt;/<span class="kw">phase</span>&gt;</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">goals</span>&gt;</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>                            &lt;<span class="kw">goal</span>&gt;add-source&lt;/<span class="kw">goal</span>&gt;</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>                            &lt;<span class="kw">goal</span>&gt;testCompile&lt;/<span class="kw">goal</span>&gt;</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>                        &lt;/<span class="kw">goals</span>&gt;</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>                    &lt;/<span class="kw">execution</span>&gt;</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>                &lt;/<span class="kw">executions</span>&gt;</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">configuration</span>&gt;</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">recompileMode</span>&gt;incremental&lt;/<span class="kw">recompileMode</span>&gt;</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">scalaVersion</span>&gt;${scala.version}&lt;/<span class="kw">scalaVersion</span>&gt;</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">args</span>&gt;</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">arg</span>&gt;-deprecation&lt;/<span class="kw">arg</span>&gt;</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>                    &lt;/<span class="kw">args</span>&gt;</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">jvmArgs</span>&gt;</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">jvmArg</span>&gt;-Xms64m&lt;/<span class="kw">jvmArg</span>&gt;</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>                        &lt;<span class="kw">jvmArg</span>&gt;-Xmx1024m&lt;/<span class="kw">jvmArg</span>&gt;</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>                    &lt;/<span class="kw">jvmArgs</span>&gt;</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>                &lt;/<span class="kw">configuration</span>&gt;</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>            &lt;/<span class="kw">plugin</span>&gt;</span></code></pre>
      </div> 
      <p>其次，我们需要添加Scala的相关依赖，所以， pom中还需要添加至少如下配置：</p> 
      <div class="sourceCode" id="cb3">
       <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;</span>
-            <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.scala-lang&lt;/<span class="kw">groupId</span>&gt;</span>
-            <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;scala-library&lt;/<span class="kw">artifactId</span>&gt;</span>
-            <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">version</span>&gt;${scala.version}&lt;/<span class="kw">version</span>&gt;</span>
-            <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span>
-            <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;</span>
-            <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.scala-lang&lt;/<span class="kw">groupId</span>&gt;</span>
-            <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;scala-compiler&lt;/<span class="kw">artifactId</span>&gt;</span>
-            <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">version</span>&gt;${scala.version}&lt;/<span class="kw">version</span>&gt;</span>
-            <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span></code></pre>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.scala-lang&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;scala-library&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">version</span>&gt;${scala.version}&lt;/<span class="kw">version</span>&gt;</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.scala-lang&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;scala-compiler&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">version</span>&gt;${scala.version}&lt;/<span class="kw">version</span>&gt;</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span></code></pre>
      </div> 
      <p>至此， 就可以在src/main/scala下添加相应的Scala代码进行SpringBoot应用的开发了， so easy~</p> 
      <h1 id="使用sbt构建scala开发的springboot应用">使用SBT构建Scala开发的SpringBoot应用</h1> 
@@ -293,32 +294,32 @@
      <p>这个时候，我们就可以发现一些端倪了， 通常情况下， 一个SpringBoot项目一定是需要依赖如下artifacts的：</p> 
      <div class="sourceCode" id="cb4">
       <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;</span>
-            <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.springframework.boot&lt;/<span class="kw">groupId</span>&gt;</span>
-            <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;spring-boot&lt;/<span class="kw">artifactId</span>&gt;</span>
-            <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span>
-            <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;</span>
-            <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.springframework.boot&lt;/<span class="kw">groupId</span>&gt;</span>
-            <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;spring-boot-autoconfigure&lt;/<span class="kw">artifactId</span>&gt;</span>
-            <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span>
-            <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;</span>
-            <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.springframework.boot&lt;/<span class="kw">groupId</span>&gt;</span>
-            <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;spring-boot-starter-logging&lt;/<span class="kw">artifactId</span>&gt;</span>
-            <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span>
-            <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;</span>
-            <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.springframework&lt;/<span class="kw">groupId</span>&gt;</span>
-            <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;spring-core&lt;/<span class="kw">artifactId</span>&gt;</span>
-            <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">exclusions</span>&gt;</span>
-            <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">exclusion</span>&gt;</span>
-            <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">groupId</span>&gt;commons-logging&lt;/<span class="kw">groupId</span>&gt;</span>
-            <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">artifactId</span>&gt;commons-logging&lt;/<span class="kw">artifactId</span>&gt;</span>
-            <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>                &lt;/<span class="kw">exclusion</span>&gt;</span>
-            <span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>            &lt;/<span class="kw">exclusions</span>&gt;</span>
-            <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span>
-            <span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;</span>
-            <span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.yaml&lt;/<span class="kw">groupId</span>&gt;</span>
-            <span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;snakeyaml&lt;/<span class="kw">artifactId</span>&gt;</span>
-            <span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">scope</span>&gt;runtime&lt;/<span class="kw">scope</span>&gt;</span>
-            <span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span></code></pre>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.springframework.boot&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;spring-boot&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.springframework.boot&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;spring-boot-autoconfigure&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.springframework.boot&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;spring-boot-starter-logging&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.springframework&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;spring-core&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">exclusions</span>&gt;</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">exclusion</span>&gt;</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">groupId</span>&gt;commons-logging&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>                    &lt;<span class="kw">artifactId</span>&gt;commons-logging&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>                &lt;/<span class="kw">exclusion</span>&gt;</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>            &lt;/<span class="kw">exclusions</span>&gt;</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dependency</span>&gt;</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">groupId</span>&gt;org.yaml&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">artifactId</span>&gt;snakeyaml&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">scope</span>&gt;runtime&lt;/<span class="kw">scope</span>&gt;</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">dependency</span>&gt;</span></code></pre>
      </div> 
      <p>其中， spring-core和spring-boot很好理解， SpringBoot应用嘛， 肯定需要对spring-boot的依赖，而spring-boot又依赖于spring-core即spring框架本身， 为了SpringBoot应用发挥其快捷的特性， spring-boot-autoconfigure自然也是不应该少的。</p> 
      <p>剩下的logging啦， yaml啦， 就可以根据情况来了，虽然logging一般也不能少。</p> 
@@ -326,39 +327,39 @@
      <p>要使用SBT来构建SpringBoot应用，只要依照spring-boot-starter来添加必要的依赖就可以了！ 剩下的其它依赖，只要根据情况添加即可！</p> 
      <div class="sourceCode" id="cb5">
       <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"org.springframework"</span> <span class="op">%</span> <span class="st">"spring-core"</span> <span class="op">%</span> <span class="st">"4.1.6.RELEASE"</span> <span class="fu">exclude</span><span class="op">(</span><span class="st">"commons-logging"</span><span class="op">,</span> <span class="st">"commons-logging"</span><span class="op">)</span></span>
-            <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"org.springframework.boot"</span> <span class="op">%</span> <span class="st">"spring-boot"</span> <span class="op">%</span> <span class="st">"1.2.4.RELEASE"</span></span>
-            <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"org.springframework.boot"</span> <span class="op">%</span> <span class="st">"spring-boot-autoconfigure"</span> <span class="op">%</span> <span class="st">"1.2.4.RELEASE"</span></span>
-            <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"org.springframework.boot"</span> <span class="op">%</span> <span class="st">"spring-boot-starter-logging"</span> <span class="op">%</span> <span class="st">"1.2.4.RELEASE"</span></span>
-            <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"org.yaml"</span> <span class="op">%</span> <span class="st">"snakeyaml"</span> <span class="op">%</span> <span class="st">"1.14"</span></span></code></pre>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"org.springframework"</span> <span class="op">%</span> <span class="st">"spring-core"</span> <span class="op">%</span> <span class="st">"4.1.6.RELEASE"</span> <span class="fu">exclude</span><span class="op">(</span><span class="st">"commons-logging"</span><span class="op">,</span> <span class="st">"commons-logging"</span><span class="op">)</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"org.springframework.boot"</span> <span class="op">%</span> <span class="st">"spring-boot"</span> <span class="op">%</span> <span class="st">"1.2.4.RELEASE"</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"org.springframework.boot"</span> <span class="op">%</span> <span class="st">"spring-boot-autoconfigure"</span> <span class="op">%</span> <span class="st">"1.2.4.RELEASE"</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"org.springframework.boot"</span> <span class="op">%</span> <span class="st">"spring-boot-starter-logging"</span> <span class="op">%</span> <span class="st">"1.2.4.RELEASE"</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"org.yaml"</span> <span class="op">%</span> <span class="st">"snakeyaml"</span> <span class="op">%</span> <span class="st">"1.14"</span></span></code></pre>
      </div> 
      <p>之后，我们只要用Scala来写相应的Controller以及服务啦</p> 
      <div class="sourceCode" id="cb6">
       <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Message <span class="op">{</span></span>
-            <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  @BeanProperty</span>
-            <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> value<span class="op">:</span> String <span class="op">=</span> _</span>
-            <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-            <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>@RestController</span>
-            <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> HelloController <span class="op">{</span></span>
-            <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">Value</span><span class="op">(</span><span class="st">"${hello.message}"</span><span class="op">)</span></span>
-            <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  @BeanProperty</span>
-            <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> helloMessage<span class="op">:</span> String <span class="op">=</span> _</span>
-            <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">RequestMapping</span><span class="op">(</span>value <span class="op">=</span> <span class="bu">Array</span><span class="op">(</span><span class="st">"/hello"</span><span class="op">),</span> method <span class="op">=</span> <span class="bu">Array</span><span class="op">(</span>RequestMethod<span class="op">.</span>GET<span class="op">))</span></span>
-            <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  @ResponseBody</span>
-            <span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">hello</span><span class="op">():</span> Message <span class="op">=</span> <span class="op">{</span></span>
-            <span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> message <span class="op">=</span> <span class="kw">new</span> Message</span>
-            <span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    message<span class="op">.</span>value <span class="op">=</span> helloMessage</span>
-            <span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    message</span>
-            <span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
-            <span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  @BeanProperty</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> value<span class="op">:</span> String <span class="op">=</span> _</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>@RestController</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> HelloController <span class="op">{</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">Value</span><span class="op">(</span><span class="st">"${hello.message}"</span><span class="op">)</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  @BeanProperty</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> helloMessage<span class="op">:</span> String <span class="op">=</span> _</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">RequestMapping</span><span class="op">(</span>value <span class="op">=</span> <span class="bu">Array</span><span class="op">(</span><span class="st">"/hello"</span><span class="op">),</span> method <span class="op">=</span> <span class="bu">Array</span><span class="op">(</span>RequestMethod<span class="op">.</span>GET<span class="op">))</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  @ResponseBody</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">hello</span><span class="op">():</span> Message <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> message <span class="op">=</span> <span class="kw">new</span> Message</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    message<span class="op">.</span>value <span class="op">=</span> helloMessage</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    message</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
      </div> 
      <blockquote> 
       <p>NOTE</p> 
@@ -370,68 +371,68 @@
      <p>所以，我们的build.sbt配置文件中还会再多添加几行配置：</p> 
      <div class="sourceCode" id="cb7">
       <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>mainClass <span class="op">:=</span> <span class="bu">Some</span><span class="op">(</span><span class="st">"com.example.Hello"</span><span class="op">)</span></span>
-            <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>mappings in Universal <span class="op">+=</span> <span class="fu">file</span><span class="op">(</span><span class="st">"LICENSE"</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="st">"LICENSE"</span></span>
-            <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>mappings in Universal <span class="op">++=</span> <span class="fu">directory</span><span class="op">(</span><span class="st">"config"</span><span class="op">)</span></span></code></pre>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>mappings in Universal <span class="op">+=</span> <span class="fu">file</span><span class="op">(</span><span class="st">"LICENSE"</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="st">"LICENSE"</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>mappings in Universal <span class="op">++=</span> <span class="fu">directory</span><span class="op">(</span><span class="st">"config"</span><span class="op">)</span></span></code></pre>
      </div> 
      <p>最终，一个完整的SBT项目build.sbt示例性配置文件如下：</p> 
      <div class="sourceCode" id="cb8">
       <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> sbt<span class="op">.</span>_</span>
-            <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> com<span class="op">.</span>typesafe<span class="op">.</span>sbt<span class="op">.</span>packager<span class="op">.</span>universal<span class="op">.</span>UniversalPlugin<span class="op">.</span>autoImport<span class="op">.</span>_</span>
-            <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> com<span class="op">.</span>typesafe<span class="op">.</span>sbt<span class="op">.</span>packager<span class="op">.</span>MappingsHelper<span class="op">.</span>_</span>
-            <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="kw">lazy</span> <span class="kw">val</span> root <span class="op">=</span> project in <span class="fu">file</span><span class="op">(</span><span class="st">"."</span><span class="op">)</span> <span class="fu">enablePlugins</span><span class="op">(</span>JavaAppPackaging<span class="op">)</span> <span class="fu">settings</span><span class="op">(</span>net<span class="op">.</span>virtualvoid<span class="op">.</span>sbt<span class="op">.</span>graph<span class="op">.</span>Plugin<span class="op">.</span>graphSettings<span class="op">:</span> _<span class="op">*)</span></span>
-            <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>name <span class="op">:=</span> <span class="st">"springboot-scala-with-sbt"</span></span>
-            <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>organization <span class="op">:=</span> <span class="st">"com.github.fujohnwang"</span></span>
-            <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>version <span class="op">:=</span> <span class="st">"0.0.1-SNAPSHOT"</span></span>
-            <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>publishMavenStyle <span class="op">:=</span> <span class="kw">true</span></span>
-            <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>publishTo <span class="op">:=</span> <span class="bu">Some</span><span class="op">(</span>Resolver<span class="op">.</span><span class="fu">file</span><span class="op">(</span><span class="st">"local .m2 repository"</span><span class="op">,</span>  <span class="kw">new</span> <span class="fu">File</span><span class="op">(</span>Path<span class="op">.</span>userHome<span class="op">.</span>absolutePath<span class="op">+</span><span class="st">"/.m2/repository"</span><span class="op">)))</span></span>
-            <span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>resolvers <span class="op">+=</span> <span class="st">"Local Maven Repository"</span> at <span class="st">"file://"</span><span class="op">+</span>Path<span class="op">.</span>userHome<span class="op">.</span>absolutePath<span class="op">+</span><span class="st">"/.m2/repository"</span></span>
-            <span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>resolvers <span class="op">+=</span> <span class="st">"Central Maven Repository"</span> at <span class="st">"http://repo1.maven.org/maven2/"</span></span>
-            <span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>scalacOptions <span class="op">:=</span> <span class="bu">Seq</span><span class="op">(</span><span class="st">"-deprecation"</span><span class="op">,</span> <span class="st">"-unchecked"</span><span class="op">,</span><span class="st">"-optimise"</span><span class="op">)</span></span>
-            <span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>javacOptions <span class="op">++=</span> <span class="bu">Seq</span><span class="op">(</span><span class="st">"-source"</span><span class="op">,</span> <span class="st">"1.8"</span><span class="op">,</span> <span class="st">"-target"</span><span class="op">,</span> <span class="st">"1.8"</span><span class="op">)</span></span>
-            <span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>scalaVersion <span class="op">:=</span> <span class="st">"2.11.7"</span></span>
-            <span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"ch.qos.logback"</span> <span class="op">%</span> <span class="st">"logback-core"</span> <span class="op">%</span> <span class="st">"1.1.2"</span></span>
-            <span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"ch.qos.logback"</span> <span class="op">%</span> <span class="st">"logback-classic"</span> <span class="op">%</span> <span class="st">"1.1.2"</span></span>
-            <span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"org.slf4j"</span> <span class="op">%</span> <span class="st">"jcl-over-slf4j"</span> <span class="op">%</span> <span class="st">"1.7.12"</span></span>
-            <span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"org.slf4j"</span> <span class="op">%</span> <span class="st">"log4j-over-slf4j"</span> <span class="op">%</span> <span class="st">"1.7.12"</span></span>
-            <span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"io.dropwizard.metrics"</span> <span class="op">%</span> <span class="st">"metrics-core"</span> <span class="op">%</span> <span class="st">"3.1.2"</span></span>
-            <span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"org.springframework"</span> <span class="op">%</span> <span class="st">"spring-core"</span> <span class="op">%</span> <span class="st">"4.1.6.RELEASE"</span> <span class="fu">exclude</span><span class="op">(</span><span class="st">"commons-logging"</span><span class="op">,</span> <span class="st">"commons-logging"</span><span class="op">)</span></span>
-            <span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"org.springframework.boot"</span> <span class="op">%</span> <span class="st">"spring-boot"</span> <span class="op">%</span> <span class="st">"1.2.4.RELEASE"</span></span>
-            <span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"org.springframework.boot"</span> <span class="op">%</span> <span class="st">"spring-boot-autoconfigure"</span> <span class="op">%</span> <span class="st">"1.2.4.RELEASE"</span></span>
-            <span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"org.springframework.boot"</span> <span class="op">%</span> <span class="st">"spring-boot-starter-logging"</span> <span class="op">%</span> <span class="st">"1.2.4.RELEASE"</span></span>
-            <span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"org.yaml"</span> <span class="op">%</span> <span class="st">"snakeyaml"</span> <span class="op">%</span> <span class="st">"1.14"</span></span>
-            <span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"org.springframework.boot"</span> <span class="op">%</span> <span class="st">"spring-boot-starter-actuator"</span> <span class="op">%</span> <span class="st">"1.2.4.RELEASE"</span></span>
-            <span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"org.springframework.boot"</span> <span class="op">%</span> <span class="st">"spring-boot-starter-web"</span> <span class="op">%</span> <span class="st">"1.2.4.RELEASE"</span></span>
-            <span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>mainClass <span class="op">:=</span> <span class="bu">Some</span><span class="op">(</span><span class="st">"com.example.Hello"</span><span class="op">)</span></span>
-            <span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a>mappings in Universal <span class="op">+=</span> <span class="fu">file</span><span class="op">(</span><span class="st">"LICENSE"</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="st">"LICENSE"</span></span>
-            <span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a>mappings in Universal <span class="op">++=</span> <span class="fu">directory</span><span class="op">(</span><span class="st">"conf"</span><span class="op">)</span></span></code></pre>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> com<span class="op">.</span>typesafe<span class="op">.</span>sbt<span class="op">.</span>packager<span class="op">.</span>universal<span class="op">.</span>UniversalPlugin<span class="op">.</span>autoImport<span class="op">.</span>_</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> com<span class="op">.</span>typesafe<span class="op">.</span>sbt<span class="op">.</span>packager<span class="op">.</span>MappingsHelper<span class="op">.</span>_</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="kw">lazy</span> <span class="kw">val</span> root <span class="op">=</span> project in <span class="fu">file</span><span class="op">(</span><span class="st">"."</span><span class="op">)</span> <span class="fu">enablePlugins</span><span class="op">(</span>JavaAppPackaging<span class="op">)</span> <span class="fu">settings</span><span class="op">(</span>net<span class="op">.</span>virtualvoid<span class="op">.</span>sbt<span class="op">.</span>graph<span class="op">.</span>Plugin<span class="op">.</span>graphSettings<span class="op">:</span> _<span class="op">*)</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>name <span class="op">:=</span> <span class="st">"springboot-scala-with-sbt"</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>organization <span class="op">:=</span> <span class="st">"com.github.fujohnwang"</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>version <span class="op">:=</span> <span class="st">"0.0.1-SNAPSHOT"</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>publishMavenStyle <span class="op">:=</span> <span class="kw">true</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>publishTo <span class="op">:=</span> <span class="bu">Some</span><span class="op">(</span>Resolver<span class="op">.</span><span class="fu">file</span><span class="op">(</span><span class="st">"local .m2 repository"</span><span class="op">,</span>  <span class="kw">new</span> <span class="fu">File</span><span class="op">(</span>Path<span class="op">.</span>userHome<span class="op">.</span>absolutePath<span class="op">+</span><span class="st">"/.m2/repository"</span><span class="op">)))</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>resolvers <span class="op">+=</span> <span class="st">"Local Maven Repository"</span> at <span class="st">"file://"</span><span class="op">+</span>Path<span class="op">.</span>userHome<span class="op">.</span>absolutePath<span class="op">+</span><span class="st">"/.m2/repository"</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>resolvers <span class="op">+=</span> <span class="st">"Central Maven Repository"</span> at <span class="st">"http://repo1.maven.org/maven2/"</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>scalacOptions <span class="op">:=</span> <span class="bu">Seq</span><span class="op">(</span><span class="st">"-deprecation"</span><span class="op">,</span> <span class="st">"-unchecked"</span><span class="op">,</span><span class="st">"-optimise"</span><span class="op">)</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>javacOptions <span class="op">++=</span> <span class="bu">Seq</span><span class="op">(</span><span class="st">"-source"</span><span class="op">,</span> <span class="st">"1.8"</span><span class="op">,</span> <span class="st">"-target"</span><span class="op">,</span> <span class="st">"1.8"</span><span class="op">)</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>scalaVersion <span class="op">:=</span> <span class="st">"2.11.7"</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"ch.qos.logback"</span> <span class="op">%</span> <span class="st">"logback-core"</span> <span class="op">%</span> <span class="st">"1.1.2"</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"ch.qos.logback"</span> <span class="op">%</span> <span class="st">"logback-classic"</span> <span class="op">%</span> <span class="st">"1.1.2"</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"org.slf4j"</span> <span class="op">%</span> <span class="st">"jcl-over-slf4j"</span> <span class="op">%</span> <span class="st">"1.7.12"</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"org.slf4j"</span> <span class="op">%</span> <span class="st">"log4j-over-slf4j"</span> <span class="op">%</span> <span class="st">"1.7.12"</span></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"io.dropwizard.metrics"</span> <span class="op">%</span> <span class="st">"metrics-core"</span> <span class="op">%</span> <span class="st">"3.1.2"</span></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"org.springframework"</span> <span class="op">%</span> <span class="st">"spring-core"</span> <span class="op">%</span> <span class="st">"4.1.6.RELEASE"</span> <span class="fu">exclude</span><span class="op">(</span><span class="st">"commons-logging"</span><span class="op">,</span> <span class="st">"commons-logging"</span><span class="op">)</span></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"org.springframework.boot"</span> <span class="op">%</span> <span class="st">"spring-boot"</span> <span class="op">%</span> <span class="st">"1.2.4.RELEASE"</span></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"org.springframework.boot"</span> <span class="op">%</span> <span class="st">"spring-boot-autoconfigure"</span> <span class="op">%</span> <span class="st">"1.2.4.RELEASE"</span></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"org.springframework.boot"</span> <span class="op">%</span> <span class="st">"spring-boot-starter-logging"</span> <span class="op">%</span> <span class="st">"1.2.4.RELEASE"</span></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"org.yaml"</span> <span class="op">%</span> <span class="st">"snakeyaml"</span> <span class="op">%</span> <span class="st">"1.14"</span></span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"org.springframework.boot"</span> <span class="op">%</span> <span class="st">"spring-boot-starter-actuator"</span> <span class="op">%</span> <span class="st">"1.2.4.RELEASE"</span></span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span> <span class="st">"org.springframework.boot"</span> <span class="op">%</span> <span class="st">"spring-boot-starter-web"</span> <span class="op">%</span> <span class="st">"1.2.4.RELEASE"</span></span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>mainClass <span class="op">:=</span> <span class="bu">Some</span><span class="op">(</span><span class="st">"com.example.Hello"</span><span class="op">)</span></span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a>mappings in Universal <span class="op">+=</span> <span class="fu">file</span><span class="op">(</span><span class="st">"LICENSE"</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="st">"LICENSE"</span></span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a>mappings in Universal <span class="op">++=</span> <span class="fu">directory</span><span class="op">(</span><span class="st">"conf"</span><span class="op">)</span></span></code></pre>
      </div> 
      <p>OK，that’s it, happy hacking spring boot with scala and sbt!</p> 
      <section class="footnotes" role="doc-endnotes"> 
@@ -444,11 +445,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2010-02-18-neighbour-next-door.html">邻家趣事 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2009-02-27-movie-the-wrestler.html">看完《The Wrestler》心里挺不是滋味… </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2005-06-18-integrate-velocity-and-struts.html">实现Velocity和Struts的集成 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2013-04-27-encode-decode-chinese-url.html">关于SEO友好的中文URL编码解码的调研 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2009-11-30-catch-cold.html">感冒了，别是甲流就行… </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2012-03-28-twitter-util-eval-is-cool.html">“twitter_util_eval_is_cool” </a> 
       </div> 
      </div> 
      <hr> 

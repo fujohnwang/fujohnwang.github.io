@@ -17,8 +17,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -95,7 +97,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -191,106 +192,106 @@
      <p>其实，所有的工作无非就是要发送邮件，以上的三步最终都是为发送mail做准备，至于这三步到底如何实现，我们可以不去关心，我们所关注的只是发送mail，所以，首先我们要提出一个接口，标志我们的mail发送逻辑，姑且将该接口命名为ICSVMailSender，下面是其代码：</p> 
      <div class="sourceCode" id="cb1">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">package</span><span class="im"> com</span><span class="op">.</span><span class="im">livedoor</span><span class="op">.</span><span class="im">finance</span><span class="op">.</span><span class="im">credit</span><span class="op">.</span><span class="im">csvmail</span><span class="op">.</span><span class="im">bo</span><span class="op">;</span></span>
-            <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
-            <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"> * @</span>author Darren<span class="co">.</span>Wang</span>
-            <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="co">2005-2-24</span> <span class="co">11:11:11</span></span>
-            <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a> <span class="co">*/</span></span>
-            <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">interface</span> ICSVMailSender <span class="op">{</span></span>
-            <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a> <span class="dt">void</span> <span class="fu">sendCSV</span><span class="op">();</span></span>
-            <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"> * @</span>author Darren<span class="co">.</span>Wang</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="co">2005-2-24</span> <span class="co">11:11:11</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a> <span class="co">*/</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">interface</span> ICSVMailSender <span class="op">{</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a> <span class="dt">void</span> <span class="fu">sendCSV</span><span class="op">();</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
      </div> 
      <p>针对该接口，我们给出一个抽象的实现：</p> 
      <div class="sourceCode" id="cb2">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">abstract</span> <span class="kw">class</span> AbstractCSVMailSender <span class="kw">implements</span> ICSVMailSender<span class="op">{</span></span>
-            <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>……<span class="op">.</span></span>
-            <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">public</span> <span class="dt">final</span> <span class="dt">void</span> <span class="fu">sendCSV</span><span class="op">()</span> <span class="op">{</span></span>
-            <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fl">1.</span> 生成csv文件</span>
-            <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fl">2.</span> 对csv文件进行加密</span>
-            <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fl">3.</span> 对加密后的csv文件进行压缩以便发送</span>
-            <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fl">4.</span> 将加密后的csv以附件形式attach到mail中并发送</span>
-            <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-            <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a> <span class="co">/**</span></span>
-            <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">*</span> Hook Method</span>
-            <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">*</span> do db query and generate CSV file in this method</span>
-            <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">  * @</span>return String csv data</span>
-            <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">*/</span></span>
-            <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a> <span class="kw">protected</span> <span class="kw">abstract</span> <span class="bu">String</span> <span class="fu">createCSV</span><span class="op">();</span></span>
-            <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a> </span>
-            <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a> <span class="co">/**</span></span>
-            <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="co">*</span> Hook Method</span>
-            <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="co">*</span> do encription with original string type csv data<span class="co">,</span>and return encripted data</span>
-            <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">  * @</span>param originalStr</span>
-            <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="co">*</span> <span class="co">@</span>return byte<span class="co">[],</span>encripted data in byte<span class="co">[]</span> array type</span>
-            <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="co">*/</span></span>
-            <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a> <span class="kw">protected</span> <span class="kw">abstract</span> <span class="dt">byte</span><span class="op">[]</span> <span class="fu">encryptCSV</span><span class="op">(</span><span class="bu">String</span> originalStr<span class="op">);</span></span>
-            <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a> </span>
-            <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a> <span class="co">/**</span></span>
-            <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="co">*</span> Hook Method</span>
-            <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  <span class="co">*</span> zip the encripted csv data into a file<span class="co">,</span> so that the mail can send it as an attachement</span>
-            <span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">  * @</span>param encryptedData</span>
-            <span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  <span class="co">*</span> <span class="co">@</span>return File<span class="co">,</span> zipFile after zip</span>
-            <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  <span class="co">*/</span></span>
-            <span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a> <span class="kw">protected</span> <span class="kw">abstract</span> <span class="bu">File</span> <span class="fu">zipCSV</span><span class="op">(</span><span class="dt">byte</span><span class="op">[]</span> encryptedData<span class="op">);</span></span>
-            <span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>……<span class="op">.</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">public</span> <span class="dt">final</span> <span class="dt">void</span> <span class="fu">sendCSV</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fl">1.</span> 生成csv文件</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fl">2.</span> 对csv文件进行加密</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fl">3.</span> 对加密后的csv文件进行压缩以便发送</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fl">4.</span> 将加密后的csv以附件形式attach到mail中并发送</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a> <span class="co">/**</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">*</span> Hook Method</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">*</span> do db query and generate CSV file in this method</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">  * @</span>return String csv data</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">*/</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a> <span class="kw">protected</span> <span class="kw">abstract</span> <span class="bu">String</span> <span class="fu">createCSV</span><span class="op">();</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a> <span class="co">/**</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="co">*</span> Hook Method</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="co">*</span> do encription with original string type csv data<span class="co">,</span>and return encripted data</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">  * @</span>param originalStr</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="co">*</span> <span class="co">@</span>return byte<span class="co">[],</span>encripted data in byte<span class="co">[]</span> array type</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="co">*/</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a> <span class="kw">protected</span> <span class="kw">abstract</span> <span class="dt">byte</span><span class="op">[]</span> <span class="fu">encryptCSV</span><span class="op">(</span><span class="bu">String</span> originalStr<span class="op">);</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a> <span class="co">/**</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="co">*</span> Hook Method</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  <span class="co">*</span> zip the encripted csv data into a file<span class="co">,</span> so that the mail can send it as an attachement</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">  * @</span>param encryptedData</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  <span class="co">*</span> <span class="co">@</span>return File<span class="co">,</span> zipFile after zip</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  <span class="co">*/</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a> <span class="kw">protected</span> <span class="kw">abstract</span> <span class="bu">File</span> <span class="fu">zipCSV</span><span class="op">(</span><span class="dt">byte</span><span class="op">[]</span> encryptedData<span class="op">);</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
      </div> 
      <p>其实，对于明眼人来说，以上代码一出，则马上就会认出，呵呵，这不明显一个template模式的应用嘛，right，呵呵，就是它，在Rod的《Expert ….》一书中也着重提过该设计模式的应用，而且spring中应用该模式的例子也挺多，比如JdbcTemlate等，鉴于这次所要求的功能，我认为将template设计模式应用于此再合适不过了。在以上模板的基础上，我们可以自由实现以上三个抽象方法来提供最终的数据，你是用jdbc还是hibernate还是其他，我们不关心，这些自由选择的权利我们都下放给具体的实现者，这不是很好嘛！</p> 
      <p>有了以上的基础，我们的实现也变得很简单,只要继承类并实现三个方法所要实现的业务逻辑就可以了，比如：</p> 
      <div class="sourceCode" id="cb3">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> CSVMailSenderImpl <span class="kw">extends</span> AbstractCSVMailSender</span>
-            <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-            <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a> <span class="co">/* (non-Javadoc)</span></span>
-            <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">  * @see com.livedoor.finance.credit.csvmail.bo.AbstractCSVMailSender#createCSV()</span></span>
-            <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">  */</span></span>
-            <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a> <span class="kw">protected</span> <span class="bu">String</span> <span class="fu">createCSV</span><span class="op">()</span> <span class="op">{</span></span>
-            <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a> …</span>
-            <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a> <span class="op">}</span></span>
-            <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a> <span class="co">/* (non-Javadoc)</span></span>
-            <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">  * @see com.livedoor.finance.credit.csvmail.bo.AbstractCSVMailSender#encryptCSV(java.lang.String)</span></span>
-            <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">  */</span></span>
-            <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a> <span class="kw">protected</span> <span class="dt">byte</span><span class="op">[]</span> <span class="fu">encryptCSV</span><span class="op">(</span><span class="bu">String</span> originalStr<span class="op">)</span> <span class="op">{</span></span>
-            <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a> …</span>
-            <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a> <span class="op">}</span></span>
-            <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a> <span class="co">/* (non-Javadoc)</span></span>
-            <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">  * @see com.livedoor.finance.credit.csvmail.bo.AbstractCSVMailSender#zipCSV(byte[])</span></span>
-            <span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">  */</span></span>
-            <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a> <span class="kw">protected</span> <span class="bu">File</span> <span class="fu">zipCSV</span><span class="op">(</span><span class="dt">byte</span><span class="op">[]</span> encryptedData<span class="op">)</span> <span class="op">{</span></span>
-            <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a> …</span>
-            <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-            <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a> <span class="co">/* (non-Javadoc)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">  * @see com.livedoor.finance.credit.csvmail.bo.AbstractCSVMailSender#createCSV()</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">  */</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a> <span class="kw">protected</span> <span class="bu">String</span> <span class="fu">createCSV</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a> …</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a> <span class="op">}</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a> <span class="co">/* (non-Javadoc)</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">  * @see com.livedoor.finance.credit.csvmail.bo.AbstractCSVMailSender#encryptCSV(java.lang.String)</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">  */</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a> <span class="kw">protected</span> <span class="dt">byte</span><span class="op">[]</span> <span class="fu">encryptCSV</span><span class="op">(</span><span class="bu">String</span> originalStr<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a> …</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a> <span class="op">}</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a> <span class="co">/* (non-Javadoc)</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">  * @see com.livedoor.finance.credit.csvmail.bo.AbstractCSVMailSender#zipCSV(byte[])</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">  */</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a> <span class="kw">protected</span> <span class="bu">File</span> <span class="fu">zipCSV</span><span class="op">(</span><span class="dt">byte</span><span class="op">[]</span> encryptedData<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a> …</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
      </div> 
      <p>这样，我们总的业务框架就完成了，在此基础上，我们要实现job schedule，而这在有了spring之后，变得是如此的简单，因为他对于quartz和timer都进行了有效的封装，我们只需要配置一下配置文件就可以全部搞定，而在具体的job实现类里面，我们只要实例化ICSVMailSender的某个具体实现类，并调用其sendCSV（）方法就可以了。是不是很便捷那？！</p> 
      <p>下面是spring-config.xml的部分片段，以供参考：</p> 
      <div class="sourceCode" id="cb4">
       <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a> ...</span>
-            <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">bean</span><span class="ot"> name=</span><span class="st">"mailJob"</span><span class="ot"> class=</span><span class="st">"org.springframework.scheduling.quartz.JobDetailBean"</span>&gt;</span>
-            <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"jobClass"</span>&gt;</span>
-            <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>   &lt;<span class="kw">value</span>&gt;com.livedoor.finance.credit.csvmail.job.CSVMailJob&lt;/<span class="kw">value</span>&gt;</span>
-            <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">property</span>&gt;</span>
-            <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"jobDataAsMap"</span>&gt;</span>
-            <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>   &lt;<span class="kw">map</span>&gt;</span>
-            <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">entry</span><span class="ot"> key=</span><span class="st">"csvMailSender"</span>&gt;</span>
-            <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>     &lt;<span class="kw">ref</span><span class="ot"> bean=</span><span class="st">"csvMailSender"</span>/&gt;</span>
-            <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">entry</span>&gt;</span>
-            <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>   &lt;/<span class="kw">map</span>&gt;</span>
-            <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">property</span>&gt;</span>
-            <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a> &lt;/<span class="kw">bean</span>&gt;</span>
-            <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">bean</span><span class="ot"> id=</span><span class="st">"cronTrigger"</span><span class="ot"> class=</span><span class="st">"org.springframework.scheduling.quartz.CronTriggerBean"</span>&gt;</span>
-            <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"jobDetail"</span>&gt;</span>
-            <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>   &lt;<span class="kw">ref</span><span class="ot"> bean=</span><span class="st">"mailJob"</span>/&gt;</span>
-            <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">property</span>&gt;</span>
-            <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"cronExpression"</span>&gt;</span>
-            <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>   &lt;<span class="kw">value</span>&gt;0 0 3 * * ?&lt;/<span class="kw">value</span>&gt;</span>
-            <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">property</span>&gt;</span>
-            <span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a> &lt;/<span class="kw">bean</span>&gt;</span>
-            <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a> </span>
-            <span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">bean</span><span class="ot"> name=</span><span class="st">"schedulerFactory"</span><span class="ot"> class=</span><span class="st">"org.springframework.scheduling.quartz.SchedulerFactoryBean"</span>&gt;</span>
-            <span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"triggers"</span>&gt;</span>
-            <span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>   &lt;<span class="kw">list</span>&gt;</span>
-            <span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">ref</span><span class="ot"> bean=</span><span class="st">"cronTrigger"</span>/&gt;</span>
-            <span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>   &lt;/<span class="kw">list</span>&gt;</span>
-            <span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">property</span>&gt;</span>
-            <span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a> &lt;/<span class="kw">bean</span>&gt;</span></code></pre>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">bean</span><span class="ot"> name=</span><span class="st">"mailJob"</span><span class="ot"> class=</span><span class="st">"org.springframework.scheduling.quartz.JobDetailBean"</span>&gt;</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"jobClass"</span>&gt;</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>   &lt;<span class="kw">value</span>&gt;com.livedoor.finance.credit.csvmail.job.CSVMailJob&lt;/<span class="kw">value</span>&gt;</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">property</span>&gt;</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"jobDataAsMap"</span>&gt;</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>   &lt;<span class="kw">map</span>&gt;</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">entry</span><span class="ot"> key=</span><span class="st">"csvMailSender"</span>&gt;</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>     &lt;<span class="kw">ref</span><span class="ot"> bean=</span><span class="st">"csvMailSender"</span>/&gt;</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">entry</span>&gt;</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>   &lt;/<span class="kw">map</span>&gt;</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">property</span>&gt;</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a> &lt;/<span class="kw">bean</span>&gt;</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">bean</span><span class="ot"> id=</span><span class="st">"cronTrigger"</span><span class="ot"> class=</span><span class="st">"org.springframework.scheduling.quartz.CronTriggerBean"</span>&gt;</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"jobDetail"</span>&gt;</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>   &lt;<span class="kw">ref</span><span class="ot"> bean=</span><span class="st">"mailJob"</span>/&gt;</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">property</span>&gt;</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"cronExpression"</span>&gt;</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>   &lt;<span class="kw">value</span>&gt;0 0 3 * * ?&lt;/<span class="kw">value</span>&gt;</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">property</span>&gt;</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a> &lt;/<span class="kw">bean</span>&gt;</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">bean</span><span class="ot"> name=</span><span class="st">"schedulerFactory"</span><span class="ot"> class=</span><span class="st">"org.springframework.scheduling.quartz.SchedulerFactoryBean"</span>&gt;</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"triggers"</span>&gt;</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>   &lt;<span class="kw">list</span>&gt;</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">ref</span><span class="ot"> bean=</span><span class="st">"cronTrigger"</span>/&gt;</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>   &lt;/<span class="kw">list</span>&gt;</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">property</span>&gt;</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a> &lt;/<span class="kw">bean</span>&gt;</span></code></pre>
      </div> 
      <p>除了以上所述之外，还有一点可以值得一提的就是spring提供的邮件发送功能，我们既然要给b公司发送数据邮件，当然邮件的发送逻辑是不可少的啦，所以，在AbstractCSVMailSender模板类的sendCSV（）方法中，我们还要实现邮件发送逻辑，而这些，都是通过spring提供的mail封装来完成的，同时，因为日方提供了邮件模板，要根据模板设置邮件内容，所以我又引入了velocity，而spring对其也同样有所支持，呵呵，到此看来，这些东西真的是结合的天衣无缝了。</p> 
      <p>对于数据邮件的发送部分，偶在这里就不作详述了，不过大家如果有兴趣的话，可以参考Matt Raible的一篇blog《Sending Velocity－based Email with Spring》，上面对整个流程阐述的很明了，另外，读一下spring的javadoc也挺好，对于邮件发送部分，spring只是提供了几个包装类，很容易就可以搞清楚各个类的左右和他们之间的关系，而这对于你以后应用spring来说更会得心应手。</p> 
@@ -299,11 +300,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2019-12-26-I-have-better-wheels.html">该死的轮子 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2019-12-20-saas-evolution-path.html">SaaS编年史之技术视角观察 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2013-08-11-meet-with-dengcaoyuan.html">邓草原散记 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2017-11-07-serverless-bullshit.html">不提Serverless你就过时了？ Are You Kidding Me？ </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2016-02-08-talking-about-house-of-countryside.html">喝药的老人 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2007-02-20-stories-on-photo-album.html">Stories on Photo Album 2007/02/20 </a> 
       </div> 
      </div> 
      <hr> 

@@ -16,8 +16,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -94,7 +96,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -180,14 +181,14 @@
      <ol type="1"> 
       <li>定义一个tomcatTask.properties文件，文件中按照ant的taskdef任务文件定义的内容格式来定义以下内容：</li> 
      </ol> 
-     <pre>            deploy=org.apache.catalina.ant.DeployTask
-             undeploy=org.apache.catalina.ant.UndeployTask
-             remove=org.apache.catalina.ant.RemoveTask
-             reload=org.apache.catalina.ant.ReloadTask
-             start=org.apache.catalina.ant.StartTask
-             stop=org.apache.catalina.ant.StopTask
-             list=org.apache.catalina.ant.ListTask
-            </pre> 
+     <pre>deploy=org.apache.catalina.ant.DeployTask
+ undeploy=org.apache.catalina.ant.UndeployTask
+ remove=org.apache.catalina.ant.RemoveTask
+ reload=org.apache.catalina.ant.ReloadTask
+ start=org.apache.catalina.ant.StartTask
+ stop=org.apache.catalina.ant.StopTask
+ list=org.apache.catalina.ant.ListTask
+</pre> 
      <blockquote> 
       <p>注：【taskName=Task的实现class】是ant的taskdef规定的格式，当然，1和2完全可以按照每个task都对应自己的taskdef。</p> 
      </blockquote> 
@@ -196,75 +197,75 @@
      </ol> 
      <div class="sourceCode" id="cb1">
       <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">taskdef</span><span class="ot"> file=</span><span class="st">"tomcatTasks.properties"</span>&gt;</span>
-            <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">classpath</span>&gt;</span>
-            <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>   &lt;<span class="kw">pathelement</span><span class="ot"> path=</span><span class="st">"${tomcat.home}/server/lib/catalina-ant.jar"</span>/&gt;</span>
-            <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">classpath</span>&gt;</span>
-            <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a> &lt;/<span class="kw">taskdef</span>&gt;</span></code></pre>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">classpath</span>&gt;</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>   &lt;<span class="kw">pathelement</span><span class="ot"> path=</span><span class="st">"${tomcat.home}/server/lib/catalina-ant.jar"</span>/&gt;</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">classpath</span>&gt;</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a> &lt;/<span class="kw">taskdef</span>&gt;</span></code></pre>
      </div> 
      <ol start="3" type="1"> 
       <li>Tasks定义完成后，就可以定义tomcat管理的target来对tomcat进行管理了：</li> 
      </ol> 
      <div class="sourceCode" id="cb2">
       <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">target</span><span class="ot"> name=</span><span class="st">"install"</span><span class="ot"> description=</span><span class="st">"Install application in Tomcat"</span><span class="ot"> depends=</span><span class="st">"war"</span>&gt;</span>
-            <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">deploy</span><span class="ot"> url=</span><span class="st">"${tomcat.manager.url}"</span></span>
-            <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ot">            username=</span><span class="st">"${tomcat.manager.username}"</span></span>
-            <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ot">            password=</span><span class="st">"${tomcat.manager.password}"</span></span>
-            <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ot">            path=</span><span class="st">"/${webapp.name}"</span></span>
-            <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ot">            war=</span><span class="st">"file:${dist.dir}/${webapp.name}.war"</span>/&gt;</span>
-            <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">target</span>&gt;</span>
-            <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">target</span><span class="ot"> name=</span><span class="st">"remove"</span><span class="ot"> description=</span><span class="st">"Remove application from Tomcat"</span>&gt;</span>
-            <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">undeploy</span><span class="ot"> url=</span><span class="st">"${tomcat.manager.url}"</span></span>
-            <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ot">            username=</span><span class="st">"${tomcat.manager.username}"</span></span>
-            <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="ot">            password=</span><span class="st">"${tomcat.manager.password}"</span></span>
-            <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="ot">            path=</span><span class="st">"/${webapp.name}"</span>/&gt;</span>
-            <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">target</span>&gt;</span>
-            <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">target</span><span class="ot"> name=</span><span class="st">"reload"</span><span class="ot"> description=</span><span class="st">"Reload application in Tomcat"</span>&gt;</span>
-            <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">reload</span><span class="ot"> url=</span><span class="st">"${tomcat.manager.url}"</span></span>
-            <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="ot">            username=</span><span class="st">"${tomcat.manager.username}"</span></span>
-            <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="ot">            password=</span><span class="st">"${tomcat.manager.password}"</span></span>
-            <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="ot">            path=</span><span class="st">"/${webapp.name}"</span>/&gt;</span>
-            <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">target</span>&gt;</span>
-            <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">target</span><span class="ot"> name=</span><span class="st">"start"</span><span class="ot"> description=</span><span class="st">"Start Tomcat application"</span>&gt;</span>
-            <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">start</span><span class="ot"> url=</span><span class="st">"${tomcat.manager.url}"</span></span>
-            <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="ot">            username=</span><span class="st">"${tomcat.manager.username}"</span></span>
-            <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="ot">            password=</span><span class="st">"${tomcat.manager.password}"</span></span>
-            <span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="ot">            path=</span><span class="st">"/${webapp.name}"</span>/&gt;</span>
-            <span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">target</span>&gt;</span>
-            <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">target</span><span class="ot"> name=</span><span class="st">"stop"</span><span class="ot"> description=</span><span class="st">"Stop Tomcat application"</span>&gt;</span>
-            <span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">stop</span><span class="ot"> url=</span><span class="st">"${tomcat.manager.url}"</span></span>
-            <span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="ot">            username=</span><span class="st">"${tomcat.manager.username}"</span></span>
-            <span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="ot">            password=</span><span class="st">"${tomcat.manager.password}"</span></span>
-            <span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="ot">            path=</span><span class="st">"/${webapp.name}"</span>/&gt;</span>
-            <span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">target</span>&gt;</span>
-            <span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">target</span><span class="ot"> name=</span><span class="st">"list"</span><span class="ot"> description=</span><span class="st">"List Tomcat applications"</span>&gt;</span>
-            <span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">list</span><span class="ot"> url=</span><span class="st">"${tomcat.manager.url}"</span></span>
-            <span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="ot">            username=</span><span class="st">"${tomcat.manager.username}"</span></span>
-            <span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="ot">            password=</span><span class="st">"${tomcat.manager.password}"</span>/&gt;</span>
-            <span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">target</span>&gt;</span></code></pre>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">deploy</span><span class="ot"> url=</span><span class="st">"${tomcat.manager.url}"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ot">            username=</span><span class="st">"${tomcat.manager.username}"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ot">            password=</span><span class="st">"${tomcat.manager.password}"</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ot">            path=</span><span class="st">"/${webapp.name}"</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ot">            war=</span><span class="st">"file:${dist.dir}/${webapp.name}.war"</span>/&gt;</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">target</span>&gt;</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">target</span><span class="ot"> name=</span><span class="st">"remove"</span><span class="ot"> description=</span><span class="st">"Remove application from Tomcat"</span>&gt;</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">undeploy</span><span class="ot"> url=</span><span class="st">"${tomcat.manager.url}"</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ot">            username=</span><span class="st">"${tomcat.manager.username}"</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="ot">            password=</span><span class="st">"${tomcat.manager.password}"</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="ot">            path=</span><span class="st">"/${webapp.name}"</span>/&gt;</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">target</span>&gt;</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">target</span><span class="ot"> name=</span><span class="st">"reload"</span><span class="ot"> description=</span><span class="st">"Reload application in Tomcat"</span>&gt;</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">reload</span><span class="ot"> url=</span><span class="st">"${tomcat.manager.url}"</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="ot">            username=</span><span class="st">"${tomcat.manager.username}"</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="ot">            password=</span><span class="st">"${tomcat.manager.password}"</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="ot">            path=</span><span class="st">"/${webapp.name}"</span>/&gt;</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">target</span>&gt;</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">target</span><span class="ot"> name=</span><span class="st">"start"</span><span class="ot"> description=</span><span class="st">"Start Tomcat application"</span>&gt;</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">start</span><span class="ot"> url=</span><span class="st">"${tomcat.manager.url}"</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="ot">            username=</span><span class="st">"${tomcat.manager.username}"</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="ot">            password=</span><span class="st">"${tomcat.manager.password}"</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="ot">            path=</span><span class="st">"/${webapp.name}"</span>/&gt;</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">target</span>&gt;</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">target</span><span class="ot"> name=</span><span class="st">"stop"</span><span class="ot"> description=</span><span class="st">"Stop Tomcat application"</span>&gt;</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">stop</span><span class="ot"> url=</span><span class="st">"${tomcat.manager.url}"</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="ot">            username=</span><span class="st">"${tomcat.manager.username}"</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="ot">            password=</span><span class="st">"${tomcat.manager.password}"</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="ot">            path=</span><span class="st">"/${webapp.name}"</span>/&gt;</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">target</span>&gt;</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">target</span><span class="ot"> name=</span><span class="st">"list"</span><span class="ot"> description=</span><span class="st">"List Tomcat applications"</span>&gt;</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">list</span><span class="ot"> url=</span><span class="st">"${tomcat.manager.url}"</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="ot">            username=</span><span class="st">"${tomcat.manager.username}"</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="ot">            password=</span><span class="st">"${tomcat.manager.password}"</span>/&gt;</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">target</span>&gt;</span></code></pre>
      </div> 
      <ol start="4" type="1"> 
       <li>另外，上面的task中时间上用到了与tomcat相关的一些property，所以，我们在build.properties中定义他们，当然也可以在其他地方定义他们，但总之，在用之前，需要定义这些properties。</li> 
      </ol> 
-     <pre>            tomcat.manager.url=http://localhost:8080/manager
-            tomcat.manager.username=admin(对应你自己的username)
-            tomcat.manager.password=admin(对应你自己的password)
-            </pre> 
+     <pre>tomcat.manager.url=http://localhost:8080/manager
+tomcat.manager.username=admin(对应你自己的username)
+tomcat.manager.password=admin(对应你自己的password)
+</pre> 
      <p>之后，在build.xml的开始部分，定义<property file="build.properties" />将这些properties引入。</p> 
      <p>OK，以上就是使用tomcat5提供的ant任务对其进行管理的Overview，仅供Reference。</p> 
      <hr> 
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2007-08-04-fucking-ridiculous.html">到底是在彰显什么？ </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2023-08-19-business-goes-its-own-way.html">生意可不是你想咋选就咋选！ </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2021-10-03-why_gui_tools_instead_of_cli.html">图形化工具的三个好处 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2020-01-08-not-same-same.html">牛人也有虚假同感偏差 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2007-04-14-miss-you-grandma.html">思忆外婆 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2007-06-20-stock-t+0-trade.html">股票的T+0操作 </a> 
       </div> 
      </div> 
      <hr> 

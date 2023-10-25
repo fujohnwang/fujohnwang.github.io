@@ -17,8 +17,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -95,7 +97,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -191,20 +192,20 @@
      <p>当然，还是没现成的，老的Java reflection代码在Java19的JDK下显然早就被封杀了，所以，我们这样的老狗也得用新技能做老事情，比较nasty，但it works：</p> 
      <div class="sourceCode" id="cb1">
       <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">private</span> <span class="kw">def</span> <span class="fu">hackHttpURLConnectionByAppendingHttpMethodPatch</span><span class="op">():</span> <span class="bu">Unit</span> <span class="op">=</span> <span class="op">{</span></span>
-            <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span> <span class="op">{</span></span>
-            <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>      <span class="kw">val</span> methodsField<span class="op">:</span> Field <span class="op">=</span> classOf<span class="op">[</span>HttpURLConnection<span class="op">].</span><span class="fu">getDeclaredField</span><span class="op">(</span><span class="st">"methods"</span><span class="op">)</span></span>
-            <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      methodsField<span class="op">.</span><span class="fu">setAccessible</span><span class="op">(</span><span class="kw">true</span><span class="op">)</span></span>
-            <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      <span class="kw">val</span> lookup <span class="op">=</span> MethodHandles<span class="op">.</span><span class="fu">privateLookupIn</span><span class="op">(</span>classOf<span class="op">[</span>Field<span class="op">],</span> MethodHandles<span class="op">.</span><span class="fu">lookup</span><span class="op">());</span></span>
-            <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>      <span class="kw">val</span> MODIFIERS <span class="op">=</span> lookup<span class="op">.</span><span class="fu">findVarHandle</span><span class="op">(</span>classOf<span class="op">[</span>Field<span class="op">],</span> <span class="st">"modifiers"</span><span class="op">,</span> classOf<span class="op">[</span><span class="bu">Int</span><span class="op">])</span></span>
-            <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> <span class="op">(</span>Modifier<span class="op">.</span><span class="fu">isFinal</span><span class="op">(</span>methodsField<span class="op">.</span>getModifiers<span class="op">))</span> <span class="op">{</span></span>
-            <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        MODIFIERS<span class="op">.</span><span class="fu">set</span><span class="op">(</span>methodsField<span class="op">,</span> methodsField<span class="op">.</span>getModifiers <span class="op">&amp;</span> <span class="op">~</span>Modifier<span class="op">.</span>FINAL<span class="op">)</span></span>
-            <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>      <span class="op">}</span></span>
-            <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>      methodsField<span class="op">.</span><span class="fu">set</span><span class="op">(</span><span class="kw">null</span> <span class="co">/*static field*/</span> <span class="op">,</span> <span class="bu">Array</span><span class="op">(</span><span class="st">"GET"</span><span class="op">,</span> <span class="st">"POST"</span><span class="op">,</span> <span class="st">"HEAD"</span><span class="op">,</span> <span class="st">"OPTIONS"</span><span class="op">,</span> <span class="st">"PUT"</span><span class="op">,</span> <span class="st">"DELETE"</span><span class="op">,</span> <span class="st">"TRACE"</span><span class="op">,</span> <span class="st">"PATCH"</span><span class="op">))</span></span>
-            <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">catch</span> <span class="op">{</span></span>
-            <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>      <span class="cf">case</span> t<span class="op">:</span> Throwable <span class="op">=&gt;</span> logger<span class="op">.</span><span class="fu">warn</span><span class="op">(</span>ExceptionUtils<span class="op">.</span><span class="fu">getStackTrace</span><span class="op">(</span>t<span class="op">))</span></span>
-            <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-            <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span></code></pre>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>      <span class="kw">val</span> methodsField<span class="op">:</span> Field <span class="op">=</span> classOf<span class="op">[</span>HttpURLConnection<span class="op">].</span><span class="fu">getDeclaredField</span><span class="op">(</span><span class="st">"methods"</span><span class="op">)</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      methodsField<span class="op">.</span><span class="fu">setAccessible</span><span class="op">(</span><span class="kw">true</span><span class="op">)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      <span class="kw">val</span> lookup <span class="op">=</span> MethodHandles<span class="op">.</span><span class="fu">privateLookupIn</span><span class="op">(</span>classOf<span class="op">[</span>Field<span class="op">],</span> MethodHandles<span class="op">.</span><span class="fu">lookup</span><span class="op">());</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>      <span class="kw">val</span> MODIFIERS <span class="op">=</span> lookup<span class="op">.</span><span class="fu">findVarHandle</span><span class="op">(</span>classOf<span class="op">[</span>Field<span class="op">],</span> <span class="st">"modifiers"</span><span class="op">,</span> classOf<span class="op">[</span><span class="bu">Int</span><span class="op">])</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> <span class="op">(</span>Modifier<span class="op">.</span><span class="fu">isFinal</span><span class="op">(</span>methodsField<span class="op">.</span>getModifiers<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        MODIFIERS<span class="op">.</span><span class="fu">set</span><span class="op">(</span>methodsField<span class="op">,</span> methodsField<span class="op">.</span>getModifiers <span class="op">&amp;</span> <span class="op">~</span>Modifier<span class="op">.</span>FINAL<span class="op">)</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>      <span class="op">}</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>      methodsField<span class="op">.</span><span class="fu">set</span><span class="op">(</span><span class="kw">null</span> <span class="co">/*static field*/</span> <span class="op">,</span> <span class="bu">Array</span><span class="op">(</span><span class="st">"GET"</span><span class="op">,</span> <span class="st">"POST"</span><span class="op">,</span> <span class="st">"HEAD"</span><span class="op">,</span> <span class="st">"OPTIONS"</span><span class="op">,</span> <span class="st">"PUT"</span><span class="op">,</span> <span class="st">"DELETE"</span><span class="op">,</span> <span class="st">"TRACE"</span><span class="op">,</span> <span class="st">"PATCH"</span><span class="op">))</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">catch</span> <span class="op">{</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>      <span class="cf">case</span> t<span class="op">:</span> Throwable <span class="op">=&gt;</span> logger<span class="op">.</span><span class="fu">warn</span><span class="op">(</span>ExceptionUtils<span class="op">.</span><span class="fu">getStackTrace</span><span class="op">(</span>t<span class="op">))</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span></code></pre>
      </div> 
      <p>然后，在调用TusClient做事之前的任何合适的时点调用一次这个方法就可以了。</p> 
      <p>哦，对了，最后一个关键点，同时记得在执行java命令的之后加上(如果是在Intellij IDE里跑，驾到VM参数上）：</p> 
@@ -215,11 +216,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2017-06-14-reposition-wechat-public-channel.html">扶墙老师说公众号要重新定位啦~~~ </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2013-06-25-logging-framework-explained.html">Logging Framework Explained (afoo.me) </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2009-05-06-travel-to-lijiang-chap02.html">终于成行的丽江之旅(2) </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2015-07-31-microservices-essential.html">扶墙老师谈微服务(Microservices Essential) </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2009-06-10-harward-negotiating-training-note.html">Harward Negotiating Training Note </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2021-04-24-ODS_DataLake_Diversity.html">ODS、DataLake与Diversity </a> 
       </div> 
      </div> 
      <hr> 

@@ -16,8 +16,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -94,7 +96,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -181,23 +182,23 @@
      <p>不信？！上眼瞧啦~</p> 
      <div class="sourceCode" id="cb1">
       <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">exec</span><span class="ot"> dir=</span><span class="st">"D:\InstallAnywhere 5.5 Standard\"</span><span class="ot"> executable=</span><span class="st">"build.exe"</span><span class="ot"> output=</span><span class="st">"buildresult.txt"</span><span class="ot"> error=</span><span class="st">"builderror.txt"</span>&gt;</span>
-            <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">arg</span><span class="ot"> value=</span><span class="st">"＄{installAnywhere.credit.buildfile}"</span>/&gt;</span>
-            <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">exec</span>&gt;</span></code></pre>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">arg</span><span class="ot"> value=</span><span class="st">"＄{installAnywhere.credit.buildfile}"</span>/&gt;</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">exec</span>&gt;</span></code></pre>
      </div> 
      <p>你说这段build script会不会成功那？！没有问题吧？！不过那，虽然理论上应该build Successfully，但，事实并非如此，不管你以这种方式运行什么命令，都会抛出该死的“…IOException:(.*),error=2”错误信息，不信你就试试，除非你采用如下方式来使用exec task：</p> 
      <div class="sourceCode" id="cb2">
       <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">exec</span><span class="ot"> executable=</span><span class="st">"D:\InstallAnywhere 5.5 Standard\build.exe"</span><span class="ot"> output=</span><span class="st">"buildresult.txt"</span><span class="ot"> error=</span><span class="st">"builderror.txt"</span>&gt;</span>
-            <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">arg</span><span class="ot"> value=</span><span class="st">"＄{installAnywhere.credit.buildfile}"</span>/&gt;</span>
-            <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">exec</span>&gt;</span></code></pre>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">arg</span><span class="ot"> value=</span><span class="st">"＄{installAnywhere.credit.buildfile}"</span>/&gt;</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">exec</span>&gt;</span></code></pre>
      </div> 
      <p>看出差别没？！你指定命令所在的dir根本没有用，需要通过绝对路径指定executable！不要问我为什么，反正只有这样才能正确调用,I don’t know why either.</p> 
      <p>平常工作中经常有scp操作吧？！那你看下面这个简单的task能否build成功那？！</p> 
      <div class="sourceCode" id="cb3">
       <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">scp</span><span class="ot"> file=</span><span class="st">"file location to scp"</span><span class="ot"> todir=</span><span class="st">"user:password@server:/home/user"</span>&gt;&lt;/<span class="kw">scp</span>&gt;</span></code></pre>
      </div> 铁定的，类似这样的build 失败信息你是吃定了： 
-     <pre>            BUILD FAILED
-            ...\build.xml:11: com.jcraft.jsch.JSchException: reject HostKey: yourServerIp
-            </pre> 
+     <pre>BUILD FAILED
+...\build.xml:11: com.jcraft.jsch.JSchException: reject HostKey: yourServerIp
+</pre> 
      <p>不信，你看看ant的manual,他是不是告诉你这么用的？！</p> 
      <p>所以你现在也不得不信了吧？！还是听我的，在scp task的attribute里面添加一个trust=“true”试一试吧！</p> 
      <p>类似的sshexec task也有这个问题，同样的解决方式。</p> 
@@ -206,11 +207,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2007-10-09-before-going-home.html">回家之前 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2010-03-17-travel-to-nanjing.html">南京南京南京~ </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2015-04-08-copy-to-death.html">论羽翼思维模式 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2019-11-28-know-others-know-yourself.html">不裸聊的裸心 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2017-03-12-cut-the-small-vertical-market.html">小众垂直市场永远有机会 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2015-07-13-talking-about-my-favorite-toolset.html">说说我日常把玩的小工具 </a> 
       </div> 
      </div> 
      <hr> 

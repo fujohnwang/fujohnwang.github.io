@@ -16,8 +16,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -94,7 +96,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -185,11 +186,11 @@
      </ol> 
      <div class="sourceCode" id="cb1">
       <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">http</span><span class="ot"> port=</span><span class="er">8443&gt;</span></span>
-            <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a> <span class="er">&lt;ssl&gt;true&lt;/ssl&gt;</span></span>
-            <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a> <span class="er">&lt;key-store-type&gt;jks&lt;/key-store-type&gt;</span></span>
-            <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a> <span class="er">&lt;key-store-file&gt;file://D:/resin-2.1.9/keys/private.keystore&lt;/key-store-file&gt;</span></span>
-            <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a> <span class="er">&lt;key-store-password&gt;darrenwang&lt;/key-store-password&gt;</span></span>
-            <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;/http&gt;</span></span></code></pre>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a> <span class="er">&lt;ssl&gt;true&lt;/ssl&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a> <span class="er">&lt;key-store-type&gt;jks&lt;/key-store-type&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a> <span class="er">&lt;key-store-file&gt;file://D:/resin-2.1.9/keys/private.keystore&lt;/key-store-file&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a> <span class="er">&lt;key-store-password&gt;darrenwang&lt;/key-store-password&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;/http&gt;</span></span></code></pre>
      </div> 
      <p>这些可以在resin的conf里面找到实例，另外，其实要使之ssl运行，在此之前需要配置JSSE或者是OpenSSL，但是因为笔者使用了jdk1.4.x，而jdk1.4.x已经集成了JSSE，所以这些可以省略，如果使用jdk1.3或者以前的jdk，需要单独下载JSSE，并按照JSSE提供的步骤进行JSSE的安装。</p> 
      <p>然后，通过keytool为keystore加入相应的证书。</p> 
@@ -197,47 +198,47 @@
      <p>下面是使用HttpClient进行https连接的demo代码片断：</p> 
      <div class="sourceCode" id="cb2">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Protocol myhttps <span class="op">=</span> <span class="kw">new</span> <span class="fu">Protocol</span><span class="op">(</span><span class="st">"https"</span><span class="op">,</span> <span class="kw">new</span> <span class="fu">EasySSLProtocolSocketFactory</span><span class="op">(),</span> <span class="dv">8443</span><span class="op">);</span></span>
-            <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>Protocol<span class="op">.</span><span class="fu">registerProtocol</span><span class="op">(</span><span class="st">"https"</span><span class="op">,</span>myhttps<span class="op">);</span></span>
-            <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>HttpClient client <span class="op">=</span> <span class="kw">new</span> <span class="fu">HttpClient</span><span class="op">();</span></span>
-            <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>client<span class="op">.</span><span class="fu">getHostConfiguration</span><span class="op">().</span><span class="fu">setHost</span><span class="op">(</span><span class="st">"127.0.0.1"</span><span class="op">,</span> <span class="dv">8443</span><span class="op">,</span> myhttps<span class="op">);</span></span>
-            <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>PostMethod method <span class="op">=</span> <span class="kw">new</span> <span class="fu">PostMethod</span><span class="op">(</span><span class="st">"/examples/basic/servlet/UserAuthServlet"</span><span class="op">;</span></span>
-            <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">//PostMethod method = new PostMethod("::URL::http://localhost:8080/examples/basic/servlet/UserAuthServlet" ;</span></span>
-            <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="bu">NameValuePair</span> nameParam <span class="op">=</span> <span class="kw">new</span> <span class="bu">NameValuePair</span><span class="op">(</span><span class="st">"username"</span><span class="op">,</span>name<span class="op">);</span></span>
-            <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="bu">NameValuePair</span> pwdParam <span class="op">=</span> <span class="kw">new</span> <span class="bu">NameValuePair</span><span class="op">(</span><span class="st">"psssword"</span><span class="op">,</span>pwd<span class="op">);</span></span>
-            <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>method<span class="op">.</span><span class="fu">setRequestBody</span><span class="op">(</span><span class="kw">new</span> <span class="bu">NameValuePair</span><span class="op">[]{</span>nameParam<span class="op">,</span>pwdParam<span class="op">});</span></span>
-            <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>method<span class="op">.</span><span class="fu">setDoAuthentication</span><span class="op">(</span><span class="kw">false</span><span class="op">);</span></span>
-            <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> statusCode <span class="op">=</span> client<span class="op">.</span><span class="fu">executeMethod</span><span class="op">(</span>method<span class="op">);</span></span>
-            <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span><span class="op">(</span>statusCode<span class="op">==-</span><span class="dv">1</span><span class="op">)</span></span>
-            <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-            <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="cf">throw</span> <span class="kw">new</span> <span class="bu">Exception</span><span class="op">(</span><span class="st">"[Post method execute Exception Failed!]"</span><span class="op">;</span></span>
-            <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-            <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">//get Response info</span></span>
-            <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="bu">InputStream</span> ins <span class="op">=</span> method<span class="op">.</span><span class="fu">getResponseBodyAsStream</span><span class="op">();</span></span>
-            <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="bu">BufferedReader</span> in <span class="op">=</span> <span class="kw">new</span> <span class="bu">BufferedReader</span><span class="op">(</span><span class="kw">new</span> <span class="bu">InputStreamReader</span><span class="op">(</span>ins<span class="op">));</span></span>
-            <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="bu">StringBuffer</span> resultBuffer <span class="op">=</span> <span class="kw">new</span> <span class="bu">StringBuffer</span><span class="op">();</span></span>
-            <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> line<span class="op">;</span></span>
-            <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span><span class="op">((</span>line <span class="op">=</span> in<span class="op">.</span><span class="fu">readLine</span><span class="op">())!=</span><span class="kw">null</span><span class="op">)</span></span>
-            <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-            <span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>resultBuffer<span class="op">.</span><span class="fu">append</span><span class="op">(</span>line<span class="op">);</span></span>
-            <span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-            <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>in<span class="op">.</span><span class="fu">close</span><span class="op">();</span></span>
-            <span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>ins<span class="op">.</span><span class="fu">close</span><span class="op">();</span></span>
-            <span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>method<span class="op">.</span><span class="fu">releaseConnection</span><span class="op">();</span></span></code></pre>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>Protocol<span class="op">.</span><span class="fu">registerProtocol</span><span class="op">(</span><span class="st">"https"</span><span class="op">,</span>myhttps<span class="op">);</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>HttpClient client <span class="op">=</span> <span class="kw">new</span> <span class="fu">HttpClient</span><span class="op">();</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>client<span class="op">.</span><span class="fu">getHostConfiguration</span><span class="op">().</span><span class="fu">setHost</span><span class="op">(</span><span class="st">"127.0.0.1"</span><span class="op">,</span> <span class="dv">8443</span><span class="op">,</span> myhttps<span class="op">);</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>PostMethod method <span class="op">=</span> <span class="kw">new</span> <span class="fu">PostMethod</span><span class="op">(</span><span class="st">"/examples/basic/servlet/UserAuthServlet"</span><span class="op">;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">//PostMethod method = new PostMethod("::URL::http://localhost:8080/examples/basic/servlet/UserAuthServlet" ;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="bu">NameValuePair</span> nameParam <span class="op">=</span> <span class="kw">new</span> <span class="bu">NameValuePair</span><span class="op">(</span><span class="st">"username"</span><span class="op">,</span>name<span class="op">);</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="bu">NameValuePair</span> pwdParam <span class="op">=</span> <span class="kw">new</span> <span class="bu">NameValuePair</span><span class="op">(</span><span class="st">"psssword"</span><span class="op">,</span>pwd<span class="op">);</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>method<span class="op">.</span><span class="fu">setRequestBody</span><span class="op">(</span><span class="kw">new</span> <span class="bu">NameValuePair</span><span class="op">[]{</span>nameParam<span class="op">,</span>pwdParam<span class="op">});</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>method<span class="op">.</span><span class="fu">setDoAuthentication</span><span class="op">(</span><span class="kw">false</span><span class="op">);</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> statusCode <span class="op">=</span> client<span class="op">.</span><span class="fu">executeMethod</span><span class="op">(</span>method<span class="op">);</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span><span class="op">(</span>statusCode<span class="op">==-</span><span class="dv">1</span><span class="op">)</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="cf">throw</span> <span class="kw">new</span> <span class="bu">Exception</span><span class="op">(</span><span class="st">"[Post method execute Exception Failed!]"</span><span class="op">;</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">//get Response info</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="bu">InputStream</span> ins <span class="op">=</span> method<span class="op">.</span><span class="fu">getResponseBodyAsStream</span><span class="op">();</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="bu">BufferedReader</span> in <span class="op">=</span> <span class="kw">new</span> <span class="bu">BufferedReader</span><span class="op">(</span><span class="kw">new</span> <span class="bu">InputStreamReader</span><span class="op">(</span>ins<span class="op">));</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="bu">StringBuffer</span> resultBuffer <span class="op">=</span> <span class="kw">new</span> <span class="bu">StringBuffer</span><span class="op">();</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> line<span class="op">;</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span><span class="op">((</span>line <span class="op">=</span> in<span class="op">.</span><span class="fu">readLine</span><span class="op">())!=</span><span class="kw">null</span><span class="op">)</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>resultBuffer<span class="op">.</span><span class="fu">append</span><span class="op">(</span>line<span class="op">);</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>in<span class="op">.</span><span class="fu">close</span><span class="op">();</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>ins<span class="op">.</span><span class="fu">close</span><span class="op">();</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>method<span class="op">.</span><span class="fu">releaseConnection</span><span class="op">();</span></span></code></pre>
      </div> 
      <p>OK，先写这些，以后有时间将对SSL以及java security方面进行更多阐述。</p> 
      <hr> 
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2021-05-20-marketing-and-customer-view-first.html">客户视角、业务类比与脑暴 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2009-05-24-next-stop-hangzhou.html">奔向下一站… </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2013-05-13-scala-for-the-impatient-note.html">《Scala For The Impatient》琐碎记录 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2009-06-05-springframework-gotchas-and-tips.html">Spring使用中的陷阱和诀窍（Spring Gochas and Tips） </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2017-09-05-how-to-run-startup-wisely.html">How To Run A Startup Wisely </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2023-09-15-chuerfaner.html">出尔反尔的人性 </a> 
       </div> 
      </div> 
      <hr> 

@@ -16,8 +16,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -94,7 +96,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -178,87 +179,87 @@
      <h1 id="基本命令">基本命令</h1> 
      <div class="sourceCode" id="cb1">
       <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> tmux  // 新建匿名session</span>
-            <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> tmux new <span class="at">-s</span> [session name] // 新建命名session</span>
-            <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> tmux list-sessions</span>
-            <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> tmux detach // 脱离当前session</span>
-            <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> tmux attach <span class="at">-t</span> [session name]  // 重新attach到某个session</span>
-            <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> tmux kill-session <span class="at">-t</span> [session]  // 杀掉某个指定的session</span>
-            <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> tmux kill-server //杀掉后台所有session</span></code></pre>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> tmux new <span class="at">-s</span> [session name] // 新建命名session</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> tmux list-sessions</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> tmux detach // 脱离当前session</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> tmux attach <span class="at">-t</span> [session name]  // 重新attach到某个session</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> tmux kill-session <span class="at">-t</span> [session]  // 杀掉某个指定的session</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> tmux kill-server //杀掉后台所有session</span></code></pre>
      </div> 
      <p>Prefix快捷键默认是Control + b， 在Mac下，我们通过更改~/.tmux.conf，将其更改为Control + a:</p> 
-     <pre>            # improve colors
-            set -g default-terminal "screen-256color"
+     <pre># improve colors
+set -g default-terminal "screen-256color"
 
-            # act like GNU screen
-            unbind C-b
-            set -g prefix C-a
-            bind-key C-a send-prefix
-            </pre> 
+# act like GNU screen
+unbind C-b
+set -g prefix C-a
+bind-key C-a send-prefix
+</pre> 
      <p>Prefix快捷键的使用是， 首先按Prefix快捷键组合，然后松开，再紧跟着按相应命令的快捷键， 比如， 新建窗口的话，我们先按Control + a, 然后再按c，则完成在当前session下创建窗口的工作， 其它窗口(Window)操作包括：</p> 
      <div class="sourceCode" id="cb2">
       <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> Ctrl + a, c   // 创建窗口</span>
-            <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> Ctrl + a, [0 <span class="at">-</span> 9] // 输入0到9任何一个数字选择相应的窗口， 相当于命令tmux select-window </span>
-            <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> Ctrl + a, %       // 分割split窗口为多个pane</span>
-            <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> Ctrl + a, ← <span class="kw">|</span> <span class="ex">→</span>   // 从窗口的pane跳到左边或者右边的pane</span></code></pre>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> Ctrl + a, [0 <span class="at">-</span> 9] // 输入0到9任何一个数字选择相应的窗口， 相当于命令tmux select-window </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> Ctrl + a, %       // 分割split窗口为多个pane</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> Ctrl + a, ← <span class="kw">|</span> <span class="ex">→</span>   // 从窗口的pane跳到左边或者右边的pane</span></code></pre>
      </div> 
      <h1 id="拷贝模式">拷贝模式</h1> 
      <p><code>Ctrl + a, [</code>进入拷贝模式， 敲空格开始拷贝，回车结束拷贝， 敲<code>Ctrl + a, ]</code>退出拷贝模式。</p> 
      <h1 id="say-goodbye-to-nohup">Say Goodbye to nohup &amp;</h1> 
      <p>在服务器上安装tmux之后， 本地ssh登陆上去执行tmux，然后随便创建Window或者Pane， 甚至detach或者直接关掉命令行， 运行的进程和session状态将持续在后台的tmux server上运行。</p> 
      <h1 id="cheatsheet">Cheatsheet</h1> 
-     <pre>            tmux -- terminal multiplexer
+     <pre>tmux -- terminal multiplexer
 
-            Managing tmux sessions:
-            $ tmux      # start tmux server
-            $ tmux at   # attach running sessions to a terminal
-            $ tmux ls   # list running tmux sessions
-            $ exit      # close tmux session
+Managing tmux sessions:
+$ tmux      # start tmux server
+$ tmux at   # attach running sessions to a terminal
+$ tmux ls   # list running tmux sessions
+$ exit      # close tmux session
 
-            Sharing sessions between terminals:
-            $ tmux new -s session_name # make new named session
-            $ tmux at -t session_name  # attach to exist session (allowing shared sessions)
-            $ tmux kill-session -t session_name  # kill named session
+Sharing sessions between terminals:
+$ tmux new -s session_name # make new named session
+$ tmux at -t session_name  # attach to exist session (allowing shared sessions)
+$ tmux kill-session -t session_name  # kill named session
 
-            Commands (used within a running tmux session):
+Commands (used within a running tmux session):
 
-            NOTE: All commands need to be prefixed with the action key.
-                  By default, this is CTRL-b
+NOTE: All commands need to be prefixed with the action key.
+      By default, this is CTRL-b
 
-             c  - create new window
-            n/p - move to next/previous window
-            0-9 - move to window number 0-9
-             f  - find window by name
-             w  - menu with all windows
-             &amp;  - kill current window
-             ,  - rename window
+ c  - create new window
+n/p - move to next/previous window
+0-9 - move to window number 0-9
+ f  - find window by name
+ w  - menu with all windows
+ &amp;  - kill current window
+ ,  - rename window
 
-             %  - split window, adding a vertical pane to the right
-             "  - split window, adding an horizontal pane below
-            ←/→ - move focus to left/right pane
-            ↑/↓ - move focus to upper/lower pane
+ %  - split window, adding a vertical pane to the right
+ "  - split window, adding an horizontal pane below
+←/→ - move focus to left/right pane
+↑/↓ - move focus to upper/lower pane
 
-             !  - Break current pane into new window
-             x  - Kill the current pane.
-             d  - detach the current client
+ !  - Break current pane into new window
+ x  - Kill the current pane.
+ d  - detach the current client
 
-             [  - enter copy mode (then use emacs select/yank keys)
-                  * press CTRL-SPACE or CTRL-@ to start selecting text
-                  * move cursor to end of desired text
-                  * press ALT-w to copy selected text
+ [  - enter copy mode (then use emacs select/yank keys)
+      * press CTRL-SPACE or CTRL-@ to start selecting text
+      * move cursor to end of desired text
+      * press ALT-w to copy selected text
 
-             ]  - paste copied text
+ ]  - paste copied text
 
-             ?  - show tmux key bindings
-            </pre> 
+ ?  - show tmux key bindings
+</pre> 
      <hr> 
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2018-12-28-my_review_points_of_startups.html">2017</a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2017-09-24-traps-in-wedding-industry.html">婚庆怪相背后的个人思考 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2011-05-31-multiple_mysql_slaves_with_same_serverid.html">mysql多个slave使用同一个server id会怎样？ </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2005-00-00-currency-format-in-poi.html">有关POI中对货币格式化的支持问题 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2012-07-31-add-tools-jar-to-sbt-compile-path.html">将tools.jar添加到sbt编译期classpath中 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2023-03-12-play-with-raycast.html">从Quicksilver到Alfred再到Raycast </a> 
       </div> 
      </div> 
      <hr> 

@@ -16,8 +16,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -29,7 +31,6 @@
             display:inline;
         }
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -115,16 +116,16 @@
      <p>照我说，tmd就是一个可以针对多台机器执行命令的工具，作为国王的你（控制机），只要发号施令， 命令就可以分发到你的子民（目标机）那里执行啦！ 至于这个过程中， 授权啦， 通信信道啦， 各种细节，就是ansible帮助打理的地方了，具体有哪些细节值得称道，我们后面慢慢道来…</p> 
      <h1 id="安装how-to-install">安装(How to install)</h1> 
      <p>哥用的是mac， 有homebrew这个神器，所以，最简单的安装方法就是：</p> 
-     <pre>            $ brew install ansible
-            </pre> 
+     <pre>$ brew install ansible
+</pre> 
      <blockquote> 
       <p>如果安装过程中出现错误，比如什么东西下载失败之类，请翻墙后再试。</p> 
      </blockquote> 
      <p>如果想要玩的超前一些(on the blooding edge), 可以直接：</p> 
-     <pre>            $ git clone git://github.com/ansible/ansible.git
-            $ cd ./ansible
-            $ source ./hacking/env-setup
-            </pre> 
+     <pre>$ git clone git://github.com/ansible/ansible.git
+$ cd ./ansible
+$ source ./hacking/env-setup
+</pre> 
      <p>更多细节参考<a href="http://docs.ansible.com/intro_installation.html" class="uri">http://docs.ansible.com/intro_installation.html</a>, 不扯那么多了~</p> 
      <p>装完了，设置<strong>ANSIBLE_HOSTS</strong>环境变量， 让它指向某个配置文件（叫inventory file）<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, 其中将配置目标机器等各种信息，详情后述…</p> 
      <blockquote> 
@@ -132,28 +133,28 @@
      </blockquote> 
      <h1 id="大体上的系统结构a-big-picture-of-ansible">大体上的系统结构(A Big Picture Of Ansible)</h1> 
      <p>一台操作机，直接通过ssh控制一组目标服务器， 目标服务器地址通过ansible的hosts文件内容指定。</p> 
-     <pre>                                         +---------------------+
-                                         |       目标机器      |
-                                      /  +---------------------+
-                                     / 
-            +-----------------+     /    +---------------------+
-            | control machine |     -----|       目标机器      |
-            +-----------------+     \    +---------------------+
-                                     \
-                                      \  +---------------------+
-                                         |       目标机器      |
-                                         +---------------------+
-            </pre> 
+     <pre>                             +---------------------+
+                             |       目标机器      |
+                          /  +---------------------+
+                         / 
++-----------------+     /    +---------------------+
+| control machine |     -----|       目标机器      |
++-----------------+     \    +---------------------+
+                         \
+                          \  +---------------------+
+                             |       目标机器      |
+                             +---------------------+
+</pre> 
      <p>raw和script模块可以直接允许在目标机器上执行命令和脚本</p> 
      <h1 id="命令格式how-to-cast-an-ansible-command">命令格式(How to cast an ansible command)</h1> 
-     <pre>            $ ansible all -a "/usr/bin/foo" -u username  --sudo // ansible [pattern] -m [module] -a [argument] -u [user]
-            $ ansible webservers -m git -a "repo=git://foo.example.org/repo.git dest=/srv/myapp version=HEAD"
-            </pre> 例如: 
-     <pre>            $ ansible all -m ping                                          // use current user
-            $ ansible all -m ping -u bruce                                 // as bruce
-            $ ansible all -m ping -u bruce --sudo                          // as bruce, sudoing to root
-            $ ansible all -m ping -u bruce --sudo --sudo-user batman       // as bruce, sudoing to batman   
-            </pre> 
+     <pre>$ ansible all -a "/usr/bin/foo" -u username  --sudo // ansible [pattern] -m [module] -a [argument] -u [user]
+$ ansible webservers -m git -a "repo=git://foo.example.org/repo.git dest=/srv/myapp version=HEAD"
+</pre> 例如: 
+     <pre>$ ansible all -m ping                                          // use current user
+$ ansible all -m ping -u bruce                                 // as bruce
+$ ansible all -m ping -u bruce --sudo                          // as bruce, sudoing to root
+$ ansible all -m ping -u bruce --sudo --sudo-user batman       // as bruce, sudoing to batman   
+</pre> 
      <h2 id="执行一些临时命令ad-hoc-commands">执行一些临时命令(Ad-hoc Commands <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>)</h2> 
      <p><a href="http://docs.ansible.com/intro_adhoc.html" class="uri">http://docs.ansible.com/intro_adhoc.html</a></p> 
      <h2 id="常见modules">常见Modules</h2> 
@@ -216,103 +217,103 @@
       <p>所有plays和tasks按照严格的顺序执行！</p> 
      </blockquote> 
      <p>下面是一个只有一个play的playbook实例：</p> 
-     <pre>            ---
-            - hosts: webservers
-              vars:
-                http_port: 80
-                max_clients: 200
-              remote_user: root
-              tasks:
-              - name: ensure apache is at the latest version
-                yum: pkg=httpd state=latest
-              - name: write the apache config file
-                template: src=/srv/httpd.j2 dest=/etc/httpd.conf
-                notify:
-                - restart apache
-              - name: ensure apache is running
-                service: name=httpd state=started
-              handlers:
-                - name: restart apache
-                  service: name=httpd state=restarted
-            </pre> 
+     <pre>---
+- hosts: webservers
+  vars:
+    http_port: 80
+    max_clients: 200
+  remote_user: root
+  tasks:
+  - name: ensure apache is at the latest version
+    yum: pkg=httpd state=latest
+  - name: write the apache config file
+    template: src=/srv/httpd.j2 dest=/etc/httpd.conf
+    notify:
+    - restart apache
+  - name: ensure apache is running
+    service: name=httpd state=started
+  handlers:
+    - name: restart apache
+      service: name=httpd state=restarted
+</pre> 
      <p>内容涵盖了要针对哪些hosts做操作， 定义了哪些变量， 以什么用户执行， tasks有哪些以及handlers有哪些。</p> 
-     <pre>            ---
-            - hosts: webservers
-              remote_user: yourname
-              sudo: yes
-              sudo_user: postgres
-            </pre> 
+     <pre>---
+- hosts: webservers
+  remote_user: yourname
+  sudo: yes
+  sudo_user: postgres
+</pre> 
      <p>其中， remote_user, sudo等可以存在于play和task两种scope当中。</p> 
      <blockquote> 
       <p>执行sudo的时候，最好通过命令行指定–ask-sudo-pass参数，否则很可能整个执行过程被挂住(Hang)</p> 
      </blockquote> 
      <h3 id="handlersrunning-operations-on-change">Handlers:Running Operations On Change</h3> 如果要根据流程中的某些变更做出相应的行为， 可以使用handlers， 即通过定义notify这个action来捕捉事件并做出相应的反应: 
-     <pre>            - name: template configuration file
-              template: src=template.j2 dest=/etc/foo.conf
-              notify:
-                 - restart memcached
-                 - restart apache
-            </pre> 
+     <pre>- name: template configuration file
+  template: src=template.j2 dest=/etc/foo.conf
+  notify:
+     - restart memcached
+     - restart apache
+</pre> 
      <p>here is an example of restarting two services when the contents of a file change, but only if the file changes, The things listed in the ‘notify’ section of a task are called handlers.</p> 
      <h2 id="执行playbook">执行Playbook</h2> Playbook的执行与Ad-hoc Command的执行不同， 后者使用<code>ansible</code>命令， 而Playbook则使用<code>ansible-playbook</code>命令： 
-     <pre>            $ ansible-playbook playbook.yml -f 10
-            </pre> 
+     <pre>$ ansible-playbook playbook.yml -f 10
+</pre> 
      <p><code>-f 10</code>表示并行度， 即同样一份playbook，在目标机器集群中一次同时在多少台目标机上执行。</p> 
      <blockquote> 
       <p>如果想事先了解执行某个playbook会影响到哪些目标机，可以执行: <code>ansible-playbook playbook.yml --list-hosts</code></p> 
      </blockquote> 
      <h2 id="roles">Roles</h2> 
      <p>Roles的概念其实就是组织一系列的tasks啦， handlers啦， vars啦等等到一个以目录为结构实体的组件之中， playbooks可以引用它们。</p> 比如，某项目目录如下: 
-     <pre>            site.yml
-            webservers.yml
-            fooservers.yml
-            roles/
-               common/
-                 files/
-                 templates/
-                 tasks/
-                 handlers/
-                 vars/
-                 meta/
-               webservers/
-                 files/
-                 templates/
-                 tasks/
-                 handlers/
-                 vars/
-                 meta/
-            </pre> 那么，在某个playbook中，比如site.yml, 可能内容是： 
-     <pre>            ---
-            - hosts: webservers
-              roles:
-                 - common
-                 - webservers
-            </pre> 另外，我们还可以在roles前后执行相应的tasks: 
-     <pre>            ---
+     <pre>site.yml
+webservers.yml
+fooservers.yml
+roles/
+   common/
+     files/
+     templates/
+     tasks/
+     handlers/
+     vars/
+     meta/
+   webservers/
+     files/
+     templates/
+     tasks/
+     handlers/
+     vars/
+     meta/
+</pre> 那么，在某个playbook中，比如site.yml, 可能内容是： 
+     <pre>---
+- hosts: webservers
+  roles:
+     - common
+     - webservers
+</pre> 另外，我们还可以在roles前后执行相应的tasks: 
+     <pre>---
 
-            - hosts: webservers
+- hosts: webservers
 
-              pre_tasks:
-                - shell: echo 'hello'
+  pre_tasks:
+    - shell: echo 'hello'
 
-              roles:
-                - { role: some_role }
+  roles:
+    - { role: some_role }
 
-              tasks:
-                - shell: echo 'still busy'
+  tasks:
+    - shell: echo 'still busy'
 
-              post_tasks:
-                - shell: echo 'goodbye'
-            </pre> 
+  post_tasks:
+    - shell: echo 'goodbye'
+</pre> 
      <p>更多Roles或者Playbook实例可以参考<a href="http://galaxy.ansible.com/" class="uri">http://galaxy.ansible.com/</a>, Ansible Galaxy收录了很多社区贡献的playbooks。</p> 
      <h2 id="vars-conditions-loops">Vars, Conditions, Loops…</h2> 
      <p>写过程序的应该不会陌生啦， 不用废啥嘴皮子了， 基本上是把可以写程序实现的逻辑，改成配置文件里的表达式匹配。</p> 
      <p>具体细节参考ansible文档</p> 
      <h2 id="最佳实践">最佳实践</h2> 
      <h3 id="灰度发布">灰度发布</h3> 
-     <pre>            ansible-playbook -i production webservers.yml --limit boston[0-10]
-            ansible-playbook -i production webservers.yml --limit boston[10-20]
-            </pre> 
+     <pre>ansible-playbook -i production webservers.yml --limit boston[0-10]
+ansible-playbook -i production webservers.yml --limit boston[10-20]
+</pre> 
      <h1 id="总结">总结</h1> 
      <p>即使是使用ansible， 像如何管理部署流程， 如何结合配置和流程， 如何控制发布进度， 如何监控发布情况等等， 依然需要在此基础上进行开发， 这也就是ansible公司又搞了个Ansible Tower的原因，也是很多公司愿意自己开发配置和部署平台的原因。</p> 
      <p>对于中小企业来说，或许使用现成的工具就可以了，像我大BAT， 基本上都有自己的配置部署平台吧！</p> 
@@ -342,11 +343,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2023-06-20-jte3.html">借着Jte发新版，介绍下AI学堂背后的技术栈吧！ </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2023-06-20-ali-reorg.html">啥？阿里巴巴又做组织结构调整了？！ </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2010-06-28-cars-in-back-mirror.html">后视镜中的车流</a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2016-01-30-the-team-I-would-like-to-dedicate.html">我所希望并为之奋斗的团队 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2021-03-10-frontend-potential-trends-in-2021.html">2021年几个值得关注的小众前端技术趋势 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2007-10-09-before-going-home.html">回家之前 </a> 
       </div> 
      </div> 
      <hr> 

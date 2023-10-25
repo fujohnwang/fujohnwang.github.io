@@ -16,8 +16,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -94,7 +96,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -183,39 +184,39 @@
      <p>不过，如果不在Perspective先行指定要打开的view所在位置的话，RCP应该不会知道你想让他帮你把该View放到什么位置，所以，我们还需要在Perspective中指定View的位置：</p> 
      <div class="sourceCode" id="cb1">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>layout<span class="op">.</span><span class="fu">createPlaceholderFolder</span><span class="op">(</span><span class="st">"panelFolder"</span><span class="op">,</span>IPageLayout<span class="op">.</span><span class="fu">TOP</span><span class="op">,</span>IPageLayout<span class="op">.</span><span class="fu">NULL_RATIO</span><span class="op">,</span>layout<span class="op">.</span><span class="fu">getEditorArea</span><span class="op">()).</span><span class="fu">addPlaceholder</span><span class="op">(</span>AdministrationView<span class="op">.</span><span class="fu">ID</span><span class="op">);</span> </span>
-            <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">(</span>Perspective<span class="op">.</span><span class="fu">java</span><span class="op">)</span></span></code></pre>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">(</span>Perspective<span class="op">.</span><span class="fu">java</span><span class="op">)</span></span></code></pre>
      </div> 
      <h1 id="how-to-add-widget-onto-table-cell">How to Add Widget onto Table Cell</h1> 
      <div class="sourceCode" id="cb2">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Table table <span class="op">=</span> <span class="kw">new</span> <span class="fu">Table</span><span class="op">(</span>top<span class="op">,</span> SWT<span class="op">.</span><span class="fu">NONE</span><span class="op">);</span></span>
-            <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>table<span class="op">.</span><span class="fu">setHeaderVisible</span><span class="op">(</span><span class="kw">true</span><span class="op">);</span></span>
-            <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>table<span class="op">.</span><span class="fu">setLinesVisible</span><span class="op">(</span><span class="kw">true</span><span class="op">);</span></span>
-            <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>table<span class="op">.</span><span class="fu">setBounds</span><span class="op">(</span><span class="kw">new</span> org<span class="op">.</span><span class="fu">eclipse</span><span class="op">.</span><span class="fu">swt</span><span class="op">.</span><span class="fu">graphics</span><span class="op">.</span><span class="fu">Rectangle</span><span class="op">(</span><span class="dv">47</span><span class="op">,</span><span class="dv">67</span><span class="op">,</span><span class="dv">190</span><span class="op">,</span><span class="dv">70</span><span class="op">));</span></span>
-            <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="bu">TableColumn</span> tableColumn <span class="op">=</span> <span class="kw">new</span> <span class="bu">TableColumn</span><span class="op">(</span>table<span class="op">,</span> SWT<span class="op">.</span><span class="fu">NONE</span><span class="op">);</span></span>
-            <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>tableColumn<span class="op">.</span><span class="fu">setWidth</span><span class="op">(</span><span class="dv">100</span><span class="op">);</span></span>
-            <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>tableColumn<span class="op">.</span><span class="fu">setText</span><span class="op">(</span><span class="st">"Check Column"</span><span class="op">);</span></span>
-            <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="bu">TableColumn</span> tableColumn1 <span class="op">=</span> <span class="kw">new</span> <span class="bu">TableColumn</span><span class="op">(</span>table<span class="op">,</span> SWT<span class="op">.</span><span class="fu">NONE</span><span class="op">);</span></span>
-            <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>tableColumn1<span class="op">.</span><span class="fu">setWidth</span><span class="op">(</span><span class="dv">100</span><span class="op">);</span></span>
-            <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>tableColumn1<span class="op">.</span><span class="fu">setText</span><span class="op">(</span><span class="st">"Combo Column"</span><span class="op">);</span></span>
-            <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>TableItem tableItem<span class="op">=</span><span class="kw">new</span> <span class="fu">TableItem</span><span class="op">(</span>table<span class="op">,</span>SWT<span class="op">.</span><span class="fu">NONE</span><span class="op">);</span></span>
-            <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>TableEditor editor <span class="op">=</span> <span class="kw">new</span> <span class="fu">TableEditor</span> <span class="op">(</span>table<span class="op">);</span></span>
-            <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="bu">Button</span> checkButton <span class="op">=</span> <span class="kw">new</span> <span class="bu">Button</span><span class="op">(</span>table<span class="op">,</span> SWT<span class="op">.</span><span class="fu">CHECK</span><span class="op">);</span></span>
-            <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>checkButton<span class="op">.</span><span class="fu">pack</span><span class="op">();</span></span>
-            <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>editor<span class="op">.</span><span class="fu">minimumWidth</span> <span class="op">=</span> checkButton<span class="op">.</span><span class="fu">getSize</span> <span class="op">().</span><span class="fu">x</span><span class="op">;</span></span>
-            <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>editor<span class="op">.</span><span class="fu">horizontalAlignment</span> <span class="op">=</span> SWT<span class="op">.</span><span class="fu">CENTER</span><span class="op">;</span></span>
-            <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>editor<span class="op">.</span><span class="fu">setEditor</span><span class="op">(</span>checkButton<span class="op">,</span> tableItem<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
-            <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>editor <span class="op">=</span> <span class="kw">new</span> <span class="fu">TableEditor</span> <span class="op">(</span>table<span class="op">);</span></span>
-            <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>Combo combo <span class="op">=</span> <span class="kw">new</span> <span class="fu">Combo</span><span class="op">(</span>table<span class="op">,</span> SWT<span class="op">.</span><span class="fu">CHECK</span><span class="op">);</span></span>
-            <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>combo<span class="op">.</span><span class="fu">pack</span><span class="op">();</span></span>
-            <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>editor<span class="op">.</span><span class="fu">minimumWidth</span> <span class="op">=</span> combo<span class="op">.</span><span class="fu">getSize</span> <span class="op">().</span><span class="fu">x</span><span class="op">;</span></span>
-            <span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>editor<span class="op">.</span><span class="fu">horizontalAlignment</span> <span class="op">=</span> SWT<span class="op">.</span><span class="fu">CENTER</span><span class="op">;</span></span>
-            <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>editor<span class="op">.</span><span class="fu">setEditor</span><span class="op">(</span>combo<span class="op">,</span> tableItem<span class="op">,</span> <span class="dv">1</span><span class="op">);</span></span></code></pre>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>table<span class="op">.</span><span class="fu">setHeaderVisible</span><span class="op">(</span><span class="kw">true</span><span class="op">);</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>table<span class="op">.</span><span class="fu">setLinesVisible</span><span class="op">(</span><span class="kw">true</span><span class="op">);</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>table<span class="op">.</span><span class="fu">setBounds</span><span class="op">(</span><span class="kw">new</span> org<span class="op">.</span><span class="fu">eclipse</span><span class="op">.</span><span class="fu">swt</span><span class="op">.</span><span class="fu">graphics</span><span class="op">.</span><span class="fu">Rectangle</span><span class="op">(</span><span class="dv">47</span><span class="op">,</span><span class="dv">67</span><span class="op">,</span><span class="dv">190</span><span class="op">,</span><span class="dv">70</span><span class="op">));</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="bu">TableColumn</span> tableColumn <span class="op">=</span> <span class="kw">new</span> <span class="bu">TableColumn</span><span class="op">(</span>table<span class="op">,</span> SWT<span class="op">.</span><span class="fu">NONE</span><span class="op">);</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>tableColumn<span class="op">.</span><span class="fu">setWidth</span><span class="op">(</span><span class="dv">100</span><span class="op">);</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>tableColumn<span class="op">.</span><span class="fu">setText</span><span class="op">(</span><span class="st">"Check Column"</span><span class="op">);</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="bu">TableColumn</span> tableColumn1 <span class="op">=</span> <span class="kw">new</span> <span class="bu">TableColumn</span><span class="op">(</span>table<span class="op">,</span> SWT<span class="op">.</span><span class="fu">NONE</span><span class="op">);</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>tableColumn1<span class="op">.</span><span class="fu">setWidth</span><span class="op">(</span><span class="dv">100</span><span class="op">);</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>tableColumn1<span class="op">.</span><span class="fu">setText</span><span class="op">(</span><span class="st">"Combo Column"</span><span class="op">);</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>TableItem tableItem<span class="op">=</span><span class="kw">new</span> <span class="fu">TableItem</span><span class="op">(</span>table<span class="op">,</span>SWT<span class="op">.</span><span class="fu">NONE</span><span class="op">);</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>TableEditor editor <span class="op">=</span> <span class="kw">new</span> <span class="fu">TableEditor</span> <span class="op">(</span>table<span class="op">);</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="bu">Button</span> checkButton <span class="op">=</span> <span class="kw">new</span> <span class="bu">Button</span><span class="op">(</span>table<span class="op">,</span> SWT<span class="op">.</span><span class="fu">CHECK</span><span class="op">);</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>checkButton<span class="op">.</span><span class="fu">pack</span><span class="op">();</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>editor<span class="op">.</span><span class="fu">minimumWidth</span> <span class="op">=</span> checkButton<span class="op">.</span><span class="fu">getSize</span> <span class="op">().</span><span class="fu">x</span><span class="op">;</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>editor<span class="op">.</span><span class="fu">horizontalAlignment</span> <span class="op">=</span> SWT<span class="op">.</span><span class="fu">CENTER</span><span class="op">;</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>editor<span class="op">.</span><span class="fu">setEditor</span><span class="op">(</span>checkButton<span class="op">,</span> tableItem<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>editor <span class="op">=</span> <span class="kw">new</span> <span class="fu">TableEditor</span> <span class="op">(</span>table<span class="op">);</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>Combo combo <span class="op">=</span> <span class="kw">new</span> <span class="fu">Combo</span><span class="op">(</span>table<span class="op">,</span> SWT<span class="op">.</span><span class="fu">CHECK</span><span class="op">);</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>combo<span class="op">.</span><span class="fu">pack</span><span class="op">();</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>editor<span class="op">.</span><span class="fu">minimumWidth</span> <span class="op">=</span> combo<span class="op">.</span><span class="fu">getSize</span> <span class="op">().</span><span class="fu">x</span><span class="op">;</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>editor<span class="op">.</span><span class="fu">horizontalAlignment</span> <span class="op">=</span> SWT<span class="op">.</span><span class="fu">CENTER</span><span class="op">;</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>editor<span class="op">.</span><span class="fu">setEditor</span><span class="op">(</span>combo<span class="op">,</span> tableItem<span class="op">,</span> <span class="dv">1</span><span class="op">);</span></span></code></pre>
      </div> 
      <h1 id="how-to-get-the-shell-reference-from-viewpart">How to get the Shell reference from ViewPart?!</h1> 
      <p><code>viewPart.getViewSite().getShell()</code></p> 
@@ -225,36 +226,36 @@
      <p>在RCP的product配置文件中(注意preferenceCustomization属性):</p> 
      <div class="sourceCode" id="cb3">
       <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">extension</span></span>
-            <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ot">         id=</span><span class="st">"product"</span></span>
-            <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ot">         point=</span><span class="st">"org.eclipse.core.runtime.products"</span>&gt;</span>
-            <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">product</span></span>
-            <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ot">            application=</span><span class="st">"cn.bestwiz.jhf.dealer.demo.application"</span></span>
-            <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ot">            name=</span><span class="st">"Dealer Demo"</span>&gt;</span>
-            <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>         &lt;<span class="kw">property</span></span>
-            <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="ot">               name=</span><span class="st">"windowImages"</span></span>
-            <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ot">               value=</span><span class="st">"/cn.bestwiz.jhf.dealer.demo/icons/letian.GIF"</span>/&gt;</span>
-            <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>         &lt;<span class="kw">property</span></span>
-            <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="ot">               name=</span><span class="st">"preferenceCustomization"</span></span>
-            <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="ot">               value=</span><span class="st">"plugin_customization.ini"</span>/&gt;</span>
-            <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">product</span>&gt;</span>
-            <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>   &lt;/<span class="kw">extension</span>&gt;</span></code></pre>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ot">         id=</span><span class="st">"product"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ot">         point=</span><span class="st">"org.eclipse.core.runtime.products"</span>&gt;</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">product</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ot">            application=</span><span class="st">"cn.bestwiz.jhf.dealer.demo.application"</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ot">            name=</span><span class="st">"Dealer Demo"</span>&gt;</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>         &lt;<span class="kw">property</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="ot">               name=</span><span class="st">"windowImages"</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ot">               value=</span><span class="st">"/cn.bestwiz.jhf.dealer.demo/icons/letian.GIF"</span>/&gt;</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>         &lt;<span class="kw">property</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="ot">               name=</span><span class="st">"preferenceCustomization"</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="ot">               value=</span><span class="st">"plugin_customization.ini"</span>/&gt;</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">product</span>&gt;</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>   &lt;/<span class="kw">extension</span>&gt;</span></code></pre>
      </div> 其中，plugin_customization.ini文件的内容类似于（注意SHOW_TRADITIONAL_STYLE_TABS属性）： 
-     <pre>            org.eclipse.ui/DOCK_PERSPECTIVE_BAR=topRight
-            org.eclipse.ui/SHOW_PROGRESS_ON_STARTUP=false
-            org.eclipse.ui/SHOW_TRADITIONAL_STYLE_TABS=false
-            org.eclipse.ui/defaultPerspectiveId=cn.bestwiz.jhf.dealerdesk.perspective
-            org.eclipse.update.core/org.eclipse.update.core.updateVersions=compatible
-            </pre> 
+     <pre>org.eclipse.ui/DOCK_PERSPECTIVE_BAR=topRight
+org.eclipse.ui/SHOW_PROGRESS_ON_STARTUP=false
+org.eclipse.ui/SHOW_TRADITIONAL_STYLE_TABS=false
+org.eclipse.ui/defaultPerspectiveId=cn.bestwiz.jhf.dealerdesk.perspective
+org.eclipse.update.core/org.eclipse.update.core.updateVersions=compatible
+</pre> 
      <p>OK,that’s all, if something new comes , append it later.</p> 
      <hr> 
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2011-10-05-how_to_write_a_sbt_plugin.html">How to write a SBT 0.10+ plugin? </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2014-03-09-it-is-all-about-energy.html">It’s all about energy </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2006-08-23-dyna-criteria-query-in-java.html">谈java中的动态条件查询（Dynamic Criteria Query In Java） </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2008-10-31-fucking-calm.html">心如止水 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2017-06-14-reposition-wechat-public-channel.html">扶墙老师说公众号要重新定位啦~~~ </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2023-05-23-latent_couple_course_is_available.html">Latent Couple与组合式生成 </a> 
       </div> 
      </div> 
      <hr> 

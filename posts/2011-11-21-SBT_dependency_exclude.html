@@ -17,8 +17,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -95,7 +97,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -178,49 +179,49 @@
      <p>在SBT的<a href="https://github.com/harrah/xsbt/wiki/Quick-Configuration-Examples">Quick Configuration Examples</a>最末尾发现个小惊喜：</p> 
      <div class="sourceCode" id="cb1">
       <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Exclude transitive dependencies, e.g., include log4j without including logging via jdmk, jmx, or jms.</span></span>
-            <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span></span>
-            <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="st">"log4j"</span> <span class="op">%</span> <span class="st">"log4j"</span> <span class="op">%</span> <span class="st">"1.2.15"</span> <span class="fu">excludeAll</span><span class="op">(</span></span>
-            <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ExclusionRule</span><span class="op">(</span>organization <span class="op">=</span> <span class="st">"com.sun.jdmk"</span><span class="op">),</span></span>
-            <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ExclusionRule</span><span class="op">(</span>organization <span class="op">=</span> <span class="st">"com.sun.jmx"</span><span class="op">),</span></span>
-            <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ExclusionRule</span><span class="op">(</span>organization <span class="op">=</span> <span class="st">"javax.jms"</span><span class="op">)</span></span>
-            <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">)</span></span></code></pre>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>libraryDependencies <span class="op">+=</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="st">"log4j"</span> <span class="op">%</span> <span class="st">"log4j"</span> <span class="op">%</span> <span class="st">"1.2.15"</span> <span class="fu">excludeAll</span><span class="op">(</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ExclusionRule</span><span class="op">(</span>organization <span class="op">=</span> <span class="st">"com.sun.jdmk"</span><span class="op">),</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ExclusionRule</span><span class="op">(</span>organization <span class="op">=</span> <span class="st">"com.sun.jmx"</span><span class="op">),</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ExclusionRule</span><span class="op">(</span>organization <span class="op">=</span> <span class="st">"javax.jms"</span><span class="op">)</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">)</span></span></code></pre>
      </div> 
      <p>称其为小惊喜是因为，这个功能可以帮我去掉看起来比较丑陋的inline ivy xml配置：</p> 
-     <pre>            ivyXML :=
-            &lt;dependencies&gt;
-            &lt;exclude module="junit"/&gt;
-            &lt;exclude module="activation"/&gt;
-            &lt;exclude module="jmxri"/&gt;
-            &lt;exclude module="jmxtools"/&gt;
-            &lt;exclude module="jms"/&gt;
-            &lt;exclude module="mail"/&gt;
-            &lt;/dependencies&gt;
-            </pre> 
+     <pre>ivyXML :=
+&lt;dependencies&gt;
+&lt;exclude module="junit"/&gt;
+&lt;exclude module="activation"/&gt;
+&lt;exclude module="jmxri"/&gt;
+&lt;exclude module="jmxtools"/&gt;
+&lt;exclude module="jms"/&gt;
+&lt;exclude module="mail"/&gt;
+&lt;/dependencies&gt;
+</pre> 
      <p>但试过时候发现，不行，老报ModuleId没有exclude或者excludeAll方法，我就纳闷了。查了0.10.x的代码，确实没有，　但我用的是0.11.0啊，查了代码，明明是有呀，擦，先不管，升级SBT到0.11.1再说，升级之后，果然OK，我了个去，查了github上代码的history，发现了证据：</p> 
      <pre>   
-            Sep 09, 2011
-             
-            Support for simple exclusion rules in inline dependencies 
-            …
-            This support excluding a library from the dependency tree for a given
-            set of `ExclusionRule`s. There are two ways to achieve this:
+Sep 09, 2011
+ 
+Support for simple exclusion rules in inline dependencies 
+…
+This support excluding a library from the dependency tree for a given
+set of `ExclusionRule`s. There are two ways to achieve this:
 
-            - Using `organization` and `name` pairs:
-            val dep = "org" % "name" % "version" exclude("commons-codec", "commons-codec") exclude("org.slf4j", "slf4j-log4j")
+- Using `organization` and `name` pairs:
+val dep = "org" % "name" % "version" exclude("commons-codec", "commons-codec") exclude("org.slf4j", "slf4j-log4j")
 
-            - Using `ExclusionRule`:
-            val dep = "org" % "name" % "version" excludeAll(ExclusionRule("commons-codec", "commons-codec"), ExclusionRule("org.slf4j", "slf4j-log4j"))
-            </pre> 
+- Using `ExclusionRule`:
+val dep = "org" % "name" % "version" excludeAll(ExclusionRule("commons-codec", "commons-codec"), ExclusionRule("org.slf4j", "slf4j-log4j"))
+</pre> 
      <p>好吧，就是这样子，大家想用特定于ModuleId的依赖排除，记得升级到0.11.1吧！</p> 
      <hr> 
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2008-09-08-let-go.html">放手 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2021-09-15-casual-programming.html">养身式编程 为哪般？ </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2008-03-21-suan-ming-xian-sheng.html">说有一位算卦的先生 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2013-04-06-reading-note-of-inside-the-black-box.html">《打开量化投资的黑箱》读书笔记 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2017-09-06-be-nice-to-your-staffs.html">对员工好的公司到底是死是活 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2023-03-06-proxy-openai.html">如何构建OpenAI API代理？ </a> 
       </div> 
      </div> 
      <hr> 

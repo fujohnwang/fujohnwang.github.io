@@ -16,8 +16,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -94,7 +96,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -178,70 +179,70 @@
      <p>作为本地xml数据库的一种，xindice遵循XML:DB API标准，给出了相当于Core Level 1水平的API功能实现。XML:DB API之相对于NXD（Native XML Database）来说，就相当于JDBC之相当于RDBMS。</p> 
      <p>通过xindice，我们可以通过他来保存xml文档数据，通过其提供的各种服务来对文档数据进行管理。其中，我们可以通过XPathQueryService服务来查询xml数据库中的xml文档数据，通过XUpdateQueryService服务来对xml进行更新，等等。</p> 
      <p>下面只是简单罗列一些XUpdateQueryService提供的XUpdate命令，处于时间考虑，如果有时间，可以写一些有关xindice本地xml数据库的更详细的文档，另外，developerworks网站有一篇说明xindice的介绍性质的文章，如要参考，可以search一下（在xml section）。</p> 
-     <pre>            [b]XUpdate Commands[/b]
-            xupdate:insert-before Inserts a new node in document order before the selected node
-            xupdate:insert-after Inserts a new node in document order after the selected node
-            xupdate:update Replaces all child nodes of the selected node with the specified nodes
-            xupdate:append Appends the specified node to the content of the selected node
-            xupdate:remove Remove the selected node
-            xupdate:rename Renames the selected node
-            xupdate:variable Defines a variable containing a node list that can be reused in later operations
+     <pre>[b]XUpdate Commands[/b]
+xupdate:insert-before Inserts a new node in document order before the selected node
+xupdate:insert-after Inserts a new node in document order after the selected node
+xupdate:update Replaces all child nodes of the selected node with the specified nodes
+xupdate:append Appends the specified node to the content of the selected node
+xupdate:remove Remove the selected node
+xupdate:rename Renames the selected node
+xupdate:variable Defines a variable containing a node list that can be reused in later operations
 
-            [b]XUpdate Node Construction [/b] 
-            xupdate:element Creates a new element in the document
-            xupdate:attribute Creates a new attribute node associated with an xupdate:element
-            xupdate:text Creates a text content node in the document
-            xupdate:processing-instruction Creates a processing instruction node in the document
-            xupdate:comment Creates a new comment node in the document
-            </pre> 
+[b]XUpdate Node Construction [/b] 
+xupdate:element Creates a new element in the document
+xupdate:attribute Creates a new attribute node associated with an xupdate:element
+xupdate:text Creates a text content node in the document
+xupdate:processing-instruction Creates a processing instruction node in the document
+xupdate:comment Creates a new comment node in the document
+</pre> 
      <p>下面是xindice提供的文档中给出的一个简单的XUpdate命令实例：</p> 
      <div class="sourceCode" id="cb1">
       <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Basic XUpdate Insert Command</span>
-            <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">xupdate:modifications</span><span class="ot"> version=</span><span class="st">"1.0"</span></span>
-            <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ot">        xmlns:xupdate=</span><span class="st">"http://www.xmldb.org/xupdate"</span>&gt;</span>
-            <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>   &lt;<span class="kw">xupdate:insert-after</span><span class="ot"> select=</span><span class="st">"/addresses/address[1]"</span> &gt;</span>
-            <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      </span>
-            <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">xupdate:element</span><span class="ot"> name=</span><span class="st">"address"</span>&gt;</span>
-            <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>         &lt;<span class="kw">xupdate:attribute</span><span class="ot"> name=</span><span class="st">"id"</span>&gt;2&lt;/<span class="kw">xupdate:attribute</span>&gt;</span>
-            <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>         &lt;<span class="kw">fullname</span>&gt;John Smith&lt;/<span class="kw">fullname</span>&gt;</span>
-            <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>         &lt;<span class="kw">born</span><span class="ot"> day=</span><span class="st">''</span><span class="er">2''</span><span class="ot"> month=</span><span class="st">''</span><span class="er">12''</span><span class="ot"> year=</span><span class="st">''</span><span class="er">1974''</span>/&gt;</span>
-            <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>         &lt;<span class="kw">country</span>&gt;Germany&lt;/<span class="kw">country</span>&gt;</span>
-            <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>     &lt;/<span class="kw">xupdate:element</span>&gt;</span>
-            <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>   &lt;/<span class="kw">xupdate:insert-after</span>&gt;</span>
-            <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">xupdate:modifications</span>&gt;</span></code></pre>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">xupdate:modifications</span><span class="ot"> version=</span><span class="st">"1.0"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ot">        xmlns:xupdate=</span><span class="st">"http://www.xmldb.org/xupdate"</span>&gt;</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>   &lt;<span class="kw">xupdate:insert-after</span><span class="ot"> select=</span><span class="st">"/addresses/address[1]"</span> &gt;</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">xupdate:element</span><span class="ot"> name=</span><span class="st">"address"</span>&gt;</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>         &lt;<span class="kw">xupdate:attribute</span><span class="ot"> name=</span><span class="st">"id"</span>&gt;2&lt;/<span class="kw">xupdate:attribute</span>&gt;</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>         &lt;<span class="kw">fullname</span>&gt;John Smith&lt;/<span class="kw">fullname</span>&gt;</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>         &lt;<span class="kw">born</span><span class="ot"> day=</span><span class="st">''</span><span class="er">2''</span><span class="ot"> month=</span><span class="st">''</span><span class="er">12''</span><span class="ot"> year=</span><span class="st">''</span><span class="er">1974''</span>/&gt;</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>         &lt;<span class="kw">country</span>&gt;Germany&lt;/<span class="kw">country</span>&gt;</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>     &lt;/<span class="kw">xupdate:element</span>&gt;</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>   &lt;/<span class="kw">xupdate:insert-after</span>&gt;</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">xupdate:modifications</span>&gt;</span></code></pre>
      </div> 
      <p>在程序中，可以通过以下类似代码调用该XUpdate命令对文档进行更新：</p> 
      <div class="sourceCode" id="cb2">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> xupdate <span class="op">=</span> 刚才的XUpdate命令内容；</span>
-            <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>XUpdateQueryService service <span class="op">=(</span>XUpdateQueryService<span class="op">)</span> col<span class="op">.</span><span class="fu">getService</span><span class="op">(</span><span class="st">"XUpdateQueryService"</span><span class="op">,</span> <span class="st">"1.0"</span><span class="op">);</span></span>
-            <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>service<span class="op">.</span><span class="fu">update</span><span class="op">(</span>xupdate<span class="op">);</span></span>
-            <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">...</span></span>
-            <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">//其他操作，比如释放资源</span></span></code></pre>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>XUpdateQueryService service <span class="op">=(</span>XUpdateQueryService<span class="op">)</span> col<span class="op">.</span><span class="fu">getService</span><span class="op">(</span><span class="st">"XUpdateQueryService"</span><span class="op">,</span> <span class="st">"1.0"</span><span class="op">);</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>service<span class="op">.</span><span class="fu">update</span><span class="op">(</span>xupdate<span class="op">);</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">...</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">//其他操作，比如释放资源</span></span></code></pre>
      </div> 
      <p>因为更新命令中包括了insert，delete和update等功能，所以，其他的管理可以以上面类似的形式实现，通过为XUpdateQueryService提供相应的XUpdate命令就可以了。 至于查询操作，步骤类似，只要从Collection中取得XPathQueryService服务，然后为其指定查询用的Xpath表达式，最后对结果（Resource）进行处理。</p> 
      <p>Xindice发布包中附带有一个AddressBook应用，以用来掩饰基于Xindice的web应用实现模型，但其提供的Ant编译脚本有问题，没有指定编译时候的classpath，所以，在现在的机器上不能编译成功，最后，通过为该脚本添加了以下内容才使编译通过：</p> 
      <p>即在build.xml文件开始添加</p> 
      <div class="sourceCode" id="cb3">
       <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">path</span><span class="ot">  id=</span><span class="st">"project.classpath"</span>&gt;</span>
-            <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>   &lt;<span class="kw">fileset</span><span class="ot"> dir=</span><span class="st">"E:\APIs"</span>&gt;</span>
-            <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>     &lt;<span class="kw">include</span><span class="ot"> name=</span><span class="st">"**/*.jar"</span>/&gt;</span>
-            <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>   &lt;/<span class="kw">fileset</span>&gt;  </span>
-            <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>   &lt;<span class="kw">fileset</span><span class="ot"> dir=</span><span class="st">"E:\xindice\java\lib"</span>&gt;</span>
-            <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>     &lt;<span class="kw">include</span><span class="ot"> name=</span><span class="st">"**/*.jar"</span>/&gt;</span>
-            <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>   &lt;/<span class="kw">fileset</span>&gt;   </span>
-            <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a> &lt;/<span class="kw">path</span>&gt;</span></code></pre>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>   &lt;<span class="kw">fileset</span><span class="ot"> dir=</span><span class="st">"E:\APIs"</span>&gt;</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>     &lt;<span class="kw">include</span><span class="ot"> name=</span><span class="st">"**/*.jar"</span>/&gt;</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>   &lt;/<span class="kw">fileset</span>&gt;  </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>   &lt;<span class="kw">fileset</span><span class="ot"> dir=</span><span class="st">"E:\xindice\java\lib"</span>&gt;</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>     &lt;<span class="kw">include</span><span class="ot"> name=</span><span class="st">"**/*.jar"</span>/&gt;</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>   &lt;/<span class="kw">fileset</span>&gt;   </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a> &lt;/<span class="kw">path</span>&gt;</span></code></pre>
      </div> 
      <p>然后在compile目标的javac任务中为其指定classpathref为project.classpath即可，编译完成后生成Addressbook.war文件，可以部署到App Server（我部署在resin2.1.1 App服务器上）。 稍后会考虑使用struts对该Webapp进行重构，因为相对于现在基于Command模式实现的实例，struts能更清晰的表达控制流程。</p> 
      <hr> 
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2008-10-18-she-is-my-world.html">She is my world </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2023-07-10-sdxl-comfyui-setup.html">一分钟了解如何通过ComfyUI使用SDXL模型 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2014-05-29-mingdao-forum-review.html">明道大会回顾 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2023-04-22-3-GPT-models-for-poor.html">中国企业自建GPT服务的三款开源可商用模型 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2009-11-24-ebay-architecture-lessons.html">eBay lessons updated from 5 to 10 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2012-09-17-vertical_stack_in_one.html">检车大厅所见所闻对软件架构设计的联想 </a> 
       </div> 
      </div> 
      <hr> 

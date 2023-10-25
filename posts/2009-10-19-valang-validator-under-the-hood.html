@@ -16,8 +16,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -94,7 +96,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -177,22 +178,22 @@
      <p>If you are able to construct a valid valang-syntax expression from some other sources, you can use ValangParser to parse these kinds of expressions into Valang’s Object model. for example:</p> 
      <div class="sourceCode" id="cb1">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Errors errors <span class="op">=</span> <span class="kw">...</span><span class="op">;</span></span>
-            <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Object</span> target <span class="op">=</span> <span class="kw">...</span><span class="op">;</span></span>
-            <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                </span>
-            <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>ValangParser parser <span class="op">=</span> <span class="kw">new</span> <span class="fu">ValangParser</span><span class="op">(</span><span class="st">"{ &lt;key&gt; : &lt;expression&gt; : &lt;error_message&gt; [ : &lt;error_key&gt; [ : &lt;error_args&gt; ] ]}"</span><span class="op">);</span></span>
-            <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span> <span class="op">{</span></span>
-            <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Collection</span><span class="op">&lt;</span>ValidationRule<span class="op">&gt;</span> rules <span class="op">=</span> parser<span class="op">.</span><span class="fu">parseValidation</span><span class="op">();</span></span>
-            <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>CollectionUtils<span class="op">.</span><span class="fu">isNotEmpty</span><span class="op">(</span>rules<span class="op">))</span></span>
-            <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-            <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Iterator</span><span class="op">&lt;</span>ValidationRule<span class="op">&gt;</span> iter <span class="op">=</span> rules<span class="op">.</span><span class="fu">iterator</span><span class="op">();</span></span>
-            <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span><span class="op">(</span>iter<span class="op">.</span><span class="fu">hasNext</span><span class="op">()){</span></span>
-            <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>            ValidationRule rule <span class="op">=</span> iter<span class="op">.</span><span class="fu">next</span><span class="op">();</span></span>
-            <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>            rule<span class="op">.</span><span class="fu">validate</span><span class="op">(</span>target<span class="op">,</span> errors<span class="op">);</span></span>
-            <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-            <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-            <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">ParseException</span> e<span class="op">)</span> <span class="op">{</span></span>
-            <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">// handle exception here.</span></span>
-            <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Object</span> target <span class="op">=</span> <span class="kw">...</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>ValangParser parser <span class="op">=</span> <span class="kw">new</span> <span class="fu">ValangParser</span><span class="op">(</span><span class="st">"{ &lt;key&gt; : &lt;expression&gt; : &lt;error_message&gt; [ : &lt;error_key&gt; [ : &lt;error_args&gt; ] ]}"</span><span class="op">);</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Collection</span><span class="op">&lt;</span>ValidationRule<span class="op">&gt;</span> rules <span class="op">=</span> parser<span class="op">.</span><span class="fu">parseValidation</span><span class="op">();</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>CollectionUtils<span class="op">.</span><span class="fu">isNotEmpty</span><span class="op">(</span>rules<span class="op">))</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Iterator</span><span class="op">&lt;</span>ValidationRule<span class="op">&gt;</span> iter <span class="op">=</span> rules<span class="op">.</span><span class="fu">iterator</span><span class="op">();</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span><span class="op">(</span>iter<span class="op">.</span><span class="fu">hasNext</span><span class="op">()){</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>            ValidationRule rule <span class="op">=</span> iter<span class="op">.</span><span class="fu">next</span><span class="op">();</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>            rule<span class="op">.</span><span class="fu">validate</span><span class="op">(</span>target<span class="op">,</span> errors<span class="op">);</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">ParseException</span> e<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">// handle exception here.</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
      </div> 
      <p>with sample code above, I think you can figure out how the ValangValidator class do its work.</p> 
      <p>Since you can “setValang(String valang)”, you can “setCustomFunctions(..)”, in the “validate(Object target, Errors errors)” method, the ValangValidator only need use ValangParser to parse the expression set via “setValang(String)” method. After a collection of ValidationRule is available, the left things is almost the same like code above.</p> 
@@ -208,44 +209,44 @@
      <p>If we inspect the type of the ValidationRule returned from “parser.parseValidation()”, we will find that it’s type is org.springmodules.validation.valang.predicates.BasicValidationRule . This is the default value object that hold every part of the parsed Valang expression. Since we can get everything with it, we then can filter the returned collection of ValidationRule. The code seems like:</p> 
      <div class="sourceCode" id="cb2">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ValangValidator validator <span class="op">=</span> <span class="kw">new</span> <span class="fu">ValangValidator</span><span class="op">();</span></span>
-            <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>        validator<span class="op">.</span><span class="fu">setValang</span><span class="op">(</span><span class="st">""</span><span class="op">);</span></span>
-            <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">@SuppressWarnings</span><span class="op">(</span><span class="st">"unchecked"</span><span class="op">)</span></span>
-            <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Collection</span><span class="op">&lt;</span>ValidationRule<span class="op">&gt;</span> rules <span class="op">=</span> validator<span class="op">.</span><span class="fu">getRules</span><span class="op">();</span></span>
-            <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">@SuppressWarnings</span><span class="op">(</span><span class="st">"unchecked"</span><span class="op">)</span></span>
-            <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Collection</span><span class="op">&lt;</span>ValidationRule<span class="op">&gt;</span> globalErrorRules <span class="op">=</span> CollectionUtils<span class="op">.</span><span class="fu">transformedCollection</span><span class="op">(</span>rules<span class="op">,</span> <span class="kw">new</span> <span class="bu">Transformer</span><span class="op">()</span> <span class="op">{</span></span>
-            <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>            <span class="kw">public</span> <span class="bu">Object</span> <span class="fu">transform</span><span class="op">(</span><span class="bu">Object</span> arg<span class="op">)</span> <span class="op">{</span></span>
-            <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                <span class="dt">final</span> BasicValidationRule rule <span class="op">=</span> <span class="op">(</span>BasicValidationRule<span class="op">)</span>arg<span class="op">;</span></span>
-            <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> <span class="kw">new</span> <span class="fu">ValidationRule</span><span class="op">()</span> <span class="op">{</span></span>
-            <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">validate</span><span class="op">(</span><span class="bu">Object</span> target<span class="op">,</span> org<span class="op">.</span><span class="fu">springframework</span><span class="op">.</span><span class="fu">validation</span><span class="op">.</span><span class="fu">Errors</span> errors<span class="op">)</span> <span class="op">{</span></span>
-            <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>                        <span class="bu">String</span> errorKey <span class="op">=</span> rule<span class="op">.</span><span class="fu">getErrorKey</span><span class="op">();</span></span>
-            <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>                        <span class="bu">String</span> message <span class="op">=</span> rule<span class="op">.</span><span class="fu">getErrorMessage</span><span class="op">();</span></span>
-            <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>                        <span class="at">@SuppressWarnings</span><span class="op">(</span><span class="st">"unchecked"</span><span class="op">)</span></span>
-            <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>                        <span class="bu">Collection</span> args <span class="op">=</span> rule<span class="op">.</span><span class="fu">getErrorArgs</span><span class="op">();</span></span>
-            <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">if</span><span class="op">(</span>CollectionUtils<span class="op">.</span><span class="fu">isEmpty</span><span class="op">(</span>args<span class="op">))</span></span>
-            <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                        <span class="op">{</span></span>
-            <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>                            errors<span class="op">.</span><span class="fu">reject</span><span class="op">(</span>errorKey<span class="op">,</span> message<span class="op">);</span></span>
-            <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>                        <span class="op">}</span></span>
-            <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">else</span></span>
-            <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>                        <span class="op">{</span></span>
-            <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>                            <span class="at">@SuppressWarnings</span><span class="op">(</span><span class="st">"unchecked"</span><span class="op">)</span></span>
-            <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>                            <span class="bu">Object</span><span class="op">[]</span> argArray <span class="op">=</span> args<span class="op">.</span><span class="fu">toArray</span><span class="op">(</span><span class="kw">new</span> <span class="bu">Object</span><span class="op">[</span>args<span class="op">.</span><span class="fu">size</span><span class="op">()]);</span></span>
-            <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>                            errors<span class="op">.</span><span class="fu">reject</span><span class="op">(</span>errorKey<span class="op">,</span> argArray<span class="op">,</span> message<span class="op">);</span></span>
-            <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>                        <span class="op">}</span></span>
-            <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>                    <span class="op">}</span></span>
-            <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>                <span class="op">};</span></span>
-            <span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
-            <span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>        <span class="op">});</span></span></code></pre>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>        validator<span class="op">.</span><span class="fu">setValang</span><span class="op">(</span><span class="st">""</span><span class="op">);</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">@SuppressWarnings</span><span class="op">(</span><span class="st">"unchecked"</span><span class="op">)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Collection</span><span class="op">&lt;</span>ValidationRule<span class="op">&gt;</span> rules <span class="op">=</span> validator<span class="op">.</span><span class="fu">getRules</span><span class="op">();</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">@SuppressWarnings</span><span class="op">(</span><span class="st">"unchecked"</span><span class="op">)</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Collection</span><span class="op">&lt;</span>ValidationRule<span class="op">&gt;</span> globalErrorRules <span class="op">=</span> CollectionUtils<span class="op">.</span><span class="fu">transformedCollection</span><span class="op">(</span>rules<span class="op">,</span> <span class="kw">new</span> <span class="bu">Transformer</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>            <span class="kw">public</span> <span class="bu">Object</span> <span class="fu">transform</span><span class="op">(</span><span class="bu">Object</span> arg<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                <span class="dt">final</span> BasicValidationRule rule <span class="op">=</span> <span class="op">(</span>BasicValidationRule<span class="op">)</span>arg<span class="op">;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> <span class="kw">new</span> <span class="fu">ValidationRule</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">validate</span><span class="op">(</span><span class="bu">Object</span> target<span class="op">,</span> org<span class="op">.</span><span class="fu">springframework</span><span class="op">.</span><span class="fu">validation</span><span class="op">.</span><span class="fu">Errors</span> errors<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>                        <span class="bu">String</span> errorKey <span class="op">=</span> rule<span class="op">.</span><span class="fu">getErrorKey</span><span class="op">();</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>                        <span class="bu">String</span> message <span class="op">=</span> rule<span class="op">.</span><span class="fu">getErrorMessage</span><span class="op">();</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>                        <span class="at">@SuppressWarnings</span><span class="op">(</span><span class="st">"unchecked"</span><span class="op">)</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>                        <span class="bu">Collection</span> args <span class="op">=</span> rule<span class="op">.</span><span class="fu">getErrorArgs</span><span class="op">();</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">if</span><span class="op">(</span>CollectionUtils<span class="op">.</span><span class="fu">isEmpty</span><span class="op">(</span>args<span class="op">))</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                        <span class="op">{</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>                            errors<span class="op">.</span><span class="fu">reject</span><span class="op">(</span>errorKey<span class="op">,</span> message<span class="op">);</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>                        <span class="op">}</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">else</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>                        <span class="op">{</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>                            <span class="at">@SuppressWarnings</span><span class="op">(</span><span class="st">"unchecked"</span><span class="op">)</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>                            <span class="bu">Object</span><span class="op">[]</span> argArray <span class="op">=</span> args<span class="op">.</span><span class="fu">toArray</span><span class="op">(</span><span class="kw">new</span> <span class="bu">Object</span><span class="op">[</span>args<span class="op">.</span><span class="fu">size</span><span class="op">()]);</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>                            errors<span class="op">.</span><span class="fu">reject</span><span class="op">(</span>errorKey<span class="op">,</span> argArray<span class="op">,</span> message<span class="op">);</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>                        <span class="op">}</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>                    <span class="op">}</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>                <span class="op">};</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>        <span class="op">});</span></span></code></pre>
      </div> 
      <p>since FiledError is added with “#rejectValue(..)”, we use “#reject(..)” to fill GlobalError to Errors . After these rules are applied to the target object, the corresponding global errors will be available. You can pull them in you view via spring’s RequestContext or other way you resort to.</p> 
      <hr> 
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2015-07-13-talking-about-my-favorite-toolset.html">说说我日常把玩的小工具 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2007-04-14-miss-you-grandma.html">思忆外婆 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2012-02-21-disruptor-is-the-pioneer.html">“Disruptor Framework is the pioneer” </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2022-03-09-svelte_with_tailwind_and_daisyui.html">Svelte with tailwind and daisyui </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2007-07-09-what-a-weekend.html">周末杂记 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2022-01-20-invest-driven-days-no-more.html">战投部没了，大家后面的日子还会好吗？ </a> 
       </div> 
      </div> 
      <hr> 

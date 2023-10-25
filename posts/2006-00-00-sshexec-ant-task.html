@@ -16,8 +16,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -94,7 +96,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -184,89 +185,89 @@
      <p>以下是Task的execute()方法的代码：</p> 
      <div class="sourceCode" id="cb2">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">void</span> <span class="fu">execute</span><span class="op">()</span> <span class="kw">throws</span> BuildException <span class="op">{</span></span>
-            <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">// super.execute();</span></span>
-            <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span><span class="op">(</span><span class="fu">getHost</span><span class="op">()</span> <span class="op">==</span> <span class="kw">null</span><span class="op">)</span></span>
-            <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-            <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="cf">throw</span> <span class="kw">new</span> <span class="fu">BuildException</span><span class="op">(</span><span class="st">"Host is required."</span><span class="op">);</span></span>
-            <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-            <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span><span class="op">(</span><span class="fu">getUserInfo</span><span class="op">().</span><span class="fu">getName</span><span class="op">()</span> <span class="op">==</span> <span class="kw">null</span><span class="op">)</span></span>
-            <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-            <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="cf">throw</span> <span class="kw">new</span> <span class="fu">BuildException</span><span class="op">(</span><span class="st">"Username is required."</span><span class="op">);</span></span>
-            <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-            <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span><span class="op">(</span><span class="fu">getUserInfo</span><span class="op">().</span><span class="fu">getKeyfile</span><span class="op">()</span> <span class="op">==</span> <span class="kw">null</span> <span class="op">&amp;&amp;</span> <span class="fu">getUserInfo</span><span class="op">().</span><span class="fu">getPassword</span><span class="op">()</span> <span class="op">==</span> <span class="kw">null</span><span class="op">)</span></span>
-            <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-            <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="cf">throw</span> <span class="kw">new</span> <span class="fu">BuildException</span><span class="op">(</span><span class="st">"Password or Keyfile is required."</span><span class="op">);</span></span>
-            <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-            <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span><span class="op">(</span>command <span class="op">==</span> <span class="kw">null</span><span class="op">)</span></span>
-            <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-            <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="cf">throw</span> <span class="kw">new</span> <span class="fu">BuildException</span><span class="op">(</span><span class="st">"Command is required."</span><span class="op">);</span></span>
-            <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-            <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>Session session <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></span>
-            <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="bu">Channel</span> channel <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></span>
-            <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span></span>
-            <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-            <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>session <span class="op">=</span> <span class="fu">openSession</span><span class="op">();</span></span>
-            <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>channel <span class="op">=</span> session<span class="op">.</span><span class="fu">openChannel</span><span class="op">(</span><span class="st">"exec"</span><span class="op">);</span></span>
-            <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="op">((</span>ChannelExec<span class="op">)</span> channel<span class="op">).</span><span class="fu">setPty</span><span class="op">(</span><span class="kw">true</span><span class="op">);</span></span>
-            <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="op">((</span>ChannelExec<span class="op">)</span>channel<span class="op">).</span><span class="fu">setCommand</span><span class="op">(</span>command<span class="op">);</span></span>
-            <span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>channel<span class="op">.</span><span class="fu">connect</span><span class="op">();</span></span>
-            <span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="fu">executeInChannel</span><span class="op">(</span>channel<span class="op">);</span></span>
-            <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-            <span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="cf">catch</span><span class="op">(</span><span class="bu">Exception</span> e<span class="op">)</span></span>
-            <span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-            <span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="cf">throw</span> <span class="kw">new</span> <span class="fu">BuildException</span><span class="op">(</span>e<span class="op">);</span></span>
-            <span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-            <span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="cf">finally</span></span>
-            <span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-            <span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="fu">dispose</span><span class="op">(</span>session<span class="op">,</span>channel<span class="op">);</span></span>
-            <span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-            <span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">// super.execute();</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span><span class="op">(</span><span class="fu">getHost</span><span class="op">()</span> <span class="op">==</span> <span class="kw">null</span><span class="op">)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="cf">throw</span> <span class="kw">new</span> <span class="fu">BuildException</span><span class="op">(</span><span class="st">"Host is required."</span><span class="op">);</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span><span class="op">(</span><span class="fu">getUserInfo</span><span class="op">().</span><span class="fu">getName</span><span class="op">()</span> <span class="op">==</span> <span class="kw">null</span><span class="op">)</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="cf">throw</span> <span class="kw">new</span> <span class="fu">BuildException</span><span class="op">(</span><span class="st">"Username is required."</span><span class="op">);</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span><span class="op">(</span><span class="fu">getUserInfo</span><span class="op">().</span><span class="fu">getKeyfile</span><span class="op">()</span> <span class="op">==</span> <span class="kw">null</span> <span class="op">&amp;&amp;</span> <span class="fu">getUserInfo</span><span class="op">().</span><span class="fu">getPassword</span><span class="op">()</span> <span class="op">==</span> <span class="kw">null</span><span class="op">)</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="cf">throw</span> <span class="kw">new</span> <span class="fu">BuildException</span><span class="op">(</span><span class="st">"Password or Keyfile is required."</span><span class="op">);</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span><span class="op">(</span>command <span class="op">==</span> <span class="kw">null</span><span class="op">)</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="cf">throw</span> <span class="kw">new</span> <span class="fu">BuildException</span><span class="op">(</span><span class="st">"Command is required."</span><span class="op">);</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>Session session <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="bu">Channel</span> channel <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>session <span class="op">=</span> <span class="fu">openSession</span><span class="op">();</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>channel <span class="op">=</span> session<span class="op">.</span><span class="fu">openChannel</span><span class="op">(</span><span class="st">"exec"</span><span class="op">);</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="op">((</span>ChannelExec<span class="op">)</span> channel<span class="op">).</span><span class="fu">setPty</span><span class="op">(</span><span class="kw">true</span><span class="op">);</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="op">((</span>ChannelExec<span class="op">)</span>channel<span class="op">).</span><span class="fu">setCommand</span><span class="op">(</span>command<span class="op">);</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>channel<span class="op">.</span><span class="fu">connect</span><span class="op">();</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="fu">executeInChannel</span><span class="op">(</span>channel<span class="op">);</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="cf">catch</span><span class="op">(</span><span class="bu">Exception</span> e<span class="op">)</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="cf">throw</span> <span class="kw">new</span> <span class="fu">BuildException</span><span class="op">(</span>e<span class="op">);</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="cf">finally</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="fu">dispose</span><span class="op">(</span>session<span class="op">,</span>channel<span class="op">);</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
      </div> 
      <p>很粗糙的实现，在<code>executeInChannel(channel)</code>方法中，我们检测输出并输入所要求的输入（哈哈，有点儿别扭，不过，相对于Channel来说，它的输入，就是我们的输出），类似于：</p> 
      <div class="sourceCode" id="cb3">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">InputStream</span> in <span class="op">=</span> channel<span class="op">.</span><span class="fu">getInputStream</span><span class="op">();</span></span>
-            <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">OutputStream</span> out <span class="op">=</span> channel<span class="op">.</span><span class="fu">getOutputStream</span><span class="op">();</span></span>
-            <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">InputStream</span> err <span class="op">=</span> <span class="op">((</span>ChannelExec<span class="op">)</span> channel<span class="op">).</span><span class="fu">getErrStream</span><span class="op">();</span></span>
-            <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="dt">byte</span> tmp<span class="op">[]</span> <span class="op">=</span> <span class="kw">new</span> <span class="dt">byte</span><span class="op">[</span><span class="dv">2048</span><span class="op">];</span></span>
-            <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span> <span class="op">{</span></span>
-            <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(</span>in<span class="op">.</span><span class="fu">available</span><span class="op">()</span> <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
-            <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> i <span class="op">=</span> in<span class="op">.</span><span class="fu">read</span><span class="op">(</span>tmp<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">2048</span><span class="op">);</span></span>
-            <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> line <span class="op">=</span> <span class="kw">new</span> <span class="bu">String</span><span class="op">(</span>tmp<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> i<span class="op">);</span></span>
-            <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span><span class="op">(</span>line<span class="op">+</span><span class="st">"</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
-            <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span><span class="op">(</span>i<span class="op">&gt;</span><span class="dv">0</span> <span class="op">&amp;&amp;</span> PASSWORD_PATTERN<span class="op">.</span><span class="fu">matcher</span><span class="op">(</span>line<span class="op">).</span><span class="fu">find</span><span class="op">())</span></span>
-            <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-            <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>out<span class="op">.</span><span class="fu">write</span><span class="op">(</span><span class="kw">super</span><span class="op">.</span><span class="fu">getUserInfo</span><span class="op">().</span><span class="fu">getPassword</span><span class="op">().</span><span class="fu">getBytes</span><span class="op">());</span></span>
-            <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>out<span class="op">.</span><span class="fu">write</span><span class="op">(</span><span class="st">"</span><span class="sc">\n</span><span class="st">"</span><span class="op">.</span><span class="fu">getBytes</span><span class="op">());</span></span>
-            <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>out<span class="op">.</span><span class="fu">flush</span><span class="op">();</span></span>
-            <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="cf">break</span><span class="op">;</span></span>
-            <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-            <span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-            <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span><span class="op">(</span>err<span class="op">.</span><span class="fu">available</span><span class="op">()</span> <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span></span>
-            <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-            <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> i <span class="op">=</span> in<span class="op">.</span><span class="fu">read</span><span class="op">(</span>tmp<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">2048</span><span class="op">);</span></span>
-            <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> line <span class="op">=</span> <span class="kw">new</span> <span class="bu">String</span><span class="op">(</span>tmp<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> i<span class="op">);</span></span>
-            <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span><span class="op">(</span>line<span class="op">+</span><span class="st">"</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
-            <span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-            <span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>channel<span class="op">.</span><span class="fu">isClosed</span><span class="op">())</span> <span class="op">{</span></span>
-            <span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> exitStatus <span class="op">=</span> channel<span class="op">.</span><span class="fu">getExitStatus</span><span class="op">();</span></span>
-            <span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>exitStatus <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
-            <span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="bu">StringBuffer</span> exp <span class="op">=</span> <span class="kw">new</span> <span class="bu">StringBuffer</span><span class="op">();</span></span>
-            <span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>exp<span class="op">.</span><span class="fu">append</span><span class="op">(</span><span class="st">"Error Exit Status with Value:"</span><span class="op">).</span><span class="fu">append</span><span class="op">(</span></span>
-            <span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>exitStatus<span class="op">).</span><span class="fu">append</span><span class="op">(</span><span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span><span class="op">);</span></span>
-            <span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="cf">throw</span> <span class="kw">new</span> <span class="fu">BuildException</span><span class="op">(</span>exp<span class="op">.</span><span class="fu">toString</span><span class="op">());</span></span>
-            <span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-            <span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="cf">break</span><span class="op">;</span></span>
-            <span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-            <span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span> <span class="op">{</span></span>
-            <span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="bu">Thread</span><span class="op">.</span><span class="fu">sleep</span><span class="op">(</span><span class="dv">1000L</span><span class="op">);</span></span>
-            <span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">Exception</span> exception<span class="op">)</span> <span class="op">{</span></span>
-            <span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-            <span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">while</span> <span class="op">(</span><span class="kw">true</span><span class="op">);</span></span></code></pre>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">OutputStream</span> out <span class="op">=</span> channel<span class="op">.</span><span class="fu">getOutputStream</span><span class="op">();</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">InputStream</span> err <span class="op">=</span> <span class="op">((</span>ChannelExec<span class="op">)</span> channel<span class="op">).</span><span class="fu">getErrStream</span><span class="op">();</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="dt">byte</span> tmp<span class="op">[]</span> <span class="op">=</span> <span class="kw">new</span> <span class="dt">byte</span><span class="op">[</span><span class="dv">2048</span><span class="op">];</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span> <span class="op">{</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(</span>in<span class="op">.</span><span class="fu">available</span><span class="op">()</span> <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> i <span class="op">=</span> in<span class="op">.</span><span class="fu">read</span><span class="op">(</span>tmp<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">2048</span><span class="op">);</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> line <span class="op">=</span> <span class="kw">new</span> <span class="bu">String</span><span class="op">(</span>tmp<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> i<span class="op">);</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span><span class="op">(</span>line<span class="op">+</span><span class="st">"</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span><span class="op">(</span>i<span class="op">&gt;</span><span class="dv">0</span> <span class="op">&amp;&amp;</span> PASSWORD_PATTERN<span class="op">.</span><span class="fu">matcher</span><span class="op">(</span>line<span class="op">).</span><span class="fu">find</span><span class="op">())</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>out<span class="op">.</span><span class="fu">write</span><span class="op">(</span><span class="kw">super</span><span class="op">.</span><span class="fu">getUserInfo</span><span class="op">().</span><span class="fu">getPassword</span><span class="op">().</span><span class="fu">getBytes</span><span class="op">());</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>out<span class="op">.</span><span class="fu">write</span><span class="op">(</span><span class="st">"</span><span class="sc">\n</span><span class="st">"</span><span class="op">.</span><span class="fu">getBytes</span><span class="op">());</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>out<span class="op">.</span><span class="fu">flush</span><span class="op">();</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="cf">break</span><span class="op">;</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span><span class="op">(</span>err<span class="op">.</span><span class="fu">available</span><span class="op">()</span> <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> i <span class="op">=</span> in<span class="op">.</span><span class="fu">read</span><span class="op">(</span>tmp<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">2048</span><span class="op">);</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> line <span class="op">=</span> <span class="kw">new</span> <span class="bu">String</span><span class="op">(</span>tmp<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> i<span class="op">);</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span><span class="op">(</span>line<span class="op">+</span><span class="st">"</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>channel<span class="op">.</span><span class="fu">isClosed</span><span class="op">())</span> <span class="op">{</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> exitStatus <span class="op">=</span> channel<span class="op">.</span><span class="fu">getExitStatus</span><span class="op">();</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>exitStatus <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="bu">StringBuffer</span> exp <span class="op">=</span> <span class="kw">new</span> <span class="bu">StringBuffer</span><span class="op">();</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>exp<span class="op">.</span><span class="fu">append</span><span class="op">(</span><span class="st">"Error Exit Status with Value:"</span><span class="op">).</span><span class="fu">append</span><span class="op">(</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>exitStatus<span class="op">).</span><span class="fu">append</span><span class="op">(</span><span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="cf">throw</span> <span class="kw">new</span> <span class="fu">BuildException</span><span class="op">(</span>exp<span class="op">.</span><span class="fu">toString</span><span class="op">());</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="cf">break</span><span class="op">;</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="bu">Thread</span><span class="op">.</span><span class="fu">sleep</span><span class="op">(</span><span class="dv">1000L</span><span class="op">);</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">Exception</span> exception<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">while</span> <span class="op">(</span><span class="kw">true</span><span class="op">);</span></span></code></pre>
      </div> 
      <p>呵呵，我知道代码很烂，不过将就看吧，我也不会为了这么个简单的小功能去费那个劳神子，一切OK之后，打包成jar，扔到ANT-HOME/lib下，这样你就可以使用它了：</p> 
      <div class="sourceCode" id="cb4">
       <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">taskdef</span><span class="ot"> name=</span><span class="st">"dsshexec"</span><span class="ot"> classname=</span><span class="st">"org.darrenstudio.extension.anttasks.SshExecWithInteractivePassword"</span>/&gt;</span>
-            <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">dsshexec</span><span class="ot"> host=</span><span class="st">"server"</span><span class="ot"> username=</span><span class="st">"user"</span><span class="ot"> password=</span><span class="st">"pwd"</span><span class="ot"> command=</span><span class="st">"sudo cp /home/wfq/result.txt /usr/local/"</span><span class="ot"> trust=</span><span class="st">"true"</span>/&gt;</span></code></pre>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">dsshexec</span><span class="ot"> host=</span><span class="st">"server"</span><span class="ot"> username=</span><span class="st">"user"</span><span class="ot"> password=</span><span class="st">"pwd"</span><span class="ot"> command=</span><span class="st">"sudo cp /home/wfq/result.txt /usr/local/"</span><span class="ot"> trust=</span><span class="st">"true"</span>/&gt;</span></code></pre>
      </div> 
      <p>注意哦，上面的情况可不是普遍适用的，只是给你一个类似问题的提示而已，使用的话，可能要根据环境adapt一下,OK,打完收工！</p> 
      <p>By the Way：上次那个Gotches是我的疏忽，敲错一个字母，应该是Gotchas,意即“I’ve got you”，不过，一般字典上查不到</p> 
@@ -274,11 +275,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2018-06-20-cross_desert_sucks.html">不要以穿越沙漠为荣 </a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2009-08-25-coc-in-embarrassment.html">尴尬的COC </a> 
+      </div> 
       <div class="alert alert-light" role="alert"> <a href="/posts/2011-12-10-col-store.html">“初探列存储数据库” </a> 
-      </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2006-10-27-eclipse-rcp-start-tips.html">Eclipse RCP start tips </a> 
-      </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2009-02-27-movie-the-wrestler.html">看完《The Wrestler》心里挺不是滋味… </a> 
       </div> 
      </div> 
      <hr> 

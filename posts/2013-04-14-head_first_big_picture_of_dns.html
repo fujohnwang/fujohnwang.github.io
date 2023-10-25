@@ -16,8 +16,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -29,7 +31,6 @@
             display:inline;
         }
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -109,8 +110,8 @@
      <hr> 
      <p>学术不精，平日多有耳闻却又熟视无睹， 借资料大扫荡之机，重新梳理整个DNS体系的大图景，以期将来有据可查可参可考…</p> 
      <h1 id="dns基本概念铺垫">DNS基本概念铺垫</h1> 对以下域名进行解剖： 
-     <pre>            www.howstuffworks.com
-            </pre> 
+     <pre>www.howstuffworks.com
+</pre> 
      <ul> 
       <li>com: 一级域名或者称为顶级域名(top-level domain/first-class domain)部分</li> 
       <li>howstuffworks: 二级域名部分</li> 
@@ -136,13 +137,13 @@
      </blockquote> 
      <p>在知道了要查询的DNS Server是哪个之后， DNS请求就根据相应的协议发送给了DNS Server，DNS Server将首先检查本地缓存中是否存在当前查询的域名与其IP地址的对应关系，如果有则直接返回，如果没有，则查询Root DNS Server，因为每一个DNS Server都会知道至少一个Root DNS Server, Root DNS Server将根据查询域名的一级域名是什么，告诉发起查询的DNS Server哪些其它的DNS Server可能包含相应的二级域名与其IP地址的映射关系信息，之后当前发起查询的DNS Server再向这些DNS Server进行查询，如果在这些返回的DNS Server处查询到相应的映射信息，则缓存到本地然后返回，否则，报给客户端查找不到的错误信息<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>。</p> 
      <p>我们实际上可以通过nslookup命令(适用于linux或者unix系统)来检查某些域名相关信息，包括它对应的IP地址是什么:</p> 
-     <pre>            $ nslookup www.howstuffworks.com // 默认相当于-type=A,即A记录
-            $ nslookup -type=ns www.howstuffworks.com //Query the NS Record using -query=ns
-            $ nslookup -type=any www.howstuffworks.com // View available DNS records using -query=any
-            $ nslookup 209.132.183.181  OR $ host -a IP/DomainName // Reverse DNS lookup, 
-            $ nslookup redhat.com ns1.redhat.com // Using Specific DNS server(here, ns1.redhat.com)
-            $ nslookup -debug redhat.com  // Enabling debug mode using -debug
-            </pre> 
+     <pre>$ nslookup www.howstuffworks.com // 默认相当于-type=A,即A记录
+$ nslookup -type=ns www.howstuffworks.com //Query the NS Record using -query=ns
+$ nslookup -type=any www.howstuffworks.com // View available DNS records using -query=any
+$ nslookup 209.132.183.181  OR $ host -a IP/DomainName // Reverse DNS lookup, 
+$ nslookup redhat.com ns1.redhat.com // Using Specific DNS server(here, ns1.redhat.com)
+$ nslookup -debug redhat.com  // Enabling debug mode using -debug
+</pre> 
      <p>我们可以通过type参数指定要查询的域名相关信息，见上例， 其中，如果不指定type则默认返回A记录(A Record)对应的信息， 简单来讲就是域名与IP地址的对应信息。关于nslookup使用的更多信息可以参考<a href="http://www.thegeekstuff.com/2012/07/nslookup-examples/" class="uri">http://www.thegeekstuff.com/2012/07/nslookup-examples/</a></p> 
      <p>如果是在MacOS X系统下， 除了使用命令行形式的nslookup命令，也可以使用/Application/Utilities/Network Utility图形化工具来达成相同的目的。</p> 
      <h2 id="域名注册商与dns-server">域名注册商与DNS Server</h2> 
@@ -222,11 +223,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2021-05-24-million-salary-ways.html">怎么做到年薪以百万单位起跳？ </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2011-12-16-first-meet-hadoop-mrv2.html">“初探Hadoop MapReduce NextGen|MRv2|YARN(工作上下文紧急切换， 该篇待续)” </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2021-02-11-release-keenotes-v1-2-3-for-spring-festival.html">KeeNotes发布新版恭祝大家新春快乐~ </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2022-03-07-intro-svelte-cubed.html">从Threejs到Svelte</a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2023-08-22-gift-training-and-unique.html">天赋，培训与个性化 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2005-00-00-launch-excel-with-jacob.html">使用jacob来launch Excel文件 </a> 
       </div> 
      </div> 
      <hr> 

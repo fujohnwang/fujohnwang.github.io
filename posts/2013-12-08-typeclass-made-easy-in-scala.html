@@ -16,8 +16,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -94,7 +96,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -175,27 +176,27 @@
      <p>typeclass并不神秘， 本质上， 它只是某种定义了一系列行为模式的契约。 这与OO中的抽象概念是类似的，比如Java中的Interface，其实跟FP中的typeclass基本类似， 如果理解了OO中的interface，那么，理解FP中的typeclass也没有太大问题。</p> 
      <p>在FP中， 数据和行为是分开思考的，行为只是对数据的一系列转换(即体现在Function这一概念上), 如果很多数据类型可能都需要有某些共通的行为，那么就可以定义typeclass来约束这些数据类型， 是他们符合某种行为契约。</p> 
      <p>假设我们有Integer和String两种数据类型，而我们认为这两种类型内部都应该是可以相互比较的，那么，我们可以分别为其定义相应的<strong>可比较</strong>行为逻辑实现：</p> 
-     <pre>            class Integer{
-                def compare(another: Integer): Integer  = {...}
-            }
+     <pre>class Integer{
+    def compare(another: Integer): Integer  = {...}
+}
 
-            class String {
-                def compare(another:String) : Integer = {...}
-            }
-            </pre> 
+class String {
+    def compare(another:String) : Integer = {...}
+}
+</pre> 
      <p>但既然这种<strong>可比较</strong>行为是共通的，我们就可以抽取到某种类型中定义，并让想有这些行为的类型遵守这种行为契约，那么，在OO中就变成了：</p> 
-     <pre>            interface Comparable<t>
+     <pre>interface Comparable<t>
        {
-                int compareTo(T o);
-            }
+    int compareTo(T o);
+}
 
-            class Integer implements Comparable
+class Integer implements Comparable
        <integer>
          {...}
-            class String implements Comparable
+class String implements Comparable
         <string>
          {...}
-            
+
         </string>
        </integer>
       </t></pre> 
@@ -223,17 +224,17 @@
      <p>这里的<code>ComparableTypeClassAdaptor[A]</code>可以根据传入的A的类型来提供Comparable约束的行为，比如：</p> 
      <div class="sourceCode" id="cb3">
       <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ATypeClassAdaptor <span class="kw">extends</span> ComparableTypeClassAdaptor<span class="op">[</span>A<span class="op">]{</span></span>
-            <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">makeItComparable</span><span class="op">(</span>a<span class="op">:</span>A<span class="op">)</span> <span class="op">=</span> <span class="kw">new</span> Comparable<span class="op">[</span>A<span class="op">]{</span><span class="kw">def</span> <span class="fu">compare</span><span class="op">(</span>o<span class="op">:</span>A<span class="op">):</span><span class="bu">Int</span> <span class="op">=</span> <span class="op">{</span>实现逻辑<span class="op">}}</span></span>
-            <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">makeItComparable</span><span class="op">(</span>a<span class="op">:</span>A<span class="op">)</span> <span class="op">=</span> <span class="kw">new</span> Comparable<span class="op">[</span>A<span class="op">]{</span><span class="kw">def</span> <span class="fu">compare</span><span class="op">(</span>o<span class="op">:</span>A<span class="op">):</span><span class="bu">Int</span> <span class="op">=</span> <span class="op">{</span>实现逻辑<span class="op">}}</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
      </div> 
      <p>那么，只要我们在调用的时候，将相应的<code>ATypeClassAdaptor[A]</code>的实现作为implicit parameter传入就可以完成typeclass的约束:</p> 
      <div class="sourceCode" id="cb4">
       <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">compare</span><span class="op">(</span>a<span class="op">:</span>A<span class="op">,</span> b<span class="op">:</span>A<span class="op">)(</span><span class="kw">implicit</span> <span class="kw">val</span> handler<span class="op">:</span>ATypeClassAdaptor<span class="op">[</span>A<span class="op">])</span> <span class="op">=</span> handler<span class="op">.</span><span class="fu">makeItComparable</span><span class="op">(</span>a<span class="op">).</span><span class="fu">compare</span><span class="op">(</span>b<span class="op">))</span></span>
-            <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">implicit</span> handler <span class="op">=</span> <span class="kw">new</span> ATypeClassAdaptor</span>
-            <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> a1 <span class="op">:</span> A <span class="op">=</span> _</span>
-            <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> a2 <span class="op">:</span> A <span class="op">=</span> _</span>
-            <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">compare</span><span class="op">(</span>a1<span class="op">,</span> a2<span class="op">)</span></span></code></pre>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">implicit</span> handler <span class="op">=</span> <span class="kw">new</span> ATypeClassAdaptor</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> a1 <span class="op">:</span> A <span class="op">=</span> _</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> a2 <span class="op">:</span> A <span class="op">=</span> _</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">compare</span><span class="op">(</span>a1<span class="op">,</span> a2<span class="op">)</span></span></code></pre>
      </div> 
      <p>只不过，这种场景按照二八原则应该属于二的那一部分，而大部分blog post或者书上却把这东西讲得跟八那部分似的。</p> 
      <p>好啦， 关于typeclass就扯这么多，各位看官尽兴，手里有砖的也可以拍出来 ；）</p> 
@@ -241,11 +242,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2020-01-08-not-same-same.html">牛人也有虚假同感偏差 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2009-08-21-spark-idea.html">灵光乍现的一瞬 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2023-07-13-diff-culture-east-and-west.html">不懂东西方文化差异怎么能行？ </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2018-05-26-how_to_find_proper_CTO.html">要找CTO， 你有没有想好选I还是选E？ </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2023-08-17-gumroad-affiliates.html">Gumroad的分销功能看这篇就够了！ </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2021-04-30-my-way-of-talk-sucks.html">语气、态度与自我 </a> 
       </div> 
      </div> 
      <hr> 

@@ -16,8 +16,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -94,7 +96,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -177,168 +178,168 @@
      <p>So A simple service looks like:</p> 
      <div class="sourceCode" id="cb1">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MyService<span class="op">{</span></span>
-            <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">volatile</span> <span class="dt">boolean</span> running <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
-            <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">start</span><span class="op">(){</span></span>
-            <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">...</span><span class="op">.</span></span>
-            <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">running</span> <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
-            <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span><span class="op">(</span>running<span class="op">){</span></span>
-            <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>            <span class="kw">...</span></span>
-            <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-            <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-            <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    </span>
-            <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">boolean</span> <span class="fu">isRunning</span><span class="op">()</span> <span class="op">{</span><span class="cf">return</span> running<span class="op">;}</span></span>
-            <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    </span>
-            <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">shutdown</span><span class="op">(){</span></span>
-            <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        running <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
-            <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-            <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">volatile</span> <span class="dt">boolean</span> running <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">start</span><span class="op">(){</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">...</span><span class="op">.</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">running</span> <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span><span class="op">(</span>running<span class="op">){</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>            <span class="kw">...</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">boolean</span> <span class="fu">isRunning</span><span class="op">()</span> <span class="op">{</span><span class="cf">return</span> running<span class="op">;}</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">shutdown</span><span class="op">(){</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        running <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
      </div> 
      <p>If we run this service in main thread, we don’t have a chance to call shutdown(), so we expose this Service via jmx, say , with springframework:</p> 
      <div class="sourceCode" id="cb2">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="at">@ManagedResource</span><span class="op">(</span><span class="kw">...</span><span class="op">)</span></span>
-            <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MyService<span class="op">{</span></span>
-            <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">...</span></span>
-            <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    </span>
-            <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">@ManagedOperation</span></span>
-            <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">shutdown</span><span class="op">(){</span></span>
-            <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        running <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
-            <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-            <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MyService<span class="op">{</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">...</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">@ManagedOperation</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">shutdown</span><span class="op">(){</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        running <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
      </div> 
      <p>and configure spring to expose it:</p> 
      <div class="sourceCode" id="cb3">
       <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span><span class="ot"> version=</span><span class="st">"1.0"</span><span class="ot"> encoding=</span><span class="st">"UTF-8"</span><span class="fu">?&gt;</span></span>
-            <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">beans</span><span class="ot"> xmlns=</span><span class="st">"http://www.springframework.org/schema/beans"</span></span>
-            <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ot">       xmlns:xsi=</span><span class="st">"http://www.w3.org/2001/XMLSchema-instance"</span></span>
-            <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ot">       xmlns:context=</span><span class="st">"http://www.springframework.org/schema/context"</span></span>
-            <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ot">       xmlns:p=</span><span class="st">"http://www.springframework.org/schema/p"</span></span>
-            <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ot">       xmlns:c=</span><span class="st">"http://www.springframework.org/schema/c"</span></span>
-            <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="ot">       xsi:schemaLocation=</span><span class="st">"http://www.springframework.org/schema/beans</span></span>
-            <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="st">        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"</span>&gt;</span>
-            <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">context:mbean-export</span>/&gt;</span>
-            <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">beans</span>&gt;</span></code></pre>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">beans</span><span class="ot"> xmlns=</span><span class="st">"http://www.springframework.org/schema/beans"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ot">       xmlns:xsi=</span><span class="st">"http://www.w3.org/2001/XMLSchema-instance"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ot">       xmlns:context=</span><span class="st">"http://www.springframework.org/schema/context"</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ot">       xmlns:p=</span><span class="st">"http://www.springframework.org/schema/p"</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ot">       xmlns:c=</span><span class="st">"http://www.springframework.org/schema/c"</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="ot">       xsi:schemaLocation=</span><span class="st">"http://www.springframework.org/schema/beans</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="st">        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"</span>&gt;</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">context:mbean-export</span>/&gt;</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">beans</span>&gt;</span></code></pre>
      </div> 
      <p>then, when we would like to shut it down, we call the shutdown() method via jmx.</p> 
      <p>To make things simple, we usually will give a stop.sh under bin directory for ops, such a stop.sh can call this shutdown() method via jmx with the help of attach API and management-agent.jar, as long as we wrap these functions into a helper main class:</p> 
      <div class="sourceCode" id="cb4">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">com</span><span class="op">.</span><span class="im">sun</span><span class="op">.</span><span class="im">tools</span><span class="op">.</span><span class="im">attach</span><span class="op">.</span><span class="im">AgentInitializationException</span><span class="op">;</span></span>
-            <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">com</span><span class="op">.</span><span class="im">sun</span><span class="op">.</span><span class="im">tools</span><span class="op">.</span><span class="im">attach</span><span class="op">.</span><span class="im">AgentLoadException</span><span class="op">;</span></span>
-            <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">com</span><span class="op">.</span><span class="im">sun</span><span class="op">.</span><span class="im">tools</span><span class="op">.</span><span class="im">attach</span><span class="op">.</span><span class="im">AttachNotSupportedException</span><span class="op">;</span></span>
-            <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">com</span><span class="op">.</span><span class="im">sun</span><span class="op">.</span><span class="im">tools</span><span class="op">.</span><span class="im">attach</span><span class="op">.</span><span class="im">VirtualMachine</span><span class="op">;</span></span>
-            <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">javax</span><span class="op">.</span><span class="im">management</span><span class="op">.</span><span class="im">MBeanServerConnection</span><span class="op">;</span></span>
-            <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">javax</span><span class="op">.</span><span class="im">management</span><span class="op">.</span><span class="im">ObjectName</span><span class="op">;</span></span>
-            <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">javax</span><span class="op">.</span><span class="im">management</span><span class="op">.</span><span class="im">remote</span><span class="op">.</span><span class="im">JMXConnector</span><span class="op">;</span></span>
-            <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">javax</span><span class="op">.</span><span class="im">management</span><span class="op">.</span><span class="im">remote</span><span class="op">.</span><span class="im">JMXConnectorFactory</span><span class="op">;</span></span>
-            <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">javax</span><span class="op">.</span><span class="im">management</span><span class="op">.</span><span class="im">remote</span><span class="op">.</span><span class="im">JMXServiceURL</span><span class="op">;</span></span>
-            <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">java</span><span class="op">.</span><span class="im">io</span><span class="op">.</span><span class="im">File</span><span class="op">;</span></span>
-            <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">java</span><span class="op">.</span><span class="im">io</span><span class="op">.</span><span class="im">IOException</span><span class="op">;</span></span>
-            <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
-            <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> A Tool you can use to stop your service process gracefully via JMX locally and safely<span class="co">.</span></span>
-            <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span></span>
-            <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> Shutdown needs tools<span class="co">.</span>jar in classpath<span class="co">,</span> so to run this class<span class="co">,</span> assign the path of tools<span class="co">.</span>jar in your system in the shell script<span class="co">,</span> it<span class="co">'</span>s a must prerequisite<span class="co">!</span></span>
-            <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span></span>
-            <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="co">@</span>since <span class="co">2014-10-24</span></span>
-            <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a> <span class="co">*/</span></span>
-            <span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Shutdown <span class="op">{</span></span>
-            <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">final</span> <span class="bu">String</span> LOCAL_CONNECTOR_ADDRESS_URL <span class="op">=</span> <span class="st">"com.sun.management.jmxremote.localConnectorAddress"</span><span class="op">;</span></span>
-            <span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="co">/**</span></span>
-            <span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> current process<span class="co">'</span>s pid</span>
-            <span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>     <span class="co">*/</span></span>
-            <span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> pid<span class="op">;</span></span>
-            <span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="co">/**</span></span>
-            <span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> the managed bean<span class="co">'</span>s name of the top service that we will stop</span>
-            <span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>     <span class="co">*/</span></span>
-            <span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> mbeanName<span class="op">;</span></span>
-            <span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    <span class="co">/**</span></span>
-            <span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> the operation name of the managed bean<span class="co">,</span> usually named <span class="co">"</span>stop<span class="co">",</span> <span class="co">"</span>shutdown<span class="co">",</span> <span class="co">"</span>destroy<span class="co">"</span> without any parameters<span class="co">.</span></span>
-            <span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>     <span class="co">*/</span></span>
-            <span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> mbeanMethodName<span class="op">;</span></span>
-            <span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="bu">JMXServiceURL</span> <span class="fu">getConnectorAddressAsPerPid</span><span class="op">(</span><span class="bu">String</span> pid<span class="op">)</span> <span class="kw">throws</span> <span class="bu">IOException</span><span class="op">,</span> AttachNotSupportedException<span class="op">,</span> AgentLoadException<span class="op">,</span> AgentInitializationException <span class="op">{</span></span>
-            <span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>        VirtualMachine vm <span class="op">=</span> VirtualMachine<span class="op">.</span><span class="fu">attach</span><span class="op">(</span>pid<span class="op">);</span></span>
-            <span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>        <span class="bu">String</span> connectorAddress <span class="op">=</span> vm<span class="op">.</span><span class="fu">getAgentProperties</span><span class="op">().</span><span class="fu">getProperty</span><span class="op">(</span>LOCAL_CONNECTOR_ADDRESS_URL<span class="op">);</span></span>
-            <span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>connectorAddress <span class="op">==</span> <span class="kw">null</span><span class="op">)</span> <span class="op">{</span></span>
-            <span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>            <span class="bu">String</span> agent <span class="op">=</span> vm<span class="op">.</span><span class="fu">getSystemProperties</span><span class="op">().</span><span class="fu">getProperty</span><span class="op">(</span><span class="st">"java.home"</span><span class="op">)</span> <span class="op">+</span> <span class="bu">File</span><span class="op">.</span><span class="fu">separator</span> <span class="op">+</span> <span class="st">"lib"</span> <span class="op">+</span> <span class="bu">File</span><span class="op">.</span><span class="fu">separator</span> <span class="op">+</span> <span class="st">"management-agent.jar"</span><span class="op">;</span></span>
-            <span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>            vm<span class="op">.</span><span class="fu">loadAgent</span><span class="op">(</span>agent<span class="op">);</span></span>
-            <span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>            connectorAddress <span class="op">=</span> vm<span class="op">.</span><span class="fu">getAgentProperties</span><span class="op">().</span><span class="fu">getProperty</span><span class="op">(</span>LOCAL_CONNECTOR_ADDRESS_URL<span class="op">);</span></span>
-            <span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-            <span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">new</span> <span class="bu">JMXServiceURL</span><span class="op">(</span>connectorAddress<span class="op">);</span></span>
-            <span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-            <span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Object</span> <span class="fu">execute</span><span class="op">()</span> <span class="kw">throws</span> <span class="bu">Throwable</span> <span class="op">{</span></span>
-            <span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>        <span class="fu">validate</span><span class="op">(</span>pid<span class="op">,</span> <span class="st">"pid"</span><span class="op">);</span></span>
-            <span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>        <span class="fu">validate</span><span class="op">(</span>mbeanName<span class="op">,</span> <span class="st">"mbeanName"</span><span class="op">);</span></span>
-            <span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>        <span class="fu">validate</span><span class="op">(</span>mbeanMethodName<span class="op">,</span> <span class="st">"mbeanMethodName"</span><span class="op">);</span></span>
-            <span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>        <span class="bu">JMXConnector</span> jmxConnector <span class="op">=</span> <span class="bu">JMXConnectorFactory</span><span class="op">.</span><span class="fu">newJMXConnector</span><span class="op">(</span><span class="fu">getConnectorAddressAsPerPid</span><span class="op">(</span><span class="fu">getPid</span><span class="op">()),</span> <span class="kw">null</span><span class="op">);</span></span>
-            <span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>        jmxConnector<span class="op">.</span><span class="fu">connect</span><span class="op">();</span></span>
-            <span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span> <span class="op">{</span></span>
-            <span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>            <span class="bu">MBeanServerConnection</span> connection <span class="op">=</span> jmxConnector<span class="op">.</span><span class="fu">getMBeanServerConnection</span><span class="op">();</span></span>
-            <span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> connection<span class="op">.</span><span class="fu">invoke</span><span class="op">(</span><span class="bu">ObjectName</span><span class="op">.</span><span class="fu">getInstance</span><span class="op">(</span><span class="fu">getMbeanName</span><span class="op">()),</span> <span class="fu">getMbeanMethodName</span><span class="op">(),</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">);</span></span>
-            <span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">finally</span> <span class="op">{</span></span>
-            <span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>            jmxConnector<span class="op">.</span><span class="fu">close</span><span class="op">();</span></span>
-            <span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-            <span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-            <span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="dt">void</span> <span class="fu">validate</span><span class="op">(</span><span class="bu">String</span> property<span class="op">,</span> <span class="bu">String</span> propertyName<span class="op">)</span> <span class="op">{</span></span>
-            <span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>property <span class="op">==</span> <span class="kw">null</span> <span class="op">||</span> property<span class="op">.</span><span class="fu">trim</span><span class="op">().</span><span class="fu">isEmpty</span><span class="op">())</span></span>
-            <span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>            <span class="cf">throw</span> <span class="kw">new</span> <span class="bu">IllegalStateException</span><span class="op">(</span><span class="st">"["</span> <span class="op">+</span> propertyName <span class="op">+</span> <span class="st">"] must be set"</span><span class="op">);</span></span>
-            <span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-            <span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">getPid</span><span class="op">()</span> <span class="op">{</span></span>
-            <span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> pid<span class="op">;</span></span>
-            <span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-            <span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">setPid</span><span class="op">(</span><span class="bu">String</span> pid<span class="op">)</span> <span class="op">{</span></span>
-            <span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">pid</span> <span class="op">=</span> pid<span class="op">;</span></span>
-            <span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-            <span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">getMbeanName</span><span class="op">()</span> <span class="op">{</span></span>
-            <span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> mbeanName<span class="op">;</span></span>
-            <span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-            <span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">setMbeanName</span><span class="op">(</span><span class="bu">String</span> mbeanName<span class="op">)</span> <span class="op">{</span></span>
-            <span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">mbeanName</span> <span class="op">=</span> mbeanName<span class="op">;</span></span>
-            <span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-            <span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">getMbeanMethodName</span><span class="op">()</span> <span class="op">{</span></span>
-            <span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> mbeanMethodName<span class="op">;</span></span>
-            <span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-            <span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">setMbeanMethodName</span><span class="op">(</span><span class="bu">String</span> mbeanMethodName<span class="op">)</span> <span class="op">{</span></span>
-            <span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">mbeanMethodName</span> <span class="op">=</span> mbeanMethodName<span class="op">;</span></span>
-            <span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-            <span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>    <span class="co">/**</span></span>
-            <span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> Shutdown shutdown <span class="co">=</span> new Shutdown<span class="co">();</span></span>
-            <span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> shutdown<span class="co">.</span>setPid<span class="co">("7198");</span></span>
-            <span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> shutdown<span class="co">.</span>setMbeanName<span class="co">("</span>com<span class="co">.</span>sun<span class="co">.</span>management<span class="co">:</span>type<span class="co">=</span>DiagnosticCommand<span class="co">");</span></span>
-            <span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> shutdown<span class="co">.</span>setMbeanMethodName<span class="co">("</span>vmSystemProperties<span class="co">");</span></span>
-            <span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> System<span class="co">.</span>out<span class="co">.</span>println<span class="co">(</span>shutdown<span class="co">.</span>execute<span class="co">());</span></span>
-            <span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a>     <span class="co">*/</span></span>
-            <span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="kw">throws</span> <span class="bu">Throwable</span> <span class="op">{</span></span>
-            <span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>args<span class="op">.</span><span class="fu">length</span> <span class="op">!=</span> <span class="dv">3</span><span class="op">)</span> <span class="op">{</span></span>
-            <span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a>            <span class="cf">throw</span> <span class="kw">new</span> <span class="bu">Exception</span><span class="op">(</span><span class="st">"usage: java ... Shutdown [pid] [mbean name] [mbean operation]"</span><span class="op">);</span></span>
-            <span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-            <span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a>        Shutdown shutdown <span class="op">=</span> <span class="kw">new</span> <span class="fu">Shutdown</span><span class="op">();</span></span>
-            <span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a>        shutdown<span class="op">.</span><span class="fu">setPid</span><span class="op">(</span>args<span class="op">[</span><span class="dv">0</span><span class="op">]);</span></span>
-            <span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a>        shutdown<span class="op">.</span><span class="fu">setMbeanName</span><span class="op">(</span>args<span class="op">[</span><span class="dv">1</span><span class="op">]);</span></span>
-            <span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a>        shutdown<span class="op">.</span><span class="fu">setMbeanMethodName</span><span class="op">(</span>args<span class="op">[</span><span class="dv">2</span><span class="op">]);</span></span>
-            <span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a>        shutdown<span class="op">.</span><span class="fu">execute</span><span class="op">();</span></span>
-            <span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-            <span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">com</span><span class="op">.</span><span class="im">sun</span><span class="op">.</span><span class="im">tools</span><span class="op">.</span><span class="im">attach</span><span class="op">.</span><span class="im">AgentLoadException</span><span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">com</span><span class="op">.</span><span class="im">sun</span><span class="op">.</span><span class="im">tools</span><span class="op">.</span><span class="im">attach</span><span class="op">.</span><span class="im">AttachNotSupportedException</span><span class="op">;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">com</span><span class="op">.</span><span class="im">sun</span><span class="op">.</span><span class="im">tools</span><span class="op">.</span><span class="im">attach</span><span class="op">.</span><span class="im">VirtualMachine</span><span class="op">;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">javax</span><span class="op">.</span><span class="im">management</span><span class="op">.</span><span class="im">MBeanServerConnection</span><span class="op">;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">javax</span><span class="op">.</span><span class="im">management</span><span class="op">.</span><span class="im">ObjectName</span><span class="op">;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">javax</span><span class="op">.</span><span class="im">management</span><span class="op">.</span><span class="im">remote</span><span class="op">.</span><span class="im">JMXConnector</span><span class="op">;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">javax</span><span class="op">.</span><span class="im">management</span><span class="op">.</span><span class="im">remote</span><span class="op">.</span><span class="im">JMXConnectorFactory</span><span class="op">;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">javax</span><span class="op">.</span><span class="im">management</span><span class="op">.</span><span class="im">remote</span><span class="op">.</span><span class="im">JMXServiceURL</span><span class="op">;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">java</span><span class="op">.</span><span class="im">io</span><span class="op">.</span><span class="im">File</span><span class="op">;</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">java</span><span class="op">.</span><span class="im">io</span><span class="op">.</span><span class="im">IOException</span><span class="op">;</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> A Tool you can use to stop your service process gracefully via JMX locally and safely<span class="co">.</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> Shutdown needs tools<span class="co">.</span>jar in classpath<span class="co">,</span> so to run this class<span class="co">,</span> assign the path of tools<span class="co">.</span>jar in your system in the shell script<span class="co">,</span> it<span class="co">'</span>s a must prerequisite<span class="co">!</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="co">@</span>since <span class="co">2014-10-24</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a> <span class="co">*/</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Shutdown <span class="op">{</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">final</span> <span class="bu">String</span> LOCAL_CONNECTOR_ADDRESS_URL <span class="op">=</span> <span class="st">"com.sun.management.jmxremote.localConnectorAddress"</span><span class="op">;</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> current process<span class="co">'</span>s pid</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>     <span class="co">*/</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> pid<span class="op">;</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> the managed bean<span class="co">'</span>s name of the top service that we will stop</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>     <span class="co">*/</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> mbeanName<span class="op">;</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> the operation name of the managed bean<span class="co">,</span> usually named <span class="co">"</span>stop<span class="co">",</span> <span class="co">"</span>shutdown<span class="co">",</span> <span class="co">"</span>destroy<span class="co">"</span> without any parameters<span class="co">.</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>     <span class="co">*/</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> mbeanMethodName<span class="op">;</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="bu">JMXServiceURL</span> <span class="fu">getConnectorAddressAsPerPid</span><span class="op">(</span><span class="bu">String</span> pid<span class="op">)</span> <span class="kw">throws</span> <span class="bu">IOException</span><span class="op">,</span> AttachNotSupportedException<span class="op">,</span> AgentLoadException<span class="op">,</span> AgentInitializationException <span class="op">{</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>        VirtualMachine vm <span class="op">=</span> VirtualMachine<span class="op">.</span><span class="fu">attach</span><span class="op">(</span>pid<span class="op">);</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>        <span class="bu">String</span> connectorAddress <span class="op">=</span> vm<span class="op">.</span><span class="fu">getAgentProperties</span><span class="op">().</span><span class="fu">getProperty</span><span class="op">(</span>LOCAL_CONNECTOR_ADDRESS_URL<span class="op">);</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>connectorAddress <span class="op">==</span> <span class="kw">null</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>            <span class="bu">String</span> agent <span class="op">=</span> vm<span class="op">.</span><span class="fu">getSystemProperties</span><span class="op">().</span><span class="fu">getProperty</span><span class="op">(</span><span class="st">"java.home"</span><span class="op">)</span> <span class="op">+</span> <span class="bu">File</span><span class="op">.</span><span class="fu">separator</span> <span class="op">+</span> <span class="st">"lib"</span> <span class="op">+</span> <span class="bu">File</span><span class="op">.</span><span class="fu">separator</span> <span class="op">+</span> <span class="st">"management-agent.jar"</span><span class="op">;</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>            vm<span class="op">.</span><span class="fu">loadAgent</span><span class="op">(</span>agent<span class="op">);</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>            connectorAddress <span class="op">=</span> vm<span class="op">.</span><span class="fu">getAgentProperties</span><span class="op">().</span><span class="fu">getProperty</span><span class="op">(</span>LOCAL_CONNECTOR_ADDRESS_URL<span class="op">);</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">new</span> <span class="bu">JMXServiceURL</span><span class="op">(</span>connectorAddress<span class="op">);</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Object</span> <span class="fu">execute</span><span class="op">()</span> <span class="kw">throws</span> <span class="bu">Throwable</span> <span class="op">{</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>        <span class="fu">validate</span><span class="op">(</span>pid<span class="op">,</span> <span class="st">"pid"</span><span class="op">);</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>        <span class="fu">validate</span><span class="op">(</span>mbeanName<span class="op">,</span> <span class="st">"mbeanName"</span><span class="op">);</span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>        <span class="fu">validate</span><span class="op">(</span>mbeanMethodName<span class="op">,</span> <span class="st">"mbeanMethodName"</span><span class="op">);</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>        <span class="bu">JMXConnector</span> jmxConnector <span class="op">=</span> <span class="bu">JMXConnectorFactory</span><span class="op">.</span><span class="fu">newJMXConnector</span><span class="op">(</span><span class="fu">getConnectorAddressAsPerPid</span><span class="op">(</span><span class="fu">getPid</span><span class="op">()),</span> <span class="kw">null</span><span class="op">);</span></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>        jmxConnector<span class="op">.</span><span class="fu">connect</span><span class="op">();</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>            <span class="bu">MBeanServerConnection</span> connection <span class="op">=</span> jmxConnector<span class="op">.</span><span class="fu">getMBeanServerConnection</span><span class="op">();</span></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> connection<span class="op">.</span><span class="fu">invoke</span><span class="op">(</span><span class="bu">ObjectName</span><span class="op">.</span><span class="fu">getInstance</span><span class="op">(</span><span class="fu">getMbeanName</span><span class="op">()),</span> <span class="fu">getMbeanMethodName</span><span class="op">(),</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">);</span></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">finally</span> <span class="op">{</span></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>            jmxConnector<span class="op">.</span><span class="fu">close</span><span class="op">();</span></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="dt">void</span> <span class="fu">validate</span><span class="op">(</span><span class="bu">String</span> property<span class="op">,</span> <span class="bu">String</span> propertyName<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>property <span class="op">==</span> <span class="kw">null</span> <span class="op">||</span> property<span class="op">.</span><span class="fu">trim</span><span class="op">().</span><span class="fu">isEmpty</span><span class="op">())</span></span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>            <span class="cf">throw</span> <span class="kw">new</span> <span class="bu">IllegalStateException</span><span class="op">(</span><span class="st">"["</span> <span class="op">+</span> propertyName <span class="op">+</span> <span class="st">"] must be set"</span><span class="op">);</span></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">getPid</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> pid<span class="op">;</span></span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">setPid</span><span class="op">(</span><span class="bu">String</span> pid<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">pid</span> <span class="op">=</span> pid<span class="op">;</span></span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">getMbeanName</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> mbeanName<span class="op">;</span></span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">setMbeanName</span><span class="op">(</span><span class="bu">String</span> mbeanName<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">mbeanName</span> <span class="op">=</span> mbeanName<span class="op">;</span></span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">getMbeanMethodName</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> mbeanMethodName<span class="op">;</span></span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">setMbeanMethodName</span><span class="op">(</span><span class="bu">String</span> mbeanMethodName<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">mbeanMethodName</span> <span class="op">=</span> mbeanMethodName<span class="op">;</span></span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> Shutdown shutdown <span class="co">=</span> new Shutdown<span class="co">();</span></span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> shutdown<span class="co">.</span>setPid<span class="co">("7198");</span></span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> shutdown<span class="co">.</span>setMbeanName<span class="co">("</span>com<span class="co">.</span>sun<span class="co">.</span>management<span class="co">:</span>type<span class="co">=</span>DiagnosticCommand<span class="co">");</span></span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> shutdown<span class="co">.</span>setMbeanMethodName<span class="co">("</span>vmSystemProperties<span class="co">");</span></span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> System<span class="co">.</span>out<span class="co">.</span>println<span class="co">(</span>shutdown<span class="co">.</span>execute<span class="co">());</span></span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a>     <span class="co">*/</span></span>
+<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="kw">throws</span> <span class="bu">Throwable</span> <span class="op">{</span></span>
+<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>args<span class="op">.</span><span class="fu">length</span> <span class="op">!=</span> <span class="dv">3</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a>            <span class="cf">throw</span> <span class="kw">new</span> <span class="bu">Exception</span><span class="op">(</span><span class="st">"usage: java ... Shutdown [pid] [mbean name] [mbean operation]"</span><span class="op">);</span></span>
+<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a>        Shutdown shutdown <span class="op">=</span> <span class="kw">new</span> <span class="fu">Shutdown</span><span class="op">();</span></span>
+<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a>        shutdown<span class="op">.</span><span class="fu">setPid</span><span class="op">(</span>args<span class="op">[</span><span class="dv">0</span><span class="op">]);</span></span>
+<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a>        shutdown<span class="op">.</span><span class="fu">setMbeanName</span><span class="op">(</span>args<span class="op">[</span><span class="dv">1</span><span class="op">]);</span></span>
+<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a>        shutdown<span class="op">.</span><span class="fu">setMbeanMethodName</span><span class="op">(</span>args<span class="op">[</span><span class="dv">2</span><span class="op">]);</span></span>
+<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a>        shutdown<span class="op">.</span><span class="fu">execute</span><span class="op">();</span></span>
+<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
      </div> 
      <p>then in the stop.sh, you can simple write:</p> 
      <div class="sourceCode" id="cb5">
       <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#! /usr/bin/env bash</span></span>
-            <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">java</span> <span class="at">-cp</span> tools.jar:... com.wacai.csw.scheduler.controls.Shutdown [pid] [service mbean name] [shutdown method]</span></code></pre>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">java</span> <span class="at">-cp</span> tools.jar:... com.wacai.csw.scheduler.controls.Shutdown [pid] [service mbean name] [shutdown method]</span></code></pre>
      </div> 
      <p>since the tools.jar is platform dependent, just point it to the location under your platform in the shell.</p> 
      <p>OK, now everything works perfectly and seamlessly.</p> 
@@ -346,11 +347,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2023-09-12-lets-talk-about-xiaoyaozi.html">聊聊逍遥子 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2009-05-24-next-stop-hangzhou.html">奔向下一站… </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2021-08-17-dest-or-road-problem.html">TA真得是在问路吗？ </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2009-02-28-movie-the-reader.html">生死朗读 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2019-12-19-about-value-to-everyone.html">价值与公平 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2022-01-16-three-points-I-learned-from-YMZ.html">我对叶茂中先生手记的三点感同！ </a> 
       </div> 
      </div> 
      <hr> 

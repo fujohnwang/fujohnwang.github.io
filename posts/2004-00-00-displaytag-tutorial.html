@@ -16,8 +16,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -29,7 +31,6 @@
             display:inline;
         }
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -110,182 +111,182 @@
      <blockquote> 
       <p>2014年从msn space存档中重新恢复出来！</p> 
      </blockquote> 
-     <pre>               写点儿东西真不容易，暂时写了这么些，先贴于此。
-            [b]DisplayTag Tutorial by DarrenWang[/b]
-                               CopyRight June，2004:em510:
-                               By DarrenWang，All Rights Reserved！
+     <pre>   写点儿东西真不容易，暂时写了这么些，先贴于此。
+[b]DisplayTag Tutorial by DarrenWang[/b]
+                   CopyRight June，2004:em510:
+                   By DarrenWang，All Rights Reserved！
 
-            [b]【简介Introduction】[/b]
-            DisplayTag是一个开源的自定义标签库（Custom Tag lib），他提供了直接而有效的格式化web视图层数据的有效手段。你可以在现在流行的web应用的MVC模式中集成DisplayTag到View层，其提供的强大表格格式化功能一定会令你爱不释手。或许上面说的有些夸张了，但是DisplayTag在表格的格式化方面表现确实出色，当然，他也只能显示表格，视图层的大部分工作不就是使用表格来格式化数据嘛？！
-             好了，让我们通过图片来看看他是一个什么样子吧!^_^
-            [img]http://displaytag.sourceforge.net/images/sample_snapshot.png[/img]
-            怎么样？是不是感觉不错那？如果答案是肯定的，那么你一定急着想自己试一试咯？！不要急，下面就让我们开始我们的DisplayTag之旅。
+[b]【简介Introduction】[/b]
+DisplayTag是一个开源的自定义标签库（Custom Tag lib），他提供了直接而有效的格式化web视图层数据的有效手段。你可以在现在流行的web应用的MVC模式中集成DisplayTag到View层，其提供的强大表格格式化功能一定会令你爱不释手。或许上面说的有些夸张了，但是DisplayTag在表格的格式化方面表现确实出色，当然，他也只能显示表格，视图层的大部分工作不就是使用表格来格式化数据嘛？！
+ 好了，让我们通过图片来看看他是一个什么样子吧!^_^
+[img]http://displaytag.sourceforge.net/images/sample_snapshot.png[/img]
+怎么样？是不是感觉不错那？如果答案是肯定的，那么你一定急着想自己试一试咯？！不要急，下面就让我们开始我们的DisplayTag之旅。
 
-            [b]【Hello DisplayTag】[/b]
-            既然是一个tutorial，所以，我们不想对像自定义标签的实现原理等进行解释，也就是说在此之前，我们假定你已经对自定义标签有一定的认识，当然，没有也无所谓，等这篇tutorial完成后，你估计就会了解的差不多了。
-             呐，让我们从最简单的displaytag的使用开始，就跟你的第一个程序往往是从HelloWorld程序开始一样。
-             先忽略其他的配置问题，我们的JSP文件的源代码如下：
-            [img]/user11/darrenwang/upload/2004639261011063.gif[/img]
-            实际上，除去初始化和数据准备等操作，生成表格的代码只有一行，那就是：
-            <display:table name="InfoList">
-            
+[b]【Hello DisplayTag】[/b]
+既然是一个tutorial，所以，我们不想对像自定义标签的实现原理等进行解释，也就是说在此之前，我们假定你已经对自定义标签有一定的认识，当然，没有也无所谓，等这篇tutorial完成后，你估计就会了解的差不多了。
+ 呐，让我们从最简单的displaytag的使用开始，就跟你的第一个程序往往是从HelloWorld程序开始一样。
+ 先忽略其他的配置问题，我们的JSP文件的源代码如下：
+[img]/user11/darrenwang/upload/2004639261011063.gif[/img]
+实际上，除去初始化和数据准备等操作，生成表格的代码只有一行，那就是：
+<display:table name="InfoList">
+
       </display:table>
-             而他生成的表格就是这样的：
-            [img]/user11/darrenwang/upload/200463927041199.gif[/img]
-            怎么样？是不是很简单那？简单的代码就可以生成如此漂亮的表格，你有理由不用嘛？（因为使用了Struts的LabelValueBean，所以表格上显示了原始的title，不用着急，后面我们将会说道如何修改成你所期待的样子）
+ 而他生成的表格就是这样的：
+[img]/user11/darrenwang/upload/200463927041199.gif[/img]
+怎么样？是不是很简单那？简单的代码就可以生成如此漂亮的表格，你有理由不用嘛？（因为使用了Struts的LabelValueBean，所以表格上显示了原始的title，不用着急，后面我们将会说道如何修改成你所期待的样子）
 
-            [b]【配置configuration】[/b]
-            Ok，在我们运用DisplayTag之前，我们需要对他的使用环境进行一些配置，或许有些复杂，但是，如果你是一个WebApp老手的话，其实并不难。
-             当然，在此之前，我们需要下载DisplayTag，当前的最新版本是displaytag-1.0-b3。你可以去SourceForge下载它，下载网址是：http://displaytag.sourceforge.net/download.html 。
-             2．1 DisplayTag的类库，依赖库和TLD文件的添加
-             解压下载下来的displaytag的压缩包，之后依次拷贝displaytag-1.0-b3.jar和lib目录下面的所有jar文件到你自己的WEBAPP_HOME/WEB-INF/lib目录下面，拷贝displaytag-11.tld，displaytag-12.tld和displaytag-el-12.tld到WEBAPP_HOME/WEB-INF目录下面。
-             他的依赖库包括：commons-beanutils，commons-collections，commons-lang以及commons-logging。
-             这里需要注意的问题就是，如果你连同Struts一起使用的话，DisplayTag的依赖库实际上都包括在Struts1.1的发布包中，你只需要将displaytag-1.0-b3.jar文件拷贝到你自己的WEBAPP_HOME/WEB-INF/lib目录下面就可以了。
-             另外一个重要的问题就是，如果你的Struts1.1发布包中的commons lang包不是2.0版本或者更高版本的话，需要去Apache的Jakarta commons项目主页上下载2.0版本的commons-lang类库，并替换掉原来的commons-lang类库，否则，运行的时候将报错误并不能运行。
-             2．2 web.xml的配置
-             要使用DisplayTag提供的自定义标签，跟其他自定义标签的使用没有什么两样，同样，需要在web.xml文件中注册taglib，下面是笔者的web.xml文件中taglib注册的片断：
-            <taglib>
-                
+[b]【配置configuration】[/b]
+Ok，在我们运用DisplayTag之前，我们需要对他的使用环境进行一些配置，或许有些复杂，但是，如果你是一个WebApp老手的话，其实并不难。
+ 当然，在此之前，我们需要下载DisplayTag，当前的最新版本是displaytag-1.0-b3。你可以去SourceForge下载它，下载网址是：http://displaytag.sourceforge.net/download.html 。
+ 2．1 DisplayTag的类库，依赖库和TLD文件的添加
+ 解压下载下来的displaytag的压缩包，之后依次拷贝displaytag-1.0-b3.jar和lib目录下面的所有jar文件到你自己的WEBAPP_HOME/WEB-INF/lib目录下面，拷贝displaytag-11.tld，displaytag-12.tld和displaytag-el-12.tld到WEBAPP_HOME/WEB-INF目录下面。
+ 他的依赖库包括：commons-beanutils，commons-collections，commons-lang以及commons-logging。
+ 这里需要注意的问题就是，如果你连同Struts一起使用的话，DisplayTag的依赖库实际上都包括在Struts1.1的发布包中，你只需要将displaytag-1.0-b3.jar文件拷贝到你自己的WEBAPP_HOME/WEB-INF/lib目录下面就可以了。
+ 另外一个重要的问题就是，如果你的Struts1.1发布包中的commons lang包不是2.0版本或者更高版本的话，需要去Apache的Jakarta commons项目主页上下载2.0版本的commons-lang类库，并替换掉原来的commons-lang类库，否则，运行的时候将报错误并不能运行。
+ 2．2 web.xml的配置
+ 要使用DisplayTag提供的自定义标签，跟其他自定义标签的使用没有什么两样，同样，需要在web.xml文件中注册taglib，下面是笔者的web.xml文件中taglib注册的片断：
+<taglib>
+    
        <taglib-uri>
         http://displaytag.sf.net
        </taglib-uri>
-                
+    
        <taglib-location>
         /WEB-INF/displaytag-11.tld
        </taglib-location>
-              
+  
       </taglib>
-              <taglib>
-                
+  <taglib>
+    
        <taglib-uri>
         http://displaytag.sf.net
        </taglib-uri>
-                
+    
        <taglib-location>
         /WEB-INF/displaytag-12.tld
        </taglib-location>
-              
+  
       </taglib>
-              <taglib>
-                
+  <taglib>
+    
        <taglib-uri>
         http://displaytag.sf.net/el
        </taglib-uri>
-                
+    
        <taglib-location>
         /WEB-INF/displaytag-el-12.tld
        </taglib-location>
-              
+  
       </taglib>
-             在这里有必要说明一下这三个tld之间的区别，这其实在DisplayTag的官方网站上有提到，这里只是重复一下：displaytag-11.tld 只是提供对JSP1.1规范的的支持，而displaytag-12.tld则提供了对JSP1.2规范的支持，最后的displaytag-el-12.tld除了提供跟displaytag-12.tld提供的特性之外，他提供对Expression Lanuage的支持。所以，为了在web应用移植于不同的app server的时候可以更少的修改文件，这里将所有的tld都添加在这里以便使用。
-             配置完成taglib后，下面是可选择的配置项，如果你不需要的话，可以不进行配置，但建议还是配置他们为好。
-             第一幅图中可以看到diaplaytag提供了数据的导出功能，如果说你的Table存在的页面被include在另一个页面中，比如如果你使用Struts的话，那么Tiles的使用就是这种情况，那么你需要为web.xml中添加filter，以便数据到处功能能够工作正常。
-             首先，在web.xml中添加以下filter配置项（按照web.xml文件中各个elements的顺序规定，需要将<filter>
+ 在这里有必要说明一下这三个tld之间的区别，这其实在DisplayTag的官方网站上有提到，这里只是重复一下：displaytag-11.tld 只是提供对JSP1.1规范的的支持，而displaytag-12.tld则提供了对JSP1.2规范的支持，最后的displaytag-el-12.tld除了提供跟displaytag-12.tld提供的特性之外，他提供对Expression Lanuage的支持。所以，为了在web应用移植于不同的app server的时候可以更少的修改文件，这里将所有的tld都添加在这里以便使用。
+ 配置完成taglib后，下面是可选择的配置项，如果你不需要的话，可以不进行配置，但建议还是配置他们为好。
+ 第一幅图中可以看到diaplaytag提供了数据的导出功能，如果说你的Table存在的页面被include在另一个页面中，比如如果你使用Struts的话，那么Tiles的使用就是这种情况，那么你需要为web.xml中添加filter，以便数据到处功能能够工作正常。
+ 首先，在web.xml中添加以下filter配置项（按照web.xml文件中各个elements的顺序规定，需要将<filter>
        元素添加在
        <servlet>
         前面，以下类似的情况请参考web.xml规范）：
-             
+ 
         <filter>
-            
+
          <filter-name>
           ResponseOverrideFilter
          </filter-name>
-            
+
          <filter-class>
           org.displaytag.filter.ResponseOverrideFilter
          </filter-class>
-            
+
         </filter>
-             其次，添加filter的映射：
-             
+ 其次，添加filter的映射：
+ 
         <filter-mapping>
-            
+
          <filter-name>
           ResponseOverrideFilter
          </filter-name>
-            
+
          <url-pattern>
           *.do
          </url-pattern>
-            
+
         </filter-mapping>
-            
+
         <filter-mapping>
-            
+
          <filter-name>
           ResponseOverrideFilter
          </filter-name>
-            
+
          <url-pattern>
           *.jsp
          </url-pattern>
-            
+
         </filter-mapping>
-             这样，对于web.xml的配置基本就完成了。对于I18N在web.xml文件中进行配置的手段，将在后面提到，不归入此类。
-             2．3属性文件的配置（displaytag.properties）
-             DisplayTag提供了一个属性文件（displaytag.properties）来定义表格显示的时候提供的信息，比如分页显示或者导出数据等的提示信息等，但是因为这个属性文件默认的文件随jar文件一起发布而且是英文的，所以，我们需要对其进行定制以满足中文或者其他平台下的使用。
-             要对这个属性文件进行定制，有三种途径：
-             【1】使用
+ 这样，对于web.xml的配置基本就完成了。对于I18N在web.xml文件中进行配置的手段，将在后面提到，不归入此类。
+ 2．3属性文件的配置（displaytag.properties）
+ DisplayTag提供了一个属性文件（displaytag.properties）来定义表格显示的时候提供的信息，比如分页显示或者导出数据等的提示信息等，但是因为这个属性文件默认的文件随jar文件一起发布而且是英文的，所以，我们需要对其进行定制以满足中文或者其他平台下的使用。
+ 要对这个属性文件进行定制，有三种途径：
+ 【1】使用
         <display:setproperty>
          标签，这个标签可以对单个的属性进行设置，也就是说如果要对整个的应用页面都进行定制的话，需要每个页面都使用这个标签并对每一个要定制的属性都使用它，这很明显不是太行得通，所以，displaytag还提供了下面得途径；
-             【2】使用DisplayPropertiesLoaderServlet来初始化环境，这种方式方式可以对整个应用的属性进行定制，但是，笔者使用这种方式的时候报错，不过，还是将其在web.xml文件中的配置项列于此：
-            
+ 【2】使用DisplayPropertiesLoaderServlet来初始化环境，这种方式方式可以对整个应用的属性进行定制，但是，笔者使用这种方式的时候报错，不过，还是将其在web.xml文件中的配置项列于此：
+
          <servlet id="DisplayPropertiesLoaderServlet">
-                
+    
           <servlet-name>
            DisplayPropertiesLoaderServlet
           </servlet-name>
-                
+    
           <display-name>
            DisplayPropertiesLoaderServlet
           </display-name>
-                
+    
           <description>
            displaytag initialization servlet
           </description>
-            
+
           <servlet-class>
            org.displaytag.properties.DisplayPropertiesLoaderServlet
           </servlet-class>
-                
+    
           <init-param>
-                  
+      
            <param-name>
             properties.filename
            </param-name>
-                  
+      
            <param-value>
             /WEB-INF/displaytag.properties
            </param-value>
-                
+    
           </init-param>
-                
+    
           <load-on-startup>
            1
           </load-on-startup>
-              
+  
          </servlet>
-             这种方法也是读取diaplaytag.properties中的属性配置对整个应该环境进行定制。
-             最后，也就是就第三中方式，也是笔者最常用的方式，那就是：
-             【3】新建一个diaplaytag.properties属性文件，向该文件中添加需要覆盖的或者需要另外定制的属性（具体有那些属性，DisplayTag网站提供了一个PDF格式的manual，上面有所有可以使用的属性的列表，因为太长，所以这里不作罗列）。这个文件的一个样本笔者将在后面的实例部分进行罗列。在准备好属性文件后，将其放到WEBAPP_HOME/WEB-INF/classes目录下面就可以了。我想这也比其他方式方便的多，另外，这种方式也是针对整个的WEB应用进行定制。
-             以上就是配置文件的三种配置方式，第一种只能对单个属性单个页面进行，而后面两种方式可以针对整个的web应用，尤其是第三种方式，笔者尤其倡导。
-             2．4 CSS和img的移植
-             如果说你试着将页面中的这一句去掉的话：
-            
+ 这种方法也是读取diaplaytag.properties中的属性配置对整个应该环境进行定制。
+ 最后，也就是就第三中方式，也是笔者最常用的方式，那就是：
+ 【3】新建一个diaplaytag.properties属性文件，向该文件中添加需要覆盖的或者需要另外定制的属性（具体有那些属性，DisplayTag网站提供了一个PDF格式的manual，上面有所有可以使用的属性的列表，因为太长，所以这里不作罗列）。这个文件的一个样本笔者将在后面的实例部分进行罗列。在准备好属性文件后，将其放到WEBAPP_HOME/WEB-INF/classes目录下面就可以了。我想这也比其他方式方便的多，另外，这种方式也是针对整个的WEB应用进行定制。
+ 以上就是配置文件的三种配置方式，第一种只能对单个属性单个页面进行，而后面两种方式可以针对整个的web应用，尤其是第三种方式，笔者尤其倡导。
+ 2．4 CSS和img的移植
+ 如果说你试着将页面中的这一句去掉的话：
+
          <link rel="stylesheet" href="<%=request.getContextPath()%>/css/screen.css" type="text/css" media="screen, print">，或许你会看到不想看到的景象，或者说你看到的表格将与你所期待的大相径庭：
-            [img]/user11/darrenwang/upload/2004639444276758.gif[/img]
-            怎么样？与上面的简单实例相比，是不是淡色不少？！所以，要使得Displaytag提供最好的显示效果，或者说要显示正常，我们不但要保证服务器端的配置，同样的也要保证视图层的配置，比如说CSS和Images。
-             故此，建议将下载的压缩包中的diaplaytag.war文件包中的css目录和img目录拷贝到你当前工作的WEBApp的根目录下面，这样，就可以避免以上的事情发生。当然，这只是可以正常显示的必要条件，像上面那样，如果页面中不引入css的话，同样会显示不正常。
-             至此，你的Displaytag的配置就算完成了。怎么样？是不是有些繁琐那？！不过不用担心，与它所带给你的便捷和强大的功能相比，这算不了什么。
-             好了，下面就让我们对它的一些概念进行一下探索吧！
+[img]/user11/darrenwang/upload/2004639444276758.gif[/img]
+怎么样？与上面的简单实例相比，是不是淡色不少？！所以，要使得Displaytag提供最好的显示效果，或者说要显示正常，我们不但要保证服务器端的配置，同样的也要保证视图层的配置，比如说CSS和Images。
+ 故此，建议将下载的压缩包中的diaplaytag.war文件包中的css目录和img目录拷贝到你当前工作的WEBApp的根目录下面，这样，就可以避免以上的事情发生。当然，这只是可以正常显示的必要条件，像上面那样，如果页面中不引入css的话，同样会显示不正常。
+ 至此，你的Displaytag的配置就算完成了。怎么样？是不是有些繁琐那？！不过不用担心，与它所带给你的便捷和强大的功能相比，这算不了什么。
+ 好了，下面就让我们对它的一些概念进行一下探索吧！
 
-            [b]DisplayTag Tutorial by DarrenWang[/b]
-                               CopyRight June，2004:em510:
-                               By DarrenWang，All Rights Reserved！
-            接上回书说道，:em325:
-            [b]【displaytag提供的自定义标签说明】[/b]
+[b]DisplayTag Tutorial by DarrenWang[/b]
+                   CopyRight June，2004:em510:
+                   By DarrenWang，All Rights Reserved！
+接上回书说道，:em325:
+[b]【displaytag提供的自定义标签说明】[/b]
 
-            DisplayTag一共提供了五种标签用来显示显示表格，他们是
+DisplayTag一共提供了五种标签用来显示显示表格，他们是
          <display:table>
           ,
           <display:column>
@@ -377,11 +378,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2021-03-14-cost-everywhere.html">进击的成本 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2009-10-09-thread-safe-and-state.html">ThreadSafety, Non</a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2007-09-05-unveil-spring-starter.html">unveil spring starter </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2022-02-15-keenotes-and-PKM.html">我的PKM理念与Keenotes产品实践 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2014-07-06-血色浪漫-信天游.html">《血色浪漫》中的信天游 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2013-12-06-snowboard_basics.html">learn snowboarding </a> 
       </div> 
      </div> 
      <hr> 

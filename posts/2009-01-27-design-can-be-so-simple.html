@@ -16,8 +16,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -94,7 +96,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -187,24 +188,24 @@
      <p>我是做软件的，所以，就先构建软件的代码说起吧！在过程式编程的年代，像C或者Pascal， 老师或者说教材都会告诉你为了代码复用，将某些相关的代码组织成函数(Function)或者过程(Procedure)； 而到了面向对象编程的年代，比如Java中，我们会将相关的代码组织为方法或者是对象；实际上，这些都是亲密性原则的体现。 试想，你愿意看到各种逻辑混杂的一大段代码那，还是愿意看到关注点划分清晰又组织良好的代码那？ 具体一点儿，你是愿意看到“代码清单1”中代码那，还是愿意看到“代码清单2”中的代码？</p> 
      <div class="sourceCode" id="cb1">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>代码清单<span class="er">1</span></span>
-            <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> CodeStyleSample <span class="op">{</span></span>
-            <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">static</span> <span class="dt">final</span> <span class="kw">transient</span> Log logger<span class="op">=</span>LogFactory<span class="op">.</span><span class="fu">getLog</span><span class="op">(</span>CodeStyleSample<span class="op">.</span><span class="fu">class</span><span class="op">);</span></span>
-            <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">final</span> <span class="bu">String</span> CONSTANT_ONE<span class="op">=</span><span class="st">".."</span><span class="op">;</span></span>
-            <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">final</span> <span class="dt">int</span> CONSTANT_TWO<span class="op">=</span><span class="dv">11</span><span class="op">;</span></span>
-            <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">...</span></span>
-            <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> CodeStyleSample <span class="op">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">static</span> <span class="dt">final</span> <span class="kw">transient</span> Log logger<span class="op">=</span>LogFactory<span class="op">.</span><span class="fu">getLog</span><span class="op">(</span>CodeStyleSample<span class="op">.</span><span class="fu">class</span><span class="op">);</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">final</span> <span class="bu">String</span> CONSTANT_ONE<span class="op">=</span><span class="st">".."</span><span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">final</span> <span class="dt">int</span> CONSTANT_TWO<span class="op">=</span><span class="dv">11</span><span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">...</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
      </div> 
      <div class="sourceCode" id="cb2">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>代码清单<span class="er">2</span></span>
-            <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> CodeStyleSample <span class="op">{</span></span>
-            <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">static</span> <span class="dt">final</span> <span class="kw">transient</span> Log logger<span class="op">=</span>LogFactory<span class="op">.</span><span class="fu">getLog</span><span class="op">(</span>CodeStyleSample<span class="op">.</span><span class="fu">class</span><span class="op">);</span></span>
-            <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    </span>
-            <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">final</span> <span class="bu">String</span> CONSTANT_ONE<span class="op">=</span><span class="st">".."</span><span class="op">;</span></span>
-            <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">final</span> <span class="dt">int</span> CONSTANT_TWO<span class="op">=</span><span class="dv">11</span><span class="op">;</span></span>
-            <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    </span>
-            <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">...</span></span>
-            <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> CodeStyleSample <span class="op">{</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">static</span> <span class="dt">final</span> <span class="kw">transient</span> Log logger<span class="op">=</span>LogFactory<span class="op">.</span><span class="fu">getLog</span><span class="op">(</span>CodeStyleSample<span class="op">.</span><span class="fu">class</span><span class="op">);</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">final</span> <span class="bu">String</span> CONSTANT_ONE<span class="op">=</span><span class="st">".."</span><span class="op">;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">final</span> <span class="dt">int</span> CONSTANT_TWO<span class="op">=</span><span class="dv">11</span><span class="op">;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">...</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
      </div> 
      <p>我想代码清单2要更有条理一些吧？！（当然，还不算最好，说道对齐原则的时候，我们还会看到进一步的改进）</p> 
      <p>代码是一个级别，推而广之，架构之中的逻辑分层，实际上也可以算是亲密性原则的体现。 还有， 你愿意将所有的组件部署在一台服务器上，还是愿意将职责分明的组件分别部署到不同的服务器上？ 就跟亲密性原则所说，尽可能的将相近的信息放在一起，而将不相关的信息相分离，侧重Scale out而不是Scale up， 或许亲密性原则也是一种解释吧，呵呵，一台机器的Scale up，你只能买更强大的硬件，而多台机器的Scale out，你可以购买更廉价的硬件来组建各种server farms，后者看起来不是很像是亲密性原则的信徒吗？！</p> 
@@ -215,15 +216,15 @@
      <p>还是先以代码为例，我不知道大家是愿意看到“代码清单2”中的代码那，还是愿意看到“代码清单3”中的代码？！</p> 
      <div class="sourceCode" id="cb3">
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>代码清单<span class="er">3</span></span>
-            <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> CodeStyleSample <span class="op">{</span></span>
-            <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-            <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">static</span> <span class="dt">final</span> <span class="kw">transient</span> Log logger<span class="op">=</span>LogFactory<span class="op">.</span><span class="fu">getLog</span><span class="op">(</span>CodeStyleSample<span class="op">.</span><span class="fu">class</span><span class="op">);</span></span>
-            <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    </span>
-            <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">final</span> <span class="bu">String</span>   CONSTANT_ONE<span class="op">=</span><span class="st">".."</span><span class="op">;</span></span>
-            <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">final</span> <span class="dt">int</span>      CONSTANT_TWO<span class="op">=</span><span class="dv">11</span><span class="op">;</span>   </span>
-            <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    </span>
-            <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">...</span></span>
-            <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> CodeStyleSample <span class="op">{</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">static</span> <span class="dt">final</span> <span class="kw">transient</span> Log logger<span class="op">=</span>LogFactory<span class="op">.</span><span class="fu">getLog</span><span class="op">(</span>CodeStyleSample<span class="op">.</span><span class="fu">class</span><span class="op">);</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">final</span> <span class="bu">String</span>   CONSTANT_ONE<span class="op">=</span><span class="st">".."</span><span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">final</span> <span class="dt">int</span>      CONSTANT_TWO<span class="op">=</span><span class="dv">11</span><span class="op">;</span>   </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">...</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
      </div> 
      <p>将代码按照某一基线对齐之后，看起来是不是更加赏心悦目那？！</p> 
      <p>“向右看齐！”，当你还是学生的时候，出操排队的时候是不是经常被要求这么做那？ 在了解了对齐原则之后，你有没有认为这里也是对齐原则的一处体现之地那？做领导的，可不愿意看到下面零零散散，乱七八糟的人群， 当你排好队，一排排齐刷刷的出现在操场的时候，领导看着要舒心多了，哈哈！ 类似的，国家领导人阅兵的时候， 也希望看到的是雄赳赳，齐刷刷的方阵，而这些恰好都是对齐原则的体现，创造美，实际上就这么简单。</p> 
@@ -257,11 +258,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2019-04-24-urwhour.html">谁刷抖音谁就low？ 你才low，你们全家都low！ </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2022-07-06-ghost-stories-of-toB-biz.html">二十年目睹中国ToB软件之怪现状 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2018-08-30-illusion_as_reality.html">冲突，臆想与现实 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2012-09-17-vertical_stack_in_one.html">检车大厅所见所闻对软件架构设计的联想 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2009-05-06-travel-to-lijiang-chap02.html">终于成行的丽江之旅(2) </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2023-10-23-why-yuque-crashed.html">语雀为什么崩了？ </a> 
       </div> 
      </div> 
      <hr> 

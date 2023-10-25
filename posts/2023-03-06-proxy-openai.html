@@ -17,8 +17,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -95,7 +97,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -182,34 +183,34 @@
      <p>你的cloudflare worker实现代码很简单：</p> 
      <div class="sourceCode" id="cb1">
       <pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="im">default</span> {</span>
-            <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">async</span> <span class="fu">fetch</span>(request<span class="op">,</span> env) {</span>
-            <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span> {</span>
-            <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> { pathname } <span class="op">=</span> <span class="kw">new</span> <span class="fu">URL</span>(request<span class="op">.</span><span class="at">url</span>)<span class="op">;</span></span>
-            <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> <span class="fu">fetch</span>(<span class="kw">new</span> <span class="fu">Request</span>(<span class="st">"https://api.openai.com"</span> <span class="op">+</span> pathname<span class="op">,</span> {<span class="dt">headers</span><span class="op">:</span> request<span class="op">.</span><span class="at">headers</span><span class="op">,</span> <span class="dt">body</span><span class="op">:</span> request<span class="op">.</span><span class="at">body</span>}))<span class="op">;</span></span>
-            <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">catch</span>(e) {</span>
-            <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> <span class="kw">new</span> <span class="fu">Response</span>(e<span class="op">.</span><span class="at">stack</span><span class="op">,</span> { <span class="dt">status</span><span class="op">:</span> <span class="dv">500</span> })</span>
-            <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    }</span>
-            <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  }</span>
-            <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">async</span> <span class="fu">fetch</span>(request<span class="op">,</span> env) {</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span> {</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> { pathname } <span class="op">=</span> <span class="kw">new</span> <span class="fu">URL</span>(request<span class="op">.</span><span class="at">url</span>)<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> <span class="fu">fetch</span>(<span class="kw">new</span> <span class="fu">Request</span>(<span class="st">"https://api.openai.com"</span> <span class="op">+</span> pathname<span class="op">,</span> {<span class="dt">headers</span><span class="op">:</span> request<span class="op">.</span><span class="at">headers</span><span class="op">,</span> <span class="dt">body</span><span class="op">:</span> request<span class="op">.</span><span class="at">body</span>}))<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">catch</span>(e) {</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> <span class="kw">new</span> <span class="fu">Response</span>(e<span class="op">.</span><span class="at">stack</span><span class="op">,</span> { <span class="dt">status</span><span class="op">:</span> <span class="dv">500</span> })</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre>
      </div> 
      <p>关键就两行代码（也可以简化成一行）。</p> 
      <p>直接到Cloudflare worker的web页面点击创建，然后贴进去就行了。（当然，要想成功使用，你还得配个自定义的domain，否则，也不行，因为cloudflare worker的默认域名也“莫名其妙”访问不了了）。</p> 
      <h1 id="使用nginx构建openai-api代理">使用Nginx构建OpenAI API代理</h1> 
      <p>假如自己有海外服务器，那只需要简单配置一下nginx就可以了：</p> 
      <pre class="pre"><code>location ^~/chat/ {
-                rewrite ^/chat/(.*)$ /$1 break; 
-                proxy_pass https://api.openai.com/;
-            }</code></pre> 
+    rewrite ^/chat/(.*)$ /$1 break; 
+    proxy_pass https://api.openai.com/;
+}</code></pre> 
      <p>Easy and elegant，Right？</p> 
      <hr> 
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2019-12-20-saas-evolution-path.html">SaaS编年史之技术视角观察 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2010-03-30-isolation-architecture-practice.html">Simple, Yet Powerful系列之“隔离” </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2018-06-04-blockchain-thoughts.html">关于区块链的三点看法 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2008-06-02-days-go-on.html">days go on… </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2020-07-25-talent-war-inner-peace.html">人才的轮回 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2007-04-27-sign-on-sth.html">感慨一下 </a> 
       </div> 
      </div> 
      <hr> 

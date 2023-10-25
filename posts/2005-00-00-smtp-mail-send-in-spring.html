@@ -16,8 +16,10 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
+        /* pre > code{white-space: pre-line;} */
 
         .x-indicator{
             display:none;
@@ -94,7 +96,6 @@
       code span.vs { color: #4070a0; } /* VerbatimString */
       code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -178,34 +179,34 @@
      <p>以前使用spring发信的时候，只是简单的为MailSender设置host,username和password属性就OK，但是今天却遇到了发信失败异常的一个553ReturnCode，而且日志中主要的信息也都是tmd的问号，搞得我很郁闷，不知道问题出在什么地方。后来问过系统部是否在MailServer上加了什么限制，系统部说只是添加了一个smtp认证，原来如此啊！所以，在MailSender的配置属性中加入了一个properties属性搞定。</p> 
      <div class="sourceCode" id="cb1">
       <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">bean</span><span class="ot"> id=</span><span class="st">"mailSender"</span><span class="ot"> class=</span><span class="st">"org.springframework.mail.javamail.JavaMailSenderImpl"</span>&gt;</span>
-            <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"host"</span>&gt;</span>
-            <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">value</span>&gt;mail.livedoor.cn&lt;/<span class="kw">value</span>&gt;</span>
-            <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">property</span>&gt;</span>
-            <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"username"</span>&gt;</span>
-            <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">value</span>&gt;XXX&lt;/<span class="kw">value</span>&gt;</span>
-            <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">property</span>&gt;</span>
-            <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"password"</span>&gt;</span>
-            <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">value</span>&gt;XXX&lt;/<span class="kw">value</span>&gt;</span>
-            <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">property</span>&gt;</span>
-            <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"port"</span>&gt;</span>
-            <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">value</span>&gt;25&lt;/<span class="kw">value</span>&gt;</span>
-            <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">property</span>&gt;</span>
-            <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"javaMailProperties"</span>&gt;</span>
-            <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">props</span>&gt;</span>
-            <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">prop</span><span class="ot"> key=</span><span class="st">"mail.smtp.auth"</span>&gt;true&lt;/<span class="kw">prop</span>&gt;</span>
-            <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">props</span>&gt;</span>
-            <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">property</span>&gt;</span>
-            <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">bean</span>&gt;</span></code></pre>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"host"</span>&gt;</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">value</span>&gt;mail.livedoor.cn&lt;/<span class="kw">value</span>&gt;</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">property</span>&gt;</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"username"</span>&gt;</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">value</span>&gt;XXX&lt;/<span class="kw">value</span>&gt;</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">property</span>&gt;</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"password"</span>&gt;</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">value</span>&gt;XXX&lt;/<span class="kw">value</span>&gt;</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">property</span>&gt;</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"port"</span>&gt;</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">value</span>&gt;25&lt;/<span class="kw">value</span>&gt;</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">property</span>&gt;</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">property</span><span class="ot"> name=</span><span class="st">"javaMailProperties"</span>&gt;</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">props</span>&gt;</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">prop</span><span class="ot"> key=</span><span class="st">"mail.smtp.auth"</span>&gt;true&lt;/<span class="kw">prop</span>&gt;</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">props</span>&gt;</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">property</span>&gt;</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">bean</span>&gt;</span></code></pre>
      </div> 
      <hr> 
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2020-04-08-tech-and-people-paces.html">你是否还在沿用十多年前的思维和做事方式而不自知？ </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2021-09-20-talk-rooster.html">说鸡 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2013-03-02-fix-protocol-study-note-1.html">FIX Protocol Study Note </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2021-07-09-recruit-becomes-harder.html">前端难招？ </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2017-04-17-be-pragmatic.html">多务实， 少炫技 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2015-11-10-why-techies-also-need-think-the-PD-way.html">技术人也需要有产品思维(why techies also need think the PD way) </a> 
       </div> 
      </div> 
      <hr> 
