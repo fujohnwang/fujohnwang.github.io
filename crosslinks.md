@@ -24,6 +24,7 @@
 
 # 第三方工具
 
+- [腾讯兔小巢](https://support.qq.com/product/616547)
 - [unvCode](https://unvcode.librian.net/)
 - [ggwave](https://waver.ggerganov.com/)
 - [Arrow.app - Graph Tool](https://arrows.app/)
