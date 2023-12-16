@@ -31,10 +31,17 @@
 - [Portable Secrets](/tools/ps/index.html)
 - [Privacy Policy Generator](https://www.privacypolicies.com/)
 
+
 # 第三方工具/服务部署
 
 - [Dashboard w/ homarr](https://dash.afoo.me)
 - [Picoshare](http://121.5.41.239:3001/)
+
+# 图片工具
+
+- [图片放大](https://clipdrop.co/image-upscaler)
+- <https://photo-to-anime.com/playground/photo-to-anime>
+- <https://www.autodraw.com/>
 
 # AI工具
 
