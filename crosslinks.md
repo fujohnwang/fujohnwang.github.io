@@ -36,7 +36,7 @@
 # 第三方工具/服务部署
 
 - [Dashboard w/ homarr](https://dash.afoo.me)
-- [Picoshare](http://121.5.41.239:3001/)
+- [Picoshare](https://picoshare.afoo.me)
 
 # 图片工具
 
