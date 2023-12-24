@@ -13,6 +13,7 @@
 - [福强的stop doing list](https://keevol.cn/stop-doing-list.html)
   - [福强的stop doing list](stop-doing-list.html)
 - [Follow Me on Gumroad](https://wfq.gumroad.com/subscribe)
+- [罗密欧的故事汇](https://luomoe.github.io/)
 - [咨询密室](https://fuqiang.circleo.me/)
 
 # [工具福强造](https://afoo.me/tools.html)
