@@ -17,9 +17,19 @@
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
   <style type="text/css">
-        pre > code{white-space: pre-line;}
-
+        pre > code{
+          white-space: pre-wrap;
+          font-family: monospace;
+          font-size: 14px;
+          /* border-left: blueviolet;
+          border-left-width: thick;
+          border-left-style: double;
+          padding-left: 1rem !important; */
+        }
+        
         .x-indicator{
             display:none;
         }
@@ -30,7 +40,6 @@
             display:inline;
         }
     </style> 
-  <link rel="stylesheet" href="/css/af.css"> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -79,7 +88,7 @@
       <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com">架构百科</a> </li> 
       <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html">博客文章 </a> </li> 
       <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html">创作出版</a> </li> 
-      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me">产品与服务</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://store.afoo.me">产品与服务</a> </li> 
       <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/crosslinks.html">更多链接</a> </li> 
      </ul> 
      <div class="md:self-center flex items-center mb-4 md:mb-0 ml-2"> 
@@ -111,23 +120,26 @@
      <p></p> 
      <hr> 
      <ul> 
-      <li><a href="http://keevol.com/">奇沃智服 - 与时俱进的互联网系统与服务提供商</a></li> 
+      <li><a href="http://keevol.cn/">奇沃智服 - 与时俱进的互联网系统与服务提供商</a></li> 
       <li><a href="https://blog.dteam.top/">DTeam 技术日志</a></li> 
       <li><a href="https://www.bobjiang.com/">BOB JIANG 敏捷培训 敏捷认证SCRUM MASTER</a></li> 
       <li><a href="http://hongjiang.info/">在路上-王宏江的博客</a></li> 
       <li><a href="https://zhongl.github.io/">zhongl-巨石/聚石的博客</a></li> 
+      <li><a href="http://kpro.shanghaiopen.org.cn/home">知识开源</a></li> 
      </ul> 
      <hr> 
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2010-01-04-make-judgement-only-when-u-know-it-properly.html">When people meet something they don’t know at first time </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2021-09-20-talk-rooster.html">说鸡 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2011-09-07-casual_thoughts_on_distributed_RPC_framework.html">Casual Thoughts On Distributed RPC Service Framework </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2021-03-09-long-term-strategy.html">谈谈‘长期主义’ </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2022-01-21-why-sales-should-checkin-daily.html">销售管理为什么要求一定要打卡？ </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2021-03-20-why-no-unveil-springcloud.html">我为什么没写《SpringCloud揭秘》？ </a> 
       </div> 
      </div> 
+     <hr> 
+     <div id="comments"></div> 
      <hr> 
      <div> 
       <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
@@ -139,7 +151,7 @@
       <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
      </div> 
      <hr> 
-     <p> <span style="font-size: xx-large;">存量的时代，省钱就是赚钱。</span> <br> <span style="font-size: xx-large;">在增量的时代，省钱其实是亏钱。</span> <br> 避坑儿是省钱的一种形式，更是真正聪明人的选择！ <br> 弯路虽然也是路，但还是能少走就少走，背后都是高昂的试错成本。 <br> <b>订阅「福报」</b>，少踩坑，少走弯路，多走一步，就是不一样的胜率！ </p> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe.jpg" alt="订阅「福报Premium订阅」"> </a> 
+     <p> <span style="font-size: xx-large;"> 开天窗，拉认知，订阅「福报」，即刻拥有自己的全模态人工智能。 </span> </p> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe_v2.jpg" alt="订阅「福报」"> </a> 
      <hr> 
      <div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"> 
       <div id="tfloader" class="x-indicator"> 
@@ -162,8 +174,6 @@
        </svg> 
       </div> 
      </div> 
-     <hr> 
-     <div id="comments"></div> 
     </div> 
    </section> 
   </main> 
@@ -245,6 +255,40 @@
           distractionFreeMode: false  // Facebook-like distraction free mode
         })
         gitalk.render('comments')
-    </script>  
+    </script> 
+  <script src="https://formspree.io/js/formbutton-v1.min.js" defer></script> 
+  <script>
+  /* paste this line in verbatim */
+  window.formbutton=window.formbutton||function(){(formbutton.q=formbutton.q||[]).push(arguments)};
+  /* customize formbutton below*/     
+  formbutton("create", {
+    action: "https://formspree.io/f/xknlpkkd",
+    title: "有什么可以帮到您？💕💕💕 How can I help you?",
+    fields: [
+      { 
+        type: "email", 
+        label: "您的电子邮箱（方便与您联系）:", 
+        name: "email",
+        required: true,
+        placeholder: "your@email.com"
+      },
+      {
+        type: "textarea",
+        label: "您想提交的反馈和询问信息:",
+        name: "message",
+        placeholder: "What's on your mind?",
+      },
+      { type: "submit" }      
+    ],
+    styles: {
+      title: {
+        backgroundColor: "blue"
+      },
+      button: {
+        backgroundColor: "blue"
+      }
+    }
+  });
+</script>  
  </body>
 </html>

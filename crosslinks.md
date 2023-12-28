@@ -15,6 +15,7 @@
 - [Follow Me on Gumroad](https://wfq.gumroad.com/subscribe)
 - [罗密欧的故事汇](https://luomoe.github.io/)
 - [咨询密室](https://fuqiang.circleo.me/)
+- [友情链接](/interlinks.html)
 
 # [工具福强造](https://afoo.me/tools.html)
 
