@@ -714,11 +714,13 @@
         tempDiv.innerHTML = html;
 
 		const selectedElements = tempDiv.querySelectorAll('body > main > section > div > div:nth-child(n+3):nth-child(-n+5)');
-		selectedElements.forEach(element => {
-                    const extractedContent = document.createElement('div');
-                    extractedContent.innerHTML = element.innerHTML;
-                    lastestPosts.appendChild(extractedContent);
-                });
+		// selectedElements.forEach(element => {
+        //             const extractedContent = document.createElement('div');
+        //             extractedContent.innerHTML = element.innerHTML;
+        //             lastestPosts.appendChild(extractedContent);
+        //         });
+	    lastestPosts.replaceChildren(...selectedElements)
+		
       })
       .catch(error => {
         console.error('Error fetching the page:', error);
