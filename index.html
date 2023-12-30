@@ -201,6 +201,9 @@
 								<!-- <source src="my-animation.webm" type="video/webm" /> -->
 								<source src="video/live_long_and_prosper.mp4" type="video/mp4" />
 							 </video>
+							 <div id="latest_posts">
+
+							 </div>
 
 							<p class="mb-8 text-xl text-gray-600 dark:text-slate-400">
 								<form action="https://app.gumroad.com/follow_from_embed_form" method="post" style="--accent:var(--accent);--contrast-accent:var(--contrast-accent);margin-top: 1rem; padding: 0px; box-sizing: border-box; min-width: 0px; max-width: 100%; vertical-align: bottom; background-clip: padding-box; --border: solid 0.0625rem rgb(var(--color)/var(--border-alpha)); --outline: 0.125rem solid rgb(var(--accent)); --gray-1: 0.1; --gray-2: 0.2; --gray-3: 0.5;display: grid; grid-auto-flow: column; gap: 0.75rem; grid-template-columns: 1fr; grid-auto-columns: max-content; align-items: center;">
@@ -698,6 +701,29 @@
   });
 </script>
 
+
+<script>
+	let lastestPosts = document.getElementById("latest_posts")
+	const url = 'https://afoo.me/posts.html';
+    
+    // Fetch the HTML page
+    fetch(url)
+      .then(response => response.text())
+      .then(html => {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = html;
+
+		const selectedElements = tempDiv.querySelectorAll('body > main > section > div > div:nth-child(n+3):nth-child(-n+5)');
+		selectedElements.forEach(element => {
+                    const extractedContent = document.createElement('div');
+                    extractedContent.innerHTML = element.innerHTML;
+                    lastestPosts.appendChild(extractedContent);
+                });
+      })
+      .catch(error => {
+        console.error('Error fetching the page:', error);
+      });
+</script>
 
 
 </body>
