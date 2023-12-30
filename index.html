@@ -710,11 +710,10 @@
     fetch(url)
       .then(response => response.text())
       .then(html => {
-		console.log(html)
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = html;
+		const parser = new DOMParser();
+    	const htmlDocument = parser.parseFromString(html, "text/html");
 
-		const selectedElements = tempDiv.querySelectorAll('body > main > section > div > div:nth-child(n+3):nth-child(-n+5)');
+		const selectedElements = htmlDocument.querySelectorAll('body > main > section > div > div:nth-child(n+3):nth-child(-n+5)');
 		// selectedElements.forEach(element => {
         //             const extractedContent = document.createElement('div');
         //             extractedContent.innerHTML = element.innerHTML;
