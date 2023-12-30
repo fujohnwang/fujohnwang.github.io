@@ -69,7 +69,7 @@ background.js可以全局接管action以及插件安装事件以及各种消息�
 
 下面是各种scripts之间相互消息通信的关系图：
 
-![](images/message_passing_relations.png)
+![](https://media.licdn.com/dms/image/D4D12AQHHZPGqoCCe2g/article-inline_image-shrink_1500_2232/0/1684838413737?e=1709164800&v=beta&t=dQP7btB047rhZsk5LHSLTcpeEuIy3_s1C61nF4k7KFY)
 
 基本上就是通过chrome.runtime的sendMessage和onMessage（或者tabs.sendMessage()）搞定相互之间的通信。
 
