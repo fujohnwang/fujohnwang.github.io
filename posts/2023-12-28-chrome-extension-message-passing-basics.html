@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="Chrome插件的消息通信机制探寻 (Message Passing in Chrome Extension) - 架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="Chrome插件的消息通信机制探寻 (Message Passing in Chrome Extension) - 福强说，扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+  <meta name="robots" content="index,follow"> 
+  <title>Chrome插件的消息通信机制探寻 (Message Passing in Chrome Extension) -王福强的个人博客：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2023-12-28"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <link rel="canonical" href="https://afoo.me/posts/2023-12-28-chrome-extension-message-passing-basics.html"> 
+  <link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"> 
+  <link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8"> 
+  <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
+  <style type="text/css">
+        pre > code{
+          white-space: pre-wrap;
+          font-family: monospace;
+          font-size: 14px;
+          /* border-left: blueviolet;
+          border-left-width: thick;
+          border-left-style: double;
+          padding-left: 1rem !important; */
+        }
+        
+        .x-indicator{
+            display:none;
+        }
+        .htmx-request .x-indicator{
+            display:inline;
+        }
+        .htmx-request.x-indicator{
+            display:inline;
+        }
+    </style> 
+  <style type="text/css">
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    </style> 
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "Chrome插件的消息通信机制探寻 (Message Passing in Chrome Extension)",
+      "image": [
+        "https://afoo.me/images/fb_subscribe.jpg"
+       ],
+      "datePublished": "2023-12-28",
+      "author": [{
+          "@type": "Person",
+          "name": "王福强",
+          "url": "https://afoo.me"
+        }]
+    }
+  </script> 
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "irqzhxtyzn");
+  </script> 
+ </head> 
+ <body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"> 
+  <header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"> 
+   <div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"> 
+    <div class="flex justify-between"> <a class="flex items-center" href="https://afoo.me"> <span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"> <h1>王福强的个人博客</h1> </span> </a> 
+     <div class="flex items-center md:hidden"> <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""> 
+       <svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+         <circle cx="12" cy="12" r="4"></circle> 
+         <path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"> 
+         </path> 
+        </g> 
+       </svg> </button> <button type="button" class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition" aria-label="Toggle Menu" data-toggle-menu=""> 
+       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:menu"> <g class="icon-tabler" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+         <path d="M4 8h16"></path> 
+         <path d="M4 16h16"></path> 
+        </g> 
+       </svg> </button> 
+     </div> 
+    </div> 
+    <nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"> 
+     <ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me">福强AI学堂</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com">架构百科</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html">博客文章 </a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html">创作出版</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://store.afoo.me">产品与服务</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/crosslinks.html">更多链接</a> </li> 
+     </ul> 
+     <div class="md:self-center flex items-center mb-4 md:mb-0 ml-2"> 
+      <div class="hidden items-center md:flex"> <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+          <circle cx="12" cy="12" r="4"></circle> 
+          <path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"> 
+          </path> 
+         </g> 
+        </svg> </button> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="RSS Feed" href="http://afoo.me/feeds.xml"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:rss"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+          <circle cx="5" cy="19" r="1"></circle> 
+          <path d="M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"></path> 
+         </g> 
+        </svg> </a> 
+      </div> 
+     </div> 
+    </nav> 
+   </div> 
+  </header> 
+  <main> 
+   <section class="text-gray-600 body-font relative"> 
+    <div class="container px-5 py-24 mx-auto mb-12 prose prose-lg dark:prose-invert"> 
+     <p class="lead"> </p>
+     <h1 class="title">Chrome插件的消息通信机制探寻 (Message Passing in Chrome Extension)</h1> <small> <h3 class="author">王福强</h3> 
+      <div style="text-align: left;">
+       2023-12-28
+      </div> </small> 
+     <p></p> 
+     <hr> 
+     <h1 id="简介">简介</h1> 
+     <p>Chrome Extension的消息通信主要分两大类，一类是Chrome Extension内部组件之间的通信，一类是Chrome Extension与Chrome Extension之间的通信，用英语的词根解释更明了，就是intra-和inter-</p> 
+     <p>在Chrome Extension内部的通信，也会有全局的通信，以及针对单一页面的通信，他们发送消息的方式略有不一样：</p> 
+     <pre><code>chrome.runtime.sendMessage
+
+chrome.tabs.sendMessage</code></pre> 
+     <p>要对chrome中的页面内容进行操作，可以注入content scripts <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>或者直接执行scripting， 因为content scripts需要在manifest.json中静态注册matchers以及js文件等资源和配置，所以，相对来说，个人更喜欢直接用<code>chrome.scripting.executeScript</code>，这种方式的好处是，可以直接在同一个地方通过function的形式定义要执行的逻辑，比如，在我们点击chrome extension的action按钮之后弹出的popup页面中，我们可以定义要执行的scripting逻辑：</p> 
+     <div class="sourceCode" id="cb2">
+      <pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>    chrome<span class="op">.</span><span class="at">tabs</span><span class="op">.</span><span class="fu">query</span>({<span class="dt">active</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span> <span class="dt">currentWindow</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span> <span class="kw">function</span> (tabs) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>        chrome<span class="op">.</span><span class="at">scripting</span><span class="op">.</span><span class="fu">executeScript</span>({</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>            <span class="dt">target</span><span class="op">:</span> {<span class="dt">tabId</span><span class="op">:</span> tabs[<span class="dv">0</span>]<span class="op">.</span><span class="at">id</span>}<span class="op">,</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>            <span class="kw">function</span><span class="op">:</span> queryAndJoin<span class="op">,</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>            <span class="dt">args</span><span class="op">:</span> [selectorExpr]<span class="op">,</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        })<span class="op">;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span></code></pre>
+     </div> 
+     <p>其中， queryAndJoin是要执行的函数逻辑，可以通过args指定要传入的参数：</p> 
+     <div class="sourceCode" id="cb3">
+      <pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>   <span class="kw">function</span> <span class="fu">queryAndJoin</span>(selector) {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> selectedElements <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelectorAll</span>(selector)<span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> resultStr <span class="op">=</span> [<span class="op">...</span>selectedElements]<span class="op">.</span><span class="fu">map</span>(a <span class="kw">=&gt;</span> a<span class="op">.</span><span class="at">attributes</span><span class="op">.</span><span class="at">href</span><span class="op">.</span><span class="at">nodeValue</span>)<span class="op">.</span><span class="fu">join</span>(<span class="st">"</span><span class="sc">\r\n\r\n</span><span class="st">"</span>)<span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        chrome<span class="op">.</span><span class="at">runtime</span><span class="op">.</span><span class="fu">sendMessage</span>({</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>            <span class="dt">action</span><span class="op">:</span> <span class="st">'result'</span><span class="op">,</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>            <span class="dt">result</span><span class="op">:</span> resultStr<span class="op">,</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>            <span class="dt">count</span><span class="op">:</span> selectedElements<span class="op">.</span><span class="at">length</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        }<span class="op">,</span> <span class="kw">function</span> (response) {</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>            <span class="co">// chrome.tts.speak(`${selectedElements.length} elements are found and returned.`);</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    }</span></code></pre>
+     </div> 
+     <p>这样， queryAndJoin函数的执行逻辑就是要注入到当前活动页面的脚步内容（注意：是注入到当前活动页面，而不是当前弹出的action页面/popup页面）。 一般情况下，注入到当前活动页面的scripting与页面原本的dom操作js类似，但假如注入的脚本想要回传信息给当前action页面/popup页面，这个时候，我们就需要用<code>chrome.runtime.sendMessage</code>回传消息。</p> 
+     <p>回传消息的接收端，我们可以在action页面/popup页面里定义：</p> 
+     <div class="sourceCode" id="cb4">
+      <pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>    chrome<span class="op">.</span><span class="at">runtime</span><span class="op">.</span><span class="at">onMessage</span><span class="op">.</span><span class="fu">addListener</span>(<span class="kw">function</span> (request<span class="op">,</span> sender<span class="op">,</span> sendResponse) {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (request<span class="op">.</span><span class="at">action</span> <span class="op">===</span> <span class="st">"result"</span>) {</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>            result <span class="op">=</span> request<span class="op">.</span><span class="at">result</span><span class="op">;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>            count <span class="op">=</span> request<span class="op">.</span><span class="at">count</span><span class="op">;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>            chrome<span class="op">.</span><span class="at">tts</span><span class="op">.</span><span class="fu">speak</span>(<span class="vs">`</span><span class="sc">${</span>request<span class="op">.</span><span class="at">count</span><span class="sc">}</span><span class="vs"> elements are found and returned.`</span>)<span class="op">;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        } <span class="cf">else</span> {</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>            <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`not supported action: </span><span class="sc">${</span>request<span class="op">.</span><span class="at">action</span><span class="sc">}</span><span class="vs">`</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span></code></pre>
+     </div> 
+     <blockquote> 
+      <p>TIP</p> 
+      <p>所以， content scripts不是必须的，可以<a href="https://developer.chrome.com/blog/crx-scripting-api#injecting_a_function_with_arguments">通过Scripting API</a>完成同样的目的，而且个人感觉更灵活。</p> 
+     </blockquote> 
+     <p>如果说content scripts是针对一个一个页面的，页面的查找和注入是独立的，那么，background.js(或者叫service worker js)就是全局性的。可以类比局部变量和全局变量。</p> 
+     <p>background.js可以全局接管action以及插件安装事件以及各种消息的处理，比如针对浏览器存储的操作（比如localStorage）， 比如action与快捷键的事件处理等等。</p> 
+     <p>下面是各种scripts之间相互消息通信的关系图：</p> 
+     <p><img src="images/message_passing_relations.png"></p> 
+     <p>基本上就是通过chrome.runtime的sendMessage和onMessage（或者tabs.sendMessage()）搞定相互之间的通信。</p> 
+     <blockquote> 
+      <p>NOTE</p> 
+      <p>The maximum size of a single message from the native messaging host is 1 MB.</p> 
+      <p>Each message is serialized using JSON, UTF-8 encoded and is preceded with 32-bit message length in native byte order.</p> 
+     </blockquote> 
+     <h1 id="长连接通信long-lived-connections">长连接通信（Long-lived connections）</h1> 
+     <p>sendMessage和onMessage的方式是单次请求通信（Simple one-time requests）， 相当于短连接，我们也可以通过port的形式在content scripts、popup页面与background.js之间创建长连接：</p> 
+     <div class="sourceCode" id="cb5">
+      <pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">//contentscript.js</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> port <span class="op">=</span> chrome<span class="op">.</span><span class="at">runtime</span><span class="op">.</span><span class="fu">connect</span>({<span class="dt">name</span><span class="op">:</span> <span class="st">"content-script"</span>})<span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>port<span class="op">.</span><span class="fu">postMessage</span>({<span class="dt">greeting</span><span class="op">:</span> <span class="st">"hello"</span>})<span class="op">;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>port<span class="op">.</span><span class="at">onMessage</span><span class="op">.</span><span class="fu">addListener</span>(<span class="kw">function</span>(message) {</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(message<span class="op">.</span><span class="at">farewell</span>)<span class="op">;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre>
+     </div> 
+     <div class="sourceCode" id="cb6">
+      <pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">// backgroundscript.js</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>chrome<span class="op">.</span><span class="at">runtime</span><span class="op">.</span><span class="at">onConnect</span><span class="op">.</span><span class="fu">addListener</span>(<span class="kw">function</span>(port) {</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (port<span class="op">.</span><span class="at">name</span> <span class="op">===</span> <span class="st">"content-script"</span>) {</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">"Content script connected"</span>)<span class="op">;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// port.postMessage({farewell: "goodbye"});</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    port<span class="op">.</span><span class="at">onMessage</span><span class="op">.</span><span class="fu">addListener</span>(<span class="kw">function</span>(message) {</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>      <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(message<span class="op">.</span><span class="at">greeting</span>)<span class="op">;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre>
+     </div> 
+     <h1 id="跨插件之间的通信-cross-extension-messaging"><a href="https://developer.chrome.com/docs/extensions/develop/concepts/messaging#external">跨插件之间的通信（ Cross-extension messaging）</a></h1> 
+     <blockquote> 
+      <p>The task of dispatching messages from one extension to another demands knowledge of the target extension’s ID number.</p> 
+     </blockquote> 
+     <p>Extension与Extension之间的通信需要知晓Extension的ID，然后通过sendMessage发送消息的时候指定目标插件的ID：</p> 
+     <div class="sourceCode" id="cb7">
+      <pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> targetExtensionId <span class="op">=</span> <span class="st">"ExtensionID-1"</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>chrome<span class="op">.</span><span class="at">runtime</span><span class="op">.</span><span class="fu">sendMessage</span>(targetExtensionId<span class="op">,</span> {<span class="dt">greeting</span><span class="op">:</span> <span class="st">"hello"</span>}<span class="op">,</span> <span class="kw">function</span>(response) {</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(response<span class="op">.</span><span class="at">farewell</span>)<span class="op">;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>})<span class="op">;;</span></span></code></pre>
+     </div> 
+     <p>接收端可以在接收到消息的时候检查发送方的ID，然后决定是否处理相应消息：</p> 
+     <div class="sourceCode" id="cb8">
+      <pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>chrome<span class="op">.</span><span class="at">runtime</span><span class="op">.</span><span class="at">onMessageExternal</span><span class="op">.</span><span class="fu">addListener</span>(<span class="kw">function</span>(request<span class="op">,</span> sender<span class="op">,</span> sendResponse) {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sender<span class="op">.</span><span class="at">id</span> <span class="op">===</span> <span class="st">"ExtensionID-2"</span>) {</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(request<span class="op">.</span><span class="at">greeting</span>)<span class="op">;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sendResponse</span>({<span class="dt">farewell</span><span class="op">:</span> <span class="st">"goodbye"</span>})<span class="op">;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre>
+     </div> 
+     <p>注意，虽然<strong>发送消息</strong>依然用的chrome.runtime.sendMessage， 但这里用的是chrome.runtime.onMessageExternal来<strong>接收消息</strong>。</p> 
+     <p>以上是Extension之间的一次性消息发送和接收（one-time requests），Extension之间也可以通过长连接进行通信：</p> 
+     <div class="sourceCode" id="cb9">
+      <pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">// 连接与发送消息</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> port <span class="op">=</span> chrome<span class="op">.</span><span class="at">runtime</span><span class="op">.</span><span class="fu">connect</span>(laserExtensionId)<span class="op">;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>port<span class="op">.</span><span class="fu">postMessage</span>(<span class="op">...</span>)<span class="op">;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">// 连接与接收消息</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>chrome<span class="op">.</span><span class="at">runtime</span><span class="op">.</span><span class="at">onConnectExternal</span><span class="op">.</span><span class="fu">addListener</span>(<span class="kw">function</span>(port) {</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  port<span class="op">.</span><span class="at">onMessage</span><span class="op">.</span><span class="fu">addListener</span>(<span class="kw">function</span>(msg) {</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// See other examples for sample onMessage handlers.</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre>
+     </div> 
+     <h1 id="gpt3.5的回答">GPT3.5的回答</h1> 
+     <p>chrome extension的各个组件之间如何通信？</p> 
+     <pre><code>Chrome扩展内的各个组件之间可以通过Chrome扩展的消息传递 API 进行通信。以下是几种常用的组件之间通信的方式：
+
+1. 内容脚本和后台脚本之间的通信：
+
+    - 通过 chrome.runtime.sendMessage 和 chrome.runtime.onMessage 方法，在内容脚本和后台脚本之间建立双向通信。
+    - 通过 chrome.tabs.sendMessage 和 chrome.runtime.onMessage 方法，在内容脚本和后台脚本之间发送和接收消息。
+
+
+2. 弹出窗口/选项页面和内容脚本之间的通信：
+
+    - 通过 chrome.tabs.query 和 chrome.tabs.sendMessage 方法，在弹出窗口/选项页面和内容脚本之间发送消息。
+    - 通过 chrome.runtime.sendMessage 和 chrome.runtime.onMessage 方法，在选项页面和后台脚本之间发送和接收消息。
+
+
+3. 弹出窗口/选项页面和后台脚本之间的通信：
+
+    - 通过 chrome.runtime.sendMessage 和 chrome.runtime.onMessage 方法，在弹出窗口/选项页面和后台脚本之间发送和接收消息。
+
+每种通信方式都涉及到消息的发送和接收，并且可以包含附加数据以实现更丰富的通信交互。这种消息传递机制使得不同组件之间能够进行灵活的通信和协作，为构建功能丰富的Chrome扩展提供了基础。</code></pre> 
+     <h1 id="further-readings">Further Readings</h1> 
+     <ul> 
+      <li>https://developer.chrome.com/docs/extensions/develop/concepts/messaging</li> 
+      <li>https://www.linkedin.com/pulse/message-passing-chrome-extension-lakebrains-technologies/</li> 
+     </ul> 
+     <section class="footnotes" role="doc-endnotes"> 
+      <hr> 
+      <ol> 
+       <li id="fn1" role="doc-endnote"><p>These are files that run in the context of web pages.They can read details of the web pages the browser visits, make changes to them, and pass information to their parent extension.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+      </ol> 
+     </section> 
+     <hr> 
+     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+     </div> 
+     <div id="random_posts"> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2020-04-26-blackswan-and-market-teach-you-a-lession.html">石油宝或许很坑，但也不完全是陷阱 </a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2010-05-17-why_we_need_a_global_id_generator.html">Why We Need A Global ID Generator?! </a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2013-04-14-head_first_big_picture_of_dns.html">Head First The Big Picture Of DNS </a> 
+      </div> 
+     </div> 
+     <hr> 
+     <div id="comments"></div> 
+     <hr> 
+     <div> 
+      <p> 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^<br> 这里 </p>
+      <ol> 
+       <li>不但有及时新鲜的AI资讯和深度探讨</li> 
+       <li>还分享AI工具、产品方法和商业机会</li> 
+       <li>更有体系化精品付费内容等着你，<a href="https://t.zsxq.com/0dI3ZA0sL">加入星球(https://t.zsxq.com/0dI3ZA0sL)</a> 即可免费领取。(加入之后<b>一定记得看置顶消息</b>呀！)</li> 
+      </ol> 
+      <p></p> <a href="https://t.zsxq.com/0dI3ZA0sL"> <img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"> </a> 
+     </div> 
+     <hr> 
+     <p> <span style="font-size: xx-large;"> 开天窗，拉认知，订阅「福报」，即刻拥有自己的全模态人工智能。 </span> </p> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe_v2.jpg" alt="订阅「福报」"> </a> 
+     <hr> 
+     <div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"> 
+      <div id="tfloader" class="x-indicator"> 
+       <svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"> <g fill="none" fill-rule="evenodd"> 
+         <g transform="translate(1 1)" stroke-width="2"> 
+          <circle cx="5" cy="50" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+          <circle cx="27" cy="5" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+          <circle cx="49" cy="50" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+         </g> 
+        </g> 
+       </svg> 
+      </div> 
+     </div> 
+    </div> 
+   </section> 
+  </main> 
+  <footer class="border-t border-gray-200 dark:border-slate-800"> 
+   <div class="max-w-6xl mx-auto px-4 sm:px-6"> 
+    <div class="md:flex md:items-center md:justify-between py-6 md:py-8"> 
+     <ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0"> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Twitter" href="https://twitter.com/fujohnwang"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-twitter"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z"> 
+         </path> 
+        </svg> </a> </li> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Facebook" href="https://www.facebook.com/fujohnwang/"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-facebook"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2H7"></path> 
+        </svg> </a> </li> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Github" href="https://github.com/fujohnwang"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-github"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"> 
+         </path> 
+        </svg> </a> </li> 
+     </ul> 
+     <div class="text-sm text-gray-700 mr-4 dark:text-slate-400"> <span class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 float-left rounded-sm"> <img src="https://afoo.me/favicon.svg" class="rounded-md" alt> </span> Copyright © 王福强个人版权所有 - Since 2004 (Everything is homebrewed with <a href="https://pandoc.org/">Pandoc</a> and Markdown, little <a href="https://www.scala-lang.org/">Scala</a> also included.) 
+     </div> 
+    </div> 
+   </div> 
+  </footer> 
+  <script>
+        // Set "light" theme as default
+        if (!localStorage.theme) {
+            localStorage.theme = "light";
+        }
+
+        if (
+            localStorage.theme === 'dark' ||
+            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function attachEvent(selector, event, fn) {
+            const matches = document.querySelectorAll(selector);
+            if (matches && matches.length) {
+                matches.forEach((elem) => {
+                    elem.addEventListener(event, () => fn(elem), false);
+                });
+            }
+        }
+
+        window.onload = function () {
+            attachEvent('[data-toggle-menu]', 'click', function (elem) {
+                elem.classList.toggle('expanded');
+                document.body.classList.toggle('overflow-hidden');
+                document.getElementById('header')?.classList.toggle('h-screen');
+                document.querySelector('#header nav')?.classList.toggle('hidden');
+            });
+            attachEvent('[data-toggle-color-scheme]', 'click', function () {
+                document.documentElement.classList.toggle('dark');
+                localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            });
+        };
+        window.onpageshow = function () {
+            const elem = document.querySelector('[data-toggle-menu]');
+            if (elem) {
+                elem.classList.remove('expanded');
+            }
+            document.body.classList.remove('overflow-hidden');
+            document.getElementById('header')?.classList.remove('h-screen');
+            document.querySelector('#header nav')?.classList.add('hidden');
+        };
+    </script> 
+  <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '518a605d711883414ac0',
+          clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+          repo: 'afoo.me.comments',
+          owner: 'fujohnwang',
+          admin: ['fujohnwang'],
+          id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+        gitalk.render('comments')
+    </script> 
+  <script src="https://formspree.io/js/formbutton-v1.min.js" defer></script> 
+  <script>
+  /* paste this line in verbatim */
+  window.formbutton=window.formbutton||function(){(formbutton.q=formbutton.q||[]).push(arguments)};
+  /* customize formbutton below*/     
+  formbutton("create", {
+    action: "https://formspree.io/f/xknlpkkd",
+    title: "有什么可以帮到您？💕💕💕 How can I help you?",
+    fields: [
+      { 
+        type: "email", 
+        label: "您的电子邮箱（方便与您联系）:", 
+        name: "email",
+        required: true,
+        placeholder: "your@email.com"
+      },
+      {
+        type: "textarea",
+        label: "您想提交的反馈和询问信息:",
+        name: "message",
+        placeholder: "What's on your mind?",
+      },
+      { type: "submit" }      
+    ],
+    styles: {
+      title: {
+        backgroundColor: "blue"
+      },
+      button: {
+        backgroundColor: "blue"
+      }
+    }
+  });
+</script>  
+ </body>
+</html>

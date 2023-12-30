@@ -132,7 +132,7 @@
      &lt;p&gt;任何工种都可能会因为人群迁移而没有那么流行了，但不一定就会完全消亡，它可能改头换面或者装备升级继续延续下去，从这角度来说，程序员应该不会消亡或者被取代，但有可能换一种方式或者升级新的装备（比如AI）继续过。&lt;/p&gt; 
      &lt;p&gt;有人说有了AI和nocode，所有人都能编程了，程序员就不需要了，那其实是挺扯淡的事情，在我看来。&lt;/p&gt; 
      &lt;p&gt;nocode、lowcode甚至AI其实都是人的经验的沉淀，让这些东西可重复，通过标准化让这些东西可以复制并铺开，但你说从此软件产业就停滞不前了，那我只能说你多少有些不理解软件的底层逻辑，更甚至于说你不懂人群的组织逻辑。&lt;/p&gt; 
-     &lt;p&gt;我记得软件行业有段时间在讲全栈（full-stack），崇尚程序员个人主义和英雄情节当然好，但也不能因此而忽略了更高维度的因素。&lt;/p&gt; 
+     &lt;p&gt;我记得软件行业有段时间在讲全栈（full-stack），崇尚程序员个人主义和英雄情节(aka. 超级个体)当然好，但也不能因此而忽略了更高维度的因素。&lt;/p&gt; 
      &lt;p&gt;实际上，一个全栈程序员可以做一个可用的产品，但很难做一个精品。精品是靠组织专业人士做出来的，因为&lt;strong&gt;专业才能极致&lt;/strong&gt;。&lt;/p&gt; 
      &lt;p&gt;所以，就算是程序员会替代，那也是替代那些只会最简单专业技能的程序员，甚至只会使用nocode/lowcode的程序员，甚至于说，有些组织可能受限于自身资源与组织现状，依然会选择那些你认为会被替代的程序员，起码有一个东西他有，但nocode和AI没有，那就是人机接口的体验，哦，不对，是人人接口的体验 ；）&lt;/p&gt; 
      &lt;p&gt;如果一定要说程序员要被取代的问题，那么不妨把视角放到一个具体的组织内部去看，对于成长型企业来说，它会自然而然的通过组织环境和文化来汰换人才结构，落到程序员这个群体，也是一样的道理。一种可见的趋势是，将来会使用AI能力和工具的程序员，肯定比不会使用的程序员更有效率，参考Google与百度造成的差异就可以了。但是不是更高效的程序员就一定会汰换低效的程序员呢？ 也不一定。 至于为什么，你猜？ ；）&lt;/p&gt; 
@@ -149,11 +149,11 @@
      &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
      &lt;/div&gt; 
      &lt;div id="random_posts"&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2010-06-22-life-in-a-loop.html"&gt;轮回&lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2023-04-22-3-GPT-models-for-poor.html"&gt;中国企业自建GPT服务的三款开源可商用模型 &lt;/a&gt; 
       &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2023-11-18-svelte5-runes.html"&gt;Runes in Svelte5 &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2017-07-11-startup-uncertainty.html"&gt;选择了创业，你就选择了不确定性！ &lt;/a&gt; 
       &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-10-26-multiple_short_stories.html"&gt;意识流形式的杂记 &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2023-09-27-the-first-consultant-of-China.html"&gt;中国咨询之父是谁？ &lt;/a&gt; 
       &lt;/div&gt; 
      &lt;/div&gt; 
      &lt;hr&gt; 
@@ -313,6 +313,516 @@
       <pubDate>Fri, 29 Dec 2023 16:00:00 GMT</pubDate>
       <guid>http://afoo.me/posts/2023-12-30-will-nocode-and-AI-replaces-pros.html</guid>
       <dc:date>2023-12-29T16:00:00Z</dc:date>
+    </item>
+    <item>
+      <title>Chrome插件的消息通信机制探寻 (Message Passing in Chrome Extension)</title>
+      <link>http://afoo.me/posts/2023-12-28-chrome-extension-message-passing-basics.html</link>
+      <description>&lt;!doctype html&gt;
+&lt;html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]"&gt; 
+ &lt;head&gt; 
+  &lt;meta charset="utf-8"&gt; 
+  &lt;meta name="keywords" content="Chrome插件的消息通信机制探寻 (Message Passing in Chrome Extension) - 架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
+  &lt;meta name="description" content="Chrome插件的消息通信机制探寻 (Message Passing in Chrome Extension) - 福强说，扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
+  &lt;meta name="author" content="王福强"&gt; 
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
+  &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt; 
+  &lt;meta name="robots" content="index,follow"&gt; 
+  &lt;title&gt;Chrome插件的消息通信机制探寻 (Message Passing in Chrome Extension) -王福强的个人博客：一个架构士的思考与沉淀&lt;/title&gt; 
+  &lt;meta name="date" content="2023-12-28"&gt; 
+  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
+  &lt;link rel="canonical" href="https://afoo.me/posts/2023-12-28-chrome-extension-message-passing-basics.html"&gt; 
+  &lt;link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"&gt; 
+  &lt;link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8"&gt; 
+  &lt;script src="https://unpkg.com/htmx.org@1.9.5"&gt;&lt;/script&gt; 
+  &lt;link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"&gt; 
+  &lt;script src="https://unpkg.com/gitalk/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;link rel="stylesheet" href="/css/af.css"&gt; 
+  &lt;link ref="stylesheet" href="/css/pygments.css"&gt; 
+  &lt;style type="text/css"&gt;
+        pre &gt; code{
+          white-space: pre-wrap;
+          font-family: monospace;
+          font-size: 14px;
+          /* border-left: blueviolet;
+          border-left-width: thick;
+          border-left-style: double;
+          padding-left: 1rem !important; */
+        }
+        
+        .x-indicator{
+            display:none;
+        }
+        .htmx-request .x-indicator{
+            display:inline;
+        }
+        .htmx-request.x-indicator{
+            display:inline;
+        }
+    &lt;/style&gt; 
+  &lt;style type="text/css"&gt;
+      pre &gt; code.sourceCode { white-space: pre; position: relative; }
+      pre &gt; code.sourceCode &gt; span { display: inline-block; line-height: 1.25; }
+      pre &gt; code.sourceCode &gt; span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode &gt; span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre &gt; code.sourceCode { white-space: pre-wrap; }
+      pre &gt; code.sourceCode &gt; span { text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code &gt; span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code &gt; span &gt; a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre &gt; code.sourceCode &gt; span &gt; a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    &lt;/style&gt; 
+  &lt;script type="application/ld+json"&gt;
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "Chrome插件的消息通信机制探寻 (Message Passing in Chrome Extension)",
+      "image": [
+        "https://afoo.me/images/fb_subscribe.jpg"
+       ],
+      "datePublished": "2023-12-28",
+      "author": [{
+          "@type": "Person",
+          "name": "王福强",
+          "url": "https://afoo.me"
+        }]
+    }
+  &lt;/script&gt; 
+  &lt;script type="text/javascript"&gt;
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "irqzhxtyzn");
+  &lt;/script&gt; 
+ &lt;/head&gt; 
+ &lt;body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"&gt; 
+  &lt;header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"&gt; 
+   &lt;div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"&gt; 
+    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"&gt; &lt;h1&gt;王福强的个人博客&lt;/h1&gt; &lt;/span&gt; &lt;/a&gt; 
+     &lt;div class="flex items-center md:hidden"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
+       &lt;svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
+         &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
+         &lt;path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"&gt; 
+         &lt;/path&gt; 
+        &lt;/g&gt; 
+       &lt;/svg&gt; &lt;/button&gt; &lt;button type="button" class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition" aria-label="Toggle Menu" data-toggle-menu=""&gt; 
+       &lt;svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:menu"&gt; &lt;g class="icon-tabler" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"&gt; 
+         &lt;path d="M4 8h16"&gt;&lt;/path&gt; 
+         &lt;path d="M4 16h16"&gt;&lt;/path&gt; 
+        &lt;/g&gt; 
+       &lt;/svg&gt; &lt;/button&gt; 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+    &lt;nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"&gt; 
+     &lt;ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me"&gt;福强AI学堂&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com"&gt;架构百科&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html"&gt;博客文章 &lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html"&gt;创作出版&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://store.afoo.me"&gt;产品与服务&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
+     &lt;/ul&gt; 
+     &lt;div class="md:self-center flex items-center mb-4 md:mb-0 ml-2"&gt; 
+      &lt;div class="hidden items-center md:flex"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
+        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
+          &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
+          &lt;path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"&gt; 
+          &lt;/path&gt; 
+         &lt;/g&gt; 
+        &lt;/svg&gt; &lt;/button&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="RSS Feed" href="http://afoo.me/feeds.xml"&gt; 
+        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:rss"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
+          &lt;circle cx="5" cy="19" r="1"&gt;&lt;/circle&gt; 
+          &lt;path d="M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"&gt;&lt;/path&gt; 
+         &lt;/g&gt; 
+        &lt;/svg&gt; &lt;/a&gt; 
+      &lt;/div&gt; 
+     &lt;/div&gt; 
+    &lt;/nav&gt; 
+   &lt;/div&gt; 
+  &lt;/header&gt; 
+  &lt;main&gt; 
+   &lt;section class="text-gray-600 body-font relative"&gt; 
+    &lt;div class="container px-5 py-24 mx-auto mb-12 prose prose-lg dark:prose-invert"&gt; 
+     &lt;p class="lead"&gt; &lt;/p&gt;
+     &lt;h1 class="title"&gt;Chrome插件的消息通信机制探寻 (Message Passing in Chrome Extension)&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt; 
+      &lt;div style="text-align: left;"&gt;
+       2023-12-28
+      &lt;/div&gt; &lt;/small&gt; 
+     &lt;p&gt;&lt;/p&gt; 
+     &lt;hr&gt; 
+     &lt;h1 id="简介"&gt;简介&lt;/h1&gt; 
+     &lt;p&gt;Chrome Extension的消息通信主要分两大类，一类是Chrome Extension内部组件之间的通信，一类是Chrome Extension与Chrome Extension之间的通信，用英语的词根解释更明了，就是intra-和inter-&lt;/p&gt; 
+     &lt;p&gt;在Chrome Extension内部的通信，也会有全局的通信，以及针对单一页面的通信，他们发送消息的方式略有不一样：&lt;/p&gt; 
+     &lt;pre&gt;&lt;code&gt;chrome.runtime.sendMessage
+
+chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt; 
+     &lt;p&gt;要对chrome中的页面内容进行操作，可以注入content scripts &lt;a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;或者直接执行scripting， 因为content scripts需要在manifest.json中静态注册matchers以及js文件等资源和配置，所以，相对来说，个人更喜欢直接用&lt;code&gt;chrome.scripting.executeScript&lt;/code&gt;，这种方式的好处是，可以直接在同一个地方通过function的形式定义要执行的逻辑，比如，在我们点击chrome extension的action按钮之后弹出的popup页面中，我们可以定义要执行的scripting逻辑：&lt;/p&gt; 
+     &lt;div class="sourceCode" id="cb2"&gt;
+      &lt;pre class="sourceCode js"&gt;&lt;code class="sourceCode javascript"&gt;&lt;span id="cb2-1"&gt;&lt;a href="#cb2-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    chrome&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;tabs&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;query&lt;/span&gt;({&lt;span class="dt"&gt;active&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="kw"&gt;true&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="dt"&gt;currentWindow&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="kw"&gt;true&lt;/span&gt;}&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="kw"&gt;function&lt;/span&gt; (tabs) {&lt;/span&gt;
+&lt;span id="cb2-2"&gt;&lt;a href="#cb2-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        chrome&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;scripting&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;executeScript&lt;/span&gt;({&lt;/span&gt;
+&lt;span id="cb2-3"&gt;&lt;a href="#cb2-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="dt"&gt;target&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; {&lt;span class="dt"&gt;tabId&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; tabs[&lt;span class="dv"&gt;0&lt;/span&gt;]&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;id&lt;/span&gt;}&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-4"&gt;&lt;a href="#cb2-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="kw"&gt;function&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; queryAndJoin&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-5"&gt;&lt;a href="#cb2-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="dt"&gt;args&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; [selectorExpr]&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-6"&gt;&lt;a href="#cb2-6" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        })&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-7"&gt;&lt;a href="#cb2-7" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    })&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+     &lt;/div&gt; 
+     &lt;p&gt;其中， queryAndJoin是要执行的函数逻辑，可以通过args指定要传入的参数：&lt;/p&gt; 
+     &lt;div class="sourceCode" id="cb3"&gt;
+      &lt;pre class="sourceCode js"&gt;&lt;code class="sourceCode javascript"&gt;&lt;span id="cb3-1"&gt;&lt;a href="#cb3-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;   &lt;span class="kw"&gt;function&lt;/span&gt; &lt;span class="fu"&gt;queryAndJoin&lt;/span&gt;(selector) {&lt;/span&gt;
+&lt;span id="cb3-2"&gt;&lt;a href="#cb3-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="kw"&gt;const&lt;/span&gt; selectedElements &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="bu"&gt;document&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;querySelectorAll&lt;/span&gt;(selector)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-3"&gt;&lt;a href="#cb3-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="kw"&gt;let&lt;/span&gt; resultStr &lt;span class="op"&gt;=&lt;/span&gt; [&lt;span class="op"&gt;...&lt;/span&gt;selectedElements]&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;map&lt;/span&gt;(a &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; a&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;attributes&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;href&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;nodeValue&lt;/span&gt;)&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;join&lt;/span&gt;(&lt;span class="st"&gt;"&lt;/span&gt;&lt;span class="sc"&gt;\r\n\r\n&lt;/span&gt;&lt;span class="st"&gt;"&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-4"&gt;&lt;a href="#cb3-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb3-5"&gt;&lt;a href="#cb3-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        chrome&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;runtime&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;sendMessage&lt;/span&gt;({&lt;/span&gt;
+&lt;span id="cb3-6"&gt;&lt;a href="#cb3-6" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="dt"&gt;action&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="st"&gt;'result'&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-7"&gt;&lt;a href="#cb3-7" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="dt"&gt;result&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; resultStr&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-8"&gt;&lt;a href="#cb3-8" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="dt"&gt;count&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; selectedElements&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;length&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-9"&gt;&lt;a href="#cb3-9" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        }&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="kw"&gt;function&lt;/span&gt; (response) {&lt;/span&gt;
+&lt;span id="cb3-10"&gt;&lt;a href="#cb3-10" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="co"&gt;// chrome.tts.speak(`${selectedElements.length} elements are found and returned.`);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-11"&gt;&lt;a href="#cb3-11" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        })&lt;/span&gt;
+&lt;span id="cb3-12"&gt;&lt;a href="#cb3-12" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    }&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+     &lt;/div&gt; 
+     &lt;p&gt;这样， queryAndJoin函数的执行逻辑就是要注入到当前活动页面的脚步内容（注意：是注入到当前活动页面，而不是当前弹出的action页面/popup页面）。 一般情况下，注入到当前活动页面的scripting与页面原本的dom操作js类似，但假如注入的脚本想要回传信息给当前action页面/popup页面，这个时候，我们就需要用&lt;code&gt;chrome.runtime.sendMessage&lt;/code&gt;回传消息。&lt;/p&gt; 
+     &lt;p&gt;回传消息的接收端，我们可以在action页面/popup页面里定义：&lt;/p&gt; 
+     &lt;div class="sourceCode" id="cb4"&gt;
+      &lt;pre class="sourceCode js"&gt;&lt;code class="sourceCode javascript"&gt;&lt;span id="cb4-1"&gt;&lt;a href="#cb4-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    chrome&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;runtime&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;onMessage&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;addListener&lt;/span&gt;(&lt;span class="kw"&gt;function&lt;/span&gt; (request&lt;span class="op"&gt;,&lt;/span&gt; sender&lt;span class="op"&gt;,&lt;/span&gt; sendResponse) {&lt;/span&gt;
+&lt;span id="cb4-2"&gt;&lt;a href="#cb4-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="cf"&gt;if&lt;/span&gt; (request&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;action&lt;/span&gt; &lt;span class="op"&gt;===&lt;/span&gt; &lt;span class="st"&gt;"result"&lt;/span&gt;) {&lt;/span&gt;
+&lt;span id="cb4-3"&gt;&lt;a href="#cb4-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            result &lt;span class="op"&gt;=&lt;/span&gt; request&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;result&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-4"&gt;&lt;a href="#cb4-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            count &lt;span class="op"&gt;=&lt;/span&gt; request&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;count&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-5"&gt;&lt;a href="#cb4-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            chrome&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;tts&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;speak&lt;/span&gt;(&lt;span class="vs"&gt;`&lt;/span&gt;&lt;span class="sc"&gt;${&lt;/span&gt;request&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;count&lt;/span&gt;&lt;span class="sc"&gt;}&lt;/span&gt;&lt;span class="vs"&gt; elements are found and returned.`&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-6"&gt;&lt;a href="#cb4-6" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        } &lt;span class="cf"&gt;else&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb4-7"&gt;&lt;a href="#cb4-7" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="bu"&gt;console&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;log&lt;/span&gt;(&lt;span class="vs"&gt;`not supported action: &lt;/span&gt;&lt;span class="sc"&gt;${&lt;/span&gt;request&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;action&lt;/span&gt;&lt;span class="sc"&gt;}&lt;/span&gt;&lt;span class="vs"&gt;`&lt;/span&gt;)&lt;/span&gt;
+&lt;span id="cb4-8"&gt;&lt;a href="#cb4-8" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        }&lt;/span&gt;
+&lt;span id="cb4-9"&gt;&lt;a href="#cb4-9" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    })&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+     &lt;/div&gt; 
+     &lt;blockquote&gt; 
+      &lt;p&gt;TIP&lt;/p&gt; 
+      &lt;p&gt;所以， content scripts不是必须的，可以&lt;a href="https://developer.chrome.com/blog/crx-scripting-api#injecting_a_function_with_arguments"&gt;通过Scripting API&lt;/a&gt;完成同样的目的，而且个人感觉更灵活。&lt;/p&gt; 
+     &lt;/blockquote&gt; 
+     &lt;p&gt;如果说content scripts是针对一个一个页面的，页面的查找和注入是独立的，那么，background.js(或者叫service worker js)就是全局性的。可以类比局部变量和全局变量。&lt;/p&gt; 
+     &lt;p&gt;background.js可以全局接管action以及插件安装事件以及各种消息的处理，比如针对浏览器存储的操作（比如localStorage）， 比如action与快捷键的事件处理等等。&lt;/p&gt; 
+     &lt;p&gt;下面是各种scripts之间相互消息通信的关系图：&lt;/p&gt; 
+     &lt;p&gt;&lt;img src="images/message_passing_relations.png"&gt;&lt;/p&gt; 
+     &lt;p&gt;基本上就是通过chrome.runtime的sendMessage和onMessage（或者tabs.sendMessage()）搞定相互之间的通信。&lt;/p&gt; 
+     &lt;blockquote&gt; 
+      &lt;p&gt;NOTE&lt;/p&gt; 
+      &lt;p&gt;The maximum size of a single message from the native messaging host is 1 MB.&lt;/p&gt; 
+      &lt;p&gt;Each message is serialized using JSON, UTF-8 encoded and is preceded with 32-bit message length in native byte order.&lt;/p&gt; 
+     &lt;/blockquote&gt; 
+     &lt;h1 id="长连接通信long-lived-connections"&gt;长连接通信（Long-lived connections）&lt;/h1&gt; 
+     &lt;p&gt;sendMessage和onMessage的方式是单次请求通信（Simple one-time requests）， 相当于短连接，我们也可以通过port的形式在content scripts、popup页面与background.js之间创建长连接：&lt;/p&gt; 
+     &lt;div class="sourceCode" id="cb5"&gt;
+      &lt;pre class="sourceCode js"&gt;&lt;code class="sourceCode javascript"&gt;&lt;span id="cb5-1"&gt;&lt;a href="#cb5-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="co"&gt;//contentscript.js&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb5-2"&gt;&lt;a href="#cb5-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;const&lt;/span&gt; port &lt;span class="op"&gt;=&lt;/span&gt; chrome&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;runtime&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;connect&lt;/span&gt;({&lt;span class="dt"&gt;name&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="st"&gt;"content-script"&lt;/span&gt;})&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb5-3"&gt;&lt;a href="#cb5-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;port&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;postMessage&lt;/span&gt;({&lt;span class="dt"&gt;greeting&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="st"&gt;"hello"&lt;/span&gt;})&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb5-4"&gt;&lt;a href="#cb5-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb5-5"&gt;&lt;a href="#cb5-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;port&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;onMessage&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;addListener&lt;/span&gt;(&lt;span class="kw"&gt;function&lt;/span&gt;(message) {&lt;/span&gt;
+&lt;span id="cb5-6"&gt;&lt;a href="#cb5-6" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="bu"&gt;console&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;log&lt;/span&gt;(message&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;farewell&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb5-7"&gt;&lt;a href="#cb5-7" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;})&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+     &lt;/div&gt; 
+     &lt;div class="sourceCode" id="cb6"&gt;
+      &lt;pre class="sourceCode js"&gt;&lt;code class="sourceCode javascript"&gt;&lt;span id="cb6-1"&gt;&lt;a href="#cb6-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="co"&gt;// backgroundscript.js&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb6-2"&gt;&lt;a href="#cb6-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;chrome&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;runtime&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;onConnect&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;addListener&lt;/span&gt;(&lt;span class="kw"&gt;function&lt;/span&gt;(port) {&lt;/span&gt;
+&lt;span id="cb6-3"&gt;&lt;a href="#cb6-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="cf"&gt;if&lt;/span&gt; (port&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;name&lt;/span&gt; &lt;span class="op"&gt;===&lt;/span&gt; &lt;span class="st"&gt;"content-script"&lt;/span&gt;) {&lt;/span&gt;
+&lt;span id="cb6-4"&gt;&lt;a href="#cb6-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="bu"&gt;console&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;log&lt;/span&gt;(&lt;span class="st"&gt;"Content script connected"&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb6-5"&gt;&lt;a href="#cb6-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb6-6"&gt;&lt;a href="#cb6-6" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="co"&gt;// port.postMessage({farewell: "goodbye"});&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb6-7"&gt;&lt;a href="#cb6-7" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb6-8"&gt;&lt;a href="#cb6-8" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    port&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;onMessage&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;addListener&lt;/span&gt;(&lt;span class="kw"&gt;function&lt;/span&gt;(message) {&lt;/span&gt;
+&lt;span id="cb6-9"&gt;&lt;a href="#cb6-9" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;      &lt;span class="bu"&gt;console&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;log&lt;/span&gt;(message&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;greeting&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb6-10"&gt;&lt;a href="#cb6-10" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    })&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb6-11"&gt;&lt;a href="#cb6-11" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  }&lt;/span&gt;
+&lt;span id="cb6-12"&gt;&lt;a href="#cb6-12" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;})&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+     &lt;/div&gt; 
+     &lt;h1 id="跨插件之间的通信-cross-extension-messaging"&gt;&lt;a href="https://developer.chrome.com/docs/extensions/develop/concepts/messaging#external"&gt;跨插件之间的通信（ Cross-extension messaging）&lt;/a&gt;&lt;/h1&gt; 
+     &lt;blockquote&gt; 
+      &lt;p&gt;The task of dispatching messages from one extension to another demands knowledge of the target extension’s ID number.&lt;/p&gt; 
+     &lt;/blockquote&gt; 
+     &lt;p&gt;Extension与Extension之间的通信需要知晓Extension的ID，然后通过sendMessage发送消息的时候指定目标插件的ID：&lt;/p&gt; 
+     &lt;div class="sourceCode" id="cb7"&gt;
+      &lt;pre class="sourceCode js"&gt;&lt;code class="sourceCode javascript"&gt;&lt;span id="cb7-1"&gt;&lt;a href="#cb7-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;const&lt;/span&gt; targetExtensionId &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="st"&gt;"ExtensionID-1"&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb7-2"&gt;&lt;a href="#cb7-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb7-3"&gt;&lt;a href="#cb7-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;chrome&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;runtime&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;sendMessage&lt;/span&gt;(targetExtensionId&lt;span class="op"&gt;,&lt;/span&gt; {&lt;span class="dt"&gt;greeting&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="st"&gt;"hello"&lt;/span&gt;}&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="kw"&gt;function&lt;/span&gt;(response) {&lt;/span&gt;
+&lt;span id="cb7-4"&gt;&lt;a href="#cb7-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="bu"&gt;console&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;log&lt;/span&gt;(response&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;farewell&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb7-5"&gt;&lt;a href="#cb7-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;})&lt;span class="op"&gt;;;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+     &lt;/div&gt; 
+     &lt;p&gt;接收端可以在接收到消息的时候检查发送方的ID，然后决定是否处理相应消息：&lt;/p&gt; 
+     &lt;div class="sourceCode" id="cb8"&gt;
+      &lt;pre class="sourceCode js"&gt;&lt;code class="sourceCode javascript"&gt;&lt;span id="cb8-1"&gt;&lt;a href="#cb8-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;chrome&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;runtime&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;onMessageExternal&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;addListener&lt;/span&gt;(&lt;span class="kw"&gt;function&lt;/span&gt;(request&lt;span class="op"&gt;,&lt;/span&gt; sender&lt;span class="op"&gt;,&lt;/span&gt; sendResponse) {&lt;/span&gt;
+&lt;span id="cb8-2"&gt;&lt;a href="#cb8-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb8-3"&gt;&lt;a href="#cb8-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="cf"&gt;if&lt;/span&gt; (sender&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;id&lt;/span&gt; &lt;span class="op"&gt;===&lt;/span&gt; &lt;span class="st"&gt;"ExtensionID-2"&lt;/span&gt;) {&lt;/span&gt;
+&lt;span id="cb8-4"&gt;&lt;a href="#cb8-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="bu"&gt;console&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;log&lt;/span&gt;(request&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;greeting&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb8-5"&gt;&lt;a href="#cb8-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="fu"&gt;sendResponse&lt;/span&gt;({&lt;span class="dt"&gt;farewell&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="st"&gt;"goodbye"&lt;/span&gt;})&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb8-6"&gt;&lt;a href="#cb8-6" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  }&lt;/span&gt;
+&lt;span id="cb8-7"&gt;&lt;a href="#cb8-7" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb8-8"&gt;&lt;a href="#cb8-8" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;})&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+     &lt;/div&gt; 
+     &lt;p&gt;注意，虽然&lt;strong&gt;发送消息&lt;/strong&gt;依然用的chrome.runtime.sendMessage， 但这里用的是chrome.runtime.onMessageExternal来&lt;strong&gt;接收消息&lt;/strong&gt;。&lt;/p&gt; 
+     &lt;p&gt;以上是Extension之间的一次性消息发送和接收（one-time requests），Extension之间也可以通过长连接进行通信：&lt;/p&gt; 
+     &lt;div class="sourceCode" id="cb9"&gt;
+      &lt;pre class="sourceCode js"&gt;&lt;code class="sourceCode javascript"&gt;&lt;span id="cb9-1"&gt;&lt;a href="#cb9-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="co"&gt;// 连接与发送消息&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb9-2"&gt;&lt;a href="#cb9-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;var&lt;/span&gt; port &lt;span class="op"&gt;=&lt;/span&gt; chrome&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;runtime&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;connect&lt;/span&gt;(laserExtensionId)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb9-3"&gt;&lt;a href="#cb9-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;port&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;postMessage&lt;/span&gt;(&lt;span class="op"&gt;...&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb9-4"&gt;&lt;a href="#cb9-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb9-5"&gt;&lt;a href="#cb9-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="co"&gt;// 连接与接收消息&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb9-6"&gt;&lt;a href="#cb9-6" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;chrome&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;runtime&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;onConnectExternal&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;addListener&lt;/span&gt;(&lt;span class="kw"&gt;function&lt;/span&gt;(port) {&lt;/span&gt;
+&lt;span id="cb9-7"&gt;&lt;a href="#cb9-7" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  port&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;onMessage&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;addListener&lt;/span&gt;(&lt;span class="kw"&gt;function&lt;/span&gt;(msg) {&lt;/span&gt;
+&lt;span id="cb9-8"&gt;&lt;a href="#cb9-8" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="co"&gt;// See other examples for sample onMessage handlers.&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb9-9"&gt;&lt;a href="#cb9-9" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  })&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb9-10"&gt;&lt;a href="#cb9-10" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;})&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+     &lt;/div&gt; 
+     &lt;h1 id="gpt3.5的回答"&gt;GPT3.5的回答&lt;/h1&gt; 
+     &lt;p&gt;chrome extension的各个组件之间如何通信？&lt;/p&gt; 
+     &lt;pre&gt;&lt;code&gt;Chrome扩展内的各个组件之间可以通过Chrome扩展的消息传递 API 进行通信。以下是几种常用的组件之间通信的方式：
+
+1. 内容脚本和后台脚本之间的通信：
+
+    - 通过 chrome.runtime.sendMessage 和 chrome.runtime.onMessage 方法，在内容脚本和后台脚本之间建立双向通信。
+    - 通过 chrome.tabs.sendMessage 和 chrome.runtime.onMessage 方法，在内容脚本和后台脚本之间发送和接收消息。
+
+
+2. 弹出窗口/选项页面和内容脚本之间的通信：
+
+    - 通过 chrome.tabs.query 和 chrome.tabs.sendMessage 方法，在弹出窗口/选项页面和内容脚本之间发送消息。
+    - 通过 chrome.runtime.sendMessage 和 chrome.runtime.onMessage 方法，在选项页面和后台脚本之间发送和接收消息。
+
+
+3. 弹出窗口/选项页面和后台脚本之间的通信：
+
+    - 通过 chrome.runtime.sendMessage 和 chrome.runtime.onMessage 方法，在弹出窗口/选项页面和后台脚本之间发送和接收消息。
+
+每种通信方式都涉及到消息的发送和接收，并且可以包含附加数据以实现更丰富的通信交互。这种消息传递机制使得不同组件之间能够进行灵活的通信和协作，为构建功能丰富的Chrome扩展提供了基础。&lt;/code&gt;&lt;/pre&gt; 
+     &lt;h1 id="further-readings"&gt;Further Readings&lt;/h1&gt; 
+     &lt;ul&gt; 
+      &lt;li&gt;https://developer.chrome.com/docs/extensions/develop/concepts/messaging&lt;/li&gt; 
+      &lt;li&gt;https://www.linkedin.com/pulse/message-passing-chrome-extension-lakebrains-technologies/&lt;/li&gt; 
+     &lt;/ul&gt; 
+     &lt;section class="footnotes" role="doc-endnotes"&gt; 
+      &lt;hr&gt; 
+      &lt;ol&gt; 
+       &lt;li id="fn1" role="doc-endnote"&gt;&lt;p&gt;These are files that run in the context of web pages.They can read details of the web pages the browser visits, make changes to them, and pass information to their parent extension.&lt;a href="#fnref1" class="footnote-back" role="doc-backlink"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt; 
+      &lt;/ol&gt; 
+     &lt;/section&gt; 
+     &lt;hr&gt; 
+     &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div id="random_posts"&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2020-04-26-blackswan-and-market-teach-you-a-lession.html"&gt;石油宝或许很坑，但也不完全是陷阱 &lt;/a&gt; 
+      &lt;/div&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2010-05-17-why_we_need_a_global_id_generator.html"&gt;Why We Need A Global ID Generator?! &lt;/a&gt; 
+      &lt;/div&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2013-04-14-head_first_big_picture_of_dns.html"&gt;Head First The Big Picture Of DNS &lt;/a&gt; 
+      &lt;/div&gt; 
+     &lt;/div&gt; 
+     &lt;hr&gt; 
+     &lt;div id="comments"&gt;&lt;/div&gt; 
+     &lt;hr&gt; 
+     &lt;div&gt; 
+      &lt;p&gt; 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^&lt;br&gt; 这里 &lt;/p&gt;
+      &lt;ol&gt; 
+       &lt;li&gt;不但有及时新鲜的AI资讯和深度探讨&lt;/li&gt; 
+       &lt;li&gt;还分享AI工具、产品方法和商业机会&lt;/li&gt; 
+       &lt;li&gt;更有体系化精品付费内容等着你，&lt;a href="https://t.zsxq.com/0dI3ZA0sL"&gt;加入星球(https://t.zsxq.com/0dI3ZA0sL)&lt;/a&gt; 即可免费领取。(加入之后&lt;b&gt;一定记得看置顶消息&lt;/b&gt;呀！)&lt;/li&gt; 
+      &lt;/ol&gt; 
+      &lt;p&gt;&lt;/p&gt; &lt;a href="https://t.zsxq.com/0dI3ZA0sL"&gt; &lt;img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"&gt; &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;hr&gt; 
+     &lt;p&gt; &lt;span style="font-size: xx-large;"&gt; 开天窗，拉认知，订阅「福报」，即刻拥有自己的全模态人工智能。 &lt;/span&gt; &lt;/p&gt; &lt;a href="https://wfq.gumroad.com/l/fb"&gt; &lt;img src="/images/fb_subscribe_v2.jpg" alt="订阅「福报」"&gt; &lt;/a&gt; 
+     &lt;hr&gt; 
+     &lt;div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"&gt; 
+      &lt;div id="tfloader" class="x-indicator"&gt; 
+       &lt;svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"&gt; &lt;g fill="none" fill-rule="evenodd"&gt; 
+         &lt;g transform="translate(1 1)" stroke-width="2"&gt; 
+          &lt;circle cx="5" cy="50" r="5"&gt; 
+           &lt;animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /&gt; 
+           &lt;animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /&gt; 
+          &lt;/circle&gt; 
+          &lt;circle cx="27" cy="5" r="5"&gt; 
+           &lt;animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /&gt; 
+           &lt;animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /&gt; 
+          &lt;/circle&gt; 
+          &lt;circle cx="49" cy="50" r="5"&gt; 
+           &lt;animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /&gt; 
+           &lt;animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /&gt; 
+          &lt;/circle&gt; 
+         &lt;/g&gt; 
+        &lt;/g&gt; 
+       &lt;/svg&gt; 
+      &lt;/div&gt; 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+   &lt;/section&gt; 
+  &lt;/main&gt; 
+  &lt;footer class="border-t border-gray-200 dark:border-slate-800"&gt; 
+   &lt;div class="max-w-6xl mx-auto px-4 sm:px-6"&gt; 
+    &lt;div class="md:flex md:items-center md:justify-between py-6 md:py-8"&gt; 
+     &lt;ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0"&gt; 
+      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Twitter" href="https://twitter.com/fujohnwang"&gt; 
+        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-twitter"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z"&gt; 
+         &lt;/path&gt; 
+        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Facebook" href="https://www.facebook.com/fujohnwang/"&gt; 
+        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-facebook"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2H7"&gt;&lt;/path&gt; 
+        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Github" href="https://github.com/fujohnwang"&gt; 
+        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-github"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"&gt; 
+         &lt;/path&gt; 
+        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
+     &lt;/ul&gt; 
+     &lt;div class="text-sm text-gray-700 mr-4 dark:text-slate-400"&gt; &lt;span class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 float-left rounded-sm"&gt; &lt;img src="https://afoo.me/favicon.svg" class="rounded-md" alt&gt; &lt;/span&gt; Copyright © 王福强个人版权所有 - Since 2004 (Everything is homebrewed with &lt;a href="https://pandoc.org/"&gt;Pandoc&lt;/a&gt; and Markdown, little &lt;a href="https://www.scala-lang.org/"&gt;Scala&lt;/a&gt; also included.) 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/footer&gt; 
+  &lt;script&gt;
+        // Set "light" theme as default
+        if (!localStorage.theme) {
+            localStorage.theme = "light";
+        }
+
+        if (
+            localStorage.theme === 'dark' ||
+            (!('theme' in localStorage) &amp;&amp; window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function attachEvent(selector, event, fn) {
+            const matches = document.querySelectorAll(selector);
+            if (matches &amp;&amp; matches.length) {
+                matches.forEach((elem) =&gt; {
+                    elem.addEventListener(event, () =&gt; fn(elem), false);
+                });
+            }
+        }
+
+        window.onload = function () {
+            attachEvent('[data-toggle-menu]', 'click', function (elem) {
+                elem.classList.toggle('expanded');
+                document.body.classList.toggle('overflow-hidden');
+                document.getElementById('header')?.classList.toggle('h-screen');
+                document.querySelector('#header nav')?.classList.toggle('hidden');
+            });
+            attachEvent('[data-toggle-color-scheme]', 'click', function () {
+                document.documentElement.classList.toggle('dark');
+                localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            });
+        };
+        window.onpageshow = function () {
+            const elem = document.querySelector('[data-toggle-menu]');
+            if (elem) {
+                elem.classList.remove('expanded');
+            }
+            document.body.classList.remove('overflow-hidden');
+            document.getElementById('header')?.classList.remove('h-screen');
+            document.querySelector('#header nav')?.classList.add('hidden');
+        };
+    &lt;/script&gt; 
+  &lt;script type="text/javascript"&gt;
+        var gitalk = new Gitalk({
+          clientID: '518a605d711883414ac0',
+          clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+          repo: 'afoo.me.comments',
+          owner: 'fujohnwang',
+          admin: ['fujohnwang'],
+          id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+        gitalk.render('comments')
+    &lt;/script&gt; 
+  &lt;script src="https://formspree.io/js/formbutton-v1.min.js" defer&gt;&lt;/script&gt; 
+  &lt;script&gt;
+  /* paste this line in verbatim */
+  window.formbutton=window.formbutton||function(){(formbutton.q=formbutton.q||[]).push(arguments)};
+  /* customize formbutton below*/     
+  formbutton("create", {
+    action: "https://formspree.io/f/xknlpkkd",
+    title: "有什么可以帮到您？💕💕💕 How can I help you?",
+    fields: [
+      { 
+        type: "email", 
+        label: "您的电子邮箱（方便与您联系）:", 
+        name: "email",
+        required: true,
+        placeholder: "your@email.com"
+      },
+      {
+        type: "textarea",
+        label: "您想提交的反馈和询问信息:",
+        name: "message",
+        placeholder: "What's on your mind?",
+      },
+      { type: "submit" }      
+    ],
+    styles: {
+      title: {
+        backgroundColor: "blue"
+      },
+      button: {
+        backgroundColor: "blue"
+      }
+    }
+  });
+&lt;/script&gt;  
+ &lt;/body&gt;
+&lt;/html&gt;</description>
+      <pubDate>Wed, 27 Dec 2023 16:00:00 GMT</pubDate>
+      <guid>http://afoo.me/posts/2023-12-28-chrome-extension-message-passing-basics.html</guid>
+      <dc:date>2023-12-27T16:00:00Z</dc:date>
     </item>
     <item>
       <title>关于人性的三个洞察</title>
@@ -3094,421 +3604,6 @@
       <pubDate>Sun, 26 Nov 2023 16:00:00 GMT</pubDate>
       <guid>http://afoo.me/posts/2023-11-27-retalk-soa-microservices.html</guid>
       <dc:date>2023-11-26T16:00:00Z</dc:date>
-    </item>
-    <item>
-      <title>Runes in Svelte5</title>
-      <link>http://afoo.me/posts/2023-11-18-svelte5-runes.html</link>
-      <description>&lt;!doctype html&gt;
-&lt;html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]"&gt; 
- &lt;head&gt; 
-  &lt;meta charset="utf-8"&gt; 
-  &lt;meta name="keywords" content="Runes in Svelte5 - 架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
-  &lt;meta name="description" content="Runes in Svelte5 - 福强说，扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
-  &lt;meta name="author" content="王福强"&gt; 
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
-  &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt; 
-  &lt;meta name="robots" content="index,follow"&gt; 
-  &lt;title&gt;Runes in Svelte5 -王福强的个人博客：一个架构士的思考与沉淀&lt;/title&gt; 
-  &lt;meta name="date" content="2023-11-18"&gt; 
-  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
-  &lt;link rel="canonical" href="https://afoo.me/posts/2023-11-18-svelte5-runes.html"&gt; 
-  &lt;link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"&gt; 
-  &lt;link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8"&gt; 
-  &lt;script src="https://unpkg.com/htmx.org@1.9.5"&gt;&lt;/script&gt; 
-  &lt;link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"&gt; 
-  &lt;script src="https://unpkg.com/gitalk/dist/gitalk.min.js"&gt;&lt;/script&gt; 
-  &lt;link rel="stylesheet" href="/css/af.css"&gt; 
-  &lt;link ref="stylesheet" href="/css/pygments.css"&gt; 
-  &lt;style type="text/css"&gt;
-        pre &gt; code{
-          white-space: pre-wrap;
-          font-family: monospace;
-          font-size: 14px;
-          /* border-left: blueviolet;
-          border-left-width: thick;
-          border-left-style: double;
-          padding-left: 1rem !important; */
-        }
-        
-        .x-indicator{
-            display:none;
-        }
-        .htmx-request .x-indicator{
-            display:inline;
-        }
-        .htmx-request.x-indicator{
-            display:inline;
-        }
-    &lt;/style&gt; 
-  &lt;style type="text/css"&gt;
-      pre &gt; code.sourceCode { white-space: pre; position: relative; }
-      pre &gt; code.sourceCode &gt; span { display: inline-block; line-height: 1.25; }
-      pre &gt; code.sourceCode &gt; span:empty { height: 1.2em; }
-      .sourceCode { overflow: visible; }
-      code.sourceCode &gt; span { color: inherit; text-decoration: inherit; }
-      div.sourceCode { margin: 1em 0; }
-      pre.sourceCode { margin: 0; }
-      @media screen {
-      div.sourceCode { overflow: auto; }
-      }
-      @media print {
-      pre &gt; code.sourceCode { white-space: pre-wrap; }
-      pre &gt; code.sourceCode &gt; span { text-indent: -5em; padding-left: 5em; }
-      }
-      pre.numberSource code
-        { counter-reset: source-line 0; }
-      pre.numberSource code &gt; span
-        { position: relative; left: -4em; counter-increment: source-line; }
-      pre.numberSource code &gt; span &gt; a:first-child::before
-        { content: counter(source-line);
-          position: relative; left: -1em; text-align: right; vertical-align: baseline;
-          border: none; display: inline-block;
-          -webkit-touch-callout: none; -webkit-user-select: none;
-          -khtml-user-select: none; -moz-user-select: none;
-          -ms-user-select: none; user-select: none;
-          padding: 0 4px; width: 4em;
-          color: #aaaaaa;
-        }
-      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-      div.sourceCode
-        {   }
-      @media screen {
-      pre &gt; code.sourceCode &gt; span &gt; a:first-child::before { text-decoration: underline; }
-      }
-      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-      code span.at { color: #7d9029; } /* Attribute */
-      code span.bn { color: #40a070; } /* BaseN */
-      code span.bu { } /* BuiltIn */
-      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-      code span.ch { color: #4070a0; } /* Char */
-      code span.cn { color: #880000; } /* Constant */
-      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-      code span.dt { color: #902000; } /* DataType */
-      code span.dv { color: #40a070; } /* DecVal */
-      code span.er { color: #ff0000; font-weight: bold; } /* Error */
-      code span.ex { } /* Extension */
-      code span.fl { color: #40a070; } /* Float */
-      code span.fu { color: #06287e; } /* Function */
-      code span.im { } /* Import */
-      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-      code span.op { color: #666666; } /* Operator */
-      code span.ot { color: #007020; } /* Other */
-      code span.pp { color: #bc7a00; } /* Preprocessor */
-      code span.sc { color: #4070a0; } /* SpecialChar */
-      code span.ss { color: #bb6688; } /* SpecialString */
-      code span.st { color: #4070a0; } /* String */
-      code span.va { color: #19177c; } /* Variable */
-      code span.vs { color: #4070a0; } /* VerbatimString */
-      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-    &lt;/style&gt; 
-  &lt;script type="application/ld+json"&gt;
-    {
-      "@context": "https://schema.org",
-      "@type": "NewsArticle",
-      "headline": "Runes in Svelte5",
-      "image": [
-        "https://afoo.me/images/fb_subscribe.jpg"
-       ],
-      "datePublished": "2023-11-18",
-      "author": [{
-          "@type": "Person",
-          "name": "王福强",
-          "url": "https://afoo.me"
-        }]
-    }
-  &lt;/script&gt; 
-  &lt;script type="text/javascript"&gt;
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "irqzhxtyzn");
-  &lt;/script&gt; 
- &lt;/head&gt; 
- &lt;body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"&gt; 
-  &lt;header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"&gt; 
-   &lt;div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"&gt; 
-    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"&gt; &lt;h1&gt;王福强的个人博客&lt;/h1&gt; &lt;/span&gt; &lt;/a&gt; 
-     &lt;div class="flex items-center md:hidden"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
-       &lt;svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
-         &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
-         &lt;path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"&gt; 
-         &lt;/path&gt; 
-        &lt;/g&gt; 
-       &lt;/svg&gt; &lt;/button&gt; &lt;button type="button" class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition" aria-label="Toggle Menu" data-toggle-menu=""&gt; 
-       &lt;svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:menu"&gt; &lt;g class="icon-tabler" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"&gt; 
-         &lt;path d="M4 8h16"&gt;&lt;/path&gt; 
-         &lt;path d="M4 16h16"&gt;&lt;/path&gt; 
-        &lt;/g&gt; 
-       &lt;/svg&gt; &lt;/button&gt; 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-    &lt;nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"&gt; 
-     &lt;ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me"&gt;福强AI学堂&lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com"&gt;架构百科&lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html"&gt;博客文章 &lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html"&gt;创作出版&lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://store.afoo.me"&gt;产品与服务&lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
-     &lt;/ul&gt; 
-     &lt;div class="md:self-center flex items-center mb-4 md:mb-0 ml-2"&gt; 
-      &lt;div class="hidden items-center md:flex"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
-        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
-          &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
-          &lt;path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"&gt; 
-          &lt;/path&gt; 
-         &lt;/g&gt; 
-        &lt;/svg&gt; &lt;/button&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="RSS Feed" href="http://afoo.me/feeds.xml"&gt; 
-        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:rss"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
-          &lt;circle cx="5" cy="19" r="1"&gt;&lt;/circle&gt; 
-          &lt;path d="M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"&gt;&lt;/path&gt; 
-         &lt;/g&gt; 
-        &lt;/svg&gt; &lt;/a&gt; 
-      &lt;/div&gt; 
-     &lt;/div&gt; 
-    &lt;/nav&gt; 
-   &lt;/div&gt; 
-  &lt;/header&gt; 
-  &lt;main&gt; 
-   &lt;section class="text-gray-600 body-font relative"&gt; 
-    &lt;div class="container px-5 py-24 mx-auto mb-12 prose prose-lg dark:prose-invert"&gt; 
-     &lt;p class="lead"&gt; &lt;/p&gt;
-     &lt;h1 class="title"&gt;Runes in Svelte5&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt; 
-      &lt;div style="text-align: left;"&gt;
-       2023-11-18
-      &lt;/div&gt; &lt;/small&gt; 
-     &lt;p&gt;&lt;/p&gt; 
-     &lt;hr&gt; 
-     &lt;p&gt;Hello, my friends&lt;/p&gt; 
-     &lt;p&gt;Today, I would like to share my thinking and understanding of runes in incoming svelte5.&lt;/p&gt; 
-     &lt;p&gt;At first, I “hate” such design, because when I chose svelte3 as my SPA web framework, I liked its instinct design which let HTML/JS/CSS do their own work.&lt;/p&gt; 
-     &lt;p&gt;Let’s say, as long as you know basic HTML/JS/CSS, you can get what the code does in svelte3(alghouth not exactly at some tricky features):&lt;/p&gt; 
-     &lt;div class="sourceCode" id="cb1"&gt;
-      &lt;pre class="sourceCode javascript"&gt;&lt;code class="sourceCode javascript"&gt;&lt;span id="cb1-1"&gt;&lt;a href="#cb1-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="op"&gt;&amp;lt;&lt;/span&gt;script&lt;span class="op"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-2"&gt;&lt;a href="#cb1-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="im"&gt;export&lt;/span&gt; &lt;span class="kw"&gt;let&lt;/span&gt; firstName &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="st"&gt;''&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-3"&gt;&lt;a href="#cb1-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="im"&gt;export&lt;/span&gt; &lt;span class="kw"&gt;let&lt;/span&gt; lastName &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="st"&gt;''&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-4"&gt;&lt;a href="#cb1-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id="cb1-5"&gt;&lt;a href="#cb1-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  $&lt;span class="op"&gt;:&lt;/span&gt; fullName &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="vs"&gt;`&lt;/span&gt;&lt;span class="sc"&gt;${&lt;/span&gt;firstName&lt;span class="sc"&gt;}&lt;/span&gt;&lt;span class="vs"&gt; &lt;/span&gt;&lt;span class="sc"&gt;${&lt;/span&gt;lastName&lt;span class="sc"&gt;}&lt;/span&gt;&lt;span class="vs"&gt;`&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-6"&gt;&lt;a href="#cb1-6" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="op"&gt;&amp;lt;/&lt;/span&gt;script&lt;span class="op"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-     &lt;/div&gt; 
-     &lt;p&gt;But after introducing runes in svelte5, code will becomes:&lt;/p&gt; 
-     &lt;div class="sourceCode" id="cb2"&gt;
-      &lt;pre class="sourceCode js"&gt;&lt;code class="sourceCode javascript"&gt;&lt;span id="cb2-1"&gt;&lt;a href="#cb2-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="op"&gt;&amp;lt;&lt;/span&gt;script&lt;span class="op"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb2-2"&gt;&lt;a href="#cb2-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="kw"&gt;let&lt;/span&gt; { firstName&lt;span class="op"&gt;,&lt;/span&gt; lastName } &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="fu"&gt;$props&lt;/span&gt;()&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb2-3"&gt;&lt;a href="#cb2-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id="cb2-4"&gt;&lt;a href="#cb2-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="kw"&gt;let&lt;/span&gt; fullName &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="fu"&gt;$derived&lt;/span&gt;(&lt;span class="vs"&gt;`&lt;/span&gt;&lt;span class="sc"&gt;${&lt;/span&gt;firstName&lt;span class="sc"&gt;}&lt;/span&gt;&lt;span class="vs"&gt; &lt;/span&gt;&lt;span class="sc"&gt;${&lt;/span&gt;lastName&lt;span class="sc"&gt;}&lt;/span&gt;&lt;span class="vs"&gt;`&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb2-5"&gt;&lt;a href="#cb2-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="op"&gt;&amp;lt;/&lt;/span&gt;script&lt;span class="op"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-     &lt;/div&gt; 
-     &lt;p&gt;It’s also Javascript, but in another style. We have to figure out what &lt;code&gt;$props()&lt;/code&gt; and &lt;code&gt;$derived()&lt;/code&gt; exactly do before making sure it works.&lt;/p&gt; 
-     &lt;p&gt;It’s not about good or bad, but about styles or tastes, I think.&lt;/p&gt; 
-     &lt;p&gt;Even I (and other svelte3/4 people) don’t like the change, but others may like it very much, so after a long time of diving into the docs and videos about runes, I figure out how they works and why they are designed in such way.&lt;/p&gt; 
-     &lt;p&gt;It’s all about three things:&lt;/p&gt; 
-     &lt;ol type="1"&gt; 
-      &lt;li&gt;states&lt;/li&gt; 
-      &lt;li&gt;events&lt;/li&gt; 
-      &lt;li&gt;functions&lt;/li&gt; 
-     &lt;/ol&gt; 
-     &lt;p&gt;The three compose one thing: the reactivity.&lt;/p&gt; 
-     &lt;p&gt;Runes are reactive variables, so usually they are states we can listen to or add observers to them. Observables in RxJava or &lt;a href="https://www.solidjs.com/tutorial/introduction_signals"&gt;Signal in SolidJS&lt;/a&gt; are all such things.&lt;/p&gt; 
-     &lt;p&gt;Svelte5 introduces 4 runes(reactive variables):&lt;/p&gt; 
-     &lt;ol type="1"&gt; 
-      &lt;li&gt;&lt;code&gt;$props()&lt;/code&gt;&lt;/li&gt; 
-      &lt;li&gt;&lt;code&gt;$state()&lt;/code&gt;&lt;/li&gt; 
-      &lt;li&gt;&lt;code&gt;$derived()&lt;/code&gt;&lt;/li&gt; 
-      &lt;li&gt;&lt;code&gt;$effect()&lt;/code&gt;&lt;/li&gt; 
-     &lt;/ol&gt; 
-     &lt;p&gt;&lt;code&gt;$props()&lt;/code&gt; is easy to understand, it’s just used to declare properties of the component(.svelte).&lt;/p&gt; 
-     &lt;p&gt;&lt;code&gt;$state()&lt;/code&gt; is similar to store in svelte3, but more general.&lt;/p&gt; 
-     &lt;p&gt;&lt;code&gt;$derived()&lt;/code&gt; can reactive to any change of other &lt;code&gt;$props()&lt;/code&gt; or &lt;code&gt;$state()&lt;/code&gt;, in svelte3, we use reactive statement to get such things done.(&lt;code&gt;$: ...&lt;/code&gt;)&lt;/p&gt; 
-     &lt;p&gt;&lt;code&gt;$effect()&lt;/code&gt; has part of functionalities of reactive statements:&lt;/p&gt; 
-     &lt;div class="sourceCode" id="cb3"&gt;
-      &lt;pre class="sourceCode js"&gt;&lt;code class="sourceCode javascript"&gt;&lt;span id="cb3-1"&gt;&lt;a href="#cb3-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="op"&gt;&amp;lt;&lt;/span&gt;script&lt;span class="op"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb3-2"&gt;&lt;a href="#cb3-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt; &lt;span class="kw"&gt;let&lt;/span&gt; { width&lt;span class="op"&gt;,&lt;/span&gt; height } &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="fu"&gt;$props&lt;/span&gt;()&lt;span class="op"&gt;;&lt;/span&gt; &lt;span class="co"&gt;// instead of `export let`&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb3-3"&gt;&lt;a href="#cb3-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id="cb3-4"&gt;&lt;a href="#cb3-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt; &lt;span class="kw"&gt;const&lt;/span&gt; area &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="fu"&gt;$derived&lt;/span&gt;(width &lt;span class="op"&gt;*&lt;/span&gt; height)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb3-5"&gt;&lt;a href="#cb3-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id="cb3-6"&gt;&lt;a href="#cb3-6" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt; &lt;span class="fu"&gt;$effect&lt;/span&gt;(() &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; {&lt;/span&gt;
-&lt;span id="cb3-7"&gt;&lt;a href="#cb3-7" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="bu"&gt;console&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;log&lt;/span&gt;(area)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb3-8"&gt;&lt;a href="#cb3-8" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt; })&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb3-9"&gt;&lt;a href="#cb3-9" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="op"&gt;&amp;lt;/&lt;/span&gt;script&lt;span class="op"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-     &lt;/div&gt; 
-     &lt;p&gt;But it also take care of responsibility of &lt;code&gt;onMount()&lt;/code&gt; lifecycle hook, furthermore, with &lt;code&gt;$effect.pre&lt;/code&gt;, it also can intercept events between each frame update.&lt;/p&gt; 
-     &lt;p&gt;So that’s all, If we draw a comparision, it maybe look like as following:&lt;/p&gt; 
-     &lt;p&gt;&lt;img src="images/svelte3_vs_svelte5_runes.jpg"&gt;&lt;/p&gt; 
-     &lt;p&gt;Hope it helps. If you don’t know too much about svelte3 or would like to learn more about svelte3, &lt;a href="https://store.afoo.me/l/simple_svelte"&gt;&lt;strong&gt;Simple Svelte&lt;/strong&gt;&lt;/a&gt; may be a good start ;)&lt;/p&gt; 
-     &lt;hr&gt; 
-     &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div id="random_posts"&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2006-09-04-Intro-to-an-excel-template-engine.html"&gt;Introduction 2 an excel template engine &lt;/a&gt; 
-      &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2015-03-11-ngrok-simple-manual.html"&gt;ngrok简明手册 &lt;/a&gt; 
-      &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2010-02-09-tx-mgt-patterns.html"&gt;Transaction Management Patterns In Brief &lt;/a&gt; 
-      &lt;/div&gt; 
-     &lt;/div&gt; 
-     &lt;hr&gt; 
-     &lt;div id="comments"&gt;&lt;/div&gt; 
-     &lt;hr&gt; 
-     &lt;div&gt; 
-      &lt;p&gt; 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^&lt;br&gt; 这里 &lt;/p&gt;
-      &lt;ol&gt; 
-       &lt;li&gt;不但有及时新鲜的AI资讯和深度探讨&lt;/li&gt; 
-       &lt;li&gt;还分享AI工具、产品方法和商业机会&lt;/li&gt; 
-       &lt;li&gt;更有体系化精品付费内容等着你，&lt;a href="https://t.zsxq.com/0dI3ZA0sL"&gt;加入星球(https://t.zsxq.com/0dI3ZA0sL)&lt;/a&gt; 即可免费领取。(加入之后&lt;b&gt;一定记得看置顶消息&lt;/b&gt;呀！)&lt;/li&gt; 
-      &lt;/ol&gt; 
-      &lt;p&gt;&lt;/p&gt; &lt;a href="https://t.zsxq.com/0dI3ZA0sL"&gt; &lt;img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"&gt; &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;hr&gt; 
-     &lt;p&gt; &lt;span style="font-size: xx-large;"&gt; 开天窗，拉认知，订阅「福报」，即刻拥有自己的全模态人工智能。 &lt;/span&gt; &lt;/p&gt; &lt;a href="https://wfq.gumroad.com/l/fb"&gt; &lt;img src="/images/fb_subscribe_v2.jpg" alt="订阅「福报」"&gt; &lt;/a&gt; 
-     &lt;hr&gt; 
-     &lt;div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"&gt; 
-      &lt;div id="tfloader" class="x-indicator"&gt; 
-       &lt;svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"&gt; &lt;g fill="none" fill-rule="evenodd"&gt; 
-         &lt;g transform="translate(1 1)" stroke-width="2"&gt; 
-          &lt;circle cx="5" cy="50" r="5"&gt; 
-           &lt;animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /&gt; 
-           &lt;animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /&gt; 
-          &lt;/circle&gt; 
-          &lt;circle cx="27" cy="5" r="5"&gt; 
-           &lt;animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /&gt; 
-           &lt;animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /&gt; 
-          &lt;/circle&gt; 
-          &lt;circle cx="49" cy="50" r="5"&gt; 
-           &lt;animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /&gt; 
-           &lt;animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /&gt; 
-          &lt;/circle&gt; 
-         &lt;/g&gt; 
-        &lt;/g&gt; 
-       &lt;/svg&gt; 
-      &lt;/div&gt; 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-   &lt;/section&gt; 
-  &lt;/main&gt; 
-  &lt;footer class="border-t border-gray-200 dark:border-slate-800"&gt; 
-   &lt;div class="max-w-6xl mx-auto px-4 sm:px-6"&gt; 
-    &lt;div class="md:flex md:items-center md:justify-between py-6 md:py-8"&gt; 
-     &lt;ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0"&gt; 
-      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Twitter" href="https://twitter.com/fujohnwang"&gt; 
-        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-twitter"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z"&gt; 
-         &lt;/path&gt; 
-        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Facebook" href="https://www.facebook.com/fujohnwang/"&gt; 
-        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-facebook"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2H7"&gt;&lt;/path&gt; 
-        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Github" href="https://github.com/fujohnwang"&gt; 
-        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-github"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"&gt; 
-         &lt;/path&gt; 
-        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
-     &lt;/ul&gt; 
-     &lt;div class="text-sm text-gray-700 mr-4 dark:text-slate-400"&gt; &lt;span class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 float-left rounded-sm"&gt; &lt;img src="https://afoo.me/favicon.svg" class="rounded-md" alt&gt; &lt;/span&gt; Copyright © 王福强个人版权所有 - Since 2004 (Everything is homebrewed with &lt;a href="https://pandoc.org/"&gt;Pandoc&lt;/a&gt; and Markdown, little &lt;a href="https://www.scala-lang.org/"&gt;Scala&lt;/a&gt; also included.) 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/footer&gt; 
-  &lt;script&gt;
-        // Set "light" theme as default
-        if (!localStorage.theme) {
-            localStorage.theme = "light";
-        }
-
-        if (
-            localStorage.theme === 'dark' ||
-            (!('theme' in localStorage) &amp;&amp; window.matchMedia('(prefers-color-scheme: dark)').matches)
-        ) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-
-        function attachEvent(selector, event, fn) {
-            const matches = document.querySelectorAll(selector);
-            if (matches &amp;&amp; matches.length) {
-                matches.forEach((elem) =&gt; {
-                    elem.addEventListener(event, () =&gt; fn(elem), false);
-                });
-            }
-        }
-
-        window.onload = function () {
-            attachEvent('[data-toggle-menu]', 'click', function (elem) {
-                elem.classList.toggle('expanded');
-                document.body.classList.toggle('overflow-hidden');
-                document.getElementById('header')?.classList.toggle('h-screen');
-                document.querySelector('#header nav')?.classList.toggle('hidden');
-            });
-            attachEvent('[data-toggle-color-scheme]', 'click', function () {
-                document.documentElement.classList.toggle('dark');
-                localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-            });
-        };
-        window.onpageshow = function () {
-            const elem = document.querySelector('[data-toggle-menu]');
-            if (elem) {
-                elem.classList.remove('expanded');
-            }
-            document.body.classList.remove('overflow-hidden');
-            document.getElementById('header')?.classList.remove('h-screen');
-            document.querySelector('#header nav')?.classList.add('hidden');
-        };
-    &lt;/script&gt; 
-  &lt;script type="text/javascript"&gt;
-        var gitalk = new Gitalk({
-          clientID: '518a605d711883414ac0',
-          clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-          repo: 'afoo.me.comments',
-          owner: 'fujohnwang',
-          admin: ['fujohnwang'],
-          id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-          distractionFreeMode: false  // Facebook-like distraction free mode
-        })
-        gitalk.render('comments')
-    &lt;/script&gt; 
-  &lt;script src="https://formspree.io/js/formbutton-v1.min.js" defer&gt;&lt;/script&gt; 
-  &lt;script&gt;
-  /* paste this line in verbatim */
-  window.formbutton=window.formbutton||function(){(formbutton.q=formbutton.q||[]).push(arguments)};
-  /* customize formbutton below*/     
-  formbutton("create", {
-    action: "https://formspree.io/f/xknlpkkd",
-    title: "有什么可以帮到您？💕💕💕 How can I help you?",
-    fields: [
-      { 
-        type: "email", 
-        label: "您的电子邮箱（方便与您联系）:", 
-        name: "email",
-        required: true,
-        placeholder: "your@email.com"
-      },
-      {
-        type: "textarea",
-        label: "您想提交的反馈和询问信息:",
-        name: "message",
-        placeholder: "What's on your mind?",
-      },
-      { type: "submit" }      
-    ],
-    styles: {
-      title: {
-        backgroundColor: "blue"
-      },
-      button: {
-        backgroundColor: "blue"
-      }
-    }
-  });
-&lt;/script&gt;  
- &lt;/body&gt;
-&lt;/html&gt;</description>
-      <pubDate>Fri, 17 Nov 2023 16:00:00 GMT</pubDate>
-      <guid>http://afoo.me/posts/2023-11-18-svelte5-runes.html</guid>
-      <dc:date>2023-11-17T16:00:00Z</dc:date>
     </item>
   </channel>
 </rss>
