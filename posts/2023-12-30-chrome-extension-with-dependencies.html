@@ -2,16 +2,16 @@
 <html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]"> 
  <head> 
   <meta charset="utf-8"> 
-  <meta name="keywords" content="程序员会被取代吗？ - 架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
-  <meta name="description" content="程序员会被取代吗？ - 福强说，扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="keywords" content="在开发Chrome Extension的时候如何使用第三方js库或者npm依赖？ - 架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="在开发Chrome Extension的时候如何使用第三方js库或者npm依赖？ - 福强说，扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
   <meta name="author" content="王福强"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
   <meta name="robots" content="index,follow"> 
-  <title>程序员会被取代吗？ -王福强的个人博客：一个架构士的思考与沉淀</title> 
-  <meta name="date" content="2023-12-29"> 
+  <title>在开发Chrome Extension的时候如何使用第三方js库或者npm依赖？ -王福强的个人博客：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2023-12-30"> 
   <link rel="shortcut icon" href="/favicon.ico"> 
-  <link rel="canonical" href="https://afoo.me/posts/2023-12-30-will-nocode-and-AI-replaces-pros.html"> 
+  <link rel="canonical" href="https://afoo.me/posts/2023-12-30-chrome-extension-with-dependencies.html"> 
   <link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"> 
   <link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8"> 
   <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
@@ -40,15 +40,80 @@
             display:inline;
         }
     </style> 
+  <style type="text/css">
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    </style> 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "NewsArticle",
-      "headline": "程序员会被取代吗？",
+      "headline": "在开发Chrome Extension的时候如何使用第三方js库或者npm依赖？",
       "image": [
         "https://afoo.me/images/fb_subscribe.jpg"
        ],
-      "datePublished": "2023-12-29",
+      "datePublished": "2023-12-30",
       "author": [{
           "@type": "Person",
           "name": "王福强",
@@ -113,38 +178,77 @@
    <section class="text-gray-600 body-font relative"> 
     <div class="container px-5 py-24 mx-auto mb-12 prose prose-lg dark:prose-invert"> 
      <p class="lead"> </p>
-     <h1 class="title">程序员会被取代吗？</h1> <small> <h3 class="author">王福强</h3> 
+     <h1 class="title">在开发Chrome Extension的时候如何使用第三方js库或者npm依赖？</h1> <small> <h3 class="author">王福强</h3> 
       <div style="text-align: left;">
-       2023-12-29
+       2023-12-30
       </div> </small> 
      <p></p> 
      <hr> 
-     <p>Probably，但肯定没那么绝对。</p> 
-     <p>任何工种都可能会因为人群迁移而没有那么流行了，但不一定就会完全消亡，它可能改头换面或者装备升级继续延续下去，从这角度来说，程序员应该不会消亡或者被取代，但有可能换一种方式或者升级新的装备（比如AI）继续过。</p> 
-     <p>有人说有了AI和nocode，所有人都能编程了，程序员就不需要了，那其实是挺扯淡的事情，在我看来。</p> 
-     <p>nocode、lowcode甚至AI其实都是人的经验的沉淀，让这些东西可重复，通过标准化让这些东西可以复制并铺开，但你说从此软件产业就停滞不前了，那我只能说你多少有些不理解软件的底层逻辑，更甚至于说你不懂人群的组织逻辑。</p> 
-     <p>我记得软件行业有段时间在讲全栈（full-stack），崇尚程序员个人主义和英雄情节(aka. 超级个体)当然好，但也不能因此而忽略了更高维度的因素。</p> 
-     <p>实际上，一个全栈程序员可以做一个可用的产品，但很难做一个精品。精品是靠组织专业人士做出来的，因为<strong>专业才能极致</strong>。</p> 
-     <p>所以，就算是程序员会替代，那也是替代那些只会最简单专业技能的程序员，甚至只会使用nocode/lowcode的程序员，甚至于说，有些组织可能受限于自身资源与组织现状，依然会选择那些你认为会被替代的程序员，起码有一个东西他有，但nocode和AI没有，那就是人机接口的体验，哦，不对，是人人接口的体验 ；）</p> 
-     <p>如果一定要说程序员要被取代的问题，那么不妨把视角放到一个具体的组织内部去看，对于成长型企业来说，它会自然而然的通过组织环境和文化来汰换人才结构，落到程序员这个群体，也是一样的道理。一种可见的趋势是，将来会使用AI能力和工具的程序员，肯定比不会使用的程序员更有效率，参考Google与百度造成的差异就可以了。但是不是更高效的程序员就一定会汰换低效的程序员呢？ 也不一定。 至于为什么，你猜？ ；）</p> 
-     <p>今天还有个话题是关于产品，其实产品也是一种nocode， 或者反过来说，nocode也是一种产品，他们都是直接面向用户，如果他们能直接满足用户需求，那当然最好了，可是…</p> 
-     <ol type="1"> 
-      <li>人群是多样性的，不管什么产品，它们都只是满足一部分人群的需要，为什么？</li> 
-      <li>产品为什么后面要跟售后和服务（今天时髦点儿叫“客户成功”）？</li> 
-      <li>今天的nocode产品和20年多年前的excel有什么区别？ 服务的底层需求在本质上有变化吗？ 他们是否可以满足所有需求？</li> 
-      <li>面向个人与面向组织的（软件）产品有差别吗？ 差别在哪儿？</li> 
-      <li>软件和工具可以替代人的价值吗？ 它们和人各自的价值又在哪里？</li> 
-     </ol> 
-     <p>以上抛出几个问题，供大家思考 ；）</p> 
+     <p>popup页面的生成和逻辑实际上是可以用npm的，比如使用svelte框架或者各种前端框架的逻辑与基础设施，引入npm依赖，并使用rollup等进行编译打包。</p> 
+     <p>不能用npm依赖的地方是单独的background.js，假如我们在manifest.json里使用<a href="https://developer.chrome.com/docs/extensions/develop/migrate/improve-security#use-external-libraries">如下定义</a>的话：</p> 
+     <div class="sourceCode" id="cb1">
+      <pre class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>    <span class="er">"background":</span> <span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"scripts"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"jquery.min.js"</span><span class="ot">,</span> <span class="st">"background.js"</span><span class="ot">]</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="er">,</span></span></code></pre>
+     </div> 
+     <p>那么就很难用npm依赖来编写background.js的逻辑， 但好在有一个fallback方案，那就是在manifest.json里配置background.html然后引用一个background.js，那么，这种情况下，就跟popup页面的编写类似了，可以引用npm依赖，只要最终打包成一个独立的background.js就可以了：</p> 
+     <div class="sourceCode" id="cb2">
+      <pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>    <span class="er">"background":</span> <span class="fu">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"page"</span><span class="fu">:</span> <span class="st">"background.html"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span></code></pre>
+     </div> 
+     <p>然后在background.html里引用background.js就可以了：</p> 
+     <div class="sourceCode" id="cb3">
+      <pre class="sourceCode html"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;script</span><span class="ot"> type=</span><span class="st">"module"</span> <span class="er">src</span><span class="ot">=</span><span class="st">"background.js"</span><span class="kw">&gt;&lt;/script&gt;</span></span></code></pre>
+     </div> 
+     <blockquote> 
+      <p>NOTE: <strong>注意</strong> ❗❗❗</p> 
+      <p><code>type="module"</code>是必须的！</p> 
+     </blockquote> 
+     <p>但是，<code>starting with Manifest V3, you cannot use background.page</code>。</p> 
+     <p>所以就剩最后一种方式，也是<strong>最新的方式</strong>： <a href="https://developer.chrome.com/docs/extensions/develop/migrate/improve-security#bundle-third-party">使用最新的manifest V3</a>，可以直接指定background.js和<code>type="module"</code>:</p> 
+     <div class="sourceCode" id="cb4">
+      <pre class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="er">"background":</span> <span class="fu">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"service_worker"</span><span class="fu">:</span> <span class="st">"background.js"</span><span class="fu">,</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"module"</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre>
+     </div> 
+     <p>然后在background.js就可以引用其他依赖了:</p> 
+     <div class="sourceCode" id="cb5">
+      <pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> JsStore <span class="im">from</span> <span class="st">'./jsstore.js'</span><span class="op">;</span></span></code></pre>
+     </div> 
+     <blockquote> 
+      <p>TIP</p> 
+      <p>用<a href="https://parceljs.org/">parceljs</a>单独编译也是一个不错的方法。</p> 
+      <p>parcel提供的@parcel/config-webextension可以直接用manifest.json作为入口文件进行编译，其中配置的所有文件都可以追溯并递归编译。</p> 
+     </blockquote> 
+     <h1 id="ref">Ref</h1> 
+     <ul> 
+      <li>https://stackoverflow.com/questions/43684452/is-it-possible-to-require-npm-modules-in-a-chrome-extension</li> 
+      <li>https://stackoverflow.com/questions/9057292/requirejs-in-a-chrome-extension 
+       <ul> 
+        <li><code>chrome.extension.getURL</code> to get scripts in content scripts that don’t have before</li> 
+       </ul></li> 
+      <li>https://stackoverflow.com/questions/3695476/how-do-i-perform-a-shell-execute-in-a-chrome-extension?lq=1 
+       <ul> 
+        <li>even NPAPI is deprecated and being phased out.</li> 
+        <li>turn to Native Messaging API</li> 
+       </ul></li> 
+      <li>https://stackoverflow.com/questions/53029697/how-to-include-library-in-extension-in-chrome</li> 
+      <li>https://developer.chrome.com/docs/extensions/develop/migrate/improve-security#use-external-libraries</li> 
+      <li><a href="https://gist.github.com/patrickkettner/8c1a91b1b8f9502b3b67d874e7024a7b">inline firestore sdk in order to load it without remote deps at runtime</a></li> 
+      <li>https://forum.freecodecamp.org/t/referencing-external-libraries-and-ui-components-in-vanilla-js-project/415730/5</li> 
+      <li>https://medium.com/<span class="citation" data-cites="bosti/how-to-use-import-a-javascript-file-in-chrome-extension-files-d0755c203497">@bosti/how-to-use-import-a-javascript-file-in-chrome-extension-files-d0755c203497</span></li> 
+     </ul> 
      <hr> 
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2023-04-22-3-GPT-models-for-poor.html">中国企业自建GPT服务的三款开源可商用模型 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2009-05-06-travel-to-lijiang-chap02.html">终于成行的丽江之旅(2) </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2017-07-11-startup-uncertainty.html">选择了创业，你就选择了不确定性！ </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2005-00-00-springaop-simple-intro.html">闲话SpringAOP的应用 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2023-09-27-the-first-consultant-of-China.html">中国咨询之父是谁？ </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2023-08-17-gumroad-affiliates.html">Gumroad的分销功能看这篇就够了！ </a> 
       </div> 
      </div> 
      <hr> 

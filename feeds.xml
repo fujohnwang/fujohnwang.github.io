@@ -5,22 +5,22 @@
     <link>http://afoo.me</link>
     <description>王福强的个人博客：一个架构士的思考与沉淀</description>
     <item>
-      <title>程序员会被取代吗？</title>
-      <link>http://afoo.me/posts/2023-12-30-will-nocode-and-AI-replaces-pros.html</link>
+      <title>在开发Chrome Extension的时候如何使用第三方js库或者npm依赖？</title>
+      <link>http://afoo.me/posts/2023-12-30-chrome-extension-with-dependencies.html</link>
       <description>&lt;!doctype html&gt;
 &lt;html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]"&gt; 
  &lt;head&gt; 
   &lt;meta charset="utf-8"&gt; 
-  &lt;meta name="keywords" content="程序员会被取代吗？ - 架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
-  &lt;meta name="description" content="程序员会被取代吗？ - 福强说，扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
+  &lt;meta name="keywords" content="在开发Chrome Extension的时候如何使用第三方js库或者npm依赖？ - 架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
+  &lt;meta name="description" content="在开发Chrome Extension的时候如何使用第三方js库或者npm依赖？ - 福强说，扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
   &lt;meta name="author" content="王福强"&gt; 
   &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
   &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt; 
   &lt;meta name="robots" content="index,follow"&gt; 
-  &lt;title&gt;程序员会被取代吗？ -王福强的个人博客：一个架构士的思考与沉淀&lt;/title&gt; 
-  &lt;meta name="date" content="2023-12-29"&gt; 
+  &lt;title&gt;在开发Chrome Extension的时候如何使用第三方js库或者npm依赖？ -王福强的个人博客：一个架构士的思考与沉淀&lt;/title&gt; 
+  &lt;meta name="date" content="2023-12-30"&gt; 
   &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
-  &lt;link rel="canonical" href="https://afoo.me/posts/2023-12-30-will-nocode-and-AI-replaces-pros.html"&gt; 
+  &lt;link rel="canonical" href="https://afoo.me/posts/2023-12-30-chrome-extension-with-dependencies.html"&gt; 
   &lt;link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"&gt; 
   &lt;link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8"&gt; 
   &lt;script src="https://unpkg.com/htmx.org@1.9.5"&gt;&lt;/script&gt; 
@@ -49,15 +49,80 @@
             display:inline;
         }
     &lt;/style&gt; 
+  &lt;style type="text/css"&gt;
+      pre &gt; code.sourceCode { white-space: pre; position: relative; }
+      pre &gt; code.sourceCode &gt; span { display: inline-block; line-height: 1.25; }
+      pre &gt; code.sourceCode &gt; span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode &gt; span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre &gt; code.sourceCode { white-space: pre-wrap; }
+      pre &gt; code.sourceCode &gt; span { text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code &gt; span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code &gt; span &gt; a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre &gt; code.sourceCode &gt; span &gt; a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    &lt;/style&gt; 
   &lt;script type="application/ld+json"&gt;
     {
       "@context": "https://schema.org",
       "@type": "NewsArticle",
-      "headline": "程序员会被取代吗？",
+      "headline": "在开发Chrome Extension的时候如何使用第三方js库或者npm依赖？",
       "image": [
         "https://afoo.me/images/fb_subscribe.jpg"
        ],
-      "datePublished": "2023-12-29",
+      "datePublished": "2023-12-30",
       "author": [{
           "@type": "Person",
           "name": "王福强",
@@ -122,38 +187,77 @@
    &lt;section class="text-gray-600 body-font relative"&gt; 
     &lt;div class="container px-5 py-24 mx-auto mb-12 prose prose-lg dark:prose-invert"&gt; 
      &lt;p class="lead"&gt; &lt;/p&gt;
-     &lt;h1 class="title"&gt;程序员会被取代吗？&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt; 
+     &lt;h1 class="title"&gt;在开发Chrome Extension的时候如何使用第三方js库或者npm依赖？&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt; 
       &lt;div style="text-align: left;"&gt;
-       2023-12-29
+       2023-12-30
       &lt;/div&gt; &lt;/small&gt; 
      &lt;p&gt;&lt;/p&gt; 
      &lt;hr&gt; 
-     &lt;p&gt;Probably，但肯定没那么绝对。&lt;/p&gt; 
-     &lt;p&gt;任何工种都可能会因为人群迁移而没有那么流行了，但不一定就会完全消亡，它可能改头换面或者装备升级继续延续下去，从这角度来说，程序员应该不会消亡或者被取代，但有可能换一种方式或者升级新的装备（比如AI）继续过。&lt;/p&gt; 
-     &lt;p&gt;有人说有了AI和nocode，所有人都能编程了，程序员就不需要了，那其实是挺扯淡的事情，在我看来。&lt;/p&gt; 
-     &lt;p&gt;nocode、lowcode甚至AI其实都是人的经验的沉淀，让这些东西可重复，通过标准化让这些东西可以复制并铺开，但你说从此软件产业就停滞不前了，那我只能说你多少有些不理解软件的底层逻辑，更甚至于说你不懂人群的组织逻辑。&lt;/p&gt; 
-     &lt;p&gt;我记得软件行业有段时间在讲全栈（full-stack），崇尚程序员个人主义和英雄情节(aka. 超级个体)当然好，但也不能因此而忽略了更高维度的因素。&lt;/p&gt; 
-     &lt;p&gt;实际上，一个全栈程序员可以做一个可用的产品，但很难做一个精品。精品是靠组织专业人士做出来的，因为&lt;strong&gt;专业才能极致&lt;/strong&gt;。&lt;/p&gt; 
-     &lt;p&gt;所以，就算是程序员会替代，那也是替代那些只会最简单专业技能的程序员，甚至只会使用nocode/lowcode的程序员，甚至于说，有些组织可能受限于自身资源与组织现状，依然会选择那些你认为会被替代的程序员，起码有一个东西他有，但nocode和AI没有，那就是人机接口的体验，哦，不对，是人人接口的体验 ；）&lt;/p&gt; 
-     &lt;p&gt;如果一定要说程序员要被取代的问题，那么不妨把视角放到一个具体的组织内部去看，对于成长型企业来说，它会自然而然的通过组织环境和文化来汰换人才结构，落到程序员这个群体，也是一样的道理。一种可见的趋势是，将来会使用AI能力和工具的程序员，肯定比不会使用的程序员更有效率，参考Google与百度造成的差异就可以了。但是不是更高效的程序员就一定会汰换低效的程序员呢？ 也不一定。 至于为什么，你猜？ ；）&lt;/p&gt; 
-     &lt;p&gt;今天还有个话题是关于产品，其实产品也是一种nocode， 或者反过来说，nocode也是一种产品，他们都是直接面向用户，如果他们能直接满足用户需求，那当然最好了，可是…&lt;/p&gt; 
-     &lt;ol type="1"&gt; 
-      &lt;li&gt;人群是多样性的，不管什么产品，它们都只是满足一部分人群的需要，为什么？&lt;/li&gt; 
-      &lt;li&gt;产品为什么后面要跟售后和服务（今天时髦点儿叫“客户成功”）？&lt;/li&gt; 
-      &lt;li&gt;今天的nocode产品和20年多年前的excel有什么区别？ 服务的底层需求在本质上有变化吗？ 他们是否可以满足所有需求？&lt;/li&gt; 
-      &lt;li&gt;面向个人与面向组织的（软件）产品有差别吗？ 差别在哪儿？&lt;/li&gt; 
-      &lt;li&gt;软件和工具可以替代人的价值吗？ 它们和人各自的价值又在哪里？&lt;/li&gt; 
-     &lt;/ol&gt; 
-     &lt;p&gt;以上抛出几个问题，供大家思考 ；）&lt;/p&gt; 
+     &lt;p&gt;popup页面的生成和逻辑实际上是可以用npm的，比如使用svelte框架或者各种前端框架的逻辑与基础设施，引入npm依赖，并使用rollup等进行编译打包。&lt;/p&gt; 
+     &lt;p&gt;不能用npm依赖的地方是单独的background.js，假如我们在manifest.json里使用&lt;a href="https://developer.chrome.com/docs/extensions/develop/migrate/improve-security#use-external-libraries"&gt;如下定义&lt;/a&gt;的话：&lt;/p&gt; 
+     &lt;div class="sourceCode" id="cb1"&gt;
+      &lt;pre class="sourceCode json"&gt;&lt;code class="sourceCode json"&gt;&lt;span id="cb1-1"&gt;&lt;a href="#cb1-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="er"&gt;"background":&lt;/span&gt; &lt;span class="fu"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-2"&gt;&lt;a href="#cb1-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="dt"&gt;"scripts"&lt;/span&gt;&lt;span class="fu"&gt;:&lt;/span&gt; &lt;span class="ot"&gt;[&lt;/span&gt;&lt;span class="st"&gt;"jquery.min.js"&lt;/span&gt;&lt;span class="ot"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"background.js"&lt;/span&gt;&lt;span class="ot"&gt;]&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-3"&gt;&lt;a href="#cb1-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="fu"&gt;}&lt;/span&gt;&lt;span class="er"&gt;,&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+     &lt;/div&gt; 
+     &lt;p&gt;那么就很难用npm依赖来编写background.js的逻辑， 但好在有一个fallback方案，那就是在manifest.json里配置background.html然后引用一个background.js，那么，这种情况下，就跟popup页面的编写类似了，可以引用npm依赖，只要最终打包成一个独立的background.js就可以了：&lt;/p&gt; 
+     &lt;div class="sourceCode" id="cb2"&gt;
+      &lt;pre class="sourceCode json"&gt;&lt;code class="sourceCode json"&gt;&lt;span id="cb2-1"&gt;&lt;a href="#cb2-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="er"&gt;"background":&lt;/span&gt; &lt;span class="fu"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-2"&gt;&lt;a href="#cb2-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="dt"&gt;"page"&lt;/span&gt;&lt;span class="fu"&gt;:&lt;/span&gt; &lt;span class="st"&gt;"background.html"&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-3"&gt;&lt;a href="#cb2-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="fu"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+     &lt;/div&gt; 
+     &lt;p&gt;然后在background.html里引用background.js就可以了：&lt;/p&gt; 
+     &lt;div class="sourceCode" id="cb3"&gt;
+      &lt;pre class="sourceCode html"&gt;&lt;code class="sourceCode html"&gt;&lt;span id="cb3-1"&gt;&lt;a href="#cb3-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;&amp;lt;script&lt;/span&gt;&lt;span class="ot"&gt; type=&lt;/span&gt;&lt;span class="st"&gt;"module"&lt;/span&gt; &lt;span class="er"&gt;src&lt;/span&gt;&lt;span class="ot"&gt;=&lt;/span&gt;&lt;span class="st"&gt;"background.js"&lt;/span&gt;&lt;span class="kw"&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+     &lt;/div&gt; 
+     &lt;blockquote&gt; 
+      &lt;p&gt;NOTE: &lt;strong&gt;注意&lt;/strong&gt; ❗❗❗&lt;/p&gt; 
+      &lt;p&gt;&lt;code&gt;type="module"&lt;/code&gt;是必须的！&lt;/p&gt; 
+     &lt;/blockquote&gt; 
+     &lt;p&gt;但是，&lt;code&gt;starting with Manifest V3, you cannot use background.page&lt;/code&gt;。&lt;/p&gt; 
+     &lt;p&gt;所以就剩最后一种方式，也是&lt;strong&gt;最新的方式&lt;/strong&gt;： &lt;a href="https://developer.chrome.com/docs/extensions/develop/migrate/improve-security#bundle-third-party"&gt;使用最新的manifest V3&lt;/a&gt;，可以直接指定background.js和&lt;code&gt;type="module"&lt;/code&gt;:&lt;/p&gt; 
+     &lt;div class="sourceCode" id="cb4"&gt;
+      &lt;pre class="sourceCode json"&gt;&lt;code class="sourceCode json"&gt;&lt;span id="cb4-1"&gt;&lt;a href="#cb4-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="er"&gt;"background":&lt;/span&gt; &lt;span class="fu"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-2"&gt;&lt;a href="#cb4-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="dt"&gt;"service_worker"&lt;/span&gt;&lt;span class="fu"&gt;:&lt;/span&gt; &lt;span class="st"&gt;"background.js"&lt;/span&gt;&lt;span class="fu"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-3"&gt;&lt;a href="#cb4-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="dt"&gt;"type"&lt;/span&gt;&lt;span class="fu"&gt;:&lt;/span&gt; &lt;span class="st"&gt;"module"&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-4"&gt;&lt;a href="#cb4-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="fu"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+     &lt;/div&gt; 
+     &lt;p&gt;然后在background.js就可以引用其他依赖了:&lt;/p&gt; 
+     &lt;div class="sourceCode" id="cb5"&gt;
+      &lt;pre class="sourceCode js"&gt;&lt;code class="sourceCode javascript"&gt;&lt;span id="cb5-1"&gt;&lt;a href="#cb5-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="im"&gt;import&lt;/span&gt; JsStore &lt;span class="im"&gt;from&lt;/span&gt; &lt;span class="st"&gt;'./jsstore.js'&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+     &lt;/div&gt; 
+     &lt;blockquote&gt; 
+      &lt;p&gt;TIP&lt;/p&gt; 
+      &lt;p&gt;用&lt;a href="https://parceljs.org/"&gt;parceljs&lt;/a&gt;单独编译也是一个不错的方法。&lt;/p&gt; 
+      &lt;p&gt;parcel提供的@parcel/config-webextension可以直接用manifest.json作为入口文件进行编译，其中配置的所有文件都可以追溯并递归编译。&lt;/p&gt; 
+     &lt;/blockquote&gt; 
+     &lt;h1 id="ref"&gt;Ref&lt;/h1&gt; 
+     &lt;ul&gt; 
+      &lt;li&gt;https://stackoverflow.com/questions/43684452/is-it-possible-to-require-npm-modules-in-a-chrome-extension&lt;/li&gt; 
+      &lt;li&gt;https://stackoverflow.com/questions/9057292/requirejs-in-a-chrome-extension 
+       &lt;ul&gt; 
+        &lt;li&gt;&lt;code&gt;chrome.extension.getURL&lt;/code&gt; to get scripts in content scripts that don’t have before&lt;/li&gt; 
+       &lt;/ul&gt;&lt;/li&gt; 
+      &lt;li&gt;https://stackoverflow.com/questions/3695476/how-do-i-perform-a-shell-execute-in-a-chrome-extension?lq=1 
+       &lt;ul&gt; 
+        &lt;li&gt;even NPAPI is deprecated and being phased out.&lt;/li&gt; 
+        &lt;li&gt;turn to Native Messaging API&lt;/li&gt; 
+       &lt;/ul&gt;&lt;/li&gt; 
+      &lt;li&gt;https://stackoverflow.com/questions/53029697/how-to-include-library-in-extension-in-chrome&lt;/li&gt; 
+      &lt;li&gt;https://developer.chrome.com/docs/extensions/develop/migrate/improve-security#use-external-libraries&lt;/li&gt; 
+      &lt;li&gt;&lt;a href="https://gist.github.com/patrickkettner/8c1a91b1b8f9502b3b67d874e7024a7b"&gt;inline firestore sdk in order to load it without remote deps at runtime&lt;/a&gt;&lt;/li&gt; 
+      &lt;li&gt;https://forum.freecodecamp.org/t/referencing-external-libraries-and-ui-components-in-vanilla-js-project/415730/5&lt;/li&gt; 
+      &lt;li&gt;https://medium.com/&lt;span class="citation" data-cites="bosti/how-to-use-import-a-javascript-file-in-chrome-extension-files-d0755c203497"&gt;@bosti/how-to-use-import-a-javascript-file-in-chrome-extension-files-d0755c203497&lt;/span&gt;&lt;/li&gt; 
+     &lt;/ul&gt; 
      &lt;hr&gt; 
      &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
      &lt;/div&gt; 
      &lt;div id="random_posts"&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2023-04-22-3-GPT-models-for-poor.html"&gt;中国企业自建GPT服务的三款开源可商用模型 &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-05-06-travel-to-lijiang-chap02.html"&gt;终于成行的丽江之旅(2) &lt;/a&gt; 
       &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2017-07-11-startup-uncertainty.html"&gt;选择了创业，你就选择了不确定性！ &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2005-00-00-springaop-simple-intro.html"&gt;闲话SpringAOP的应用 &lt;/a&gt; 
       &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2023-09-27-the-first-consultant-of-China.html"&gt;中国咨询之父是谁？ &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2023-08-17-gumroad-affiliates.html"&gt;Gumroad的分销功能看这篇就够了！ &lt;/a&gt; 
       &lt;/div&gt; 
      &lt;/div&gt; 
      &lt;hr&gt; 
@@ -311,8 +415,318 @@
  &lt;/body&gt;
 &lt;/html&gt;</description>
       <pubDate>Fri, 29 Dec 2023 16:00:00 GMT</pubDate>
-      <guid>http://afoo.me/posts/2023-12-30-will-nocode-and-AI-replaces-pros.html</guid>
+      <guid>http://afoo.me/posts/2023-12-30-chrome-extension-with-dependencies.html</guid>
       <dc:date>2023-12-29T16:00:00Z</dc:date>
+    </item>
+    <item>
+      <title>程序员会被取代吗？</title>
+      <link>http://afoo.me/posts/2023-12-29-will-nocode-and-AI-replaces-pros.html</link>
+      <description>&lt;!doctype html&gt;
+&lt;html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]"&gt; 
+ &lt;head&gt; 
+  &lt;meta charset="utf-8"&gt; 
+  &lt;meta name="keywords" content="程序员会被取代吗？ - 架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
+  &lt;meta name="description" content="程序员会被取代吗？ - 福强说，扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
+  &lt;meta name="author" content="王福强"&gt; 
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
+  &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt; 
+  &lt;meta name="robots" content="index,follow"&gt; 
+  &lt;title&gt;程序员会被取代吗？ -王福强的个人博客：一个架构士的思考与沉淀&lt;/title&gt; 
+  &lt;meta name="date" content="2023-12-29"&gt; 
+  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
+  &lt;link rel="canonical" href="https://afoo.me/posts/2023-12-29-will-nocode-and-AI-replaces-pros.html"&gt; 
+  &lt;link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"&gt; 
+  &lt;link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8"&gt; 
+  &lt;script src="https://unpkg.com/htmx.org@1.9.5"&gt;&lt;/script&gt; 
+  &lt;link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"&gt; 
+  &lt;script src="https://unpkg.com/gitalk/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;link rel="stylesheet" href="/css/af.css"&gt; 
+  &lt;link ref="stylesheet" href="/css/pygments.css"&gt; 
+  &lt;style type="text/css"&gt;
+        pre &gt; code{
+          white-space: pre-wrap;
+          font-family: monospace;
+          font-size: 14px;
+          /* border-left: blueviolet;
+          border-left-width: thick;
+          border-left-style: double;
+          padding-left: 1rem !important; */
+        }
+        
+        .x-indicator{
+            display:none;
+        }
+        .htmx-request .x-indicator{
+            display:inline;
+        }
+        .htmx-request.x-indicator{
+            display:inline;
+        }
+    &lt;/style&gt; 
+  &lt;script type="application/ld+json"&gt;
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "程序员会被取代吗？",
+      "image": [
+        "https://afoo.me/images/fb_subscribe.jpg"
+       ],
+      "datePublished": "2023-12-29",
+      "author": [{
+          "@type": "Person",
+          "name": "王福强",
+          "url": "https://afoo.me"
+        }]
+    }
+  &lt;/script&gt; 
+  &lt;script type="text/javascript"&gt;
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "irqzhxtyzn");
+  &lt;/script&gt; 
+ &lt;/head&gt; 
+ &lt;body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"&gt; 
+  &lt;header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"&gt; 
+   &lt;div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"&gt; 
+    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"&gt; &lt;h1&gt;王福强的个人博客&lt;/h1&gt; &lt;/span&gt; &lt;/a&gt; 
+     &lt;div class="flex items-center md:hidden"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
+       &lt;svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
+         &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
+         &lt;path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"&gt; 
+         &lt;/path&gt; 
+        &lt;/g&gt; 
+       &lt;/svg&gt; &lt;/button&gt; &lt;button type="button" class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition" aria-label="Toggle Menu" data-toggle-menu=""&gt; 
+       &lt;svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:menu"&gt; &lt;g class="icon-tabler" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"&gt; 
+         &lt;path d="M4 8h16"&gt;&lt;/path&gt; 
+         &lt;path d="M4 16h16"&gt;&lt;/path&gt; 
+        &lt;/g&gt; 
+       &lt;/svg&gt; &lt;/button&gt; 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+    &lt;nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"&gt; 
+     &lt;ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me"&gt;福强AI学堂&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com"&gt;架构百科&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html"&gt;博客文章 &lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html"&gt;创作出版&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://store.afoo.me"&gt;产品与服务&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
+     &lt;/ul&gt; 
+     &lt;div class="md:self-center flex items-center mb-4 md:mb-0 ml-2"&gt; 
+      &lt;div class="hidden items-center md:flex"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
+        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
+          &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
+          &lt;path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"&gt; 
+          &lt;/path&gt; 
+         &lt;/g&gt; 
+        &lt;/svg&gt; &lt;/button&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="RSS Feed" href="http://afoo.me/feeds.xml"&gt; 
+        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:rss"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
+          &lt;circle cx="5" cy="19" r="1"&gt;&lt;/circle&gt; 
+          &lt;path d="M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"&gt;&lt;/path&gt; 
+         &lt;/g&gt; 
+        &lt;/svg&gt; &lt;/a&gt; 
+      &lt;/div&gt; 
+     &lt;/div&gt; 
+    &lt;/nav&gt; 
+   &lt;/div&gt; 
+  &lt;/header&gt; 
+  &lt;main&gt; 
+   &lt;section class="text-gray-600 body-font relative"&gt; 
+    &lt;div class="container px-5 py-24 mx-auto mb-12 prose prose-lg dark:prose-invert"&gt; 
+     &lt;p class="lead"&gt; &lt;/p&gt;
+     &lt;h1 class="title"&gt;程序员会被取代吗？&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt; 
+      &lt;div style="text-align: left;"&gt;
+       2023-12-29
+      &lt;/div&gt; &lt;/small&gt; 
+     &lt;p&gt;&lt;/p&gt; 
+     &lt;hr&gt; 
+     &lt;p&gt;Probably，但肯定没那么绝对。&lt;/p&gt; 
+     &lt;p&gt;任何工种都可能会因为人群迁移而没有那么流行了，但不一定就会完全消亡，它可能改头换面或者装备升级继续延续下去，从这角度来说，程序员应该不会消亡或者被取代，但有可能换一种方式或者升级新的装备（比如AI）继续过。&lt;/p&gt; 
+     &lt;p&gt;有人说有了AI和nocode，所有人都能编程了，程序员就不需要了，那其实是挺扯淡的事情，在我看来。&lt;/p&gt; 
+     &lt;p&gt;nocode、lowcode甚至AI其实都是人的经验的沉淀，让这些东西可重复，通过标准化让这些东西可以复制并铺开，但你说从此软件产业就停滞不前了，那我只能说你多少有些不理解软件的底层逻辑，更甚至于说你不懂人群的组织逻辑。&lt;/p&gt; 
+     &lt;p&gt;我记得软件行业有段时间在讲全栈（full-stack），崇尚程序员个人主义和英雄情节(aka. 超级个体)当然好，但也不能因此而忽略了更高维度的因素。&lt;/p&gt; 
+     &lt;p&gt;实际上，一个全栈程序员可以做一个可用的产品，但很难做一个精品。精品是靠组织专业人士做出来的，因为&lt;strong&gt;专业才能极致&lt;/strong&gt;。&lt;/p&gt; 
+     &lt;p&gt;所以，就算是程序员会替代，那也是替代那些只会最简单专业技能的程序员，甚至只会使用nocode/lowcode的程序员，甚至于说，有些组织可能受限于自身资源与组织现状，依然会选择那些你认为会被替代的程序员，起码有一个东西他有，但nocode和AI没有，那就是人机接口的体验，哦，不对，是人人接口的体验 ；）&lt;/p&gt; 
+     &lt;p&gt;如果一定要说程序员要被取代的问题，那么不妨把视角放到一个具体的组织内部去看，对于成长型企业来说，它会自然而然的通过组织环境和文化来汰换人才结构，落到程序员这个群体，也是一样的道理。一种可见的趋势是，将来会使用AI能力和工具的程序员，肯定比不会使用的程序员更有效率，参考Google与百度造成的差异就可以了。但是不是更高效的程序员就一定会汰换低效的程序员呢？ 也不一定。 至于为什么，你猜？ ；）&lt;/p&gt; 
+     &lt;p&gt;今天还有个话题是关于产品，其实产品也是一种nocode， 或者反过来说，nocode也是一种产品，他们都是直接面向用户，如果他们能直接满足用户需求，那当然最好了，可是…&lt;/p&gt; 
+     &lt;ol type="1"&gt; 
+      &lt;li&gt;人群是多样性的，不管什么产品，它们都只是满足一部分人群的需要，为什么？&lt;/li&gt; 
+      &lt;li&gt;产品为什么后面要跟售后和服务（今天时髦点儿叫“客户成功”）？&lt;/li&gt; 
+      &lt;li&gt;今天的nocode产品和20年多年前的excel有什么区别？ 服务的底层需求在本质上有变化吗？ 他们是否可以满足所有需求？&lt;/li&gt; 
+      &lt;li&gt;面向个人与面向组织的（软件）产品有差别吗？ 差别在哪儿？&lt;/li&gt; 
+      &lt;li&gt;软件和工具可以替代人的价值吗？ 它们和人各自的价值又在哪里？&lt;/li&gt; 
+     &lt;/ol&gt; 
+     &lt;p&gt;以上抛出几个问题，供大家思考 ；）&lt;/p&gt; 
+     &lt;hr&gt; 
+     &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div id="random_posts"&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2008-11-25-dream-last-night.html"&gt;昨夜的梦境，依旧清晰 &lt;/a&gt; 
+      &lt;/div&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2022-11-21-fb-premium.html"&gt;「福报Premium」内容+服务型产品正式发布！ &lt;/a&gt; 
+      &lt;/div&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2008-03-21-suan-ming-xian-sheng.html"&gt;说有一位算卦的先生 &lt;/a&gt; 
+      &lt;/div&gt; 
+     &lt;/div&gt; 
+     &lt;hr&gt; 
+     &lt;div id="comments"&gt;&lt;/div&gt; 
+     &lt;hr&gt; 
+     &lt;div&gt; 
+      &lt;p&gt; 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^&lt;br&gt; 这里 &lt;/p&gt;
+      &lt;ol&gt; 
+       &lt;li&gt;不但有及时新鲜的AI资讯和深度探讨&lt;/li&gt; 
+       &lt;li&gt;还分享AI工具、产品方法和商业机会&lt;/li&gt; 
+       &lt;li&gt;更有体系化精品付费内容等着你，&lt;a href="https://t.zsxq.com/0dI3ZA0sL"&gt;加入星球(https://t.zsxq.com/0dI3ZA0sL)&lt;/a&gt; 即可免费领取。(加入之后&lt;b&gt;一定记得看置顶消息&lt;/b&gt;呀！)&lt;/li&gt; 
+      &lt;/ol&gt; 
+      &lt;p&gt;&lt;/p&gt; &lt;a href="https://t.zsxq.com/0dI3ZA0sL"&gt; &lt;img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"&gt; &lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;hr&gt; 
+     &lt;p&gt; &lt;span style="font-size: xx-large;"&gt; 开天窗，拉认知，订阅「福报」，即刻拥有自己的全模态人工智能。 &lt;/span&gt; &lt;/p&gt; &lt;a href="https://wfq.gumroad.com/l/fb"&gt; &lt;img src="/images/fb_subscribe_v2.jpg" alt="订阅「福报」"&gt; &lt;/a&gt; 
+     &lt;hr&gt; 
+     &lt;div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"&gt; 
+      &lt;div id="tfloader" class="x-indicator"&gt; 
+       &lt;svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"&gt; &lt;g fill="none" fill-rule="evenodd"&gt; 
+         &lt;g transform="translate(1 1)" stroke-width="2"&gt; 
+          &lt;circle cx="5" cy="50" r="5"&gt; 
+           &lt;animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /&gt; 
+           &lt;animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /&gt; 
+          &lt;/circle&gt; 
+          &lt;circle cx="27" cy="5" r="5"&gt; 
+           &lt;animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /&gt; 
+           &lt;animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /&gt; 
+          &lt;/circle&gt; 
+          &lt;circle cx="49" cy="50" r="5"&gt; 
+           &lt;animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /&gt; 
+           &lt;animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /&gt; 
+          &lt;/circle&gt; 
+         &lt;/g&gt; 
+        &lt;/g&gt; 
+       &lt;/svg&gt; 
+      &lt;/div&gt; 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+   &lt;/section&gt; 
+  &lt;/main&gt; 
+  &lt;footer class="border-t border-gray-200 dark:border-slate-800"&gt; 
+   &lt;div class="max-w-6xl mx-auto px-4 sm:px-6"&gt; 
+    &lt;div class="md:flex md:items-center md:justify-between py-6 md:py-8"&gt; 
+     &lt;ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0"&gt; 
+      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Twitter" href="https://twitter.com/fujohnwang"&gt; 
+        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-twitter"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z"&gt; 
+         &lt;/path&gt; 
+        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Facebook" href="https://www.facebook.com/fujohnwang/"&gt; 
+        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-facebook"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2H7"&gt;&lt;/path&gt; 
+        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Github" href="https://github.com/fujohnwang"&gt; 
+        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-github"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"&gt; 
+         &lt;/path&gt; 
+        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
+     &lt;/ul&gt; 
+     &lt;div class="text-sm text-gray-700 mr-4 dark:text-slate-400"&gt; &lt;span class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 float-left rounded-sm"&gt; &lt;img src="https://afoo.me/favicon.svg" class="rounded-md" alt&gt; &lt;/span&gt; Copyright © 王福强个人版权所有 - Since 2004 (Everything is homebrewed with &lt;a href="https://pandoc.org/"&gt;Pandoc&lt;/a&gt; and Markdown, little &lt;a href="https://www.scala-lang.org/"&gt;Scala&lt;/a&gt; also included.) 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/footer&gt; 
+  &lt;script&gt;
+        // Set "light" theme as default
+        if (!localStorage.theme) {
+            localStorage.theme = "light";
+        }
+
+        if (
+            localStorage.theme === 'dark' ||
+            (!('theme' in localStorage) &amp;&amp; window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function attachEvent(selector, event, fn) {
+            const matches = document.querySelectorAll(selector);
+            if (matches &amp;&amp; matches.length) {
+                matches.forEach((elem) =&gt; {
+                    elem.addEventListener(event, () =&gt; fn(elem), false);
+                });
+            }
+        }
+
+        window.onload = function () {
+            attachEvent('[data-toggle-menu]', 'click', function (elem) {
+                elem.classList.toggle('expanded');
+                document.body.classList.toggle('overflow-hidden');
+                document.getElementById('header')?.classList.toggle('h-screen');
+                document.querySelector('#header nav')?.classList.toggle('hidden');
+            });
+            attachEvent('[data-toggle-color-scheme]', 'click', function () {
+                document.documentElement.classList.toggle('dark');
+                localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            });
+        };
+        window.onpageshow = function () {
+            const elem = document.querySelector('[data-toggle-menu]');
+            if (elem) {
+                elem.classList.remove('expanded');
+            }
+            document.body.classList.remove('overflow-hidden');
+            document.getElementById('header')?.classList.remove('h-screen');
+            document.querySelector('#header nav')?.classList.add('hidden');
+        };
+    &lt;/script&gt; 
+  &lt;script type="text/javascript"&gt;
+        var gitalk = new Gitalk({
+          clientID: '518a605d711883414ac0',
+          clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+          repo: 'afoo.me.comments',
+          owner: 'fujohnwang',
+          admin: ['fujohnwang'],
+          id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+        gitalk.render('comments')
+    &lt;/script&gt; 
+  &lt;script src="https://formspree.io/js/formbutton-v1.min.js" defer&gt;&lt;/script&gt; 
+  &lt;script&gt;
+  /* paste this line in verbatim */
+  window.formbutton=window.formbutton||function(){(formbutton.q=formbutton.q||[]).push(arguments)};
+  /* customize formbutton below*/     
+  formbutton("create", {
+    action: "https://formspree.io/f/xknlpkkd",
+    title: "有什么可以帮到您？💕💕💕 How can I help you?",
+    fields: [
+      { 
+        type: "email", 
+        label: "您的电子邮箱（方便与您联系）:", 
+        name: "email",
+        required: true,
+        placeholder: "your@email.com"
+      },
+      {
+        type: "textarea",
+        label: "您想提交的反馈和询问信息:",
+        name: "message",
+        placeholder: "What's on your mind?",
+      },
+      { type: "submit" }      
+    ],
+    styles: {
+      title: {
+        backgroundColor: "blue"
+      },
+      button: {
+        backgroundColor: "blue"
+      }
+    }
+  });
+&lt;/script&gt;  
+ &lt;/body&gt;
+&lt;/html&gt;</description>
+      <pubDate>Thu, 28 Dec 2023 16:00:00 GMT</pubDate>
+      <guid>http://afoo.me/posts/2023-12-29-will-nocode-and-AI-replaces-pros.html</guid>
+      <dc:date>2023-12-28T16:00:00Z</dc:date>
     </item>
     <item>
       <title>Chrome插件的消息通信机制探寻 (Message Passing in Chrome Extension)</title>
@@ -554,7 +968,7 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
      &lt;p&gt;如果说content scripts是针对一个一个页面的，页面的查找和注入是独立的，那么，background.js(或者叫service worker js)就是全局性的。可以类比局部变量和全局变量。&lt;/p&gt; 
      &lt;p&gt;background.js可以全局接管action以及插件安装事件以及各种消息的处理，比如针对浏览器存储的操作（比如localStorage）， 比如action与快捷键的事件处理等等。&lt;/p&gt; 
      &lt;p&gt;下面是各种scripts之间相互消息通信的关系图：&lt;/p&gt; 
-     &lt;p&gt;&lt;img src="images/message_passing_relations.png"&gt;&lt;/p&gt; 
+     &lt;p&gt;&lt;img src="https://media.licdn.com/dms/image/D4D12AQHHZPGqoCCe2g/article-inline_image-shrink_1500_2232/0/1684838413737?e=1709164800&amp;amp;v=beta&amp;amp;t=dQP7btB047rhZsk5LHSLTcpeEuIy3_s1C61nF4k7KFY"&gt;&lt;/p&gt; 
      &lt;p&gt;基本上就是通过chrome.runtime的sendMessage和onMessage（或者tabs.sendMessage()）搞定相互之间的通信。&lt;/p&gt; 
      &lt;blockquote&gt; 
       &lt;p&gt;NOTE&lt;/p&gt; 
@@ -659,11 +1073,11 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
      &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
      &lt;/div&gt; 
      &lt;div id="random_posts"&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2020-04-26-blackswan-and-market-teach-you-a-lession.html"&gt;石油宝或许很坑，但也不完全是陷阱 &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2015-08-15-my-writing-toolset.html"&gt;高效写作的秘密 &lt;/a&gt; 
       &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2010-05-17-why_we_need_a_global_id_generator.html"&gt;Why We Need A Global ID Generator?! &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-05-06-travel-to-lijiang-chap02.html"&gt;终于成行的丽江之旅(2) &lt;/a&gt; 
       &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2013-04-14-head_first_big_picture_of_dns.html"&gt;Head First The Big Picture Of DNS &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2023-09-21-game-and-bizapp.html"&gt;游戏与业务系统的底层逻辑对比 &lt;/a&gt; 
       &lt;/div&gt; 
      &lt;/div&gt; 
      &lt;hr&gt; 
@@ -3296,314 +3710,6 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
       <pubDate>Mon, 27 Nov 2023 16:00:00 GMT</pubDate>
       <guid>http://afoo.me/posts/2023-11-28-death-of-commercial-research-institute.html</guid>
       <dc:date>2023-11-27T16:00:00Z</dc:date>
-    </item>
-    <item>
-      <title>微服务无罪，有罪也是用的人理解不到位</title>
-      <link>http://afoo.me/posts/2023-11-27-retalk-soa-microservices.html</link>
-      <description>&lt;!doctype html&gt;
-&lt;html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]"&gt; 
- &lt;head&gt; 
-  &lt;meta charset="utf-8"&gt; 
-  &lt;meta name="keywords" content="微服务无罪，有罪也是用的人理解不到位 - 架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
-  &lt;meta name="description" content="微服务无罪，有罪也是用的人理解不到位 - 福强说，扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
-  &lt;meta name="author" content="王福强"&gt; 
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
-  &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt; 
-  &lt;meta name="robots" content="index,follow"&gt; 
-  &lt;title&gt;微服务无罪，有罪也是用的人理解不到位 -王福强的个人博客：一个架构士的思考与沉淀&lt;/title&gt; 
-  &lt;meta name="date" content="2023-11-27"&gt; 
-  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
-  &lt;link rel="canonical" href="https://afoo.me/posts/2023-11-27-retalk-soa-microservices.html"&gt; 
-  &lt;link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"&gt; 
-  &lt;link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8"&gt; 
-  &lt;script src="https://unpkg.com/htmx.org@1.9.5"&gt;&lt;/script&gt; 
-  &lt;link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"&gt; 
-  &lt;script src="https://unpkg.com/gitalk/dist/gitalk.min.js"&gt;&lt;/script&gt; 
-  &lt;link rel="stylesheet" href="/css/af.css"&gt; 
-  &lt;link ref="stylesheet" href="/css/pygments.css"&gt; 
-  &lt;style type="text/css"&gt;
-        pre &gt; code{
-          white-space: pre-wrap;
-          font-family: monospace;
-          font-size: 14px;
-          /* border-left: blueviolet;
-          border-left-width: thick;
-          border-left-style: double;
-          padding-left: 1rem !important; */
-        }
-        
-        .x-indicator{
-            display:none;
-        }
-        .htmx-request .x-indicator{
-            display:inline;
-        }
-        .htmx-request.x-indicator{
-            display:inline;
-        }
-    &lt;/style&gt; 
-  &lt;script type="application/ld+json"&gt;
-    {
-      "@context": "https://schema.org",
-      "@type": "NewsArticle",
-      "headline": "微服务无罪，有罪也是用的人理解不到位",
-      "image": [
-        "https://afoo.me/images/fb_subscribe.jpg"
-       ],
-      "datePublished": "2023-11-27",
-      "author": [{
-          "@type": "Person",
-          "name": "王福强",
-          "url": "https://afoo.me"
-        }]
-    }
-  &lt;/script&gt; 
-  &lt;script type="text/javascript"&gt;
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "irqzhxtyzn");
-  &lt;/script&gt; 
- &lt;/head&gt; 
- &lt;body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"&gt; 
-  &lt;header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"&gt; 
-   &lt;div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"&gt; 
-    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"&gt; &lt;h1&gt;王福强的个人博客&lt;/h1&gt; &lt;/span&gt; &lt;/a&gt; 
-     &lt;div class="flex items-center md:hidden"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
-       &lt;svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
-         &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
-         &lt;path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"&gt; 
-         &lt;/path&gt; 
-        &lt;/g&gt; 
-       &lt;/svg&gt; &lt;/button&gt; &lt;button type="button" class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition" aria-label="Toggle Menu" data-toggle-menu=""&gt; 
-       &lt;svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:menu"&gt; &lt;g class="icon-tabler" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"&gt; 
-         &lt;path d="M4 8h16"&gt;&lt;/path&gt; 
-         &lt;path d="M4 16h16"&gt;&lt;/path&gt; 
-        &lt;/g&gt; 
-       &lt;/svg&gt; &lt;/button&gt; 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-    &lt;nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"&gt; 
-     &lt;ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me"&gt;福强AI学堂&lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com"&gt;架构百科&lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html"&gt;博客文章 &lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html"&gt;创作出版&lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://store.afoo.me"&gt;产品与服务&lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
-     &lt;/ul&gt; 
-     &lt;div class="md:self-center flex items-center mb-4 md:mb-0 ml-2"&gt; 
-      &lt;div class="hidden items-center md:flex"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
-        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
-          &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
-          &lt;path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"&gt; 
-          &lt;/path&gt; 
-         &lt;/g&gt; 
-        &lt;/svg&gt; &lt;/button&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="RSS Feed" href="http://afoo.me/feeds.xml"&gt; 
-        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:rss"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
-          &lt;circle cx="5" cy="19" r="1"&gt;&lt;/circle&gt; 
-          &lt;path d="M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"&gt;&lt;/path&gt; 
-         &lt;/g&gt; 
-        &lt;/svg&gt; &lt;/a&gt; 
-      &lt;/div&gt; 
-     &lt;/div&gt; 
-    &lt;/nav&gt; 
-   &lt;/div&gt; 
-  &lt;/header&gt; 
-  &lt;main&gt; 
-   &lt;section class="text-gray-600 body-font relative"&gt; 
-    &lt;div class="container px-5 py-24 mx-auto mb-12 prose prose-lg dark:prose-invert"&gt; 
-     &lt;p class="lead"&gt; &lt;/p&gt;
-     &lt;h1 class="title"&gt;微服务无罪，有罪也是用的人理解不到位&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt; 
-      &lt;div style="text-align: left;"&gt;
-       2023-11-27
-      &lt;/div&gt; &lt;/small&gt; 
-     &lt;p&gt;&lt;/p&gt; 
-     &lt;hr&gt; 
-     &lt;p&gt;微服务你是上也好，缩也好，其实都没有问题，因为没有任何技术或者架构是普适的。&lt;/p&gt; 
-     &lt;p&gt;但你要上微服务，起码得理解到位，否则，那肯定被人诟病。&lt;/p&gt; 
-     &lt;p&gt;实际上，我们可以从技术角度、组织角度以及商业角度（或者说利益分配角度）来看待微服务与否的问题。&lt;/p&gt; 
-     &lt;p&gt;&lt;img src="images/monolith_microservices.jpg"&gt;&lt;/p&gt; 
-     &lt;p&gt;原则上，只有理解了周期，才能恰当的应用，这也就是为啥福强老师要提&lt;a href="https://store.afoo.me/l/arch"&gt;「LoD」的概念&lt;/a&gt;。&lt;/p&gt; 
-     &lt;h1 id="技术角度"&gt;技术角度&lt;/h1&gt; 
-     &lt;p&gt;微服务其实就是SOA的延续，SOA工程实践的落地方式之一， 再往小了说，其实就是模块化的外延，仅此而已。&lt;/p&gt; 
-     &lt;p&gt;至于怎么搞好微服务，那就得看这家企业和团队的实力与见识了。&lt;/p&gt; 
-     &lt;p&gt;从技术选型到技术基础设施建设，都不能太差，否则上微服务就是自己找死，这我在&lt;a href="https://store.afoo.me/l/arch"&gt;《微服务深度揭秘》&lt;/a&gt;里好多年前早就提过了。 至于说现在很多又下云啦，有微服务改单体啦，那是技术问题吗？不是，那是组织问题。&lt;/p&gt; 
-     &lt;h1 id="组织角度"&gt;组织角度&lt;/h1&gt; 
-     &lt;p&gt;微服务的落地实施依托组织结构的支撑，微服务的划分，本质上也跟组织结构的支撑能力相绑定，那么有那个金刚钻儿别揽那个瓷器活儿， 小破公司搞什么微服务啊，业务不增长甚至还停滞下降，搞鸡毛微服务啊，想不清楚这些，搞微服务不就是找死吗？&lt;/p&gt; 
-     &lt;h1 id="商业利益角度"&gt;商业（利益）角度&lt;/h1&gt; 
-     &lt;p&gt;当然，很多乱像其实也不全都是认识不到位造成的，反而是认识很到位造成的，比如有人说：&lt;/p&gt; 
-     &lt;pre&gt;&lt;code&gt;技术或架构不断变化，系统不断重新开发，对乙方来说多了生意机会，对甲方的IT部门多了活干（尤其现在没活干可能会被裁员），最终还增加了GDP，挺好的事情，😄&lt;/code&gt;&lt;/pre&gt; 
-     &lt;p&gt;所以，同样一个微服务的词儿，背后讨论的时候往往是各说各的，这其实也是很多套路最后不了了之的原因，因为概念的关注点就不一样，就好像同样说“弹性”，你到底是在说elasticity还是在说scalability？&lt;/p&gt; 
-     &lt;hr&gt; 
-     &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div id="random_posts"&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2013-04-07-large-scale-web-application-with-playframework.html"&gt;How to “Play” Big &lt;/a&gt; 
-      &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2007-05-15-fuck-such-a-interesting-word.html"&gt;“FUCK”,such an interesting word! &lt;/a&gt; 
-      &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2007-07-02-how-time-flies.html"&gt;How Time Flies… &lt;/a&gt; 
-      &lt;/div&gt; 
-     &lt;/div&gt; 
-     &lt;hr&gt; 
-     &lt;div id="comments"&gt;&lt;/div&gt; 
-     &lt;hr&gt; 
-     &lt;div&gt; 
-      &lt;p&gt; 「为AI疯狂」星球上，扶墙老师正在和朋友们讨论有趣的AI话题，你要不要⼀起来呀？^-^&lt;br&gt; 这里 &lt;/p&gt;
-      &lt;ol&gt; 
-       &lt;li&gt;不但有及时新鲜的AI资讯和深度探讨&lt;/li&gt; 
-       &lt;li&gt;还分享AI工具、产品方法和商业机会&lt;/li&gt; 
-       &lt;li&gt;更有体系化精品付费内容等着你，&lt;a href="https://t.zsxq.com/0dI3ZA0sL"&gt;加入星球(https://t.zsxq.com/0dI3ZA0sL)&lt;/a&gt; 即可免费领取。(加入之后&lt;b&gt;一定记得看置顶消息&lt;/b&gt;呀！)&lt;/li&gt; 
-      &lt;/ol&gt; 
-      &lt;p&gt;&lt;/p&gt; &lt;a href="https://t.zsxq.com/0dI3ZA0sL"&gt; &lt;img src="/posts/images/2023-05-06-12-09-53.jpg" alt="知识星球二维码"&gt; &lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;hr&gt; 
-     &lt;p&gt; &lt;span style="font-size: xx-large;"&gt; 开天窗，拉认知，订阅「福报」，即刻拥有自己的全模态人工智能。 &lt;/span&gt; &lt;/p&gt; &lt;a href="https://wfq.gumroad.com/l/fb"&gt; &lt;img src="/images/fb_subscribe_v2.jpg" alt="订阅「福报」"&gt; &lt;/a&gt; 
-     &lt;hr&gt; 
-     &lt;div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"&gt; 
-      &lt;div id="tfloader" class="x-indicator"&gt; 
-       &lt;svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"&gt; &lt;g fill="none" fill-rule="evenodd"&gt; 
-         &lt;g transform="translate(1 1)" stroke-width="2"&gt; 
-          &lt;circle cx="5" cy="50" r="5"&gt; 
-           &lt;animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /&gt; 
-           &lt;animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /&gt; 
-          &lt;/circle&gt; 
-          &lt;circle cx="27" cy="5" r="5"&gt; 
-           &lt;animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /&gt; 
-           &lt;animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /&gt; 
-          &lt;/circle&gt; 
-          &lt;circle cx="49" cy="50" r="5"&gt; 
-           &lt;animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /&gt; 
-           &lt;animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /&gt; 
-          &lt;/circle&gt; 
-         &lt;/g&gt; 
-        &lt;/g&gt; 
-       &lt;/svg&gt; 
-      &lt;/div&gt; 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-   &lt;/section&gt; 
-  &lt;/main&gt; 
-  &lt;footer class="border-t border-gray-200 dark:border-slate-800"&gt; 
-   &lt;div class="max-w-6xl mx-auto px-4 sm:px-6"&gt; 
-    &lt;div class="md:flex md:items-center md:justify-between py-6 md:py-8"&gt; 
-     &lt;ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0"&gt; 
-      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Twitter" href="https://twitter.com/fujohnwang"&gt; 
-        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-twitter"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z"&gt; 
-         &lt;/path&gt; 
-        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Facebook" href="https://www.facebook.com/fujohnwang/"&gt; 
-        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-facebook"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2H7"&gt;&lt;/path&gt; 
-        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Github" href="https://github.com/fujohnwang"&gt; 
-        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-github"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"&gt; 
-         &lt;/path&gt; 
-        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
-     &lt;/ul&gt; 
-     &lt;div class="text-sm text-gray-700 mr-4 dark:text-slate-400"&gt; &lt;span class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 float-left rounded-sm"&gt; &lt;img src="https://afoo.me/favicon.svg" class="rounded-md" alt&gt; &lt;/span&gt; Copyright © 王福强个人版权所有 - Since 2004 (Everything is homebrewed with &lt;a href="https://pandoc.org/"&gt;Pandoc&lt;/a&gt; and Markdown, little &lt;a href="https://www.scala-lang.org/"&gt;Scala&lt;/a&gt; also included.) 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/footer&gt; 
-  &lt;script&gt;
-        // Set "light" theme as default
-        if (!localStorage.theme) {
-            localStorage.theme = "light";
-        }
-
-        if (
-            localStorage.theme === 'dark' ||
-            (!('theme' in localStorage) &amp;&amp; window.matchMedia('(prefers-color-scheme: dark)').matches)
-        ) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-
-        function attachEvent(selector, event, fn) {
-            const matches = document.querySelectorAll(selector);
-            if (matches &amp;&amp; matches.length) {
-                matches.forEach((elem) =&gt; {
-                    elem.addEventListener(event, () =&gt; fn(elem), false);
-                });
-            }
-        }
-
-        window.onload = function () {
-            attachEvent('[data-toggle-menu]', 'click', function (elem) {
-                elem.classList.toggle('expanded');
-                document.body.classList.toggle('overflow-hidden');
-                document.getElementById('header')?.classList.toggle('h-screen');
-                document.querySelector('#header nav')?.classList.toggle('hidden');
-            });
-            attachEvent('[data-toggle-color-scheme]', 'click', function () {
-                document.documentElement.classList.toggle('dark');
-                localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-            });
-        };
-        window.onpageshow = function () {
-            const elem = document.querySelector('[data-toggle-menu]');
-            if (elem) {
-                elem.classList.remove('expanded');
-            }
-            document.body.classList.remove('overflow-hidden');
-            document.getElementById('header')?.classList.remove('h-screen');
-            document.querySelector('#header nav')?.classList.add('hidden');
-        };
-    &lt;/script&gt; 
-  &lt;script type="text/javascript"&gt;
-        var gitalk = new Gitalk({
-          clientID: '518a605d711883414ac0',
-          clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-          repo: 'afoo.me.comments',
-          owner: 'fujohnwang',
-          admin: ['fujohnwang'],
-          id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-          distractionFreeMode: false  // Facebook-like distraction free mode
-        })
-        gitalk.render('comments')
-    &lt;/script&gt; 
-  &lt;script src="https://formspree.io/js/formbutton-v1.min.js" defer&gt;&lt;/script&gt; 
-  &lt;script&gt;
-  /* paste this line in verbatim */
-  window.formbutton=window.formbutton||function(){(formbutton.q=formbutton.q||[]).push(arguments)};
-  /* customize formbutton below*/     
-  formbutton("create", {
-    action: "https://formspree.io/f/xknlpkkd",
-    title: "有什么可以帮到您？💕💕💕 How can I help you?",
-    fields: [
-      { 
-        type: "email", 
-        label: "您的电子邮箱（方便与您联系）:", 
-        name: "email",
-        required: true,
-        placeholder: "your@email.com"
-      },
-      {
-        type: "textarea",
-        label: "您想提交的反馈和询问信息:",
-        name: "message",
-        placeholder: "What's on your mind?",
-      },
-      { type: "submit" }      
-    ],
-    styles: {
-      title: {
-        backgroundColor: "blue"
-      },
-      button: {
-        backgroundColor: "blue"
-      }
-    }
-  });
-&lt;/script&gt;  
- &lt;/body&gt;
-&lt;/html&gt;</description>
-      <pubDate>Sun, 26 Nov 2023 16:00:00 GMT</pubDate>
-      <guid>http://afoo.me/posts/2023-11-27-retalk-soa-microservices.html</guid>
-      <dc:date>2023-11-26T16:00:00Z</dc:date>
     </item>
   </channel>
 </rss>
