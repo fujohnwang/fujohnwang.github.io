@@ -37,7 +37,6 @@
 
 # 第三方工具/服务部署
 
-- [Dashboard w/ homarr](https://dash.afoo.me)
 - [Picoshare](https://picoshare.afoo.me)
 
 # 图片工具
