@@ -704,6 +704,7 @@
 
 
 <script>
+	// display latest 3 posts of the blog
 	let lastestPosts = document.getElementById("latest_posts")
 	const url = 'https://afoo.me/posts.html';
     
@@ -715,11 +716,6 @@
     	const htmlDocument = parser.parseFromString(html, "text/html");
 
 		const selectedElements = htmlDocument.querySelectorAll('body > main > section > div > div:nth-child(n+3):nth-child(-n+5)');
-		// selectedElements.forEach(element => {
-        //             const extractedContent = document.createElement('div');
-        //             extractedContent.innerHTML = element.innerHTML;
-        //             lastestPosts.appendChild(extractedContent);
-        //         });
 		console.log([...selectedElements].map(e=> e.textContent).join("\r\n\r\n"))
 	    lastestPosts.replaceChildren(...selectedElements)
 		
