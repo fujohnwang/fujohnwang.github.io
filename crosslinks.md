@@ -77,7 +77,7 @@
 - [Shortwords](https://shortwords.vercel.app/)
 - [Keenotes Trend](/keenotes-trend.html)
 - [GithubPage上的福强个人博客](https://fujohnwang.github.io/)
-
+- [Markdown Tips](https://github.com/fujohnwang/mdtips/wiki)
 
 
 # 海报工具
