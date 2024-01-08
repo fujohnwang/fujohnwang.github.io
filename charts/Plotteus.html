@@ -1,0 +1,51 @@
+<html>
+<head>
+
+</head>
+<body>
+<div id="story"></div>
+<script type="module">
+  import { makeStory } from "https://cdn.jsdelivr.net/npm/plotteus";
+
+const div = document.querySelector("#story");
+const steps = [
+  {
+    key: "intro",
+    chartType: "bar",
+    title: "Hello, Plotteus! 🎉",
+    groups: [
+      {
+        key: "Alice",
+        data: [
+          { key: "A", value: 1 },
+          { key: "B", value: 1.2 },
+          { key: "C", value: 1.4 },
+        ],
+      },
+      {
+        key: "Bob",
+        data: [
+          { key: "A", value: 1.6 },
+          { key: "B", value: 1.8 },
+          { key: "C", value: 1.6 },
+        ],
+      },
+      {
+        key: "Cecile",
+        data: [
+          { key: "A", value: 1.4 },
+          { key: "B", value: 1.2 },
+          { key: "C", value: 1 },
+        ],
+      },
+    ],
+  },
+];
+const story = makeStory(div, steps);
+story.render("intro", 1);
+
+</script>
+
+</body>
+
+</html>
