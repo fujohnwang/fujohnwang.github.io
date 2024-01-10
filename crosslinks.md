@@ -24,6 +24,7 @@
   - <https://hanzipinyin.blackwhole.cn>
 - [是个不是](https://afoo.me/yesno.html)
 - [支付宝到账语音](https://afoo.me/alipay_noti/index.html)
+- [更多...](https://afoo.me/tools.html)
 
 # 第三方工具
 
