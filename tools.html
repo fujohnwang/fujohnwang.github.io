@@ -162,8 +162,17 @@
 	</header>
 	<main>
 
-		<section class="text-gray-600 body-font" x-data="createDataRetriever()" x-init="getData()">
-			<div class="container px-5 py-12 mx-auto">
+		<section class="text-gray-600 body-font">
+			<div class="container px-5 py-12 mx-auto" x-data="{
+				tools:[],
+				async loadTools() {
+					fetch('https://opensheet.afoo.me/1GLuQtqcOad0-WgWARDuJ4kQ1Ja2w9-s1Srm9eI-NBXM/misc')
+					.then((response) => response.json())
+					.then((data) => {
+						this.tools = data;
+					});
+				}
+			}" x-intersect.once="loadTools">
 				<div class="flex flex-wrap w-full mb-10 flex-col items-center text-center">
 					<h1 class="text-3xl font-extrabold mb-2 text-gray-900">未分类工具</h1>
 				</div>
@@ -194,12 +203,21 @@
 			</div>
 
 
-			<div class="container px-5 py-12 mx-auto">
+			<div class="container px-5 py-12 mx-auto" x-data="{
+				tools:[],
+				async loadTools() {
+					fetch('https://opensheet.afoo.me/1GLuQtqcOad0-WgWARDuJ4kQ1Ja2w9-s1Srm9eI-NBXM/imageicon')
+					.then((response) => response.json())
+					.then((data) => {
+						this.tools = data;
+					});
+				}
+			}" x-intersect.once="loadTools">
 				<div class="flex flex-wrap w-full mb-10 flex-col items-center text-center">
 					<h1 class="text-3xl font-extrabold mb-2 text-gray-900">图片工具</h1>
 				</div>
 				<div class="flex flex-wrap -m-4">
-					<template x-for="e in imageTools">
+					<template x-for="e in tools">
 						<div class="w-full md:w-1/2 xl:w-1/3 p-4">
 
 							<div class="rounded flex p-4 h-full items-center">
@@ -232,7 +250,16 @@
 			</div>
 
 
-			<div class="container px-5 py-12 mx-auto">
+			<div class="container px-5 py-12 mx-auto" x-data="{
+				tools:[],
+				async loadTools() {
+					fetch('https://opensheet.afoo.me/1GLuQtqcOad0-WgWARDuJ4kQ1Ja2w9-s1Srm9eI-NBXM/AI')
+					.then((response) => response.json())
+					.then((data) => {
+						this.tools = data;
+					});
+				}
+			}" x-intersect.once="loadTools">
 				<div class="flex flex-wrap w-full mb-10 flex-col items-center text-center">
 					<h1 class="text-3xl font-extrabold mb-2 text-gray-900">AI工具</h1>
 				</div>
@@ -265,7 +292,16 @@
 				</div>
 			</div>
 
-			<div class="container px-5 py-12 mx-auto">
+			<div class="container px-5 py-12 mx-auto" x-data="{
+				tools:[],
+				async loadTools() {
+					fetch('https://opensheet.afoo.me/1GLuQtqcOad0-WgWARDuJ4kQ1Ja2w9-s1Srm9eI-NBXM/dev')
+					.then((response) => response.json())
+					.then((data) => {
+						this.tools = data;
+					});
+				}
+			}" x-intersect.once="loadTools">
 				<div class="flex flex-wrap w-full mb-10 flex-col items-center text-center">
 					<h1 class="text-3xl font-extrabold mb-2 text-gray-900">开发者工具</h1>
 				</div>
