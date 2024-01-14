@@ -23,6 +23,8 @@ My Biased Opinion on Scala, 2021
 
 # 财经专栏
 
+---
+
 # 管理专栏
 
 ## 宝鼎讲管理
@@ -34,7 +36,7 @@ My Biased Opinion on Scala, 2021
 
 # 医药科普专栏
 
-- [水杨酸的发现与发展历史]()
+- [水杨酸的发现与发展历史](columns/med/水杨酸的发现与发展历史.html)
 
 
 
