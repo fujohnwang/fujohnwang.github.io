@@ -77,9 +77,9 @@
 - [不卖温柔](https://my.spline.design/logo-2dd2b486d306742087b23d29862cb270/)
 - [Shortwords](https://shortwords.vercel.app/)
 - [Keenotes Trend](/keenotes-trend.html)
+- [Markdown使用技巧 / Markdown Tips](https://github.com/fujohnwang/mdtips/wiki)
 - [GithubPage上的福强个人博客](https://fujohnwang.github.io/)
-- [Markdown Tips](https://github.com/fujohnwang/mdtips/wiki)
-
+- [blogspot上的老博客](https://fujohnwang.blogspot.com/)
 
 # 海报工具
 
