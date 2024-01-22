@@ -26,7 +26,10 @@
   &lt;script src="https://unpkg.com/htmx.org@1.9.5"&gt;&lt;/script&gt; 
   &lt;link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"&gt; 
   &lt;script src="https://unpkg.com/gitalk/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script src="https://unpkg.com/@popperjs/core@2"&gt;&lt;/script&gt; 
+  &lt;script src="https://unpkg.com/tippy.js@6"&gt;&lt;/script&gt; 
   &lt;link rel="stylesheet" href="/css/af.css"&gt; 
+  &lt;link rel="stylesheet" href="/css/components.css"&gt; 
   &lt;link ref="stylesheet" href="/css/pygments.css"&gt; 
   &lt;style type="text/css"&gt;
         pre &gt; code{
@@ -76,7 +79,7 @@
  &lt;body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"&gt; 
   &lt;header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"&gt; 
    &lt;div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"&gt; 
-    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"&gt; &lt;h1&gt;王福强的个人博客&lt;/h1&gt; &lt;/span&gt; &lt;/a&gt; 
+    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"&gt; &lt;h1&gt;王福强的博客&lt;/h1&gt; &lt;/span&gt; &lt;/a&gt; 
      &lt;div class="flex items-center md:hidden"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
        &lt;svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
          &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
@@ -93,7 +96,7 @@
     &lt;/div&gt; 
     &lt;nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"&gt; 
      &lt;ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me"&gt;福强AI学堂&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a id="aiedu" class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me"&gt; 福强AI学堂&lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com"&gt;架构百科&lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html"&gt;博客文章 &lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html"&gt;创作出版&lt;/a&gt; &lt;/li&gt; 
@@ -154,11 +157,11 @@
      &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
      &lt;/div&gt; 
      &lt;div id="random_posts"&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2010-11-24-understanding_sbt_in_my_way.html"&gt;Understanding SBT In My Way &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2023-11-07-openai-devday-trends.html"&gt;OpenAI的野望 &lt;/a&gt; 
       &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2017-10-15-find-a-successor-instead-of-backup.html"&gt;扶墙老师谈管理：到底应不应该找backup &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2021-11-04-industy-soft.html"&gt;聊聊我理解的工业软件 &lt;/a&gt; 
       &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2015-03-17-api-design-and-documentation.html"&gt;API Design And Documentation &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-04-08-cyclicbarrier-and-countdownlatch-tutorial.html"&gt;我爱J普 之 CyclicBarrier And CountDownLatch Tutorial &lt;/a&gt; 
       &lt;/div&gt; 
      &lt;/div&gt; 
      &lt;hr&gt; 
@@ -312,6 +315,12 @@
       }
     }
   });
+&lt;/script&gt; 
+  &lt;script&gt;
+	// tooltips
+	tippy('#aiedu', {
+        content: "As to AI nowadays, LLM and Stable Diffusion are hot even hottest among them, If your want to both know-why and know-how with them, instead of only know-how which can't repeat itself, you should get you to https://ai.afoo.me right now ❗"
+    });  
 &lt;/script&gt;  
  &lt;/body&gt;
 &lt;/html&gt;</description>
@@ -341,7 +350,10 @@
   &lt;script src="https://unpkg.com/htmx.org@1.9.5"&gt;&lt;/script&gt; 
   &lt;link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"&gt; 
   &lt;script src="https://unpkg.com/gitalk/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script src="https://unpkg.com/@popperjs/core@2"&gt;&lt;/script&gt; 
+  &lt;script src="https://unpkg.com/tippy.js@6"&gt;&lt;/script&gt; 
   &lt;link rel="stylesheet" href="/css/af.css"&gt; 
+  &lt;link rel="stylesheet" href="/css/components.css"&gt; 
   &lt;link ref="stylesheet" href="/css/pygments.css"&gt; 
   &lt;style type="text/css"&gt;
         pre &gt; code{
@@ -391,7 +403,7 @@
  &lt;body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"&gt; 
   &lt;header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"&gt; 
    &lt;div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"&gt; 
-    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"&gt; &lt;h1&gt;王福强的个人博客&lt;/h1&gt; &lt;/span&gt; &lt;/a&gt; 
+    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"&gt; &lt;h1&gt;王福强的博客&lt;/h1&gt; &lt;/span&gt; &lt;/a&gt; 
      &lt;div class="flex items-center md:hidden"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
        &lt;svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
          &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
@@ -408,7 +420,7 @@
     &lt;/div&gt; 
     &lt;nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"&gt; 
      &lt;ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me"&gt;福强AI学堂&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a id="aiedu" class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me"&gt; 福强AI学堂&lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com"&gt;架构百科&lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html"&gt;博客文章 &lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html"&gt;创作出版&lt;/a&gt; &lt;/li&gt; 
@@ -476,11 +488,11 @@
      &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
      &lt;/div&gt; 
      &lt;div id="random_posts"&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2023-12-16-AGI-recap-2023.html"&gt;AGI元年小结 &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2022-01-27-rsync-error-without-dir-existing.html"&gt;rsync: [sender] opendir … failed: Operation not permitted (1) &lt;/a&gt; 
       &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2007-12-19-BF4768EE8B110260_707.html"&gt;投名状&lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2005-08-10-improve-datasources-swap-solution.html"&gt;对双数据源互换实现的改进（improve to 2&lt;/a&gt; 
       &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2021-10-07-why-my-team-sucks-on-achievement.html"&gt;项目延期、团队散漫怎么办？ &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-10-26-misc.html"&gt;杂记 &lt;/a&gt; 
       &lt;/div&gt; 
      &lt;/div&gt; 
      &lt;hr&gt; 
@@ -634,6 +646,12 @@
       }
     }
   });
+&lt;/script&gt; 
+  &lt;script&gt;
+	// tooltips
+	tippy('#aiedu', {
+        content: "As to AI nowadays, LLM and Stable Diffusion are hot even hottest among them, If your want to both know-why and know-how with them, instead of only know-how which can't repeat itself, you should get you to https://ai.afoo.me right now ❗"
+    });  
 &lt;/script&gt;  
  &lt;/body&gt;
 &lt;/html&gt;</description>
@@ -663,7 +681,10 @@
   &lt;script src="https://unpkg.com/htmx.org@1.9.5"&gt;&lt;/script&gt; 
   &lt;link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"&gt; 
   &lt;script src="https://unpkg.com/gitalk/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script src="https://unpkg.com/@popperjs/core@2"&gt;&lt;/script&gt; 
+  &lt;script src="https://unpkg.com/tippy.js@6"&gt;&lt;/script&gt; 
   &lt;link rel="stylesheet" href="/css/af.css"&gt; 
+  &lt;link rel="stylesheet" href="/css/components.css"&gt; 
   &lt;link ref="stylesheet" href="/css/pygments.css"&gt; 
   &lt;style type="text/css"&gt;
         pre &gt; code{
@@ -778,7 +799,7 @@
  &lt;body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"&gt; 
   &lt;header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"&gt; 
    &lt;div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"&gt; 
-    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"&gt; &lt;h1&gt;王福强的个人博客&lt;/h1&gt; &lt;/span&gt; &lt;/a&gt; 
+    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"&gt; &lt;h1&gt;王福强的博客&lt;/h1&gt; &lt;/span&gt; &lt;/a&gt; 
      &lt;div class="flex items-center md:hidden"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
        &lt;svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
          &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
@@ -795,7 +816,7 @@
     &lt;/div&gt; 
     &lt;nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"&gt; 
      &lt;ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me"&gt;福强AI学堂&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a id="aiedu" class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me"&gt; 福强AI学堂&lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com"&gt;架构百科&lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html"&gt;博客文章 &lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html"&gt;创作出版&lt;/a&gt; &lt;/li&gt; 
@@ -890,11 +911,11 @@
      &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
      &lt;/div&gt; 
      &lt;div id="random_posts"&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-05-06-travel-to-lijiang-chap02.html"&gt;终于成行的丽江之旅(2) &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2005-00-00-springaop-simple-intro3.html"&gt;闲话SpringAOP的应用(3) &lt;/a&gt; 
       &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2005-00-00-springaop-simple-intro.html"&gt;闲话SpringAOP的应用 &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2020-04-26-blackswan-and-market-teach-you-a-lession.html"&gt;石油宝或许很坑，但也不完全是陷阱 &lt;/a&gt; 
       &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2023-08-17-gumroad-affiliates.html"&gt;Gumroad的分销功能看这篇就够了！ &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2017-01-20-youxinren-1st-release.html"&gt;我们”有薪人”上线啦~ &lt;/a&gt; 
       &lt;/div&gt; 
      &lt;/div&gt; 
      &lt;hr&gt; 
@@ -1048,6 +1069,12 @@
       }
     }
   });
+&lt;/script&gt; 
+  &lt;script&gt;
+	// tooltips
+	tippy('#aiedu', {
+        content: "As to AI nowadays, LLM and Stable Diffusion are hot even hottest among them, If your want to both know-why and know-how with them, instead of only know-how which can't repeat itself, you should get you to https://ai.afoo.me right now ❗"
+    });  
 &lt;/script&gt;  
  &lt;/body&gt;
 &lt;/html&gt;</description>
@@ -1077,7 +1104,10 @@
   &lt;script src="https://unpkg.com/htmx.org@1.9.5"&gt;&lt;/script&gt; 
   &lt;link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"&gt; 
   &lt;script src="https://unpkg.com/gitalk/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script src="https://unpkg.com/@popperjs/core@2"&gt;&lt;/script&gt; 
+  &lt;script src="https://unpkg.com/tippy.js@6"&gt;&lt;/script&gt; 
   &lt;link rel="stylesheet" href="/css/af.css"&gt; 
+  &lt;link rel="stylesheet" href="/css/components.css"&gt; 
   &lt;link ref="stylesheet" href="/css/pygments.css"&gt; 
   &lt;style type="text/css"&gt;
         pre &gt; code{
@@ -1127,7 +1157,7 @@
  &lt;body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"&gt; 
   &lt;header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"&gt; 
    &lt;div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"&gt; 
-    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"&gt; &lt;h1&gt;王福强的个人博客&lt;/h1&gt; &lt;/span&gt; &lt;/a&gt; 
+    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"&gt; &lt;h1&gt;王福强的博客&lt;/h1&gt; &lt;/span&gt; &lt;/a&gt; 
      &lt;div class="flex items-center md:hidden"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
        &lt;svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
          &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
@@ -1144,7 +1174,7 @@
     &lt;/div&gt; 
     &lt;nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"&gt; 
      &lt;ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me"&gt;福强AI学堂&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a id="aiedu" class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me"&gt; 福强AI学堂&lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com"&gt;架构百科&lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html"&gt;博客文章 &lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html"&gt;创作出版&lt;/a&gt; &lt;/li&gt; 
@@ -1200,11 +1230,11 @@
      &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
      &lt;/div&gt; 
      &lt;div id="random_posts"&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2008-11-25-dream-last-night.html"&gt;昨夜的梦境，依旧清晰 &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2023-08-02-swift-quick-get.html"&gt;Swift极速快打 &lt;/a&gt; 
       &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2022-11-21-fb-premium.html"&gt;「福报Premium」内容+服务型产品正式发布！ &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2008-02-23-spring-festival-toast.html"&gt;年初寄语 &lt;/a&gt; 
       &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2008-03-21-suan-ming-xian-sheng.html"&gt;说有一位算卦的先生 &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2006-08-23-thought-on-credit-project.html"&gt;CREDIT项目阶段反思 &lt;/a&gt; 
       &lt;/div&gt; 
      &lt;/div&gt; 
      &lt;hr&gt; 
@@ -1358,6 +1388,12 @@
       }
     }
   });
+&lt;/script&gt; 
+  &lt;script&gt;
+	// tooltips
+	tippy('#aiedu', {
+        content: "As to AI nowadays, LLM and Stable Diffusion are hot even hottest among them, If your want to both know-why and know-how with them, instead of only know-how which can't repeat itself, you should get you to https://ai.afoo.me right now ❗"
+    });  
 &lt;/script&gt;  
  &lt;/body&gt;
 &lt;/html&gt;</description>
@@ -1387,7 +1423,10 @@
   &lt;script src="https://unpkg.com/htmx.org@1.9.5"&gt;&lt;/script&gt; 
   &lt;link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"&gt; 
   &lt;script src="https://unpkg.com/gitalk/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script src="https://unpkg.com/@popperjs/core@2"&gt;&lt;/script&gt; 
+  &lt;script src="https://unpkg.com/tippy.js@6"&gt;&lt;/script&gt; 
   &lt;link rel="stylesheet" href="/css/af.css"&gt; 
+  &lt;link rel="stylesheet" href="/css/components.css"&gt; 
   &lt;link ref="stylesheet" href="/css/pygments.css"&gt; 
   &lt;style type="text/css"&gt;
         pre &gt; code{
@@ -1502,7 +1541,7 @@
  &lt;body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"&gt; 
   &lt;header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"&gt; 
    &lt;div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"&gt; 
-    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"&gt; &lt;h1&gt;王福强的个人博客&lt;/h1&gt; &lt;/span&gt; &lt;/a&gt; 
+    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"&gt; &lt;h1&gt;王福强的博客&lt;/h1&gt; &lt;/span&gt; &lt;/a&gt; 
      &lt;div class="flex items-center md:hidden"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
        &lt;svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
          &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
@@ -1519,7 +1558,7 @@
     &lt;/div&gt; 
     &lt;nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"&gt; 
      &lt;ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me"&gt;福强AI学堂&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a id="aiedu" class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me"&gt; 福强AI学堂&lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com"&gt;架构百科&lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html"&gt;博客文章 &lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html"&gt;创作出版&lt;/a&gt; &lt;/li&gt; 
@@ -1710,11 +1749,11 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
      &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
      &lt;/div&gt; 
      &lt;div id="random_posts"&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2015-08-15-my-writing-toolset.html"&gt;高效写作的秘密 &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2021-10-27-2Bmarket-dilemma.html"&gt;PPT、专利与白嫖 &lt;/a&gt; 
       &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-05-06-travel-to-lijiang-chap02.html"&gt;终于成行的丽江之旅(2) &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2022-04-13-focus-on-important-things-not-trivial.html"&gt;不要因小不见大！ &lt;/a&gt; 
       &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2023-09-21-game-and-bizapp.html"&gt;游戏与业务系统的底层逻辑对比 &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2006-02-24-ssh-with-java.html"&gt;How to use SSH in Java Programmatically &lt;/a&gt; 
       &lt;/div&gt; 
      &lt;/div&gt; 
      &lt;hr&gt; 
@@ -1868,6 +1907,12 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
       }
     }
   });
+&lt;/script&gt; 
+  &lt;script&gt;
+	// tooltips
+	tippy('#aiedu', {
+        content: "As to AI nowadays, LLM and Stable Diffusion are hot even hottest among them, If your want to both know-why and know-how with them, instead of only know-how which can't repeat itself, you should get you to https://ai.afoo.me right now ❗"
+    });  
 &lt;/script&gt;  
  &lt;/body&gt;
 &lt;/html&gt;</description>
@@ -1897,7 +1942,10 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
   &lt;script src="https://unpkg.com/htmx.org@1.9.5"&gt;&lt;/script&gt; 
   &lt;link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"&gt; 
   &lt;script src="https://unpkg.com/gitalk/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script src="https://unpkg.com/@popperjs/core@2"&gt;&lt;/script&gt; 
+  &lt;script src="https://unpkg.com/tippy.js@6"&gt;&lt;/script&gt; 
   &lt;link rel="stylesheet" href="/css/af.css"&gt; 
+  &lt;link rel="stylesheet" href="/css/components.css"&gt; 
   &lt;link ref="stylesheet" href="/css/pygments.css"&gt; 
   &lt;style type="text/css"&gt;
         pre &gt; code{
@@ -1947,7 +1995,7 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
  &lt;body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"&gt; 
   &lt;header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"&gt; 
    &lt;div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"&gt; 
-    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"&gt; &lt;h1&gt;王福强的个人博客&lt;/h1&gt; &lt;/span&gt; &lt;/a&gt; 
+    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"&gt; &lt;h1&gt;王福强的博客&lt;/h1&gt; &lt;/span&gt; &lt;/a&gt; 
      &lt;div class="flex items-center md:hidden"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
        &lt;svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
          &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
@@ -1964,7 +2012,7 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
     &lt;/div&gt; 
     &lt;nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"&gt; 
      &lt;ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me"&gt;福强AI学堂&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a id="aiedu" class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me"&gt; 福强AI学堂&lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com"&gt;架构百科&lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html"&gt;博客文章 &lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html"&gt;创作出版&lt;/a&gt; &lt;/li&gt; 
@@ -2019,11 +2067,11 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
      &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
      &lt;/div&gt; 
      &lt;div id="random_posts"&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2023-10-23-why-yuque-crashed.html"&gt;语雀为什么崩了？ &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2021-05-03-lowcode-tumor-and-my-opinion.html"&gt;低代码、毒瘤与个人观点 &lt;/a&gt; 
       &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2007-08-23-just-some-thoughts.html"&gt;近日随想 &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2017-04-17-be-pragmatic.html"&gt;多务实， 少炫技 &lt;/a&gt; 
       &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2005-07-12-excel-printing-with-jacob.html"&gt;Excel&lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2023-08-17-gumroad-affiliates.html"&gt;Gumroad的分销功能看这篇就够了！ &lt;/a&gt; 
       &lt;/div&gt; 
      &lt;/div&gt; 
      &lt;hr&gt; 
@@ -2177,6 +2225,12 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
       }
     }
   });
+&lt;/script&gt; 
+  &lt;script&gt;
+	// tooltips
+	tippy('#aiedu', {
+        content: "As to AI nowadays, LLM and Stable Diffusion are hot even hottest among them, If your want to both know-why and know-how with them, instead of only know-how which can't repeat itself, you should get you to https://ai.afoo.me right now ❗"
+    });  
 &lt;/script&gt;  
  &lt;/body&gt;
 &lt;/html&gt;</description>
@@ -2206,7 +2260,10 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
   &lt;script src="https://unpkg.com/htmx.org@1.9.5"&gt;&lt;/script&gt; 
   &lt;link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"&gt; 
   &lt;script src="https://unpkg.com/gitalk/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script src="https://unpkg.com/@popperjs/core@2"&gt;&lt;/script&gt; 
+  &lt;script src="https://unpkg.com/tippy.js@6"&gt;&lt;/script&gt; 
   &lt;link rel="stylesheet" href="/css/af.css"&gt; 
+  &lt;link rel="stylesheet" href="/css/components.css"&gt; 
   &lt;link ref="stylesheet" href="/css/pygments.css"&gt; 
   &lt;style type="text/css"&gt;
         pre &gt; code{
@@ -2256,7 +2313,7 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
  &lt;body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"&gt; 
   &lt;header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"&gt; 
    &lt;div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"&gt; 
-    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"&gt; &lt;h1&gt;王福强的个人博客&lt;/h1&gt; &lt;/span&gt; &lt;/a&gt; 
+    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"&gt; &lt;h1&gt;王福强的博客&lt;/h1&gt; &lt;/span&gt; &lt;/a&gt; 
      &lt;div class="flex items-center md:hidden"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
        &lt;svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
          &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
@@ -2273,7 +2330,7 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
     &lt;/div&gt; 
     &lt;nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"&gt; 
      &lt;ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me"&gt;福强AI学堂&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a id="aiedu" class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me"&gt; 福强AI学堂&lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com"&gt;架构百科&lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html"&gt;博客文章 &lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html"&gt;创作出版&lt;/a&gt; &lt;/li&gt; 
@@ -2332,11 +2389,11 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
      &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
      &lt;/div&gt; 
      &lt;div id="random_posts"&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-02-27-movie-the-wrestler.html"&gt;看完《The Wrestler》心里挺不是滋味… &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2017-04-17-be-pragmatic.html"&gt;多务实， 少炫技 &lt;/a&gt; 
       &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2023-08-30-clash-config-in-my-way.html"&gt;如何聚合重用Clash的配置？ &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2023-12-15-dongfangzhenxuan-dongyuhui.html"&gt;借东方甄选董宇辉小作文事件谈组织角色属性 &lt;/a&gt; 
       &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-01-27-design-can-be-so-simple.html"&gt;设计原本如此简单 &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2023-08-19-business-goes-its-own-way.html"&gt;生意可不是你想咋选就咋选！ &lt;/a&gt; 
       &lt;/div&gt; 
      &lt;/div&gt; 
      &lt;hr&gt; 
@@ -2490,6 +2547,12 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
       }
     }
   });
+&lt;/script&gt; 
+  &lt;script&gt;
+	// tooltips
+	tippy('#aiedu', {
+        content: "As to AI nowadays, LLM and Stable Diffusion are hot even hottest among them, If your want to both know-why and know-how with them, instead of only know-how which can't repeat itself, you should get you to https://ai.afoo.me right now ❗"
+    });  
 &lt;/script&gt;  
  &lt;/body&gt;
 &lt;/html&gt;</description>
@@ -2519,7 +2582,10 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
   &lt;script src="https://unpkg.com/htmx.org@1.9.5"&gt;&lt;/script&gt; 
   &lt;link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"&gt; 
   &lt;script src="https://unpkg.com/gitalk/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script src="https://unpkg.com/@popperjs/core@2"&gt;&lt;/script&gt; 
+  &lt;script src="https://unpkg.com/tippy.js@6"&gt;&lt;/script&gt; 
   &lt;link rel="stylesheet" href="/css/af.css"&gt; 
+  &lt;link rel="stylesheet" href="/css/components.css"&gt; 
   &lt;link ref="stylesheet" href="/css/pygments.css"&gt; 
   &lt;style type="text/css"&gt;
         pre &gt; code{
@@ -2569,7 +2635,7 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
  &lt;body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"&gt; 
   &lt;header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"&gt; 
    &lt;div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"&gt; 
-    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"&gt; &lt;h1&gt;王福强的个人博客&lt;/h1&gt; &lt;/span&gt; &lt;/a&gt; 
+    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"&gt; &lt;h1&gt;王福强的博客&lt;/h1&gt; &lt;/span&gt; &lt;/a&gt; 
      &lt;div class="flex items-center md:hidden"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
        &lt;svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
          &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
@@ -2586,7 +2652,7 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
     &lt;/div&gt; 
     &lt;nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"&gt; 
      &lt;ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me"&gt;福强AI学堂&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a id="aiedu" class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me"&gt; 福强AI学堂&lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com"&gt;架构百科&lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html"&gt;博客文章 &lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html"&gt;创作出版&lt;/a&gt; &lt;/li&gt; 
@@ -2662,11 +2728,11 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
      &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
      &lt;/div&gt; 
      &lt;div id="random_posts"&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2014-07-11-publish-sbt-project-to-maven-repo.html"&gt;Publish SBT project to Maven repo(Nexus?) &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2006-08-23-thought-on-credit-project.html"&gt;CREDIT项目阶段反思 &lt;/a&gt; 
       &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-05-27-am-I-still-naive.html"&gt;心理年龄小 &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-02-24-movie-good-man.html"&gt;《好好先生》 &lt;/a&gt; 
       &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2007-03-18-what-a-day.html"&gt;经济学差点儿白学了 &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2010-08-02-photograph3.html"&gt;拍荷花2&lt;/a&gt; 
       &lt;/div&gt; 
      &lt;/div&gt; 
      &lt;hr&gt; 
@@ -2820,6 +2886,12 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
       }
     }
   });
+&lt;/script&gt; 
+  &lt;script&gt;
+	// tooltips
+	tippy('#aiedu', {
+        content: "As to AI nowadays, LLM and Stable Diffusion are hot even hottest among them, If your want to both know-why and know-how with them, instead of only know-how which can't repeat itself, you should get you to https://ai.afoo.me right now ❗"
+    });  
 &lt;/script&gt;  
  &lt;/body&gt;
 &lt;/html&gt;</description>
@@ -2849,7 +2921,10 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
   &lt;script src="https://unpkg.com/htmx.org@1.9.5"&gt;&lt;/script&gt; 
   &lt;link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"&gt; 
   &lt;script src="https://unpkg.com/gitalk/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script src="https://unpkg.com/@popperjs/core@2"&gt;&lt;/script&gt; 
+  &lt;script src="https://unpkg.com/tippy.js@6"&gt;&lt;/script&gt; 
   &lt;link rel="stylesheet" href="/css/af.css"&gt; 
+  &lt;link rel="stylesheet" href="/css/components.css"&gt; 
   &lt;link ref="stylesheet" href="/css/pygments.css"&gt; 
   &lt;style type="text/css"&gt;
         pre &gt; code{
@@ -2899,7 +2974,7 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
  &lt;body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"&gt; 
   &lt;header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"&gt; 
    &lt;div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"&gt; 
-    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"&gt; &lt;h1&gt;王福强的个人博客&lt;/h1&gt; &lt;/span&gt; &lt;/a&gt; 
+    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"&gt; &lt;h1&gt;王福强的博客&lt;/h1&gt; &lt;/span&gt; &lt;/a&gt; 
      &lt;div class="flex items-center md:hidden"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
        &lt;svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
          &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
@@ -2916,7 +2991,7 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
     &lt;/div&gt; 
     &lt;nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"&gt; 
      &lt;ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me"&gt;福强AI学堂&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a id="aiedu" class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me"&gt; 福强AI学堂&lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com"&gt;架构百科&lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html"&gt;博客文章 &lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html"&gt;创作出版&lt;/a&gt; &lt;/li&gt; 
@@ -2974,11 +3049,11 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
      &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
      &lt;/div&gt; 
      &lt;div id="random_posts"&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2007-09-28-thoughts-on-bestwiz-fx-products.html"&gt;Bestwiz FX产品化路上的建议 &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2022-02-13-feedback-matters-a-lot.html"&gt;谈谈关于反馈的几个思考 &lt;/a&gt; 
       &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2022-11-10-metabase-course.html"&gt;双十一特惠课程发售 &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2008-07-06-dogs-in-my-opinion.html"&gt;聊聊狗狗 &lt;/a&gt; 
       &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2023-07-05-art-qrcode-with-comfyui.html"&gt;生成艺术二维码的三种套路 &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2017-09-01-what-I-think-about-ICO.html"&gt;ICO之我见 &lt;/a&gt; 
       &lt;/div&gt; 
      &lt;/div&gt; 
      &lt;hr&gt; 
@@ -3132,6 +3207,12 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
       }
     }
   });
+&lt;/script&gt; 
+  &lt;script&gt;
+	// tooltips
+	tippy('#aiedu', {
+        content: "As to AI nowadays, LLM and Stable Diffusion are hot even hottest among them, If your want to both know-why and know-how with them, instead of only know-how which can't repeat itself, you should get you to https://ai.afoo.me right now ❗"
+    });  
 &lt;/script&gt;  
  &lt;/body&gt;
 &lt;/html&gt;</description>
@@ -3161,7 +3242,10 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
   &lt;script src="https://unpkg.com/htmx.org@1.9.5"&gt;&lt;/script&gt; 
   &lt;link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"&gt; 
   &lt;script src="https://unpkg.com/gitalk/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script src="https://unpkg.com/@popperjs/core@2"&gt;&lt;/script&gt; 
+  &lt;script src="https://unpkg.com/tippy.js@6"&gt;&lt;/script&gt; 
   &lt;link rel="stylesheet" href="/css/af.css"&gt; 
+  &lt;link rel="stylesheet" href="/css/components.css"&gt; 
   &lt;link ref="stylesheet" href="/css/pygments.css"&gt; 
   &lt;style type="text/css"&gt;
         pre &gt; code{
@@ -3211,7 +3295,7 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
  &lt;body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"&gt; 
   &lt;header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"&gt; 
    &lt;div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"&gt; 
-    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"&gt; &lt;h1&gt;王福强的个人博客&lt;/h1&gt; &lt;/span&gt; &lt;/a&gt; 
+    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"&gt; &lt;h1&gt;王福强的博客&lt;/h1&gt; &lt;/span&gt; &lt;/a&gt; 
      &lt;div class="flex items-center md:hidden"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
        &lt;svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
          &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
@@ -3228,7 +3312,7 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
     &lt;/div&gt; 
     &lt;nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"&gt; 
      &lt;ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me"&gt;福强AI学堂&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a id="aiedu" class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me"&gt; 福强AI学堂&lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com"&gt;架构百科&lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html"&gt;博客文章 &lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html"&gt;创作出版&lt;/a&gt; &lt;/li&gt; 
@@ -3275,11 +3359,11 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
      &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
      &lt;/div&gt; 
      &lt;div id="random_posts"&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2020-02-25-techie-with-humanity.html"&gt;写给技术人的人性课 &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-06-09-fuck-gfw.html"&gt;tnd， 终于解封了 &lt;/a&gt; 
       &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2010-05-25-lu-shan-xing.html"&gt;庐山行&lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2015-02-04-why-sub-modules-or-sub-projects-sucks.html"&gt;我为什么不喜欢子项目或者子模块的概念 &lt;/a&gt; 
       &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-08-24-book-cover-confirmed.html"&gt;封面终于确定下来了… &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2017-10-15-find-a-successor-instead-of-backup.html"&gt;扶墙老师谈管理：到底应不应该找backup &lt;/a&gt; 
       &lt;/div&gt; 
      &lt;/div&gt; 
      &lt;hr&gt; 
@@ -3433,6 +3517,12 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
       }
     }
   });
+&lt;/script&gt; 
+  &lt;script&gt;
+	// tooltips
+	tippy('#aiedu', {
+        content: "As to AI nowadays, LLM and Stable Diffusion are hot even hottest among them, If your want to both know-why and know-how with them, instead of only know-how which can't repeat itself, you should get you to https://ai.afoo.me right now ❗"
+    });  
 &lt;/script&gt;  
  &lt;/body&gt;
 &lt;/html&gt;</description>
@@ -3462,7 +3552,10 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
   &lt;script src="https://unpkg.com/htmx.org@1.9.5"&gt;&lt;/script&gt; 
   &lt;link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"&gt; 
   &lt;script src="https://unpkg.com/gitalk/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script src="https://unpkg.com/@popperjs/core@2"&gt;&lt;/script&gt; 
+  &lt;script src="https://unpkg.com/tippy.js@6"&gt;&lt;/script&gt; 
   &lt;link rel="stylesheet" href="/css/af.css"&gt; 
+  &lt;link rel="stylesheet" href="/css/components.css"&gt; 
   &lt;link ref="stylesheet" href="/css/pygments.css"&gt; 
   &lt;style type="text/css"&gt;
         pre &gt; code{
@@ -3512,7 +3605,7 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
  &lt;body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"&gt; 
   &lt;header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"&gt; 
    &lt;div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"&gt; 
-    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"&gt; &lt;h1&gt;王福强的个人博客&lt;/h1&gt; &lt;/span&gt; &lt;/a&gt; 
+    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"&gt; &lt;h1&gt;王福强的博客&lt;/h1&gt; &lt;/span&gt; &lt;/a&gt; 
      &lt;div class="flex items-center md:hidden"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
        &lt;svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
          &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
@@ -3529,7 +3622,7 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
     &lt;/div&gt; 
     &lt;nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"&gt; 
      &lt;ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me"&gt;福强AI学堂&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a id="aiedu" class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://edu.afoo.me"&gt; 福强AI学堂&lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com"&gt;架构百科&lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html"&gt;博客文章 &lt;/a&gt; &lt;/li&gt; 
       &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html"&gt;创作出版&lt;/a&gt; &lt;/li&gt; 
@@ -3580,11 +3673,11 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
      &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
      &lt;/div&gt; 
      &lt;div id="random_posts"&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-06-02-work-fucking-late-again.html"&gt;又是加班到这个点儿 &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2014-04-26-weak-horse-effect.html"&gt;瘦马效应 #What’s in a story# &lt;/a&gt; 
       &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2017-09-20-wedding-journal.html"&gt;结婚筹备曲 &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-06-10-harward-negotiating-training-note.html"&gt;Harward Negotiating Training Note &lt;/a&gt; 
       &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2007-11-20-who-depends-on-whom.html"&gt;到底谁指望谁？！ &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2023-09-12-lets-talk-about-xiaoyaozi.html"&gt;聊聊逍遥子 &lt;/a&gt; 
       &lt;/div&gt; 
      &lt;/div&gt; 
      &lt;hr&gt; 
@@ -3738,6 +3831,12 @@ chrome.tabs.sendMessage&lt;/code&gt;&lt;/pre&gt;
       }
     }
   });
+&lt;/script&gt; 
+  &lt;script&gt;
+	// tooltips
+	tippy('#aiedu', {
+        content: "As to AI nowadays, LLM and Stable Diffusion are hot even hottest among them, If your want to both know-why and know-how with them, instead of only know-how which can't repeat itself, you should get you to https://ai.afoo.me right now ❗"
+    });  
 &lt;/script&gt;  
  &lt;/body&gt;
 &lt;/html&gt;</description>

@@ -19,7 +19,8 @@
     <script src="https://unpkg.com/htmx.org@1.9.5"></script>
     <link href="/_pagefind/pagefind-ui.css" rel="stylesheet">
     <script src="/_pagefind/pagefind-ui.js" type="text/javascript"></script>
-
+    <script src="https://unpkg.com/@popperjs/core@2" ></script>
+    <script src="https://unpkg.com/tippy.js@6" ></script>
     <style type="text/css">
         pre > code{white-space: pre-line;}
 
@@ -61,7 +62,7 @@
 				<a class="flex items-center" href="https://afoo.me">
 					<span
 						class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white">
-						<h1>王福强的个人博客</h1>
+						<h1>王福强的博客</h1>
 					</span>
 				</a>
 				<div class="flex items-center md:hidden">
@@ -96,8 +97,9 @@
 				aria-label="Main navigation">
 				<ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base">
 					<li>
-						<a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" 
-                        href="http://edu.afoo.me">福强AI学堂</a>
+						<a id="aiedu" class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" 
+                        href="http://edu.afoo.me">
+                        福强AI学堂</a>
 					</li>
 					<li>
 						<a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" 
@@ -409,6 +411,12 @@
   });
 </script>
 
+<script>
+	// tooltips
+	tippy('#aiedu', {
+        content: "As to AI nowadays, LLM and Stable Diffusion are hot even hottest among them, If your want to both know-why and know-how with them, instead of only know-how which can't repeat itself, you should get you to https://ai.afoo.me right now ❗"
+    });
+</script>
 </body>
 
 </html>
