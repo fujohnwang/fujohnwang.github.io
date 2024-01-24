@@ -154,7 +154,7 @@
 					<template x-for="e in tools">
 						<div class="w-full md:w-1/2 xl:w-1/3 p-4">
 							<div class="rounded flex p-4 h-full items-center">
-								<a x-bind:href="e.URL" class="flex items-center pl-1" x-bind:title="e.COMMENT" x-on:hover="tippy($el, {
+								<a x-bind:href="e.URL" class="flex items-center pl-1" x-bind:title="e.COMMENT" @mouseover="tippy($el, {
 									content: e.COMMENT,
 								  })">
 								<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="64" height="64" viewBox="0 0 24 24"><path fill="#03A9F4" d="M24 12H12V0h9.25A2.75 2.75 0 0 1 24 2.75V12z"/><path fill="#81D4FA" d="M12 12H0V2.75A2.75 2.75 0 0 1 2.75 0H12v12z"/><path fill="#03A9F4" d="M12 24H2.75A2.75 2.75 0 0 1 0 21.25V12h12v12z"/><path fill="#81D4FA" d="M21.25 24H12V12h12v9.25A2.75 2.75 0 0 1 21.25 24z"/><path fill="#F5F5F5" d="M6 9a.75.75 0 0 1-.75-.75v-3.5a.75.75 0 0 1 1.5 0v3.5A.75.75 0 0 1 6 9z"/><path fill="#F5F5F5" d="M7.75 7.25h-3.5a.75.75 0 0 1 0-1.5h3.5a.75.75 0 0 1 0 1.5zM4.75 20a.75.75 0 0 1-.53-1.281l2.5-2.5a.75.75 0 1 1 1.061 1.061l-2.5 2.5a.748.748 0 0 1-.531.22z"/><path fill="#F5F5F5" d="M7.25 20a.744.744 0 0 1-.53-.22l-2.5-2.5a.75.75 0 1 1 1.061-1.061l2.5 2.5A.75.75 0 0 1 7.25 20zM20.25 7h-4.5a.75.75 0 0 1 0-1.5h4.5a.75.75 0 0 1 0 1.5zM20.25 20h-4.5a.75.75 0 0 1 0-1.5h4.5a.75.75 0 0 1 0 1.5zM20.25 17h-4.5a.75.75 0 0 1 0-1.5h4.5a.75.75 0 0 1 0 1.5z"/></svg>
