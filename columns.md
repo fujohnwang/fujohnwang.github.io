@@ -11,7 +11,7 @@
 
 ## [BiasedScala](https://biasedscala.github.io/)
 
-My Biased Opinion on Scala, 2021
+[My Biased Opinion on Scala, 2021](https://scala.afoo.me/)
 
 ## SEO
 
