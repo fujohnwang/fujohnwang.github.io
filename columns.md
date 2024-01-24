@@ -18,11 +18,6 @@ My Biased Opinion on Scala, 2021
 1. [3种主动要求Google收录网站内容的常用方法](columns/seo/three-ways-to-submit-sitemap.html)
 
 
-
----
-
-# 财经专栏
-
 ---
 
 # 管理专栏
@@ -39,6 +34,13 @@ My Biased Opinion on Scala, 2021
 - [水杨酸的发现与发展历史](columns/med/水杨酸的发现与发展历史.html)
 
 
+---
+
+# 财经专栏
+
+## 福强财经
+
+![](images/fqfin.jpg)
 
 
 
