@@ -157,6 +157,26 @@
 								<a x-bind:href="e.URL" class="flex items-center pl-1" x-bind:title="e.COMMENT" @mouseover="tippy($el, {
 									content: e.COMMENT,
 								  })">
+								  <div class="flex items-center mb-3">
+									<div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-indigo-500 text-white flex-shrink-0">
+										<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="64" height="64" viewBox="0 0 24 24"><path fill="#03A9F4" d="M24 12H12V0h9.25A2.75 2.75 0 0 1 24 2.75V12z"/><path fill="#81D4FA" d="M12 12H0V2.75A2.75 2.75 0 0 1 2.75 0H12v12z"/><path fill="#03A9F4" d="M12 24H2.75A2.75 2.75 0 0 1 0 21.25V12h12v12z"/><path fill="#81D4FA" d="M21.25 24H12V12h12v9.25A2.75 2.75 0 0 1 21.25 24z"/><path fill="#F5F5F5" d="M6 9a.75.75 0 0 1-.75-.75v-3.5a.75.75 0 0 1 1.5 0v3.5A.75.75 0 0 1 6 9z"/><path fill="#F5F5F5" d="M7.75 7.25h-3.5a.75.75 0 0 1 0-1.5h3.5a.75.75 0 0 1 0 1.5zM4.75 20a.75.75 0 0 1-.53-1.281l2.5-2.5a.75.75 0 1 1 1.061 1.061l-2.5 2.5a.748.748 0 0 1-.531.22z"/><path fill="#F5F5F5" d="M7.25 20a.744.744 0 0 1-.53-.22l-2.5-2.5a.75.75 0 1 1 1.061-1.061l2.5 2.5A.75.75 0 0 1 7.25 20zM20.25 7h-4.5a.75.75 0 0 1 0-1.5h4.5a.75.75 0 0 1 0 1.5zM20.25 20h-4.5a.75.75 0 0 1 0-1.5h4.5a.75.75 0 0 1 0 1.5zM20.25 17h-4.5a.75.75 0 0 1 0-1.5h4.5a.75.75 0 0 1 0 1.5z"/></svg>
+									</div>
+									<h2 class="text-gray-900 text-lg title-font font-medium">
+										<template x-if="e.NAME">
+											<span class="title-font font-bold break-all text-wrap ml-1" x-text="e.NAME"></span>
+										</template>
+										<template x-if="!e.NAME">
+											<span class="title-font font-bold break-all text-wrap ml-1" x-text="e.URL"></span>
+										</template>
+									</h2>
+								  </div>
+								  <div class="flex-grow">
+									<p class="leading-relaxed text-base" x-text="e.COMMENT"></p>
+								  </div>
+								</a>
+								<!-- <a x-bind:href="e.URL" class="flex items-center pl-1" x-bind:title="e.COMMENT" @mouseover="tippy($el, {
+									content: e.COMMENT,
+								  })">
 								<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="64" height="64" viewBox="0 0 24 24"><path fill="#03A9F4" d="M24 12H12V0h9.25A2.75 2.75 0 0 1 24 2.75V12z"/><path fill="#81D4FA" d="M12 12H0V2.75A2.75 2.75 0 0 1 2.75 0H12v12z"/><path fill="#03A9F4" d="M12 24H2.75A2.75 2.75 0 0 1 0 21.25V12h12v12z"/><path fill="#81D4FA" d="M21.25 24H12V12h12v9.25A2.75 2.75 0 0 1 21.25 24z"/><path fill="#F5F5F5" d="M6 9a.75.75 0 0 1-.75-.75v-3.5a.75.75 0 0 1 1.5 0v3.5A.75.75 0 0 1 6 9z"/><path fill="#F5F5F5" d="M7.75 7.25h-3.5a.75.75 0 0 1 0-1.5h3.5a.75.75 0 0 1 0 1.5zM4.75 20a.75.75 0 0 1-.53-1.281l2.5-2.5a.75.75 0 1 1 1.061 1.061l-2.5 2.5a.748.748 0 0 1-.531.22z"/><path fill="#F5F5F5" d="M7.25 20a.744.744 0 0 1-.53-.22l-2.5-2.5a.75.75 0 1 1 1.061-1.061l2.5 2.5A.75.75 0 0 1 7.25 20zM20.25 7h-4.5a.75.75 0 0 1 0-1.5h4.5a.75.75 0 0 1 0 1.5zM20.25 20h-4.5a.75.75 0 0 1 0-1.5h4.5a.75.75 0 0 1 0 1.5zM20.25 17h-4.5a.75.75 0 0 1 0-1.5h4.5a.75.75 0 0 1 0 1.5z"/></svg>
 								<template x-if="e.NAME">
 									<span class="title-font font-bold break-all text-wrap ml-1" x-text="e.NAME"></span>
@@ -164,7 +184,7 @@
 								<template x-if="!e.NAME">
 									<span class="title-font font-bold break-all text-wrap ml-1" x-text="e.URL"></span>
 								</template>
-								</a>
+								</a> -->
 							</div>
 
 						</div>
