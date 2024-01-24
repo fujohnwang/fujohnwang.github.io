@@ -2,19 +2,12 @@
 % 王福强
 % 2021-02-18
 
-- [福强学堂](https://edu.afoo.me)
-- [福强](https://afoo.me/whoami.html)的Youtube频道
-  - [扶墙老师](https://www.youtube.com/c/fujohnwang) - <https://youtube.com/@afoo>
-- 架构百科
-  - [架构百科文字版](https://jiagoubaike.com)
-  - [架构百科Youtube频道](https://www.youtube.com/channel/UCG4NNmSjcCQGv3T25JBlHTQ)
+- [专栏文章](columns.html)
 - [福强为个人提供的产品与服务](consulting.html)
-  - [福强的书](https://afoo.me/books.html)
 - [福强的stop doing list](https://keevol.cn/stop-doing-list.html)
   - [福强的stop doing list](stop-doing-list.html)
 - [Follow Me on Gumroad](https://wfq.gumroad.com/subscribe)
 - [罗密欧的故事汇](https://luomoe.github.io/)
-- [咨询密室](https://fuqiang.circleo.me/)
 - [友情链接](/interlinks.html)
 
 # [工具福强造](https://afoo.me/tools.html)
@@ -56,17 +49,15 @@
 - [Poe.com](https://poe.com/)
 - [ChatGPT Alternative - https://chat.cydiar.com/chat](https://chat.cydiar.com/chat)
 
+# 海报工具
 
+- [粉丝数到达多少多少](https://functional.tools/awesome-stats)
 
-# 文档
-
-- [Biased Scala](https://biasedscala.github.io/)
 
 # 未分类
 
 - [付费文章合集](pay-for-read-index.html)
 - [博客首页](posts.html)
-- [专栏文章](columns.html)
 - [Biased Scala](/columns/biased-scala/index.html), My Biased Opinion on Scala, 2021
   - 独立站，<https://scala.afoo.me>
 - [我的收藏夹](favorite.html)
@@ -74,6 +65,7 @@
 - [金融看板](dashboard.html)
 - [快捷参考](references.html)
 - [友情链接](interlinks.html)
+- [咨询密室](https://fuqiang.circleo.me/)
 - [不卖温柔](https://my.spline.design/logo-2dd2b486d306742087b23d29862cb270/)
 - [Shortwords](https://shortwords.vercel.app/)
 - [Keenotes Trend](/keenotes-trend.html)
@@ -81,9 +73,7 @@
 - [GithubPage上的福强个人博客](https://fujohnwang.github.io/)
 - [blogspot上的老博客](https://fujohnwang.blogspot.com/)
 
-# 海报工具
 
-- [粉丝数到达多少多少](https://functional.tools/awesome-stats)
 
 
 
