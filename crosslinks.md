@@ -4,6 +4,7 @@
 
 - [专栏文章](columns.html)
 - [福强为个人提供的产品与服务](consulting.html)
+- [Who Am I](/whoami.html)
 - [福强的stop doing list](https://keevol.cn/stop-doing-list.html)
   - [福强的stop doing list](stop-doing-list.html)
 - [Follow Me on Gumroad](https://wfq.gumroad.com/subscribe)
