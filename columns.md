@@ -13,10 +13,14 @@
 
 [My Biased Opinion on Scala, 2021](https://scala.afoo.me/)
 
+## [Simple Honojs](https://honojs.afoo.me)
+
+- <https://hono.afoo.me>
+- <https://honojs.afoo.me>
+
 ## SEO
 
 1. [3种主动要求Google收录网站内容的常用方法](columns/seo/three-ways-to-submit-sitemap.html)
-
 
 ---
 
