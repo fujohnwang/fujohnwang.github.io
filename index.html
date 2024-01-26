@@ -721,7 +721,7 @@
 		const parser = new DOMParser();
     	const htmlDocument = parser.parseFromString(html, "text/html");
 		const selectedElements = htmlDocument.querySelectorAll('main  h1 ~ div');
-	    lastestPosts.replaceChildren([...selectedElements].slice(0,3))
+	    lastestPosts.replaceChildren(...selectedElements.slice(0,3))
       })
       .catch(error => {
         console.error('Error fetching the page:', error);
