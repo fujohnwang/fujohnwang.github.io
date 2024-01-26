@@ -721,7 +721,7 @@
 		const parser = new DOMParser();
     	const htmlDocument = parser.parseFromString(html, "text/html");
 
-		const selectedElements = htmlDocument.querySelectorAll('body > main > section > div > div:nth-child(n+3):nth-child(-n+5)');
+		const selectedElements = htmlDocument.querySelectorAll('body > main > section > h1 + div:nth-child(n+3):nth-child(-n+5)');
 	    lastestPosts.replaceChildren(...selectedElements)
       })
       .catch(error => {
