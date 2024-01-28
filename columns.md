@@ -13,6 +13,8 @@
 
 [My Biased Opinion on Scala, 2021](https://scala.afoo.me/)
 
+或许比较地道的词儿应该用Opinionated， Opinionated Scala
+
 ## [Simple Honojs](https://honojs.afoo.me)
 
 - <https://hono.afoo.me>
