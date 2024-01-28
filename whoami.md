@@ -45,6 +45,7 @@
 * [Youtube](https://youtube.com/c/fujohnwang) - <https://youtube.com/@afoo>  ❤︎❤︎❤︎❤︎❤︎
 * [架构百科@Youtube](https://youtube.com/@jgbk)
 * Github - <https://github.com/fujohnwang>
+  * <iframe src="https://github.com/sponsors/fujohnwang/button" title="Sponsor fujohnwang" height="32" width="114" style="border: 0; border-radius: 6px;"></iframe>
 * 公众号 - **福强**，*2022年以后少有更新*。
 <!--  * ![](images/qrcode_for_gh_4fe672b2e860_258.jpg)-->
 * [微博](http://www.weibo.com/fujohnwang) - *2022年10月29日已清空，不再更新*。
@@ -80,6 +81,10 @@
 技术经历上，浸淫Java平台多年，然近年更喜Scala（当然，Scala社区从我的角度看不够Pragmatic，但现在已经上了贼船了，也只能安慰自己喜忧参半，没有完美的东西，哈哈哈），
 专注于并发并行编程，HPC，分布式系统设计与实现，Big Data， 实时数据追踪与计算等领域,
 相关Web Framework、DDAL(Distributed Data Access Layer)^[<https://github.com/alibaba/cobarclient>, 原有域名阿里内部已经弃用，很多同学又很懒（人性啊~）， 所以， 我还是编译一份文档供参考吧， [中文参考文档](/references/cobarclient/zh/index.html)看这里，[英文参考文档(Reference Doc)](/references/cobarclient/en/index.html)看这里]以及Middleware的Product Owner/Co-owner。
+
+# Sponsor me on github
+
+<iframe src="https://github.com/sponsors/fujohnwang/card" title="Sponsor fujohnwang" height="225" width="600" style="border: 0;"></iframe>
 
 # Buy me a coffee 
 
