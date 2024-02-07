@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta author="王福强" />
+  <meta keywords="Localflare,backup, cloudflare,王福强,fujohnwang" />
+  <meta description="王福强出品 / A Fuqiang Production" />
+  <link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg">
+  <link rel="stylesheet" href="https://afoo.me/htmx/htmx.css"/>
+  <link rel="stylesheet" href="style.css"/> 
+  <title>Localflare - Backup your cloudflare data to local.</title>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+  <script src="https://cdn.tailwindcss.com/"></script>
+  <style>
+    ::-webkit-scrollbar {
+        width: 11px;
+    }
+    ::-webkit-scrollbar-thumb{
+        background-color: #3F83F8;
+        border-radius: 3px;
+    }
+    	html{
+	       scroll-behavior: smooth;   
+	   }
+
+      body {
+          max-width: 46rem;
+          padding: 2rem;
+          margin: auto;
+          font-family: "lucida grande", "lucida sans unicode", lucida, -apple-system, -apple-system-font, Helvetica, Tahoma, Arial, Helvetica, Tahoma, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "微软雅黑", SimHei, "WenQuanYi Micro Hei", sans-serif;
+          font-size: 21px;
+          background-color: #3F83F8;
+          color: white;
+      }
+    </style>
+</head>
+
+<body class="container mx-auto">
+  <header>
+    <div class="container mx-auto flex flex-wrap p-5 flex-col  items-center">
+      <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0" href="https://afoo.me">
+        <img src="https://afoo.me/images/logo.png" class="w-24" alt />
+      </a>
+    </div>
+  </header>
+
+  <main class="container mx-auto flex flex-col items-center">
+    <h1 class="text-6xl md:text-9xl font-black my-6">
+      HTMX FORM DEMO
+    </h1>
+    <p>Localflare is a tool which helps you to backup data from cloudflare to local.</p>
+    <p>It's pre-release product, leave me message if you have any ideas or requests on it. ^_-</p>
+    <form class="w-full px-5 py-12 flex" id="feedback">
+      <input type="hidden" name="client" value="htmx-form" />
+      <div class="lg:w-1/2 mx-auto rounded-lg p-8 flex flex-col w-full mt-10 md:mt-0 relative z-10 shadow-2xl">
+        <div class="relative mb-4">
+          <label for="email" class="leading-7 text-sm text-white">Email</label>
+          <input type="email" id="email" name="email"
+            class="w-full bg-blue-500 rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-white py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+        </div>
+        <div class="relative mb-4">
+          <label for="message" class="leading-7 text-sm text-white">Message</label>
+          <textarea id="message" name="message"
+            class="w-full bg-blue-500 rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-white py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+        </div>
+        <button
+          class="flex items-center  justify-center space-x-3 text-white bg-indigo-600 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-700 rounded text-lg"
+          type="submit" hx-post="https://kform.afoo.me" hx-swap="none">
+          <svg id="#indicatorx" class="indicatorx" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><rect width="2.8" height="12" x="1" y="6" fill="currentColor"><animate id="svgSpinnersBarsScale0" attributeName="y" begin="0;svgSpinnersBarsScale1.end-0.1s" calcMode="spline" dur="0.6s" keySplines=".36,.61,.3,.98;.36,.61,.3,.98" values="6;1;6"/><animate attributeName="height" begin="0;svgSpinnersBarsScale1.end-0.1s" calcMode="spline" dur="0.6s" keySplines=".36,.61,.3,.98;.36,.61,.3,.98" values="12;22;12"/></rect><rect width="2.8" height="12" x="5.8" y="6" fill="currentColor"><animate attributeName="y" begin="svgSpinnersBarsScale0.begin+0.1s" calcMode="spline" dur="0.6s" keySplines=".36,.61,.3,.98;.36,.61,.3,.98" values="6;1;6"/><animate attributeName="height" begin="svgSpinnersBarsScale0.begin+0.1s" calcMode="spline" dur="0.6s" keySplines=".36,.61,.3,.98;.36,.61,.3,.98" values="12;22;12"/></rect><rect width="2.8" height="12" x="10.6" y="6" fill="currentColor"><animate attributeName="y" begin="svgSpinnersBarsScale0.begin+0.2s" calcMode="spline" dur="0.6s" keySplines=".36,.61,.3,.98;.36,.61,.3,.98" values="6;1;6"/><animate attributeName="height" begin="svgSpinnersBarsScale0.begin+0.2s" calcMode="spline" dur="0.6s" keySplines=".36,.61,.3,.98;.36,.61,.3,.98" values="12;22;12"/></rect><rect width="2.8" height="12" x="15.4" y="6" fill="currentColor"><animate attributeName="y" begin="svgSpinnersBarsScale0.begin+0.3s" calcMode="spline" dur="0.6s" keySplines=".36,.61,.3,.98;.36,.61,.3,.98" values="6;1;6"/><animate attributeName="height" begin="svgSpinnersBarsScale0.begin+0.3s" calcMode="spline" dur="0.6s" keySplines=".36,.61,.3,.98;.36,.61,.3,.98" values="12;22;12"/></rect><rect width="2.8" height="12" x="20.2" y="6" fill="currentColor"><animate id="svgSpinnersBarsScale1" attributeName="y" begin="svgSpinnersBarsScale0.begin+0.4s" calcMode="spline" dur="0.6s" keySplines=".36,.61,.3,.98;.36,.61,.3,.98" values="6;1;6"/><animate attributeName="height" begin="svgSpinnersBarsScale0.begin+0.4s" calcMode="spline" dur="0.6s" keySplines=".36,.61,.3,.98;.36,.61,.3,.98" values="12;22;12"/></rect></svg>
+          <span>Send</span>
+        </button>
+      </div>
+    </form>
+  </main>
+
+  <footer>
+    <div class="container flex flex-col items-center  mx-auto">
+      <p class="text-sm">Copyright © 2024 - <a href="https://afoo.me" class="border-b">王福强</a>个人版权所有</p>
+    </div>
+  </footer>
+  <script>
+    htmx.on("htmx:sendError", function(e){
+      Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "出错啦～ \n好像网路走不通哦，亲 -_-",
+        });
+    })
+    htmx.on("htmx:beforeSwap", function (evt) {
+      if (evt.detail.xhr.status == 200 || evt.detail.xhr.status == 204) {
+        htmx.find("#feedback").reset();
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: `收到，感谢您的反馈 🌼`,
+          showConfirmButton: false,
+          timer: 3000
+        });
+      } else if (evt.detail.xhr.status >= 400) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "出错啦～ \n请稍后再试或者联系管理员吧～",
+          footer: '<a href="https://afoo.me">Why do I have this issue?</a>'
+        });
+      }
+    })
+  </script>
+</body>
+
+</html>
