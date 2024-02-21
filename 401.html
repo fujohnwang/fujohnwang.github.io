@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]">
+
+<head>
+	<title>401 - 没有权限 - unauthorized - 剑毅阁 志 - 王福强的博客：一个架构士的思考与沉淀</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="robots" content="index,follow">
+	<meta name="description" content="剑毅阁 志, 福强说，扶墙老师说，王福强的个人博客，一个架构士的思考与沉淀">
+	<meta name="keywords"
+		content="剑毅阁,架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学">
+	<meta name="author" content="王福强">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="canonical" href="https://afoo.me">
+	<link rel="shortcut icon" href="https://afoo.me/favicon.ico">
+	<link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg">
+	<link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8">
+	<link rel="stylesheet" href="/css/af.css">
+	<link rel="stylesheet" href="/css/components.css">
+	<script src="https://unpkg.com/@popperjs/core@2" ></script>
+	<script src="https://unpkg.com/tippy.js@6" ></script>
+</head>
+
+<body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized">
+	<header
+		class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0"
+		id="header">
+		<div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4">
+			<div class="flex justify-between">
+				<a class="flex items-center" href="https://afoo.me">
+					<span
+						class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white">
+						<h1>401 - 无权限/Unauthorized</h1>
+					</span>
+				</a>
+				<div class="flex items-center md:hidden">
+					<button type="button"
+						class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center"
+						aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme="">
+						<svg viewBox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun">
+							<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+								stroke-width="2" class="icon-tabler">
+								<circle cx="12" cy="12" r="4"></circle>
+								<path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7">
+								</path>
+							</g>
+						</svg>
+					</button>
+					<button type="button"
+						class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition"
+						aria-label="Toggle Menu" data-toggle-menu="">
+						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+							preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" class="w-6 h-6"
+							astro-icon="tabler:menu">
+							<g class="icon-tabler" fill="none" stroke="currentColor" stroke-width="2"
+								stroke-linecap="round" stroke-linejoin="round">
+								<path d="M4 8h16"></path>
+								<path d="M4 16h16"></path>
+							</g>
+						</svg>
+					</button>
+				</div>
+			</div>
+			<nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto"
+				aria-label="Main navigation">
+				<ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base">
+					<li>
+						<a id="aiedu" class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" 
+						href="http://edu.afoo.me"
+						>
+							福强AI学堂</a>
+					</li>
+					<li>
+						<a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com">架构百科</a>
+					</li>
+					<li>
+						<a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out"
+							href="https://afoo.me/posts.html">博客文章
+						</a>
+					</li>
+					<li>
+						<a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out"
+							href="https://afoo.me/books.html">创作出版</a>
+					</li>
+					<li>
+						<a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://store.afoo.me">产品与服务</a>
+					</li>
+					<li>
+						<a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out"
+							href="https://afoo.me/crosslinks.html">更多链接</a>
+					</li>
+				</ul>
+				<div class="md:self-center flex items-center mb-4 md:mb-0 ml-2">
+					<div class="hidden items-center md:flex">
+						<button type="button"
+							class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center"
+							aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme="">
+							<svg viewBox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun">
+								<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+									stroke-width="2" class="icon-tabler">
+									<circle cx="12" cy="12" r="4"></circle>
+									<path
+										d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7">
+									</path>
+								</g>
+							</svg>
+						</button>
+						<a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center"
+							aria-label="RSS Feed" href="http://afoo.me/feeds.xml">
+							<svg viewBox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:rss">
+								<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+									stroke-width="2" class="icon-tabler">
+									<circle cx="5" cy="19" r="1"></circle>
+									<path d="M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"></path>
+								</g>
+							</svg>
+						</a>
+					</div>
+				</div>
+			</nav>
+		</div>
+	</header>
+	<main>
+
+
+		<section>
+			<div class="max-w-6xl mx-auto px-4 sm:px-6 overflow-hidden">
+				<div class="py-8">
+					<div class="flex flex-wrap md:-mx-8 items-top">
+
+						<div class="w-full lg:w-1/2 px-0 sm:px-8 f-center">
+							<div class="mb-12 lg:mb-0 pb-12 lg:pb-0 border-b lg:border-b-0">
+								<h2 class="mb-4 text-4xl lg:text-5xl font-bold font-heading">
+									没有相应权限访问目标页面和内容。
+								</h2>
+								<p>你可以考虑加入<a href="https://kb.afoo.me">「福强私学」</a>以访问福强提供的更多私家精彩内容。</p>
+							</div>
+						</div>
+
+						<div class="w-full lg:w-1/2 px-0 sm:px-8">
+							<img src="images/401.png" alt="404 illustration image"/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+<!-- Section Pricing -->
+<section>
+	<!-- Pricing Container-->
+	<div class="mx-auto w-full max-w-7xl px-5 py-16 md:px-10 md:py-24 lg:py-32">
+	  <!-- Pricing Title -->
+	  <div class="text-center">
+		<h2 class="text-3xl font-bold md:text-5xl">福强私学</h2>
+		<p class="mx-auto mb-8 mt-4 max-w-lg text-[#636262] md:mb-12 lg:mb-16">一次购买，终身受益。（Buy Once & Only Once）</p>
+	  </div>
+	  <!-- Pricing Content -->
+	  <div class="mx-auto mb-8 grid h-auto w-full grid-cols-[1.25fr] gap-4 rounded-md bg-[#f8ffcf] px-16 py-12 md:mb-12 md:grid-cols-[1.25fr_0.25fr_0.75fr] lg:mb-16 lg:grid-cols-[1.75fr_0.5fr_0.75fr] lg:px-20">
+		<!-- Pricing List -->
+		<ul class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+		  <!-- Pricing Item 1 -->
+		  <li class="flex flex-row items-center">
+			<img src="https://assets.website-files.com/6357722e2a5f19121d37f84d/635a09615f1f0a63beab4e4d_Check.svg" alt="" class="mr-4 h-4 w-4" />
+			<p class="">存量丰富，持续更新，早买早受益。</p>
+		  </li>
+		  <!-- Pricing Item 2 -->
+		  <li class="flex flex-row items-center">
+			<img src="https://assets.website-files.com/6357722e2a5f19121d37f84d/635a09615f1f0a63beab4e4d_Check.svg" alt="" class="mr-4 h-4 w-4" />
+			<p class="">只会涨价，无法降价，增量单行道。</p>
+		  </li>
+		  <!-- Pricing Item 3 -->
+		  <li class="flex flex-row items-center">
+			<img src="https://assets.website-files.com/6357722e2a5f19121d37f84d/635a09615f1f0a63beab4e4d_Check.svg" alt="" class="mr-4 h-4 w-4" />
+			<p class="">通识与认知的升级</p>
+		  </li>
+		  <!-- Pricing Item 4 -->
+		  <li class="flex flex-row items-center">
+			<img src="https://assets.website-files.com/6357722e2a5f19121d37f84d/635a09615f1f0a63beab4e4d_Check.svg" alt="" class="mr-4 h-4 w-4" />
+			<p class="">技术与思维的进化</p>
+		  </li>
+		  <!-- Pricing Item 5 -->
+		  <li class="flex flex-row items-center">
+			<img src="https://assets.website-files.com/6357722e2a5f19121d37f84d/635a09615f1f0a63beab4e4d_Check.svg" alt="" class="mr-4 h-4 w-4" />
+			<p class="">组织与管理的洗礼</p>
+		  </li>
+		  <!-- Pricing Item 6 -->
+		  <li class="flex flex-row items-center">
+			<img src="https://assets.website-files.com/6357722e2a5f19121d37f84d/635a09615f1f0a63beab4e4d_Check.svg" alt="" class="mr-4 h-4 w-4" />
+			<p class="">商业与人性的碰撞</p>
+		  </li>
+		</ul>
+		<!-- Divider Line -->
+		<div class="mx-auto h-full w-px border [border-left-style:solid]"></div>
+		<!-- Pricing -->
+		<div class="flex flex-col items-start">
+		  <h2 class="mb-4 text-3xl font-bold md:text-5xl">¥ 199<span class="text-sm font-light">/终身权益</span></h2>
+		  <a href="/consulting.html" class="flex flex-row items-center bg-[#276ef1] px-8 py-4 font-semibold text-white transition [box-shadow:rgb(171,_196,_245)_-8px_8px] hover:[box-shadow:rgb(171,_196,_245)_0px_0px]">
+			<p class="mr-6 font-bold">我要加入</p>
+			<svg fill="currentColor" class="h-4 w-4 flex-none" viewBox="0 0 20 21" xmlns="http://www.w3.org/2000/svg">
+			  <title>Arrow Right</title>
+			  <polygon points="16.172 9 10.101 2.929 11.515 1.515 20 10 19.293 10.707 11.515 18.485 10.101 17.071 16.172 11 0 11 0 9"></polygon>
+			</svg>
+		  </a>
+		</div>
+	  </div>
+	  <div class="mx-auto flex max-w-md flex-row">
+		<img src="https://assets.website-files.com/6357722e2a5f19121d37f84d/635a09bd5f1f0a694cab55ad_Ellipse%205-8.png" alt="" class="mr-4 h-16 w-16 object-cover" />
+		<div class="flex flex-col">
+		  <p class="mb-4 text-[#636262]">“Lorem ipsum dolor sit amet, &nbsp;elit ut aliquam, purus sit amet luctus venenatis elit ut aliquam, purus sit amet luctus venenatis"</p>
+		  <h6 class="text-base font-bold">Jon Snow</h6>
+		  <p class="text-sm text-[#636262]">Leader & Architect</p>
+		</div>
+	  </div>
+	</div>
+  </section>
+  
+
+	</main>
+	<footer class="border-t border-gray-200 dark:border-slate-800">
+		<div class="max-w-6xl mx-auto px-4 sm:px-6">
+
+
+			<div class="md:flex md:items-center md:justify-between py-6 md:py-8">
+				<ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0">
+					<li>
+						<a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center"
+							aria-label="Twitter" href="https://twitter.com/fujohnwang">
+							<svg viewBox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-twitter">
+								<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+									stroke-width="2"
+									d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z">
+								</path>
+							</svg>
+						</a>
+					</li>
+					<li>
+						<a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center"
+							aria-label="Facebook" href="https://www.facebook.com/fujohnwang/">
+							<svg viewBox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-facebook">
+								<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+									stroke-width="2"
+									d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2H7"></path>
+							</svg>
+						</a>
+					</li>
+					<li>
+						<a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center"
+							aria-label="Github" href="https://github.com/fujohnwang">
+							<svg viewBox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-github">
+								<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+									stroke-width="2"
+									d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21">
+								</path>
+							</svg>
+						</a>
+					</li>
+				</ul>
+				<div class="text-sm text-gray-700 mr-4 dark:text-slate-400">
+					<span class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 float-left rounded-sm">
+						<img src="https://afoo.me/favicon.svg" class="rounded-md" alt />
+					</span>
+					Copyright © 王福强个人版权所有 - Since 2004 (Everything is homebrewed with <a
+						href="https://pandoc.org/">Pandoc</a> and Markdown, little <a
+						href="https://www.scala-lang.org/">Scala</a> also included.)
+				</div>
+			</div>
+		</div>
+	</footer>
+	<script>
+		// Set "light" theme as default
+		if (!localStorage.theme) {
+		  localStorage.theme = "light";
+		}
+
+		if (
+			localStorage.theme === 'dark' ||
+			(!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+		) {
+			document.documentElement.classList.add('dark');
+		} else {
+			document.documentElement.classList.remove('dark');
+		}
+
+		function attachEvent(selector, event, fn) {
+			const matches = document.querySelectorAll(selector);
+			if (matches && matches.length) {
+				matches.forEach((elem) => {
+					elem.addEventListener(event, () => fn(elem), false);
+				});
+			}
+		}
+
+		window.onload = function () {
+			attachEvent('[data-toggle-menu]', 'click', function (elem) {
+				elem.classList.toggle('expanded');
+				document.body.classList.toggle('overflow-hidden');
+				document.getElementById('header')?.classList.toggle('h-screen');
+				document.querySelector('#header nav')?.classList.toggle('hidden');
+			});
+
+			attachEvent('[data-toggle-color-scheme]', 'click', function () {
+				document.documentElement.classList.toggle('dark');
+				localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+			});
+
+			attachEvent('[data-social-share]', 'click', function (elem) {
+				const network = elem.getAttribute('data-social-share');
+				const url = encodeURIComponent(elem.getAttribute('data-url'));
+				const text = encodeURIComponent(elem.getAttribute('data-text'));
+
+				let href;
+				switch (network) {
+					case 'facebook':
+						href = `https://www.facebook.com/fujohnwang`;
+						break;
+					case 'twitter':
+						href = `https://twitter.com/afoo_me`;
+						break;
+					case 'linkedin':
+						href = `https://www.linkedin.com/in/fuqiangwang/`;
+						break;
+					case 'mail':
+						href = `mailto:fujohnwang@gmail.com?subject=%22${text}%22&body=${text}%20${url}`;
+						break;
+
+					default:
+						return;
+				}
+
+				const newlink = document.createElement('a');
+				newlink.target = '_blank';
+				newlink.href = href;
+				newlink.click();
+			});
+		};
+		window.onpageshow = function () {
+			const elem = document.querySelector('[data-toggle-menu]');
+			if (elem) {
+				elem.classList.remove('expanded');
+			}
+			document.body.classList.remove('overflow-hidden');
+			document.getElementById('header')?.classList.remove('h-screen');
+			document.querySelector('#header nav')?.classList.add('hidden');
+		};
+	</script>
+
+<script src="https://formspree.io/js/formbutton-v1.min.js" defer></script>
+<script>
+  /* paste this line in verbatim */
+  window.formbutton=window.formbutton||function(){(formbutton.q=formbutton.q||[]).push(arguments)};
+  /* customize formbutton below*/     
+  formbutton("create", {
+    action: "https://formspree.io/f/xknlpkkd",
+    title: "有什么可以帮到您？💕💕💕 How can I help you?",
+    fields: [
+      { 
+        type: "email", 
+        label: "您的电子邮箱（方便与您联系）:", 
+        name: "email",
+        required: true,
+        placeholder: "your@email.com"
+      },
+      {
+        type: "textarea",
+        label: "您想提交的反馈和询问信息:",
+        name: "message",
+        placeholder: "What's on your mind?",
+      },
+      { type: "submit" }      
+    ],
+    styles: {
+      title: {
+        backgroundColor: "blue"
+      },
+      button: {
+        backgroundColor: "blue"
+      }
+    }
+  });
+</script>
+
+
+<script>
+	// tooltips
+	tippy('#aiedu', {
+        content: "As to AI nowadays, LLM and Stable Diffusion are hot even hottest among them, If your want to both know-why and know-how with them, instead of only know-how which can't repeat itself, you should get you to https://ai.afoo.me right now ❗"
+    });
+</script>
+
+
+</body>
+
+</html>
