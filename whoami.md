@@ -41,7 +41,7 @@
 
 **欢迎关注我的twitter和youtube**，视频号更新不及时或大部分内容无法更新。
 
-* [Twitter - 王福强](https://twitter.com/fujohnwang) ❤︎❤︎❤︎❤︎❤︎
+* [Twitter - 王福强](https://twitter.com/afoo_me) ❤︎❤︎❤︎❤︎❤︎
 * [Youtube](https://youtube.com/c/fujohnwang) - <https://youtube.com/@afoo>  ❤︎❤︎❤︎❤︎❤︎
 * [架构百科@Youtube](https://youtube.com/@jgbk)
 * Github - <https://github.com/fujohnwang>
