@@ -10,9 +10,9 @@ function startCountDown(minutes) {
 function updateCountdown() {
     const currentDate = new Date();
     const timeDifference = window.endTimestamp - currentDate;
-    console.log(`now: ${currentDate}`)
-    console.log(`diff: ${timeDifference}`)
-    console.log(`end: ${endTimestamp}`)
+    // console.log(`now: ${currentDate}`)
+    // console.log(`diff: ${timeDifference}`)
+    // console.log(`end: ${window.endTimestamp}`)
 
     // 如果倒计时已结束，则停止更新
     if (timeDifference <= 0) {
