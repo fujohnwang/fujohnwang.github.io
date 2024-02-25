@@ -1,15 +1,15 @@
-let endTimestamp;
+window.endTimestamp = null;
 
 function startCountDown(minutes) {
     const now = new Date();
     now.setMinutes(now.getMinutes() + minutes);
-    endTimestamp = now;
+    window.endTimestamp = now;
 
     updateCountdown();
 }
 function updateCountdown() {
     const currentDate = new Date();
-    const timeDifference = endTimestamp - currentDate;
+    const timeDifference = window.endTimestamp - currentDate;
     console.log(`now: ${currentDate}`)
     console.log(`diff: ${timeDifference}`)
     console.log(`end: ${endTimestamp}`)
