@@ -13,7 +13,7 @@ const disabledCss = {
 
 module.exports = {
     darkMode: 'class',
-    content: ['./**/*.html','./templates/**/*.html'],
+    content: ['./**/*.html','./templates/**/*.html','/Users/fq/workspace.cf/shop.afoo.me/assets/public/**/*.html'],
     plugins: [require('@tailwindcss/typography'),require("daisyui")],
     theme: {
       extend: {
