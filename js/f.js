@@ -4,13 +4,22 @@ function onSubmitX(data, setStatus, spinner) {
     return data;
 };
 
-function overlayOn() {
-    document.getElementById("actionBtn").disabled = true
-    document.getElementById("overlay").style.display = "block";
+const fOverlayDefaultId = "f-overlay"
+function overlayOn(id) {
+    let overlayId = fOverlayDefaultId
+    if(id){
+        overlayId = id
+    }
+    // document.getElementById("actionBtn").disabled = true
+    document.getElementById(overlayId).style.display = "block";
 }
 
 function overlayOff() {
-    document.getElementById("actionBtn").disabled = false
-    document.getElementById("overlay").style.display = "none";
+    let overlayId = fOverlayDefaultId
+    if(id){
+        overlayId = id
+    }
+    // document.getElementById("actionBtn").disabled = false
+    document.getElementById("overlayId").style.display = "none";
 }
 
