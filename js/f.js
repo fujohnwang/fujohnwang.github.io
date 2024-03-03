@@ -23,3 +23,10 @@ function overlayOff() {
     document.getElementById("overlayId").style.display = "none";
 }
 
+function f_uuid() {
+    return crypto.randomUUID();
+}
+
+
+
+
