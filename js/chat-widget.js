@@ -46,14 +46,12 @@
   
   // Inject the HTML
   chatWidgetContainer.innerHTML = `
-    <div id="chat-bubble" class="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center cursor-pointer text-3xl">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-      </svg>
+    <div id="chat-bubble" class="w-16 h-16 rounded-full flex items-center justify-center cursor-pointer text-3xl">
+      <img src="https://afoo.me/hero3/67.webp"/>
     </div>
     <div id="chat-popup" class="hidden absolute bottom-20 right-0 w-96 bg-white rounded-md shadow-md flex flex-col transition-all text-sm">
-      <div id="chat-header" class="flex justify-between items-center p-4 bg-gray-800 text-white rounded-t-md">
-        <h3 class="m-0 text-lg">Chat Widget by GPT4</h3>
+      <div id="chat-header" class="flex justify-between items-center p-4 bg-indigo-800 text-white rounded-t-md">
+        <h3 class="m-0 text-lg">有什么可以帮您？</h3>
         <button id="close-popup" class="bg-transparent border-none text-white cursor-pointer">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -63,11 +61,11 @@
       <div id="chat-messages" class="flex-1 p-4 overflow-y-auto"></div>
       <div id="chat-input-container" class="p-4 border-t border-gray-200">
         <div class="flex space-x-4 items-center">
-          <input type="text" id="chat-input" class="flex-1 border border-gray-300 rounded-md px-4 py-2 outline-none w-3/4" placeholder="Type your message...">
-          <button id="chat-submit" class="bg-gray-800 text-white rounded-md px-4 py-2 cursor-pointer">Send</button>
+          <input type="text" id="chat-input" class="flex-1 border border-gray-300 rounded-md px-4 py-2 outline-none w-3/4" placeholder="">
+          <button id="chat-submit" class="bg-indigo-800 text-white rounded-md px-4 py-2 cursor-pointer">发送</button>
         </div>
         <div class="flex text-center text-xs pt-4">
-          <span class="flex-1">Prompted by <a href="https://twitter.com/anantrp" target="_blank" class="text-indigo-600">@anantrp</a></span>
+          <span class="flex-1"><a href="https://twitter.com/afoo_me" target="_blank" class="text-indigo-600">@afoo_me</a>®</span>
         </div>
       </div>
     </div>
@@ -124,7 +122,7 @@
     const messageElement = document.createElement('div');
     messageElement.className = 'flex justify-end mb-3';
     messageElement.innerHTML = `
-      <div class="bg-gray-800 text-white rounded-lg py-2 px-4 max-w-[70%]">
+      <div class="bg-indigo-800 text-white rounded-lg py-2 px-4 max-w-[70%]">
         ${message}
       </div>
     `;
@@ -135,7 +133,7 @@
   
     // Reply to the user
     setTimeout(function() {
-      reply('Hello! This is a dummy reply.');
+      reply('暂时还未对接真正的人工智能，请稍后或者直接联系作者本人🤪');
     }, 1000);
   }
   
