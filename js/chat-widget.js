@@ -39,6 +39,11 @@
 
   document.head.appendChild(style);
 
+  // window.addEventListener('message', function(event) {
+  //   console.log("receive messge from postMessage:"+event.data)
+  //   window.WhereAmI = event.data
+  // })
+
   // Create chat widget container
   const chatWidgetContainer = document.createElement('div');
   chatWidgetContainer.id = 'chat-widget-container';
@@ -110,7 +115,38 @@
     const chatPopup = document.getElementById('chat-popup');
     chatPopup.classList.toggle('hidden');
     if (!chatPopup.classList.contains('hidden')) {
+
+      const socket = new WebSocket('ws://121.5.41.239:1980');
+      // socket.binaryType = "arraybuffer";  // binaryType's default value is Blob
+      socket.addEventListener('open', () => {
+        console.log('Connected to the Worker');
+      });
+  
+      socket.addEventListener('message', async (event) => {
+          // const dataBytes = new Uint8Array(event.data);
+          // console.log(new StringDecoder().decode(dataBytes));
+          let replyMessage;
+          if(typeof event.data === 'string'){
+              // 如果server端直接writeTextMessage
+              console.log(`message receives: ${event.data}`);
+              replyMessage = event.data;
+          }else{
+              const msg = await event.data.text();
+              console.log(`message receives: ${msg}`);
+              replyMessage = msg;
+          }
+          reply(replyMessage);
+      });
+  
+      socket.addEventListener('close', () => {
+        console.log('Disconnected from the Worker');
+      });
+  
+      window.LCSocket = socket;
+
       document.getElementById('chat-input').focus();
+    }else{
+      window.LCSocket.close();
     }
   }  
 
@@ -131,10 +167,11 @@
   
     chatInput.value = '';
   
-    // Reply to the user
-    setTimeout(function() {
-      reply('暂时还未对接真正的人工智能，请稍后或者直接联系作者本人🤪');
-    }, 1000);
+    // window.LCSocket.send(new TextEncoder().encode(`${window.WhereAmI},${message}`).buffer)
+    window.LCSocket.send(new TextEncoder().encode(message).buffer)
+    // setTimeout(function() {
+    //   reply('暂时还未对接真正的人工智能，请稍后或者直接联系作者本人🤪');
+    // }, 1000);
   }
   
   function reply(message) {
