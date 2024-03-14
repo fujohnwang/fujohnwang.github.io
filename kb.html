@@ -147,28 +147,8 @@
 						</div>
 
 						<div class="w-full lg:w-1/2 px-0 sm:px-8">
-							<!-- <img src="images/goat.png" alt="logo" loading="lazy"/> -->
+							<img src="images/free_trial_of_honojs.png" alt="logo" loading="lazy"/>
 							<!-- <img src="kb/formula.png" alt="" loading="lazy"/> -->
-							<section x-data="{
-								posts: [],
-								load(){
-									fetch('https://afoo.me/api/kb/latest').then(r=> r.json()).then(t=> this.posts = t)
-								}
-							}" x-init="load()">
-								<div class="mx-auto w-full max-w-7xl px-5 py-16 md:px-10">
-								  <h2 class="text-center text-3xl font-bold md:text-5xl mb-8">最新内容更新</h2>
-								  <div class="mx-auto grid max-w-xl gap-4">
-									<template x-for="post in posts">
-										<div class="flex flex-col items-center text-center sm:flex-row sm:text-left">
-										  <div class="pt-4 sm:px-8 sm:pt-0">
-											<a x-bind:href=`https://kb.afoo.me/${post.url}` x-text="post.title" class="mb-4 font-bold"></a>
-										  </div>
-										</div>
-									</template>
-								  </div>
-								</div>
-							  </section>
-					
 						</div>
 					</div>
 				</div>
@@ -326,7 +306,25 @@
 
 		  </section>
 
-
+		  <section x-data="{
+			posts: [],
+			load(){
+				fetch('https://afoo.me/api/kb/latest').then(r=> r.json()).then(t=> this.posts = t)
+			}
+		}" x-init="load()">
+			<div class="mx-auto w-full max-w-7xl px-5 py-16 md:px-10">
+			  <h2 class="text-center text-3xl font-bold md:text-5xl mb-8">最新内容更新</h2>
+			  <div class="mx-auto grid max-w-xl gap-4">
+				<template x-for="post in posts">
+					<div class="flex flex-col items-center text-center sm:flex-row sm:text-left">
+					  <div class="pt-4 sm:px-8 sm:pt-0">
+						<a x-bind:href=`https://kb.afoo.me/${post.url}` x-text="post.title" class="mb-4 font-bold"></a>
+					  </div>
+					</div>
+				</template>
+			  </div>
+			</div>
+		  </section>
 
 
 		<section>
