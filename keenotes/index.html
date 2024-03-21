@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>福强笔记</title>
+    <style>
+        body {
+            max-width: 46rem;
+            padding: 1.7rem;
+            margin: auto;
+            font-family: 'Source Han Serif', serif;
+            font-size: 21px;
+            background-color: black;
+        }
+
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+            text-align: center;
+        }
+
+        figcaption {
+            text-align: center;
+        }
+
+        textarea {
+            font-size: x-large;
+            width: 100%;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #3883F8;
+            color: white;
+            background-color: #3883F8;
+            box-shadow: inset 0 1px 3px black;
+            /* border-radius: 19px; */
+            box-sizing: border-box;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 12px;
+            padding-bottom: 12px;
+        }
+
+        button {
+            width: 100%;
+            border: 1px solid #3883F8;
+            background-color: #3883F8;
+            border-radius: 4px;
+            box-sizing: border-box;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            color: white;
+            font-weight: bold;
+        }
+
+        button:disabled {
+            background-color: white;
+        }
+
+        h1 {
+            color: white;
+            font-size: 79px;
+        }
+
+        .center{
+            display: flex;
+            justify-content:center;
+            align-items:center;
+        }
+
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3383F8;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite;
+            /* Safari */
+            animation: spin 2s linear infinite;
+        }
+
+        /* Safari */
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .hide-loader {
+            display: none;
+            visibility: hidden;
+        }
+
+        .fadeMe {
+            opacity: 0.8;
+            /* filter: alpha(opacity=20); */
+            background-color: black;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            top: 0;
+            left: 0;
+            position: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.19.2/dist/axios.js"></script>
+    -->
+    <script src="js/axios.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="js/moment.min.js"></script>
+</head>
+
+<body onload="javascript: document.getElementById('note').focus();">
+<!--<div class="center"><h1>趣悟笔记</h1></div>-->
+
+<div class="fadeMe hide-loader" id="mask">
+    <div class="loader">
+    </div>
+</div>
+<div id="app">
+    <form v-on:submit="sub" action="#" method="post">
+        <button id="submit" type="submit">记存</button>
+        <textarea id="note" v-model="note" placeholder="" rows="11"></textarea>
+    </form>
+    <p style="white-space: pre-wrap; color: aqua;">{{ message }}</p>
+    <span style="font-size: 11px; color: rosybrown;">{{timestamp}}</span>
+</div>
+
+<script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: "",
+                timestamp: "",
+                note: ""
+            },
+            methods: {
+                sub: function (event) {
+                    var self = this;
+                    event.preventDefault();
+
+                    self.message = ""
+                    if (self.note == "") {
+                        self.message = "你啥也没写呀..."
+                    } else {
+                        document.getElementById("submit").disabled = true;
+                        document.body.style.cursor = 'wait';
+                        var mask = document.getElementById('mask');
+                        mask.classList.remove('hide-loader');
+
+                        var today = new Date();
+                        const config = {
+                            headers: {
+                                    'Authorization':'Bearer KEEp1VOLution',
+                                    'Content-Type':'application/json'
+                                }
+                        };
+                        let payload = {
+                            channel: 'android',
+                            text: self.note,
+                            ts: moment().format('YYYY-MM-DD HH:mm:ss')
+                        }
+                        axios.post('https://q.afoo.me/', JSON.stringify(payload), config)
+                            .then(function (response) {
+                                console.log(response)
+                                self.message = self.note
+                                self.note = ""
+                                var local = 'zh-CN';
+                                today = today.toLocaleDateString(local) + ' ' + today.toLocaleTimeString(local);
+                                self.timestamp = today
+                            }).catch(function (response) {
+                                self.message = "发送失败 ：（ \n" + response;
+                            }).finally(function () {
+                                mask.classList.add('hide-loader');
+                                document.body.style.cursor = 'default';
+                                document.getElementById("submit").disabled = false;
+                            });
+                    }
+
+                }
+
+            }
+        })
+    </script>
+</body>
+
+</html>
