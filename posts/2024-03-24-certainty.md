@@ -16,17 +16,7 @@
 
 我之前说乔布斯不懂咨询，其实也是这个意思， 他觉得做咨询的应该do something，问题是，人家本来就在do something，君不见几大咨询公司的年营收是多少亿级别吗？ 难道他们不do something客户就愿意白白给他们送钱？实际上，之所以有咨询这个业务，就因为他们干过，或者说他们做他们的这个事情是专业的，所以，他们才能做这个事情。 创新业务当然很酷，但在企业经营过程中一再重复出现的事情就没有价值了吗？只要企业需要从出生到死亡，它的整个生命周期中一些共性的东西就会有人去重新经历，跟人其实是一样的，唯一的差别可能只是换一种形式、换一种载体、换一种业务...
 
-<div class="not-content mx-auto max-w-screen-lg mt-6">
-    <div class="relative" style="padding-top: 56.25%">
-        <video controls preload="auto" class="absolute top-0 left-0 w-full h-full">
-            <source src="https://youtu.be/-c4CNB80SRc" type="video/mp4" />
-            Your browser does not support the video tag.
-        </video> 
-    </div>
-    <div style="text-align: center;">
-        <a href="https://youtu.be/-c4CNB80SRc">Steve Jobs on Consulting</a>
-    </div>
-</div>
+<a href="https://youtu.be/-c4CNB80SRc">Steve Jobs on Consulting</a>
 
 并非所有企业都能承担得起创新的成本和代价，能给出确定性的咨询和顾问，恰恰可以帮助企业降低探索和试错的成本，他们的价值也就在于此。假如他们要帮企业去做创新性业务，那他们为什么不自己做呢？ 他们又不傻。 生态位不同而已。
 
