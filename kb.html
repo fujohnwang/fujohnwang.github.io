@@ -1011,9 +1011,7 @@
 	
 
 	function getRedirectURL() {
-		if(/micromessenger/.test(navigator.userAgent)) {
-			window.location.href="https://keevol.cn/kb.html"
-		}else if (window.innerWidth < 768 || (/AndroidwebOSiPhoneiPadPodBlackBerryIEMobileOpera Mini/i.test(navigator.userAgent))) {
+		if (window.innerWidth < 768 || (/AndroidwebOSiPhoneiPadPodBlackBerryIEMobileOpera Mini/i.test(navigator.userAgent))) {
 			window.location.href = "https://afoo.me/kb_mobile.html"
 		} else {
 			let base = 'https://shop.afoo.me/kb.html';
