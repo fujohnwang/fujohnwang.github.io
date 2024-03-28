@@ -19,7 +19,7 @@
 	<link rel="stylesheet" href="/css/components.css">
 	<script src="https://unpkg.com/@popperjs/core@2" ></script>
 	<script src="https://unpkg.com/tippy.js@6" ></script>
-	<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.2/dist/cdn.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.7/sweetalert2.all.min.js" integrity="sha512-sCRQAGZoT2SOdF+QT+pzQaJn2SP9K4t27Au967tsnf3gZNfHcKrkAKudpV2JBu16wsMouvG8C7iNV+dmMgDBgQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized">
@@ -1012,7 +1012,9 @@
 	
 
 	function getRedirectURL() {
-		if (window.innerWidth < 768 || (/AndroidwebOSiPhoneiPadPodBlackBerryIEMobileOpera Mini/i.test(navigator.userAgent))) {
+		if(/micromessenger/.test(uAgent)) {
+			Swal.fire("hard working in progress, try on PC/Desktop instead.");
+		}else if (window.innerWidth < 768 || (/AndroidwebOSiPhoneiPadPodBlackBerryIEMobileOpera Mini/i.test(navigator.userAgent))) {
 			window.location.href = "https://afoo.me/kb_mobile.html"
 		} else {
 			let base = 'https://shop.afoo.me/kb.html';
