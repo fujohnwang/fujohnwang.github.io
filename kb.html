@@ -1027,8 +1027,12 @@
 		let result = await fetch('https://auth.afoo.me/sin',{
           credentials: 'include'
         })
+		console.log("ok? "+ result.ok + ", status" + result.status)
 		if(result.ok) {
+			console.log("signed in user, redirect to shop page.")
 			base = 'https://shop.afoo.me/kb.html';
+		}else{
+			console.log("not signed in, redirect to open page.")
 		}
 		return base;
 	}
