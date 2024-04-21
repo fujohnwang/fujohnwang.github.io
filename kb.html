@@ -1022,25 +1022,20 @@
         content: "页面最下方有福强的微信和飞书联系方式，感谢感谢🙏"
     });
 	
-	function getBaseURL() {
+	async function getBaseURL() {
 		let base =  "https://afoo.me/kb_mobile.html"
-
-		fetch('https://auth.afoo.me/user/profile',{
+		let result = await fetch('https://auth.afoo.me/user/profile',{
           credentials: 'include'
         })
-        .then((response) => response.json())
-        .then((data) => {
-            if(data.length){
-				base = 'https://shop.afoo.me/kb.html';
-            }
-        })
-		
+		let data = await result.json()
+		if(data.length){
+			base = 'https://shop.afoo.me/kb.html';
+        }
 		return base;
 	}
 
-
-	function getRedirectURL() {
-		let base = getBaseURL();
+	async function getRedirectURL() {
+		let base =  await getBaseURL();
 		const redirectURL = new URL(window.location.href).searchParams.get("rf")
         if (redirectURL) {
             window.location.href = `${base}?rf=${redirectURL}`
