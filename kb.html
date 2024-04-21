@@ -1023,7 +1023,7 @@
     });
 	
 	function getBaseURL() {
-		let base = 'https://shop.afoo.me/kb.html';
+		let base =  "https://afoo.me/kb_mobile.html"
 
 		fetch('https://auth.afoo.me/user/profile',{
           credentials: 'include'
@@ -1031,9 +1031,10 @@
         .then((response) => response.json())
         .then((data) => {
             if(data.length){
-				base = "https://afoo.me/kb_mobile.html"
+				base = 'https://shop.afoo.me/kb.html';
             }
         })
+		
 		return base;
 	}
 
