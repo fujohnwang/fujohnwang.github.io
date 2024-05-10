@@ -1032,24 +1032,9 @@
 	tippy('#contact', {
         content: "页面最下方有福强的微信和飞书联系方式，感谢感谢🙏"
     });
-	
-	async function getBaseURL() {
-		let base =  "https://afoo.me/kb_mobile.html"
-		let result = await fetch('https://auth.afoo.me/sin',{
-          credentials: 'include'
-        })
-		console.log("ok? "+ result.ok + ", status" + result.status)
-		if(result.ok) {
-			console.log("signed in user, redirect to shop page.")
-			base = 'https://shop.afoo.me/kb.html';
-		}else{
-			console.log("not signed in, redirect to open page.")
-		}
-		return base;
-	}
 
 	async function getRedirectURL() {
-		let base =  await getBaseURL();
+		let base = 'https://shop.afoo.me/kb.html';
 		const redirectURL = new URL(window.location.href).searchParams.get("rf")
         if (redirectURL) {
             window.location.href = `${base}?rf=${redirectURL}`
