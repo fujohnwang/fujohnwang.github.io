@@ -1216,6 +1216,7 @@
 	</script>
 
 <script src="/assets/tw-elements.umd.min.js"></script>
+<script src="/js/f.js"></script>
 
 <script src="https://formspree.io/js/formbutton-v1.min.js" defer></script>
 <script>
@@ -1263,14 +1264,23 @@
         content: "页面最下方有福强的微信和飞书联系方式，感谢感谢🙏"
     });
 
-	async function getRedirectURL() {
-		let base = 'https://shop.afoo.me/kb.html';
+	function aff(baseLink) {
 		const redirectURL = new URL(window.location.href).searchParams.get("rf")
         if (redirectURL) {
-            window.location.href = `${base}?rf=${redirectURL}`
+            return `${baseLink}?rf=${redirectURL}`;
         } else {
-            window.location.href = base
+			return baseLink;
         }
+	}
+
+	function buyNow() {
+		const url = dispatchLink("https://keevol.cn/kb.html", "https://afoo.me/kb_mobile.html", "https://shop.afoo.me/kb.html")
+		window.location.href = aff(url)
+	}
+
+	async function getRedirectURL() {
+		let base = 'https://shop.afoo.me/kb.html';
+		window.location.href = aff(base)
 	}
 </script>
 

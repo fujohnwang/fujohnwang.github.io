@@ -7,7 +7,7 @@ function onSubmitX(data, setStatus, spinner) {
 const fOverlayDefaultId = "f-overlay"
 function overlayOn(id) {
     let overlayId = fOverlayDefaultId
-    if(id){
+    if (id) {
         overlayId = id
     }
     // document.getElementById("actionBtn").disabled = true
@@ -16,7 +16,7 @@ function overlayOn(id) {
 
 function overlayOff() {
     let overlayId = fOverlayDefaultId
-    if(id){
+    if (id) {
         overlayId = id
     }
     // document.getElementById("actionBtn").disabled = false
@@ -27,6 +27,21 @@ function f_uuid() {
     return crypto.randomUUID();
 }
 
+function isWx() {
+    return /(micromessenger|webbrowser)/.test(navigator.userAgent.toLocaleLowerCase());
+}
 
+function isMobile() {
+    return (window.innerWidth < 768 || (/AndroidwebOSiPhoneiPadPodBlackBerryIEMobileOpera Mini/i.test(navigator.userAgent)));
+}
 
+function dispatchLink(wxLink, mbLink, webLink) {
+    if (isWx()) {
+        return wxLink;
+    } else if (isMobile()) {
+        return mbLink;
+    } else {
+        return webLink;
+    }
+}
 
