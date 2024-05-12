@@ -1268,7 +1268,11 @@
 	function aff(baseLink) {
 		const rflink = new URL(window.location.href).searchParams.get("rf")
         if (rflink) {
-            return `${baseLink}?rf=${rflink}`;
+			if(baseLink.indexOf("?") > 0) {
+				return `${baseLink}&rf=${rflink}`;
+			}else{
+				return `${baseLink}?rf=${rflink}`;
+			}
         } else {
 			return baseLink;
         }
@@ -1284,7 +1288,7 @@
 	}
 
 	function buyNow() {
-		const url = dispatchLink("https://keevol.cn/order.html", "https://afoo.me/kb_mobile.html", "https://shop.afoo.me/kb.html")
+		const url = dispatchLink("https://keevol.cn/order.html?product=kb", "https://afoo.me/kb_mobile.html", "https://shop.afoo.me/kb.html")
 		window.location.href = coupon(aff(url))
 	}
 
