@@ -1281,7 +1281,11 @@
 	function coupon(link) {
 		const coupon = new URL(window.location.href).searchParams.get("coupon")
 		if(coupon) {
-			return `${link}&coupon=${coupon}`
+			if(link.indexOf("?") > 0) {
+				return `${link}&coupon=${coupon}`
+			}else{
+				return `${link}?coupon=${coupon}`
+			}
 		}else{
 			return link
 		}
