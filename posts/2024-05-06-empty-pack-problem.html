@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="发空包？ 空包弹吗？ - 架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="发空包？ 空包弹吗？ - 福强说，扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+  <meta name="robots" content="index,follow"> 
+  <title>发空包？ 空包弹吗？ -王福强的个人博客：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2024-05-06"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <link rel="canonical" href="https://afoo.me/posts/2024-05-06-empty-pack-problem.html"> 
+  <link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"> 
+  <link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8"> 
+  <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <script src="https://unpkg.com/@popperjs/core@2"></script> 
+  <script src="https://unpkg.com/tippy.js@6"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link rel="stylesheet" href="/css/components.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
+  <style type="text/css">
+        pre > code{
+          white-space: pre-wrap;
+          font-family: monospace;
+          font-size: 14px;
+          /* border-left: blueviolet;
+          border-left-width: thick;
+          border-left-style: double;
+          padding-left: 1rem !important; */
+        }
+        
+        .x-indicator{
+            display:none;
+        }
+        .htmx-request .x-indicator{
+            display:inline;
+        }
+        .htmx-request.x-indicator{
+            display:inline;
+        }
+    </style> 
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "发空包？ 空包弹吗？",
+      "image": [
+        "https://afoo.me/images/fb_subscribe.jpg"
+       ],
+      "datePublished": "2024-05-06",
+      "author": [{
+          "@type": "Person",
+          "name": "王福强",
+          "url": "https://afoo.me"
+        }]
+    }
+  </script> 
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3687639021943715" crossorigin="anonymous"></script> 
+ </head> 
+ <body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"> 
+  <header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"> 
+   <div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"> 
+    <div class="flex justify-between"> <a class="flex items-center" href="https://afoo.me"> <span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"> <h1>王福强的博客</h1> </span> </a> 
+     <div class="flex items-center md:hidden"> <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""> 
+       <svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+         <circle cx="12" cy="12" r="4"></circle> 
+         <path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"> 
+         </path> 
+        </g> 
+       </svg> </button> <button type="button" class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition" aria-label="Toggle Menu" data-toggle-menu=""> 
+       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:menu"> <g class="icon-tabler" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+         <path d="M4 8h16"></path> 
+         <path d="M4 16h16"></path> 
+        </g> 
+       </svg> </button> 
+     </div> 
+    </div> 
+    <nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"> 
+     <ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"> 
+      <li><a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://kb.afoo.me/">福强私学</a></li> 
+      <li> <a id="aiedu" class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://ai.afoo.me"> 福强AI学堂</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com">架构百科</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html">博客文章 </a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html">创作出版</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://store.afoo.me">产品与服务</a> </li> 
+      <li><a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://auth.afoo.me/user.html">登录信息</a></li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/crosslinks.html">更多链接</a> </li> 
+     </ul> 
+     <div class="md:self-center flex items-center mb-4 md:mb-0 ml-2"> 
+      <div class="hidden items-center md:flex"> <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+          <circle cx="12" cy="12" r="4"></circle> 
+          <path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"> 
+          </path> 
+         </g> 
+        </svg> </button> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="RSS Feed" href="http://afoo.me/feeds.xml"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:rss"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+          <circle cx="5" cy="19" r="1"></circle> 
+          <path d="M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"></path> 
+         </g> 
+        </svg> </a> 
+      </div> 
+     </div> 
+    </nav> 
+   </div> 
+  </header> 
+  <main> 
+   <div id="leftSlot" class="visible md:invisible fixed top-0 left-0" style="width: 16rem;height: 80%;margin-top: 4rem;"> <!-- left --> 
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="3581141418" data-ad-format="auto" data-full-width-responsive="true"></ins> 
+    <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+      </script> 
+   </div> 
+   <div id="rightSlot" class="visible md:invisible fixed top-0 right-0" style="width: 16rem;height: 80%;margin-top: 4rem;"> <!-- right --> 
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="7030836806" data-ad-format="auto" data-full-width-responsive="true"></ins> 
+    <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script> 
+   </div> 
+   <section class="text-gray-600 body-font relative"> 
+    <div class="container px-5 py-24 mx-auto mb-12 prose prose-lg dark:prose-invert"> 
+     <p class="lead"> </p>
+     <h1 class="title">发空包？ 空包弹吗？</h1> <small> <h3 class="author">王福强</h3> 
+      <div style="text-align: left;">
+       2024-05-06
+      </div> </small> 
+     <p></p> <!-- random --> 
+     <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="2722720851" data-ad-format="auto" data-full-width-responsive="true"></ins> 
+     <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script> 
+     <hr> 
+     <p>对于重庆小孩儿（胖猫）的遭遇不想做过多评价， 只想聊聊发空包这个事情。</p> 
+     <p>其实，假如你知道拼多多早年发空包的事儿，对于这种餐饮发空包也就没啥好稀奇的了。</p> 
+     <p>啥是发空包？ 就是你下了订单，快递给你的包裹是空的，并不包含你订单里的商品，这在早年电商行业一般用来刷交易量，提升门店信用等级。</p> 
+     <p>当然，我其实不关心空包是什么，而更关心<strong>为什么只有麦当劳/肯德基不发空包？</strong></p> 
+     <p>比较有意思的是，正好前几天跟我同学要些麦当劳/肯德基标准化运营的资料或者书籍，因为多次听他讲到而且实际上他也确实在这么做，所以，就也想了解下麦当劳/肯德基标准化运营有什么奇妙的地方，毕竟，流浪在外，工作机没带，攒了一堆issues也没法干活，找几本书看看总是可以的。</p> 
+     <p>扫了一堆资料，发现里面我最感兴趣的就是店长运营指导手册，从内容就可以看出来这些内容是实战中攒下来的宝贵经验，什么每日盘点啦，出货验收啦，西饼的进销管理啦， 现金收付啦（当然，资料可能有些老，今天估计电子化数字化了，不用像过去收银机）， 总之，就是活生生的现实经营中的各种细节。不一定保证每个店长都能做到，但所有店长中位数能拉到80分就已经是很牛的水平了。我看的还是老资料，相信现在的标准化运营应该更是与时俱进了吧！</p> 
+     <p>标准化运营的好处就是，从个人到门店都可以用最“省力”的方式完成最不差的服务。西饼消耗多少就是多少，店员根本也没必要根据特殊订单情况进行差异化处理。 这让我想起某个教授讲日本列车员的标注化服务，我没有亲身经历过，所以不知道真假，大体意思就是，列车员到每一节车厢都会鞠躬敬礼，并致欢迎词，不管这节车厢里有没有人。 这其实就是既减轻了列车员的认知负担，也保证了标准化服务的质量，只要行为保证就行了。但按照我们大多数人的聪明才智，估计车厢里没人也就不做这些动作了吧 ；）</p> 
+     <p>任何一家做大的企业，背后体现的是他绝对的综合实力，绝不单单靠小聪明就能做起来的。<strong>发空包与正常服务，只是不同组织/门店在管理水平上差距的折射而已。</strong></p> <!-- tail --> 
+     <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="7874087130" data-ad-format="auto" data-full-width-responsive="true"></ins> 
+     <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script> 
+     <hr> 
+     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+     </div> 
+     <div id="random_posts"> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2023-12-30-chrome-extension-with-dependencies.html">在开发Chrome Extension的时候如何使用第三方js库或者npm依赖？ </a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2007-07-25-BF4768EE8B110260_502.html">我是一个没素质的人</a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2024-05-02-expert-secrets-reading-note.html">Expert Secrets书中颠覆三观的几点体会 </a> 
+      </div> 
+     </div> 
+     <hr> 
+     <div id="comments"></div> 
+     <hr> <!-- Section CTA --> 
+     <section> <!-- Container --> 
+      <div class="mx-auto w-full max-w-7xl px-5 py-16 md:px-10"> <!-- Component--> 
+       <div class="grid items-center gap-8 sm:gap-20 lg:grid-cols-2"> 
+        <div> 
+         <h2 class="mb-4 max-w-2xl text-3xl font-bold md:text-5xl"><a href="https://afoo.me/kb.html">欢迎加入「福强私学」</a></h2> 
+         <p class="mb-3 max-w-lg text-sm text-[#636262] sm:text-base">跨越2190个日夜，始终坚持“实践 + 原创”打造的715125字专属知识库，囊括了（但不限于）从职场、技术、管理与商业等多个板块的内容。</p> 
+         <ul class="mb-3 max-w-lg text-sm text-[#636262] sm:text-base"> 
+          <li>一个ChatGPT触达不到的地方</li> 
+          <li>一个带你超越AI/人工智能的地方</li> 
+          <li>一个与你一起成长的地方</li> 
+         </ul> 
+         <p class="mb-4 max-w-lg text-sm text-[#636262] sm:text-base"> <a href="https://afoo.me/kb.html" class="border-b">https://afoo.me/kb.html</a> </p> 
+        </div> 
+        <div> <a href="https://afoo.me/kb.html"> <img src="https://afoo.me/qrcodes/kb.afoo.me.png" alt="" class="mx-auto inline-block h-full w-full max-w-2xl"> </a> 
+        </div> 
+       </div> 
+      </div> 
+     </section> 
+     <hr> 
+     <p> <span style="font-size: xx-large;"> 开天窗，拉认知，订阅「福报」，即刻拥有自己的全模态人工智能。 </span> </p> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe_v2.jpg" alt="订阅「福报」"> </a> 
+     <hr> 
+     <div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"> 
+      <div id="tfloader" class="x-indicator"> 
+       <svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"> <g fill="none" fill-rule="evenodd"> 
+         <g transform="translate(1 1)" stroke-width="2"> 
+          <circle cx="5" cy="50" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+          <circle cx="27" cy="5" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+          <circle cx="49" cy="50" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+         </g> 
+        </g> 
+       </svg> 
+      </div> 
+     </div> 
+    </div> 
+   </section> 
+  </main> 
+  <footer class="border-t border-gray-200 dark:border-slate-800"> 
+   <div class="max-w-6xl mx-auto px-4 sm:px-6"> 
+    <div class="md:flex md:items-center md:justify-between py-6 md:py-8"> 
+     <ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0"> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Twitter" href="https://twitter.com/afoo_me"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-twitter"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z"> 
+         </path> 
+        </svg> </a> </li> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Facebook" href="https://www.facebook.com/fujohnwang/"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-facebook"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2H7"></path> 
+        </svg> </a> </li> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Github" href="https://github.com/fujohnwang"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-github"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"> 
+         </path> 
+        </svg> </a> </li> 
+     </ul> 
+     <div class="text-sm text-gray-700 mr-4 dark:text-slate-400"> <span class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 float-left rounded-sm"> <img src="https://afoo.me/favicon.svg" class="rounded-md" alt> </span> Copyright © 王福强个人版权所有 - Since 2004 (Everything is homebrewed with <a href="https://pandoc.org/">Pandoc</a> and Markdown, little <a href="https://www.scala-lang.org/">Scala</a> also included.) 
+     </div> 
+    </div> 
+   </div> 
+  </footer> 
+  <script>
+        // Set "light" theme as default
+        if (!localStorage.theme) {
+            localStorage.theme = "light";
+        }
+
+        if (
+            localStorage.theme === 'dark' ||
+            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function attachEvent(selector, event, fn) {
+            const matches = document.querySelectorAll(selector);
+            if (matches && matches.length) {
+                matches.forEach((elem) => {
+                    elem.addEventListener(event, () => fn(elem), false);
+                });
+            }
+        }
+
+        window.onload = function () {
+            attachEvent('[data-toggle-menu]', 'click', function (elem) {
+                elem.classList.toggle('expanded');
+                document.body.classList.toggle('overflow-hidden');
+                document.getElementById('header')?.classList.toggle('h-screen');
+                document.querySelector('#header nav')?.classList.toggle('hidden');
+            });
+            attachEvent('[data-toggle-color-scheme]', 'click', function () {
+                document.documentElement.classList.toggle('dark');
+                localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            });
+        };
+        window.onpageshow = function () {
+            const elem = document.querySelector('[data-toggle-menu]');
+            if (elem) {
+                elem.classList.remove('expanded');
+            }
+            document.body.classList.remove('overflow-hidden');
+            document.getElementById('header')?.classList.remove('h-screen');
+            document.querySelector('#header nav')?.classList.add('hidden');
+        };
+    </script> 
+  <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '518a605d711883414ac0',
+          clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+          repo: 'afoo.me.comments',
+          owner: 'fujohnwang',
+          admin: ['fujohnwang'],
+          id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+        gitalk.render('comments')
+    </script> 
+  <script src="https://formspree.io/js/formbutton-v1.min.js" defer></script> 
+  <script>
+  /* paste this line in verbatim */
+  window.formbutton=window.formbutton||function(){(formbutton.q=formbutton.q||[]).push(arguments)};
+  /* customize formbutton below*/     
+  formbutton("create", {
+    action: "https://formspree.io/f/xknlpkkd",
+    title: "有什么可以帮到您？💕💕💕 How can I help you?",
+    buttonImg: "<img src='https://afoo.me/hero3/70.webp' alt/>",
+    fields: [
+      { 
+        type: "email", 
+        label: "您的电子邮箱（方便与您联系）:", 
+        name: "email",
+        required: true,
+        placeholder: "your@email.com"
+      },
+      {
+        type: "textarea",
+        label: "您想提交的反馈和询问信息:",
+        name: "message",
+        placeholder: "What's on your mind?",
+      },
+      { type: "submit" }      
+    ],
+    styles: {
+      title: {
+        backgroundColor: "blue"
+      },
+      button: {
+        backgroundColor: "blue"
+      }
+    }
+  });
+</script> 
+  <script>
+	// tooltips
+	tippy('#aiedu', {
+        content: "As to AI nowadays, LLM and Stable Diffusion are hot even hottest among them, If your want to both know-why and know-how with them, instead of only know-how which can't repeat itself, you should get you to https://ai.afoo.me right now ❗"
+    });  
+</script>  
+ </body>
+</html>
