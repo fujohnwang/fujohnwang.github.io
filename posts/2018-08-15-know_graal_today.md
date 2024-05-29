@@ -179,7 +179,7 @@ drwxr-xr-x  8 afuluo  staff      256 Aug 15 16:25 target
 
 写写小工具， 前面的快速上手的知识基本就够了，但是要想构建稳健运行在生产环境的服务或者系统， 我们就得对Graal或者说native image有更深入的了解了。
 
-为了简化，我们使用[KeeWeb(https://www.keevol.com)](https://www.keevol.com)框架 ^[KeeWeb框架是福强科技构建的一个**async、reactive、strong-typed**的Web API框架] 构建一个简单的Web API，只提供一个GET的Endpoint，返回"HelloWorld"作为结果：
+为了简化，我们使用[KeeWeb(https://www.keevol.cn)](https://www.keevol.cn)框架 ^[KeeWeb框架是福强科技构建的一个**async、reactive、strong-typed**的Web API框架] 构建一个简单的Web API，只提供一个GET的Endpoint，返回"HelloWorld"作为结果：
 
 ```scala
 package com.keevol.demo.hello.webapinative
@@ -274,7 +274,7 @@ $HOME/bin/graalvm-ce-1.0.0-rc5/Contents/Home/bin/native-image --no-server -Djava
 
 # 小结
 
-GraalVM无论是从性能上，还是理念上，都对Java生态产生了很大的促进作用， 虽然它还只是基于Java8， 也没有发布正式版，但我相信即使Java11发布了， GraalVM也将是Java基础设施中很重要的一员， 跟[福强科技(https://www.keevol.com)](https://www.keevol.com)同为Scala重度用户的**Twitter**， 已经在生产环境使用GraalVM很长时间了， 这也充分证明了GrralVM的核心价值所在。
+GraalVM无论是从性能上，还是理念上，都对Java生态产生了很大的促进作用， 虽然它还只是基于Java8， 也没有发布正式版，但我相信即使Java11发布了， GraalVM也将是Java基础设施中很重要的一员， 跟[福强科技(https://www.keevol.cn)](https://www.keevol.cn)同为Scala重度用户的**Twitter**， 已经在生产环境使用GraalVM很长时间了， 这也充分证明了GrralVM的核心价值所在。
 
 对于Java社区或者重度Java技术体系的公司来说， GraalVM将是值得投入的一个技术域， 使用得当，可以为公司节省大量的研发和基础设施费用。
 

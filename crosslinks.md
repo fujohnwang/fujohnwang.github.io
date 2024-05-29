@@ -48,7 +48,6 @@
 - <https://magicstudio.com/>
 - <https://lexica.art/>
 - [Poe.com](https://poe.com/)
-- [ChatGPT Alternative - https://chat.cydiar.com/chat](https://chat.cydiar.com/chat)
 
 # 海报工具
 

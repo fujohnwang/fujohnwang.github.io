@@ -6,7 +6,7 @@
 
 **`A Writer, A Fighter, A Programmer And A Teacher`**
 
-王福强，[aka. 扶墙老师](https://afoo.me/ama), [杭州福强科技有限公司](https://keevol.cn)创始人，连续创业者(亲历大中小企业全生命周期的演化与关键环节)， 20+年互联网与金融技术研发与管理经验，原阿里巴巴大数据中间件canal的产品与技术奠基人，《Spring揭秘》和《SpringBoot揭秘》作者 ^[这里可以了解我的更多著作](books.html)^, 写代码的CTO，如履薄冰的CEO 😂
+王福强，[aka. 扶墙老师](https://afoo.me), [杭州福强科技有限公司](https://keevol.cn)创始人，连续创业者(亲历大中小企业全生命周期的演化与关键环节)， 20+年互联网与金融技术研发与管理经验，原阿里巴巴大数据中间件canal的产品与技术奠基人，《Spring揭秘》和《SpringBoot揭秘》作者 ^[这里可以了解我的更多著作](books.html)^, 写代码的CTO，如履薄冰的CEO 😂
 
 - 原阿里巴巴平台技术部海量数据部门高级技术专家；
 - 原天猫产品技术部导购部资深架构师;
@@ -24,11 +24,11 @@
 # [我的著作](books.html)
 
 ## 《Spring揭秘》
-<a href="http://product.china-pub.com/195969"><img width="50%" alt="Spring揭秘封面" src="images/unveil_spring_cover.jpg"/></a>
+<img width="50%" alt="Spring揭秘封面" src="images/unveil_spring_cover.jpg"/>
 
-## [《SpringBoot揭秘》](http://product.china-pub.com/4951981)
-<a href="http://product.china-pub.com/195969">
-<img alt="SpringBoot揭秘封面" src="images/unveil_springboot_cover.jpg"/></a>
+## 《SpringBoot揭秘》
+
+<img alt="SpringBoot揭秘封面" src="images/unveil_springboot_cover.jpg"/>
 
 ## 更多著作
 

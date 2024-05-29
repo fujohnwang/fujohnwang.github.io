@@ -17,7 +17,6 @@
 
 ## [Simple Honojs](https://honojs.afoo.me)
 
-- <https://hono.afoo.me>
 - <https://honojs.afoo.me>
 
 ## SEO
