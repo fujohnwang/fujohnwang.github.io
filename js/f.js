@@ -27,12 +27,24 @@ function f_uuid() {
     return crypto.randomUUID();
 }
 
-function isWx() {
-    return /(micromessenger|webbrowser)/.test(navigator.userAgent.toLocaleLowerCase());
+function isMobileUA() {
+    const regex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+    return regex.test(navigator.userAgent);
+}
+function hasTouchSupport() {
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+}
+function isMobileWindowSize() {
+    const minWidth = 768; // Minimum width for desktop devices
+    return window.innerWidth < minWidth || screen.width < minWidth;
 }
 
 function isMobile() {
-    return (window.innerWidth < 768 || (/AndroidwebOSiPhoneiPadPodBlackBerryIEMobileOpera Mini/i.test(navigator.userAgent)));
+    return (isMobileUA() && hasTouchSupport() && isMobileWindowSize());
+}
+
+function isWx() {
+    return (isMobile() && (/(micromessenger|webbrowser)/.test(navigator.userAgent.toLocaleLowerCase())));
 }
 
 function dispatchLink(wxLink, mbLink, webLink) {
