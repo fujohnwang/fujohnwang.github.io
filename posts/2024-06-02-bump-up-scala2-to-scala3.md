@@ -28,6 +28,15 @@
 					 ...
 ```
 
+另外就是，把所有`_2.12`到依赖也都要改成`_3`，比如：
+
+```xml
+        <dependency>
+            <groupId>com.lihaoyi</groupId>
+            <artifactId>requests_3</artifactId>
+            <version>0.8.3</version>
+        </dependency>
+```
 
 下面是遇到的一些错误与警告，看起来broken的地方不多，大部分是warnings
 
