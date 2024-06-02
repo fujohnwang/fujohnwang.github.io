@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="升级Scala2.12到Scala3 - 架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="升级Scala2.12到Scala3 - 福强说，扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+  <meta name="robots" content="index,follow"> 
+  <title>升级Scala2.12到Scala3 -王福强的个人博客：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2024-06-02"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <link rel="canonical" href="https://afoo.me/posts/2024-06-02-bump-up-scala2-to-scala3.html"> 
+  <link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"> 
+  <link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8"> 
+  <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <script src="https://unpkg.com/@popperjs/core@2"></script> 
+  <script src="https://unpkg.com/tippy.js@6"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link rel="stylesheet" href="/css/components.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
+  <style type="text/css">
+        pre > code{
+          white-space: pre-wrap;
+          font-family: monospace;
+          font-size: 14px;
+          /* border-left: blueviolet;
+          border-left-width: thick;
+          border-left-style: double;
+          padding-left: 1rem !important; */
+        }
+        
+        .x-indicator{
+            display:none;
+        }
+        .htmx-request .x-indicator{
+            display:inline;
+        }
+        .htmx-request.x-indicator{
+            display:inline;
+        }
+    </style> 
+  <style type="text/css">
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    </style> 
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "升级Scala2.12到Scala3",
+      "image": [
+        "https://afoo.me/images/fb_subscribe.jpg"
+       ],
+      "datePublished": "2024-06-02",
+      "author": [{
+          "@type": "Person",
+          "name": "王福强",
+          "url": "https://afoo.me"
+        }]
+    }
+  </script> 
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3687639021943715" crossorigin="anonymous"></script> 
+ </head> 
+ <body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"> 
+  <header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"> 
+   <div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"> 
+    <div class="flex justify-between"> <a class="flex items-center" href="https://afoo.me"> <span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"> <h1>王福强的博客</h1> </span> </a> 
+     <div class="flex items-center md:hidden"> <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""> 
+       <svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+         <circle cx="12" cy="12" r="4"></circle> 
+         <path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"> 
+         </path> 
+        </g> 
+       </svg> </button> <button type="button" class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition" aria-label="Toggle Menu" data-toggle-menu=""> 
+       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:menu"> <g class="icon-tabler" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+         <path d="M4 8h16"></path> 
+         <path d="M4 16h16"></path> 
+        </g> 
+       </svg> </button> 
+     </div> 
+    </div> 
+    <nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"> 
+     <ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"> 
+      <li><a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://kb.afoo.me/">福强私学</a></li> 
+      <li> <a id="aiedu" class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://ai.afoo.me"> 福强AI学堂</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com">架构百科</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html">博客文章 </a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html">创作出版</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://store.afoo.me">产品与服务</a> </li> 
+      <li><a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://auth.afoo.me/user.html">登录信息</a></li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/crosslinks.html">更多链接</a> </li> 
+     </ul> 
+     <div class="md:self-center flex items-center mb-4 md:mb-0 ml-2"> 
+      <div class="hidden items-center md:flex"> <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+          <circle cx="12" cy="12" r="4"></circle> 
+          <path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"> 
+          </path> 
+         </g> 
+        </svg> </button> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="RSS Feed" href="http://afoo.me/feeds.xml"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:rss"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+          <circle cx="5" cy="19" r="1"></circle> 
+          <path d="M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"></path> 
+         </g> 
+        </svg> </a> 
+      </div> 
+     </div> 
+    </nav> 
+   </div> 
+  </header> 
+  <main> 
+   <div id="leftSlot" class="visible md:invisible fixed top-0 left-0" style="width: 16rem;height: 80%;margin-top: 4rem;"> <!-- left --> 
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="3581141418" data-ad-format="auto" data-full-width-responsive="true"></ins> 
+    <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+      </script> 
+   </div> 
+   <div id="rightSlot" class="visible md:invisible fixed top-0 right-0" style="width: 16rem;height: 80%;margin-top: 4rem;"> <!-- right --> 
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="7030836806" data-ad-format="auto" data-full-width-responsive="true"></ins> 
+    <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script> 
+   </div> 
+   <section class="text-gray-600 body-font relative"> 
+    <div class="container px-5 py-24 mx-auto mb-12 prose prose-lg dark:prose-invert"> 
+     <p class="lead"> </p>
+     <h1 class="title">升级Scala2.12到Scala3</h1> <small> <h3 class="author">王福强</h3> 
+      <div style="text-align: left;">
+       2024-06-02
+      </div> </small> 
+     <p></p> <!-- random --> 
+     <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="2722720851" data-ad-format="auto" data-full-width-responsive="true"></ins> 
+     <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script> 
+     <hr> 
+     <p>今天尝试把自己的Scala2.12的一个项目UtilitiesFX升级成Scala3，看看有多大难度。</p> 
+     <p>升级思路大体上是：</p> 
+     <ol type="1"> 
+      <li>整体复制项目目录到新的目的，并将目录重新命名（以视觉上区分）；</li> 
+      <li>将新项目的artifact名称改掉，追加<code>-scala3</code>，以从依赖管理层面区分；</li> 
+      <li>更改maven中scala相关依赖与配置，主要是scala版本号更改以及scala-library依赖的更改。</li> 
+     </ol> 
+     <div class="sourceCode" id="cb1">
+      <pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">plugin</span>&gt;</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                <span class="co">&lt;!--http://davidb.github.io/scala-maven-plugin/usage.html--&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">groupId</span>&gt;net.alchim31.maven&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">artifactId</span>&gt;scala-maven-plugin&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                &lt;<span class="kw">version</span>&gt;${scala.plugin.version}&lt;/<span class="kw">version</span>&gt;</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>            &lt;/<span class="kw">plugin</span>&gt;</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>            ...</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>                <span class="co">&lt;!-- https://mvnrepository.com/artifact/org.scala-lang/scala3-library --&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>                            &lt;<span class="kw">dependency</span>&gt;</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                                &lt;<span class="kw">groupId</span>&gt;org.scala-lang&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                                &lt;<span class="kw">artifactId</span>&gt;scala3-library_3&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                                &lt;<span class="kw">version</span>&gt;3.4.2&lt;/<span class="kw">version</span>&gt;</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                            &lt;/<span class="kw">dependency</span>&gt;</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                     ...</span></code></pre>
+     </div> 
+     <p>下面是遇到的一些错误与警告，看起来broken的地方不多，大部分是warnings</p> 
+     <h1 id="brokens">Brokens</h1> 
+     <h2 id="unit方法也必须">Unit方法也必须=</h2> 
+     <pre><code>[ERROR] [Error] /Users/fq/workspace.scala3/UtilitiesFX-scala3/src/main/scala/com/keevol/javafx/utils/CartesianProduct.scala:84:62: '=' expected, but '{' found
+[ERROR] [Error] /Users/fq/workspace.scala3/UtilitiesFX-scala3/src/main/scala/com/keevol/javafx/utils/CartesianProduct.scala:92:32: '=' expected, but '{' found</code></pre> 
+     <h2 id="类型转换更严格">类型转换更严格</h2> 
+     <pre><code>[ERROR] [Error] /Users/fq/workspace.scala3/UtilitiesFX-scala3/src/main/scala/com/keevol/javafx/utils/AnchorPanes.scala:35:36: Found:    (gap : Int)
+Required: Double</code></pre> 
+     <h2 id="方法调用更严格">方法调用更严格</h2> 
+     <pre><code>[ERROR] [Error] /Users/fq/workspace.scala3/UtilitiesFX-scala3/src/main/scala/com/keevol/javafx/utils/Images.scala:141:154: method pasteFromClipboard in object Images must be called with () argument</code></pre> 
+     <p><code>() =&gt; pasteFromClipboard.foreach(imageProperty.set(_))</code> -&gt; <code>() =&gt; pasteFromClipboard().foreach(imageProperty.set(_))</code></p> 
+     <h1 id="warnings">WARNINGS</h1> 
+     <h2 id="var-args展开">var args展开</h2> 
+     <p>从<code>var:_*</code> -&gt; <code>var*</code></p> 
+     <h2 id="类型定义与约束中的通配符_">类型定义与约束中的通配符_</h2> 
+     <p>从<code>_</code>变成<code>?</code>，比如</p> 
+     <ul> 
+      <li><code>T[ _&lt;:S ]</code> 变成 <code>T[ ?&lt;:S ]</code></li> 
+      <li><code>task: Worker[_]</code> -&gt; <code>task: Worker[?]</code></li> 
+      <li><code>() =&gt; pasteFromClipboard.foreach(imageProperty.set(_))</code> -&gt; <code>() =&gt; pasteFromClipboard().foreach(imageProperty.set(_))</code> // 这里是方法调用的括号不能省略（否则认为是方法引用了，相当于加强了约束）, 通配符反而可以继续用</li> 
+     </ul> 
+     <h2 id="变量通配符">变量通配符</h2> 
+     <p>从<code>var splashScreen: Stage = _</code>变成<code>var splashScreen: Stage = uninitialized</code>（而且还得import scala.compiletime.uninitialized）</p> 
+     <p>我觉得tmd这是倒退，我宁愿null</p> 
+     <h2 id="集合类型转换">集合类型转换</h2> 
+     <pre><code>[WARNING] [Warn] /Users/fq/workspace.scala3/UtilitiesFX-scala3/src/main/scala/com/keevol/javafx/controls/launchctl/LaunchControlBlocks.scala:19:24: object JavaConverters in package scala.collection is deprecated since 2.13.0: Use `scala.jdk.CollectionConverters` instead</code></pre> 
+     <h2 id="数据类型转换">数据类型转换</h2> 
+     <pre><code>[WARNING] [Warn] /Users/fq/workspace.scala3/UtilitiesFX-scala3/src/main/scala/com/keevol/javafx/utils/TextInputControlTyper.scala:11:41: method long2double in object Long is deprecated since 2.13.1: Implicit conversion from Long to Double is dangerous because it loses precision. Write `.toDouble` instead.</code></pre> 
+     <h2 id="linestream到lazylines">linestream到lazylines</h2> 
+     <pre><code>[WARNING] [Warn] /Users/fq/workspace.scala3/UtilitiesFX-scala3/src/main/scala/com/keevol/utils/CommandRunner.scala:50:49: method lineStream_! in trait ProcessBuilder is deprecated since 2.13.0: use lazyLines_!</code></pre> <!-- tail --> 
+     <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="7874087130" data-ad-format="auto" data-full-width-responsive="true"></ins> 
+     <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script> 
+     <hr> 
+     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+     </div> 
+     <div id="random_posts"> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2014-07-08-sbt-native-packager.html">sbt</a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2019-07-17-cto-and-ceo-delimma.html">为啥CTO的委屈CEO不懂 </a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2023-03-23-3-way-to-deploy-own-chatgpt.html">部署属于自己的ChatGPT的三种方式 </a> 
+      </div> 
+     </div> 
+     <hr> 
+     <div id="comments"></div> 
+     <hr> <!-- Section CTA --> 
+     <section> <!-- Container --> 
+      <div class="mx-auto w-full max-w-7xl px-5 py-16 md:px-10"> <!-- Component--> 
+       <div class="grid items-center gap-8 sm:gap-20 lg:grid-cols-2"> 
+        <div> 
+         <h2 class="mb-4 max-w-2xl text-3xl font-bold md:text-5xl"><a href="https://afoo.me/kb.html">欢迎加入「福强私学」</a></h2> 
+         <p class="mb-3 max-w-lg text-sm text-[#636262] sm:text-base">跨越2190个日夜，始终坚持“实践 + 原创”打造的715125字专属知识库，囊括了（但不限于）从职场、技术、管理与商业等多个板块的内容。</p> 
+         <ul class="mb-3 max-w-lg text-sm text-[#636262] sm:text-base"> 
+          <li>一个ChatGPT触达不到的地方</li> 
+          <li>一个带你超越AI/人工智能的地方</li> 
+          <li>一个与你一起成长的地方</li> 
+         </ul> 
+         <p class="mb-4 max-w-lg text-sm text-[#636262] sm:text-base"> <a href="https://afoo.me/kb.html" class="border-b">https://afoo.me/kb.html</a> </p> 
+        </div> 
+        <div> <a href="https://afoo.me/kb.html"> <img src="https://afoo.me/qrcodes/kb.afoo.me.png" alt="" class="mx-auto inline-block h-full w-full max-w-2xl"> </a> 
+        </div> 
+       </div> 
+      </div> 
+     </section> 
+     <hr> 
+     <p> <span style="font-size: xx-large;"> 开天窗，拉认知，订阅「福报」，即刻拥有自己的全模态人工智能。 </span> </p> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe_v2.jpg" alt="订阅「福报」"> </a> 
+     <hr> 
+     <div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"> 
+      <div id="tfloader" class="x-indicator"> 
+       <svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"> <g fill="none" fill-rule="evenodd"> 
+         <g transform="translate(1 1)" stroke-width="2"> 
+          <circle cx="5" cy="50" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+          <circle cx="27" cy="5" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+          <circle cx="49" cy="50" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+         </g> 
+        </g> 
+       </svg> 
+      </div> 
+     </div> 
+    </div> 
+   </section> 
+  </main> 
+  <footer class="border-t border-gray-200 dark:border-slate-800"> 
+   <div class="max-w-6xl mx-auto px-4 sm:px-6"> 
+    <div class="md:flex md:items-center md:justify-between py-6 md:py-8"> 
+     <ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0"> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Twitter" href="https://twitter.com/afoo_me"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-twitter"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z"> 
+         </path> 
+        </svg> </a> </li> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Facebook" href="https://www.facebook.com/fujohnwang/"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-facebook"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2H7"></path> 
+        </svg> </a> </li> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Github" href="https://github.com/fujohnwang"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-github"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"> 
+         </path> 
+        </svg> </a> </li> 
+     </ul> 
+     <div class="text-sm text-gray-700 mr-4 dark:text-slate-400"> <span class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 float-left rounded-sm"> <img src="https://afoo.me/favicon.svg" class="rounded-md" alt> </span> Copyright © 王福强个人版权所有 - Since 2004 (Everything is homebrewed with <a href="https://pandoc.org/">Pandoc</a> and Markdown, little <a href="https://www.scala-lang.org/">Scala</a> also included.) 
+     </div> 
+    </div> 
+   </div> 
+  </footer> 
+  <script>
+        // Set "light" theme as default
+        if (!localStorage.theme) {
+            localStorage.theme = "light";
+        }
+
+        if (
+            localStorage.theme === 'dark' ||
+            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function attachEvent(selector, event, fn) {
+            const matches = document.querySelectorAll(selector);
+            if (matches && matches.length) {
+                matches.forEach((elem) => {
+                    elem.addEventListener(event, () => fn(elem), false);
+                });
+            }
+        }
+
+        window.onload = function () {
+            attachEvent('[data-toggle-menu]', 'click', function (elem) {
+                elem.classList.toggle('expanded');
+                document.body.classList.toggle('overflow-hidden');
+                document.getElementById('header')?.classList.toggle('h-screen');
+                document.querySelector('#header nav')?.classList.toggle('hidden');
+            });
+            attachEvent('[data-toggle-color-scheme]', 'click', function () {
+                document.documentElement.classList.toggle('dark');
+                localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            });
+        };
+        window.onpageshow = function () {
+            const elem = document.querySelector('[data-toggle-menu]');
+            if (elem) {
+                elem.classList.remove('expanded');
+            }
+            document.body.classList.remove('overflow-hidden');
+            document.getElementById('header')?.classList.remove('h-screen');
+            document.querySelector('#header nav')?.classList.add('hidden');
+        };
+    </script> 
+  <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '518a605d711883414ac0',
+          clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+          repo: 'afoo.me.comments',
+          owner: 'fujohnwang',
+          admin: ['fujohnwang'],
+          id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+        gitalk.render('comments')
+    </script> 
+  <script src="https://formspree.io/js/formbutton-v1.min.js" defer></script> 
+  <script>
+  /* paste this line in verbatim */
+  window.formbutton=window.formbutton||function(){(formbutton.q=formbutton.q||[]).push(arguments)};
+  /* customize formbutton below*/     
+  formbutton("create", {
+    action: "https://formspree.io/f/xknlpkkd",
+    title: "有什么可以帮到您？💕💕💕 How can I help you?",
+    buttonImg: "<img src='https://afoo.me/hero3/70.webp' alt/>",
+    fields: [
+      { 
+        type: "email", 
+        label: "您的电子邮箱（方便与您联系）:", 
+        name: "email",
+        required: true,
+        placeholder: "your@email.com"
+      },
+      {
+        type: "textarea",
+        label: "您想提交的反馈和询问信息:",
+        name: "message",
+        placeholder: "What's on your mind?",
+      },
+      { type: "submit" }      
+    ],
+    styles: {
+      title: {
+        backgroundColor: "blue"
+      },
+      button: {
+        backgroundColor: "blue"
+      }
+    }
+  });
+</script> 
+  <script>
+	// tooltips
+	tippy('#aiedu', {
+        content: "As to AI nowadays, LLM and Stable Diffusion are hot even hottest among them, If your want to both know-why and know-how with them, instead of only know-how which can't repeat itself, you should get you to https://ai.afoo.me right now ❗"
+    });  
+</script>  
+ </body>
+</html>
