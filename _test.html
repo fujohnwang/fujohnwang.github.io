@@ -24,31 +24,28 @@
 	</style>
 	<link href="https://unpkg.com/@csstools/normalize.css" rel="stylesheet" />
 	<script src="https://cdn.tailwindcss.com/"></script>
-	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-	<script src="https://unpkg.com/htmx.org@1.9.11"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.10/dayjs.min.js"></script>
-	<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.2/dist/cdn.min.js"></script>
-	<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.13.2/dist/cdn.min.js"></script>
-   
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.9.0/cdn/themes/light.css" />
-<script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.9.0/cdn/shoelace-autoloader.js"></script>
-   
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
-   <!-- popup and tooltip libraries -->
-   <script src="https://unpkg.com/@popperjs/core@2"></script>
-   <script src="https://unpkg.com/tippy.js@6"></script>
-   
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.7/sweetalert2.all.min.js" integrity="sha512-sCRQAGZoT2SOdF+QT+pzQaJn2SP9K4t27Au967tsnf3gZNfHcKrkAKudpV2JBu16wsMouvG8C7iNV+dmMgDBgQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
 	</head>
 <body>
 	<main class="container mx-auto p-3 space-y-3">
-      <a id="myButton" href="https://open.weixin.qq.com/connect/qrconnect?appid= wxf7b20ee0b450133f&redirect_uri=https%3A%2F%2Fkeevol.cn%2Ffunctions%2Fwxl%2Fcallback&response_type=code&scope= snsapi_login&state=randomanything#wechat_redirect" class="bg-black text-white px-6 py-2">Binding Weixin</a>
+      <a id="myButton" href="https://open.weixin.qq.com/connect/qrconnect?appid=wxf7b20ee0b450133f&redirect_uri=https%3A%2F%2Fkeevol.cn%2Ffunctions%2Fwxl%2Fcallback&response_type=code&scope=snsapi_login&state=randomanything#wechat_redirect" class="bg-black text-white px-6 py-2">Binding Weixin</a>
+
+      <div id="qrcode"></div>
 	</main>
 	
-
+<script>
+    document.addEventListener("DOMContentLoaded", (event) => {
+        new WxLogin({
+         self_redirect:true,
+         id:"qrcode", 
+         appid: "wxf7b20ee0b450133f", 
+         scope: "snsapi_login", 
+         redirect_uri: "https%3A%2F%2Fkeevol.cn%2Ffunctions%2Fwxl%2Fcallback",
+          state: "randomanything",
+         });
+    });
+    
+</script>
     
 </body>
 </html>
