@@ -2,6 +2,7 @@
 % 王福强
 % 2024-08-10
 
+![](https://img.afoo.me/?url=https://images.afoo.me/file/4954fa11b736a50e2810d.png&quality=80&action=scale!0.5|watermark!https://afoo.me/images/afoo.PNG,0,0)
 
 ## 不再心存侥幸
 
