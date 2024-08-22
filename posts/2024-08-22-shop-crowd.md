@@ -2,9 +2,13 @@
 % 王福强
 % 2024-08-22
 
+
+
 之前溜达的时候，脑海里曾经闪过“做什么生意都得做大做强”的想法，那时候应该是疫情前后。
 
 今天溜达的时候，走过一排排的门店，有了不一样的念头。
+
+![](https://img.afoo.me?url=https://images.afoo.me/file/d8e6c3d189873e64a8cb3.jpg&quality=80&action=scale!0.5|watermark!https://afoo.me/images/afoo.PNG,0,0)
 
 # 场
 
