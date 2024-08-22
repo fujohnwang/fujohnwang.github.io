@@ -8,7 +8,7 @@
 
 今天溜达的时候，走过一排排的门店，有了不一样的念头。
 
-![](https://img.afoo.me?url=https://images.afoo.me/file/d8e6c3d189873e64a8cb3.jpg&quality=80&action=scale!0.5|watermark!https://afoo.me/images/afoo.PNG,0,0)
+![](https://images.afoo.me/file/d8e6c3d189873e64a8cb3.jpg)
 
 # 场
 
