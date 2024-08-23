@@ -10,6 +10,16 @@
   <meta name="robots" content="index,follow"> 
   <title>BiasedScala: collection converters should be gone -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <meta name="date" content="2021-10-27"> 
+  <meta property="og:title" content="BiasedScala: collection converters should be gone"> 
+  <meta property="og:type" content="landing page"> 
+  <meta property="og:url" content="https://afoo.me/columns/biased-scala/2021-10-27-collection_and_extension_are_perfect_match.html"> 
+  <meta property="og:image" content="https://og.afoo.me?url=https://afoo.me/columns/biased-scala/2021-10-27-collection_and_extension_are_perfect_match.html"> 
+  <meta name="twitter:card" content="summary_large_image"> 
+  <meta name="twitter:title" content="BiasedScala: collection converters should be gone"> 
+  <meta name="twitter:site" content="@afoo_me"> 
+  <meta name="twitter:creator" content="@afoo_me"> 
+  <meta name="twitter:image" content="https://og.afoo.me?url=https://afoo.me/columns/biased-scala/2021-10-27-collection_and_extension_are_perfect_match.html"> 
+  <meta name="twitter:description" content="BiasedScala: collection converters should be gone - 王福强的个人博客， 一个架构士的思考与沉淀"> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <link rel="canonical" href="https://afoo.me/columns/biased-scala/2021-10-27-collection_and_extension_are_perfect_match.html"> 
   <link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"> 
@@ -45,7 +55,7 @@
     </style> 
   <style type="text/css">
       pre > code.sourceCode { white-space: pre; position: relative; }
-      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span { line-height: 1.25; }
       pre > code.sourceCode > span:empty { height: 1.2em; }
       .sourceCode { overflow: visible; }
       code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -56,7 +66,7 @@
       }
       @media print {
       pre > code.sourceCode { white-space: pre-wrap; }
-      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
       }
       pre.numberSource code
         { counter-reset: source-line 0; }
@@ -82,7 +92,7 @@
       code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
       code span.at { color: #7d9029; } /* Attribute */
       code span.bn { color: #40a070; } /* BaseN */
-      code span.bu { } /* BuiltIn */
+      code span.bu { color: #008000; } /* BuiltIn */
       code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
       code span.ch { color: #4070a0; } /* Char */
       code span.cn { color: #880000; } /* Constant */
@@ -95,7 +105,7 @@
       code span.ex { } /* Extension */
       code span.fl { color: #40a070; } /* Float */
       code span.fu { color: #06287e; } /* Function */
-      code span.im { } /* Import */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
       code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
       code span.kw { color: #007020; font-weight: bold; } /* Keyword */
       code span.op { color: #666666; } /* Operator */
@@ -205,14 +215,14 @@
      <div class="sourceCode" id="cb1">
       <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> scala<span class="op">.</span>collection<span class="op">.</span>JavaConverters<span class="op">.</span>_</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> s<span class="op">:</span> java<span class="op">.</span>util<span class="op">.</span>Set<span class="op">[</span>String<span class="op">]</span> <span class="op">=</span> <span class="fu">Set</span><span class="op">(</span><span class="st">"one"</span><span class="op">,</span> <span class="st">"two"</span><span class="op">).</span>asJava</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> s<span class="op">:</span> java<span class="op">.</span>util<span class="op">.</span><span class="ex">Set</span><span class="op">[</span><span class="ex">String</span><span class="op">]</span> <span class="op">=</span> <span class="ex">Set</span><span class="op">(</span><span class="st">"one"</span><span class="op">,</span> <span class="st">"two"</span><span class="op">).</span>asJava</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> s2 <span class="op">=</span> FileUtils<span class="op">.</span><span class="fu">listFiles</span><span class="op">(...).</span>asScala</span></code></pre>
      </div> 
      <p>In Scala 2.13.x this way:</p> 
      <div class="sourceCode" id="cb2">
       <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> scala<span class="op">.</span>jdk<span class="op">.</span>CollectionConverters<span class="op">.</span>_</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> s<span class="op">:</span> java<span class="op">.</span>util<span class="op">.</span>Set<span class="op">[</span>String<span class="op">]</span> <span class="op">=</span> <span class="fu">Set</span><span class="op">(</span><span class="st">"one"</span><span class="op">,</span> <span class="st">"two"</span><span class="op">).</span>asJava</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> s<span class="op">:</span> java<span class="op">.</span>util<span class="op">.</span><span class="ex">Set</span><span class="op">[</span><span class="ex">String</span><span class="op">]</span> <span class="op">=</span> <span class="ex">Set</span><span class="op">(</span><span class="st">"one"</span><span class="op">,</span> <span class="st">"two"</span><span class="op">).</span>asJava</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> s2 <span class="op">=</span> FileUtils<span class="op">.</span><span class="fu">listFiles</span><span class="op">(...).</span>asScala</span></code></pre>
      </div> 
      <p>It’s not elegant and necessary, I think, especially when Scala 3 has introduced <code>extention</code> mechanism, If I want to use Java collections with additional FP support which scala collections offer, I should use these FP support directly without import anything:</p> 
@@ -229,11 +239,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2014-07-06-血色浪漫-信天游.html">《血色浪漫》中的信天游 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2024-05-27-governor-and-general.html">宰相必起于州部，猛将必发于卒伍。 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2011-01-25-trivial_topics.html">扯一下这阵子摸索的一些东西 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2020-02-25-techie-with-humanity.html">写给技术人的人性课 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2020-11-23-how-to-make-a-great-share-training.html">怎么做好一场分享或者培训 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2018-06-04-blockchain-thoughts.html">关于区块链的三点看法 </a> 
       </div> 
      </div> 
      <hr> 

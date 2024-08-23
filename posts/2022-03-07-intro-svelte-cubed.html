@@ -10,6 +10,16 @@
   <meta name="robots" content="index,follow"> 
   <title>从Threejs到Svelte-Cubed -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <meta name="date" content="2022-03-07"> 
+  <meta property="og:title" content="从Threejs到Svelte-Cubed"> 
+  <meta property="og:type" content="landing page"> 
+  <meta property="og:url" content="https://afoo.me/posts/2022-03-07-intro-svelte-cubed.html"> 
+  <meta property="og:image" content="https://og.afoo.me?url=https://afoo.me/posts/2022-03-07-intro-svelte-cubed.html"> 
+  <meta name="twitter:card" content="summary_large_image"> 
+  <meta name="twitter:title" content="从Threejs到Svelte-Cubed"> 
+  <meta name="twitter:site" content="@afoo_me"> 
+  <meta name="twitter:creator" content="@afoo_me"> 
+  <meta name="twitter:image" content="https://og.afoo.me?url=https://afoo.me/posts/2022-03-07-intro-svelte-cubed.html"> 
+  <meta name="twitter:description" content="从Threejs到Svelte-Cubed - 王福强的个人博客， 一个架构士的思考与沉淀"> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <link rel="canonical" href="https://afoo.me/posts/2022-03-07-intro-svelte-cubed.html"> 
   <link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"> 
@@ -45,7 +55,7 @@
     </style> 
   <style type="text/css">
       pre > code.sourceCode { white-space: pre; position: relative; }
-      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span { line-height: 1.25; }
       pre > code.sourceCode > span:empty { height: 1.2em; }
       .sourceCode { overflow: visible; }
       code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -56,7 +66,7 @@
       }
       @media print {
       pre > code.sourceCode { white-space: pre-wrap; }
-      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
       }
       pre.numberSource code
         { counter-reset: source-line 0; }
@@ -82,7 +92,7 @@
       code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
       code span.at { color: #7d9029; } /* Attribute */
       code span.bn { color: #40a070; } /* BaseN */
-      code span.bu { } /* BuiltIn */
+      code span.bu { color: #008000; } /* BuiltIn */
       code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
       code span.ch { color: #4070a0; } /* Char */
       code span.cn { color: #880000; } /* Constant */
@@ -95,7 +105,7 @@
       code span.ex { } /* Extension */
       code span.fl { color: #40a070; } /* Float */
       code span.fu { color: #06287e; } /* Function */
-      code span.im { } /* Import */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
       code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
       code span.kw { color: #007020; font-weight: bold; } /* Keyword */
       code span.op { color: #666666; } /* Operator */
@@ -208,18 +218,18 @@
      <p>所有的Meshes添加到Scene组成一个SceneGraph然后跟Camera一起通过Renderer渲染到DOM的某个Canvas上。</p> 
      <p>空说无凭，让我Show you code：</p> 
      <div class="sourceCode" id="cb1">
-      <pre class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;html&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;head&gt;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;meta</span> <span class="er">charset</span><span class="ot">=</span><span class="st">"utf-8"</span><span class="kw">&gt;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;title&gt;</span>My first three.js app<span class="kw">&lt;/title&gt;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;style&gt;</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>            body { <span class="kw">margin</span>: <span class="dv">0</span><span class="op">;</span> }</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;/style&gt;</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;script</span> <span class="er">src</span><span class="ot">=</span><span class="st">"three.js"</span><span class="kw">&gt;&lt;/script&gt;</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/head&gt;</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;body&gt;</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;script&gt;</span></span>
+      <pre class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;!DOCTYPE</span> html<span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">html</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">head</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> charset</span><span class="op">=</span><span class="st">"utf-8"</span><span class="dt">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&lt;</span><span class="kw">title</span><span class="dt">&gt;</span>My first three.js app<span class="dt">&lt;/</span><span class="kw">title</span><span class="dt">&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&lt;</span><span class="kw">style</span><span class="dt">&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>            body { <span class="kw">margin</span><span class="ch">:</span> <span class="dv">0</span><span class="op">;</span> }</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&lt;/</span><span class="kw">style</span><span class="dt">&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&lt;</span><span class="kw">script</span><span class="ot"> src</span><span class="op">=</span><span class="st">"three.js"</span><span class="dt">&gt;&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;/</span><span class="kw">head</span><span class="dt">&gt;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">body</span><span class="dt">&gt;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&lt;</span><span class="kw">script</span><span class="dt">&gt;</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>            <span class="kw">const</span> scene <span class="op">=</span> <span class="kw">new</span> THREE<span class="op">.</span><span class="fu">Scene</span>()<span class="op">;</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>            <span class="kw">const</span> camera <span class="op">=</span> <span class="kw">new</span> THREE<span class="op">.</span><span class="fu">PerspectiveCamera</span>( <span class="dv">75</span><span class="op">,</span> <span class="bu">window</span><span class="op">.</span><span class="at">innerWidth</span> <span class="op">/</span> <span class="bu">window</span><span class="op">.</span><span class="at">innerHeight</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1000</span> )<span class="op">;</span></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>            <span class="kw">const</span> renderer <span class="op">=</span> <span class="kw">new</span> THREE<span class="op">.</span><span class="fu">WebGLRenderer</span>({<span class="dt">antialias</span><span class="op">:</span> <span class="kw">true</span>})<span class="op">;</span></span>
@@ -247,9 +257,9 @@
 <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>                renderer<span class="op">.</span><span class="fu">render</span>( scene<span class="op">,</span> camera )<span class="op">;</span></span>
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>            }</span>
 <span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>            <span class="fu">animate</span>()<span class="op">;</span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;/script&gt;</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/body&gt;</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/html&gt;</span></span></code></pre>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;/</span><span class="kw">body</span><span class="dt">&gt;</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">html</span><span class="dt">&gt;</span></span></code></pre>
      </div> 
      <p>如果我打开这个页面，就可以看到一个旋转的三角了（当然，你也可以点击下面的图片<a href="https://afoo.me/demo/threejs/">直接看效果</a>）：</p> 
      <p><a href="https://afoo.me/demo/threejs/"><img src="images/63141646660058_.pic.jpg"></a></p> 
@@ -260,25 +270,25 @@
       <pre class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>import * as THREE from 'three';</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>import * as SC from 'svelte-cubed';</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;SC.Canvas</span> <span class="er">antialias</span> <span class="er">background</span><span class="ot">=</span><span class="st">{new</span> <span class="er">THREE.Color('papayawhip')}</span> <span class="er">shadows</span> <span class="er">fog</span><span class="ot">=</span><span class="st">{new</span> <span class="er">THREE.FogExp2('papayawhip',</span> <span class="er">0.1)}</span><span class="kw">&gt;</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;SC.Mesh</span> <span class="er">geometry</span><span class="ot">=</span><span class="st">{new</span> <span class="er">THREE.ConeGeometry()}</span> <span class="er">position</span><span class="ot">=</span><span class="st">{[3,</span> <span class="er">3,</span> <span class="er">3]}</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ot">             material=</span><span class="st">{new</span> <span class="er">THREE.MeshNormalMaterial({</span> <span class="er">color:</span> <span class="er">0x3883F8</span> <span class="er">})}</span><span class="kw">/&gt;</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;SC.PerspectiveCamera</span> <span class="er">position</span><span class="ot">=</span><span class="st">{[0,</span> <span class="er">0,</span> <span class="er">5]}</span><span class="kw">/&gt;</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;SC.OrbitControls</span> <span class="er">enableZoom</span><span class="ot">=</span><span class="st">{true}</span> <span class="er">maxPolarAngle</span><span class="ot">=</span><span class="st">{Math.PI</span> <span class="er">*</span> <span class="er">0.51}</span><span class="kw">/&gt;</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;SC.AmbientLight</span> <span class="er">intensity</span><span class="ot">=</span><span class="st">{0.6}</span><span class="kw">/&gt;</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;SC.PointLight</span> <span class="er">...</span><span class="kw">/&gt;</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/SC.Canvas&gt;</span></span></code></pre>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">SC.Canvas</span><span class="ot"> antialias background</span><span class="op">=</span><span class="st">{new</span><span class="ot"> THREE.Color(</span><span class="er">'</span><span class="ot">papayawhip</span><span class="er">')}</span><span class="ot"> shadows fog</span><span class="op">=</span><span class="st">{new</span><span class="ot"> THREE.FogExp2(</span><span class="er">'</span><span class="ot">papayawhip</span><span class="er">',</span><span class="ot"> </span><span class="er">0.1)}</span><span class="dt">&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&lt;</span><span class="kw">SC.Mesh</span><span class="ot"> geometry</span><span class="op">=</span><span class="st">{new</span><span class="ot"> THREE.ConeGeometry()</span><span class="er">}</span><span class="ot"> position</span><span class="op">=</span><span class="st">{[3,</span><span class="ot"> </span><span class="er">3,</span><span class="ot"> </span><span class="er">3]}</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ot">             material</span><span class="op">=</span><span class="st">{new</span><span class="ot"> THREE.MeshNormalMaterial(</span><span class="er">{</span><span class="ot"> color: </span><span class="er">0x3883F8</span><span class="ot"> </span><span class="er">})}</span><span class="dt">/&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">SC.PerspectiveCamera</span><span class="ot"> position</span><span class="op">=</span><span class="st">{[0,</span><span class="ot"> </span><span class="er">0,</span><span class="ot"> </span><span class="er">5]}</span><span class="dt">/&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">SC.OrbitControls</span><span class="ot"> enableZoom</span><span class="op">=</span><span class="st">{true}</span><span class="ot"> maxPolarAngle</span><span class="op">=</span><span class="st">{Math.PI</span><span class="ot"> * </span><span class="er">0.51}</span><span class="dt">/&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">SC.AmbientLight</span><span class="ot"> intensity</span><span class="op">=</span><span class="st">{0.6}/</span><span class="dt">&gt;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">SC.PointLight</span><span class="ot"> </span><span class="er">...</span><span class="dt">/&gt;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">SC.Canvas</span><span class="dt">&gt;</span></span></code></pre>
      </div> 
      <p>附带着，通过引入一行<code>&lt;SC.OrbitControls enableZoom={true}/&gt;</code>我们就可以通过鼠标与3D实体和场景进行交互 <a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>。</p> 
      <p>另一个好处就是，借着Svelte的编译，我们顺道还完成了treeshaking，把不需要的js依赖去除掉了，用户加载的资源更少，自然也就更快。</p> 
      <p>没骗你吧？ svelte-cubed是不是让threejs更简单？</p> 
      <p>当然，svelte-cubed因为还是在试验期，不够成熟和完善，所以，文档方面完成度也不高，很多组件如果要深入了解只能自己读代码，但个人感觉理念很好，期望它能尽快完善起来啦~</p> 
-     <section class="footnotes" role="doc-endnotes"> 
+     <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"> 
       <hr> 
       <ol> 
-       <li id="fn1" role="doc-endnote"><p>GLSL全称为Open<strong>GL</strong> <strong>S</strong>hading <strong>L</strong>anguage<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
-       <li id="fn2" role="doc-endnote"><p>啥？你不知道svelte框架是啥？那我就不得不王婆卖瓜了，可以看看我写的<a href="https://afoo.me/books.html">Simple Svelte</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
-       <li id="fn3" role="doc-endnote"><p><a href="https://keevol.cn/cubed/index.html">这里</a>有一个使用svelte-cubed开发的简单3D应用<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+       <li id="fn1"><p>GLSL全称为Open<strong>GL</strong> <strong>S</strong>hading <strong>L</strong>anguage<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+       <li id="fn2"><p>啥？你不知道svelte框架是啥？那我就不得不王婆卖瓜了，可以看看我写的<a href="https://afoo.me/books.html">Simple Svelte</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+       <li id="fn3"><p><a href="https://keevol.cn/cubed/index.html">这里</a>有一个使用svelte-cubed开发的简单3D应用<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
       </ol> 
      </section> <!-- tail --> 
      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="7874087130" data-ad-format="auto" data-full-width-responsive="true"></ins> 
@@ -289,11 +299,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2009-10-29-create-custom-maven-archetype.html">自定义Maven archetype的创建 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2009-05-04-some-words.html">那些话儿 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2010-02-18-spring-festval.html">大年三十 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2009-03-04-ten-principles-of-economics.html">10 Principles of Economics </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2007-03-27-first-in-first-out.html">First In, First Out </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2022-03-09-svelte_with_tailwind_and_daisyui.html">Svelte with tailwind and daisyui </a> 
       </div> 
      </div> 
      <hr> 

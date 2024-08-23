@@ -9,6 +9,16 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
   <meta name="robots" content="index,follow"> 
   <title>Cobar分区函数扩展项目简介(cobar-extra-rules) -王福强的个人博客：一个架构士的思考与沉淀</title> 
+  <meta property="og:title" content="Cobar分区函数扩展项目简介(cobar-extra-rules)"> 
+  <meta property="og:type" content="landing page"> 
+  <meta property="og:url" content="https://afoo.me/posts/2014-07-17-intro-cobar-extra-rules.html"> 
+  <meta property="og:image" content="https://og.afoo.me?url=https://afoo.me/posts/2014-07-17-intro-cobar-extra-rules.html"> 
+  <meta name="twitter:card" content="summary_large_image"> 
+  <meta name="twitter:title" content="Cobar分区函数扩展项目简介(cobar-extra-rules)"> 
+  <meta name="twitter:site" content="@afoo_me"> 
+  <meta name="twitter:creator" content="@afoo_me"> 
+  <meta name="twitter:image" content="https://og.afoo.me?url=https://afoo.me/posts/2014-07-17-intro-cobar-extra-rules.html"> 
+  <meta name="twitter:description" content="Cobar分区函数扩展项目简介(cobar-extra-rules) - 王福强的个人博客， 一个架构士的思考与沉淀"> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <link rel="canonical" href="https://afoo.me/posts/2014-07-17-intro-cobar-extra-rules.html"> 
   <link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"> 
@@ -44,7 +54,7 @@
     </style> 
   <style type="text/css">
       pre > code.sourceCode { white-space: pre; position: relative; }
-      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span { line-height: 1.25; }
       pre > code.sourceCode > span:empty { height: 1.2em; }
       .sourceCode { overflow: visible; }
       code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -55,7 +65,7 @@
       }
       @media print {
       pre > code.sourceCode { white-space: pre-wrap; }
-      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
       }
       pre.numberSource code
         { counter-reset: source-line 0; }
@@ -81,7 +91,7 @@
       code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
       code span.at { color: #7d9029; } /* Attribute */
       code span.bn { color: #40a070; } /* BaseN */
-      code span.bu { } /* BuiltIn */
+      code span.bu { color: #008000; } /* BuiltIn */
       code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
       code span.ch { color: #4070a0; } /* Char */
       code span.cn { color: #880000; } /* Constant */
@@ -94,7 +104,7 @@
       code span.ex { } /* Extension */
       code span.fl { color: #40a070; } /* Float */
       code span.fu { color: #06287e; } /* Function */
-      code span.im { } /* Import */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
       code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
       code span.kw { color: #007020; font-weight: bold; } /* Keyword */
       code span.op { color: #666666; } /* Operator */
@@ -243,10 +253,10 @@
       <li>重启cobar <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>；</li> 
      </ol> 
      <p>至于数据的迁移，采用时间范围的分区，基本不需要数据迁移， 只有新数据的添加。</p> 
-     <section class="footnotes" role="doc-endnotes"> 
+     <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"> 
       <hr> 
       <ol> 
-       <li id="fn1" role="doc-endnote"><p>原则上， 应该可以动态变更路由规则和动态添加数据节点，但暂时没必要以复杂性来换取便捷，因为扩展行为频繁程度不会很高<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+       <li id="fn1"><p>原则上， 应该可以动态变更路由规则和动态添加数据节点，但暂时没必要以复杂性来换取便捷，因为扩展行为频繁程度不会很高<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
       </ol> 
      </section> <!-- tail --> 
      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="7874087130" data-ad-format="auto" data-full-width-responsive="true"></ins> 
@@ -257,11 +267,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2020-01-25-time-to-break-tradition.html">是不是到了该打破传统的时候了？ </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2015-07-31-microservices-essential.html">扶墙老师谈微服务(Microservices Essential) </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2014-02-25-get-docker.html">了解docker </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2005-00-00-jbossaop-with-ant-build.html">有关JbossAop编译部署的ant脚本！ </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2020-04-07-creator-and-control.html">造物主情怀 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2021-12-31-explore-instead-of-judge.html">2022还是2020？ </a> 
       </div> 
      </div> 
      <hr> 

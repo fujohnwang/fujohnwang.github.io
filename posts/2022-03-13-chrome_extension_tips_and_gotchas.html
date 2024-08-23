@@ -10,6 +10,16 @@
   <meta name="robots" content="index,follow"> 
   <title>Chrome Extension Development Cookbook -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <meta name="date" content="2022-03-13"> 
+  <meta property="og:title" content="Chrome Extension Development Cookbook"> 
+  <meta property="og:type" content="landing page"> 
+  <meta property="og:url" content="https://afoo.me/posts/2022-03-13-chrome_extension_tips_and_gotchas.html"> 
+  <meta property="og:image" content="https://og.afoo.me?url=https://afoo.me/posts/2022-03-13-chrome_extension_tips_and_gotchas.html"> 
+  <meta name="twitter:card" content="summary_large_image"> 
+  <meta name="twitter:title" content="Chrome Extension Development Cookbook"> 
+  <meta name="twitter:site" content="@afoo_me"> 
+  <meta name="twitter:creator" content="@afoo_me"> 
+  <meta name="twitter:image" content="https://og.afoo.me?url=https://afoo.me/posts/2022-03-13-chrome_extension_tips_and_gotchas.html"> 
+  <meta name="twitter:description" content="Chrome Extension Development Cookbook - 王福强的个人博客， 一个架构士的思考与沉淀"> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <link rel="canonical" href="https://afoo.me/posts/2022-03-13-chrome_extension_tips_and_gotchas.html"> 
   <link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"> 
@@ -45,7 +55,7 @@
     </style> 
   <style type="text/css">
       pre > code.sourceCode { white-space: pre; position: relative; }
-      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span { line-height: 1.25; }
       pre > code.sourceCode > span:empty { height: 1.2em; }
       .sourceCode { overflow: visible; }
       code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -56,7 +66,7 @@
       }
       @media print {
       pre > code.sourceCode { white-space: pre-wrap; }
-      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
       }
       pre.numberSource code
         { counter-reset: source-line 0; }
@@ -82,7 +92,7 @@
       code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
       code span.at { color: #7d9029; } /* Attribute */
       code span.bn { color: #40a070; } /* BaseN */
-      code span.bu { } /* BuiltIn */
+      code span.bu { color: #008000; } /* BuiltIn */
       code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
       code span.ch { color: #4070a0; } /* Char */
       code span.cn { color: #880000; } /* Constant */
@@ -95,7 +105,7 @@
       code span.ex { } /* Extension */
       code span.fl { color: #40a070; } /* Float */
       code span.fu { color: #06287e; } /* Function */
-      code span.im { } /* Import */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
       code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
       code span.kw { color: #007020; font-weight: bold; } /* Keyword */
       code span.op { color: #666666; } /* Operator */
@@ -217,7 +227,7 @@
      </div> 
      <p>然后在background.html里引用：</p> 
      <div class="sourceCode" id="cb3">
-      <pre class="sourceCode html"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;script</span><span class="ot"> type=</span><span class="st">"module"</span> <span class="er">src</span><span class="ot">=</span><span class="st">"background.js"</span><span class="kw">&gt;&lt;/script&gt;</span></span></code></pre>
+      <pre class="sourceCode html"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="ot"> type=</span><span class="st">"module"</span><span class="ot"> src</span><span class="op">=</span><span class="st">"background.js"</span><span class="dt">&gt;&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span></code></pre>
      </div> 
      <p><strong>注意</strong>： <code>type="module"</code>是必须的！</p> 
      <h1 id="popup.html是必须的吗">popup.html是必须的吗？</h1> 
@@ -252,8 +262,8 @@
      </div> 
      <h1 id="如何定义popup的长宽">如何定义popup的长宽？</h1> 
      <div class="sourceCode" id="cb7">
-      <pre class="sourceCode html"><code class="sourceCode html"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;body</span> <span class="er">style</span><span class="ot">=</span><span class="st">"width:600px; height:580px"</span><span class="kw">&gt;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/body&gt;</span></span></code></pre>
+      <pre class="sourceCode html"><code class="sourceCode html"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">body</span><span class="ot"> style</span><span class="op">=</span><span class="st">"width:600px; height:580px"</span><span class="dt">&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">body</span><span class="dt">&gt;</span></span></code></pre>
      </div> 
      <h1 id="如何居中或者自定义popup">如何居中或者自定义popup？</h1> 
      <p>自定义处理action事件，然后有两种方式：</p> 
@@ -283,11 +293,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2008-09-14-mid-autumn-day.html">不一样的中秋 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2005-00-00-InstallAnywhere-gotchas.html">有关InstallAnyWhere的几个问题 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2014-07-06-share-the-profit.html">分润 #What’s in a story# </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2009-04-20-mess-vs-in-order.html">杂草丛生 VS 整洁有序 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2018-04-06-value_of_consulting.html">为什么很多公司觉得请顾问没有什么效果？ </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2014-05-07-weixin-zxl-team-guideline.html">张小龙内部邮件中提到团队的理念[转载] </a> 
       </div> 
      </div> 
      <hr> 

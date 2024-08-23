@@ -9,6 +9,16 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
   <meta name="robots" content="index,follow"> 
   <title>Scala Pattern 之 Loan Pattern -王福强的个人博客：一个架构士的思考与沉淀</title> 
+  <meta property="og:title" content="Scala Pattern 之 Loan Pattern"> 
+  <meta property="og:type" content="landing page"> 
+  <meta property="og:url" content="https://afoo.me/posts/2009-11-30-scala-loan-pattern.html"> 
+  <meta property="og:image" content="https://og.afoo.me?url=https://afoo.me/posts/2009-11-30-scala-loan-pattern.html"> 
+  <meta name="twitter:card" content="summary_large_image"> 
+  <meta name="twitter:title" content="Scala Pattern 之 Loan Pattern"> 
+  <meta name="twitter:site" content="@afoo_me"> 
+  <meta name="twitter:creator" content="@afoo_me"> 
+  <meta name="twitter:image" content="https://og.afoo.me?url=https://afoo.me/posts/2009-11-30-scala-loan-pattern.html"> 
+  <meta name="twitter:description" content="Scala Pattern 之 Loan Pattern - 王福强的个人博客， 一个架构士的思考与沉淀"> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <link rel="canonical" href="https://afoo.me/posts/2009-11-30-scala-loan-pattern.html"> 
   <link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"> 
@@ -44,7 +54,7 @@
     </style> 
   <style type="text/css">
       pre > code.sourceCode { white-space: pre; position: relative; }
-      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span { line-height: 1.25; }
       pre > code.sourceCode > span:empty { height: 1.2em; }
       .sourceCode { overflow: visible; }
       code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -55,7 +65,7 @@
       }
       @media print {
       pre > code.sourceCode { white-space: pre-wrap; }
-      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
       }
       pre.numberSource code
         { counter-reset: source-line 0; }
@@ -81,7 +91,7 @@
       code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
       code span.at { color: #7d9029; } /* Attribute */
       code span.bn { color: #40a070; } /* BaseN */
-      code span.bu { } /* BuiltIn */
+      code span.bu { color: #008000; } /* BuiltIn */
       code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
       code span.ch { color: #4070a0; } /* Char */
       code span.cn { color: #880000; } /* Constant */
@@ -94,7 +104,7 @@
       code span.ex { } /* Extension */
       code span.fl { color: #40a070; } /* Float */
       code span.fu { color: #06287e; } /* Function */
-      code span.im { } /* Import */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
       code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
       code span.kw { color: #007020; font-weight: bold; } /* Keyword */
       code span.op { color: #666666; } /* Operator */
@@ -206,11 +216,11 @@
      <div class="sourceCode" id="cb2">
       <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">package</span> cn<span class="op">.</span>spring21<span class="op">.</span>scalapattern  </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> java<span class="op">.</span>io<span class="op">.</span>Reader  </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> java<span class="op">.</span>io<span class="op">.</span><span class="ex">Reader</span>  </span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">object</span> LoanPattern <span class="op">{</span>  </span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> use<span class="op">[</span>T <span class="op">&lt;:</span> Reader<span class="op">,</span>O<span class="op">](</span>resource<span class="op">:</span>T<span class="op">)(</span>func<span class="op">:</span>T<span class="op">=&gt;</span>O<span class="op">){</span>  </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> use<span class="op">[</span>T <span class="op">&lt;:</span> <span class="ex">Reader</span><span class="op">,</span>O<span class="op">](</span>resource<span class="op">:</span>T<span class="op">)(</span>func<span class="op">:</span>T<span class="op">=&gt;</span>O<span class="op">){</span>  </span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span><span class="op">{</span>  </span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>            <span class="fu">func</span><span class="op">(</span>resource<span class="op">)</span>  </span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span><span class="cf">finally</span><span class="op">{</span>  </span>
@@ -230,9 +240,9 @@
       <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> LoanPattern<span class="op">.</span>_  </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> java<span class="op">.</span>io<span class="op">.</span>_          </span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>          </span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">use</span><span class="op">(</span><span class="kw">new</span> <span class="fu">BufferedReader</span><span class="op">(</span><span class="kw">new</span> <span class="fu">FileReader</span><span class="op">(</span><span class="st">"E:/MyNote.txt"</span><span class="op">))){</span>  </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">use</span><span class="op">(</span><span class="kw">new</span> <span class="ex">BufferedReader</span><span class="op">(</span><span class="kw">new</span> <span class="ex">FileReader</span><span class="op">(</span><span class="st">"E:/MyNote.txt"</span><span class="op">))){</span>  </span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    reader<span class="op">=&gt;</span>  </span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> line<span class="op">:</span>String <span class="op">=</span> <span class="kw">null</span>  </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> line<span class="op">:</span><span class="ex">String</span> <span class="op">=</span> <span class="kw">null</span>  </span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    line <span class="op">=</span> reader<span class="op">.</span>readLine  </span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span><span class="op">(</span>line <span class="op">!=</span><span class="kw">null</span><span class="op">)</span>  </span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span>  </span>
@@ -258,11 +268,11 @@
      </div> 
      <p>use2的定义比use要更进一步， 它可以接受任何定义了close()方法的类型的实例作为资源参数，比如InputStream, OutputStream, Reader, Writer等等，甚至Connection,只要这种类型定义了close()方法就行， 所以，有了它， 剩下的也只是根据情况提供相应的函数定义而已了：</p> 
      <div class="sourceCode" id="cb5">
-      <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> conn<span class="op">:</span>Connection <span class="op">=</span> dataSource<span class="op">.</span>getConnection  </span>
+      <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> conn<span class="op">:</span><span class="ex">Connection</span> <span class="op">=</span> dataSource<span class="op">.</span>getConnection  </span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">use2</span><span class="op">(</span>conn<span class="op">){</span>  </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> stat<span class="op">:</span>Statement <span class="op">=</span> conn<span class="op">.</span>createStatement  </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> stat<span class="op">:</span><span class="ex">Statement</span> <span class="op">=</span> conn<span class="op">.</span>createStatement  </span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">use2</span><span class="op">(</span>stat<span class="op">){</span>  </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> rs<span class="op">:</span>ResultSet <span class="op">=</span> stat<span class="op">.</span><span class="fu">executeQuery</span><span class="op">(</span><span class="st">"..."</span><span class="op">)</span>  </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> rs<span class="op">:</span><span class="ex">ResultSet</span> <span class="op">=</span> stat<span class="op">.</span><span class="fu">executeQuery</span><span class="op">(</span><span class="st">"..."</span><span class="op">)</span>  </span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">use2</span><span class="op">(</span>rs<span class="op">){</span>  </span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>            <span class="op">...</span><span class="co">// retrieve result data with rs  </span></span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span>  </span>
@@ -273,13 +283,13 @@
      <hr> 
      <p>Lift框架的作者给出了一条提炼Scala代码的建议，就是尽量减少代码的行数，所以， use或者use2方法可以进一步精炼一下：</p> 
      <div class="sourceCode" id="cb6">
-      <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> use<span class="op">[</span>T<span class="op">&lt;:</span> Reader<span class="op">,</span>O<span class="op">](</span>resource<span class="op">:</span>T<span class="op">)(</span>func<span class="op">:</span>T<span class="op">=&gt;</span>O<span class="op">){</span>  </span>
+      <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> use<span class="op">[</span>T<span class="op">&lt;:</span> <span class="ex">Reader</span><span class="op">,</span>O<span class="op">](</span>resource<span class="op">:</span>T<span class="op">)(</span>func<span class="op">:</span>T<span class="op">=&gt;</span>O<span class="op">){</span>  </span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span><span class="op">{</span><span class="fu">func</span><span class="op">(</span>resource<span class="op">)}</span><span class="cf">finally</span><span class="op">{</span>resource<span class="op">.</span>close<span class="op">}</span>  </span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> </span></code></pre>
      </div> 
      <p>甚至于：</p> 
      <div class="sourceCode" id="cb7">
-      <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> use<span class="op">[</span>T<span class="op">&lt;:</span> Reader<span class="op">,</span>O<span class="op">](</span>resource<span class="op">:</span>T<span class="op">)(</span>func<span class="op">:</span>T<span class="op">=&gt;</span>O<span class="op">)</span> <span class="op">=</span> <span class="cf">try</span><span class="op">{</span><span class="fu">func</span><span class="op">(</span>resource<span class="op">)}</span><span class="cf">finally</span><span class="op">{</span>resource<span class="op">.</span>close<span class="op">}</span> </span></code></pre>
+      <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> use<span class="op">[</span>T<span class="op">&lt;:</span> <span class="ex">Reader</span><span class="op">,</span>O<span class="op">](</span>resource<span class="op">:</span>T<span class="op">)(</span>func<span class="op">:</span>T<span class="op">=&gt;</span>O<span class="op">)</span> <span class="op">=</span> <span class="cf">try</span><span class="op">{</span><span class="fu">func</span><span class="op">(</span>resource<span class="op">)}</span><span class="cf">finally</span><span class="op">{</span>resource<span class="op">.</span>close<span class="op">}</span> </span></code></pre>
      </div> 
      <p>当然啦， 应该以尽量不影响代码的可读性为准，也不要让精简后的代码让人阅读起来很费劲为好。</p> 
      <hr> 
@@ -292,11 +302,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2015-07-16-explorer-like-the-blind-man-explore-the-elephant.html">我为什么要做瞎子摸象的践行者 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2018-04-06-value_of_consulting.html">为什么很多公司觉得请顾问没有什么效果？ </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2011-05-31-multiple_mysql_slaves_with_same_serverid.html">mysql多个slave使用同一个server id会怎样？ </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2008-04-22-what-drives-your-life.html">不一样的人生理念 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2021-02-11-release-keenotes-v1-2-3-for-spring-festival.html">KeeNotes发布新版恭祝大家新春快乐~ </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2022-07-14-ivory-tower-vs-suburban.html">象牙塔理解不了外围的杂乱差！ </a> 
       </div> 
      </div> 
      <hr> 

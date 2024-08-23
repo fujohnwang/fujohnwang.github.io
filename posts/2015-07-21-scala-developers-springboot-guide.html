@@ -10,6 +10,16 @@
   <meta name="robots" content="index,follow"> 
   <title>Scala开发者的SpringBoot快速入门指南 -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <meta name="date" content="2015-07-21"> 
+  <meta property="og:title" content="Scala开发者的SpringBoot快速入门指南"> 
+  <meta property="og:type" content="landing page"> 
+  <meta property="og:url" content="https://afoo.me/posts/2015-07-21-scala-developers-springboot-guide.html"> 
+  <meta property="og:image" content="https://og.afoo.me?url=https://afoo.me/posts/2015-07-21-scala-developers-springboot-guide.html"> 
+  <meta name="twitter:card" content="summary_large_image"> 
+  <meta name="twitter:title" content="Scala开发者的SpringBoot快速入门指南"> 
+  <meta name="twitter:site" content="@afoo_me"> 
+  <meta name="twitter:creator" content="@afoo_me"> 
+  <meta name="twitter:image" content="https://og.afoo.me?url=https://afoo.me/posts/2015-07-21-scala-developers-springboot-guide.html"> 
+  <meta name="twitter:description" content="Scala开发者的SpringBoot快速入门指南 - 王福强的个人博客， 一个架构士的思考与沉淀"> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <link rel="canonical" href="https://afoo.me/posts/2015-07-21-scala-developers-springboot-guide.html"> 
   <link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"> 
@@ -45,7 +55,7 @@
     </style> 
   <style type="text/css">
       pre > code.sourceCode { white-space: pre; position: relative; }
-      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span { line-height: 1.25; }
       pre > code.sourceCode > span:empty { height: 1.2em; }
       .sourceCode { overflow: visible; }
       code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -56,7 +66,7 @@
       }
       @media print {
       pre > code.sourceCode { white-space: pre-wrap; }
-      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
       }
       pre.numberSource code
         { counter-reset: source-line 0; }
@@ -82,7 +92,7 @@
       code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
       code span.at { color: #7d9029; } /* Attribute */
       code span.bn { color: #40a070; } /* BaseN */
-      code span.bu { } /* BuiltIn */
+      code span.bu { color: #008000; } /* BuiltIn */
       code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
       code span.ch { color: #4070a0; } /* Char */
       code span.cn { color: #880000; } /* Constant */
@@ -95,7 +105,7 @@
       code span.ex { } /* Extension */
       code span.fl { color: #40a070; } /* Float */
       code span.fu { color: #06287e; } /* Function */
-      code span.im { } /* Import */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
       code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
       code span.kw { color: #007020; font-weight: bold; } /* Keyword */
       code span.op { color: #666666; } /* Operator */
@@ -364,7 +374,7 @@
      <div class="sourceCode" id="cb6">
       <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Message <span class="op">{</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  @BeanProperty</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> value<span class="op">:</span> String <span class="op">=</span> _</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> value<span class="op">:</span> <span class="ex">String</span> <span class="op">=</span> _</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
@@ -373,9 +383,9 @@
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">Value</span><span class="op">(</span><span class="st">"${hello.message}"</span><span class="op">)</span></span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  @BeanProperty</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> helloMessage<span class="op">:</span> String <span class="op">=</span> _</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> helloMessage<span class="op">:</span> <span class="ex">String</span> <span class="op">=</span> _</span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">RequestMapping</span><span class="op">(</span>value <span class="op">=</span> <span class="bu">Array</span><span class="op">(</span><span class="st">"/hello"</span><span class="op">),</span> method <span class="op">=</span> <span class="bu">Array</span><span class="op">(</span>RequestMethod<span class="op">.</span>GET<span class="op">))</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">RequestMapping</span><span class="op">(</span>value <span class="op">=</span> <span class="ex">Array</span><span class="op">(</span><span class="st">"/hello"</span><span class="op">),</span> method <span class="op">=</span> <span class="ex">Array</span><span class="op">(</span>RequestMethod<span class="op">.</span>GET<span class="op">))</span></span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  @ResponseBody</span>
 <span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">hello</span><span class="op">():</span> Message <span class="op">=</span> <span class="op">{</span></span>
 <span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> message <span class="op">=</span> <span class="kw">new</span> Message</span>
@@ -415,7 +425,7 @@
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>publishMavenStyle <span class="op">:=</span> <span class="kw">true</span></span>
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>publishTo <span class="op">:=</span> <span class="bu">Some</span><span class="op">(</span>Resolver<span class="op">.</span><span class="fu">file</span><span class="op">(</span><span class="st">"local .m2 repository"</span><span class="op">,</span>  <span class="kw">new</span> <span class="fu">File</span><span class="op">(</span>Path<span class="op">.</span>userHome<span class="op">.</span>absolutePath<span class="op">+</span><span class="st">"/.m2/repository"</span><span class="op">)))</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>publishTo <span class="op">:=</span> <span class="bu">Some</span><span class="op">(</span><span class="ex">Resolver</span><span class="op">.</span><span class="fu">file</span><span class="op">(</span><span class="st">"local .m2 repository"</span><span class="op">,</span>  <span class="kw">new</span> <span class="ex">File</span><span class="op">(</span>Path<span class="op">.</span>userHome<span class="op">.</span>absolutePath<span class="op">+</span><span class="st">"/.m2/repository"</span><span class="op">)))</span></span>
 <span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>resolvers <span class="op">+=</span> <span class="st">"Local Maven Repository"</span> at <span class="st">"file://"</span><span class="op">+</span>Path<span class="op">.</span>userHome<span class="op">.</span>absolutePath<span class="op">+</span><span class="st">"/.m2/repository"</span></span>
 <span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
@@ -458,10 +468,10 @@
 <span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a>mappings in Universal <span class="op">++=</span> <span class="fu">directory</span><span class="op">(</span><span class="st">"conf"</span><span class="op">)</span></span></code></pre>
      </div> 
      <p>OK，that’s it, happy hacking spring boot with scala and sbt!</p> 
-     <section class="footnotes" role="doc-endnotes"> 
+     <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"> 
       <hr> 
       <ol> 
-       <li id="fn1" role="doc-endnote"><p>参考SpringBoot的Reference文档的60. Supporting other build systems一章， 自定义一个Repackager<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+       <li id="fn1"><p>参考SpringBoot的Reference文档的60. Supporting other build systems一章， 自定义一个Repackager<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
       </ol> 
      </section> <!-- tail --> 
      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="7874087130" data-ad-format="auto" data-full-width-responsive="true"></ins> 
@@ -472,11 +482,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2023-11-28-death-of-commercial-research-institute.html">公司研究院的诅咒 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2008-01-06-xintianyou.html">信天游 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2022-02-13-feedback-matters-a-lot.html">谈谈关于反馈的几个思考 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2015-05-13-building-microservices-note-and-digest.html">BuildingMicroservices读书笔记与感悟 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2017-03-31-know-my-xiaomiquan.html">还不知道这个小密圈？！ </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2006-12-30-conclusion-of-my-2006.html">回首我的2006 </a> 
       </div> 
      </div> 
      <hr> 

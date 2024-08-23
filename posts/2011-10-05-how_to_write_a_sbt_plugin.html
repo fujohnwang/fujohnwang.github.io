@@ -10,6 +10,16 @@
   <meta name="robots" content="index,follow"> 
   <title>How to write a SBT 0.10+ plugin? -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <meta name="date" content="2011-10-05"> 
+  <meta property="og:title" content="How to write a SBT 0.10+ plugin?"> 
+  <meta property="og:type" content="landing page"> 
+  <meta property="og:url" content="https://afoo.me/posts/2011-10-05-how_to_write_a_sbt_plugin.html"> 
+  <meta property="og:image" content="https://og.afoo.me?url=https://afoo.me/posts/2011-10-05-how_to_write_a_sbt_plugin.html"> 
+  <meta name="twitter:card" content="summary_large_image"> 
+  <meta name="twitter:title" content="How to write a SBT 0.10+ plugin?"> 
+  <meta name="twitter:site" content="@afoo_me"> 
+  <meta name="twitter:creator" content="@afoo_me"> 
+  <meta name="twitter:image" content="https://og.afoo.me?url=https://afoo.me/posts/2011-10-05-how_to_write_a_sbt_plugin.html"> 
+  <meta name="twitter:description" content="How to write a SBT 0.10+ plugin? - 王福强的个人博客， 一个架构士的思考与沉淀"> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <link rel="canonical" href="https://afoo.me/posts/2011-10-05-how_to_write_a_sbt_plugin.html"> 
   <link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"> 
@@ -45,7 +55,7 @@
     </style> 
   <style type="text/css">
       pre > code.sourceCode { white-space: pre; position: relative; }
-      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span { line-height: 1.25; }
       pre > code.sourceCode > span:empty { height: 1.2em; }
       .sourceCode { overflow: visible; }
       code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -56,7 +66,7 @@
       }
       @media print {
       pre > code.sourceCode { white-space: pre-wrap; }
-      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
       }
       pre.numberSource code
         { counter-reset: source-line 0; }
@@ -82,7 +92,7 @@
       code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
       code span.at { color: #7d9029; } /* Attribute */
       code span.bn { color: #40a070; } /* BaseN */
-      code span.bu { } /* BuiltIn */
+      code span.bu { color: #008000; } /* BuiltIn */
       code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
       code span.ch { color: #4070a0; } /* Char */
       code span.cn { color: #880000; } /* Constant */
@@ -95,7 +105,7 @@
       code span.ex { } /* Extension */
       code span.fl { color: #40a070; } /* Float */
       code span.fu { color: #06287e; } /* Function */
-      code span.im { } /* Import */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
       code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
       code span.kw { color: #007020; font-weight: bold; } /* Keyword */
       code span.op { color: #666666; } /* Operator */
@@ -232,7 +242,7 @@ libraryDependencies ++= Seq("org.aspectj" % "aspectjtools" % "1.6.11.RELEASE", "
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a> <span class="kw">val</span> MyConfiguration <span class="op">=</span> <span class="fu">config</span><span class="op">(</span><span class="st">"myconf"</span><span class="op">)</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a> <span class="kw">val</span> mySetting <span class="op">=</span> SettingKey<span class="op">[</span>String<span class="op">](</span><span class="st">"my-setting"</span><span class="op">)</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a> <span class="kw">val</span> mySetting <span class="op">=</span> SettingKey<span class="op">[</span><span class="ex">String</span><span class="op">](</span><span class="st">"my-setting"</span><span class="op">)</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a> <span class="kw">val</span> myTask <span class="op">=</span> TaskKey<span class="op">[</span><span class="bu">Unit</span><span class="op">](</span><span class="st">"my-task"</span><span class="op">,</span> <span class="st">"task description"</span><span class="op">)</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
@@ -283,11 +293,11 @@ libraryDependencies ++= Seq("org.aspectj" % "aspectjtools" % "1.6.11.RELEASE", "
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2007-06-11-about-the-wedding-of-bro5.html">About The Wedding </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2005-02-25-try-springframework.html">闲话spring在系统实现中的应用 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2021-08-17-dest-or-road-problem.html">TA真得是在问路吗？ </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2024-06-11-howto-get-promotion.html">怎么上位当高管？ </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2013-03-12-concurrency_theory_frameworks_and_practices.html">并发编程： 理论，框架与实践 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2009-08-24-classwork-with-springframework.html">ClassWorking With Spring Framework </a> 
       </div> 
      </div> 
      <hr> 

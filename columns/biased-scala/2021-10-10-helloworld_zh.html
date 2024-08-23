@@ -10,6 +10,16 @@
   <meta name="robots" content="index,follow"> 
   <title>Biased Scala之Hello World -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <meta name="date" content="2021-10-10"> 
+  <meta property="og:title" content="Biased Scala之Hello World"> 
+  <meta property="og:type" content="landing page"> 
+  <meta property="og:url" content="https://afoo.me/columns/biased-scala/2021-10-10-helloworld_zh.html"> 
+  <meta property="og:image" content="https://og.afoo.me?url=https://afoo.me/columns/biased-scala/2021-10-10-helloworld_zh.html"> 
+  <meta name="twitter:card" content="summary_large_image"> 
+  <meta name="twitter:title" content="Biased Scala之Hello World"> 
+  <meta name="twitter:site" content="@afoo_me"> 
+  <meta name="twitter:creator" content="@afoo_me"> 
+  <meta name="twitter:image" content="https://og.afoo.me?url=https://afoo.me/columns/biased-scala/2021-10-10-helloworld_zh.html"> 
+  <meta name="twitter:description" content="Biased Scala之Hello World - 王福强的个人博客， 一个架构士的思考与沉淀"> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <link rel="canonical" href="https://afoo.me/columns/biased-scala/2021-10-10-helloworld_zh.html"> 
   <link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"> 
@@ -45,7 +55,7 @@
     </style> 
   <style type="text/css">
       pre > code.sourceCode { white-space: pre; position: relative; }
-      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span { line-height: 1.25; }
       pre > code.sourceCode > span:empty { height: 1.2em; }
       .sourceCode { overflow: visible; }
       code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -56,7 +66,7 @@
       }
       @media print {
       pre > code.sourceCode { white-space: pre-wrap; }
-      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
       }
       pre.numberSource code
         { counter-reset: source-line 0; }
@@ -82,7 +92,7 @@
       code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
       code span.at { color: #7d9029; } /* Attribute */
       code span.bn { color: #40a070; } /* BaseN */
-      code span.bu { } /* BuiltIn */
+      code span.bu { color: #008000; } /* BuiltIn */
       code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
       code span.ch { color: #4070a0; } /* Char */
       code span.cn { color: #880000; } /* Constant */
@@ -95,7 +105,7 @@
       code span.ex { } /* Extension */
       code span.fl { color: #40a070; } /* Float */
       code span.fu { color: #06287e; } /* Function */
-      code span.im { } /* Import */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
       code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
       code span.kw { color: #007020; font-weight: bold; } /* Keyword */
       code span.op { color: #666666; } /* Operator */
@@ -203,7 +213,7 @@
      <p>Scala3出来之前， 写个简单hello world程序要声明一个object:</p> 
      <div class="sourceCode" id="cb1">
       <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">object</span> Main<span class="op">{</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">main</span><span class="op">(</span>args<span class="op">:</span> <span class="bu">Array</span><span class="op">[</span>String<span class="op">])</span> <span class="op">:</span> <span class="bu">Unit</span> <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">main</span><span class="op">(</span>args<span class="op">:</span> <span class="ex">Array</span><span class="op">[</span><span class="ex">String</span><span class="op">])</span> <span class="op">:</span> <span class="bu">Unit</span> <span class="op">=</span> <span class="op">{</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">println</span><span class="op">(</span><span class="st">"Hello, World"</span><span class="op">)</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
@@ -225,11 +235,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2024-02-15-mgmt-retalk.html">“管理”这个东西… </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2023-11-27-retalk-soa-microservices.html">微服务无罪，有罪也是用的人理解不到位 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2006-09-04-Intro-to-an-excel-template-engine.html">Introduction 2 an excel template engine </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2013-04-06-reading-note-of-inside-the-black-box.html">《打开量化投资的黑箱》读书笔记 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2022-01-27-rsync-error-without-dir-existing.html">rsync: [sender] opendir … failed: Operation not permitted (1) </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2018-03-27-write-a-book-with-pandoc.html">扶墙老师教你如何用pandoc写一本书 </a> 
       </div> 
      </div> 
      <hr> 

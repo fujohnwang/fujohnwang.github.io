@@ -10,6 +10,16 @@
   <meta name="robots" content="index,follow"> 
   <title>闲话spring在系统实现中的应用 -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <meta name="date" content="2005-02-25"> 
+  <meta property="og:title" content="闲话spring在系统实现中的应用"> 
+  <meta property="og:type" content="landing page"> 
+  <meta property="og:url" content="https://afoo.me/posts/2005-02-25-try-springframework.html"> 
+  <meta property="og:image" content="https://og.afoo.me?url=https://afoo.me/posts/2005-02-25-try-springframework.html"> 
+  <meta name="twitter:card" content="summary_large_image"> 
+  <meta name="twitter:title" content="闲话spring在系统实现中的应用"> 
+  <meta name="twitter:site" content="@afoo_me"> 
+  <meta name="twitter:creator" content="@afoo_me"> 
+  <meta name="twitter:image" content="https://og.afoo.me?url=https://afoo.me/posts/2005-02-25-try-springframework.html"> 
+  <meta name="twitter:description" content="闲话spring在系统实现中的应用 - 王福强的个人博客， 一个架构士的思考与沉淀"> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <link rel="canonical" href="https://afoo.me/posts/2005-02-25-try-springframework.html"> 
   <link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"> 
@@ -45,7 +55,7 @@
     </style> 
   <style type="text/css">
       pre > code.sourceCode { white-space: pre; position: relative; }
-      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span { line-height: 1.25; }
       pre > code.sourceCode > span:empty { height: 1.2em; }
       .sourceCode { overflow: visible; }
       code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -56,7 +66,7 @@
       }
       @media print {
       pre > code.sourceCode { white-space: pre-wrap; }
-      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
       }
       pre.numberSource code
         { counter-reset: source-line 0; }
@@ -82,7 +92,7 @@
       code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
       code span.at { color: #7d9029; } /* Attribute */
       code span.bn { color: #40a070; } /* BaseN */
-      code span.bu { } /* BuiltIn */
+      code span.bu { color: #008000; } /* BuiltIn */
       code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
       code span.ch { color: #4070a0; } /* Char */
       code span.cn { color: #880000; } /* Constant */
@@ -95,7 +105,7 @@
       code span.ex { } /* Extension */
       code span.fl { color: #40a070; } /* Float */
       code span.fu { color: #06287e; } /* Function */
-      code span.im { } /* Import */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
       code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
       code span.kw { color: #007020; font-weight: bold; } /* Keyword */
       code span.op { color: #666666; } /* Operator */
@@ -217,7 +227,7 @@
       <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">package</span><span class="im"> com</span><span class="op">.</span><span class="im">livedoor</span><span class="op">.</span><span class="im">finance</span><span class="op">.</span><span class="im">credit</span><span class="op">.</span><span class="im">csvmail</span><span class="op">.</span><span class="im">bo</span><span class="op">;</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"> * @</span>author Darren<span class="co">.</span>Wang</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span><span class="an">@author</span> Darren<span class="co">.</span>Wang</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="co">2005-2-24</span> <span class="co">11:11:11</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a> <span class="co">*/</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">interface</span> ICSVMailSender <span class="op">{</span></span>
@@ -237,23 +247,23 @@
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a> <span class="co">/**</span></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">*</span> Hook Method</span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">*</span> do db query and generate CSV file in this method</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">  * @</span>return String csv data</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">  * </span><span class="an">@return</span> String csv data</span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">*/</span></span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a> <span class="kw">protected</span> <span class="kw">abstract</span> <span class="bu">String</span> <span class="fu">createCSV</span><span class="op">();</span></span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a> </span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a> <span class="co">/**</span></span>
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="co">*</span> Hook Method</span>
 <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="co">*</span> do encription with original string type csv data<span class="co">,</span>and return encripted data</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">  * @</span>param originalStr</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="co">*</span> <span class="co">@</span>return byte<span class="co">[],</span>encripted data in byte<span class="co">[]</span> array type</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">  * </span><span class="an">@param</span><span class="co"> </span><span class="an">originalStr</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="co">*</span> <span class="an">@return</span> byte<span class="co">[],</span>encripted data in byte<span class="co">[]</span> array type</span>
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="co">*/</span></span>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a> <span class="kw">protected</span> <span class="kw">abstract</span> <span class="dt">byte</span><span class="op">[]</span> <span class="fu">encryptCSV</span><span class="op">(</span><span class="bu">String</span> originalStr<span class="op">);</span></span>
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a> </span>
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a> <span class="co">/**</span></span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="co">*</span> Hook Method</span>
 <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  <span class="co">*</span> zip the encripted csv data into a file<span class="co">,</span> so that the mail can send it as an attachement</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">  * @</span>param encryptedData</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  <span class="co">*</span> <span class="co">@</span>return File<span class="co">,</span> zipFile after zip</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">  * </span><span class="an">@param</span><span class="co"> </span><span class="an">encryptedData</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  <span class="co">*</span> <span class="an">@return</span> File<span class="co">,</span> zipFile after zip</span>
 <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  <span class="co">*/</span></span>
 <span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a> <span class="kw">protected</span> <span class="kw">abstract</span> <span class="bu">File</span> <span class="fu">zipCSV</span><span class="op">(</span><span class="dt">byte</span><span class="op">[]</span> encryptedData<span class="op">);</span></span>
 <span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
@@ -327,11 +337,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2007-08-10-what-bad-guys-more-nb.html">为啥bad guys都那么nb </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2014-06-07-troika.html">新时代的三个臭皮匠顶个诸葛亮 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2011-11-20-SBT_Good_And_Bad_Configuration_Style.html">SBT 0.11.x Good And Bad Configuration Style </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2005-06-18-upload-file-in-struts.html">Struts中的文件上传 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2009-10-19-valang-validator-under-the-hood.html">Valang Validator under the hood </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2007-04-09-choose-your-life-style.html">介于极端之间的是什么 </a> 
       </div> 
      </div> 
      <hr> 

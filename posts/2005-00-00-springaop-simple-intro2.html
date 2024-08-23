@@ -9,6 +9,16 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
   <meta name="robots" content="index,follow"> 
   <title>闲话SpringAOP的应用(2) -王福强的个人博客：一个架构士的思考与沉淀</title> 
+  <meta property="og:title" content="闲话SpringAOP的应用(2)"> 
+  <meta property="og:type" content="landing page"> 
+  <meta property="og:url" content="https://afoo.me/posts/2005-00-00-springaop-simple-intro2.html"> 
+  <meta property="og:image" content="https://og.afoo.me?url=https://afoo.me/posts/2005-00-00-springaop-simple-intro2.html"> 
+  <meta name="twitter:card" content="summary_large_image"> 
+  <meta name="twitter:title" content="闲话SpringAOP的应用(2)"> 
+  <meta name="twitter:site" content="@afoo_me"> 
+  <meta name="twitter:creator" content="@afoo_me"> 
+  <meta name="twitter:image" content="https://og.afoo.me?url=https://afoo.me/posts/2005-00-00-springaop-simple-intro2.html"> 
+  <meta name="twitter:description" content="闲话SpringAOP的应用(2) - 王福强的个人博客， 一个架构士的思考与沉淀"> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <link rel="canonical" href="https://afoo.me/posts/2005-00-00-springaop-simple-intro2.html"> 
   <link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"> 
@@ -44,7 +54,7 @@
     </style> 
   <style type="text/css">
       pre > code.sourceCode { white-space: pre; position: relative; }
-      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span { line-height: 1.25; }
       pre > code.sourceCode > span:empty { height: 1.2em; }
       .sourceCode { overflow: visible; }
       code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -55,7 +65,7 @@
       }
       @media print {
       pre > code.sourceCode { white-space: pre-wrap; }
-      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
       }
       pre.numberSource code
         { counter-reset: source-line 0; }
@@ -81,7 +91,7 @@
       code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
       code span.at { color: #7d9029; } /* Attribute */
       code span.bn { color: #40a070; } /* BaseN */
-      code span.bu { } /* BuiltIn */
+      code span.bu { color: #008000; } /* BuiltIn */
       code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
       code span.ch { color: #4070a0; } /* Char */
       code span.cn { color: #880000; } /* Constant */
@@ -94,7 +104,7 @@
       code span.ex { } /* Extension */
       code span.fl { color: #40a070; } /* Float */
       code span.fu { color: #06287e; } /* Function */
-      code span.im { } /* Import */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
       code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
       code span.kw { color: #007020; font-weight: bold; } /* Keyword */
       code span.op { color: #666666; } /* Operator */
@@ -231,25 +241,25 @@
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">* @</span>return Returns the primaryDataSource<span class="co">.</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">* </span><span class="an">@return</span> Returns the primaryDataSource<span class="co">.</span></span>
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span></span>
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="bu">DataSource</span> <span class="fu">getPrimaryDataSource</span><span class="op">()</span> <span class="op">{</span></span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> primaryDataSource<span class="op">;</span></span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
 <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co">* @</span>param primaryDataSource The primaryDataSource to set<span class="co">.</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co">* </span><span class="an">@param</span><span class="co"> </span><span class="an">primaryDataSource</span><span class="co"> </span>The primaryDataSource to set<span class="co">.</span></span>
 <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span></span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">void</span> <span class="fu">setPrimaryDataSource</span><span class="op">(</span><span class="bu">DataSource</span> primaryDataSource<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="kw">this</span><span class="op">.</span><span class="fu">primaryDataSource</span> <span class="op">=</span> primaryDataSource<span class="op">;</span></span>
 <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="co">* @</span>return Returns the secondaryDataSource<span class="co">.</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="co">* </span><span class="an">@return</span> Returns the secondaryDataSource<span class="co">.</span></span>
 <span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span></span>
 <span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="bu">DataSource</span> <span class="fu">getSecondaryDataSource</span><span class="op">()</span> <span class="op">{</span></span>
 <span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> secondaryDataSource<span class="op">;</span></span>
 <span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
 <span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co">* @</span>param secondaryDataSource The secondaryDataSource to set<span class="co">.</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co">* </span><span class="an">@param</span><span class="co"> </span><span class="an">secondaryDataSource</span><span class="co"> </span>The secondaryDataSource to set<span class="co">.</span></span>
 <span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span></span>
 <span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">void</span> <span class="fu">setSecondaryDataSource</span><span class="op">(</span><span class="bu">DataSource</span> secondaryDataSource<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="kw">this</span><span class="op">.</span><span class="fu">secondaryDataSource</span> <span class="op">=</span> secondaryDataSource<span class="op">;</span></span>
@@ -354,11 +364,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2010-06-07-chasing-freedom.html">随笔 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2008-11-12-choices-make-plain-text-be-rich.html">普通文本的“麻雀变凤凰”之路 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2009-03-22-hard-choice.html">剪不断，理还乱… </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2019-07-29-talk-about-postmortem-how-to.html">复盘不是你想的那样 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2022-03-07-intro-svelte-cubed.html">从Threejs到Svelte</a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2020-06-08-my-consulting-methodology.html">向前看 </a> 
       </div> 
      </div> 
      <hr> 

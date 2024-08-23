@@ -10,6 +10,16 @@
   <meta name="robots" content="index,follow"> 
   <title>“初探列存储数据库” -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <meta name="date" content="2011-12-10"> 
+  <meta property="og:title" content="“初探列存储数据库”"> 
+  <meta property="og:type" content="landing page"> 
+  <meta property="og:url" content="https://afoo.me/posts/2011-12-10-col-store.html"> 
+  <meta property="og:image" content="https://og.afoo.me?url=https://afoo.me/posts/2011-12-10-col-store.html"> 
+  <meta name="twitter:card" content="summary_large_image"> 
+  <meta name="twitter:title" content="“初探列存储数据库”"> 
+  <meta name="twitter:site" content="@afoo_me"> 
+  <meta name="twitter:creator" content="@afoo_me"> 
+  <meta name="twitter:image" content="https://og.afoo.me?url=https://afoo.me/posts/2011-12-10-col-store.html"> 
+  <meta name="twitter:description" content="“初探列存储数据库” - 王福强的个人博客， 一个架构士的思考与沉淀"> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <link rel="canonical" href="https://afoo.me/posts/2011-12-10-col-store.html"> 
   <link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"> 
@@ -146,7 +156,7 @@
      </ul> 
      <p>当然， 无论无论是逻辑视角还是物理视角， 它们都是不冲突的， 比如我们可以将逻辑上的RDBMS和物理上的Row Based Storage DBMS相结合， 那就成为我们平常使用最多的一种数据库产品类型，比如Mysql， Oracle等产品都属于这个范畴， 而如果我们将逻辑上的RDBMS和物理上的Column Based Storage DBMS相结合， 那就成为我们今天要探索的一类数据库产品，即基于列存储的关系型数据库。</p> 
      <figure> 
-      <img src="../../../images/col_store/R_A_C.png" alt="RowBasedStore_ColumnBasedStore">
+      <img src="../../../images/col_store/R_A_C.png" alt="RowBasedStore_ColumnBasedStore"> 
       <figcaption aria-hidden="true">
        RowBasedStore_ColumnBasedStore
       </figcaption> 
@@ -163,7 +173,7 @@
      <h1 id="基于列存储的rdbms行为分析">- 基于列存储的RDBMS行为分析</h1> 
      <p>在基于列存储的RDBMS中， 数据现在是按照一列一列为单元进行存储的，那么要进行一行一行的数据写入的时候， 可能就需要“跳跃式”的将每一行每一列的值写入到不同的区块，显然，对于磁盘结构来说，这中存储方式对数据的写入是不够友好的，性能指定好不到哪儿去（当然，是与基于行存储的DBMS相比）。但是，反过来看， 对数据写入的支持或许不好，那对数据的读取那？很简单就可以看出来，如果我每次都对一列，一列的数据感兴趣，我完全可以快速的读取每一列的所有值，那么， 这种特性对读取的列上所有的值进行统计分析就比较赞了。至于说“基于列存储的RDBMS则更适合OLAP类型的应用场景”， 我们不妨以数据仓库这种特定场景为基础进行一简单的“分析”（CRM之类也可以）。</p> 
      <figure> 
-      <img src="../../../images/col_store/DatawarehouseBigPicture.png" alt="RowBasedStore_ColumnBasedStore">
+      <img src="../../../images/col_store/DatawarehouseBigPicture.png" alt="RowBasedStore_ColumnBasedStore"> 
       <figcaption aria-hidden="true">
        RowBasedStore_ColumnBasedStore
       </figcaption> 
@@ -228,11 +238,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2009-05-27-am-I-still-naive.html">心理年龄小 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2021-05-23-price-lifting.html">赠品、新品与提价 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2007-10-25-BF4768EE8B110260_625.html">答题，答题...</a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2020-01-25-time-to-break-tradition.html">是不是到了该打破传统的时候了？ </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2011-04-29-simple_introduction_on_akka_actor.html">Simple Introduction On Akka Actor </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2014-05-29-mingdao-forum-review.html">明道大会回顾 </a> 
       </div> 
      </div> 
      <hr> 

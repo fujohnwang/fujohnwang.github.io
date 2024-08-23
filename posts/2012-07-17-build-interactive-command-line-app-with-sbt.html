@@ -10,6 +10,16 @@
   <meta name="robots" content="index,follow"> 
   <title>使用SBT构建可交互的命令行应用程序(Build Interactive Command Line Application With SBT) -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <meta name="date" content="2012-07-17"> 
+  <meta property="og:title" content="使用SBT构建可交互的命令行应用程序(Build Interactive Command Line Application With SBT)"> 
+  <meta property="og:type" content="landing page"> 
+  <meta property="og:url" content="https://afoo.me/posts/2012-07-17-build-interactive-command-line-app-with-sbt.html"> 
+  <meta property="og:image" content="https://og.afoo.me?url=https://afoo.me/posts/2012-07-17-build-interactive-command-line-app-with-sbt.html"> 
+  <meta name="twitter:card" content="summary_large_image"> 
+  <meta name="twitter:title" content="使用SBT构建可交互的命令行应用程序(Build Interactive Command Line Application With SBT)"> 
+  <meta name="twitter:site" content="@afoo_me"> 
+  <meta name="twitter:creator" content="@afoo_me"> 
+  <meta name="twitter:image" content="https://og.afoo.me?url=https://afoo.me/posts/2012-07-17-build-interactive-command-line-app-with-sbt.html"> 
+  <meta name="twitter:description" content="使用SBT构建可交互的命令行应用程序(Build Interactive Command Line Application With SBT) - 王福强的个人博客， 一个架构士的思考与沉淀"> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <link rel="canonical" href="https://afoo.me/posts/2012-07-17-build-interactive-command-line-app-with-sbt.html"> 
   <link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"> 
@@ -45,7 +55,7 @@
     </style> 
   <style type="text/css">
       pre > code.sourceCode { white-space: pre; position: relative; }
-      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span { line-height: 1.25; }
       pre > code.sourceCode > span:empty { height: 1.2em; }
       .sourceCode { overflow: visible; }
       code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -56,7 +66,7 @@
       }
       @media print {
       pre > code.sourceCode { white-space: pre-wrap; }
-      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
       }
       pre.numberSource code
         { counter-reset: source-line 0; }
@@ -82,7 +92,7 @@
       code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
       code span.at { color: #7d9029; } /* Attribute */
       code span.bn { color: #40a070; } /* BaseN */
-      code span.bu { } /* BuiltIn */
+      code span.bu { color: #008000; } /* BuiltIn */
       code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
       code span.ch { color: #4070a0; } /* Char */
       code span.cn { color: #880000; } /* Constant */
@@ -95,7 +105,7 @@
       code span.ex { } /* Extension */
       code span.fl { color: #40a070; } /* Float */
       code span.fu { color: #06287e; } /* Function */
-      code span.im { } /* Import */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
       code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
       code span.kw { color: #007020; font-weight: bold; } /* Keyword */
       code span.op { color: #666666; } /* Operator */
@@ -112,7 +122,8 @@
     {
       "@context": "https://schema.org",
       "@type": "NewsArticle",
-      "headline": "使用SBT构建可交互的命令行应用程序(Build Interactive Command Line Application With SBT)",
+      "headline": "使用SBT构建可交互的命令行应用程序(Build Interactive
+Command Line Application With SBT)",
       "image": [
         "https://afoo.me/images/fb_subscribe.jpg"
        ],
@@ -262,7 +273,7 @@
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>   <span class="co">*</span></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>   <span class="co">*</span> http<span class="co">://</span>harrah<span class="co">.</span>github<span class="co">.</span>com<span class="co">/</span>xsbt<span class="co">/</span>latest<span class="co">/</span>api<span class="co">/</span>sbt<span class="co">/</span>State<span class="co">%24.</span>html</span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>   <span class="co">*/</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> <span class="fu">initialState</span><span class="op">(</span>configuration<span class="op">:</span> xsbti<span class="op">.</span>AppConfiguration<span class="op">):</span> State <span class="op">=</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> <span class="fu">initialState</span><span class="op">(</span>configuration<span class="op">:</span> xsbti<span class="op">.</span>AppConfiguration<span class="op">):</span> <span class="ex">State</span> <span class="op">=</span></span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>   <span class="op">{</span></span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>         <span class="co">// These are the commands that the application supports.</span></span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>      <span class="kw">val</span> commandDefinitions <span class="op">=</span> hello <span class="op">+:</span> BasicCommands<span class="op">.</span>allBasicCommands</span>
@@ -273,9 +284,9 @@
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>      <span class="kw">val</span> commandsToRun <span class="op">=</span></span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>         <span class="st">"hello There"</span> <span class="op">+:</span> <span class="st">"iflast shell"</span> <span class="op">+:</span> configuration<span class="op">.</span>arguments<span class="op">.</span><span class="fu">map</span><span class="op">(</span>_<span class="op">.</span>trim<span class="op">)</span></span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>      <span class="fu">State</span><span class="op">(</span> configuration<span class="op">,</span> commandDefinitions<span class="op">,</span> Set<span class="op">.</span>empty<span class="op">,</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>         <span class="bu">None</span><span class="op">,</span> commandsToRun<span class="op">,</span> State<span class="op">.</span>newHistory<span class="op">,</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>         AttributeMap<span class="op">.</span>empty<span class="op">,</span> initialGlobalLogging<span class="op">,</span> State<span class="op">.</span>Continue <span class="op">)</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>      <span class="ex">State</span><span class="op">(</span> configuration<span class="op">,</span> commandDefinitions<span class="op">,</span> <span class="ex">Set</span><span class="op">.</span>empty<span class="op">,</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>         <span class="bu">None</span><span class="op">,</span> commandsToRun<span class="op">,</span> <span class="ex">State</span><span class="op">.</span>newHistory<span class="op">,</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>         AttributeMap<span class="op">.</span>empty<span class="op">,</span> initialGlobalLogging<span class="op">,</span> <span class="ex">State</span><span class="op">.</span>Continue <span class="op">)</span></span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>   <span class="op">}</span></span>
 <span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>   <span class="co">/**</span> A sample command that says hello to its argument<span class="co">.</span></span>
@@ -288,10 +299,10 @@
 <span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>   <span class="co">*/</span></span>
 <span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> hello <span class="op">=</span> <span class="fu">Command</span><span class="op">(</span><span class="st">"hello"</span><span class="op">)(</span>state <span class="op">=&gt;</span> helloParser<span class="op">)(</span> helloAction <span class="op">)</span></span>
 <span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> helloParser<span class="op">:</span> Parser<span class="op">[</span>String<span class="op">]</span> <span class="op">=</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> helloParser<span class="op">:</span> <span class="ex">Parser</span><span class="op">[</span><span class="ex">String</span><span class="op">]</span> <span class="op">=</span></span>
 <span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>      <span class="fu">token</span><span class="op">(</span>Space<span class="op">)</span> <span class="op">~&gt;</span> <span class="fu">token</span><span class="op">(</span>NotSpace<span class="op">,</span> <span class="st">"&lt;name&gt;"</span><span class="op">)</span></span>
 <span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> <span class="fu">helloAction</span><span class="op">(</span>state<span class="op">:</span> State<span class="op">,</span> name<span class="op">:</span> String<span class="op">):</span> State <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> <span class="fu">helloAction</span><span class="op">(</span>state<span class="op">:</span> <span class="ex">State</span><span class="op">,</span> name<span class="op">:</span> <span class="ex">String</span><span class="op">):</span> <span class="ex">State</span> <span class="op">=</span> <span class="op">{</span></span>
 <span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>      state<span class="op">.</span>log<span class="op">.</span><span class="fu">info</span><span class="op">(</span> <span class="st">"Hello %s!"</span><span class="op">.</span><span class="fu">format</span><span class="op">(</span>name<span class="op">)</span> <span class="op">)</span></span>
 <span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>      state</span>
 <span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>   <span class="op">}</span></span>
@@ -300,7 +311,7 @@
 <span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>   <span class="co">*</span> An application would need to do more here to customize the logging level and</span>
 <span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>   <span class="co">*</span> provide access to the backing file <span class="co">(</span>like sbt<span class="co">'</span>s last command and logLevel setting<span class="co">).*/</span></span>
 <span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> initialGlobalLogging<span class="op">:</span> GlobalLogging <span class="op">=</span></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>      GlobalLogging<span class="op">.</span><span class="fu">initial</span><span class="op">(</span>MainLogging<span class="op">.</span>globalDefault _<span class="op">,</span> java<span class="op">.</span>io<span class="op">.</span>File<span class="op">.</span><span class="fu">createTempFile</span><span class="op">(</span><span class="st">"app"</span><span class="op">,</span> <span class="st">"log"</span><span class="op">))</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>      GlobalLogging<span class="op">.</span><span class="fu">initial</span><span class="op">(</span>MainLogging<span class="op">.</span>globalDefault _<span class="op">,</span> java<span class="op">.</span>io<span class="op">.</span><span class="ex">File</span><span class="op">.</span><span class="fu">createTempFile</span><span class="op">(</span><span class="st">"app"</span><span class="op">,</span> <span class="st">"log"</span><span class="op">))</span></span>
 <span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre>
      </div> 
      <p>该trait的实现类只需要实现<code>def run (configuration: AppConfiguration): MainResult</code>方法， 它接收AppConfiguration参数，返回MainResult结果， MainResult主要有两种，即重启或者退出(Exit)，一般会选择退出，不过特殊情况下也可以选择重启，比如如果我们依赖的运行环境不满足，我们可以调整配置，降级也好，升级也好， 要求重启当前应用，在启动成功后，要求退出的情况下，再行退出。</p> 
@@ -363,11 +374,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2009-03-30-just-a-weekend.html">周日杂记 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2010-07-21-thanku-my-dear-fella.html">Thank you, My dear fella </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2007-07-09-what-a-weekend.html">周末杂记 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2019-03-18-body-uphold-spirit.html">精神再高贵顽强也经不起身体神殿的崩塌 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2014-05-29-mingdao-forum-review.html">明道大会回顾 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2009-03-04-ten-principles-of-economics.html">10 Principles of Economics </a> 
       </div> 
      </div> 
      <hr> 

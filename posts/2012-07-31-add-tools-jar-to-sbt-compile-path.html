@@ -10,6 +10,16 @@
   <meta name="robots" content="index,follow"> 
   <title>将tools.jar添加到sbt编译期classpath中 -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <meta name="date" content="2012-07-31"> 
+  <meta property="og:title" content="将tools.jar添加到sbt编译期classpath中"> 
+  <meta property="og:type" content="landing page"> 
+  <meta property="og:url" content="https://afoo.me/posts/2012-07-31-add-tools-jar-to-sbt-compile-path.html"> 
+  <meta property="og:image" content="https://og.afoo.me?url=https://afoo.me/posts/2012-07-31-add-tools-jar-to-sbt-compile-path.html"> 
+  <meta name="twitter:card" content="summary_large_image"> 
+  <meta name="twitter:title" content="将tools.jar添加到sbt编译期classpath中"> 
+  <meta name="twitter:site" content="@afoo_me"> 
+  <meta name="twitter:creator" content="@afoo_me"> 
+  <meta name="twitter:image" content="https://og.afoo.me?url=https://afoo.me/posts/2012-07-31-add-tools-jar-to-sbt-compile-path.html"> 
+  <meta name="twitter:description" content="将tools.jar添加到sbt编译期classpath中 - 王福强的个人博客， 一个架构士的思考与沉淀"> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <link rel="canonical" href="https://afoo.me/posts/2012-07-31-add-tools-jar-to-sbt-compile-path.html"> 
   <link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"> 
@@ -45,7 +55,7 @@
     </style> 
   <style type="text/css">
       pre > code.sourceCode { white-space: pre; position: relative; }
-      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span { line-height: 1.25; }
       pre > code.sourceCode > span:empty { height: 1.2em; }
       .sourceCode { overflow: visible; }
       code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -56,7 +66,7 @@
       }
       @media print {
       pre > code.sourceCode { white-space: pre-wrap; }
-      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
       }
       pre.numberSource code
         { counter-reset: source-line 0; }
@@ -82,7 +92,7 @@
       code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
       code span.at { color: #7d9029; } /* Attribute */
       code span.bn { color: #40a070; } /* BaseN */
-      code span.bu { } /* BuiltIn */
+      code span.bu { color: #008000; } /* BuiltIn */
       code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
       code span.ch { color: #4070a0; } /* Char */
       code span.cn { color: #880000; } /* Constant */
@@ -95,7 +105,7 @@
       code span.ex { } /* Extension */
       code span.fl { color: #40a070; } /* Float */
       code span.fu { color: #06287e; } /* Function */
-      code span.im { } /* Import */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
       code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
       code span.kw { color: #007020; font-weight: bold; } /* Keyword */
       code span.op { color: #666666; } /* Operator */
@@ -212,12 +222,12 @@
      <p>第二步虽然可以跑了，但只是权宜之计， 有个明显的不足之处，即路径是写死的，换一个环境编译显然这段编译设置需要对应修改，不够独立，所以，老衲绞尽脑汁，疯查资料，反复实验，终究获得了一个令自己满意的结果…</p> 
      <h1 id="第一版">第一版</h1> 
      <div class="sourceCode" id="cb2">
-      <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>unmanagedJars in Compile <span class="op">+=</span> Attributed<span class="op">.</span><span class="fu">blank</span><span class="op">(</span><span class="fu">file</span><span class="op">(</span>System<span class="op">.</span><span class="fu">getProperty</span><span class="op">(</span><span class="st">"java.home"</span><span class="op">))</span> <span class="op">/</span> <span class="st">"lib"</span> <span class="op">/</span> <span class="st">"tools.jar"</span><span class="op">)</span></span></code></pre>
+      <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>unmanagedJars in Compile <span class="op">+=</span> Attributed<span class="op">.</span><span class="fu">blank</span><span class="op">(</span><span class="fu">file</span><span class="op">(</span><span class="ex">System</span><span class="op">.</span><span class="fu">getProperty</span><span class="op">(</span><span class="st">"java.home"</span><span class="op">))</span> <span class="op">/</span> <span class="st">"lib"</span> <span class="op">/</span> <span class="st">"tools.jar"</span><span class="op">)</span></span></code></pre>
      </div> 
      <p>其实那， 刚开始是想通过javaHome这个SettingKey来转换并获取编译期间使用的JAVA_HOME，但是，使用javaHome的问题就是，它是SettingKey[Option[File]]类型，Option的意思那就是，除非你明确设置了javaHome，否则它会是None，而一般情况下，我们不会去设置它，所以，用这东西不够周全，返璞归真那，咱就先用最土的方法搞定一个能work的，而且build environment independent的版本！</p> 
      <h1 id="第二版">第二版</h1> 
      <div class="sourceCode" id="cb3">
-      <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>unmanagedJars in Compile <span class="op">&lt;+=</span> <span class="op">(</span>javaHome<span class="op">)</span> <span class="fu">map</span> <span class="op">(</span>jh<span class="op">=&gt;</span> Attributed<span class="op">.</span><span class="fu">blank</span><span class="op">(</span>jh<span class="op">.</span><span class="fu">getOrElse</span><span class="op">(</span><span class="fu">file</span><span class="op">(</span>System<span class="op">.</span><span class="fu">getProperty</span><span class="op">(</span><span class="st">"java.home"</span><span class="op">)))</span> <span class="op">/</span> <span class="st">"lib"</span> <span class="op">/</span> <span class="st">"tools.jar"</span><span class="op">))</span></span></code></pre>
+      <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>unmanagedJars in Compile <span class="op">&lt;+=</span> <span class="op">(</span>javaHome<span class="op">)</span> <span class="fu">map</span> <span class="op">(</span>jh<span class="op">=&gt;</span> Attributed<span class="op">.</span><span class="fu">blank</span><span class="op">(</span>jh<span class="op">.</span><span class="fu">getOrElse</span><span class="op">(</span><span class="fu">file</span><span class="op">(</span><span class="ex">System</span><span class="op">.</span><span class="fu">getProperty</span><span class="op">(</span><span class="st">"java.home"</span><span class="op">)))</span> <span class="op">/</span> <span class="st">"lib"</span> <span class="op">/</span> <span class="st">"tools.jar"</span><span class="op">))</span></span></code></pre>
      </div> 
      <p>复杂的东西其实并不复杂，通常都是由简单的东西组合而来（这话有哲理性，可我说的太挫了，看官见谅）。 第一版总算能independent了，可还有个问题，如果我们真的明确指定了javaHome这个设置并override了默认的编译用JDK，那第一版好像就不够严谨了，鉴于此，老衲再接再厉，终于搞出了第二版能work，又build environment independent的编译配置。</p> 
      <p>嗯，基本上，还算满意，收工！</p> <!-- tail --> 
@@ -229,11 +239,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2010-12-04-n_things_should_know_about_handlersocket.html">N Things You should know about HandlerSocket </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2018-08-30-illusion_as_reality.html">冲突，臆想与现实 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2019-06-02-memory_tricks.html">记忆技巧 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2015-02-21-startup-checklist-from-zero-to-one.html">初创公司checklist [Zero 2 One摘录] </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2020-07-07-worms-is-slow-but-never-stop.html">青虫的故事 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2009-04-30-travel-to-lijiang-chap0.html">终于成行的丽江之旅(1) </a> 
       </div> 
      </div> 
      <hr> 

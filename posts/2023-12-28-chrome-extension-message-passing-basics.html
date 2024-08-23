@@ -10,6 +10,16 @@
   <meta name="robots" content="index,follow"> 
   <title>Chrome插件的消息通信机制探寻 (Message Passing in Chrome Extension) -王福强的个人博客：一个架构士的思考与沉淀</title> 
   <meta name="date" content="2023-12-28"> 
+  <meta property="og:title" content="Chrome插件的消息通信机制探寻 (Message Passing in Chrome Extension)"> 
+  <meta property="og:type" content="landing page"> 
+  <meta property="og:url" content="https://afoo.me/posts/2023-12-28-chrome-extension-message-passing-basics.html"> 
+  <meta property="og:image" content="https://og.afoo.me?url=https://afoo.me/posts/2023-12-28-chrome-extension-message-passing-basics.html"> 
+  <meta name="twitter:card" content="summary_large_image"> 
+  <meta name="twitter:title" content="Chrome插件的消息通信机制探寻 (Message Passing in Chrome Extension)"> 
+  <meta name="twitter:site" content="@afoo_me"> 
+  <meta name="twitter:creator" content="@afoo_me"> 
+  <meta name="twitter:image" content="https://og.afoo.me?url=https://afoo.me/posts/2023-12-28-chrome-extension-message-passing-basics.html"> 
+  <meta name="twitter:description" content="Chrome插件的消息通信机制探寻 (Message Passing in Chrome Extension) - 王福强的个人博客， 一个架构士的思考与沉淀"> 
   <link rel="shortcut icon" href="/favicon.ico"> 
   <link rel="canonical" href="https://afoo.me/posts/2023-12-28-chrome-extension-message-passing-basics.html"> 
   <link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"> 
@@ -45,7 +55,7 @@
     </style> 
   <style type="text/css">
       pre > code.sourceCode { white-space: pre; position: relative; }
-      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span { line-height: 1.25; }
       pre > code.sourceCode > span:empty { height: 1.2em; }
       .sourceCode { overflow: visible; }
       code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -56,7 +66,7 @@
       }
       @media print {
       pre > code.sourceCode { white-space: pre-wrap; }
-      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
       }
       pre.numberSource code
         { counter-reset: source-line 0; }
@@ -82,7 +92,7 @@
       code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
       code span.at { color: #7d9029; } /* Attribute */
       code span.bn { color: #40a070; } /* BaseN */
-      code span.bu { } /* BuiltIn */
+      code span.bu { color: #008000; } /* BuiltIn */
       code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
       code span.ch { color: #4070a0; } /* Char */
       code span.cn { color: #880000; } /* Constant */
@@ -95,7 +105,7 @@
       code span.ex { } /* Extension */
       code span.fl { color: #40a070; } /* Float */
       code span.fu { color: #06287e; } /* Function */
-      code span.im { } /* Import */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
       code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
       code span.kw { color: #007020; font-weight: bold; } /* Keyword */
       code span.op { color: #666666; } /* Operator */
@@ -112,7 +122,8 @@
     {
       "@context": "https://schema.org",
       "@type": "NewsArticle",
-      "headline": "Chrome插件的消息通信机制探寻 (Message Passing in Chrome Extension)",
+      "headline": "Chrome插件的消息通信机制探寻 (Message Passing in
+Chrome Extension)",
       "image": [
         "https://afoo.me/images/fb_subscribe.jpg"
        ],
@@ -345,10 +356,10 @@ chrome.tabs.sendMessage</code></pre>
       <li>https://developer.chrome.com/docs/extensions/develop/concepts/messaging</li> 
       <li>https://www.linkedin.com/pulse/message-passing-chrome-extension-lakebrains-technologies/</li> 
      </ul> 
-     <section class="footnotes" role="doc-endnotes"> 
+     <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"> 
       <hr> 
       <ol> 
-       <li id="fn1" role="doc-endnote"><p>These are files that run in the context of web pages.They can read details of the web pages the browser visits, make changes to them, and pass information to their parent extension.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+       <li id="fn1"><p>These are files that run in the context of web pages.They can read details of the web pages the browser visits, make changes to them, and pass information to their parent extension.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
       </ol> 
      </section> <!-- tail --> 
      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="7874087130" data-ad-format="auto" data-full-width-responsive="true"></ins> 
@@ -359,11 +370,11 @@ chrome.tabs.sendMessage</code></pre>
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2021-10-02-you-get-what-you-advocate.html">提倡什么得到什么 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2007-11-03-BF4768EE8B110260_682.html">《奋斗》</a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2010-03-06-raining.html">雨呀哗啦啦地下 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2010-03-17-travel-to-nanjing.html">南京南京南京~ </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2017-09-22-wedding-journal-2.html">婚礼筹备曲续 </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2023-11-18-svelte5-runes.html">Runes in Svelte5 </a> 
       </div> 
      </div> 
      <hr> 
