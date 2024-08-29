@@ -3,19 +3,22 @@
 <html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]">
 
 <head>
-	<title></title>
+	<title>401 - 没有权限 - unauthorized - 剑毅阁 志 - 王福强的博客：一个架构士的思考与沉淀</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="robots" content="index,follow">
-	<meta name="description" content="福强说，扶墙老师说，王福强的个人博客，一个架构士的思考与沉淀">
-    <meta name="keywords" content="架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学">
-    <meta name="author" content="王福强">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="剑毅阁 志, 福强说，扶墙老师说，王福强的个人博客，一个架构士的思考与沉淀">
+	<meta name="keywords"
+		content="剑毅阁,架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学">
+	<meta name="author" content="王福强">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="canonical" href="https://afoo.me">
 	<link rel="shortcut icon" href="https://afoo.me/favicon.ico">
 	<link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg">
 	<link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8">
 	<link rel="stylesheet" href="/css/af.css">
-	<script src="/htmx/htmx-1.9.10.min.js"></script>
+	<link rel="stylesheet" href="/css/components.css">
+	<script src="https://unpkg.com/@popperjs/core@2" ></script>
+	<script src="https://unpkg.com/tippy.js@6" ></script>
 </head>
 
 <body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized">
@@ -27,13 +30,13 @@
 				<a class="flex items-center" href="https://afoo.me">
 					<span
 						class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white">
-						{{TITLE}}
+						<h2>401 - 无权限/Unauthorized</h2>
 					</span>
 				</a>
 				<div class="flex items-center md:hidden">
 					<button type="button"
 						class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center"
-						aria-label="Toggle between Dark and Light mode" data-aw-toggle-color-scheme="">
+						aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme="">
 						<svg viewBox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun">
 							<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
 								stroke-width="2" class="icon-tabler">
@@ -45,7 +48,7 @@
 					</button>
 					<button type="button"
 						class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition"
-						aria-label="Toggle Menu" data-aw-toggle-menu="">
+						aria-label="Toggle Menu" data-toggle-menu="">
 						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
 							preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" class="w-6 h-6"
 							astro-icon="tabler:menu">
@@ -61,12 +64,16 @@
 			<nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto"
 				aria-label="Main navigation">
 				<ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base">
-					<li><a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://kb.afoo.me">福强私学</a></li>
+					<li><a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/kb.html">福强私学</a></li>
 					<li>
-						<a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out"
-							href="https://edu.afoo.me">福强进学堂</a>
+						<a id="aiedu" class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" 
+						href="http://ai.afoo.me"
+						>
+							福强AI学堂</a>
 					</li>
-
+					<li>
+						<a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com">架构百科</a>
+					</li>
 					<li>
 						<a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out"
 							href="https://afoo.me/posts.html">博客文章
@@ -77,20 +84,19 @@
 							href="https://afoo.me/books.html">创作出版</a>
 					</li>
 					<li>
+						<a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://store.afoo.me">产品与服务</a>
+					</li>
+					<li><a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://auth.afoo.me/user.html">登录信息</a></li>
+					<li>
 						<a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out"
 							href="https://afoo.me/crosslinks.html">更多链接</a>
 					</li>
-					<li>
-						<a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out"
-							href="https://afoo.me/whoami.html">关于我</a>
-					</li>
-					<li><a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://auth.afoo.me/user.html">登录信息</a></li>
 				</ul>
 				<div class="md:self-center flex items-center mb-4 md:mb-0 ml-2">
 					<div class="hidden items-center md:flex">
 						<button type="button"
 							class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center"
-							aria-label="Toggle between Dark and Light mode" data-aw-toggle-color-scheme="">
+							aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme="">
 							<svg viewBox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun">
 								<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
 									stroke-width="2" class="icon-tabler">
@@ -118,7 +124,29 @@
 	</header>
 	<main>
 
-	
+
+		<section>
+			<div class="max-w-6xl mx-auto px-4 sm:px-6 overflow-hidden">
+				<div class="py-8">
+					<div class="flex flex-wrap md:-mx-8 items-top">
+
+						<div class="w-full lg:w-1/2 px-0 sm:px-8 f-center">
+							<div class="mb-12 lg:mb-0 pb-12 lg:pb-0 border-b lg:border-b-0">
+								<h1 class="mb-4 text-4xl lg:text-5xl font-bold font-heading">
+									你是不是哪里搞错了？ / Your bad 😅
+								</h1>
+								<p>Something goes bad from your side...</p>
+							</div>
+						</div>
+
+						<div class="w-full lg:w-1/2 px-0 sm:px-8">
+							<img src="images/400.png" alt="401 image" loading="lazy"/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+  
 
 	</main>
 	<footer class="border-t border-gray-200 dark:border-slate-800">
@@ -129,7 +157,7 @@
 				<ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0">
 					<li>
 						<a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center"
-							aria-label="Twitter" href="https://twitter.com/afoo_me">
+							aria-label="Twitter" href="https://twitter.com/fujohnwang">
 							<svg viewBox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-twitter">
 								<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
 									stroke-width="2"
@@ -173,9 +201,9 @@
 	</footer>
 	<script>
 		// Set "light" theme as default
-		// if (!localStorage.theme) {
-		//   localStorage.theme = "light";
-		// }
+		if (!localStorage.theme) {
+		  localStorage.theme = "light";
+		}
 
 		if (
 			localStorage.theme === 'dark' ||
@@ -196,22 +224,22 @@
 		}
 
 		window.onload = function () {
-			attachEvent('[data-aw-toggle-menu]', 'click', function (elem) {
+			attachEvent('[data-toggle-menu]', 'click', function (elem) {
 				elem.classList.toggle('expanded');
 				document.body.classList.toggle('overflow-hidden');
 				document.getElementById('header')?.classList.toggle('h-screen');
 				document.querySelector('#header nav')?.classList.toggle('hidden');
 			});
 
-			attachEvent('[data-aw-toggle-color-scheme]', 'click', function () {
+			attachEvent('[data-toggle-color-scheme]', 'click', function () {
 				document.documentElement.classList.toggle('dark');
 				localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
 			});
 
-			attachEvent('[data-aw-social-share]', 'click', function (elem) {
-				const network = elem.getAttribute('data-aw-social-share');
-				const url = encodeURIComponent(elem.getAttribute('data-aw-url'));
-				const text = encodeURIComponent(elem.getAttribute('data-aw-text'));
+			attachEvent('[data-social-share]', 'click', function (elem) {
+				const network = elem.getAttribute('data-social-share');
+				const url = encodeURIComponent(elem.getAttribute('data-url'));
+				const text = encodeURIComponent(elem.getAttribute('data-text'));
 
 				let href;
 				switch (network) {
@@ -239,7 +267,7 @@
 			});
 		};
 		window.onpageshow = function () {
-			const elem = document.querySelector('[data-aw-toggle-menu]');
+			const elem = document.querySelector('[data-toggle-menu]');
 			if (elem) {
 				elem.classList.remove('expanded');
 			}
@@ -251,39 +279,48 @@
 
 <script src="https://formspree.io/js/formbutton-v1.min.js" defer></script>
 <script>
-/* paste this line in verbatim */
-window.formbutton=window.formbutton||function(){(formbutton.q=formbutton.q||[]).push(arguments)};
-/* customize formbutton below*/     
-formbutton("create", {
-  action: "https://formspree.io/f/xknlpkkd",
-  title: "有什么可以帮到您？💕💕💕 How can I help you?",
-  buttonImg: "<img src='https://afoo.me/hero3/70.webp' alt/>",
-  fields: [
-	{ 
-	  type: "email", 
-	  label: "您的电子邮箱（方便与您联系）:", 
-	  name: "email",
-	  required: true,
-	  placeholder: "your@email.com"
-	},
-	{
-	  type: "textarea",
-	  label: "您想提交的反馈和询问信息:",
-	  name: "message",
-	  placeholder: "What's on your mind?",
-	},
-	{ type: "submit" }      
-  ],
-  styles: {
-	title: {
-	  backgroundColor: "blue"
-	},
-	button: {
-	  backgroundColor: "blue"
-	}
-  }
-});
+  /* paste this line in verbatim */
+  window.formbutton=window.formbutton||function(){(formbutton.q=formbutton.q||[]).push(arguments)};
+  /* customize formbutton below*/     
+  formbutton("create", {
+    action: "https://formspree.io/f/xknlpkkd",
+    title: "有什么可以帮到您？💕💕💕 How can I help you?",
+	buttonImg: "<img src='https://afoo.me/hero3/70.webp' alt/>",
+    fields: [
+      { 
+        type: "email", 
+        label: "您的电子邮箱（方便与您联系）:", 
+        name: "email",
+        required: true,
+        placeholder: "your@email.com"
+      },
+      {
+        type: "textarea",
+        label: "您想提交的反馈和询问信息:",
+        name: "message",
+        placeholder: "What's on your mind?",
+      },
+      { type: "submit" }      
+    ],
+    styles: {
+      title: {
+        backgroundColor: "blue"
+      },
+      button: {
+        backgroundColor: "blue"
+      }
+    }
+  });
 </script>
+
+
+<script>
+	// tooltips
+	tippy('#aiedu', {
+        content: "As to AI nowadays, LLM and Stable Diffusion are hot even hottest among them, If your want to both know-why and know-how with them, instead of only know-how which can't repeat itself, you should get you to https://ai.afoo.me right now ❗"
+    });
+</script>
+
 
 </body>
 
