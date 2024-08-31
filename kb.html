@@ -1192,6 +1192,14 @@
 	</div>
   </section>
   
+  <!-- floating bottom bar for marketing -->
+  <div id="ma-bar" class="fixed inset-x-0 bottom-0 p-4 hidden">
+	<div class="rounded-lg bg-indigo-600 px-4 py-3 text-white shadow-lg">
+	  <div class="text-center text-sm font-medium">
+		  总字数：<span id="ma-bar-wc"></span>  ✔︎ 最新更新日期：<span id="ma-bar-ts"></span> ✔︎
+	  </div>
+	</div>
+  </div>
 
 	</main>
 	<footer class="border-t border-gray-200 dark:border-slate-800">
@@ -1415,6 +1423,20 @@
 	}
 </script>
 
+<script>
+    document.addEventListener("DOMContentLoaded", (event) => {
+		fetch('https://afoo.me/api/kb/marketing/info').then(r=> r.text()).then(t=> {	
+			let json = JSON.parse(t)
+			const wc = json.wc
+			const ts = json.ts
+			if(wc && ts) {
+				document.getElementById("#ma-bar-wc").innerText = wc
+				document.getElementById("#ma-bar-ts").innerText = ts
+				document.getElementById("#ma-bar").classList.remove("hidden")
+			}
+		})
+	});
+</script>
 </body>
 
 </html>
