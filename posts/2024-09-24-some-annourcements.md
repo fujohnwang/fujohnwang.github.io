@@ -23,8 +23,8 @@
 另外，架构百科也有文字站，不喜欢视频形式的同学，也可以关注下： [https://jiagoubaike.com](https://jiagoubaike.com)，域名其实就是“架构百科”四个字的拼音。
 
 
-## 福强私学内容翻倍
+## [福强私学](https://afoo.me/kb)内容翻倍
 
 从产品初始的 70 多万字到今天接近 140 万字， 我都没想到， 这还不包括几千分钟的视频内容， 你确定不来？🤓
 
-
+[https://afoo.me/kb](https://afoo.me/kb)
