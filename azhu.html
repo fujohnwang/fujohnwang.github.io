@@ -29,10 +29,8 @@
 	<link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8">
 	<link rel="stylesheet" href="/css/af.css">
 	<link rel="stylesheet" href="/css/components.css">
-	<script src="//unpkg.com/@alpinejs/intersect@3.13.3/dist/cdn.min.js" defer></script>
-	<script src="//unpkg.com/alpinejs" defer></script>
-	<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-	<script async src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+	<script src="/js/alpinejs.intersect.cdn.min.js" defer></script>
+	<script src="/js/alpinejs.cdn.min.js" defer></script>
 	<script async src='/js/overlay-widget.js'></script>
 	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3687639021943715"
 	crossorigin="anonymous"></script>
@@ -169,7 +167,7 @@
 				}
 			}" x-init="loadTools()">
 				<div class="flex flex-wrap w-full mb-3 flex-col items-center text-center">
-					<h1 class="text-3xl font-extrabold mb-2 text-gray-900">阿朱语录</h1>
+					<h1 class="text-3xl md:text-6xl font-extrabold mb-2 text-gray-900">阿朱语录 100 句</h1>
 				</div>
 				<div class="flex flex-wrap -m-4">
 					<template x-if="loading">
@@ -351,15 +349,6 @@
 			document.getElementById('header')?.classList.remove('h-screen');
 			document.querySelector('#header nav')?.classList.add('hidden');
 		};
-	</script>
-
-	<script>
-		kofiWidgetOverlay.draw('fff000', {
-			'type': 'floating-chat',
-			'floating-chat.donateButton.text': 'Support me',
-			'floating-chat.donateButton.background-color': 'red',
-			'floating-chat.donateButton.text-color': 'white'
-		});
 	</script>
 
 
