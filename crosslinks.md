@@ -72,7 +72,7 @@
 - [Markdown使用技巧 / Markdown Tips](https://github.com/fujohnwang/mdtips/wiki)
 - [GithubPage上的福强个人博客](https://fujohnwang.github.io/)
 - [blogspot上的老博客](https://fujohnwang.blogspot.com/)
-
+- [阿朱语录](/azhu.html)
 
 
 
