@@ -29,11 +29,6 @@
         <script src="plugin/markdown/markdown.js"></script>
         <script src="plugin/highlight/highlight.js"></script>
         <script>
-            Reveal.initialize({
-                hash: true,
-                plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
-            });
-
             document.addEventListener("DOMContentLoaded", (event) => {
                 fetch(
                     "https://opensheet.afoo.me/1GLuQtqcOad0-WgWARDuJ4kQ1Ja2w9-s1Srm9eI-NBXM/wonderful_words",
@@ -48,6 +43,10 @@
                                 .getElementById("slides")
                                 .appendChild(slide);
                         }
+                        Reveal.initialize({
+                            hash: true,
+                            plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+                        });
                     });
             });
         </script>
