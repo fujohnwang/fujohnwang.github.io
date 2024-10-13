@@ -45,7 +45,7 @@
                         for (var k in data) {
                             let content = data[k].content;
                             const slide = document.createElement("section");
-                            slide.innerText = content;
+                            slide.innerHTML = `<h2>${content}</h2>`;
                             document
                                 .getElementById("slides")
                                 .appendChild(slide);
