@@ -57,3 +57,13 @@ function dispatchLink(wxLink, mbLink, webLink) {
     }
 }
 
+// onclick="playSound(this,'https://hulk.afoo.me/mp3/%E7%A2%8E%E9%93%B6%E5%87%A0%E4%B8%A4.mp3')"
+function playOrPause(el,soundfile) {
+    if (el.mp3) {
+        if(el.mp3.paused) el.mp3.play();
+        else el.mp3.pause();
+    } else {
+        el.mp3 = new Audio(soundfile);
+        el.mp3.play();
+    }
+}
