@@ -82,10 +82,6 @@
 专注于并发并行编程，HPC，分布式系统设计与实现，Big Data， 实时数据追踪与计算等领域,
 相关Web Framework、DDAL(Distributed Data Access Layer)^[<https://github.com/alibaba/cobarclient>, 原有域名阿里内部已经弃用，很多同学又很懒（人性啊~）， 所以， 我还是编译一份文档供参考吧， [中文参考文档](/references/cobarclient/zh/index.html)看这里，[英文参考文档(Reference Doc)](/references/cobarclient/en/index.html)看这里]以及Middleware的Product Owner/Co-owner。
 
-# Sponsor me on github
-
-<iframe src="https://github.com/sponsors/fujohnwang/card" title="Sponsor fujohnwang" height="225" width="600" style="border: 0;"></iframe>
-
 # Buy me a coffee 
 
 <a href="https://ko-fi.com/fff000">
