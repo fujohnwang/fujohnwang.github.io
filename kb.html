@@ -2096,13 +2096,11 @@
 				document.getElementById("ma-bar").classList.remove("hidden")
 			}
 		})
-		
-		fetch("https://afoo.me/api/users/total").then(r=> {
-			if(r.ok) {
-				document.getElementById("userTotal").innerText = r.json().total
-			}else{
-				console.error("fails to get user total, ignore.")
-			}
+
+		fetch("https://afoo.me/api/users/total").then(r=> r.json()).then(j=> {
+			document.getElementById("userTotal").innerText = j.total
+		}).catch(e=> {
+			console.error("fails to get user total, ignore.")
 		})
 	});
 </script>
