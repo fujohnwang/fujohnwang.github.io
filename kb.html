@@ -1588,7 +1588,7 @@
 			  <!-- Pricing Title -->
 			  <div class="text-center">
 				<h2 id="cta" class="text-3xl font-bold md:text-5xl"><a href="https://kb.afoo.me" class="border-b">福强私学</a></h2>
-				<p class="mx-auto mb-8 mt-4 max-w-lg text-[#636262] md:mb-12 lg:mb-16">一次购买，终身受益。</p>
+				<p class="mx-auto mb-8 mt-4 max-w-lg text-[#636262] md:mb-12 lg:mb-16">一次购买，终身受益。已有 <span id="userTotal" class="font-bold text-xl text-yellow-700 dark:text-yellow-400">-1</span> 位同学加入！</p>
 			  </div>
 			  <div class="m-3 flex h-auto flex-col space-x-6 space-y-6 p-6 md:my-auto md:flex-row md:items-start">
 				<!-- Pricing List -->
@@ -2094,6 +2094,14 @@
 				document.getElementById("ma-bar-wc").innerText = wc
 				document.getElementById("ma-bar-ts").innerText = ts
 				document.getElementById("ma-bar").classList.remove("hidden")
+			}
+		})
+		
+		fetch("https://afoo.me/api/users/total").then(r=> {
+			if(r.ok) {
+				document.getElementById("userTotal").innerText = r.json().total
+			}else{
+				console.error("fails to get user total, ignore.")
 			}
 		})
 	});
