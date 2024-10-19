@@ -17,6 +17,9 @@
     <link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8">
     <link rel="stylesheet" href="/css/af.css">
     <script src="/htmx/htmx-1.9.10.min.js"></script>
+    <link rel="stylesheet" href="/css/popup.css"/>
+	<link rel="stylesheet" href="/css/gitalk.css"> 
+	<script src="/js/gitalk.min.js"></script>
 </head>
 
 <body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized">
@@ -194,14 +197,21 @@
           </section>
 
 
-        <!-- <div class="fixed inset-x-0 bottom-0 p-4">
-            <div class="rounded-lg bg-indigo-600 px-4 py-3 text-white shadow-lg">
-              <p class="text-center text-sm font-medium">
-                如果已有 Gumroad 账号，
-                <a href="https://store.afoo.me/l/mgmt" class="inline-block underline">也可以通过 Gumroad 下单。 </a>
-              </p>
-            </div>
-          </div> -->
+          <section>
+			<div class="max-w-7xl mx-auto px-4 sm:px-6">
+				<div class="py-12">
+					<div class="text-center pb-10 md:pb-16 max-w-5xl mx-auto">
+						<h2 class="mb-4 text-4xl lg:text-5xl font-bold font-heading">
+                            学过的人怎么说
+						</h2>
+						<div id="comments" class="max-w-3xl mx-auto" style="text-align: left;">
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</section>
           
         <hr />
         <!-- Section CTA -->
@@ -397,6 +407,20 @@
             document.querySelector('#header nav')?.classList.add('hidden');
         };
     </script>
+
+<script>
+    var gitalk = new Gitalk({
+      clientID: '518a605d711883414ac0',
+      clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+      repo: 'afoo.me.comments',
+      owner: 'fujohnwang',
+      admin: ['fujohnwang'],
+      id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+      distractionFreeMode: false  // Facebook-like distraction free mode
+    })
+
+    gitalk.render('comments')
+</script>
 
     <script src="https://formspree.io/js/formbutton-v1.min.js" defer></script>
     <script>
