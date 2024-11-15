@@ -33,6 +33,8 @@
 
 Anyway，先草草上场，希望能获得大家的喜欢和支持 🤓
 
+[https://afoo.me/jiangshu.html](https://afoo.me/jiangshu.html)
+
 另外， 听书产品的内容也会同步到「福报」产品中，[https://wfq.gumroad.com/l/fb](https://wfq.gumroad.com/l/fb)
 
 
