@@ -4,9 +4,9 @@
 
 
 
-前面在视频号发了个视频「做好还是做烂？」
+前面在视频号发了个视频[「做好还是做烂？」](https://weixin.qq.com/sph/AUORkK4vQ)
 
-![](/images/hudiehao.jpg)
+[![](/images/hudiehao.jpg)](https://weixin.qq.com/sph/AUORkK4vQ)
 
 群里很多人讨论
 
