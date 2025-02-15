@@ -35,7 +35,10 @@ aka. Why each LLM models' output length is short or NOT long enough?
 | 产品  | 技术  | 
 |:-------------: |:---------------:|
 | cost | 模型语料限制 | 
-| timeout | 边界问题 | 
+| timeout [^1] | 边界问题 | 
+
+[^1]: 这里更多是指响应时延与及时性问题。
+
 
 下面让我们展开来详细说下...
 
@@ -93,6 +96,7 @@ aka. Why each LLM models' output length is short or NOT long enough?
 - [Context Length in LLMs: What Is It and Why It Is Important](https://datanorth.ai/blog/context-length)
 - https://www.vellum.ai/llm-parameters/max-tokens // 这个网站不错，有很多LLM参数的解释
 - https://www.taivo.ai/__llm-latency-is-linear-in-output-token-count/
+
 
 
 
