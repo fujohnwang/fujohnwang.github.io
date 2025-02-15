@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="大语言模型的输出长度为啥都不长？ - 架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="大语言模型的输出长度为啥都不长？ - 福强说，扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+  <meta name="robots" content="index,follow"> 
+  <title>大语言模型的输出长度为啥都不长？ -王福强的个人博客：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2025-02-15"> 
+  <meta property="og:title" content="大语言模型的输出长度为啥都不长？"> 
+  <meta property="og:type" content="landing page"> 
+  <meta property="og:url" content="https://afoo.me/posts/2025-02-16-llm-output-length.html"> 
+  <meta property="og:image" content="https://og.afoo.me?url=https://afoo.me/posts/2025-02-16-llm-output-length.html"> 
+  <meta name="twitter:card" content="summary_large_image"> 
+  <meta name="twitter:title" content="大语言模型的输出长度为啥都不长？"> 
+  <meta name="twitter:site" content="@afoo_me"> 
+  <meta name="twitter:creator" content="@afoo_me"> 
+  <meta name="twitter:image" content="https://og.afoo.me?url=https://afoo.me/posts/2025-02-16-llm-output-length.html"> 
+  <meta name="twitter:description" content="大语言模型的输出长度为啥都不长？ - 王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <link rel="canonical" href="https://afoo.me/posts/2025-02-16-llm-output-length.html"> 
+  <link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"> 
+  <link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8"> 
+  <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <script src="https://unpkg.com/@popperjs/core@2"></script> 
+  <script src="https://unpkg.com/tippy.js@6"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link rel="stylesheet" href="/css/components.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
+  <style type="text/css">
+        pre > code{
+          white-space: pre-wrap;
+          font-family: monospace;
+          font-size: 14px;
+          /* border-left: blueviolet;
+          border-left-width: thick;
+          border-left-style: double;
+          padding-left: 1rem !important; */
+        }
+        
+        .x-indicator{
+            display:none;
+        }
+        .htmx-request .x-indicator{
+            display:inline;
+        }
+        .htmx-request.x-indicator{
+            display:inline;
+        }
+    </style> 
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "大语言模型的输出长度为啥都不长？",
+      "image": [
+        "https://afoo.me/images/fb_subscribe.jpg"
+       ],
+      "datePublished": "2025-02-15",
+      "author": [{
+          "@type": "Person",
+          "name": "王福强",
+          "url": "https://afoo.me"
+        }]
+    }
+  </script> 
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3687639021943715" crossorigin="anonymous"></script> 
+ </head> 
+ <body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"> 
+  <header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"> 
+   <div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"> 
+    <div class="flex justify-between"> <a class="flex items-center" href="https://afoo.me"> <span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"> <img src="/images/afoo.PNG" alt="logo" style="height:60px;"> </span> </a> 
+     <div class="flex items-center md:hidden"> <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""> 
+       <svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+         <circle cx="12" cy="12" r="4"></circle> 
+         <path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"> 
+         </path> 
+        </g> 
+       </svg> </button> <button type="button" class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition" aria-label="Toggle Menu" data-toggle-menu=""> 
+       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:menu"> <g class="icon-tabler" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+         <path d="M4 8h16"></path> 
+         <path d="M4 16h16"></path> 
+        </g> 
+       </svg> </button> 
+     </div> 
+    </div> 
+    <nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"> 
+     <ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"> 
+      <li><a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://kb.afoo.me/">福强私学</a></li> 
+      <li> <a id="aiedu" class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://ai.afoo.me"> 福强AI学堂</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com">架构百科</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html">博客文章 </a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html">创作出版</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://store.afoo.me">产品与服务</a> </li> 
+      <li><a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://auth.afoo.me/user.html">登录信息</a></li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/crosslinks.html">更多链接</a> </li> 
+     </ul> 
+     <div class="md:self-center flex items-center mb-4 md:mb-0 ml-2"> 
+      <div class="hidden items-center md:flex"> <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+          <circle cx="12" cy="12" r="4"></circle> 
+          <path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"> 
+          </path> 
+         </g> 
+        </svg> </button> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="RSS Feed" href="http://afoo.me/feeds.xml"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:rss"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+          <circle cx="5" cy="19" r="1"></circle> 
+          <path d="M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"></path> 
+         </g> 
+        </svg> </a> 
+      </div> 
+     </div> 
+    </nav> 
+   </div> 
+  </header> 
+  <main> 
+   <div id="leftSlot" class="visible md:invisible fixed top-0 left-0" style="width: 16rem;height: 80%;margin-top: 4rem;"> <!-- left --> 
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="3581141418" data-ad-format="auto" data-full-width-responsive="true"></ins> 
+    <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+      </script> 
+   </div> 
+   <div id="rightSlot" class="visible md:invisible fixed top-0 right-0" style="width: 16rem;height: 80%;margin-top: 4rem;"> <!-- right --> 
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="7030836806" data-ad-format="auto" data-full-width-responsive="true"></ins> 
+    <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script> 
+   </div> 
+   <section class="text-gray-600 body-font relative"> 
+    <div class="container px-5 py-24 mx-auto mb-12 prose prose-lg dark:prose-invert"> 
+     <p class="lead"> </p>
+     <h1 class="title">大语言模型的输出长度为啥都不长？</h1> <small> <h3 class="author">王福强</h3> 
+      <div style="text-align: left;">
+       2025-02-15
+      </div> </small> 
+     <p></p> <!-- random --> 
+     <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="2722720851" data-ad-format="auto" data-full-width-responsive="true"></ins> 
+     <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script> 
+     <hr> 
+     <p>aka. Why each LLM models’ output length is short or NOT long enough?</p> 
+     <p>其实我也分不清楚这个问题到底是太基础了还是太专业了，问了一圈，朋友圈就有一个AI行业的同学响应，但也只是说了一个特征和视角， 所以，今天彻底自己做了个调研，调研结果分享给大家，希望对大家有启发、又帮助。</p> 
+     <p>为什么我会关心这个问题呢？</p> 
+     <p>因为我在将一个大文件扔给Gemini之后，原本期望它直接返回对应的完整翻译结果给我，结果发现，直接截断…</p> 
+     <p>这个结果直接给我干懵了， Gemini不是声称百万tokens上下文窗口吗？ 这点儿内容明显输入+输出的内容也不够塞满的呀？！</p> 
+     <p>我就查看是不是什么地方设置不对，然后找到了这个配置项（默认折叠状态）：</p> 
+     <p><img src="./images/aistudio-model-output-length.jpg"></p> 
+     <p>然后想调高它，发现调高不了，最高就是8192</p> 
+     <p>这tnd咋回事？</p> 
+     <p>先问了朋友圈，响应了了，所以，自己调研吧，自己动手丰衣足食嘛～</p> 
+     <p>调研后发现，你猜怎么着？ 其实大多数市面上流行的大语言模型，他们的输出长度（output length或者叫max_output_tokens）都不长：</p> 
+     <p><img src="./images/llm-output-length-compare.jpg"></p> 
+     <p>不但都不长，而且，输入和输出的tokens数量是有巨大不对称性的。</p> 
+     <p>为啥会出现这样的普遍现象呢？</p> 
+     <p>综合调研结果，可以从产品和技术两个层面进行解读，这两个层面又可以进一步拆分，形成四个维度（当然啦，这几个维度和视角属于我个人总结）：</p> 
+     <table> 
+      <thead> 
+       <tr> 
+        <th style="text-align: center;">产品</th> 
+        <th style="text-align: center;">技术</th> 
+       </tr> 
+      </thead> 
+      <tbody> 
+       <tr> 
+        <td style="text-align: center;">cost</td> 
+        <td style="text-align: center;">模型语料限制</td> 
+       </tr> 
+       <tr> 
+        <td style="text-align: center;">timeout</td> 
+        <td style="text-align: center;">边界问题</td> 
+       </tr> 
+      </tbody> 
+     </table> 
+     <p>下面让我们展开来详细说下…</p> 
+     <h2 id="cost产品层面">cost（产品层面）</h2> 
+     <p>也就是，输出长度（output length或者叫max_output_tokens）有限制，首先是一个成本问题（cost）。</p> 
+     <p>这个成本的概念从供应方和消费者两方面都成立：</p> 
+     <ul> 
+      <li>作为供应一方， 过长的输出长度意味着更多的算力消耗</li> 
+      <li>作为消费者，在产品设计层面如果不加输出长度限制，很容易账单超额</li> 
+     </ul> 
+     <p>输出对应的是内容生成这段过程，生成长度越长，算力消耗越成指数级暴涨，反而输入阶段没有这么夸张。 这有点儿跟传统计算机系统里的读和写的概念， 在传统计算机系统里，读的成本其实不高，尤其加缓存（Cache）之后，写的成本很多时候反而会高，如果你是做技术出身的（但不是做模型和算法的），这样类比，或许更容易理解些吧！</p> 
+     <h2 id="timeout产品层面">timeout（产品层面）</h2> 
+     <p>如果大模型托管到云上对外提供服务，访问一方肯定不希望长时间的等待，相对短周期的反馈，从产品设计层面来说，对用户体验来说很重要。</p> 
+     <p>而过长的输出，不但需要消耗更多算力，还会拉长响应完整内容的时间。</p> 
+     <p>你也不希望用户原本期盼的秒级响应，变成分钟级等待吧？ （当然，Deep Research类产品除外，他们可以通过异步通知的方式改善产品体验）</p> 
+     <p>所以，设置一个短的输出长度配置，对于改善响应时延（latency）来说，是一个不错的选项，总比API调用超时强吧？</p> 
+     <h2 id="模型语料限制技术层面">模型语料限制（技术层面）</h2> 
+     <p>很少模型会针对长输出进行训练，模型也会模仿语料的例子，比如通常语料中的例子多长，它也输出多长。</p> 
+     <p>这就导致说，就算你想输出更长的内容，它的输出窗口也够长，假如模型受限于训练时候用的语料，那么，他就会进入循环输出模式， 这也是朋友圈孟さん提到的现象。</p> 
+     <h2 id="边界问题技术层面">边界问题（技术层面）</h2> 
+     <p>大语言模型不像人一样可以直观判断什么时候应该停下，所以，设置一个明确的输出长度可以帮助它决定什么时候可以停下。</p> 
+     <h2 id="怎么办">怎么办？</h2> 
+     <p>既然限制在这里，那么，遇到需要超过输出长度(output length)的输出内容应该怎么办？</p> 
+     <p>至少有三种方式：</p> 
+     <ol type="1"> 
+      <li>我们可以通过聊天接口跟模型prompt： <code>go on</code>或者<code>continue</code>， 它们通常就会继续输出，我在aistudio中就是这样完成一个长文件的输出汇总的。</li> 
+      <li>预先对输入的内容进行分段处理（chunk），然后在一段一段的交给大语言模型去处理，后来我把长文件处理逻辑固化之后，就是这样处理的，当时也撂下一句“<strong>大语言模型应用的构建还是需要很多外围的curate</strong>”</li> 
+      <li>但也不是所有输入语料都可以分段处理，因为很多情况下，我们希望大语言模型可以预先整体过一遍，了解整体概况，然后再做具体工作，分段的做法就没法做到这一点，这个时候，我们就可以将多次输出的内容追加到下一次的输入内容后面，然后多次执行就可以了。 这样做的合理之处在于，大语言模型的上下文窗口在输入端通常是没有过多限制的，所以，将每次输出的短内容附加到下一次输入内容后面形成完整上下文，也可以持续多次获得完整输出，最后做个汇总就可以了（merge or join）。</li> 
+     </ol> 
+     <blockquote> 
+      <p>NOTE</p> 
+      <p>超长的输入上下文跟相对较短的输出长度，形成了强烈的对比，有时候不禁在想，各个大语言模型厂商都号称“超长上下文窗口”或许更多是为了营销噱头，不做结构拆解，反正也不能说人家不对🤣</p> 
+     </blockquote> 
+     <h2 id="参考链接">参考链接</h2> 
+     <ul> 
+      <li>ttps://www.reddit.com/r/LocalLLaMA/comments/1f3s0qc/why_do_llms_have_output_limit/</li> 
+      <li>https://medium.com/<span class="citation" data-cites="techsachin/longwriter-using-llm-agent-based-pipeline-to-scale-llms-output-window-size-to-10-000-words-33210d299e2b">@techsachin/longwriter-using-llm-agent-based-pipeline-to-scale-llms-output-window-size-to-10-000-words-33210d299e2b</span></li> 
+      <li>https://medium.com/<span class="citation" data-cites="rakesharma21/maximizing-output-in-large-language-models-beyond-token-limits-7931952e664c">@rakesharma21/maximizing-output-in-large-language-models-beyond-token-limits-7931952e664c</span></li> 
+      <li><a href="https://community.openai.com/t/how-to-handle-responses-that-dont-fit-in-the-4096-token-maximum-output-size/864449">How to handle responses that don’t fit in the 4096 token maximum output size</a></li> 
+      <li><a href="https://datanorth.ai/blog/context-length">Context Length in LLMs: What Is It and Why It Is Important</a></li> 
+      <li>https://www.vellum.ai/llm-parameters/max-tokens // 这个网站不错，有很多LLM参数的解释</li> 
+      <li>https://www.taivo.ai/__llm-latency-is-linear-in-output-token-count/</li> 
+     </ul> <!-- tail --> 
+     <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="7874087130" data-ad-format="auto" data-full-width-responsive="true"></ins> 
+     <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script> 
+     <hr> 
+     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+     </div> 
+     <div id="random_posts"> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2020-04-06-thinking-in-tech-value.html">软件与科技产业如何实现价值最大化？ </a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2021-08-10-teacher-and-doctor-dilemma.html">老师、医生与木秀于林 </a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2024-08-05-who-is-suitable-as-a-boss.html">什么样的人适合当老板？ </a> 
+      </div> 
+     </div> 
+     <hr> 
+     <div id="comments"></div> 
+     <hr> <!-- Section CTA --> 
+     <section class="overflow-x-clip bg-zinc-50 py-16 md:py-24"> 
+      <div class="relative mx-auto w-full max-w-screen-xl px-4"> 
+       <div class="relative z-10 w-full"> 
+        <div class="mx-auto max-w-screen-md"> 
+         <h2 class="mb-4 text-center text-4xl font-bold md:text-5xl"><a href="https://afoo.me/kb.html" class="border-b">「福强私学」</a>来一个？</h2> 
+         <p class="mx-auto mb-8 w-full text-center text-lg leading-8 text-zinc-700 md:w-5/6 md:text-xl">「福强私学」, 一部沉淀了个人成长、技术与架构、组织与管理以及商业上的方法与心法的百科全书。</p> 
+        </div> 
+        <div class="mx-auto mt-6 w-full md:mt-12 md:w-4/5"> <a href="https://afoo.me/kb.html"> <img alt="footer img for kb.afoo.me" loading="lazy" width="2911" height="1961" decoding="async" data-nimg="1" class="mx-auto rounded-lg object-contain shadow-lg sm:rounded-2xl lg:rounded-3xl" style="color:transparent" src="https://og.afoo.me/?url=footer"> </a> 
+        </div> 
+       </div> 
+      </div> 
+     </section> 
+     <hr> 
+     <p> <span style="font-size: xx-large;"> 开天窗，拉认知，订阅「福报」，即刻拥有自己的全模态人工智能。 </span> </p> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe_v2.jpg" alt="订阅「福报」"> </a> 
+     <hr> 
+     <div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"> 
+      <div id="tfloader" class="x-indicator"> 
+       <svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"> <g fill="none" fill-rule="evenodd"> 
+         <g transform="translate(1 1)" stroke-width="2"> 
+          <circle cx="5" cy="50" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+          <circle cx="27" cy="5" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+          <circle cx="49" cy="50" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+         </g> 
+        </g> 
+       </svg> 
+      </div> 
+     </div> 
+    </div> 
+   </section> 
+  </main> 
+  <div style="position: fixed; left: 0; bottom: 0; padding: 10px; z-index: 1000;"> 
+   <img src="/icons/Written-By-Human-Not-By-AI-Badge-black@2x.png" alt loading="lazy"> 
+  </div> 
+  <footer class="border-t border-gray-200 dark:border-slate-800"> 
+   <div class="max-w-6xl mx-auto px-4 sm:px-6"> 
+    <div class="md:flex md:items-center md:justify-between py-6 md:py-8"> 
+     <ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0"> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Twitter" href="https://twitter.com/afoo_me"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-twitter"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z"> 
+         </path> 
+        </svg> </a> </li> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Facebook" href="https://www.facebook.com/fujohnwang/"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-facebook"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2H7"></path> 
+        </svg> </a> </li> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Github" href="https://github.com/fujohnwang"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-github"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"> 
+         </path> 
+        </svg> </a> </li> 
+     </ul> 
+     <div class="text-sm text-gray-700 mr-4 dark:text-slate-400"> <span class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 float-left rounded-sm"> <img src="https://afoo.me/favicon.svg" class="rounded-md" alt> </span> Copyright © 王福强个人版权所有 - Since 2004 (Everything is homebrewed with <a href="https://pandoc.org/">Pandoc</a> and Markdown, little <a href="https://www.scala-lang.org/">Scala</a> also included.) 
+     </div> 
+    </div> 
+   </div> 
+  </footer> 
+  <script>
+        // Set "light" theme as default
+        if (!localStorage.theme) {
+            localStorage.theme = "light";
+        }
+
+        if (
+            localStorage.theme === 'dark' ||
+            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function attachEvent(selector, event, fn) {
+            const matches = document.querySelectorAll(selector);
+            if (matches && matches.length) {
+                matches.forEach((elem) => {
+                    elem.addEventListener(event, () => fn(elem), false);
+                });
+            }
+        }
+
+        window.onload = function () {
+            attachEvent('[data-toggle-menu]', 'click', function (elem) {
+                elem.classList.toggle('expanded');
+                document.body.classList.toggle('overflow-hidden');
+                document.getElementById('header')?.classList.toggle('h-screen');
+                document.querySelector('#header nav')?.classList.toggle('hidden');
+            });
+            attachEvent('[data-toggle-color-scheme]', 'click', function () {
+                document.documentElement.classList.toggle('dark');
+                localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            });
+        };
+        window.onpageshow = function () {
+            const elem = document.querySelector('[data-toggle-menu]');
+            if (elem) {
+                elem.classList.remove('expanded');
+            }
+            document.body.classList.remove('overflow-hidden');
+            document.getElementById('header')?.classList.remove('h-screen');
+            document.querySelector('#header nav')?.classList.add('hidden');
+        };
+    </script> 
+  <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '518a605d711883414ac0',
+          clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+          repo: 'afoo.me.comments',
+          owner: 'fujohnwang',
+          admin: ['fujohnwang'],
+          id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+        gitalk.render('comments')
+    </script> 
+  <script src="https://formspree.io/js/formbutton-v1.min.js" defer></script> 
+  <script>
+  /* paste this line in verbatim */
+  window.formbutton=window.formbutton||function(){(formbutton.q=formbutton.q||[]).push(arguments)};
+  /* customize formbutton below*/     
+  formbutton("create", {
+    action: "https://formspree.io/f/xknlpkkd",
+    title: "有什么可以帮到您？💕💕💕 How can I help you?",
+    buttonImg: "<img src='https://afoo.me/hero3/70.webp' alt/>",
+    fields: [
+      { 
+        type: "email", 
+        label: "您的电子邮箱（方便与您联系）:", 
+        name: "email",
+        required: true,
+        placeholder: "your@email.com"
+      },
+      {
+        type: "textarea",
+        label: "您想提交的反馈和询问信息:",
+        name: "message",
+        placeholder: "What's on your mind?",
+      },
+      { type: "submit" }      
+    ],
+    styles: {
+      title: {
+        backgroundColor: "blue"
+      },
+      button: {
+        backgroundColor: "blue"
+      }
+    }
+  });
+</script> 
+  <script>
+	// tooltips
+	tippy('#aiedu', {
+        content: "As to AI nowadays, LLM and Stable Diffusion are hot even hottest among them, If your want to both know-why and know-how with them, instead of only know-how which can't repeat itself, you should get you to https://ai.afoo.me right now ❗"
+    });  
+</script>  
+ </body>
+</html>
