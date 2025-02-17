@@ -1,4 +1,4 @@
-% 三个GPT的Magic Moment
+% 不可不知的三个GPT的Magic Moment
 % 王福强
 % 2025-02-17
 
