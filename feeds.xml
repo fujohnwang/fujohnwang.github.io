@@ -5,6 +5,545 @@
     <link>http://afoo.me</link>
     <description>王福强的个人博客：一个架构士的思考与沉淀</description>
     <item>
+      <title>用Scala编写一个MCP Server</title>
+      <link>http://afoo.me/posts/2025-03-02-build-a-MCP-server-with-scala.html</link>
+      <description>&lt;!doctype html&gt;
+&lt;html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]"&gt; 
+ &lt;head&gt; 
+  &lt;meta charset="utf-8"&gt; 
+  &lt;meta name="keywords" content="用Scala编写一个MCP Server - 架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
+  &lt;meta name="description" content="用Scala编写一个MCP Server - 福强说，扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
+  &lt;meta name="author" content="王福强"&gt; 
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
+  &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt; 
+  &lt;meta name="robots" content="index,follow"&gt; 
+  &lt;title&gt;用Scala编写一个MCP Server -王福强的个人博客：一个架构士的思考与沉淀&lt;/title&gt; 
+  &lt;meta name="date" content="2025-03-02"&gt; 
+  &lt;meta property="og:title" content="用Scala编写一个MCP Server"&gt; 
+  &lt;meta property="og:type" content="landing page"&gt; 
+  &lt;meta property="og:url" content="https://afoo.me/posts/2025-03-02-build-a-MCP-server-with-scala.html"&gt; 
+  &lt;meta property="og:image" content="https://og.afoo.me?url=https://afoo.me/posts/2025-03-02-build-a-MCP-server-with-scala.html"&gt; 
+  &lt;meta name="twitter:card" content="summary_large_image"&gt; 
+  &lt;meta name="twitter:title" content="用Scala编写一个MCP Server"&gt; 
+  &lt;meta name="twitter:site" content="@afoo_me"&gt; 
+  &lt;meta name="twitter:creator" content="@afoo_me"&gt; 
+  &lt;meta name="twitter:image" content="https://og.afoo.me?url=https://afoo.me/posts/2025-03-02-build-a-MCP-server-with-scala.html"&gt; 
+  &lt;meta name="twitter:description" content="用Scala编写一个MCP Server - 王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
+  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
+  &lt;link rel="canonical" href="https://afoo.me/posts/2025-03-02-build-a-MCP-server-with-scala.html"&gt; 
+  &lt;link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"&gt; 
+  &lt;link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8"&gt; 
+  &lt;script src="https://unpkg.com/htmx.org@1.9.5"&gt;&lt;/script&gt; 
+  &lt;link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"&gt; 
+  &lt;script src="https://unpkg.com/gitalk/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script src="https://unpkg.com/@popperjs/core@2"&gt;&lt;/script&gt; 
+  &lt;script src="https://unpkg.com/tippy.js@6"&gt;&lt;/script&gt; 
+  &lt;link rel="stylesheet" href="/css/af.css"&gt; 
+  &lt;link rel="stylesheet" href="/css/components.css"&gt; 
+  &lt;link ref="stylesheet" href="/css/pygments.css"&gt; 
+  &lt;style type="text/css"&gt;
+        pre &gt; code{
+          white-space: pre-wrap;
+          font-family: monospace;
+          font-size: 14px;
+          /* border-left: blueviolet;
+          border-left-width: thick;
+          border-left-style: double;
+          padding-left: 1rem !important; */
+        }
+        
+        .x-indicator{
+            display:none;
+        }
+        .htmx-request .x-indicator{
+            display:inline;
+        }
+        .htmx-request.x-indicator{
+            display:inline;
+        }
+    &lt;/style&gt; 
+  &lt;style type="text/css"&gt;
+      pre &gt; code.sourceCode { white-space: pre; position: relative; }
+      pre &gt; code.sourceCode &gt; span { line-height: 1.25; }
+      pre &gt; code.sourceCode &gt; span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode &gt; span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre &gt; code.sourceCode { white-space: pre-wrap; }
+      pre &gt; code.sourceCode &gt; span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code &gt; span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code &gt; span &gt; a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre &gt; code.sourceCode &gt; span &gt; a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { color: #008000; } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    &lt;/style&gt; 
+  &lt;script type="application/ld+json"&gt;
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "用Scala编写一个MCP Server",
+      "image": [
+        "https://afoo.me/images/fb_subscribe.jpg"
+       ],
+      "datePublished": "2025-03-02",
+      "author": [{
+          "@type": "Person",
+          "name": "王福强",
+          "url": "https://afoo.me"
+        }]
+    }
+  &lt;/script&gt; 
+  &lt;script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3687639021943715" crossorigin="anonymous"&gt;&lt;/script&gt; 
+ &lt;/head&gt; 
+ &lt;body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"&gt; 
+  &lt;header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"&gt; 
+   &lt;div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"&gt; 
+    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"&gt; &lt;img src="/images/afoo.PNG" alt="logo" style="height:60px;"&gt; &lt;/span&gt; &lt;/a&gt; 
+     &lt;div class="flex items-center md:hidden"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
+       &lt;svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
+         &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
+         &lt;path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"&gt; 
+         &lt;/path&gt; 
+        &lt;/g&gt; 
+       &lt;/svg&gt; &lt;/button&gt; &lt;button type="button" class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition" aria-label="Toggle Menu" data-toggle-menu=""&gt; 
+       &lt;svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:menu"&gt; &lt;g class="icon-tabler" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"&gt; 
+         &lt;path d="M4 8h16"&gt;&lt;/path&gt; 
+         &lt;path d="M4 16h16"&gt;&lt;/path&gt; 
+        &lt;/g&gt; 
+       &lt;/svg&gt; &lt;/button&gt; 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+    &lt;nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"&gt; 
+     &lt;ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"&gt; 
+      &lt;li&gt;&lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://kb.afoo.me/"&gt;福强私学&lt;/a&gt;&lt;/li&gt; 
+      &lt;li&gt; &lt;a id="aiedu" class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://ai.afoo.me"&gt; 福强AI学堂&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com"&gt;架构百科&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html"&gt;博客文章 &lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html"&gt;创作出版&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://store.afoo.me"&gt;产品与服务&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt;&lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://auth.afoo.me/user.html"&gt;登录信息&lt;/a&gt;&lt;/li&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
+     &lt;/ul&gt; 
+     &lt;div class="md:self-center flex items-center mb-4 md:mb-0 ml-2"&gt; 
+      &lt;div class="hidden items-center md:flex"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
+        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
+          &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
+          &lt;path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"&gt; 
+          &lt;/path&gt; 
+         &lt;/g&gt; 
+        &lt;/svg&gt; &lt;/button&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="RSS Feed" href="http://afoo.me/feeds.xml"&gt; 
+        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:rss"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
+          &lt;circle cx="5" cy="19" r="1"&gt;&lt;/circle&gt; 
+          &lt;path d="M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"&gt;&lt;/path&gt; 
+         &lt;/g&gt; 
+        &lt;/svg&gt; &lt;/a&gt; 
+      &lt;/div&gt; 
+     &lt;/div&gt; 
+    &lt;/nav&gt; 
+   &lt;/div&gt; 
+  &lt;/header&gt; 
+  &lt;main&gt; 
+   &lt;div id="leftSlot" class="visible md:invisible fixed top-0 left-0" style="width: 16rem;height: 80%;margin-top: 4rem;"&gt; &lt;!-- left --&gt; 
+    &lt;ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="3581141418" data-ad-format="auto" data-full-width-responsive="true"&gt;&lt;/ins&gt; 
+    &lt;script&gt;
+          (adsbygoogle = window.adsbygoogle || []).push({});
+      &lt;/script&gt; 
+   &lt;/div&gt; 
+   &lt;div id="rightSlot" class="visible md:invisible fixed top-0 right-0" style="width: 16rem;height: 80%;margin-top: 4rem;"&gt; &lt;!-- right --&gt; 
+    &lt;ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="7030836806" data-ad-format="auto" data-full-width-responsive="true"&gt;&lt;/ins&gt; 
+    &lt;script&gt;
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      &lt;/script&gt; 
+   &lt;/div&gt; 
+   &lt;section class="text-gray-600 body-font relative"&gt; 
+    &lt;div class="container px-5 py-24 mx-auto mb-12 prose prose-lg dark:prose-invert"&gt; 
+     &lt;p class="lead"&gt; &lt;/p&gt;
+     &lt;h1 class="title"&gt;用Scala编写一个MCP Server&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt; 
+      &lt;div style="text-align: left;"&gt;
+       2025-03-02
+      &lt;/div&gt; &lt;/small&gt; 
+     &lt;p&gt;&lt;/p&gt; &lt;!-- random --&gt; 
+     &lt;ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="2722720851" data-ad-format="auto" data-full-width-responsive="true"&gt;&lt;/ins&gt; 
+     &lt;script&gt;
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            &lt;/script&gt; 
+     &lt;hr&gt; 
+     &lt;p&gt;aka. Build a MCP Server with Scala&lt;/p&gt; 
+     &lt;p&gt;接[一篇看懂MCP])(https://afoo.me/posts/2025-02-26-mcp-explained.html) &lt;a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;， 我们今天讲如何实操。&lt;/p&gt; 
+     &lt;h2 id="基础知识"&gt;基础知识&lt;/h2&gt; 
+     &lt;p&gt;首先铺垫一点儿背景知识， MCP的通信采用JSON-RPC 2.0规范作为wire format（为啥用英文呢？比较精确些）， 交互嘛，就是Client-Server架构的RPC模式（远程过程调用，Remote Procedure Call）。&lt;/p&gt; 
+     &lt;p&gt;&lt;img src="./images/MCP-cs.png"&gt;&lt;/p&gt; 
+     &lt;p&gt;简单来说就是， 双方通信的时候该传什么数据格式，根据 JSON-RPC 2.0 规范指定。&lt;/p&gt; 
+     &lt;p&gt;比如， 我们如果用下面的schema定义：&lt;/p&gt; 
+     &lt;div class="sourceCode" id="cb1"&gt;
+      &lt;pre class="sourceCode json"&gt;&lt;code class="sourceCode json"&gt;&lt;span id="cb1-1"&gt;&lt;a href="#cb1-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="fu"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-2"&gt;&lt;a href="#cb1-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="dt"&gt;"type"&lt;/span&gt; &lt;span class="fu"&gt;:&lt;/span&gt; &lt;span class="st"&gt;"object"&lt;/span&gt;&lt;span class="fu"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-3"&gt;&lt;a href="#cb1-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="dt"&gt;"properties"&lt;/span&gt; &lt;span class="fu"&gt;:&lt;/span&gt; &lt;span class="fu"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-4"&gt;&lt;a href="#cb1-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="dt"&gt;"name"&lt;/span&gt; &lt;span class="fu"&gt;:&lt;/span&gt; &lt;span class="fu"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-5"&gt;&lt;a href="#cb1-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;      &lt;span class="dt"&gt;"type"&lt;/span&gt; &lt;span class="fu"&gt;:&lt;/span&gt; &lt;span class="st"&gt;"string"&lt;/span&gt;&lt;span class="fu"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-6"&gt;&lt;a href="#cb1-6" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="fu"&gt;},&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-7"&gt;&lt;a href="#cb1-7" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="dt"&gt;"age"&lt;/span&gt; &lt;span class="fu"&gt;:&lt;/span&gt; &lt;span class="fu"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-8"&gt;&lt;a href="#cb1-8" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;      &lt;span class="dt"&gt;"type"&lt;/span&gt; &lt;span class="fu"&gt;:&lt;/span&gt; &lt;span class="st"&gt;"integer"&lt;/span&gt;&lt;span class="fu"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-9"&gt;&lt;a href="#cb1-9" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="fu"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-10"&gt;&lt;a href="#cb1-10" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="fu"&gt;},&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-11"&gt;&lt;a href="#cb1-11" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="dt"&gt;"required"&lt;/span&gt; &lt;span class="fu"&gt;:&lt;/span&gt; &lt;span class="ot"&gt;[&lt;/span&gt; &lt;span class="st"&gt;"name"&lt;/span&gt; &lt;span class="ot"&gt;]&lt;/span&gt;&lt;span class="fu"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-12"&gt;&lt;a href="#cb1-12" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="er"&gt;//&lt;/span&gt; &lt;span class="er"&gt;...&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-13"&gt;&lt;a href="#cb1-13" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="fu"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+     &lt;/div&gt; 
+     &lt;p&gt;那么服务器和客户端之间传输的数据可能就是这样的：&lt;/p&gt; 
+     &lt;div class="sourceCode" id="cb2"&gt;
+      &lt;pre class="sourceCode json"&gt;&lt;code class="sourceCode json"&gt;&lt;span id="cb2-1"&gt;&lt;a href="#cb2-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="fu"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-2"&gt;&lt;a href="#cb2-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="dt"&gt;"name"&lt;/span&gt;&lt;span class="fu"&gt;:&lt;/span&gt; &lt;span class="st"&gt;"Fuqqiang"&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-3"&gt;&lt;a href="#cb2-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="er"&gt;//&lt;/span&gt; &lt;span class="er"&gt;age&lt;/span&gt; &lt;span class="er"&gt;可选，不一定非要传&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-4"&gt;&lt;a href="#cb2-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="fu"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+     &lt;/div&gt; 
+     &lt;p&gt;其次，与基于REST(ful)规范所用的多个endpoints的实践方式不同, JSON-RPC 2.0 用的是单一endpoint来承接所有请求（可以类比GraphQL，如果还有人记得它的话），只不过，因为MCP有两种Transport类型， 在使用SSE类型的Transport的时候（也就是HTTP），其实会设置两个endpoint来承接客户端请求，一个是常规的endpoint来承接所有请求，一个是建立SSE通道。&lt;/p&gt; 
+     &lt;h2 id="动手开干"&gt;动手开干&lt;/h2&gt; 
+     &lt;p&gt;有了上面两个铺垫之后，我们开始着手用Scala来编写一个MCP Server（其实用啥语言都可以，社区有用py的，有用ts的）。&lt;/p&gt; 
+     &lt;p&gt;我们使用Spring团队新近跟Anthropic团队（MCP背后的公司）一起合作搞的MCP Java SDK，将其加到项目的依赖中（哥用的老牌Maven）：&lt;/p&gt; 
+     &lt;div class="sourceCode" id="cb3"&gt;
+      &lt;pre class="sourceCode xml"&gt;&lt;code class="sourceCode xml"&gt;&lt;span id="cb3-1"&gt;&lt;a href="#cb3-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="co"&gt;&amp;lt;!-- https://mvnrepository.com/artifact/io.modelcontextprotocol.sdk/mcp --&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-2"&gt;&lt;a href="#cb3-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &amp;lt;&lt;span class="kw"&gt;dependency&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span id="cb3-3"&gt;&lt;a href="#cb3-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &amp;lt;&lt;span class="kw"&gt;groupId&lt;/span&gt;&amp;gt;io.modelcontextprotocol.sdk&amp;lt;/&lt;span class="kw"&gt;groupId&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span id="cb3-4"&gt;&lt;a href="#cb3-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &amp;lt;&lt;span class="kw"&gt;artifactId&lt;/span&gt;&amp;gt;mcp&amp;lt;/&lt;span class="kw"&gt;artifactId&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span id="cb3-5"&gt;&lt;a href="#cb3-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &amp;lt;&lt;span class="kw"&gt;version&lt;/span&gt;&amp;gt;0.7.0&amp;lt;/&lt;span class="kw"&gt;version&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span id="cb3-6"&gt;&lt;a href="#cb3-6" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &amp;lt;/&lt;span class="kw"&gt;dependency&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span id="cb3-7"&gt;&lt;a href="#cb3-7" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="co"&gt;&amp;lt;!-- https://mvnrepository.com/artifact/io.modelcontextprotocol.sdk/mcp-spring-webmvc --&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-8"&gt;&lt;a href="#cb3-8" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &amp;lt;&lt;span class="kw"&gt;dependency&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span id="cb3-9"&gt;&lt;a href="#cb3-9" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &amp;lt;&lt;span class="kw"&gt;groupId&lt;/span&gt;&amp;gt;io.modelcontextprotocol.sdk&amp;lt;/&lt;span class="kw"&gt;groupId&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span id="cb3-10"&gt;&lt;a href="#cb3-10" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &amp;lt;&lt;span class="kw"&gt;artifactId&lt;/span&gt;&amp;gt;mcp-spring-webmvc&amp;lt;/&lt;span class="kw"&gt;artifactId&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span id="cb3-11"&gt;&lt;a href="#cb3-11" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &amp;lt;&lt;span class="kw"&gt;version&lt;/span&gt;&amp;gt;0.7.0&amp;lt;/&lt;span class="kw"&gt;version&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span id="cb3-12"&gt;&lt;a href="#cb3-12" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &amp;lt;/&lt;span class="kw"&gt;dependency&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span id="cb3-13"&gt;&lt;a href="#cb3-13" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="co"&gt;&amp;lt;!-- https://mvnrepository.com/artifact/io.modelcontextprotocol.sdk/mcp-spring-webflux --&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-14"&gt;&lt;a href="#cb3-14" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &amp;lt;&lt;span class="kw"&gt;dependency&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span id="cb3-15"&gt;&lt;a href="#cb3-15" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &amp;lt;&lt;span class="kw"&gt;groupId&lt;/span&gt;&amp;gt;io.modelcontextprotocol.sdk&amp;lt;/&lt;span class="kw"&gt;groupId&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span id="cb3-16"&gt;&lt;a href="#cb3-16" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &amp;lt;&lt;span class="kw"&gt;artifactId&lt;/span&gt;&amp;gt;mcp-spring-webflux&amp;lt;/&lt;span class="kw"&gt;artifactId&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span id="cb3-17"&gt;&lt;a href="#cb3-17" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &amp;lt;&lt;span class="kw"&gt;version&lt;/span&gt;&amp;gt;0.7.0&amp;lt;/&lt;span class="kw"&gt;version&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span id="cb3-18"&gt;&lt;a href="#cb3-18" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &amp;lt;/&lt;span class="kw"&gt;dependency&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+     &lt;/div&gt; 
+     &lt;p&gt;后面两个，即mcp-spring-webmvc和mcp-spring-webflux， 根据自己喜好选就可以了，不用非得都要，一个提供同步 API，一个提供 Async 异步 API。&lt;/p&gt; 
+     &lt;p&gt;然后我们就可以开始编写主体代码了：&lt;/p&gt; 
+     &lt;div class="sourceCode" id="cb4"&gt;
+      &lt;pre class="sourceCode scala"&gt;&lt;code class="sourceCode scala"&gt;&lt;span id="cb4-1"&gt;&lt;a href="#cb4-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;val&lt;/span&gt; stdioTransport &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="kw"&gt;new&lt;/span&gt; &lt;span class="fu"&gt;StdioServerTransport&lt;/span&gt;&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="kw"&gt;new&lt;/span&gt; &lt;span class="fu"&gt;ObjectMapper&lt;/span&gt;&lt;span class="op"&gt;());&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-2"&gt;&lt;a href="#cb4-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;val&lt;/span&gt; mcpServer&lt;span class="op"&gt;:&lt;/span&gt; McpSyncServer &lt;span class="op"&gt;=&lt;/span&gt; McpServer&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;sync&lt;/span&gt;&lt;span class="op"&gt;(&lt;/span&gt;stdioTransport&lt;span class="op"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-3"&gt;&lt;a href="#cb4-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;serverInfo&lt;/span&gt;&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="st"&gt;"my-server"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"1.0.0"&lt;/span&gt;&lt;span class="op"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-4"&gt;&lt;a href="#cb4-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;capabilities&lt;/span&gt;&lt;span class="op"&gt;(&lt;/span&gt;ServerCapabilities&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;builder&lt;/span&gt;&lt;span class="op"&gt;()&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-5"&gt;&lt;a href="#cb4-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;resources&lt;/span&gt;&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="kw"&gt;true&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="kw"&gt;true&lt;/span&gt;&lt;span class="op"&gt;)&lt;/span&gt; &lt;span class="co"&gt;// Enable resource support&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-6"&gt;&lt;a href="#cb4-6" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;tools&lt;/span&gt;&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="kw"&gt;true&lt;/span&gt;&lt;span class="op"&gt;)&lt;/span&gt; &lt;span class="co"&gt;// Enable tool support&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-7"&gt;&lt;a href="#cb4-7" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;prompts&lt;/span&gt;&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="kw"&gt;true&lt;/span&gt;&lt;span class="op"&gt;)&lt;/span&gt; &lt;span class="co"&gt;// Enable prompt support&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-8"&gt;&lt;a href="#cb4-8" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;logging&lt;/span&gt;&lt;span class="op"&gt;()&lt;/span&gt; &lt;span class="co"&gt;// Enable logging support&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-9"&gt;&lt;a href="#cb4-9" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;build&lt;/span&gt;&lt;span class="op"&gt;())&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-10"&gt;&lt;a href="#cb4-10" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;build&lt;/span&gt;&lt;span class="op"&gt;();&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-11"&gt;&lt;a href="#cb4-11" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="ex"&gt;Runtime&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;getRuntime&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;addShutdownHook&lt;/span&gt;&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="kw"&gt;new&lt;/span&gt; &lt;span class="ex"&gt;Thread&lt;/span&gt;&lt;span class="op"&gt;()&lt;/span&gt; &lt;span class="op"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-12"&gt;&lt;a href="#cb4-12" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="kw"&gt;override&lt;/span&gt; &lt;span class="kw"&gt;def&lt;/span&gt; &lt;span class="fu"&gt;run&lt;/span&gt;&lt;span class="op"&gt;():&lt;/span&gt; &lt;span class="bu"&gt;Unit&lt;/span&gt; &lt;span class="op"&gt;=&lt;/span&gt; mcpServer&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;closeGracefully&lt;/span&gt;&lt;span class="op"&gt;()&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-13"&gt;&lt;a href="#cb4-13" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="op"&gt;})&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-14"&gt;&lt;a href="#cb4-14" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb4-15"&gt;&lt;a href="#cb4-15" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;val&lt;/span&gt; jsonSchemaGenerator &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="kw"&gt;new&lt;/span&gt; &lt;span class="fu"&gt;SchemaGenerator&lt;/span&gt;&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="kw"&gt;new&lt;/span&gt; &lt;span class="fu"&gt;SchemaGeneratorConfigBuilder&lt;/span&gt;&lt;span class="op"&gt;(&lt;/span&gt;SchemaVersion&lt;span class="op"&gt;.&lt;/span&gt;DRAFT_2020_12&lt;span class="op"&gt;,&lt;/span&gt; OptionPreset&lt;span class="op"&gt;.&lt;/span&gt;PLAIN_JSON&lt;span class="op"&gt;).&lt;/span&gt;&lt;span class="fu"&gt;build&lt;/span&gt;&lt;span class="op"&gt;())&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-16"&gt;&lt;a href="#cb4-16" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="cf"&gt;case&lt;/span&gt; &lt;span class="kw"&gt;class&lt;/span&gt; &lt;span class="fu"&gt;Hello&lt;/span&gt;&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="kw"&gt;var&lt;/span&gt; name&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="ex"&gt;String&lt;/span&gt;&lt;span class="op"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-17"&gt;&lt;a href="#cb4-17" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;val&lt;/span&gt; schema &lt;span class="op"&gt;=&lt;/span&gt; jsonSchemaGenerator&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;generateSchema&lt;/span&gt;&lt;span class="op"&gt;(&lt;/span&gt;classOf&lt;span class="op"&gt;[&lt;/span&gt;Hello&lt;span class="op"&gt;])&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-18"&gt;&lt;a href="#cb4-18" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb4-19"&gt;&lt;a href="#cb4-19" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;val&lt;/span&gt; demoTool &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="kw"&gt;new&lt;/span&gt; McpServerFeatures&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;SyncToolRegistration&lt;/span&gt;&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="kw"&gt;new&lt;/span&gt; &lt;span class="ex"&gt;Tool&lt;/span&gt;&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="st"&gt;"hello"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"say hello world"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; schema&lt;span class="op"&gt;.&lt;/span&gt;toPrettyString&lt;span class="op"&gt;),&lt;/span&gt; arguments &lt;span class="op"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="op"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-20"&gt;&lt;a href="#cb4-20" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="kw"&gt;val&lt;/span&gt; name &lt;span class="op"&gt;=&lt;/span&gt; arguments&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;get&lt;/span&gt;&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="st"&gt;"name"&lt;/span&gt;&lt;span class="op"&gt;).&lt;/span&gt;asInstanceOf&lt;span class="op"&gt;[&lt;/span&gt;&lt;span class="ex"&gt;String&lt;/span&gt;&lt;span class="op"&gt;]&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-21"&gt;&lt;a href="#cb4-21" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="kw"&gt;new&lt;/span&gt; &lt;span class="fu"&gt;CallToolResult&lt;/span&gt;&lt;span class="op"&gt;(&lt;/span&gt;util&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="ex"&gt;Arrays&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;asList&lt;/span&gt;&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="kw"&gt;new&lt;/span&gt; McpSchema&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;TextContent&lt;/span&gt;&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;s"&lt;/span&gt;&lt;span class="st"&gt;Hello &lt;/span&gt;&lt;span class="ss"&gt;${&lt;/span&gt;name&lt;span class="ss"&gt;}&lt;/span&gt;&lt;span class="st"&gt;さん&lt;/span&gt;&lt;span class="ss"&gt;"&lt;/span&gt;&lt;span class="op"&gt;)),&lt;/span&gt; &lt;span class="kw"&gt;false&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-22"&gt;&lt;a href="#cb4-22" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="op"&gt;});&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-23"&gt;&lt;a href="#cb4-23" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb4-24"&gt;&lt;a href="#cb4-24" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;mcpServer&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;addTool&lt;/span&gt;&lt;span class="op"&gt;(&lt;/span&gt;demoTool&lt;span class="op"&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+     &lt;/div&gt; 
+     &lt;p&gt;之后，打包： &lt;code&gt;mvn clean package&lt;/code&gt;, 一个可以本地使用的MCP Server就准备好了。&lt;/p&gt; 
+     &lt;p&gt;你是放到Cursor里面用，还是Windsurf里面用，或者debug的时候用，直接配置如下启动命令就可以：&lt;/p&gt; 
+     &lt;div class="sourceCode" id="cb5"&gt;
+      &lt;pre class="sourceCode bash"&gt;&lt;code class="sourceCode bash"&gt;&lt;span id="cb5-1"&gt;&lt;a href="#cb5-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="ex"&gt;java&lt;/span&gt; &lt;span class="at"&gt;-jar&lt;/span&gt; mcp-starter-1.0.0-SNAPSHOT.jar&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+     &lt;/div&gt; 
+     &lt;h2 id="后续改进"&gt;后续改进&lt;/h2&gt; 
+     &lt;h3 id="json-schema的构建"&gt;json schema的构建&lt;/h3&gt; 
+     &lt;p&gt;我们上面的演示代码中用了如下依赖在Java或者Scala代码中构建JsonSchema：&lt;/p&gt; 
+     &lt;div class="sourceCode" id="cb6"&gt;
+      &lt;pre class="sourceCode xml"&gt;&lt;code class="sourceCode xml"&gt;&lt;span id="cb6-1"&gt;&lt;a href="#cb6-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &amp;lt;&lt;span class="kw"&gt;dependency&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span id="cb6-2"&gt;&lt;a href="#cb6-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &amp;lt;&lt;span class="kw"&gt;groupId&lt;/span&gt;&amp;gt;com.github.victools&amp;lt;/&lt;span class="kw"&gt;groupId&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span id="cb6-3"&gt;&lt;a href="#cb6-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &amp;lt;&lt;span class="kw"&gt;artifactId&lt;/span&gt;&amp;gt;jsonschema-generator&amp;lt;/&lt;span class="kw"&gt;artifactId&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span id="cb6-4"&gt;&lt;a href="#cb6-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &amp;lt;&lt;span class="kw"&gt;version&lt;/span&gt;&amp;gt;4.37.0&amp;lt;/&lt;span class="kw"&gt;version&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span id="cb6-5"&gt;&lt;a href="#cb6-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &amp;lt;/&lt;span class="kw"&gt;dependency&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+     &lt;/div&gt; 
+     &lt;p&gt;不过，个人其实更喜欢Vert.x提供的DSL：&lt;/p&gt; 
+     &lt;div class="sourceCode" id="cb7"&gt;
+      &lt;pre class="sourceCode xml"&gt;&lt;code class="sourceCode xml"&gt;&lt;span id="cb7-1"&gt;&lt;a href="#cb7-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &amp;lt;&lt;span class="kw"&gt;dependency&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span id="cb7-2"&gt;&lt;a href="#cb7-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &amp;lt;&lt;span class="kw"&gt;groupId&lt;/span&gt;&amp;gt;io.vertx&amp;lt;/&lt;span class="kw"&gt;groupId&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span id="cb7-3"&gt;&lt;a href="#cb7-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &amp;lt;&lt;span class="kw"&gt;artifactId&lt;/span&gt;&amp;gt;vertx-json-schema&amp;lt;/&lt;span class="kw"&gt;artifactId&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span id="cb7-4"&gt;&lt;a href="#cb7-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;            &amp;lt;&lt;span class="kw"&gt;version&lt;/span&gt;&amp;gt;4.5.13&amp;lt;/&lt;span class="kw"&gt;version&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span id="cb7-5"&gt;&lt;a href="#cb7-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;        &amp;lt;/&lt;span class="kw"&gt;dependency&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+     &lt;/div&gt; 
+     &lt;div class="sourceCode" id="cb8"&gt;
+      &lt;pre class="sourceCode scala"&gt;&lt;code class="sourceCode scala"&gt;&lt;span id="cb8-1"&gt;&lt;a href="#cb8-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;import&lt;/span&gt; io&lt;span class="op"&gt;.&lt;/span&gt;vertx&lt;span class="op"&gt;.&lt;/span&gt;json&lt;span class="op"&gt;.&lt;/span&gt;schema&lt;span class="op"&gt;.&lt;/span&gt;common&lt;span class="op"&gt;.&lt;/span&gt;dsl&lt;span class="op"&gt;.&lt;/span&gt;Schemas&lt;span class="op"&gt;.&lt;/span&gt;_ &lt;span class="co"&gt;// 各种类型&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb8-2"&gt;&lt;a href="#cb8-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;import&lt;/span&gt; io&lt;span class="op"&gt;.&lt;/span&gt;vertx&lt;span class="op"&gt;.&lt;/span&gt;json&lt;span class="op"&gt;.&lt;/span&gt;schema&lt;span class="op"&gt;.&lt;/span&gt;common&lt;span class="op"&gt;.&lt;/span&gt;dsl&lt;span class="op"&gt;.&lt;/span&gt;Keywords&lt;span class="op"&gt;.&lt;/span&gt;_ &lt;span class="co"&gt;// 属性限制&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb8-3"&gt;&lt;a href="#cb8-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb8-4"&gt;&lt;a href="#cb8-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;val&lt;/span&gt; jsonSchema &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="fu"&gt;objectSchema&lt;/span&gt;&lt;span class="op"&gt;()&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb8-5"&gt;&lt;a href="#cb8-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    jsonSchema&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;requiredProperty&lt;/span&gt;&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="st"&gt;"name"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="fu"&gt;stringSchema&lt;/span&gt;&lt;span class="op"&gt;())&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb8-6"&gt;&lt;a href="#cb8-6" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    jsonSchema&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;property&lt;/span&gt;&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="st"&gt;"age"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="fu"&gt;intSchema&lt;/span&gt;&lt;span class="op"&gt;())&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb8-7"&gt;&lt;a href="#cb8-7" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb8-8"&gt;&lt;a href="#cb8-8" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="fu"&gt;println&lt;/span&gt;&lt;span class="op"&gt;(&lt;/span&gt;jsonSchema&lt;span class="op"&gt;.&lt;/span&gt;toJson&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;encodePrettily&lt;/span&gt;&lt;span class="op"&gt;())&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+     &lt;/div&gt; 
+     &lt;h3 id="启动命令"&gt;启动命令&lt;/h3&gt; 
+     &lt;p&gt;如果要推广，而不只是自己用，那么，有必要降低用户环境的依赖门槛，比如，你不能指望每个用户都得预装Java SDK/JRE，这时候，可以考虑通过GraalVM的native-image将程序打包成特定操作系统独立可执行文件。（类似golang的编译结果）&lt;/p&gt; 
+     &lt;h3 id="关于transport"&gt;关于Transport&lt;/h3&gt; 
+     &lt;p&gt;我们上面只是提供了Stdio方式的Transport，也就是只能本地调用， 如果企业内部，可能基于HTTP/SSE的Transport应用范围更广（当然，安全治理成本估计也会更高）。&lt;/p&gt; 
+     &lt;h2 id="写在最后"&gt;写在最后&lt;/h2&gt; 
+     &lt;p&gt;如果说过去的计算机系统都是通过Web API来实现尽量通用的互联互通，那么，或许 MCP Server 将会是 AI 时代的Web API。&lt;/p&gt; 
+     &lt;p&gt;&lt;img src="./images/mcp-vs-webapi.jpg"&gt;&lt;/p&gt; 
+     &lt;section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"&gt; 
+      &lt;hr&gt; 
+      &lt;ol&gt; 
+       &lt;li id="fn1"&gt;&lt;p&gt;MCP = Model Context Protocol&lt;a href="#fnref1" class="footnote-back" role="doc-backlink"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt; 
+      &lt;/ol&gt; 
+     &lt;/section&gt; &lt;!-- tail --&gt; 
+     &lt;ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="7874087130" data-ad-format="auto" data-full-width-responsive="true"&gt;&lt;/ins&gt; 
+     &lt;script&gt;
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            &lt;/script&gt; 
+     &lt;hr&gt; 
+     &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div id="random_posts"&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2014-10-22-lombok-maven-and-intellij.html"&gt;让Lombok跟Maven和IntelliJ完美的工作在一起 &lt;/a&gt; 
+      &lt;/div&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2021-04-24-ODS_DataLake_Diversity.html"&gt;ODS、DataLake与Diversity &lt;/a&gt; 
+      &lt;/div&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2023-06-20-jte3.html"&gt;借着Jte发新版，介绍下AI学堂背后的技术栈吧！ &lt;/a&gt; 
+      &lt;/div&gt; 
+     &lt;/div&gt; 
+     &lt;hr&gt; 
+     &lt;div id="comments"&gt;&lt;/div&gt; 
+     &lt;hr&gt; &lt;!-- Section CTA --&gt; 
+     &lt;section class="overflow-x-clip bg-zinc-50 py-16 md:py-24"&gt; 
+      &lt;div class="relative mx-auto w-full max-w-screen-xl px-4"&gt; 
+       &lt;div class="relative z-10 w-full"&gt; &lt;!-- 福强私学推荐 --&gt; 
+        &lt;div class="mx-auto max-w-screen-md"&gt; 
+         &lt;h2 class="mb-4 text-center text-4xl font-bold md:text-5xl"&gt;&lt;a href="https://afoo.me/kb.html" class="border-b"&gt;「福强私学」&lt;/a&gt;来一个？&lt;/h2&gt; 
+         &lt;p class="mx-auto mb-8 w-full text-center text-lg leading-8 text-zinc-700 md:w-5/6 md:text-xl"&gt;「福强私学」, 一部沉淀了个人成长、技术与架构、组织与管理以及商业上的方法与心法的百科全书。&lt;/p&gt; 
+        &lt;/div&gt; 
+        &lt;div class="mx-auto mt-6 w-full md:mt-12 md:w-4/5"&gt; &lt;a href="https://afoo.me/kb.html"&gt; &lt;img alt="footer img for kb.afoo.me" loading="lazy" width="2911" height="1961" decoding="async" data-nimg="1" class="mx-auto rounded-lg object-contain shadow-lg sm:rounded-2xl lg:rounded-3xl" style="color:transparent" src="https://og.afoo.me/?url=footer"&gt; &lt;/a&gt; 
+        &lt;/div&gt; &lt;!-- 小报童推荐 --&gt; 
+        &lt;div class="mx-auto max-w-screen-md"&gt; 
+         &lt;h2 class="mt-8 mb-4 text-center text-4xl font-bold md:text-5xl"&gt;&lt;a href="https://xiaobot.net/p/aifd" class="border-b"&gt;福强老师的 AI 通识课&lt;/a&gt;&lt;/h2&gt;&lt;a href="https://xiaobot.net/p/aifd" class="border-b"&gt; &lt;/a&gt;
+        &lt;/div&gt;&lt;a href="https://xiaobot.net/p/aifd" class="border-b"&gt; &lt;/a&gt;
+        &lt;div class="mx-auto mt-6 w-full md:mt-12 md:w-4/5"&gt;
+         &lt;a href="https://xiaobot.net/p/aifd" class="border-b"&gt; &lt;/a&gt;&lt;a href="https://xiaobot.net/p/aifd"&gt; &lt;img alt="footer img for kb.afoo.me" loading="lazy" width="2911" height="1961" decoding="async" data-nimg="1" class="mx-auto rounded-lg object-contain shadow-lg sm:rounded-2xl lg:rounded-3xl" style="color:transparent" src="https://afoo.me/images/xbt-footer.webp"&gt; &lt;/a&gt; 
+        &lt;/div&gt; &lt;!-- 付费合集推荐 --&gt; 
+        &lt;div class="mx-auto max-w-screen-md"&gt; 
+         &lt;h2 class="mt-8 mb-4 text-center text-4xl font-bold md:text-5xl"&gt;视频号 付费合集&lt;/h2&gt; 
+        &lt;/div&gt; 
+        &lt;div class="mx-auto mt-6 w-full md:mt-12 md:w-4/5"&gt; 
+         &lt;img alt="footer img for kb.afoo.me" loading="lazy" width="2911" height="1961" decoding="async" data-nimg="1" class="mx-auto rounded-lg object-contain shadow-lg sm:rounded-2xl lg:rounded-3xl" style="color:transparent" src="https://afoo.me/images/ffhj-footer.webp"&gt; 
+        &lt;/div&gt; 
+       &lt;/div&gt; 
+      &lt;/div&gt; 
+     &lt;/section&gt; 
+     &lt;hr&gt; 
+     &lt;p&gt; &lt;span style="font-size: xx-large;"&gt; 开天窗，拉认知，订阅「福报」，即刻拥有自己的全模态人工智能。 &lt;/span&gt; &lt;/p&gt; &lt;a href="https://wfq.gumroad.com/l/fb"&gt; &lt;img src="/images/fb_subscribe_v2.jpg" alt="订阅「福报」"&gt; &lt;/a&gt; 
+     &lt;hr&gt; 
+     &lt;div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"&gt; 
+      &lt;div id="tfloader" class="x-indicator"&gt; 
+       &lt;svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"&gt; &lt;g fill="none" fill-rule="evenodd"&gt; 
+         &lt;g transform="translate(1 1)" stroke-width="2"&gt; 
+          &lt;circle cx="5" cy="50" r="5"&gt; 
+           &lt;animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /&gt; 
+           &lt;animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /&gt; 
+          &lt;/circle&gt; 
+          &lt;circle cx="27" cy="5" r="5"&gt; 
+           &lt;animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /&gt; 
+           &lt;animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /&gt; 
+          &lt;/circle&gt; 
+          &lt;circle cx="49" cy="50" r="5"&gt; 
+           &lt;animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /&gt; 
+           &lt;animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /&gt; 
+          &lt;/circle&gt; 
+         &lt;/g&gt; 
+        &lt;/g&gt; 
+       &lt;/svg&gt; 
+      &lt;/div&gt; 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+   &lt;/section&gt; 
+  &lt;/main&gt; 
+  &lt;div style="position: fixed; left: 0; bottom: 0; padding: 10px; z-index: 1000;"&gt; 
+   &lt;img src="/icons/Written-By-Human-Not-By-AI-Badge-black@2x.png" alt loading="lazy"&gt; 
+  &lt;/div&gt; 
+  &lt;footer class="border-t border-gray-200 dark:border-slate-800"&gt; 
+   &lt;div class="max-w-6xl mx-auto px-4 sm:px-6"&gt; 
+    &lt;div class="md:flex md:items-center md:justify-between py-6 md:py-8"&gt; 
+     &lt;ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0"&gt; 
+      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Twitter" href="https://twitter.com/afoo_me"&gt; 
+        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-twitter"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z"&gt; 
+         &lt;/path&gt; 
+        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Facebook" href="https://www.facebook.com/fujohnwang/"&gt; 
+        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-facebook"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2H7"&gt;&lt;/path&gt; 
+        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Github" href="https://github.com/fujohnwang"&gt; 
+        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-github"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"&gt; 
+         &lt;/path&gt; 
+        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
+     &lt;/ul&gt; 
+     &lt;div class="text-sm text-gray-700 mr-4 dark:text-slate-400"&gt; &lt;span class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 float-left rounded-sm"&gt; &lt;img src="https://afoo.me/favicon.svg" class="rounded-md" alt&gt; &lt;/span&gt; Copyright © 王福强个人版权所有 - Since 2004 (Everything is homebrewed with &lt;a href="https://pandoc.org/"&gt;Pandoc&lt;/a&gt; and Markdown, little &lt;a href="https://www.scala-lang.org/"&gt;Scala&lt;/a&gt; also included.) 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/footer&gt; 
+  &lt;script&gt;
+        // Set "light" theme as default
+        if (!localStorage.theme) {
+            localStorage.theme = "light";
+        }
+
+        if (
+            localStorage.theme === 'dark' ||
+            (!('theme' in localStorage) &amp;&amp; window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function attachEvent(selector, event, fn) {
+            const matches = document.querySelectorAll(selector);
+            if (matches &amp;&amp; matches.length) {
+                matches.forEach((elem) =&gt; {
+                    elem.addEventListener(event, () =&gt; fn(elem), false);
+                });
+            }
+        }
+
+        window.onload = function () {
+            attachEvent('[data-toggle-menu]', 'click', function (elem) {
+                elem.classList.toggle('expanded');
+                document.body.classList.toggle('overflow-hidden');
+                document.getElementById('header')?.classList.toggle('h-screen');
+                document.querySelector('#header nav')?.classList.toggle('hidden');
+            });
+            attachEvent('[data-toggle-color-scheme]', 'click', function () {
+                document.documentElement.classList.toggle('dark');
+                localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            });
+        };
+        window.onpageshow = function () {
+            const elem = document.querySelector('[data-toggle-menu]');
+            if (elem) {
+                elem.classList.remove('expanded');
+            }
+            document.body.classList.remove('overflow-hidden');
+            document.getElementById('header')?.classList.remove('h-screen');
+            document.querySelector('#header nav')?.classList.add('hidden');
+        };
+    &lt;/script&gt; 
+  &lt;script type="text/javascript"&gt;
+        var gitalk = new Gitalk({
+          clientID: '518a605d711883414ac0',
+          clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+          repo: 'afoo.me.comments',
+          owner: 'fujohnwang',
+          admin: ['fujohnwang'],
+          id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+        gitalk.render('comments')
+    &lt;/script&gt; 
+  &lt;script src="https://formspree.io/js/formbutton-v1.min.js" defer&gt;&lt;/script&gt; 
+  &lt;script&gt;
+  /* paste this line in verbatim */
+  window.formbutton=window.formbutton||function(){(formbutton.q=formbutton.q||[]).push(arguments)};
+  /* customize formbutton below*/     
+  formbutton("create", {
+    action: "https://formspree.io/f/xknlpkkd",
+    title: "有什么可以帮到您？💕💕💕 How can I help you?",
+    buttonImg: "&lt;img src='https://afoo.me/hero3/70.webp' alt/&gt;",
+    fields: [
+      { 
+        type: "email", 
+        label: "您的电子邮箱（方便与您联系）:", 
+        name: "email",
+        required: true,
+        placeholder: "your@email.com"
+      },
+      {
+        type: "textarea",
+        label: "您想提交的反馈和询问信息:",
+        name: "message",
+        placeholder: "What's on your mind?",
+      },
+      { type: "submit" }      
+    ],
+    styles: {
+      title: {
+        backgroundColor: "blue"
+      },
+      button: {
+        backgroundColor: "blue"
+      }
+    }
+  });
+&lt;/script&gt; 
+  &lt;script&gt;
+	// tooltips
+	tippy('#aiedu', {
+        content: "As to AI nowadays, LLM and Stable Diffusion are hot even hottest among them, If your want to both know-why and know-how with them, instead of only know-how which can't repeat itself, you should get you to https://ai.afoo.me right now ❗"
+    });  
+&lt;/script&gt;  
+ &lt;/body&gt;
+&lt;/html&gt;</description>
+      <pubDate>Sat, 01 Mar 2025 16:00:00 GMT</pubDate>
+      <guid>http://afoo.me/posts/2025-03-02-build-a-MCP-server-with-scala.html</guid>
+      <dc:date>2025-03-01T16:00:00Z</dc:date>
+    </item>
+    <item>
       <title>绝大多数人不懂的阿里黑话！</title>
       <link>http://afoo.me/posts/2025-03-02-ali-jargon.html</link>
       <description>&lt;!doctype html&gt;
@@ -3764,371 +4303,6 @@
       <pubDate>Sun, 16 Feb 2025 16:00:00 GMT</pubDate>
       <guid>http://afoo.me/posts/2025-02-17-three-GPT-magic-moment.html</guid>
       <dc:date>2025-02-16T16:00:00Z</dc:date>
-    </item>
-    <item>
-      <title>马斯克被怼了！</title>
-      <link>http://afoo.me/posts/2025-02-16-musk-and-cobol.html</link>
-      <description>&lt;!doctype html&gt;
-&lt;html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]"&gt; 
- &lt;head&gt; 
-  &lt;meta charset="utf-8"&gt; 
-  &lt;meta name="keywords" content="马斯克被怼了！ - 架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
-  &lt;meta name="description" content="马斯克被怼了！ - 福强说，扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
-  &lt;meta name="author" content="王福强"&gt; 
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
-  &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt; 
-  &lt;meta name="robots" content="index,follow"&gt; 
-  &lt;title&gt;马斯克被怼了！ -王福强的个人博客：一个架构士的思考与沉淀&lt;/title&gt; 
-  &lt;meta name="date" content="2025-02-16"&gt; 
-  &lt;meta property="og:title" content="马斯克被怼了！"&gt; 
-  &lt;meta property="og:type" content="landing page"&gt; 
-  &lt;meta property="og:url" content="https://afoo.me/posts/2025-02-16-musk-and-cobol.html"&gt; 
-  &lt;meta property="og:image" content="https://og.afoo.me?url=https://afoo.me/posts/2025-02-16-musk-and-cobol.html"&gt; 
-  &lt;meta name="twitter:card" content="summary_large_image"&gt; 
-  &lt;meta name="twitter:title" content="马斯克被怼了！"&gt; 
-  &lt;meta name="twitter:site" content="@afoo_me"&gt; 
-  &lt;meta name="twitter:creator" content="@afoo_me"&gt; 
-  &lt;meta name="twitter:image" content="https://og.afoo.me?url=https://afoo.me/posts/2025-02-16-musk-and-cobol.html"&gt; 
-  &lt;meta name="twitter:description" content="马斯克被怼了！ - 王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
-  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
-  &lt;link rel="canonical" href="https://afoo.me/posts/2025-02-16-musk-and-cobol.html"&gt; 
-  &lt;link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"&gt; 
-  &lt;link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8"&gt; 
-  &lt;script src="https://unpkg.com/htmx.org@1.9.5"&gt;&lt;/script&gt; 
-  &lt;link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"&gt; 
-  &lt;script src="https://unpkg.com/gitalk/dist/gitalk.min.js"&gt;&lt;/script&gt; 
-  &lt;script src="https://unpkg.com/@popperjs/core@2"&gt;&lt;/script&gt; 
-  &lt;script src="https://unpkg.com/tippy.js@6"&gt;&lt;/script&gt; 
-  &lt;link rel="stylesheet" href="/css/af.css"&gt; 
-  &lt;link rel="stylesheet" href="/css/components.css"&gt; 
-  &lt;link ref="stylesheet" href="/css/pygments.css"&gt; 
-  &lt;style type="text/css"&gt;
-        pre &gt; code{
-          white-space: pre-wrap;
-          font-family: monospace;
-          font-size: 14px;
-          /* border-left: blueviolet;
-          border-left-width: thick;
-          border-left-style: double;
-          padding-left: 1rem !important; */
-        }
-        
-        .x-indicator{
-            display:none;
-        }
-        .htmx-request .x-indicator{
-            display:inline;
-        }
-        .htmx-request.x-indicator{
-            display:inline;
-        }
-    &lt;/style&gt; 
-  &lt;script type="application/ld+json"&gt;
-    {
-      "@context": "https://schema.org",
-      "@type": "NewsArticle",
-      "headline": "马斯克被怼了！",
-      "image": [
-        "https://afoo.me/images/fb_subscribe.jpg"
-       ],
-      "datePublished": "2025-02-16",
-      "author": [{
-          "@type": "Person",
-          "name": "王福强",
-          "url": "https://afoo.me"
-        }]
-    }
-  &lt;/script&gt; 
-  &lt;script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3687639021943715" crossorigin="anonymous"&gt;&lt;/script&gt; 
- &lt;/head&gt; 
- &lt;body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"&gt; 
-  &lt;header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"&gt; 
-   &lt;div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"&gt; 
-    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"&gt; &lt;img src="/images/afoo.PNG" alt="logo" style="height:60px;"&gt; &lt;/span&gt; &lt;/a&gt; 
-     &lt;div class="flex items-center md:hidden"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
-       &lt;svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
-         &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
-         &lt;path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"&gt; 
-         &lt;/path&gt; 
-        &lt;/g&gt; 
-       &lt;/svg&gt; &lt;/button&gt; &lt;button type="button" class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition" aria-label="Toggle Menu" data-toggle-menu=""&gt; 
-       &lt;svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:menu"&gt; &lt;g class="icon-tabler" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"&gt; 
-         &lt;path d="M4 8h16"&gt;&lt;/path&gt; 
-         &lt;path d="M4 16h16"&gt;&lt;/path&gt; 
-        &lt;/g&gt; 
-       &lt;/svg&gt; &lt;/button&gt; 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-    &lt;nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"&gt; 
-     &lt;ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"&gt; 
-      &lt;li&gt;&lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://kb.afoo.me/"&gt;福强私学&lt;/a&gt;&lt;/li&gt; 
-      &lt;li&gt; &lt;a id="aiedu" class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://ai.afoo.me"&gt; 福强AI学堂&lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com"&gt;架构百科&lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html"&gt;博客文章 &lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html"&gt;创作出版&lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://store.afoo.me"&gt;产品与服务&lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt;&lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://auth.afoo.me/user.html"&gt;登录信息&lt;/a&gt;&lt;/li&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
-     &lt;/ul&gt; 
-     &lt;div class="md:self-center flex items-center mb-4 md:mb-0 ml-2"&gt; 
-      &lt;div class="hidden items-center md:flex"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
-        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
-          &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
-          &lt;path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"&gt; 
-          &lt;/path&gt; 
-         &lt;/g&gt; 
-        &lt;/svg&gt; &lt;/button&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="RSS Feed" href="http://afoo.me/feeds.xml"&gt; 
-        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:rss"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
-          &lt;circle cx="5" cy="19" r="1"&gt;&lt;/circle&gt; 
-          &lt;path d="M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"&gt;&lt;/path&gt; 
-         &lt;/g&gt; 
-        &lt;/svg&gt; &lt;/a&gt; 
-      &lt;/div&gt; 
-     &lt;/div&gt; 
-    &lt;/nav&gt; 
-   &lt;/div&gt; 
-  &lt;/header&gt; 
-  &lt;main&gt; 
-   &lt;div id="leftSlot" class="visible md:invisible fixed top-0 left-0" style="width: 16rem;height: 80%;margin-top: 4rem;"&gt; &lt;!-- left --&gt; 
-    &lt;ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="3581141418" data-ad-format="auto" data-full-width-responsive="true"&gt;&lt;/ins&gt; 
-    &lt;script&gt;
-          (adsbygoogle = window.adsbygoogle || []).push({});
-      &lt;/script&gt; 
-   &lt;/div&gt; 
-   &lt;div id="rightSlot" class="visible md:invisible fixed top-0 right-0" style="width: 16rem;height: 80%;margin-top: 4rem;"&gt; &lt;!-- right --&gt; 
-    &lt;ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="7030836806" data-ad-format="auto" data-full-width-responsive="true"&gt;&lt;/ins&gt; 
-    &lt;script&gt;
-           (adsbygoogle = window.adsbygoogle || []).push({});
-      &lt;/script&gt; 
-   &lt;/div&gt; 
-   &lt;section class="text-gray-600 body-font relative"&gt; 
-    &lt;div class="container px-5 py-24 mx-auto mb-12 prose prose-lg dark:prose-invert"&gt; 
-     &lt;p class="lead"&gt; &lt;/p&gt;
-     &lt;h1 class="title"&gt;马斯克被怼了！&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt; 
-      &lt;div style="text-align: left;"&gt;
-       2025-02-16
-      &lt;/div&gt; &lt;/small&gt; 
-     &lt;p&gt;&lt;/p&gt; &lt;!-- random --&gt; 
-     &lt;ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="2722720851" data-ad-format="auto" data-full-width-responsive="true"&gt;&lt;/ins&gt; 
-     &lt;script&gt;
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            &lt;/script&gt; 
-     &lt;hr&gt; 
-     &lt;p&gt;事情的起因是，马斯克的DOGE团队在做美丽国政府数据审计的时候发现，有人150岁了还在领社保金。&lt;/p&gt; 
-     &lt;p&gt;但其实这个论断和对数据的解释是有问题的。&lt;/p&gt; 
-     &lt;p&gt;有人在X.com上直接针对马斯克的这个论点开喷：&lt;/p&gt; 
-     &lt;p&gt;&lt;img src="./images/59131739680720_.pic.jpg"&gt;&lt;/p&gt; 
-     &lt;p&gt;大部分人可能到这里看看热闹就散了， 但福强老师这个犟种感觉背后应该会有更多的故事，所以就又深挖了一下。&lt;/p&gt; 
-     &lt;p&gt;挖完发现，背后走向其实还有反转。&lt;/p&gt; 
-     &lt;p&gt;首先， 马斯克说有人150多岁了还在领社保金肯定是错的，即2025-1875=150， 但怼马斯克的人说是因为COBOL的程序里因为没有日期和时间类型，所以COBOL用1875作为日期的起始（相当于Java里的1970），这个论断也是错的，COBOL不背这个锅。&lt;/p&gt; 
-     &lt;p&gt;COBOL语言虽然古老（我这个老程序员也只是听说而没有接触过），但它的规范里并没有1875作为日期起始的规定。&lt;/p&gt; 
-     &lt;p&gt;至于ISO1860应该也管不着那个时候的COBOL， 事实标准先于后立标准。&lt;/p&gt; 
-     &lt;p&gt;那这个1875到底怎么来的呢？&lt;/p&gt; 
-     &lt;p&gt;从 &lt;a href="https://retrocomputing.stackexchange.com/questions/31288/does-or-did-cobol-default-to-1875-05-20-for-corrupt-or-missing-dates" class="uri"&gt;https://retrocomputing.stackexchange.com/questions/31288/does-or-did-cobol-default-to-1875-05-20-for-corrupt-or-missing-dates&lt;/a&gt; 这个地方的讨论来看，我觉得有人说的是合理的，也就是：&lt;/p&gt; 
-     &lt;blockquote&gt; 
-      &lt;p&gt;There was a time when data structures were made to fit purpose, not compilers. … So in a strict sense, it’s not a COBOL issue, but data adapted to task.&lt;/p&gt; 
-     &lt;/blockquote&gt; 
-     &lt;p&gt;其实也就是我们今天说的， 把业务逻辑编码到系统中，然后根据业务逻辑设置一个默认值。&lt;/p&gt; 
-     &lt;p&gt;1935年美国社保局才成立，配合缴费年限和个人年龄向前推 + 5年的buffer = 1875，所以才设置1875作为日期起始的默认值，我个人比较 buy in 这个逻辑。&lt;/p&gt; 
-     &lt;p&gt;至于怼马斯克的兄弟，个人感觉更多是宣泄情绪和炫耀自己的资深， 其实大可不必，既然是年轻的天才程序员，那么完全可以通过咨询和调研综合分析出一个合理的结论。&lt;/p&gt; 
-     &lt;p&gt;谁还不是从年轻时候过来的呢？ 😉&lt;/p&gt; &lt;!-- tail --&gt; 
-     &lt;ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="7874087130" data-ad-format="auto" data-full-width-responsive="true"&gt;&lt;/ins&gt; 
-     &lt;script&gt;
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            &lt;/script&gt; 
-     &lt;hr&gt; 
-     &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div id="random_posts"&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2023-11-27-retalk-soa-microservices.html"&gt;微服务无罪，有罪也是用的人理解不到位 &lt;/a&gt; 
-      &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2020-07-30-big-helps-can-kill-you.html"&gt;大恩如大仇的故事 &lt;/a&gt; 
-      &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2011-03-14-prototype-a-java-actor.html"&gt;Prototyping An Actor In Java &lt;/a&gt; 
-      &lt;/div&gt; 
-     &lt;/div&gt; 
-     &lt;hr&gt; 
-     &lt;div id="comments"&gt;&lt;/div&gt; 
-     &lt;hr&gt; &lt;!-- Section CTA --&gt; 
-     &lt;section class="overflow-x-clip bg-zinc-50 py-16 md:py-24"&gt; 
-      &lt;div class="relative mx-auto w-full max-w-screen-xl px-4"&gt; 
-       &lt;div class="relative z-10 w-full"&gt; &lt;!-- 福强私学推荐 --&gt; 
-        &lt;div class="mx-auto max-w-screen-md"&gt; 
-         &lt;h2 class="mb-4 text-center text-4xl font-bold md:text-5xl"&gt;&lt;a href="https://afoo.me/kb.html" class="border-b"&gt;「福强私学」&lt;/a&gt;来一个？&lt;/h2&gt; 
-         &lt;p class="mx-auto mb-8 w-full text-center text-lg leading-8 text-zinc-700 md:w-5/6 md:text-xl"&gt;「福强私学」, 一部沉淀了个人成长、技术与架构、组织与管理以及商业上的方法与心法的百科全书。&lt;/p&gt; 
-        &lt;/div&gt; 
-        &lt;div class="mx-auto mt-6 w-full md:mt-12 md:w-4/5"&gt; &lt;a href="https://afoo.me/kb.html"&gt; &lt;img alt="footer img for kb.afoo.me" loading="lazy" width="2911" height="1961" decoding="async" data-nimg="1" class="mx-auto rounded-lg object-contain shadow-lg sm:rounded-2xl lg:rounded-3xl" style="color:transparent" src="https://og.afoo.me/?url=footer"&gt; &lt;/a&gt; 
-        &lt;/div&gt; &lt;!-- 小报童推荐 --&gt; 
-        &lt;div class="mx-auto max-w-screen-md"&gt; 
-         &lt;h2 class="mt-8 mb-4 text-center text-4xl font-bold md:text-5xl"&gt;&lt;a href="https://xiaobot.net/p/aifd" class="border-b"&gt;福强老师的 AI 通识课&lt;/a&gt;&lt;/h2&gt;&lt;a href="https://xiaobot.net/p/aifd" class="border-b"&gt; &lt;/a&gt;
-        &lt;/div&gt;&lt;a href="https://xiaobot.net/p/aifd" class="border-b"&gt; &lt;/a&gt;
-        &lt;div class="mx-auto mt-6 w-full md:mt-12 md:w-4/5"&gt;
-         &lt;a href="https://xiaobot.net/p/aifd" class="border-b"&gt; &lt;/a&gt;&lt;a href="https://xiaobot.net/p/aifd"&gt; &lt;img alt="footer img for kb.afoo.me" loading="lazy" width="2911" height="1961" decoding="async" data-nimg="1" class="mx-auto rounded-lg object-contain shadow-lg sm:rounded-2xl lg:rounded-3xl" style="color:transparent" src="https://afoo.me/images/xbt-footer.webp"&gt; &lt;/a&gt; 
-        &lt;/div&gt; &lt;!-- 付费合集推荐 --&gt; 
-        &lt;div class="mx-auto max-w-screen-md"&gt; 
-         &lt;h2 class="mt-8 mb-4 text-center text-4xl font-bold md:text-5xl"&gt;视频号 付费合集&lt;/h2&gt; 
-        &lt;/div&gt; 
-        &lt;div class="mx-auto mt-6 w-full md:mt-12 md:w-4/5"&gt; 
-         &lt;img alt="footer img for kb.afoo.me" loading="lazy" width="2911" height="1961" decoding="async" data-nimg="1" class="mx-auto rounded-lg object-contain shadow-lg sm:rounded-2xl lg:rounded-3xl" style="color:transparent" src="https://afoo.me/images/ffhj-footer.webp"&gt; 
-        &lt;/div&gt; 
-       &lt;/div&gt; 
-      &lt;/div&gt; 
-     &lt;/section&gt; 
-     &lt;hr&gt; 
-     &lt;p&gt; &lt;span style="font-size: xx-large;"&gt; 开天窗，拉认知，订阅「福报」，即刻拥有自己的全模态人工智能。 &lt;/span&gt; &lt;/p&gt; &lt;a href="https://wfq.gumroad.com/l/fb"&gt; &lt;img src="/images/fb_subscribe_v2.jpg" alt="订阅「福报」"&gt; &lt;/a&gt; 
-     &lt;hr&gt; 
-     &lt;div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"&gt; 
-      &lt;div id="tfloader" class="x-indicator"&gt; 
-       &lt;svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"&gt; &lt;g fill="none" fill-rule="evenodd"&gt; 
-         &lt;g transform="translate(1 1)" stroke-width="2"&gt; 
-          &lt;circle cx="5" cy="50" r="5"&gt; 
-           &lt;animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /&gt; 
-           &lt;animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /&gt; 
-          &lt;/circle&gt; 
-          &lt;circle cx="27" cy="5" r="5"&gt; 
-           &lt;animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /&gt; 
-           &lt;animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /&gt; 
-          &lt;/circle&gt; 
-          &lt;circle cx="49" cy="50" r="5"&gt; 
-           &lt;animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /&gt; 
-           &lt;animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /&gt; 
-          &lt;/circle&gt; 
-         &lt;/g&gt; 
-        &lt;/g&gt; 
-       &lt;/svg&gt; 
-      &lt;/div&gt; 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-   &lt;/section&gt; 
-  &lt;/main&gt; 
-  &lt;div style="position: fixed; left: 0; bottom: 0; padding: 10px; z-index: 1000;"&gt; 
-   &lt;img src="/icons/Written-By-Human-Not-By-AI-Badge-black@2x.png" alt loading="lazy"&gt; 
-  &lt;/div&gt; 
-  &lt;footer class="border-t border-gray-200 dark:border-slate-800"&gt; 
-   &lt;div class="max-w-6xl mx-auto px-4 sm:px-6"&gt; 
-    &lt;div class="md:flex md:items-center md:justify-between py-6 md:py-8"&gt; 
-     &lt;ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0"&gt; 
-      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Twitter" href="https://twitter.com/afoo_me"&gt; 
-        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-twitter"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z"&gt; 
-         &lt;/path&gt; 
-        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Facebook" href="https://www.facebook.com/fujohnwang/"&gt; 
-        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-facebook"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2H7"&gt;&lt;/path&gt; 
-        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Github" href="https://github.com/fujohnwang"&gt; 
-        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-github"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"&gt; 
-         &lt;/path&gt; 
-        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
-     &lt;/ul&gt; 
-     &lt;div class="text-sm text-gray-700 mr-4 dark:text-slate-400"&gt; &lt;span class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 float-left rounded-sm"&gt; &lt;img src="https://afoo.me/favicon.svg" class="rounded-md" alt&gt; &lt;/span&gt; Copyright © 王福强个人版权所有 - Since 2004 (Everything is homebrewed with &lt;a href="https://pandoc.org/"&gt;Pandoc&lt;/a&gt; and Markdown, little &lt;a href="https://www.scala-lang.org/"&gt;Scala&lt;/a&gt; also included.) 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/footer&gt; 
-  &lt;script&gt;
-        // Set "light" theme as default
-        if (!localStorage.theme) {
-            localStorage.theme = "light";
-        }
-
-        if (
-            localStorage.theme === 'dark' ||
-            (!('theme' in localStorage) &amp;&amp; window.matchMedia('(prefers-color-scheme: dark)').matches)
-        ) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-
-        function attachEvent(selector, event, fn) {
-            const matches = document.querySelectorAll(selector);
-            if (matches &amp;&amp; matches.length) {
-                matches.forEach((elem) =&gt; {
-                    elem.addEventListener(event, () =&gt; fn(elem), false);
-                });
-            }
-        }
-
-        window.onload = function () {
-            attachEvent('[data-toggle-menu]', 'click', function (elem) {
-                elem.classList.toggle('expanded');
-                document.body.classList.toggle('overflow-hidden');
-                document.getElementById('header')?.classList.toggle('h-screen');
-                document.querySelector('#header nav')?.classList.toggle('hidden');
-            });
-            attachEvent('[data-toggle-color-scheme]', 'click', function () {
-                document.documentElement.classList.toggle('dark');
-                localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-            });
-        };
-        window.onpageshow = function () {
-            const elem = document.querySelector('[data-toggle-menu]');
-            if (elem) {
-                elem.classList.remove('expanded');
-            }
-            document.body.classList.remove('overflow-hidden');
-            document.getElementById('header')?.classList.remove('h-screen');
-            document.querySelector('#header nav')?.classList.add('hidden');
-        };
-    &lt;/script&gt; 
-  &lt;script type="text/javascript"&gt;
-        var gitalk = new Gitalk({
-          clientID: '518a605d711883414ac0',
-          clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-          repo: 'afoo.me.comments',
-          owner: 'fujohnwang',
-          admin: ['fujohnwang'],
-          id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-          distractionFreeMode: false  // Facebook-like distraction free mode
-        })
-        gitalk.render('comments')
-    &lt;/script&gt; 
-  &lt;script src="https://formspree.io/js/formbutton-v1.min.js" defer&gt;&lt;/script&gt; 
-  &lt;script&gt;
-  /* paste this line in verbatim */
-  window.formbutton=window.formbutton||function(){(formbutton.q=formbutton.q||[]).push(arguments)};
-  /* customize formbutton below*/     
-  formbutton("create", {
-    action: "https://formspree.io/f/xknlpkkd",
-    title: "有什么可以帮到您？💕💕💕 How can I help you?",
-    buttonImg: "&lt;img src='https://afoo.me/hero3/70.webp' alt/&gt;",
-    fields: [
-      { 
-        type: "email", 
-        label: "您的电子邮箱（方便与您联系）:", 
-        name: "email",
-        required: true,
-        placeholder: "your@email.com"
-      },
-      {
-        type: "textarea",
-        label: "您想提交的反馈和询问信息:",
-        name: "message",
-        placeholder: "What's on your mind?",
-      },
-      { type: "submit" }      
-    ],
-    styles: {
-      title: {
-        backgroundColor: "blue"
-      },
-      button: {
-        backgroundColor: "blue"
-      }
-    }
-  });
-&lt;/script&gt; 
-  &lt;script&gt;
-	// tooltips
-	tippy('#aiedu', {
-        content: "As to AI nowadays, LLM and Stable Diffusion are hot even hottest among them, If your want to both know-why and know-how with them, instead of only know-how which can't repeat itself, you should get you to https://ai.afoo.me right now ❗"
-    });  
-&lt;/script&gt;  
- &lt;/body&gt;
-&lt;/html&gt;</description>
-      <pubDate>Sat, 15 Feb 2025 16:00:00 GMT</pubDate>
-      <guid>http://afoo.me/posts/2025-02-16-musk-and-cobol.html</guid>
-      <dc:date>2025-02-15T16:00:00Z</dc:date>
     </item>
   </channel>
 </rss>
