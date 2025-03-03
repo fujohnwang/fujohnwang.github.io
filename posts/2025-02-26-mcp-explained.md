@@ -103,7 +103,7 @@ mcp host程序会调用mcp client拉取mcp server有哪些能力，然后在prom
 
 大模型是真神，是你想见就能见的？🤣
 
-
+> 更多MCP相关内容，可以参考[架构百科](https://jiagoubaike.com)中的[MCP条目](https://jiagoubaike.com/posts/mcp)。
 
 
 

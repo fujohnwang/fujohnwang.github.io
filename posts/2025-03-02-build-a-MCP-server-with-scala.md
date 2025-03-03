@@ -162,3 +162,4 @@ java -jar mcp-starter-1.0.0-SNAPSHOT.jar
 
 ![](./images/mcp-vs-webapi.jpg)
 
+> 更多MCP相关内容，可以参考[架构百科](https://jiagoubaike.com)中的[MCP条目](https://jiagoubaike.com/posts/mcp)。

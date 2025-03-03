@@ -48,7 +48,7 @@ MCP Server可以提供的三种资源和能力中，每一种其实挂接的位�
 
 ![](https://img.shields.io/badge/%E4%B8%80%E4%B8%AA%E6%83%B3%E6%B3%95-%E4%B8%8D%E4%B8%80%E5%AE%9A%E5%AF%B9-blue.svg?style=flat)
 
-
+> 更多MCP相关内容，可以参考[架构百科](https://jiagoubaike.com)中的[MCP条目](https://jiagoubaike.com/posts/mcp)。
 
 
 
