@@ -106,6 +106,10 @@ mcpServer.addTool(demoTool)
 
 之后，打包： `mvn clean package`, 一个可以本地使用的MCP Server就准备好了。
 
+> NOTE
+> 
+> 因为用了Spring boot的build plugin， 所以，mvn package直接打包成了一个可执行的jar文件，如果你不用这个插件，也可以用其他的maven插件，只要最终打包成一个可执行的uber/onejar就可以了。
+
 你是放到Cursor里面用，还是Windsurf里面用，或者debug的时候用，直接配置如下启动命令就可以：
 
 ```bash
