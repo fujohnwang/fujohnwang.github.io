@@ -159,6 +159,10 @@ $body$
 
 当然，这个东西肯定不完美，后面有不同markdown元素的时候， 估计还得更新，比如，我们命令行加 `--no-highlight` 就是因为Grok3没法处理好依赖错误与代码高亮效果之间的矛盾。（当然，我也没闲心去处理🤣）
 
+> 注：UPDATED @ 2025-03-18
+> 
+> 假如自己也想编写并销售PDF格式的电子书，这里也有一份可以开箱即用的pandoc PDF转换和生成模板: <a href="https://wfq.gumroad.com/l/pandoc-pdf-template" class="border-b" target="_blank">https://wfq.gumroad.com/l/pandoc-pdf-template</a>
+
 
 
 
