@@ -10,6 +10,7 @@
 - [Follow Me on Gumroad](https://wfq.gumroad.com/subscribe)
 - [罗密欧的故事汇](https://luomoe.github.io/)
 - [友情链接](/interlinks.html)
+- [科学上网](/fq/fqrf.html)
 
 # [工具福强造](https://afoo.me/tools.html)
 
