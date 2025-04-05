@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Widget Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-8">
+        <h1 class="text-6xl font-bold mb-4">Open Chat With Afoo In Private</h1>
+        <p class="my-8">点击右下角的聊天图标开始对话。</p>
+    </div>
+
+    <script src="./js/openchat.js"></script>
+    <script>
+        // 初始化聊天组件
+        const chat = new ChatWidget('wss://openchat.afoo.me');
+
+        // 可选：自定义消息处理函数
+        chat.setMessageHandlers({
+            // 自定义发送消息处理
+            send: (message) => {
+                // 在这里可以添加自定义的发送消息逻辑
+                chat.defaultSendHandler(message);
+            },
+            // 自定义接收消息处理
+            receive: (message) => {
+                // 在这里可以添加自定义的接收消息逻辑
+                chat.defaultReceiveHandler(message);
+            }
+        });
+    </script>
+</body>
+</html>
