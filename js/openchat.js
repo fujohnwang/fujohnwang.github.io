@@ -10,7 +10,11 @@ class ChatWidget {
         this.reconnectAttempts = 0;
         this.maxReconnectAttempts = 5;
         this.reconnectDelay = 1000;
-        this.sessionId = crypto.randomUUID(); // 添加这行
+        // 从 localStorage 获取或创建新的 UUID
+        this.sessionId = localStorage.getItem('chat_session_id_at_afoo_me') || crypto.randomUUID();
+        // 保存到 localStorage
+        localStorage.setItem('chat_session_id_at_afoo_me', this.sessionId);
+        
         this.init();
     }
 
