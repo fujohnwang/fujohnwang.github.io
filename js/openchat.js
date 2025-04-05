@@ -10,6 +10,7 @@ class ChatWidget {
         this.reconnectAttempts = 0;
         this.maxReconnectAttempts = 5;
         this.reconnectDelay = 1000;
+        this.sessionId = crypto.randomUUID(); // 添加这行
         this.init();
     }
 
@@ -143,7 +144,11 @@ class ChatWidget {
     // 默认消息发送处理函数
     defaultSendHandler(message) {
         if (this.ws?.readyState === WebSocket.OPEN) {
-            this.ws.send(message);
+            const messageData = {
+                uuid: this.sessionId,
+                message: message
+            };
+            this.ws.send(JSON.stringify(messageData));
             this.appendMessage('outgoing', message);
         }
     }
