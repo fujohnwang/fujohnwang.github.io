@@ -76,6 +76,6 @@
 - [阿朱语录](/azhu.html)
 - [精彩观点/高人洞察](/wwd.html)
 - [左耳朵耗子的 Github 首页](https://github.com/haoel/haoel.github.io)
-
+- [曾国藩六诫](/zeng6.html)
 
 
