@@ -12,7 +12,7 @@
 
 啥同样的道理？
 
-Jobs To Be Done（傻逼“焦糖布丁”理论）
+Jobs To Be Done（傻逼“[焦糖布丁](https://afoo.me/posts/2025-02-28-jobs-to-be-done-in-zh.html)”理论）
 
 客户当然只要结果咯， 
 
