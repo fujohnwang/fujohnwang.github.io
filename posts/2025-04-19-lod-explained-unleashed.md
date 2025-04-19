@@ -18,7 +18,7 @@
 
 [https://youtu.be/2ee_C_0-gPk?si=sH9oHDmEYpmRWM-H](https://youtu.be/2ee_C_0-gPk?si=sH9oHDmEYpmRWM-H)
 
-没有特殊技能的同学，直接通过「福强私学」或者「架构百科」视频号的「付费合集」入口选择架构专栏第一个视频即可观看完整视频。
+没有特殊技能的同学，直接通过「福强私学」或者「架构百科」视频号的「付费合集」入口， 选择架构专栏第一个视频，即可观看完整视频。
 
 ![](/images/my_shipinhao.pic.jpg)
 
