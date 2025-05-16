@@ -4,6 +4,8 @@
 
 ## 倡导
 
+![](https://img.shields.io/badge/management-leadership-green.svg?style=flat)
+
 > 写在纸上不一定是，就如同每个企业都爱把一些东西上墙，越做不到越贴墙上
 
 企业文化之所以倡导，是因为**现在没有做到，而希望大家将来可以做到**， 
@@ -12,13 +14,15 @@
 
 再者就是， 人群永远八二分，占大头儿的都是做不到或者说不想做到的，人性本懒嘛
 
-所以企业才要倾斜资源，加大对那百分之二十甚至百分之二的激励
+所以企业才要倾斜资源，加大对那百分之二十甚至百分之二的[激励](https://afoo.me/mgmt.html)
 
 钱给够了，总会有人做到的 😉
 
-![](https://img.shields.io/badge/management-leadership-green.svg?style=flat)
+
 
 ## 关系
+
+![](https://img.shields.io/badge/humanity-business-green.svg?style=flat)
 
 大部分人眼里的“关系”确实不是啥好词儿
 
@@ -26,7 +30,7 @@
 
 包括我
 
-但其实很多人鄙视关系
+但其实很多人鄙视[关系](https://kb.afoo.me/business/%E6%8A%80%E6%9C%AF%E5%95%86%E4%B8%9A%E4%B8%8E%E4%BA%BA/2/#%E8%B5%84%E6%BA%90%E5%85%B3%E7%B3%BB%E4%B8%8E%E8%83%BD%E5%8A%9B)
 
 不是因为关系本身
 
@@ -54,7 +58,7 @@
 
 又有什么价值呢？
 
-![](https://img.shields.io/badge/humanity-business-green.svg?style=flat)
+
 
 ## 激情岁月
 
