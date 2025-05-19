@@ -54,6 +54,15 @@
 
 - [粉丝数到达多少多少](https://functional.tools/awesome-stats)
 
+# 微信豆充值省钱渠道
+
+微信豆 web 端充值， iOS端可以省钱，android无差异，使用苹果手机的同学有需要微信豆消费的场景，可以考虑这个渠道。
+
+<a href="https://webeans.my-qcloud.com/" target="_blank">https://webeans.my-qcloud.com/</a>
+
+> TIP
+>
+> 感谢@吴为提供以上信息。
 
 # 未分类
 
