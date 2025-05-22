@@ -8,9 +8,9 @@
 
 借着这个观点，把几个事情串起来，帮大家解惑一下，提升下认知😉（或者觉得“提升”这词儿用得有辱自己的智商，也可以用“补齐”🤣）
 
-先从"不会写代码的CTO"说起，
+先从"[不会写代码的CTO](https://mp.weixin.qq.com/s/UTcGfojSnvGZMm1yoyHtCQ?payreadticket=HIXwxGUDB1-r6zKSACNj5NvK4gamirrWJ4Z2hkUlNuDnVvnmIBbMCGw_bGDq9bV0klU2jMY)"说起，
 
-这个我在「职场漫游指南」里单独也写过[一篇](https://mp.weixin.qq.com/s/UTcGfojSnvGZMm1yoyHtCQ?payreadticket=HIXwxGUDB1-r6zKSACNj5NvK4gamirrWJ4Z2hkUlNuDnVvnmIBbMCGw_bGDq9bV0klU2jMY)专门阐述这个事情
+这个我在[「职场漫游指南」](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzIzNzkzODU5Mg==&action=getalbum&album_id=3982133366559604743&scene=126&sessionid=1747893539802#wechat_redirect)里单独也写过[一篇](https://mp.weixin.qq.com/s/UTcGfojSnvGZMm1yoyHtCQ?payreadticket=HIXwxGUDB1-r6zKSACNj5NvK4gamirrWJ4Z2hkUlNuDnVvnmIBbMCGw_bGDq9bV0klU2jMY)专门阐述这个事情
 
 很多做技术出身的人，都喜欢用自己的技术专业能力来跟CTO比高低
 
