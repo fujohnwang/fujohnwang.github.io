@@ -2,7 +2,7 @@
 % 王福强
 % 2025-05-24
 
-虽然现在各大厂都在搞自己的AI IDE与AI代码助手
+虽然现在各大厂都在搞自己的AI IDE与[AI代码助手](https://afoo.me/posts/2025-05-23-why-markdown-with-AI-agent.html)
 
 但这个品类下的产品层面的竞争
 
@@ -46,7 +46,7 @@
 
 > 啥？ 你不知道 AI IDE 和 AI代码助手 是啥？
 >
-> Cursor/Windsurf/Cline/AugmentCode/Trae/CodeBuddy/通义灵码/Firebase Studio/Lovable/...
+> [Cursor](https://kb.afoo.me/ai/105-cursorcookbook/)/Windsurf/Cline/AugmentCode/Trae/[CodeBuddy](https://afoo.me/posts/2025-04-23-novel-writer-with-codebuddy.html)/通义灵码/Firebase Studio/Lovable/...
 >
 > 这些都算。
 
