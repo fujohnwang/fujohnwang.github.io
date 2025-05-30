@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screen vs Filter - 动词筛选差异可视化</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        accent: '#8B5CF6',
+                        neutral: '#6B7280',
+                        "neutral-light": '#F3F4F6',
+                        "neutral-dark": '#1F2937',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .canvas-container {
+                position: relative;
+                overflow: hidden;
+                border-radius: 0.75rem;
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            }
+            .animate-float {
+                animation: float 3s ease-in-out infinite;
+            }
+            @keyframes float {
+                0% { transform: translateY(0px); }
+                50% { transform: translateY(-10px); }
+                100% { transform: translateY(0px); }
+            }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-50 min-h-screen font-sans">
+    <div class="container mx-auto px-4 py-12 max-w-6xl">
+        <!-- 页面标题 -->
+        <header class="text-center mb-12">
+            <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold text-neutral-dark mb-4 text-shadow">
+                Screen <span class="text-primary">vs</span> Filter
+            </h1>
+            <p class="text-lg text-neutral max-w-2xl mx-auto">
+                可视化展示"Screen"和"Filter"作为动词时在筛选概念上的差异
+            </p>
+        </header>
+
+        <!-- 介绍部分 -->
+        <section class="bg-white rounded-xl shadow-lg p-6 mb-12">
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h2 class="text-2xl font-bold text-primary mb-4">词语差异解析</h2>
+                    <p class="text-neutral-dark mb-4">
+                        在英语中，<span class="font-semibold text-primary">Screen</span> 和 <span class="font-semibold text-secondary">Filter</span> 都有"筛选"的意思，但侧重点不同：
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <span class="text-primary mr-2 mt-1"><i class="fa fa-check-circle"></i></span>
+                            <div>
+                                <span class="font-semibold text-primary">Screen</span> 
+                                <span class="text-neutral-dark">强调通过特定标准进行审查或检查，通常用于排除不符合要求的项目，有"屏蔽"之意。</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-secondary mr-2 mt-1"><i class="fa fa-check-circle"></i></span>
+                            <div>
+                                <span class="font-semibold text-secondary">Filter</span> 
+                                <span class="text-neutral-dark">强调根据特定条件选择或限制，通常用于保留符合条件的项目，有"过滤"之意。</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="flex justify-center">
+                    <div class="relative w-48 h-48 animate-float">
+                        <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full blur-3xl"></div>
+                        <div class="absolute inset-4 flex items-center justify-center bg-white rounded-full shadow-lg">
+                            <i class="fa fa-filter text-6xl bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 动画演示部分 -->
+        <section class="grid md:grid-cols-2 gap-8 mb-12">
+            <!-- Screen 演示 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+                <div class="p-6 border-b border-neutral-light">
+                    <h3 class="text-xl font-bold text-primary flex items-center">
+                        <i class="fa fa-shield mr-2"></i> Screen (屏蔽)
+                    </h3>
+                    <p class="text-neutral mt-2">根据标准审查，排除不符合的项目</p>
+                </div>
+                <div class="canvas-container">
+                    <canvas id="screenCanvas" class="w-full"></canvas>
+                </div>
+                <div class="p-4 bg-neutral-light">
+                    <div class="flex justify-between items-center">
+                        <button id="screenStartBtn" class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg transition-all duration-300 flex items-center">
+                            <i class="fa fa-play mr-2"></i> 开始演示
+                        </button>
+                        <div class="flex items-center">
+                            <span class="text-sm text-neutral mr-2">速度:</span>
+                            <input type="range" id="screenSpeed" min="50" max="500" value="200" class="w-24 accent-primary">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter 演示 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+                <div class="p-6 border-b border-neutral-light">
+                    <h3 class="text-xl font-bold text-secondary flex items-center">
+                        <i class="fa fa-filter mr-2"></i> Filter (过滤)
+                    </h3>
+                    <p class="text-neutral mt-2">根据条件选择，保留符合的项目</p>
+                </div>
+                <div class="canvas-container">
+                    <canvas id="filterCanvas" class="w-full"></canvas>
+                </div>
+                <div class="p-4 bg-neutral-light">
+                    <div class="flex justify-between items-center">
+                        <button id="filterStartBtn" class="bg-secondary hover:bg-secondary/90 text-white px-4 py-2 rounded-lg transition-all duration-300 flex items-center">
+                            <i class="fa fa-play mr-2"></i> 开始演示
+                        </button>
+                        <div class="flex items-center">
+                            <span class="text-sm text-neutral mr-2">速度:</span>
+                            <input type="range" id="filterSpeed" min="50" max="500" value="200" class="w-24 accent-secondary">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 应用场景部分 -->
+        <section class="bg-white rounded-xl shadow-lg p-8 mb-12">
+            <h2 class="text-2xl font-bold text-neutral-dark mb-6 text-center">常见应用场景</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="p-6 border border-primary/20 rounded-lg bg-primary/5 transition-all duration-300 hover:shadow-md">
+                    <h3 class="text-xl font-semibold text-primary mb-3 flex items-center">
+                        <i class="fa fa-shield mr-2"></i> Screen 的应用
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                            <span>求职者筛选：排除不符合基本要求的候选人</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                            <span>安全审查：屏蔽不安全的网站或内容</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                            <span>医学筛查：排除健康状况不适合的参与者</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="p-6 border border-secondary/20 rounded-lg bg-secondary/5 transition-all duration-300 hover:shadow-md">
+                    <h3 class="text-xl font-semibold text-secondary mb-3 flex items-center">
+                        <i class="fa fa-filter mr-2"></i> Filter 的应用
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fa fa-check text-secondary mt-1 mr-2"></i>
+                            <span>搜索结果过滤：根据条件显示符合的内容</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-check text-secondary mt-1 mr-2"></i>
+                            <span>数据筛选：保留符合特定条件的数据点</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-check text-secondary mt-1 mr-2"></i>
+                            <span>图像滤镜：增强或修改特定的图像特征</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 页脚 -->
+        <footer class="text-center text-neutral py-6">
+            <p>Screen vs Filter 动词差异可视化演示</p>
+            <p class="text-sm mt-2">通过交互式动画展示英语中筛选类动词的细微差别</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取Canvas元素
+            const screenCanvas = document.getElementById('screenCanvas');
+            const filterCanvas = document.getElementById('filterCanvas');
+            
+            // 获取按钮和滑块
+            const screenStartBtn = document.getElementById('screenStartBtn');
+            const filterStartBtn = document.getElementById('filterStartBtn');
+            const screenSpeed = document.getElementById('screenSpeed');
+            const filterSpeed = document.getElementById('filterSpeed');
+            
+            // 设置Canvas尺寸
+            function resizeCanvas() {
+                const containerWidth = screenCanvas.parentElement.clientWidth;
+                const canvasHeight = 300;
+                
+                screenCanvas.width = containerWidth;
+                screenCanvas.height = canvasHeight;
+                filterCanvas.width = containerWidth;
+                filterCanvas.height = canvasHeight;
+            }
+            
+            // 初始调整尺寸并监听窗口变化
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            
+            // 粒子类
+            class Particle {
+                constructor(x, y, radius, color, isAllowed = true) {
+                    this.x = x;
+                    this.y = y;
+                    this.radius = radius;
+                    this.color = color;
+                    this.isAllowed = isAllowed;
+                    this.velocity = {
+                        x: 0,
+                        y: 0
+                    };
+                    this.initialY = y;
+                }
+                
+                draw(ctx) {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+                    ctx.closePath();
+                }
+                
+                update(ctx) {
+                    this.draw(ctx);
+                }
+            }
+            
+            // Screen动画类
+            class ScreenAnimation {
+                constructor(canvas, speedSlider) {
+                    this.canvas = canvas;
+                    this.ctx = canvas.getContext('2d');
+                    this.speedSlider = speedSlider;
+                    this.particles = [];
+                    this.animationId = null;
+                    this.isAnimating = false;
+                    this.speed = parseInt(speedSlider.value);
+                    this.initialize();
+                    
+                    // 监听速度变化
+                    speedSlider.addEventListener('input', (e) => {
+                        this.speed = parseInt(e.target.value);
+                    });
+                }
+                
+                initialize() {
+                    // 创建粒子
+                    this.createParticles();
+                }
+                
+                createParticles() {
+                    this.particles = [];
+                    const width = this.canvas.width;
+                    const height = this.canvas.height;
+                    
+                    // 创建待筛选的粒子
+                    for (let i = 0; i < 30; i++) {
+                        const radius = Math.random() * 10 + 5;
+                        const x = width * 0.25 + Math.random() * (width * 0.2);
+                        const y = height * 0.5 + (Math.random() - 0.5) * height * 0.4;
+                        const isAllowed = Math.random() > 0.3; // 70%的粒子会被允许通过
+                        const color = isAllowed ? '#3B82F6' : '#EF4444';
+                        
+                        this.particles.push(new Particle(x, y, radius, color, isAllowed));
+                    }
+                }
+                
+                animate() {
+                    if (!this.isAnimating) return;
+                    
+                    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                    
+                    // 绘制筛选区域
+                    const width = this.canvas.width;
+                    const height = this.canvas.height;
+                    
+                    // 绘制入口和出口箭头
+                    this.drawArrow(width * 0.15, height * 0.5, width * 0.25, height * 0.5, '#6B7280', 5);
+                    this.drawArrow(width * 0.75, height * 0.5, width * 0.85, height * 0.5, '#6B7280', 5);
+                    
+                    // 绘制筛选器
+                    this.ctx.beginPath();
+                    this.ctx.rect(width * 0.35, height * 0.3, width * 0.3, height * 0.4);
+                    this.ctx.fillStyle = '#F3F4F6';
+                    this.ctx.fill();
+                    this.ctx.strokeStyle = '#6B7280';
+                    this.ctx.lineWidth = 2;
+                    this.ctx.stroke();
+                    this.ctx.closePath();
+                    
+                    // 绘制筛选器文本
+                    this.ctx.fillStyle = '#6B7280';
+                    this.ctx.font = 'bold 16px Arial';
+                    this.ctx.textAlign = 'center';
+                    this.ctx.fillText('筛选标准', width * 0.5, height * 0.5);
+                    
+                    // 更新粒子位置
+                    const moveDistance = this.speed / 200;
+                    
+                    this.particles.forEach(particle => {
+                        // 移动粒子
+                        particle.x += moveDistance;
+                        
+                        // 当粒子到达筛选器时
+                        if (particle.x > width * 0.35 && particle.x < width * 0.65) {
+                            if (!particle.isAllowed) {
+                                // 不允许的粒子被阻挡并落下
+                                particle.velocity.y += 0.2;
+                                particle.y += particle.velocity.y;
+                                
+                                // 如果粒子落到画布底部
+                                if (particle.y > height) {
+                                    particle.y = height * 0.5 + (Math.random() - 0.5) * height * 0.4;
+                                    particle.x = width * 0.25 + Math.random() * (width * 0.2);
+                                    particle.velocity.y = 0;
+                                }
+                            }
+                        }
+                        
+                        // 如果粒子通过筛选器
+                        if (particle.x > width * 0.65 && particle.isAllowed) {
+                            // 继续向右移动
+                        }
+                        
+                        // 如果粒子完全通过了动画区域
+                        if (particle.x > width || (particle.y > height && !particle.isAllowed)) {
+                            // 重置粒子位置
+                            particle.x = width * 0.25 + Math.random() * (width * 0.2);
+                            particle.y = height * 0.5 + (Math.random() - 0.5) * height * 0.4;
+                            particle.isAllowed = Math.random() > 0.3;
+                            particle.color = particle.isAllowed ? '#3B82F6' : '#EF4444';
+                            particle.velocity.y = 0;
+                        }
+                        
+                        particle.update(this.ctx);
+                    });
+                    
+                    // 绘制图例
+                    this.drawLegend();
+                    
+                    this.animationId = requestAnimationFrame(() => this.animate());
+                }
+                
+                drawArrow(fromX, fromY, toX, toY, color, width) {
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(fromX, fromY);
+                    this.ctx.lineTo(toX, toY);
+                    
+                    // 绘制箭头
+                    const headLength = 10;
+                    const angle = Math.atan2(toY - fromY, toX - fromX);
+                    
+                    this.ctx.moveTo(toX, toY);
+                    this.ctx.lineTo(toX - headLength * Math.cos(angle - Math.PI / 6), 
+                                 toY - headLength * Math.sin(angle - Math.PI / 6));
+                    
+                    this.ctx.moveTo(toX, toY);
+                    this.ctx.lineTo(toX - headLength * Math.cos(angle + Math.PI / 6), 
+                                 toY - headLength * Math.sin(angle + Math.PI / 6));
+                    
+                    this.ctx.strokeStyle = color;
+                    this.ctx.lineWidth = width;
+                    this.ctx.stroke();
+                    this.ctx.closePath();
+                }
+                
+                drawLegend() {
+                    const width = this.canvas.width;
+                    const height = this.canvas.height;
+                    
+                    // 绘制图例背景
+                    this.ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                    this.ctx.fillRect(width * 0.02, height * 0.02, 120, 60);
+                    this.ctx.strokeStyle = '#6B7280';
+                    this.ctx.lineWidth = 1;
+                    this.ctx.strokeRect(width * 0.02, height * 0.02, 120, 60);
+                    
+                    // 绘制允许通过的粒子图例
+                    this.ctx.beginPath();
+                    this.ctx.arc(width * 0.05, height * 0.07, 5, 0, Math.PI * 2);
+                    this.ctx.fillStyle = '#3B82F6';
+                    this.ctx.fill();
+                    this.ctx.closePath();
+                    
+                    this.ctx.fillStyle = '#6B7280';
+                    this.ctx.font = '12px Arial';
+                    this.ctx.textAlign = 'left';
+                    this.ctx.fillText('允许通过', width * 0.08, height * 0.09);
+                    
+                    // 绘制被阻挡的粒子图例
+                    this.ctx.beginPath();
+                    this.ctx.arc(width * 0.05, height * 0.14, 5, 0, Math.PI * 2);
+                    this.ctx.fillStyle = '#EF4444';
+                    this.ctx.fill();
+                    this.ctx.closePath();
+                    
+                    this.ctx.fillText('被阻挡', width * 0.08, height * 0.16);
+                }
+                
+                start() {
+                    if (!this.isAnimating) {
+                        this.isAnimating = true;
+                        this.animate();
+                    }
+                }
+                
+                stop() {
+                    this.isAnimating = false;
+                    if (this.animationId) {
+                        cancelAnimationFrame(this.animationId);
+                    }
+                }
+            }
+            
+            // Filter动画类
+            class FilterAnimation {
+                constructor(canvas, speedSlider) {
+                    this.canvas = canvas;
+                    this.ctx = canvas.getContext('2d');
+                    this.speedSlider = speedSlider;
+                    this.particles = [];
+                    this.animationId = null;
+                    this.isAnimating = false;
+                    this.speed = parseInt(speedSlider.value);
+                    this.initialize();
+                    
+                    // 监听速度变化
+                    speedSlider.addEventListener('input', (e) => {
+                        this.speed = parseInt(e.target.value);
+                    });
+                }
+                
+                initialize() {
+                    // 创建粒子
+                    this.createParticles();
+                }
+                
+                createParticles() {
+                    this.particles = [];
+                    const width = this.canvas.width;
+                    const height = this.canvas.height;
+                    
+                    // 创建待过滤的粒子
+                    for (let i = 0; i < 30; i++) {
+                        const radius = Math.random() * 10 + 5;
+                        const x = width * 0.25 + Math.random() * (width * 0.2);
+                        const y = height * 0.5 + (Math.random() - 0.5) * height * 0.4;
+                        const isAllowed = Math.random() > 0.7; // 30%的粒子会被保留
+                        const color = isAllowed ? '#10B981' : '#6B7280';
+                        
+                        this.particles.push(new Particle(x, y, radius, color, isAllowed));
+                    }
+                }
+                
+                animate() {
+                    if (!this.isAnimating) return;
+                    
+                    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                    
+                    // 绘制过滤区域
+                    const width = this.canvas.width;
+                    const height = this.canvas.height;
+                    
+                    // 绘制入口和出口箭头
+                    this.drawArrow(width * 0.15, height * 0.5, width * 0.25, height * 0.5, '#6B7280', 5);
+                    this.drawArrow(width * 0.75, height * 0.5, width * 0.85, height * 0.5, '#6B7280', 5);
+                    
+                    // 绘制过滤器
+                    this.ctx.beginPath();
+                    this.ctx.rect(width * 0.35, height * 0.3, width * 0.3, height * 0.4);
+                    this.ctx.fillStyle = '#F3F4F6';
+                    this.ctx.fill();
+                    this.ctx.strokeStyle = '#6B7280';
+                    this.ctx.lineWidth = 2;
+                    this.ctx.stroke();
+                    this.ctx.closePath();
+                    
+                    // 绘制过滤器网格
+                    this.ctx.strokeStyle = '#D1D5DB';
+                    this.ctx.lineWidth = 1;
+                    for (let i = 0; i < 6; i++) {
+                        this.ctx.beginPath();
+                        this.ctx.moveTo(width * 0.35 + i * (width * 0.3 / 5), height * 0.3);
+                        this.ctx.lineTo(width * 0.35 + i * (width * 0.3 / 5), height * 0.7);
+                        this.ctx.stroke();
+                        this.ctx.closePath();
+                    }
+                    
+                    // 绘制过滤器文本
+                    this.ctx.fillStyle = '#6B7280';
+                    this.ctx.font = 'bold 16px Arial';
+                    this.ctx.textAlign = 'center';
+                    this.ctx.fillText('过滤条件', width * 0.5, height * 0.5);
+                    
+                    // 更新粒子位置
+                    const moveDistance = this.speed / 200;
+                    
+                    this.particles.forEach(particle => {
+                        // 移动粒子
+                        particle.x += moveDistance;
+                        
+                        // 当粒子到达过滤器时
+                        if (particle.x > width * 0.35 && particle.x < width * 0.65) {
+                            if (!particle.isAllowed) {
+                                // 不满足条件的粒子被阻挡
+                                particle.x = width * 0.35 - 1;
+                            }
+                        }
+                        
+                        // 如果粒子通过过滤器
+                        if (particle.x > width * 0.65 && particle.isAllowed) {
+                            // 继续向右移动
+                        }
+                        
+                        // 如果粒子完全通过了动画区域
+                        if (particle.x > width) {
+                            // 重置粒子位置
+                            particle.x = width * 0.25 + Math.random() * (width * 0.2);
+                            particle.y = height * 0.5 + (Math.random() - 0.5) * height * 0.4;
+                            particle.isAllowed = Math.random() > 0.7;
+                            particle.color = particle.isAllowed ? '#10B981' : '#6B7280';
+                        }
+                        
+                        particle.update(this.ctx);
+                    });
+                    
+                    // 绘制图例
+                    this.drawLegend();
+                    
+                    this.animationId = requestAnimationFrame(() => this.animate());
+                }
+                
+                drawArrow(fromX, fromY, toX, toY, color, width) {
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(fromX, fromY);
+                    this.ctx.lineTo(toX, toY);
+                    
+                    // 绘制箭头
+                    const headLength = 10;
+                    const angle = Math.atan2(toY - fromY, toX - fromX);
+                    
+                    this.ctx.moveTo(toX, toY);
+                    this.ctx.lineTo(toX - headLength * Math.cos(angle - Math.PI / 6), 
+                                 toY - headLength * Math.sin(angle - Math.PI / 6));
+                    
+                    this.ctx.moveTo(toX, toY);
+                    this.ctx.lineTo(toX - headLength * Math.cos(angle + Math.PI / 6), 
+                                 toY - headLength * Math.sin(angle + Math.PI / 6));
+                    
+                    this.ctx.strokeStyle = color;
+                    this.ctx.lineWidth = width;
+                    this.ctx.stroke();
+                    this.ctx.closePath();
+                }
+                
+                drawLegend() {
+                    const width = this.canvas.width;
+                    const height = this.canvas.height;
+                    
+                    // 绘制图例背景
+                    this.ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                    this.ctx.fillRect(width * 0.02, height * 0.02, 120, 60);
+                    this.ctx.strokeStyle = '#6B7280';
+                    this.ctx.lineWidth = 1;
+                    this.ctx.strokeRect(width * 0.02, height * 0.02, 120, 60);
+                    
+                    // 绘制保留的粒子图例
+                    this.ctx.beginPath();
+                    this.ctx.arc(width * 0.05, height * 0.07, 5, 0, Math.PI * 2);
+                    this.ctx.fillStyle = '#10B981';
+                    this.ctx.fill();
+                    this.ctx.closePath();
+                    
+                    this.ctx.fillStyle = '#6B7280';
+                    this.ctx.font = '12px Arial';
+                    this.ctx.textAlign = 'left';
+                    this.ctx.fillText('保留', width * 0.08, height * 0.09);
+                    
+                    // 绘制过滤掉的粒子图例
+                    this.ctx.beginPath();
+                    this.ctx.arc(width * 0.05, height * 0.14, 5, 0, Math.PI * 2);
+                    this.ctx.fillStyle = '#6B7280';
+                    this.ctx.fill();
+                    this.ctx.closePath();
+                    
+                    this.ctx.fillText('过滤掉', width * 0.08, height * 0.16);
+                }
+                
+                start() {
+                    if (!this.isAnimating) {
+                        this.isAnimating = true;
+                        this.animate();
+                    }
+                }
+                
+                stop() {
+                    this.isAnimating = false;
+                    if (this.animationId) {
+                        cancelAnimationFrame(this.animationId);
+                    }
+                }
+            }
+            
+            // 创建动画实例
+            const screenAnimation = new ScreenAnimation(screenCanvas, screenSpeed);
+            const filterAnimation = new FilterAnimation(filterCanvas, filterSpeed);
+            
+            // 按钮点击事件
+            screenStartBtn.addEventListener('click', function() {
+                if (screenAnimation.isAnimating) {
+                    screenAnimation.stop();
+                    screenStartBtn.innerHTML = '<i class="fa fa-play mr-2"></i> 开始演示';
+                } else {
+                    screenAnimation.start();
+                    screenStartBtn.innerHTML = '<i class="fa fa-pause mr-2"></i> 暂停演示';
+                }
+            });
+            
+            filterStartBtn.addEventListener('click', function() {
+                if (filterAnimation.isAnimating) {
+                    filterAnimation.stop();
+                    filterStartBtn.innerHTML = '<i class="fa fa-play mr-2"></i> 开始演示';
+                } else {
+                    filterAnimation.start();
+                    filterStartBtn.innerHTML = '<i class="fa fa-pause mr-2"></i> 暂停演示';
+                }
+            });
+            
+            // 初始绘制
+            screenAnimation.animate();
+            filterAnimation.animate();
+            screenAnimation.stop();
+            filterAnimation.stop();
+        });
+    </script>
+</body>
+</html>
+    
