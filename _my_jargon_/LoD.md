@@ -16,12 +16,8 @@
 
 
 <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
-  <div class="h-auto rounded bg-gray-300">
-    <img src="../images/sph.jpg" loading="lazy" alt/>
-  </div>
-  <div class="h-auto rounded bg-gray-300">
-    <img src="../images/sph_jiagoubaike.jpg" loading="lazy" alt/>
-  </div>
+  <div class="h-auto rounded"><img src="../images/sph.jpg" loading="lazy" alt/></div>
+  <div class="h-auto rounded"><img src="../images/sph_jiagoubaike.jpg" loading="lazy" alt/></div>
 </div>
 
 
