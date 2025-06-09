@@ -12,12 +12,20 @@
 
 - [「福强私学」Youtube频道](https://youtu.be/bmRPzoK6gzw){target="_blank"}
 - 「福强私学」视频号的架构相关付费合集第一集
-- 「[架构百科](https://jiagoubaike.com/)」视频号的架构相关付费合集第一集
+- 「[架构百科](https://jiagoubaike.com/){target="_blank"}」视频号的架构相关付费合集第一集
 
 
-| 「福强私学」视频号  | 「架构百科」视频号 | 
-|:-------------: |:---------------:|
-| ![](../images/sph.jpg) | ![](https://jiagoubaike.com/images/sph_jiagoubaike.jpg) | 
+<div class="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
+  <div class="h-auto rounded bg-gray-300">
+    <img src="../images/sph.jpg" loading="lazy" alt/>
+  </div>
+  <div class="h-auto rounded bg-gray-300">
+    <img src="../images/sph_jiagoubaike.jpg" loading="lazy" alt/>
+  </div>
+</div>
+
+
+
 
 
 
