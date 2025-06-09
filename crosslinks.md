@@ -2,6 +2,7 @@
 % 王福强
 % 2021-02-18
 
+- [福强新概念](https://afoo.me/_my_jargon_/)
 - [专栏文章](columns.html)
 - [福强为个人提供的产品与服务](consulting.html)
 - [Who Am I](/whoami.html)
