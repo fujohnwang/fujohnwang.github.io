@@ -29,7 +29,7 @@ echo "    <meta charset=\"UTF-8\">" >> "$INDEX_FILE"
 echo "    <title>福强新概念索引</title>" >> "$INDEX_FILE"
 echo "</head>" >> "$INDEX_FILE"
 echo "<body>" >> "$INDEX_FILE"
-echo "<h1>福强新概念索引</h1>" >> "$INDEX_FILE"
+echo "<h1><a href=\"https://afoo.me\" target=\"_blank\">福强</a>新概念索引</h1>" >> "$INDEX_FILE"
 echo "<ul>" >> "$INDEX_FILE"
 
 # 查找目录中的所有.html文件
