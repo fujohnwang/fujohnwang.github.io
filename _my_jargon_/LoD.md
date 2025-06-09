@@ -8,6 +8,16 @@
 
 这个概念最早是福强老师在[架构课程](/arch.html)里提到，但其实并不仅仅只限于架构场景。
 
+关于LoD架构理论的详细完整讲解，可以参考
+
+- [「福强私学」Youtube频道](https://youtu.be/bmRPzoK6gzw) 或者 
+- 「福强私学」视频号以及「[架构百科](https://jiagoubaike.com/)」视频号的架构相关付费合集第一集
+
+
+| 「福强私学」视频号  | 「架构百科」视频号 | 
+|:-------------: |:---------------:|
+| ![](../images/sph.jpg) | ![](https://jiagoubaike.com/images/sph_jiagoubaike.jpg) | 
+
 
 
 
