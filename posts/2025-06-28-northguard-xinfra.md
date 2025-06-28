@@ -2,7 +2,7 @@
 % 王福强
 % 2025-06-28
 
-原文链接： [https://jiagoubaike.com/posts/northguard](https://jiagoubaike.com/posts/northguard)
+原文链接： [https://jiagoubaike.com/posts/Northguard.html](https://jiagoubaike.com/posts/Northguard.html)
 
 Linkedin通过InfoQ新发了一个技术公关稿，https://www.infoq.com/news/2025/06/linkedin-northguard-xinfra， 介绍了自己家新搞的消息中间件Northguard以及相关基础设施Xinfra
 
