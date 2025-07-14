@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+
+<html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]">
+
+<head>
+	<title>福强私学 - 福强私学，你的专属知识星球，在这里你可以享受专属于你的极客时间 - 剑毅阁 志 - 王福强的博客：一个架构士的思考与沉淀</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="robots" content="index,follow">
+	<meta name="description" content="福强私学，你的专属知识星球，在这里你可以享受专属于你的极客时间。 好的知识付费，就是贵。">
+	<meta name="keywords"
+		content="福强私学, 知识星球, 极客时间, 知识付费,剑毅阁,架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学">
+	<meta name="author" content="王福强">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta property="og:title" content="福强私学: 你的专属知识星球，在这里你可以享受专属于你的极客时间。好的知识付费，就是贵。" />
+	<meta property="og:type" content="landing page" />
+	<meta property="og:url" content="https://afoo.me/kb" />
+	<meta property="og:image" content="https://og.afoo.me"/>
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="福强私学"/>
+	<meta name="twitter:site" content="@afoo_me" />
+	<meta name="twitter:creator" content="@afoo_me" />
+	<meta name="twitter:image" content="https://og.afoo.me"/>
+	<meta name="twitter:description" content="福强私学: 你的专属知识星球，在这里你可以享受专属于你的极客时间。好的知识付费，就是贵。"/>
+	<link rel="canonical" href="https://afoo.me">
+	<link rel="shortcut icon" href="https://afoo.me/favicon.ico">
+	<link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg">
+	<link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8">
+	<link rel="stylesheet" href="/assets/tw-elements.min.css" />
+	<link rel="stylesheet" href="/css/af.css?ts=20241017-1">
+	<link rel="stylesheet" href="/css/components.css">
+	<style>
+		:root {
+			--primary-color: #6366f1;
+			--primary-light: #8b5cf6;
+			--primary-dark: #4f46e5;
+			--accent-color: #f59e0b;
+			--text-primary: #1f2937;
+			--text-secondary: #6b7280;
+			--text-muted: #9ca3af;
+			--bg-primary: #ffffff;
+			--bg-secondary: #f9fafb;
+			--bg-accent: #f8fafc;
+			--border-color: #e5e7eb;
+			--border-light: #f3f4f6;
+			--shadow-soft: 0 4px 25px -5px rgba(0, 0, 0, 0.1);
+			--shadow-medium: 0 10px 40px -10px rgba(0, 0, 0, 0.12);
+			--shadow-large: 0 20px 60px -15px rgba(0, 0, 0, 0.15);
+			--gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			--gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+			--gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+		}
+
+		.refined-button {
+			background: var(--gradient-primary);
+			border: none;
+			padding: 16px 32px;
+			border-radius: 12px;
+			color: white;
+			font-weight: 600;
+			font-size: 16px;
+			letter-spacing: 0.025em;
+			box-shadow: var(--shadow-soft);
+			transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+			position: relative;
+			overflow: hidden;
+		}
+
+		.refined-button:hover {
+			transform: translateY(-2px);
+			box-shadow: var(--shadow-medium);
+		}
+
+		.refined-button:active {
+			transform: translateY(0);
+		}
+
+		.refined-button::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+			opacity: 0;
+			transition: opacity 0.3s ease;
+		}
+
+		.refined-button:hover::before {
+			opacity: 1;
+		}
+
+		.refined-card {
+			background: var(--bg-primary);
+			border: 1px solid var(--border-light);
+			border-radius: 16px;
+			padding: 32px;
+			box-shadow: var(--shadow-soft);
+			transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		}
+
+		.refined-card:hover {
+			box-shadow: var(--shadow-medium);
+			transform: translateY(-4px);
+		}
+
+		.refined-section {
+			padding: 80px 0;
+		}
+
+		.refined-hero {
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			background-size: 400% 400%;
+			animation: gradient-shift 15s ease infinite;
+		}
+
+		@keyframes gradient-shift {
+			0% { background-position: 0% 50%; }
+			50% { background-position: 100% 50%; }
+			100% { background-position: 0% 50%; }
+		}
+
+		.refined-gradient-text {
+			background: var(--gradient-primary);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+		}
+
+		.refined-testimonial {
+			background: var(--bg-secondary);
+			border-radius: 24px;
+			padding: 32px;
+			border: 1px solid var(--border-light);
+			box-shadow: var(--shadow-soft);
+			transition: all 0.3s ease;
+		}
+
+		.refined-testimonial:hover {
+			box-shadow: var(--shadow-medium);
+			transform: translateY(-2px);
+		}
+
+		.refined-feature-icon {
+			width: 64px;
+			height: 64px;
+			border-radius: 16px;
+			background: var(--gradient-accent);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-bottom: 24px;
+			box-shadow: var(--shadow-soft);
+		}
+
+		.refined-pricing-card {
+			background: var(--bg-primary);
+			border: 2px solid var(--border-light);
+			border-radius: 20px;
+			padding: 40px;
+			position: relative;
+			overflow: hidden;
+			box-shadow: var(--shadow-soft);
+			transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		}
+
+		.refined-pricing-card:hover {
+			border-color: var(--primary-color);
+			box-shadow: var(--shadow-large);
+			transform: translateY(-8px);
+		}
+
+		.refined-pricing-card.featured {
+			border-color: var(--primary-color);
+			background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
+		}
+
+		.refined-pricing-card.featured::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 4px;
+			background: var(--gradient-primary);
+		}
+
+		.refined-carousel {
+			border-radius: 20px;
+			overflow: hidden;
+			box-shadow: var(--shadow-large);
+		}
+
+		.refined-carousel .carousel-caption {
+			background: rgba(0, 0, 0, 0.4);
+			backdrop-filter: blur(10px);
+			border-radius: 16px;
+			padding: 24px;
+			margin: 32px;
+		}
+
+		.refined-stats {
+			background: var(--bg-accent);
+			border-radius: 16px;
+			padding: 24px;
+			text-align: center;
+			border: 1px solid var(--border-light);
+			box-shadow: var(--shadow-soft);
+			transition: all 0.3s ease;
+		}
+
+		.refined-stats:hover {
+			transform: translateY(-2px);
+			box-shadow: var(--shadow-medium);
+		}
+
+		.refined-table {
+			background: var(--bg-primary);
+			border-radius: 16px;
+			overflow: hidden;
+			box-shadow: var(--shadow-soft);
+			border: 1px solid var(--border-light);
+		}
+
+		.refined-table thead th {
+			background: var(--gradient-primary);
+			color: white;
+			padding: 20px;
+			font-weight: 600;
+		}
+
+		.refined-table tbody td {
+			padding: 16px 20px;
+			border-bottom: 1px solid var(--border-light);
+		}
+
+		.refined-table tbody tr:last-child td {
+			border-bottom: none;
+		}
+
+		.refined-table tbody tr:hover {
+			background: var(--bg-secondary);
+		}
+
+		.refined-faq-item {
+			background: var(--bg-primary);
+			border: 1px solid var(--border-light);
+			border-radius: 12px;
+			padding: 24px;
+			margin-bottom: 16px;
+			box-shadow: var(--shadow-soft);
+			transition: all 0.3s ease;
+		}
+
+		.refined-faq-item:hover {
+			box-shadow: var(--shadow-medium);
+		}
+
+		.refined-header {
+			background: rgba(255, 255, 255, 0.95);
+			backdrop-filter: blur(10px);
+			border-bottom: 1px solid var(--border-light);
+		}
+
+		.refined-nav-link {
+			color: var(--text-secondary);
+			font-weight: 500;
+			padding: 12px 16px;
+			border-radius: 8px;
+			transition: all 0.3s ease;
+		}
+
+		.refined-nav-link:hover {
+			color: var(--primary-color);
+			background: var(--bg-secondary);
+		}
+
+		.refined-quote {
+			position: relative;
+			padding: 32px;
+			background: var(--bg-secondary);
+			border-radius: 16px;
+			border-left: 4px solid var(--primary-color);
+			margin: 24px 0;
+		}
+
+		.refined-quote::before {
+			content: '"';
+			position: absolute;
+			top: 8px;
+			left: 16px;
+			font-size: 48px;
+			color: var(--primary-color);
+			opacity: 0.3;
+		}
+
+		.refined-smooth-scroll {
+			scroll-behavior: smooth;
+		}
+
+		.refined-text-balance {
+			text-wrap: balance;
+		}
+
+		.refined-animate-fade-in {
+			animation: fadeIn 0.8s ease-out;
+		}
+
+		@keyframes fadeIn {
+			from { opacity: 0; transform: translateY(20px); }
+			to { opacity: 1; transform: translateY(0); }
+		}
+
+		.refined-animate-slide-in {
+			animation: slideIn 0.8s ease-out;
+		}
+
+		@keyframes slideIn {
+			from { opacity: 0; transform: translateX(-20px); }
+			to { opacity: 1; transform: translateX(0); }
+		}
+
+		/* Override harsh box-shadows from original */
+		.bg-\[\#276ef1\] { background: var(--gradient-primary) !important; }
+
+		.\[box-shadow\:rgb\(171\,_196\,_245\)_-8px_8px\] {
+			box-shadow: var(--shadow-soft) !important;
+		}
+
+		.\[box-shadow\:rgb\(171\,_196\,_245\)_0px_0px\]:hover {
+			box-shadow: var(--shadow-medium) !important;
+			transform: translateY(-2px);
+		}
+
+		.\[box-shadow\:rgb\(0\,_0\,_0\)_9px_9px\] {
+			box-shadow: var(--shadow-soft) !important;
+		}
+
+		.\[box-shadow\:rgb\(0\,_0\,_0\)_0px_5px\] {
+			box-shadow: var(--shadow-soft) !important;
+		}
+
+		/* Softer color replacements */
+		.text-\[\#636262\] { color: var(--text-secondary) !important; }
+		.bg-\[\#f2f2f7\] { background: var(--bg-secondary) !important; }
+		.text-\[\#647084\] { color: var(--text-secondary) !important; }
+		.bg-\[\#6b9cff\] { background: var(--gradient-primary) !important; }
+		.bg-\[\#f8ffcf\] { background: linear-gradient(135deg, #f8ffcf 0%, #e8f5e8 100%) !important; }
+
+		/* Refined carousel indicators */
+		.refined-carousel [data-twe-carousel-indicators] button {
+			background: rgba(255, 255, 255, 0.6);
+			border-radius: 8px;
+			width: 40px;
+			height: 4px;
+			margin: 0 4px;
+			transition: all 0.3s ease;
+		}
+
+		.refined-carousel [data-twe-carousel-indicators] button[data-twe-carousel-active] {
+			background: white;
+		}
+	</style>
+</head>
+
+<body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized refined-smooth-scroll">
+	<header
+		class="refined-header sticky top-0 z-40 flex-none mx-auto w-full border-b dark:border-b-0"
+		id="header">
+		<div class="py-4 px-4 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-6">
+			<div class="flex justify-between">
+				<a class="flex items-center" href="https://kb.afoo.me">
+					<h1
+						class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white">
+						<h2 style="font-family: kb;" class="refined-gradient-text">福强私学</h2>
+					</h1>
+				</a>
+				<div class="flex items-center md:hidden">
+					<button type="button"
+						class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center"
+						aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme="">
+						<svg viewBox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun">
+							<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+								stroke-width="2" class="icon-tabler">
+								<circle cx="12" cy="12" r="4"></circle>
+								<path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7">
+								</path>
+							</g>
+						</svg>
+					</button>
+					<button type="button"
+						class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition"
+						aria-label="Toggle Menu" data-toggle-menu="">
+						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+							preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" class="w-6 h-6"
+							astro-icon="tabler:menu">
+							<g class="icon-tabler" fill="none" stroke="currentColor" stroke-width="2"
+								stroke-linecap="round" stroke-linejoin="round">
+								<path d="M4 8h16"></path>
+								<path d="M4 16h16"></path>
+							</g>
+						</svg>
+					</button>
+				</div>
+			</div>
+			<nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto"
+				aria-label="Main navigation">
+				<ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base">
+					<li><a class="refined-nav-link" href="https://afoo.me/kb.html">福强私学</a></li>
+
+					<li>
+						<a id="aiedu" class="refined-nav-link"
+						href="http://ai.afoo.me"
+						>
+							福强AI学堂</a>
+					</li>
+					<li>
+						<a class="refined-nav-link" href="http://jiagoubaike.com">架构百科</a>
+					</li>
+					<li>
+						<a class="refined-nav-link"
+							href="https://afoo.me/posts.html">博客文章
+						</a>
+					</li>
+					<li>
+						<a class="refined-nav-link"
+							href="https://afoo.me/books.html">创作出版</a>
+					</li>
+					<li>
+						<a class="refined-nav-link" href="https://store.afoo.me">产品与服务</a>
+					</li>
+					<li><a class="refined-nav-link" href="https://auth.afoo.me/user.html">登录信息</a></li>
+					<li>
+						<a class="refined-nav-link"
+							href="https://afoo.me/crosslinks.html">更多链接</a>
+					</li>
+				</ul>
+				<div class="md:self-center flex items-center mb-4 md:mb-0 ml-2">
+					<div class="hidden items-center md:flex">
+						<button type="button"
+							class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center"
+							aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme="">
+							<svg viewBox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun">
+								<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+									stroke-width="2" class="icon-tabler">
+									<circle cx="12" cy="12" r="4"></circle>
+									<path
+										d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7">
+									</path>
+								</g>
+							</svg>
+						</button>
+						<a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center"
+							aria-label="RSS Feed" href="http://afoo.me/feeds.xml">
+							<svg viewBox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:rss">
+								<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+									stroke-width="2" class="icon-tabler">
+									<circle cx="5" cy="19" r="1"></circle>
+									<path d="M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"></path>
+								</g>
+							</svg>
+						</a>
+					</div>
+				</div>
+			</nav>
+		</div>
+	</header>
+	<main>
+		<!-- banner notification -->
+		<!-- <div class="text-center bg-blue-500 text-white p-2 w-full shadow-sm">涨价通知：因内容与服务升级，下月即将迎来新一轮的涨价！（当月购买依然维持原价）</div> -->
+
+		<section id="sales_letter">
+			<div
+			  id="carouselExampleCaptions"
+			  class="refined-carousel relative"
+			  data-twe-carousel-init
+			  data-twe-ride="carousel">
+			  <!--Carousel indicators-->
+			  <div
+			    class="absolute bottom-0 left-0 right-0 z-[2] mx-[15%] mb-4 flex list-none justify-center p-0"
+			    data-twe-carousel-indicators>
+			    <button
+			      type="button"
+			      data-twe-target="#carouselExampleCaptions"
+			      data-twe-slide-to="0"
+			      data-twe-carousel-active
+			      class="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
+			      aria-current="true"
+			      aria-label="Slide 1"></button>
+			    <button
+			      type="button"
+			      data-twe-target="#carouselExampleCaptions"
+			      data-twe-slide-to="1"
+			      class="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
+			      aria-label="Slide 2"></button>
+			    <button
+			      type="button"
+			      data-twe-target="#carouselExampleCaptions"
+			      data-twe-slide-to="2"
+			      class="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
+			      aria-label="Slide 3"></button>
+
+			      <button
+			      type="button"
+			      data-twe-target="#carouselExampleCaptions"
+			      data-twe-slide-to="3"
+			      class="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
+			      aria-label="Slide 4"></button>
+
+			      <button
+			      type="button"
+			      data-twe-target="#carouselExampleCaptions"
+			      data-twe-slide-to="4"
+			      class="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
+			      aria-label="Slide 5"></button>
+			  </div>
+
+			  <!--Carousel items-->
+			  <div
+			    class="relative w-full overflow-hidden after:clear-both after:block after:content-['']">
+			    <!--First item-->
+			    <div
+			      class="relative float-left -mr-[100%] w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
+			      data-twe-carousel-active
+			      data-twe-carousel-item
+			      style="backface-visibility: hidden">
+			      <img
+			        src="/assets/carousel/rails.webp"
+			        class="block w-full"
+			        alt="..." />
+			      <div
+			        class="refined-carousel absolute inset-x-[15%] bottom-5 py-5 text-center text-white block">
+			        <h5 class="text-3xl font-semibold mb-3">AI时代来临，不知道AI是怎么回事？</h5>
+			        <p class="mt-3 text-lg">
+			          来「福强私学」，带你了解最基础的人工智能通识与发展趋势。
+			        </p>
+			      </div>
+			    </div>
+
+			    <div
+			      class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
+			      data-twe-carousel-item
+			      style="backface-visibility: hidden">
+			      <img
+			        src="/assets/carousel/man.webp"
+			        class="block w-full"
+			        alt="..." />
+			      <div
+			        class="refined-carousel absolute inset-x-[15%] bottom-5 py-5 text-center text-white block">
+			        <h5 class="text-3xl font-semibold mb-3">使用Cloudflare各项服务过程中遇到问题不知道怎么解决？</h5>
+			        <p class="mt-3 text-lg">
+			         来「福强私学」，各项服务的Cookbook应有尽有。
+			        </p>
+			      </div>
+			    </div>
+
+			    <div
+			      class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
+			      data-twe-carousel-item
+			      style="backface-visibility: hidden">
+			      <img
+			        src="/assets/carousel/bird.webp"
+			        class="block w-full"
+			        alt="..." />
+			      <div
+			        class="refined-carousel absolute inset-x-[15%] bottom-5 py-5 text-center text-white block">
+			        <h5 class="text-3xl font-semibold mb-3">技术架构不知道如何设计与选择？</h5>
+			        <p class="mt-3 text-lg">
+			         来「福强私学」，资深架构师帮你解惑。
+			        </p>
+			      </div>
+			    </div>
+
+			    <!--Second item-->
+			    <div
+			      class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
+			      data-twe-carousel-item
+			      style="backface-visibility: hidden">
+			      <img
+			        src="/assets/carousel/leaf.webp"
+			        class="block w-full"
+			        alt="..." />
+			      <div
+			        class="refined-carousel absolute inset-x-[15%] bottom-5 py-5 text-center text-white block">
+			        <h5 class="text-3xl font-semibold mb-3">初登管理岗位不知如何开展工作？</h5>
+			        <p class="mt-3 text-lg">
+			          来「福强私学」，学习管理第一性原则与职场案例。
+			        </p>
+			      </div>
+			    </div>
+			    <!--Third item-->
+
+
+			   <div
+			      class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
+			      data-twe-carousel-item
+			      style="backface-visibility: hidden">
+			      <img
+			        src="/assets/carousel/girl.webp"
+			        class="block w-full"
+			        alt="..." />
+			      <div
+			        class="refined-carousel absolute inset-x-[15%] bottom-5 py-5 text-center text-white block">
+			        <h5 class="text-3xl font-semibold mb-3">有蠢蠢欲动的创业之心却担心前路陷阱多多？</h5>
+			        <p class="mt-3 text-lg">
+			         来「福强私学」，提前了解创业路上被坑的收获。
+			        </p>
+			      </div>
+			    </div>
+
+			  </div>
+
+			  <!--Carousel controls - prev item-->
+			  <button
+			    class="absolute bottom-0 left-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
+			    type="button"
+			    data-twe-target="#carouselExampleCaptions"
+			    data-twe-slide="prev">
+			    <span class="inline-block h-8 w-8">
+			      <svg
+			        xmlns="http://www.w3.org/2000/svg"
+			        fill="none"
+			        viewBox="0 0 24 24"
+			        stroke-width="1.5"
+			        stroke="currentColor"
+			        class="h-6 w-6">
+			        <path
+			          stroke-linecap="round"
+			          stroke-linejoin="round"
+			          d="M15.75 19.5L8.25 12l7.5-7.5" />
+			      </svg>
+			    </span>
+			    <span
+			      class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+			      >Previous</span
+			    >
+			  </button>
+			  <!--Carousel controls - next item-->
+			  <button
+			    class="absolute bottom-0 right-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
+			    type="button"
+			    data-twe-target="#carouselExampleCaptions"
+			    data-twe-slide="next">
+			    <span class="inline-block h-8 w-8">
+			      <svg
+			        xmlns="http://www.w3.org/2000/svg"
+			        fill="none"
+			        viewBox="0 0 24 24"
+			        stroke-width="1.5"
+			        stroke="currentColor"
+			        class="h-6 w-6">
+			        <path
+			          stroke-linecap="round"
+			          stroke-linejoin="round"
+			          d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+			      </svg>
+			    </span>
+			    <span
+			      class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+			      >Next</span
+			    >
+			  </button>
+			</div>
+		</section>
+
+		<section class="refined-section refined-animate-fade-in">
+			<div class="max-w-6xl mx-auto px-4 sm:px-6 overflow-hidden">
+				<div class="py-16">
+					<div class="flex flex-wrap md:-mx-8 items-center">
+
+						<div class="w-full lg:w-1/2 px-0 sm:px-8 flex justify-center">
+							<div class="mb-12 lg:mb-0 pb-12 lg:pb-0 border-b lg:border-b-0">
+								<h1 class="py-8 text-4xl lg:text-5xl font-bold refined-text-balance">
+									<a href="https://kb.afoo.me" class="refined-gradient-text" style="font-family: kb;">福强私学</a>
+									<span class="text-sm font-light text-gray-500">(Fuqiang Private School)</span>
+								</h1>
+								<div class="refined-card mb-8">
+									<img src="/images/cdsyjh.webp" alt="福强私学，传道授业解惑" class="w-full rounded-xl"/>
+								</div>
+
+								<p class="mt-6 text-xl text-gray-700 refined-text-balance">
+									加入「福强私学」，<span class="font-bold refined-gradient-text">带你修炼冲击P10的实力！</span>
+								</p>
+								<p class="mt-4 text-xl text-gray-700">
+									所以，你还在等什么？
+								</p>
+								<a href="#cta" class="refined-button mt-6 w-full flex items-center justify-center">
+									<p class="mr-4 font-bold">马上加入</p>
+									<img src="/hero3/42.webp" loading="lazy" class="h-8 w-8 flex-none" alt/>
+								</a>
+								<p class="mt-4 text-sm text-center refined-gradient-text font-medium">
+									希望在你人生成长的每个阶段，都能跟你遇见。
+								</p>
+							</div>
+						</div>
+
+						<div class="w-full lg:w-1/2 px-0 sm:px-8">
+							<div class="refined-card">
+								<a href="/consulting.html">
+									<img src="/images/sb7.webp" alt="kb slogan" loading="lazy" class="w-full rounded-xl"/>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+		<section class="refined-section bg-gray-50">
+			<div class="mx-auto max-w-7xl px-4 sm:px-6">
+			  <div class="py-16 text-center">
+				<h1 class="font-heading mb-12 text-4xl font-bold lg:text-5xl refined-gradient-text">为什么我值得信赖？</h1>
+				<div class="refined-card">
+					<img src="https://afoo.me/images/FQ_INTRO_2025_v2_94d.webp" alt="20+年技术、管理与商业历练" loading="lazy" class="w-full rounded-xl"/>
+				</div>
+			  </div>
+			</div>
+		</section>
+
+
+		<section class="refined-section">
+			<div class="mx-auto w-full max-w-7xl px-5 py-16 md:px-10 md:py-24 lg:py-32">
+			  <h2 class="mb-16 text-center text-3xl font-bold md:text-5xl refined-gradient-text">大咖寄语</h2>
+			  <ul class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+				<li class="refined-animate-slide-in">
+				  <div class="refined-testimonial">
+					<p class="text-gray-600 leading-relaxed">作为一名在科技行业深耕多年的技术人，我深知技术知识与实践能力的结合对于技术人员的成长至关重要。「福强私学」以其独特的问题导向学习法和实操重心，为技术人才提供了一个宝贵的学习平台。它不仅涵盖了浅显兼深度的技术内容，还融入了技术管理和商业洞察，这对于希望在职业生涯中更进一步的技术专家来说，无疑是一份宝贵的资源。我强烈推荐「福强私学」给所有追求卓越的技术人员，它将助你在技术与管理的双重道路上走得更远。</p>
+				  </div>
+				  <div class="mt-6 flex items-center">
+					<div class="refined-feature-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="white" viewBox="0 0 24 24">
+						  <path d="M12 .75c-4.013 0-6.755 2.983-6.755 6.641 0 .42.036.862.104 1.317a1.972 1.972 0 0 0-.599 1.402c0 1.01.748 1.742 1.63 2.003.523 1.135 1.222 2.22 2.083 3.055.954.926 2.15 1.584 3.537 1.584s2.583-.658 3.537-1.584c.861-.835 1.56-1.92 2.082-3.055.883-.261 1.631-.992 1.631-2.002 0-.56-.24-1.045-.599-1.403.068-.455.104-.898.104-1.317C18.755 3.733 16.013.75 12 .75Z" />
+						</svg>
+					</div>
+					<div class="ml-4">
+					  <h6 class="font-bold text-lg">在宽</h6>
+					  <p class="text-sm text-gray-500">菜鸟物流CTO</p>
+					</div>
+				  </div>
+				</li>
+				<li class="refined-animate-slide-in">
+				  <div class="refined-testimonial">
+					<p class="text-gray-600 leading-relaxed">福强老师以一己之力，历经6年，构建了超70万字的庞大知识体系，涉及技术和管理的方方面面。虽然不可能处处都深入和细致，但先构建体系大纲非常重要，如诸葛亮就是博览群书但只观其大略。加入福强私学，就如同身边有了一位事事可以请教的小诸葛。</p>
+				  </div>
+				  <div class="mt-6 flex items-center">
+					<div class="refined-feature-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="white" viewBox="0 0 24 24">
+						  <path d="M12 .75c-4.013 0-6.755 2.983-6.755 6.641 0 1.779.65 4.064 1.764 5.913 1.1 1.825 2.798 3.448 4.99 3.448 2.193 0 3.892-1.623 4.992-3.448 1.114-1.849 1.764-4.134 1.764-5.913C18.755 3.733 16.013.75 12 .75Z" />
+						</svg>
+					</div>
+					<div class="ml-4">
+					  <h6 class="font-bold text-lg">汪院</h6>
+					  <p class="text-sm text-gray-500">原网易研究院院长</p>
+					</div>
+				  </div>
+				</li>
+				<li class="refined-animate-slide-in">
+				  <div class="refined-testimonial">
+					<p class="text-gray-600 leading-relaxed">最早认识福强老师还是因为他的那本《spring揭秘》，这是我看过的介绍Spring框架最全面和深入的中文技术图书之一。后来在Qcon的场子见到了真人，也一直有交流，还邀请他来公司内和团队做过交流。他在工程架构领域的认识之深刻，他在技术领域涉猎的范围之广，他所经历的行业和商业模式之丰富都是我非常佩服的。这次他把积累的文章和新的整理成《福强私学》给更多的人分享，而我有幸能成为第一波体验的用户，想分享一下我的接触体验。</p>
+				  </div>
+				  <div class="mt-6 flex items-center">
+					<div class="refined-feature-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="white" viewBox="0 0 24 24">
+						  <path d="M12 .75c-4.013 0-6.755 2.983-6.755 6.641 0 .42.036.862.104 1.317a1.972 1.972 0 0 0-.599 1.402c0 1.01.748 1.742 1.63 2.003.523 1.135 1.222 2.22 2.083 3.055.954.926 2.15 1.584 3.537 1.584s2.583-.658 3.537-1.584c.861-.835 1.56-1.92 2.082-3.055.883-.261 1.631-.992 1.631-2.002 0-.56-.24-1.045-.599-1.403.068-.455.104-.898.104-1.317C18.755 3.733 16.013.75 12 .75Z" />
+						</svg>
+					</div>
+					<div class="ml-4">
+					  <h6 class="font-bold text-lg">李卓</h6>
+					  <p class="text-sm text-gray-500">道富信息科技（浙江）有限公司 董事总经理</p>
+					</div>
+				  </div>
+				</li>
+			  </ul>
+			  <div class="text-center mt-12">
+				<a href="#cta" class="refined-button">
+					<p class="mr-4 font-bold">我要加入</p>
+					<img src="/hero3/42.webp" loading="lazy" class="h-8 w-8 flex-none" alt="" />
+				</a>
+			  </div>
+			</div>
+		</section>
+
+		<section class="refined-section bg-gray-50">
+			<div class="mx-auto max-w-7xl px-5 py-16 md:px-10 md:py-24 lg:py-32">
+			  <div class="mx-auto w-full max-w-3xl text-center mb-16">
+				<h2 class="text-3xl font-semibold md:text-5xl refined-gradient-text">「<a href="https://kb.afoo.me" class="border-b border-purple-300">福强私学</a>」内容板块</h2>
+				<div class="mx-auto mt-6 max-w-[528px]">
+				  <p class="text-gray-600">包括但不限于...</p>
+				</div>
+			  </div>
+
+			  <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+				<div class="refined-card text-center">
+				  <div class="refined-feature-icon mx-auto">
+					<img src="https://afoo.me/hero3/170.webp" alt="" class="h-8 w-8" loading="lazy"/>
+				  </div>
+				  <h3 class="text-xl font-semibold mb-4">通识</h3>
+				  <p class="text-gray-600">提升认知与"常识"，增加智慧与先见。</p>
+				</div>
+
+				<div class="refined-card text-center">
+				  <div class="refined-feature-icon mx-auto">
+					<img src="https://afoo.me/hero3/171.webp" alt="" class="h-8 w-8" loading="lazy"/>
+				  </div>
+				  <h3 class="text-xl font-semibold mb-4"><a href="#tech" class="border-b border-purple-300">技术</a></h3>
+				  <p class="text-gray-600">专栏内容包括但不限于（因为内容会持续更新）计算机语言与生态、技术框架与技术栈内容（比如HAHA Stack）、架构与解决方案、方法论与最佳实践、技术文化等方方面面。</p>
+				</div>
+
+				<div class="refined-card text-center">
+				  <div class="refined-feature-icon mx-auto">
+					<img src="https://afoo.me/hero3/151.webp" alt="" class="h-8 w-8" loading="lazy"/>
+				  </div>
+				  <h3 class="text-xl font-semibold mb-4">管理</h3>
+				  <p class="text-gray-600">从专业思维转向管理思维，是认知与心智的一次跃升。包含至少《极简管理课》内容，更会实时更新真实案例与思考...</p>
+				</div>
+
+				<div class="refined-card text-center">
+				  <div class="refined-feature-icon mx-auto">
+					<img src="https://afoo.me/hero3/198.webp" alt="" class="h-8 w-8" loading="lazy"/>
+				  </div>
+				  <h3 class="text-xl font-semibold mb-4">商业</h3>
+				  <p class="text-gray-600">从Solopreneur到Enterpreneur，从组织到商业，更是对一个人实力的综合性比拼，考量的不只是成长，更是成长的速度与质量。</p>
+				</div>
+
+				<div class="refined-card text-center">
+					<div class="refined-feature-icon mx-auto">
+					  <img src="https://afoo.me/hero3/164.webp" alt="" class="h-8 w-8" loading="lazy"/>
+					</div>
+					<h3 class="text-xl font-semibold mb-4">AI/人工智能</h3>
+					<p class="text-gray-600">AI是增量，AI是方向，AI是现在唯一还明亮的那束光！私学AI板块内置大模型AI智能助手/Copilot，让AI触手可及。</p>
+				</div>
+
+				<div class="refined-card text-center">
+					<div class="refined-feature-icon mx-auto">
+					  <img src="https://afoo.me/hero3/185.webp" alt="" class="h-8 w-8" loading="lazy"/>
+					</div>
+					<h3 class="text-xl font-semibold mb-4">更多系列内容</h3>
+					<p class="text-gray-600">KnowHow系列、英语学习专栏、笔记管理、荐书与阅读、私学专享免费SaaS服务，出海、等等...</p>
+				</div>
+
+			  </div>
+			</div>
+		</section>
+
+		<section class="refined-section">
+			<div class="mx-auto max-w-7xl px-5 py-16 md:px-10 md:py-24 lg:py-32">
+			  <h2 class="mb-12 text-center text-3xl font-bold md:text-5xl refined-gradient-text">已结构化内容参考</h2>
+			  <div class="refined-table">
+				<table class="w-full">
+					<thead>
+						<tr>
+							<th class="text-center text-xl">技术类</th>
+							<th class="text-center text-xl">管理与商业类</th>
+						</tr>
+					</thead>
+				  <tbody>
+					<tr><td class="text-center font-semibold">大语言模型理论、实践与产品</td><td class="text-center font-semibold">商业学徒</td></tr>
+					<tr><td class="text-center font-semibold">StableDiffusion从入门到精通</td><td class="text-center font-semibold">坑获</td></tr>
+					<tr><td class="text-center font-semibold">Cloudflare Workers/Pages Cookbook</td><td class="text-center font-semibold">深度思考揭秘</td></tr>
+					<tr><td class="text-center font-semibold">Github Actions Cookbook</td><td class="text-center font-semibold">极简管理课</td></tr>
+					<tr><td class="text-center font-semibold">AlpineJS Cookbook</td><td class="text-center font-semibold">技术、商业与人(I)</td></tr>
+					<tr><td class="text-center font-semibold">Astro/Starlight Cookbook</td><td class="text-center font-semibold">KnowHow系列之KB是如何打造的</td></tr>
+					<tr><td class="text-center font-semibold">HTMX揭秘</td><td class="text-center font-semibold">PKM - 个人知识管理</td></tr>
+					<tr><td class="text-center font-semibold">HTMX Cookbook</td><td class="text-center font-semibold">KEEVOL工作方法</td></tr>
+					<tr><td class="text-center font-semibold">HonoJS Cookbook (<a href="https://honojs.afoo.me" class="border-b border-purple-300" target="_blank">免费试读</a>)</td><td class="text-center font-semibold">愚蠢的自负</td></tr>
+					<tr><td class="text-center font-semibold">Cloudflare Durable Objects Cookbook</td><td class="text-center font-semibold">福强讲单词</td></tr>
+					<tr><td class="text-center font-semibold">Cloudflare Queues Cookbook</td><td class="text-center font-semibold">日常英语</td></tr>
+					<tr><td class="text-center font-semibold">SEO Cookbook (SEO Essentials)</td><td class="text-center font-semibold">成人背单词</td></tr>
+					<tr><td class="text-center font-semibold">JavaFX Cookbook</td><td class="text-center font-semibold"><a href="https://xiaobot.net/p/aifd" target="_blank" class="border-b border-purple-300">福强老师的 AI 通识课</a></td></tr>
+					<tr><td class="text-center font-semibold">架构百科</td><td class="text-center font-semibold">重新审视！(Rethink!)</td></tr>
+					<tr><td class="text-center font-semibold">Miniprogram Cookbook / 微信小程序揭秘</td><td class="text-center font-semibold">商业模式揭秘</td></tr>
+					<tr><td class="text-center font-semibold">视频号揭秘</td><td class="text-center font-semibold">大模型调教手册（A Curator's guide to LLMs）</td></tr>
+					<tr><td class="text-center font-semibold"><a href="https://afoo.me/books/CursorCookbook.pdf" target="_blank" class="border-b border-purple-300">Cursor Cookbook / Cursor最佳实践手册</a></td><td class="text-center font-semibold"></td></tr>
+				  </tbody>
+				</table>
+			  </div>
+			</div>
+		</section>
+
+		<section class="refined-section bg-gray-50">
+			<div class="max-w-6xl mx-auto px-4 sm:px-6 overflow-hidden">
+				<div class="py-16">
+					<div class="flex flex-wrap md:-mx-8 items-center">
+						<div class="w-full lg:w-1/2 px-0 sm:px-8">
+							<div class="mb-12 lg:mb-0 pb-12 lg:pb-0">
+								<h2 class="mb-8 text-4xl lg:text-5xl font-bold refined-gradient-text">
+									超值公式
+								</h2>
+								<p class="text-xl font-bold">买得就是一个物<span class="text-3xl refined-gradient-text">超</span>所<span class="text-3xl refined-gradient-text">值</span>！</p>
+							</div>
+						</div>
+
+						<div class="w-full lg:w-1/2 px-0 sm:px-8">
+							<div class="refined-table">
+								<table class="w-full">
+								  <thead>
+									<tr>
+									  <th class="text-center"></th>
+									  <th class="text-center">福强私学包含的产品与服务</th>
+									</tr>
+								  </thead>
+								  <tbody>
+									<tr><td class="text-center font-bold"></td><td class="text-center font-bold">深度思考揭秘<br/><span class="text-xs text-orange-600">(包含 PDF 版下载)</span></td></tr>
+									<tr><td class="text-center font-bold">+</td><td class="text-center font-bold">极简管理课<br/><span class="text-xs text-orange-600">(包含 PDF 版下载)</span></td></tr>
+									<tr><td class="text-center font-bold">+</td><td class="text-center font-bold">技术、商业与人<br/><span class="text-xs text-orange-600">(包含 PDF 版下载)</span></td></tr>
+									<tr><td class="text-center font-bold">+</td><td class="text-center font-bold">坑获<br/><span class="text-xs text-orange-600">(包含 PDF 版下载)</span></td></tr>
+									<tr><td class="text-center font-bold">+</td><td class="text-center font-bold">HTMX揭秘</td></tr>
+									<tr><td class="text-center font-bold">+</td><td class="text-center font-bold">HonoJS Cookbook</td></tr>
+									<tr><td class="text-center font-bold">+</td><td class="text-center font-bold">大语言模型理论、实践与产品(系列视频)</td></tr>
+									<tr><td class="text-center font-bold">+</td><td class="text-center font-bold">StableDiffusion从入门到精通(系列视频)</td></tr>
+									<tr><td class="text-center font-bold">+</td><td class="text-center font-bold">通义千问人工智能助手</td></tr>
+									<tr><td class="text-center font-bold">+</td><td class="text-center font-bold">更多<span class="text-xl text-black">持续更新</span>的精彩内容...</td></tr>
+									<tr><td colspan="2" class="text-center p-6"><a href="#cta" class="refined-button w-full"><p class="mr-4 font-bold">我要加入</p><img src="/hero3/42.webp" loading="lazy" class="h-8 w-8 flex-none" alt="" /></a></td></tr>
+								  </tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="refined-section">
+			<div class="mx-auto max-w-7xl px-5 py-16 md:px-10">
+			  <div class="mx-auto max-w-3xl text-center mb-16">
+				<h2 class="text
