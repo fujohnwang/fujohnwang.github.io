@@ -60,15 +60,15 @@
     crossorigin="anonymous"></script>
 </head>
 
-<body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized">
+<body class="antialiased text-slate-800 dark:text-slate-300 tracking-tight bg-slate-50 dark:bg-gray-900 vsc-initialized">
 	<header
-		class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0"
+		class="sticky top-0 z-40 flex-none mx-auto w-full bg-slate-50 md:bg-slate-50/90 dark:bg-gray-900 dark:md:bg-gray-900/90 md:backdrop-blur-sm border-b border-slate-200 dark:border-b-0"
 		id="header">
 		<div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4">
 			<div class="flex justify-between">
 				<a class="flex items-center" href="https://afoo.me">
 					<span
-						class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white">
+						class="self-center ml-2 text-2xl font-extrabold text-slate-800 whitespace-nowrap dark:text-white">
 						<h1>王福强的博客</h1>
 					</span>
 				</a>
@@ -198,7 +198,7 @@
     </div>
 
 		<section class="text-gray-600 body-font relative">
-			<div class="container px-5 py-24 mx-auto mb-12 prose prose-lg dark:prose-invert">
+			<div class="max-w-4xl mx-auto px-5 py-24 mb-12 prose prose-lg dark:prose-invert">
            <!-- random -->
            <ins class="adsbygoogle"
                 style="display:block"
@@ -482,10 +482,10 @@
                 document.getElementById('header')?.classList.toggle('h-screen');
                 document.querySelector('#header nav')?.classList.toggle('hidden');
             });
-            attachEvent('[data-toggle-color-scheme]', 'click', function () {
-                document.documentElement.classList.toggle('dark');
-                localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-            });
+                attachEvent("[data-toggle-color-scheme]", "click", function () {
+                    document.documentElement.classList.toggle("light");
+                    localStorage.theme = "light";
+                });
         };
         window.onpageshow = function () {
             const elem = document.querySelector('[data-toggle-menu]');

@@ -70,10 +70,10 @@
   </script> 
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3687639021943715" crossorigin="anonymous"></script> 
  </head> 
- <body class="antialiased text-gray-900 dark:text-slate-300 tracking-tight bg-white dark:bg-slate-900 vsc-initialized"> 
-  <header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white md:bg-white/90 dark:bg-slate-900 dark:md:bg-slate-900/90 md:backdrop-blur-sm border-b dark:border-b-0" id="header"> 
+ <body class="antialiased text-slate-800 dark:text-slate-300 tracking-tight bg-slate-50 dark:bg-gray-900 vsc-initialized"> 
+  <header class="sticky top-0 z-40 flex-none mx-auto w-full bg-slate-50 md:bg-slate-50/90 dark:bg-gray-900 dark:md:bg-gray-900/90 md:backdrop-blur-sm border-b border-slate-200 dark:border-b-0" id="header"> 
    <div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"> 
-    <div class="flex justify-between"> <a class="flex items-center" href="https://afoo.me"> <span class="self-center ml-2 text-2xl font-extrabold text-gray-900 whitespace-nowrap dark:text-white"> <img src="/images/afoo.PNG" alt="logo" style="height:60px;"> </span> </a> 
+    <div class="flex justify-between"> <a class="flex items-center" href="https://afoo.me"> <span class="self-center ml-2 text-2xl font-extrabold text-slate-800 whitespace-nowrap dark:text-white"> <img src="/images/afoo.PNG" alt="logo" style="height:60px;"> </span> </a> 
      <div class="flex items-center md:hidden"> <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""> 
        <svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
          <circle cx="12" cy="12" r="4"></circle> 
@@ -131,7 +131,7 @@
       </script> 
    </div> 
    <section class="text-gray-600 body-font relative"> 
-    <div class="container px-5 py-24 mx-auto mb-12 prose prose-lg dark:prose-invert"> 
+    <div class="max-w-4xl mx-auto px-5 py-24 mb-12 prose prose-lg dark:prose-invert"> 
      <p class="lead"> </p>
      <h1 class="title">再这样下去有点儿不像话了</h1> 
      <p></p> <!-- random --> 
@@ -154,11 +154,11 @@
      <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
      </div> 
      <div id="random_posts"> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2024-07-15-match_value.html">低端用户理解不了高端价值！ </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2024-05-23-3mustknow-chinese-content.html">3种不可不知的中文语料 </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2010-02-09-tx-mgt-patterns.html">Transaction Management Patterns In Brief </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2020-04-06-thinking-in-tech-value.html">软件与科技产业如何实现价值最大化？ </a> 
       </div> 
-      <div class="alert alert-light" role="alert"> <a href="/posts/2023-10-16-launchd-plist-composer-released.html">Launchd plist composer released today </a> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2025-04-01-cheaters.html">骗子 </a> 
       </div> 
      </div> 
      <hr> 
@@ -179,11 +179,8 @@
         <div class="mx-auto mt-6 w-full md:mt-12 md:w-4/5">
          <a href="https://xiaobot.net/p/aifd" class="border-b"> </a><a href="https://xiaobot.net/p/aifd"> <img alt="footer img for kb.afoo.me" loading="lazy" width="2911" height="1961" decoding="async" data-nimg="1" class="mx-auto rounded-lg object-contain shadow-lg sm:rounded-2xl lg:rounded-3xl" style="color:transparent" src="/images/xbt-footer.webp"> </a> 
         </div> 
-        <div class="mx-auto max-w-screen-md"> 
-         <h2 class="mt-8 mb-4 text-center text-4xl font-bold md:text-5xl">更多精彩内容...</h2> 
-        </div> 
         <div class="mx-auto mt-6 w-full md:mt-12 md:w-4/5"> 
-         <img alt="footer img for kb.afoo.me" loading="lazy" width="2911" height="1961" decoding="async" data-nimg="1" class="mx-auto rounded-lg object-contain shadow-lg sm:rounded-2xl lg:rounded-3xl" style="color:transparent" src="/images/footer-links-2025.webp"> 
+         <img alt="footer img for kb.afoo.me" loading="lazy" decoding="async" data-nimg="1" class="mx-auto p-3" style="color:transparent" src="/images/footer-links-2025.webp"> 
         </div> 
        </div> 
       </div> 
@@ -270,10 +267,10 @@
                 document.getElementById('header')?.classList.toggle('h-screen');
                 document.querySelector('#header nav')?.classList.toggle('hidden');
             });
-            attachEvent('[data-toggle-color-scheme]', 'click', function () {
-                document.documentElement.classList.toggle('dark');
-                localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-            });
+            attachEvent("[data-toggle-color-scheme]", "click", function () {
+                    document.documentElement.classList.toggle("light");
+                    localStorage.theme = "light";
+                });
         };
         window.onpageshow = function () {
             const elem = document.querySelector('[data-toggle-menu]');
