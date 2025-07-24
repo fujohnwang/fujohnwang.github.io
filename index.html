@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]">
+<html lang="zh-CN" class="scroll-smooth">
  <head>
   <title>剑毅阁 志 - 王福强的博客：一个架构士的思考与沉淀</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -24,6 +24,14 @@
   <link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8">
   <link rel="stylesheet" href="/css/af.css">
   <link rel="stylesheet" href="/css/components.css">
+  <style>
+        body {
+            background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.04) 1px, transparent 0);
+            background-size: 2.5rem 2.5rem;
+        }
+        .section-heading { @apply text-4xl font-extrabold text-white tracking-tight sm:text-5xl; }
+        .section-subheading { @apply mt-4 text-xl text-slate-400; }
+    </style>
   <script type="application/ld+json">
             {
                 "@context": "https://schema.org",
@@ -35,706 +43,329 @@
             }
         </script>
  </head>
- <body class="antialiased text-slate-800 dark:text-slate-300 tracking-tight bg-slate-50 dark:bg-gray-900 vsc-initialized">
-  <header class="sticky top-0 z-40 flex-none mx-auto w-full bg-slate-50 md:bg-slate-50/90 dark:bg-gray-900 dark:md:bg-gray-900/90 md:backdrop-blur-sm border-b border-slate-200 dark:border-b-0" id="header">
-   <div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-5xl md:px-4">
-    <div class="flex justify-between">
-     <a class="flex items-center" href="https://afoo.me"> <span class="self-center ml-2 text-2xl font-extrabold text-slate-800 whitespace-nowrap dark:text-white">
-       <h1>剑毅阁 志</h1></span> </a>
-     <div class="flex items-center md:hidden">
-      <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme="">
-       <svg viewBox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun">
-        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler">
-         <circle cx="12" cy="12" r="4" />
-         <path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7" />
-        </g>
-       </svg></button> <button type="button" class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition" aria-label="Toggle Menu" data-toggle-menu="">
-       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:menu">
-        <g class="icon-tabler" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-         <path d="M4 8h16" />
-         <path d="M4 16h16" />
-        </g>
+ <body class="bg-slate-900 text-slate-300 font-sans antialiased text-lg leading-relaxed">
+  <!--     <div class="fixed left-4 bottom-4 z-50">
+        <img src="/icons/Written-By-Human-Not-By-AI-Badge-black@2x.png" alt="Written by Human, Not by AI" class="h-12 w-auto" loading="lazy">
+    </div> -->
+  <div class="container mx-auto max-w-6xl px-4 sm:px-6">
+   <header class="sticky top-0 z-40 bg-slate-900/80 backdrop-blur-sm border-b border-slate-800">
+    <nav class="flex justify-between items-center py-4">
+     <a href="/" class="text-2xl font-bold text-white tracking-wider f-colorful">剑毅阁 志</a> <!-- Desktop Menu -->
+     <ul class="hidden md:flex items-center space-x-6 text-base">
+      <li><a href="https://kb.afoo.me/" class="text-slate-300 hover:text-sky-400 transition-colors duration-300">福强私学</a></li>
+      <li><a href="https://jiagoubaike.com" class="text-slate-300 hover:text-sky-400 transition-colors duration-300">架构百科</a></li>
+      <li><a href="https://afoo.me/posts.html" class="text-slate-300 hover:text-sky-400 transition-colors duration-300">博客文章</a></li>
+      <li><a href="https://afoo.me/books.html" class="text-slate-300 hover:text-sky-400 transition-colors duration-300">创作出版</a></li>
+      <li><a href="https://store.afoo.me" class="text-slate-300 hover:text-sky-400 transition-colors duration-300">产品与服务</a></li>
+      <li><a href="https://auth.afoo.me/user.html" class="text-slate-300 hover:text-sky-400 transition-colors duration-300">登录信息</a></li>
+      <li><a href="https://afoo.me/crosslinks.html" class="text-slate-300 hover:text-sky-400 transition-colors duration-300">更多链接</a></li>
+     </ul>
+     <!-- Mobile Menu Button -->
+     <div class="md:hidden">
+      <button id="mobile-menu-button" type="button" class="p-2 rounded-md text-slate-300 hover:text-white hover:bg-slate-700 focus:outline-none"><span class="sr-only">Open main menu</span>
+       <svg id="menu-open-icon" class="h-6 w-6 block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+       </svg>
+       <svg id="menu-close-icon" class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
        </svg></button>
      </div>
-    </div>
-    <nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation">
-     <ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base">
-      <li><a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://kb.afoo.me/">福强私学</a></li>
-      <li><a id="aiedu" class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://ai.afoo.me"> 福强AI学堂</a></li>
-      <li><a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com">架构百科</a></li>
-      <li><a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html">博客文章 </a></li>
-      <li><a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html">创作出版</a></li>
-      <li><a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://store.afoo.me">产品与服务</a></li>
-      <li><a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://auth.afoo.me/user.html">登录信息</a></li>
-      <li><a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/crosslinks.html">更多链接</a></li>
-     </ul>
-     <div class="md:self-center flex items-center mb-4 md:mb-0 ml-2">
-      <div class="hidden items-center md:flex">
-       <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme="">
-        <svg viewBox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun">
-         <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler">
-          <circle cx="12" cy="12" r="4" />
-          <path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7" />
-         </g>
-        </svg></button> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="RSS Feed" href="http://afoo.me/feeds.xml">
-        <svg viewBox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:rss">
-         <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler">
-          <circle cx="5" cy="19" r="1" />
-          <path d="M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9" />
-         </g>
-        </svg></a>
-      </div>
-     </div>
     </nav>
+   </header>
+   <!-- Mobile Menu Panel -->
+   <div id="mobile-menu" class="hidden md:hidden bg-slate-800/95 backdrop-blur-sm rounded-lg mt-2">
+    <ul class="flex flex-col items-center space-y-4 py-6 text-lg">
+     <li><a href="https://kb.afoo.me/" class="text-slate-200 hover:text-sky-400">福强私学</a></li>
+     <li><a href="https://jiagoubaike.com" class="text-slate-200 hover:text-sky-400">架构百科</a></li>
+     <li><a href="https://afoo.me/posts.html" class="text-slate-200 hover:text-sky-400">博客文章</a></li>
+     <li><a href="https://afoo.me/books.html" class="text-slate-200 hover:text-sky-400">创作出版</a></li>
+     <li><a href="https://store.afoo.me" class="text-slate-200 hover:text-sky-400">产品与服务</a></li>
+     <li><a href="https://auth.afoo.me/user.html" class="text-slate-200 hover:text-sky-400">登录信息</a></li>
+     <li><a href="https://afoo.me/crosslinks.html" class="text-slate-200 hover:text-sky-400">更多链接</a></li>
+    </ul>
    </div>
-  </header>
-  <main>
-   <section>
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 overflow-hidden">
-     <div class="py-8">
-      <div class="flex flex-wrap md:-mx-8 items-top">
-       <div class="w-full lg:w-1/2 px-0 sm:px-8">
-        <div class="mb-12 lg:mb-0 pb-12 lg:pb-0 border-b lg:border-b-0">
-         <h2 class="mb-4 text-4xl lg:text-5xl font-bold font-heading">王福强 <small class="text-sm">aka. 扶墙老师</small></h2>
-         <p class="mb-8 text-xl text-slate-600 dark:text-slate-400"></p>
-         <ul>
-          <li><a href="https://www.keevol.cn" class="border-b">杭州福强科技有限公司</a>CEO</li>
-          <li>20+年互联网与金融技术研发与管理经验的连续创业者</li>
-          <li><a href="#" class="border-b">《Spring揭秘》</a>、<a href="#" class="border-b">《SpringBoot揭秘》</a>以及<a href="/books.html" class="border-b">多本自出版电子书</a>作者。</li>
-          <li><a href="https://cloud.tencent.com/tvp/175" class="border-b">腾讯云最具价值专家(TVP)</a></li>
-          <li>
-           <details>
-            <summary>会写代码的CTO</summary>
-            <p></p>
-            <ul style="padding-left: 2rem">
-             <li>Languages: Scala/Java/JavaFX/JS/SQL/...</li>
-             <li>Frameworks: Spring/SpringBoot/Vertx/Kafka/Svelte/HTMX/...</li>
-             <li>Architecture: Theories and Practices...</li>
-             <li>Platforms: DevOps/Infra/PaaS/SaaS/...</li>
-             <li>You name it...</li>
-            </ul>
-            <p></p>
-           </details></li>
-          <li>
-           <details>
-            <summary>如履薄冰的CEO</summary>
-            <p style="padding-left: 2rem">Since 2017...</p>
-           </details></li>
-         </ul>
-         <p></p>
-         <p class="mb-8 text-xl text-slate-600 dark:text-slate-400"></p>
-         <ul>
+   <main>
+    <!-- The rest of your main content remains unchanged... -->
+    <section class="py-20 md:py-28">
+     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+      <div class="text-slate-300">
+       <h1 class="text-4xl lg:text-5xl font-bold text-white">王福强 <small class="text-2xl text-slate-400">aka. 扶墙老师</small></h1>
+       <div class="mt-8 space-y-6 text-lg text-slate-400">
+        <p>20+年互联网与金融技术研发与管理经验的连续创业者。</p>
+        <ul class="space-y-3 list-inside">
+         <li><a href="https://www.keevol.cn" target="_blank" class="text-sky-400 hover:text-sky-300">杭州福强科技有限公司</a> CEO</li>
+         <li><a href="/books.html" class="text-sky-400 hover:text-sky-300">《Spring揭秘》、《SpringBoot揭秘》以及多本技术与认知类书籍作者</a></li>
+         <li><a href="https://cloud.tencent.com/tvp/175" target="_blank" class="text-sky-400 hover:text-sky-300">腾讯云最具价值专家(TVP)</a></li>
+        </ul>
+        <div class="pt-4">
+         <h3 class="font-bold text-white text-xl mb-3">会写代码的CTO</h3>
+        </div>
+        <div class="pt-2">
+         <h3 class="font-bold text-white text-xl mb-3">如履薄冰的CEO</h3>
+         <ul class="text-sm">
           <li>原多家创业公司与成长型公司CTO</li>
-          <li>原挖财技术VP及首席<a href="#" class="border-b">架构师</a>(Chief Architect)</li>
-          <li>原天猫产品技术部资深<a href="#" class="border-b">架构师</a></li>
+          <li>原挖财技术VP及首席架构师(Chief Architect)</li>
+          <li>原天猫产品技术部资深架构师</li>
           <li>原阿里巴巴平台技术部海量数据部门高级技术专家</li>
-          <li>原阿里巴巴大数据中间件 <a href="https://github.com/alibaba/canal" class="border-b">Canal</a> 的产品与技术奠基人</li>
+          <li>原阿里巴巴大数据中间件 <a href="https://github.com/alibaba/canal" target="_blank">Canal</a> 的产品与技术奠基人</li>
          </ul>
-         <p></p><!-- <p class="mb-8 mt-8 text-xl text-gray-600 dark:text-slate-400">
-									<a class="btn text-white bg-primary-600 hover:bg-primary-800 mb-4 sm:mb-0 w-full"
-										href="/fw.html">
-										产品与福务 (What I can do for you)
-									</a>
-								</p> -->
         </div>
-       </div>
-       <div class="w-full lg:w-1/2 px-0 sm:px-8">
-        <!-- <video autoplay loop muted playsinline class="w-full">
-								<source src="video/live_long_and_prosper.mp4" type="video/mp4" />
-							 </video> -->
-        <h2 class="text-4xl lg:text-5xl font-bold font-heading mb-6"><a href="/posts.html">最新博客</a></h2>
-        <div id="latest_posts" class="-space-y-6">
-         <div>
-          <small>2025-07-24</small>
-          <h2 style="margin-top:1rem; margin-bottom:3rem;"><a href="/posts/2025-07-24-rationale-of-milk-dump.html">假如你是倒牛奶的资本家… </a></h2>
-         </div>
-         <div>
-          <small>2025-07-22</small>
-          <h2 style="margin-top:1rem; margin-bottom:3rem;"><a href="/posts/2025-07-22-ai-lowers-the-moat-of-software-industry.html">为有AI多壮志，敢教日月换新天 </a></h2>
-         </div>
-         <div>
-          <small>2025-07-19</small>
-          <h2 style="margin-top:1rem; margin-bottom:3rem;"><a href="/posts/2025-07-19-ai-weekly.html">福强的本周AI热点回顾与简评 </a></h2>
-         </div>
-        </div><a href="/posts.html" class="font-bold">↬ 阅读更多...</a><a href="/stat.html" class="f-colorful text-sm ml-3"><small>(stats/歷年統計)</small></a> <!-- <p class="mb-8 text-xl text-slate-600 dark:text-slate-400">
-								<form action="https://app.gumroad.com/follow_from_embed_form" method="post" style="--accent:var(--accent);--contrast-accent:var(--contrast-accent);margin-top: 1rem; padding: 0px; box-sizing: border-box; min-width: 0px; max-width: 100%; vertical-align: bottom; background-clip: padding-box; --border: solid 0.0625rem rgb(var(--color)/var(--border-alpha)); --outline: 0.125rem solid rgb(var(--accent)); --gray-1: 0.1; --gray-2: 0.2; --gray-3: 0.5;display: grid; grid-auto-flow: column; gap: 0.75rem; grid-template-columns: 1fr; grid-auto-columns: max-content; align-items: center;">
-									<input type="hidden" name="seller_id" value="9527565973752">
-									<input type="email" placeholder="Your email address" name="email" value="" style="margin: 0px;box-sizing: border-box;min-width: 0px;max-width: 100%;background-clip: padding-box; border:groove;padding: 0.75rem 1rem;font-size: 1rem;line-height: 1.5; --line-height: 1.5rem;border-radius: 0.25rem;display: block;width: 100%;background-color: rgb(var(--filled));color: rgb(var(--contrast-filled));--active-bg: var(--body-bg);">
-									<button type="submit" style="margin: 0rem;padding-left: 1rem; padding-right: 1rem;width: 100%; height: 100%;background-color: black;color: white;font-size: larger;border: none; border-radius: 0.25rem;font-weight: bold;" onMouseOver="this.style.color='yellow';this.style.cursor='pointer'" onMouseOut="this.style.color='white';this.style.cursor='auto'">订阅</button>
-								  </form>
-							</p> -->
        </div>
       </div>
-     </div>
-    </div>
-   </section>
-   <section class="px-4 py-16 mx-auto max-w-5xl lg:py-20">
-    <div class="flex flex-col mb-6 lg:justify-start lg:flex-row md:mb-8">
-     <h2 class="max-w-lg mb-2 text-4xl lg:text-5xl font-bold tracking-tight sm:text-4xl sm:leading-none lg:mb-5 group font-heading"><a href="https://kb.afoo.me"> <span class="inline-block mb-1 sm:mb-4" style="font-family: kb">福强私学</span> </a></h2>
-     <div class="flex flex-col">
-      <p class="font-bold text-xl lg:ml-6">福强私学，传道授业解惑。</p>
-      <p class="font-bold text-xl lg:ml-6">不用参加MBA/EMBA班，也能跟企业高管和CEO们一起学习成长！<span><a href="https://afoo.me/kb.html" class="border-b !text-light text-red-400">⇒ 点击链接了解更多...</a></span></p>
-      <p class="text-light text-sm mt-3 lg:ml-6">如果你使用Android手机，可以通过 <a href="https://github.com/fujohnwang/kb-android/releases/" class="border-b">https://github.com/fujohnwang/kb-android/releases/</a> 下载一个简单的福强私学APP， 源代码开源同在，担心非应用商店安装有问题，也可以做代码审计。基于WebView套壳儿，主体功能还是Web应用的，但安装一个手机APP方便访问直达。 Have Fun～</p>
-     </div>
-    </div>
-    <section>
-     <!-- Container -->
-     <div class="mx-auto max-w-7xl px-5 md:px-10">
-      <!-- Features Div -->
-      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 md:grid-cols-2 lg:gap-12">
-       <!-- Feature Item -->
-       <div class="relative mb-8 flex flex-col rounded-2xl border border-solid border-black p-8 [box-shadow:rgb(0,_0,_0)_9px_9px] lg:mb-4">
-        <div class="absolute -top-8 bottom-auto left-auto right-4 flex h-16 w-16 flex-col items-center justify-center rounded-full border border-solid border-[#9b9b9b] bg-white [box-shadow:rgb(0,_0,_0)_0px_5px] lg:right-8">
-         <img src="https://afoo.me/hero3/170.webp" alt="" class="relative z-10 inline-block h-12" loading="lazy">
-        </div>
-        <p class="mb-4 text-xl font-semibold">通识</p>
-        <p>提升认知与“常识”，增加智慧与先见。</p>
-       </div><!-- Feature Item -->
-       <div class="relative mb-8 flex flex-col rounded-2xl border border-solid border-black p-8 [box-shadow:rgb(0,_0,_0)_9px_9px] lg:mb-4">
-        <div class="absolute -top-8 bottom-auto left-auto right-4 flex h-16 w-16 flex-col items-center justify-center rounded-full border border-solid border-[#9b9b9b] bg-white [box-shadow:rgb(0,_0,_0)_0px_5px] lg:right-8">
-         <img src="https://afoo.me/hero3/171.webp" alt="" class="relative z-10 inline-block h-12" loading="lazy">
-        </div>
-        <p class="mb-4 text-xl font-semibold">技术</p>
-        <p>从语言生态到架构规划以及落地方法论，从信息技术到大数据与人工智能，紧追时代脉搏，力求精益求精的工匠精神。</p>
-       </div><!-- Feature Item -->
-       <div class="relative mb-8 flex flex-col rounded-2xl border border-solid border-black p-8 [box-shadow:rgb(0,_0,_0)_9px_9px] lg:mb-4">
-        <div class="absolute -top-8 bottom-auto left-auto right-4 flex h-16 w-16 flex-col items-center justify-center rounded-full border border-solid border-[#9b9b9b] bg-white [box-shadow:rgb(0,_0,_0)_0px_5px] lg:right-8">
-         <img src="https://afoo.me/hero3/151.webp" alt="" class="relative z-10 inline-block h-12" loading="lazy">
-        </div>
-        <p class="mb-4 text-xl font-semibold">管理</p>
-        <p>从专业思维转向管理思维，是认知与心智的一次跃升。</p>
-       </div><!-- Feature Item -->
-       <div class="relative mb-8 flex flex-col rounded-2xl border border-solid border-black p-8 [box-shadow:rgb(0,_0,_0)_9px_9px] lg:mb-4">
-        <div class="absolute -top-8 bottom-auto left-auto right-4 flex h-16 w-16 flex-col items-center justify-center rounded-full border border-solid border-[#9b9b9b] bg-white [box-shadow:rgb(0,_0,_0)_0px_5px] lg:right-8">
-         <img src="https://afoo.me/hero3/198.webp" alt="" class="relative z-10 inline-block h-12" loading="lazy">
-        </div>
-        <p class="mb-4 text-xl font-semibold">商业</p>
-        <p>从Solopreneur到Enterpreneur，从组织到商业，更是对一个人实力的综合性比拼，考量的不只是成长，更是成长的速度与质量。</p>
-       </div><!-- Feature Item -->
-       <div class="relative mb-8 flex flex-col rounded-2xl border border-solid border-black p-8 [box-shadow:rgb(0,_0,_0)_9px_9px] lg:mb-4">
-        <div class="absolute -top-8 bottom-auto left-auto right-4 flex h-16 w-16 flex-col items-center justify-center rounded-full border border-solid border-[#9b9b9b] bg-white [box-shadow:rgb(0,_0,_0)_0px_5px] lg:right-8">
-         <img src="https://afoo.me/hero3/164.webp" alt="" class="relative z-10 inline-block h-12" loading="lazy">
-        </div>
-        <p class="mb-4 text-xl font-semibold">AI/人工智能</p>
-        <p>AI是增量，AI是方向，AI是现在唯一还明亮的那束光！</p>
-       </div><!-- Feature Item -->
-       <div class="relative mb-8 flex flex-col rounded-2xl border border-solid border-black p-8 [box-shadow:rgb(0,_0,_0)_9px_9px] lg:mb-4">
-        <div class="absolute -top-8 bottom-auto left-auto right-4 flex h-16 w-16 flex-col items-center justify-center rounded-full border border-solid border-[#9b9b9b] bg-white [box-shadow:rgb(0,_0,_0)_0px_5px] lg:right-8">
-         <img src="https://afoo.me/hero3/185.webp" alt="" class="relative z-10 inline-block h-12" loading="lazy">
-        </div>
-        <p class="mb-4 text-xl font-semibold">更多系列内容</p>
-        <p>KnowHow系列， 荐书与阅读，私学专享免费SaaS服务，等等...</p>
+      <div>
+       <h2 class="text-3xl font-bold text-white mb-6">最新博客</h2>
+       <div id="latest_posts" class="space-y-4">
+        <a href="/posts/2025-07-24-rationale-of-milk-dump.html" class="block bg-slate-800/50 p-5 rounded-xl border border-slate-700 hover:border-sky-500 hover:-translate-y-1 transition-all duration-300 group"> 
+         <div class="flex justify-between items-baseline">
+          <h3 class="text-lg font-bold text-slate-100 group-hover:text-sky-400">假如你是倒牛奶的资本家…</h3>
+          <p class="text-sm text-slate-500 flex-shrink-0 ml-4">2025-07-24</p>
+         </div> 
+        </a> <a href="/posts/2025-07-22-ai-lowers-the-moat-of-software-industry.html" class="block bg-slate-800/50 p-5 rounded-xl border border-slate-700 hover:border-sky-500 hover:-translate-y-1 transition-all duration-300 group"> 
+         <div class="flex justify-between items-baseline">
+          <h3 class="text-lg font-bold text-slate-100 group-hover:text-sky-400">为有AI多壮志，敢教日月换新天</h3>
+          <p class="text-sm text-slate-500 flex-shrink-0 ml-4">2025-07-22</p>
+         </div> 
+        </a> <a href="/posts/2025-07-19-ai-weekly.html" class="block bg-slate-800/50 p-5 rounded-xl border border-slate-700 hover:border-sky-500 hover:-translate-y-1 transition-all duration-300 group"> 
+         <div class="flex justify-between items-baseline">
+          <h3 class="text-lg font-bold text-slate-100 group-hover:text-sky-400">福强的本周AI热点回顾与简评</h3>
+          <p class="text-sm text-slate-500 flex-shrink-0 ml-4">2025-07-19</p>
+         </div> 
+        </a> <a href="/posts/2025-07-18-wonder-why-different-water-tubes-go-wrong.html" class="block bg-slate-800/50 p-5 rounded-xl border border-slate-700 hover:border-sky-500 hover:-translate-y-1 transition-all duration-300 group"> 
+         <div class="flex justify-between items-baseline">
+          <h3 class="text-lg font-bold text-slate-100 group-hover:text-sky-400">我是百思不得其解，这粪水怎么会切到饮水上…</h3>
+          <p class="text-sm text-slate-500 flex-shrink-0 ml-4">2025-07-18</p>
+         </div> 
+        </a> <a href="/posts/2025-07-13-ai-startup-opinions.html" class="block bg-slate-800/50 p-5 rounded-xl border border-slate-700 hover:border-sky-500 hover:-translate-y-1 transition-all duration-300 group"> 
+         <div class="flex justify-between items-baseline">
+          <h3 class="text-lg font-bold text-slate-100 group-hover:text-sky-400">吴恩达Y Combinator上有关AI startup的分享</h3>
+          <p class="text-sm text-slate-500 flex-shrink-0 ml-4">2025-07-13</p>
+         </div> 
+        </a> <a href="/posts/2025-07-01-professionals-for-future-job-opportunities.html" class="block bg-slate-800/50 p-5 rounded-xl border border-slate-700 hover:border-sky-500 hover:-translate-y-1 transition-all duration-300 group"> 
+         <div class="flex justify-between items-baseline">
+          <h3 class="text-lg font-bold text-slate-100 group-hover:text-sky-400">报志愿、选专业，到底该怎么决策？</h3>
+          <p class="text-sm text-slate-500 flex-shrink-0 ml-4">2025-07-01</p>
+         </div> 
+        </a> <a href="/posts/2025-06-30-free-bait.html" class="block bg-slate-800/50 p-5 rounded-xl border border-slate-700 hover:border-sky-500 hover:-translate-y-1 transition-all duration-300 group"> 
+         <div class="flex justify-between items-baseline">
+          <h3 class="text-lg font-bold text-slate-100 group-hover:text-sky-400">免费不渡，便宜不占！</h3>
+          <p class="text-sm text-slate-500 flex-shrink-0 ml-4">2025-06-30</p>
+         </div> 
+        </a> <a href="/posts/2025-06-28-tried.html" class="block bg-slate-800/50 p-5 rounded-xl border border-slate-700 hover:border-sky-500 hover:-translate-y-1 transition-all duration-300 group"> 
+         <div class="flex justify-between items-baseline">
+          <h3 class="text-lg font-bold text-slate-100 group-hover:text-sky-400">如果给自己的一辈子送一句话，你会用哪句？</h3>
+          <p class="text-sm text-slate-500 flex-shrink-0 ml-4">2025-06-28</p>
+         </div> 
+        </a> <a href="/posts/2025-06-28-northguard-xinfra.html" class="block bg-slate-800/50 p-5 rounded-xl border border-slate-700 hover:border-sky-500 hover:-translate-y-1 transition-all duration-300 group"> 
+         <div class="flex justify-between items-baseline">
+          <h3 class="text-lg font-bold text-slate-100 group-hover:text-sky-400">Northguard 与 Xinfra</h3>
+          <p class="text-sm text-slate-500 flex-shrink-0 ml-4">2025-06-28</p>
+         </div> 
+        </a> <a href="/posts/2025-06-28-marketing-storycases-with-mi.html" class="block bg-slate-800/50 p-5 rounded-xl border border-slate-700 hover:border-sky-500 hover:-translate-y-1 transition-all duration-300 group"> 
+         <div class="flex justify-between items-baseline">
+          <h3 class="text-lg font-bold text-slate-100 group-hover:text-sky-400">小米发布会有哪些历史经验值得关注？</h3>
+          <p class="text-sm text-slate-500 flex-shrink-0 ml-4">2025-06-28</p>
+         </div> 
+        </a> <a href="/posts/2025-06-26-gemini-cli.html" class="block bg-slate-800/50 p-5 rounded-xl border border-slate-700 hover:border-sky-500 hover:-translate-y-1 transition-all duration-300 group"> 
+         <div class="flex justify-between items-baseline">
+          <h3 class="text-lg font-bold text-slate-100 group-hover:text-sky-400">Gemini CLI 快速上手</h3>
+          <p class="text-sm text-slate-500 flex-shrink-0 ml-4">2025-06-26</p>
+         </div> 
+        </a> <a href="" class="block bg-slate-800/50 p-5 rounded-xl border border-slate-700 hover:border-sky-500 hover:-translate-y-1 transition-all duration-300 group"> 
+         <div class="flex justify-between items-baseline">
+          <h3 class="text-lg font-bold text-slate-100 group-hover:text-sky-400"></h3>
+          <p class="text-sm text-slate-500 flex-shrink-0 ml-4"></p>
+         </div> 
+        </a> <a href="" class="block bg-slate-800/50 p-5 rounded-xl border border-slate-700 hover:border-sky-500 hover:-translate-y-1 transition-all duration-300 group"> 
+         <div class="flex justify-between items-baseline">
+          <h3 class="text-lg font-bold text-slate-100 group-hover:text-sky-400"></h3>
+          <p class="text-sm text-slate-500 flex-shrink-0 ml-4"></p>
+         </div> 
+        </a>
        </div>
-      </div>
-     </div>
-    </section><!-- 录播课 -->
-    <section>
-     <div class="max-w-5xl mx-auto px-4 sm:px-6 overflow-hidden">
-      <div class="py-12 md:py-20">
-       <div class="py-4 sm:py-6 lg:py-8">
-        <div class="flex flex-wrap md:-mx-8">
-         <div class="w-full lg:w-1/2 px-0 sm:px-8">
-          <div class="mb-12 lg:mb-0 pb-12 lg:pb-0 border-b lg:border-b-0">
-           <h2 class="mb-4 text-4xl lg:text-5xl font-bold font-heading"><a href="https://keepoints.feishu.cn/docs/doccnFUFT1qd4JmBJukn9qPkXyf" class="border-b"> 扶墙老师的课 </a></h2>
-           <p class="mb-8 text-xl text-slate-600 dark:text-slate-400">所有录播课可单买，更建议订阅「福报」，其中包含了所有的录播课内容，而且会持续增加和更新内容。</p>
-           <p class="mb-8 text-xl text-slate-600 dark:text-slate-400"><a href="https://afoo.me/trainings/archt.html" class="border-b">百万年薪架构师训练营</a>原则上只面向公司高管、资深架构师、CTO等人士。</p>
-           <div class="mb-8 text-xl text-gray-600 dark:text-slate-400 flex flex-col">
-            <h3 class="font-bold font-heading mb-4">海外更多课程(需<a href="/fq/fqrf.html" class="border-b">科学上网</a>)：</h3>
-            <ul>
-             <li class="p-2">
-              <svg class="inline-flex" width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000" stroke-width="1.5">
-               <g clip-path="url(#clip0_4086_8473)">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M1.84647 7.15123C1.54566 7.21608 1.31498 7.45811 1.26464 7.7617C1.2143 8.06528 1.35452 8.36881 1.6183 8.52729L8.13474 12.4421L14.3544 8.08705C14.6938 7.84947 15.1614 7.93193 15.399 8.27123C15.6366 8.61054 15.5541 9.0782 15.2148 9.31578L8.99537 13.6707L10.4455 21.1339C10.5042 21.436 10.7415 21.6715 11.044 21.7281C11.3465 21.7846 11.6528 21.6506 11.8166 21.3901L22.7919 3.93893C22.9526 3.68349 22.9445 3.35665 22.7714 3.10947C22.5983 2.86228 22.294 2.7429 21.999 2.80649L1.84647 7.15123Z" fill="#000000" />
-               </g> <defs>
-                <clipPath id="clip0_4086_8473">
-                 <rect width="24" height="24" fill="white"></rect>
-                </clipPath>
-               </defs>
-              </svg><a href="https://wfq.gumroad.com/l/stablediffusion" class="border-b" target="_blank">Stable Diffusion从入门到精通</a></li>
-             <li class="p-2">
-              <svg class="inline-flex" width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000" stroke-width="1.5">
-               <g clip-path="url(#clip0_4086_8473)">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M1.84647 7.15123C1.54566 7.21608 1.31498 7.45811 1.26464 7.7617C1.2143 8.06528 1.35452 8.36881 1.6183 8.52729L8.13474 12.4421L14.3544 8.08705C14.6938 7.84947 15.1614 7.93193 15.399 8.27123C15.6366 8.61054 15.5541 9.0782 15.2148 9.31578L8.99537 13.6707L10.4455 21.1339C10.5042 21.436 10.7415 21.6715 11.044 21.7281C11.3465 21.7846 11.6528 21.6506 11.8166 21.3901L22.7919 3.93893C22.9526 3.68349 22.9445 3.35665 22.7714 3.10947C22.5983 2.86228 22.294 2.7429 21.999 2.80649L1.84647 7.15123Z" fill="#000000" />
-               </g> <defs>
-                <clipPath id="clip0_4086_8473">
-                 <rect width="24" height="24" fill="white"></rect>
-                </clipPath>
-               </defs>
-              </svg><a href="https://wfq.gumroad.com/l/vfwsg" class="border-b" target="_blank">打造自己的纯文本笔记与知识管理体系</a></li>
-             <li class="p-2">
-              <svg class="inline-flex" width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000" stroke-width="1.5">
-               <g clip-path="url(#clip0_4086_8473)">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M1.84647 7.15123C1.54566 7.21608 1.31498 7.45811 1.26464 7.7617C1.2143 8.06528 1.35452 8.36881 1.6183 8.52729L8.13474 12.4421L14.3544 8.08705C14.6938 7.84947 15.1614 7.93193 15.399 8.27123C15.6366 8.61054 15.5541 9.0782 15.2148 9.31578L8.99537 13.6707L10.4455 21.1339C10.5042 21.436 10.7415 21.6715 11.044 21.7281C11.3465 21.7846 11.6528 21.6506 11.8166 21.3901L22.7919 3.93893C22.9526 3.68349 22.9445 3.35665 22.7714 3.10947C22.5983 2.86228 22.294 2.7429 21.999 2.80649L1.84647 7.15123Z" fill="#000000" />
-               </g> <defs>
-                <clipPath id="clip0_4086_8473">
-                 <rect width="24" height="24" fill="white"></rect>
-                </clipPath>
-               </defs>
-              </svg><a href="https://wfq.gumroad.com/l/fdtk" class="border-b" target="_blank">创业者说</a></li>
-             <li class="p-2">
-              <svg class="inline-flex" width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000" stroke-width="1.5">
-               <g clip-path="url(#clip0_4086_8473)">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M1.84647 7.15123C1.54566 7.21608 1.31498 7.45811 1.26464 7.7617C1.2143 8.06528 1.35452 8.36881 1.6183 8.52729L8.13474 12.4421L14.3544 8.08705C14.6938 7.84947 15.1614 7.93193 15.399 8.27123C15.6366 8.61054 15.5541 9.0782 15.2148 9.31578L8.99537 13.6707L10.4455 21.1339C10.5042 21.436 10.7415 21.6715 11.044 21.7281C11.3465 21.7846 11.6528 21.6506 11.8166 21.3901L22.7919 3.93893C22.9526 3.68349 22.9445 3.35665 22.7714 3.10947C22.5983 2.86228 22.294 2.7429 21.999 2.80649L1.84647 7.15123Z" fill="#000000" />
-               </g> <defs>
-                <clipPath id="clip0_4086_8473">
-                 <rect width="24" height="24" fill="white"></rect>
-                </clipPath>
-               </defs>
-              </svg><a href="https://wfq.gumroad.com/l/dbabi" class="border-b" target="_blank">企业高管晋升或保命秘籍</a></li>
-             <li class="p-2">
-              <svg class="inline-flex" width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000" stroke-width="1.5">
-               <g clip-path="url(#clip0_4086_8473)">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M1.84647 7.15123C1.54566 7.21608 1.31498 7.45811 1.26464 7.7617C1.2143 8.06528 1.35452 8.36881 1.6183 8.52729L8.13474 12.4421L14.3544 8.08705C14.6938 7.84947 15.1614 7.93193 15.399 8.27123C15.6366 8.61054 15.5541 9.0782 15.2148 9.31578L8.99537 13.6707L10.4455 21.1339C10.5042 21.436 10.7415 21.6715 11.044 21.7281C11.3465 21.7846 11.6528 21.6506 11.8166 21.3901L22.7919 3.93893C22.9526 3.68349 22.9445 3.35665 22.7714 3.10947C22.5983 2.86228 22.294 2.7429 21.999 2.80649L1.84647 7.15123Z" fill="#000000" />
-               </g> <defs>
-                <clipPath id="clip0_4086_8473">
-                 <rect width="24" height="24" fill="white"></rect>
-                </clipPath>
-               </defs>
-              </svg><a href="https://wfq.gumroad.com/l/goldrush" class="border-b" target="_blank">个人出海安全驾驶指南</a></li>
-            </ul>
-           </div>
-           <article class="rounded-xl border-2 border-gray-100 bg-white">
-            <div class="flex items-start gap-4 p-4 sm:p-6 lg:p-8">
-             <div>
-              <h3 class="font-medium sm:text-lg"><a href="#" class="hover:underline">微信豆省钱技巧</a></h3>
-              <p class="line-clamp-2 text-sm text-gray-700 mb-1">微信豆 web 端充值， iOS端可以省钱，android无差异，使用苹果手机的同学有需要微信豆消费的场景，可以考虑这个渠道：</p><a href="https://webeans.my-qcloud.com/" target="_blank" class="border-b">https://webeans.my-qcloud.com/</a>
-              <div class="mt-2 sm:flex sm:items-center sm:gap-2">
-               <div class="flex items-center gap-1 text-gray-500">
-                <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                 <path stroke-linecap="round" stroke-linejoin="round" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
-                </svg>
-                <p class="text-xs">感谢🙏 吴为 提供这个信息和技巧。</p>
-               </div>
-              </div>
-             </div>
-            </div>
-            <div class="flex justify-end">
-             <strong class="-me-[2px] -mb-[2px] inline-flex items-center gap-1 rounded-ss-xl rounded-ee-xl bg-green-600 px-3 py-1.5 text-white">
-              <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-               <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-              </svg><span class="text-[10px] font-medium sm:text-xs">TIP</span> </strong>
-            </div>
-           </article>
-          </div>
-         </div>
-         <div class="w-full lg:w-1/2 px-0 sm:px-8">
-          <ul class="space-y-12">
-           <li class="flex md:-mx-4">
-            <div class="pr-4 sm:pl-4">
-             <span class="flex w-16 h-16 mx-auto items-center justify-center text-2xl font-bold rounded-full bg-blue-600 text-white"> 1</span>
-            </div>
-            <div class="px-4">
-             <h3 class="mb-4 text-xl font-semibold font-heading"><a href="https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzIzNzkzODU5Mg==&amp;action=getalbum&amp;album_id=4025666431017549834&amp;scene=126&amp;sessionid=1749713964697#wechat_redirect" class="border-b" target="_blank">福强老师的 AI 通识课</a></h3>
-             <p class="text-gray-500 dark:text-gray-400">无论 AI 如何发展，了解 AI 通识让你我在 AI 浪潮中不再迷路。</p>
-             <nav class="flex flex-col items-start space-y-1.5 text-center sm:items-start sm:text-left">
-              <span class="mt-3 mb-1"> 以下任何一个渠道购买均可： </span> <a href="https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzIzNzkzODU5Mg==&amp;action=getalbum&amp;album_id=4025666431017549834&amp;scene=126&amp;sessionid=1749713964697#wechat_redirect" target="_blank"> <span class="mr-2 inline-flex h-4 w-4 items-center justify-center rounded-full bg-indigo-100 text-indigo-500">
-                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" class="h-3 w-3" viewBox="0 0 24 24">
-                 <path d="M20 6L9 17l-5-5" />
-                </svg></span> <span class="border-b">微信公众号付费合集</span> </a> <a href="https://xiaobot.net/p/aifd" target="_blank"> <span class="mr-2 inline-flex h-4 w-4 items-center justify-center rounded-full bg-indigo-100 text-indigo-500">
-                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" class="h-3 w-3" viewBox="0 0 24 24">
-                 <path d="M20 6L9 17l-5-5" />
-                </svg></span> <span class="border-b">小报童</span> </a> <a href="https://afoo.me/kb" target="_blank"> <span class="mr-2 inline-flex h-4 w-4 items-center justify-center rounded-full bg-indigo-100 text-indigo-500">
-                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" class="h-3 w-3" viewBox="0 0 24 24">
-                 <path d="M20 6L9 17l-5-5" />
-                </svg></span> <span class="border-b">福强私学 内部专栏</span> </a>
-             </nav>
-            </div></li>
-           <li class="flex md:-mx-4">
-            <div class="pr-4 sm:pl-4">
-             <span class="flex w-16 h-16 mx-auto items-center justify-center text-2xl font-bold rounded-full bg-blue-600 text-white"> 2</span>
-            </div>
-            <div class="px-4 bg-orange-600 py-6">
-             <h3 class="mb-4 text-xl font-semibold font-heading"><a href="/arch.html" class="border-b">「架构师的修炼」大礼包</a></h3>
-             <p class="text-gray-100 dark:text-gray-50">包括但不限于「架构思维」、「架构思维思考过去现在与未来」、「微服务深度揭秘」、「微服务架构设计模式」、「企业服务化治理」、「LoD Explained」等一系列内容。</p>
-            </div></li>
-           <li class="flex md:-mx-4">
-            <div class="pr-4 sm:pl-4">
-             <span class="flex w-16 h-16 mx-auto items-center justify-center text-2xl font-bold rounded-full bg-blue-600 text-white"> 3</span>
-            </div>
-            <div class="px-4">
-             <h3 class="mb-4 text-xl font-semibold font-heading"><a href="https://afoo.me/trainings/archt.html" class="border-b">百万年薪架构师训练营（线下）</a></h3>
-             <p class="text-gray-500 dark:text-gray-400">别人百万年薪和你只能十几万年薪的秘密原来全都在这里！差距就在这两天学习！</p>
-            </div></li>
-           <li class="flex md:-mx-4">
-            <div class="pr-4 sm:pl-4">
-             <span class="flex w-16 h-16 mx-auto items-center justify-center text-2xl font-bold rounded-full bg-blue-600 text-white"> 4</span>
-            </div>
-            <div class="px-4">
-             <h3 class="mb-4 text-xl font-semibold font-heading"><a href="/mgmt.html" class="border-b">管理者入门与进阶课程</a></h3>
-             <p class="text-gray-500 dark:text-gray-400">包含「极简管理课」电子书、「QCon+案例研习社之福强谈管理」以及「组织逻辑」等内容。 除了可以通过「福强私学」视频号付费合集访问，也可以通过<a href="https://wfq.gumroad.com/l/mgmt" target="_blank">Gumroad</a>获得(需<a href="/fq/fqrf.html" class="border-b">科学上网</a>)。</p>
-            </div></li>
-           <li class="flex md:-mx-4">
-            <div class="pr-4 sm:pl-4">
-             <span class="flex w-16 h-16 mx-auto items-center justify-center text-2xl font-bold rounded-full bg-blue-600 text-white"> 5</span>
-            </div>
-            <div class="px-4">
-             <h3 class="mb-4 text-xl font-semibold font-heading">「创业者的修行」大礼包</h3>
-             <p class="text-gray-500 dark:text-gray-400">包括但不限于《坑获》、组织逻辑、股权与期权等内容。 可以通过 <a href="https://wfq.gumroad.com/" class="border-b" target="_blank">Gumroad</a> 获得(需<a href="/fq/fqrf.html" class="border-b">科学上网</a>)，也可以通过「福强私学」视频号付费合集访问（对应内容：<a href="/founder-talks.html" class="border-b">「创业者说」</a>）。</p>
-            </div></li>
-           <li class="flex md:-mx-4">
-            <div class="pr-4 sm:pl-4">
-             <span class="flex w-16 h-16 mx-auto items-center justify-center text-2xl font-bold rounded-full bg-blue-600 text-white"> 6</span>
-            </div>
-            <div class="px-4">
-             <h3 class="mb-4 text-xl font-semibold font-heading"><a href="https://wfq.gumroad.com" class="border-b" target="_blank">认知成长系列课程</a></h3>
-             <p class="text-gray-500 dark:text-gray-400">包括「底层逻辑」、「组织逻辑」、「产品思维」、「架构思维」、「做事逻辑」以及「辩证思考」六部分内容。(已经并入<a href="https://wfq.gumroad.com/l/fb" target="_blank">「福报」</a>，不再单独销售)</p>
-            </div></li>
-           <li class="flex md:-mx-4">
-            <div class="pr-4 sm:pl-4">
-             <span class="flex w-16 h-16 mx-auto items-center justify-center text-2xl font-bold rounded-full bg-blue-600 text-white"> 7</span>
-            </div>
-            <div class="px-4">
-             <h3 class="font-heading mb-4 text-xl font-semibold"><a href="/ai-col.html" class="border-b">AI进化赢</a> <span class="me-2 rounded-sm border border-yellow-300 px-2.5 py-0.5 text-xs font-medium text-yellow-800 dark:bg-gray-700">「视频号付费合集」</span></h3>
-             <p class="text-gray-500 dark:text-gray-400">AI时代，要赢就来进化营😉</p>
-            </div></li>
-           <li class="flex md:-mx-4">
-            <div class="pr-4 sm:pl-4">
-             <span class="flex w-16 h-16 mx-auto items-center justify-center text-2xl font-bold rounded-full bg-blue-600 text-white"> 8</span>
-            </div>
-            <div class="px-4">
-             <h3 class="font-heading mb-4 text-xl font-semibold"><a href="/career_bible.html" class="border-b">职场漫游指南</a> <span class="me-2 rounded-sm border border-yellow-300 px-2.5 py-0.5 text-xs font-medium text-yellow-800 dark:bg-gray-700">「公众号付费合集」</span></h3>
-             <p class="text-gray-500 dark:text-gray-400">职场也需要教育和辅导，否则，自己撞了南墙之后再想说sorry，那机会就早已离你而去了，不是吗？</p>
-            </div></li>
-           <li class="flex md:-mx-4">
-            <div class="pr-4 sm:pl-4">
-             <span class="flex w-16 h-16 mx-auto items-center justify-center text-2xl font-bold rounded-full bg-blue-600 text-white"> 9</span>
-            </div>
-            <div class="px-4">
-             <h3 class="font-heading mb-4 text-xl font-semibold"><a href="/to_ceo_col.html" class="border-b">写给CEO的专栏</a> <span class="me-2 rounded-sm border border-yellow-300 px-2.5 py-0.5 text-xs font-medium text-yellow-800 dark:bg-gray-700">「公众号付费合集」</span></h3>
-             <p class="text-gray-500 dark:text-gray-400">哪些痛点和问题是CEO比较头疼甚至琢磨不透的？希望在这个专栏里会有些启示...</p>
-            </div></li>
-          </ul>
-         </div>
-        </div>
+       <div class="mt-8 text-right">
+        <a href="/posts.html" class="font-semibold text-sky-400 hover:text-sky-300 transition-colors duration-300">阅读更多 →</a>
        </div>
       </div>
      </div>
     </section>
-   </section><!-- <section class="px-4 py-16 mx-auto max-w-5xl lg:py-20">
-    <div class="flex flex-wrap md:-mx-8">
-     <div class="w-full px-0 sm:px-8 lg:w-1/2">
-      <div class="mb-12 border-b pb-12 lg:mb-0 lg:border-b-0 lg:pb-0">
-       <h2 class="font-heading mb-4 text-4xl font-bold lg:text-5xl"><a href="/jiangshu.html" class="border-b"> 福强讲书 </a></h2>
-       <p class="mb-3 text-xl text-gray-600 dark:text-slate-400">不同解读折射不同的认知和见解，</p>
-       <p class="mb-8 text-xl text-slate-600 dark:text-slate-400">所谓三人行必有我师，你、书、我，一起相聚于福强讲书。</p>
-       <p class="mb-3 text-xl text-gray-600 dark:text-slate-400">以福强老师的思考和经历对图书进行精炼解读，</p>
-       <p class="mb-3 text-xl text-gray-600 dark:text-slate-400">为你筛选精品图书，</p>
-       <p class="mb-3 text-xl text-gray-600 dark:text-slate-400">为你节省筛选的时间，</p>
-       <p class="mb-3 text-xl text-gray-600 dark:text-slate-400">为你推荐值得读的好书。</p>
-       <p class="mb-3 text-xl text-gray-600 dark:text-slate-400">讲书只是领进门，</p>
-       <p class="mb-3 text-xl text-gray-600 dark:text-slate-400">如果发现讲的书让你很感兴趣</p>
-       <p class="mb-8 text-xl text-slate-600 dark:text-slate-400">那么，不妨找来一读吧！</p>
-       <p class="mb-3 text-xl text-gray-600 dark:text-slate-400">自己读的好处是可以从读书的过程中发现新的启发</p>
-       <p class="mb-3 text-xl text-gray-600 dark:text-slate-400">听书是为了快速筛选</p>
-       <p class="mb-3 text-xl text-gray-600 dark:text-slate-400">读书则是为了慢慢品味，</p>
-       <p class="mb-3 text-xl text-gray-600 dark:text-slate-400">最终内化为自己的认知。</p>
+    <div class="border-t border-slate-800 my-16"></div>
+    <section class="py-16">
+     <div class="text-center">
+      <a href="https://kb.afoo.me" class="text-3xl font-bold text-white">福强私学</a>
+      <div class="mt-3 h-1.5 w-32 bg-gradient-to-r from-sky-500 to-cyan-400 blur-lg opacity-60 mx-auto"></div>
+      <p class="section-subheading max-w-3xl mx-auto">传道授业解惑。不用参加MBA/EMBA班，也能跟企业高管和CEO们一起学习成长！<a href="https://afoo.me/kb.html" class="text-sky-400 hover:underline">⇒ 了解更多</a></p>
+     </div>
+     <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="bg-slate-800/50 p-8 rounded-xl border border-slate-700 transition-all duration-300 hover:border-sky-500 hover:shadow-2xl hover:shadow-sky-500/10">
+       <h3 class="text-xl font-bold text-white">通识</h3>
+       <p class="mt-2 text-slate-400">提升认知与“常识”，增加智慧与先见。</p>
+      </div>
+      <div class="bg-slate-800/50 p-8 rounded-xl border border-slate-700 transition-all duration-300 hover:border-sky-500 hover:shadow-2xl hover:shadow-sky-500/10">
+       <h3 class="text-xl font-bold text-white">技术</h3>
+       <p class="mt-2 text-slate-400">从语言生态到架构规划，从信息技术到AI，紧追时代脉搏。</p>
+      </div>
+      <div class="bg-slate-800/50 p-8 rounded-xl border border-slate-700 transition-all duration-300 hover:border-sky-500 hover:shadow-2xl hover:shadow-sky-500/10">
+       <h3 class="text-xl font-bold text-white">管理</h3>
+       <p class="mt-2 text-slate-400">从专业思维转向管理思维，是认知与心智的一次跃升。</p>
+      </div>
+      <div class="bg-slate-800/50 p-8 rounded-xl border border-slate-700 transition-all duration-300 hover:border-sky-500 hover:shadow-2xl hover:shadow-sky-500/10">
+       <h3 class="text-xl font-bold text-white">商业</h3>
+       <p class="mt-2 text-slate-400">从Solopreneur到Enterpreneur，考量的是实力的综合性比拼。</p>
+      </div>
+      <div class="bg-slate-800/50 p-8 rounded-xl border border-slate-700 transition-all duration-300 hover:border-sky-500 hover:shadow-2xl hover:shadow-sky-500/10">
+       <h3 class="text-xl font-bold text-white">AI/人工智能</h3>
+       <p class="mt-2 text-slate-400">AI是增量，AI是方向，AI是现在唯一还明亮的那束光！</p>
+      </div>
+      <div class="bg-slate-800/50 p-8 rounded-xl border border-slate-700 transition-all duration-300 hover:border-sky-500 hover:shadow-2xl hover:shadow-sky-500/10">
+       <h3 class="text-xl font-bold text-white">更多系列内容</h3>
+       <p class="mt-2 text-slate-400">KnowHow系列，荐书与阅读，私学专享免费SaaS服务等。</p>
       </div>
      </div>
-     <div class="w-full px-0 sm:px-8 lg:w-1/2">
-      <a href="/jiangshu.html"> <img src="/images/minion-and-books.webp" loading="lazy" alt="福强讲书封面图"> </a>
+    </section>
+    <div class="border-t border-slate-800 my-16"></div>
+    <section class="py-16">
+     <div class="text-center">
+      <a href="https://keepoints.feishu.cn/docs/doccnFUFT1qd4JmBJukn9qPkXyf" class="text-3xl font-bold text-white">扶墙老师的课</a>
+      <div class="mt-3 h-1.5 w-32 bg-gradient-to-r from-sky-500 to-cyan-400 blur-lg opacity-60 mx-auto"></div>
+      <p class="section-subheading">所有录播课可单买，更建议订阅「福报」，其中包含了所有的录播课内容。</p>
      </div>
-    </div>
-   </section> -->
-   <section>
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 overflow-hidden">
-     <div class="py-12 md:py-20">
-      <div class="py-4 sm:py-6 lg:py-8">
-       <div class="flex flex-wrap md:-mx-8">
-        <div class="w-full lg:w-1/2 px-0 sm:px-8">
-         <div class="mb-12 lg:mb-0 pb-12 lg:pb-0 border-b lg:border-b-0">
-          <h2 class="mb-4 text-4xl lg:text-5xl font-bold font-heading"><a href="https://afoo.me/consulting.html"><span class="border-b">寻求扶墙老师解惑</span> </a></h2>
-          <p class="mb-8 text-xl text-slate-600 dark:text-slate-400">扶墙老师同时为个人和企业提供咨询服务，<br class="hidden md:inline">
-            包括但不限于技术、管理甚至商业层面的需求。 <br class="hidden md:inline">
-            有没有效，看聊效 ；）</p>
-          <div class="mt-6">
-           <a class="btn text-white bg-primary-600 hover:bg-primary-800 mb-4 sm:mb-0 w-full" href="https://afoo.me/consulting.html">
-            <svg viewBox="0 0 24 24" class="w-5 h-5 mr-1 -ml-1.5" astro-icon="tabler:help">
-             <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <circle cx="12" cy="12" r="9" />
-              <line x1="12" y1="17" x2="12" y2="17.01" />
-              <path d="M12 13.5a1.5 1.5 0 0 1 1 -1.5a2.6 2.6 0 1 0 -3 -4" />
-             </g>
-            </svg> 马上联系（Better Call Saul 🫵🏻） </a>
-          </div>
-         </div>
-        </div>
-        <div class="w-full lg:w-1/2 px-0 sm:px-8">
-         <div class="w-full mx-auto text-left">
-          <ul class="space-y-12">
-           <li class="flex md:-mx-4">
-            <div class="pr-4 sm:pl-4">
-             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="inline-block w-12 h-12 text-gray-400 mb-8" viewBox="0 0 975.036 975.036">
-              <path d="M925.036 57.197h-304c-27.6 0-50 22.4-50 50v304c0 27.601 22.4 50 50 50h145.5c-1.9 79.601-20.4 143.3-55.4 191.2-27.6 37.8-69.399 69.1-125.3 93.8-25.7 11.3-36.8 41.7-24.8 67.101l36 76c11.6 24.399 40.3 35.1 65.1 24.399 66.2-28.6 122.101-64.8 167.7-108.8 55.601-53.7 93.7-114.3 114.3-181.9 20.601-67.6 30.9-159.8 30.9-276.8v-239c0-27.599-22.401-50-50-50zM106.036 913.497c65.4-28.5 121-64.699 166.9-108.6 56.1-53.7 94.4-114.1 115-181.2 20.6-67.1 30.899-159.6 30.899-277.5v-239c0-27.6-22.399-50-50-50h-304c-27.6 0-50 22.4-50 50v304c0 27.601 22.4 50 50 50h145.5c-1.9 79.601-20.4 143.3-55.4 191.2-27.6 37.8-69.4 69.1-125.3 93.8-25.7 11.3-36.8 41.7-24.8 67.101l35.9 75.8c11.601 24.399 40.501 35.2 65.301 24.399z" />
-             </svg>
-            </div>
-            <div class="px-4">
-             <p class="leading-relaxed text-base">我觉得，去年(2022) 6 月份，不看你的那几本书，我在这个公司留不到现在。。。主要是，我感觉吧，有些私聊的针对性指导比较重要。就是个性化服务吧。</p>
-             <h2 class="mt-4 text-slate-800 font-medium title-font tracking-wider text-sm">WJ (于2023年中)</h2>
-             <p class="text-gray-500">Senior Architect</p>
-            </div></li>
-          </ul>
-         </div>
-         <div class="w-full mx-auto text-left mt-6">
-          <ul class="space-y-12">
-           <li class="flex md:-mx-4">
-            <div class="pr-4 sm:pl-4">
-             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="inline-block w-12 h-12 text-gray-400 mb-8" viewBox="0 0 975.036 975.036">
-              <path d="M925.036 57.197h-304c-27.6 0-50 22.4-50 50v304c0 27.601 22.4 50 50 50h145.5c-1.9 79.601-20.4 143.3-55.4 191.2-27.6 37.8-69.399 69.1-125.3 93.8-25.7 11.3-36.8 41.7-24.8 67.101l36 76c11.6 24.399 40.3 35.1 65.1 24.399 66.2-28.6 122.101-64.8 167.7-108.8 55.601-53.7 93.7-114.3 114.3-181.9 20.601-67.6 30.9-159.8 30.9-276.8v-239c0-27.599-22.401-50-50-50zM106.036 913.497c65.4-28.5 121-64.699 166.9-108.6 56.1-53.7 94.4-114.1 115-181.2 20.6-67.1 30.899-159.6 30.899-277.5v-239c0-27.6-22.399-50-50-50h-304c-27.6 0-50 22.4-50 50v304c0 27.601 22.4 50 50 50h145.5c-1.9 79.601-20.4 143.3-55.4 191.2-27.6 37.8-69.4 69.1-125.3 93.8-25.7 11.3-36.8 41.7-24.8 67.101l35.9 75.8c11.601 24.399 40.501 35.2 65.301 24.399z" />
-             </svg>
-            </div>
-            <div class="px-4">
-             <p class="leading-relaxed text-base">王老师，很感激您能给我这样的一次交流咨询的机会，能跟您这样的有20多年经验的职场精英专家交流，真的很激动[哇]。 让我受益匪浅，也解决了我很多方向的问题和困惑。非常感谢您对我的指点。希望以后还能有这样的机会与您交流 最后祝您身体健康，幸福，事业顺利[鼓掌][鼓掌][鼓掌]</p>
-             <h2 class="mt-4 text-slate-800 font-medium title-font tracking-wider text-sm">BoB</h2>
-             <p class="text-gray-500">大二学生</p>
-            </div></li>
-          </ul>
-         </div>
-        </div>
+     <div class="mt-16 grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+      <div class="lg:col-span-2 space-y-6">
+       <div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700 transition-all duration-300 hover:border-sky-500 hover:shadow-2xl hover:shadow-sky-500/10">
+        <h3 class="font-bold text-white text-xl">AI 通识课</h3>
+        <p class="text-slate-400 mt-2">无论 AI 如何发展，了解 AI 通识让你我在 AI 浪潮中不再迷路。</p>
+        <nav class="flex flex-col items-start space-y-1.5 text-center sm:items-start sm:text-left">
+         <span class="mt-3 mb-1"> 以下任何一个渠道购买均可： </span> <a href="https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzIzNzkzODU5Mg==&amp;action=getalbum&amp;album_id=4025666431017549834&amp;scene=126&amp;sessionid=1749713964697#wechat_redirect" target="_blank"> <span class="mr-2 inline-flex h-4 w-4 items-center justify-center rounded-full bg-indigo-100 text-indigo-500"> 
+           <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" class="h-3 w-3" viewBox="0 0 24 24">
+            <path d="M20 6L9 17l-5-5" />
+           </svg> 
+          </span> <span>微信公众号付费合集</span> </a> <a href="https://xiaobot.net/p/aifd" target="_blank"> <span class="mr-2 inline-flex h-4 w-4 items-center justify-center rounded-full bg-indigo-100 text-indigo-500"> 
+           <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" class="h-3 w-3" viewBox="0 0 24 24">
+            <path d="M20 6L9 17l-5-5" />
+           </svg> 
+          </span> <span>小报童</span> </a> <a href="https://afoo.me/kb" target="_blank"> <span class="mr-2 inline-flex h-4 w-4 items-center justify-center rounded-full bg-indigo-100 text-indigo-500"> 
+           <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" class="h-3 w-3" viewBox="0 0 24 24">
+            <path d="M20 6L9 17l-5-5" />
+           </svg> 
+          </span> <span>福强私学 内部专栏</span> </a>
+        </nav>
+       </div>
+       <div class="bg-orange-600/20 border border-orange-500/50 p-6 rounded-xl transition-all duration-300 hover:border-orange-400 hover:shadow-2xl hover:shadow-orange-400/10">
+        <h3 class="font-bold text-orange-300 text-xl"><a href="/arch.html">「架构师的修炼」大礼包</a></h3>
+        <p class="text-orange-300/80 mt-2">包括但不限于「架构思维」、「架构思维思考过去现在与未来」、「微服务深度揭秘」、「微服务架构设计模式」、「企业服务化治理」、「LoD Explained」等一系列内容。</p>
+       </div>
+       <div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700 transition-all duration-300 hover:border-sky-500 hover:shadow-2xl hover:shadow-sky-500/10">
+        <h3 class="font-bold text-white text-xl"><a href="https://afoo.me/trainings/archt.html">百万年薪架构师训练营（线下）</a></h3>
+        <p class="text-slate-400 mt-2">别人百万年薪和你只能十几万年薪的秘密原来全都在这里！差距就在这两天学习！</p>
+       </div>
+       <div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700 transition-all duration-300 hover:border-sky-500 hover:shadow-2xl hover:shadow-sky-500/10">
+        <h3 class="font-bold text-white text-xl"><a href="/mgmt.html">管理者入门与进阶课程</a></h3>
+        <p class="text-slate-400 mt-2">包含「极简管理课」电子书、「QCon+案例研习社之福强谈管理」以及「组织逻辑」等内容。 除了可以通过「福强私学」视频号付费合集访问，也可以通过<a href="https://wfq.gumroad.com/l/mgmt" target="_blank">Gumroad</a>获得(需<a href="/fq/fqrf.html">科学上网</a>)。</p>
+       </div>
+       <div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700 transition-all duration-300 hover:border-sky-500 hover:shadow-2xl hover:shadow-sky-500/10">
+        <h3 class="font-bold text-white text-xl">「创业者的修行」大礼包</h3>
+        <p class="text-slate-400 mt-2">包括但不限于《坑获》、组织逻辑、股权与期权等内容。 可以通过 <a href="https://wfq.gumroad.com/" target="_blank">Gumroad</a> 获得(需<a href="/fq/fqrf.html">科学上网</a>)，也可以通过「福强私学」视频号付费合集访问（对应内容：<a href="/founder-talks.html">「创业者说」</a>）。</p>
+       </div>
+       <div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700 transition-all duration-300 hover:border-sky-500 hover:shadow-2xl hover:shadow-sky-500/10">
+        <h3 class="font-bold text-white text-xl"><a href="https://wfq.gumroad.com" target="_blank">认知成长系列课程</a></h3>
+        <p class="text-slate-400 mt-2">包括「底层逻辑」、「组织逻辑」、「产品思维」、「架构思维」、「做事逻辑」以及「辩证思考」六部分内容。(已经并入<a href="https://wfq.gumroad.com/l/fb" target="_blank">「福报」</a>，不再单独销售)</p>
+       </div>
+      </div>
+      <div class="space-y-6">
+       <div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700 transition-all duration-300 hover:border-sky-500 hover:shadow-2xl hover:shadow-sky-500/10">
+        <h3 class="font-bold text-white text-xl mb-4">海外更多课程 (需<a href="/fq/fqrf.html" class="hover:text-sky-400 border-b border-dashed border-slate-600 hover:border-sky-400">科学上网</a>)</h3>
+        <ul class="space-y-3 text-slate-400">
+         <li><a href="https://wfq.gumroad.com/l/stablediffusion" class="hover:text-sky-400 border-b border-dashed border-slate-600 hover:border-sky-400" target="_blank">Stable Diffusion从入门到精通</a></li>
+         <li><a href="https://wfq.gumroad.com/l/vfwsg" class="hover:text-sky-400 border-b border-dashed border-slate-600 hover:border-sky-400" target="_blank">打造自己的纯文本笔记与知识管理体系</a></li>
+         <li><a href="https://wfq.gumroad.com/l/fdtk" class="hover:text-sky-400 border-b border-dashed border-slate-600 hover:border-sky-400" target="_blank">创业者说</a></li>
+         <li><a href="https://wfq.gumroad.com/l/dbabi" class="hover:text-sky-400 border-b border-dashed border-slate-600 hover:border-sky-400" target="_blank">企业高管晋升或保命秘籍</a></li>
+         <li><a href="https://wfq.gumroad.com/l/goldrush" class="hover:text-sky-400 border-b border-dashed border-slate-600 hover:border-sky-400" target="_blank">个人出海安全驾驶指南</a></li>
+        </ul>
+       </div>
+       <div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700 transition-all duration-300 hover:border-sky-500 hover:shadow-2xl hover:shadow-sky-500/10">
+        <h3 class="font-bold text-white text-xl mb-4"><a href="/ai-col.html">AI进化赢</a></h3>
+        <p>AI时代，要赢就来进化营😉</p>
+       </div>
+       <div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700 transition-all duration-300 hover:border-sky-500 hover:shadow-2xl hover:shadow-sky-500/10">
+        <h3 class="font-bold text-white text-xl mb-4"><a href="/career_bible.html">职场漫游指南</a></h3>
+        <p>职场也需要教育和辅导，否则，自己撞了南墙之后再想说sorry，那机会就早已离你而去了，不是吗？</p>
+       </div>
+       <div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700 transition-all duration-300 hover:border-sky-500 hover:shadow-2xl hover:shadow-sky-500/10">
+        <h3 class="font-bold text-white text-xl mb-4"><a href="/to_ceo_col.html">写给CEO的专栏</a></h3>
+        <p>哪些痛点和问题是CEO比较头疼甚至琢磨不透的？希望在这个专栏里会有些启示...</p>
+       </div>
+       <div class="bg-green-900/50 border border-green-500/30 p-6 rounded-xl transition-all duration-300 hover:border-green-400 hover:shadow-2xl hover:shadow-green-400/10">
+        <h3 class="font-bold text-green-300 text-lg">微信豆省钱技巧 (TIP)</h3>
+        <p class="text-sm text-green-300/80 mt-2">微信豆 web 端充值， iOS端可以省钱，android无差异。 <a href="https://webeans.my-qcloud.com/" target="_blank" class="font-semibold hover:underline">点此充值</a></p>
+        <p class="text-xs mt-2">感谢🙏 吴为 提供这个信息和技巧。</p>
        </div>
       </div>
      </div>
-    </div>
-   </section><!-- 书籍 -->
-   <section class="px-4 py-16 mx-auto max-w-5xl lg:py-20">
-    <div class="flex flex-col mb-6 lg:justify-between lg:flex-row md:mb-8">
-     <h2 class="max-w-lg mb-2 text-4xl lg:text-5xl font-bold tracking-tight sm:text-4xl sm:leading-none lg:mb-5 group font-heading"><a href="https://afoo.me/books.html"> <span class="inline-block mb-1 sm:mb-4 border-b">扶墙老师的书</span> </a></h2>
-     <p class="text-gray-700 dark:text-slate-400 lg:text-sm lg:max-w-md">始终坚持的独家原创内容！ <br>
-       👉 <a href="/books.html">点击了解更多...</a></p>
-    </div>
-    <div class="grid gap-6 row-gap-5 md:grid-cols-2 lg:grid-cols-4 -mb-6">
-     <article class="mb-6 transition">
-      <div class="relative h-0 pb-[56.25%] lg:h-64 overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg mb-6">
-       <picture>
-        <a href="https://wfq.gumroad.com" target="_blank"> <img width="900" height="506" src="https://afoo.me/images/book_cover_mgt_class.jpg" loading="lazy" decoding="async" alt="Get started with AstroWind to create a website using Astro and Tailwind CSS" class="object-cover w-full lg:h-64 rounded shadow-lg bg-gray-400 dark:bg-slate-700"> </a>
-       </picture>
-      </div>
-     </article>
-     <article class="mb-6 transition">
-      <div class="relative h-0 pb-[56.25%] lg:h-64 overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg mb-6">
-       <picture>
-        <a href="https://wfq.gumroad.com" target="_blank"> <img width="900" height="506" src="https://afoo.me/images/book_cover_way_of_deep_thinking.jpg" loading="lazy" decoding="async" alt="How to customize AstroWind template to suit your branding" class="object-cover w-full lg:h-64 rounded shadow-lg bg-gray-400 dark:bg-slate-700"> </a>
-       </picture>
-      </div>
-     </article>
-     <article class="mb-6 transition">
-      <div class="relative h-0 pb-[56.25%] lg:h-64 overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg mb-6">
-       <picture>
-        <a href="https://wfq.gumroad.com" target="_blank"> <img width="900" height="506" src="http://afoo.me/images/unveil_spring_cover.jpg" loading="lazy" decoding="async" alt="spring揭秘" class="object-cover object-top w-full lg:h-64 rounded shadow-lg bg-gray-400 dark:bg-slate-700"> </a>
-       </picture>
-      </div>
-     </article>
-     <article class="mb-6 transition">
-      <div class="relative h-0 pb-[56.25%] lg:h-64 overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg mb-6">
-       <picture>
-        <a href="https://wfq.gumroad.com" target="_blank"> <img width="900" height="506" src="http://afoo.me/images/unveil_springboot_cover.jpg" loading="lazy" decoding="async" alt="spring boot" class="object-cover object-top w-full lg:h-64 rounded shadow-lg bg-gray-400 dark:bg-slate-700"> </a>
-       </picture>
-      </div>
-     </article><!-- book row 2 -->
-     <article class="mb-6 transition">
-      <div class="relative h-0 pb-[56.25%] lg:h-64 overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg mb-6">
-       <picture>
-        <a href="https://wfq.gumroad.com" target="_blank"> <img width="900" height="506" src="http://afoo.me/images/book_cover_trial_and_error.jpg" loading="lazy" decoding="async" alt="坑获" class="object-cover object-top w-full lg:h-64 rounded shadow-lg bg-gray-400 dark:bg-slate-700"> </a>
-       </picture>
-      </div>
-     </article>
-     <article class="mb-6 transition">
-      <div class="relative h-0 pb-[56.25%] lg:h-64 overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg mb-6">
-       <picture>
-        <a href="https://wfq.gumroad.com" target="_blank"> <img width="900" height="506" src="http://afoo.me/images/cover_of_tek_commerce_and_human_beings.jpg" loading="lazy" decoding="async" alt="《技术、商业与人》" class="object-cover object-top w-full lg:h-64 rounded shadow-lg bg-gray-400 dark:bg-slate-700"> </a>
-       </picture>
-      </div>
-     </article>
-     <article class="mb-6 transition">
-      <div class="relative h-0 pb-[56.25%] lg:h-64 overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg mb-6">
-       <picture>
-        <a href="https://wfq.gumroad.com" target="_blank"> <img width="900" height="506" src="http://afoo.me/images/cover_of_tek_commerce_and_human_beings2.jpg" loading="lazy" decoding="async" alt="《技术、商业与人 II》" class="object-cover object-top w-full lg:h-64 rounded shadow-lg bg-gray-400 dark:bg-slate-700"> </a>
-       </picture>
-      </div>
-     </article>
-     <article class="mb-6 transition">
-      <div class="relative h-0 pb-[56.25%] lg:h-64 overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg mb-6">
-       <picture>
-        <a href="https://wfq.gumroad.com" target="_blank"> <img width="900" height="506" src="http://afoo.me/images/cover_simple_svelte.jpg" loading="lazy" decoding="async" alt="Simple Svelte" class="object-cover object-top w-full lg:h-64 rounded shadow-lg bg-gray-400 dark:bg-slate-700"> </a>
-       </picture>
-      </div>
-     </article><!-- end of book row 2 -->
-     <p class="-mt-12">👉 <a href="/books.html" class="border-b">点击了解更多...</a></p>
-    </div>
-    <div class="my-3 text-xl">
-     (注： 假如自己也想编写并销售PDF格式的电子书，这里也有一份可以开箱即用的pandoc PDF转换和生成模板: <a href="https://wfq.gumroad.com/l/pandoc-pdf-template" class="border-b" target="_blank">https://wfq.gumroad.com/l/pandoc-pdf-template</a>, 需<a href="/fq/fqrf.html" class="border-b">科学上网</a>)
-    </div>
-   </section><!-- 福报 -->
-   <section>
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 overflow-hidden">
-     <div class="py-12 md:py-20">
-      <div class="py-4 sm:py-6 lg:py-8">
-       <div class="flex flex-wrap md:-mx-8">
-        <div class="w-full lg:w-1/2 px-0 sm:px-8">
-         <div class="mb-12 lg:mb-0 pb-12 lg:pb-0 border-b lg:border-b-0">
-          <h2 class="mb-4 text-4xl lg:text-5xl font-bold font-heading"><a href="https://store.afoo.me/l/fb"><span class="border-b">福报</span> </a></h2>
-          <p class="mb-8 text-xl text-slate-600 dark:text-slate-400"><a href="https://store.afoo.me/l/fb" class="border-b">「福报」</a>会员服务提供持续更新的独家原创内容 + 高质量的付费社区 + 一对一及时咨询。 <br>
-            知识 + 支持(Learn &amp; Mentor)，<b>一次订阅，终身受益！</b></p>
-          <div class="relative mb-4 m-auto max-w-3xl">
-           <picture>
-            <a href="https://store.afoo.me/l/fb"> <img src="/images/fb_subscribe.jpg" loading="lazy" decoding="async" alt="Hero Image" class="mx-auto rounded-md bg-primary w-full"> </a>
-           </picture>
-          </div>
-          <div class="mt-6">
-           <a class="btn text-white bg-primary-600 hover:bg-primary-800 mb-4 sm:mb-0 w-full" href="https://store.afoo.me/l/fb">
-            <svg viewBox="0 0 24 24" class="w-5 h-5 mr-1 -ml-1.5" astro-icon="tabler:download">
-             <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M9.828 9.172a4 4 0 1 0 0 5.656a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
-             </g>
-            </svg> 开启订阅，开启连接，开启无限可能 </a>
-          </div>
-         </div>
-        </div>
-        <div class="w-full lg:w-1/2 px-0 sm:px-8">
-         <div class="w-full mx-auto text-left">
-          <ul class="space-y-12">
-           <li class="flex md:-mx-4">
-            <div class="pr-4 sm:pl-4">
-             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="inline-block w-12 h-12 text-gray-400 mb-8" viewBox="0 0 975.036 975.036">
-              <path d="M925.036 57.197h-304c-27.6 0-50 22.4-50 50v304c0 27.601 22.4 50 50 50h145.5c-1.9 79.601-20.4 143.3-55.4 191.2-27.6 37.8-69.399 69.1-125.3 93.8-25.7 11.3-36.8 41.7-24.8 67.101l36 76c11.6 24.399 40.3 35.1 65.1 24.399 66.2-28.6 122.101-64.8 167.7-108.8 55.601-53.7 93.7-114.3 114.3-181.9 20.601-67.6 30.9-159.8 30.9-276.8v-239c0-27.599-22.401-50-50-50zM106.036 913.497c65.4-28.5 121-64.699 166.9-108.6 56.1-53.7 94.4-114.1 115-181.2 20.6-67.1 30.899-159.6 30.899-277.5v-239c0-27.6-22.399-50-50-50h-304c-27.6 0-50 22.4-50 50v304c0 27.601 22.4 50 50 50h145.5c-1.9 79.601-20.4 143.3-55.4 191.2-27.6 37.8-69.4 69.1-125.3 93.8-25.7 11.3-36.8 41.7-24.8 67.101l35.9 75.8c11.601 24.399 40.501 35.2 65.301 24.399z" />
-             </svg>
-            </div>
-            <div class="px-4">
-             <p class="leading-relaxed text-base">福报里大数据架构与方案相关内容对于我们建设数据平台和中台很有启发！</p>
-             <h2 class="mt-4 text-slate-800 font-medium title-font tracking-wider text-sm">Jason</h2>
-             <p class="text-gray-500">原海天味业CIO</p>
-            </div></li>
-          </ul>
-         </div>
-        </div>
-       </div>
-      </div>
+    </section>
+    <div class="border-t border-slate-800 my-16"></div>
+    <section class="py-16">
+     <div class="text-center">
+      <a href="https://afoo.me/books.html" class="text-3xl font-bold text-white">扶墙老师的书</a>
+      <div class="mt-3 h-1.5 w-32 bg-gradient-to-r from-sky-500 to-cyan-400 blur-lg opacity-60 mx-auto"></div>
+      <p class="section-subheading">始终坚持的独家原创内容！ <a href="/books.html" class="text-sky-400 hover:underline">⇒ 点击了解更多</a></p>
      </div>
+     <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
+      <a href="https://wfq.gumroad.com" target="_blank" class="group block"><img src="https://afoo.me/images/book_cover_mgt_class.jpg" loading="lazy" alt="管理课" class="rounded-lg aspect-[3/4] object-cover transition-transform duration-300 group-hover:scale-105"></a> <a href="https://wfq.gumroad.com" target="_blank" class="group block"><img src="https://afoo.me/images/book_cover_way_of_deep_thinking.jpg" loading="lazy" alt="深度思考" class="rounded-lg aspect-[3/4] object-cover transition-transform duration-300 group-hover:scale-105"></a> <a href="https://wfq.gumroad.com" target="_blank" class="group block"><img src="http://afoo.me/images/unveil_spring_cover.jpg" loading="lazy" alt="Spring揭秘" class="rounded-lg aspect-[3/4] object-cover transition-transform duration-300 group-hover:scale-105"></a> <a href="https://wfq.gumroad.com" target="_blank" class="group block"><img src="http://afoo.me/images/unveil_springboot_cover.jpg" loading="lazy" alt="SpringBoot揭秘" class="rounded-lg aspect-[3/4] object-cover transition-transform duration-300 group-hover:scale-105"></a> <a href="https://wfq.gumroad.com" target="_blank" class="group block"><img src="http://afoo.me/images/book_cover_trial_and_error.jpg" loading="lazy" alt="坑获" class="rounded-lg aspect-[3/4] object-cover transition-transform duration-300 group-hover:scale-105"></a> <a href="https://wfq.gumroad.com" target="_blank" class="group block"><img src="http://afoo.me/images/cover_of_tek_commerce_and_human_beings.jpg" loading="lazy" alt="技术商业与人" class="rounded-lg aspect-[3/4] object-cover transition-transform duration-300 group-hover:scale-105"></a> <a href="https://wfq.gumroad.com" target="_blank" class="group block"><img src="http://afoo.me/images/cover_of_tek_commerce_and_human_beings2.jpg" loading="lazy" alt="技术商业与人2" class="rounded-lg aspect-[3/4] object-cover transition-transform duration-300 group-hover:scale-105"></a> <a href="https://wfq.gumroad.com" target="_blank" class="group block"><img src="http://afoo.me/images/cover_simple_svelte.jpg" loading="lazy" alt="Simple Svelte" class="rounded-lg aspect-[3/4] object-cover transition-transform duration-300 group-hover:scale-105"></a>
+     </div>
+    </section>
+    <div class="border-t border-slate-800 my-16"></div>
+    <section class="py-16 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+     <div class="bg-slate-800/50 p-8 rounded-xl border border-slate-700">
+      <h2 class="text-3xl font-bold text-white">寻求扶墙老师解惑</h2>
+      <p class="mt-4 text-slate-400">为个人和企业提供咨询服务，包括但不限于技术、管理甚至商业层面的需求。有没有效，看聊效 ;）</p>
+      <a href="https://afoo.me/consulting.html" class="mt-6 inline-block bg-sky-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-sky-600 transition-all duration-300">马上联系</a>
+      <blockquote class="mt-8 border-l-4 border-slate-600 pl-4">
+       <p class="text-slate-400 italic">"不看你的那几本书，我感觉我在这个公司留不到现在...有些私聊的针对性指导比较重要。"</p>
+       <cite class="mt-2 block text-sm text-slate-500 not-italic">— WJ, Senior Architect</cite>
+      </blockquote>
+     </div>
+     <div class="bg-slate-800/50 p-8 rounded-xl border border-slate-700">
+      <h2 class="text-3xl font-bold text-white">福报会员</h2>
+      <p class="mt-4 text-slate-400">持续更新的独家原创内容 + 高质量的付费社区 + 一对一及时咨询。一次订阅，终身受益！</p>
+      <a href="https://wfq.gumroad.com/l/fb" target="_blank" class="mt-6 inline-block bg-purple-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-purple-600 transition-all duration-300">开启订阅</a>
+      <blockquote class="mt-8 border-l-4 border-slate-600 pl-4">
+       <p class="text-slate-400 italic">"福报里大数据架构与方案相关内容对于我们建设数据平台和中台很有启发！"</p>
+       <cite class="mt-2 block text-sm text-slate-500 not-italic">— Jason, 原海天味业CIO</cite>
+      </blockquote>
+     </div>
+    </section>
+   </main>
+   <footer class="text-center py-12 mt-16 border-t border-slate-800">
+    <div class="flex justify-center space-x-6 mb-6">
+     <a href="https://x.com/afoo_me" target="_blank" aria-label="Twitter" class="text-slate-500 hover:text-white transition-colors"> 
+      <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+       <path d="M22.46,6C21.69,6.35 20.86,6.58 20,6.69C20.88,6.16 21.56,5.32 21.88,4.31C21.05,4.81 20.13,5.16 19.16,5.36C18.37,4.5 17.26,4 16,4C13.65,4 11.73,5.92 11.73,8.29C11.73,8.63 11.77,8.96 11.84,9.27C8.28,9.09 5.11,7.38 3,4.79C2.63,5.42 2.42,6.16 2.42,6.94C2.42,8.43 3.17,9.75 4.33,10.5C3.62,10.5 2.96,10.3 2.38,10C2.38,10 2.38,10 2.38,10.03C2.38,12.11 3.86,13.85 5.82,14.24C5.46,14.34 5.08,14.39 4.69,14.39C4.42,14.39 4.15,14.36 3.89,14.31C4.43,16 6,17.26 7.89,17.29C6.43,18.45 4.58,19.13 2.56,19.13C2.22,19.13 1.88,19.11 1.54,19.07C3.44,20.29 5.7,21 8.12,21C16,21 20.33,14.46 20.33,8.79C20.33,8.6 20.33,8.42 20.32,8.23C21.16,7.63 21.88,6.87 22.46,6Z" />
+      </svg> 
+     </a> <a href="https://github.com/fujohnwang" target="_blank" aria-label="GitHub" class="text-slate-500 hover:text-white transition-colors"> 
+      <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+       <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.492.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.378.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.943.359.308.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" />
+      </svg> 
+     </a> <a href="http://afoo.me/feeds.xml" target="_blank" aria-label="RSS" class="text-slate-500 hover:text-white transition-colors"> 
+      <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+       <path d="M6.18,15.64A2.18,2.18,0,1,1,4,13.46,2.18,2.18,0,0,1,6.18,15.64M4,4.44A12.56,12.56,0,0,1,16.56,17H14.07A10.07,10.07,0,0,0,4,6.93V4.44M4,10.1a6.9,6.9,0,0,1,6.9,6.9H8.41A4.41,4.41,0,0,0,4,12.59Z" />
+      </svg> 
+     </a>
     </div>
-   </section><!-- <section id="just_for_fun">
-    <div class="mx-auto w-full max-w-7xl px-5 py-16 md:px-10 md:py-24 lg:py-32">
-     <img src="/images/old-boy.jpg" alt="老小福强" loading="lazy" class="mx-auto">
-    </div>
-   </section> -->
-  </main>
-  <div style="
-                position: fixed;
-                left: 0;
-                bottom: 0;
-                padding: 10px;
-                z-index: 1000;
-            ">
-   <img src="/icons/Written-By-Human-Not-By-AI-Badge-black@2x.png" alt loading="lazy">
+    <p class="text-slate-500 text-sm">Copyright © 王福强个人版权所有 - Since 2004</p>
+    <p class="text-slate-600 text-xs mt-2">Everything is homebrewed with <a href="https://pandoc.org/" target="_blank">Pandoc</a> and Markdown, little <a href="https://www.scala-lang.org/" target="_blank">Scala</a> also included.</p>
+   </footer>
   </div>
-  <footer class="border-t border-gray-200 dark:border-slate-800">
-   <div class="max-w-5xl mx-auto px-4 sm:px-6">
-    <div class="md:flex md:items-center md:justify-between py-6 md:py-8">
-     <ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0">
-      <li><a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Twitter" href="https://twitter.com/afoo_me">
-        <svg viewBox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-twitter">
-         <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z" />
-        </svg></a></li>
-      <li><a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Facebook" href="https://www.facebook.com/fujohnwang/">
-        <svg viewBox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-facebook">
-         <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2H7" />
-        </svg></a></li>
-      <li><a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Github" href="https://github.com/fujohnwang">
-        <svg viewBox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-github">
-         <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21" />
-        </svg></a></li>
-     </ul>
-     <div class="text-sm text-gray-700 mr-4 dark:text-slate-400">
-      <span class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 float-left rounded-sm"> <img src="https://afoo.me/favicon.svg" class="rounded-md" alt> </span> Copyright © 王福强个人版权所有 - Since 2004 (Everything is homebrewed with <a href="https://pandoc.org/">Pandoc</a> and Markdown, little <a href="https://www.scala-lang.org/">Scala</a> also included.)
-     </div>
-    </div>
-   </div>
-  </footer>
   <script>
-            // Set "light" theme as default
-            if (!localStorage.theme) {
-                localStorage.theme = "light";
-            }
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const openIcon = document.getElementById('menu-open-icon');
+        const closeIcon = document.getElementById('menu-close-icon');
 
-            if (
-                localStorage.theme === "dark" ||
-                (!("theme" in localStorage) &&
-                    window.matchMedia("(prefers-color-scheme: dark)").matches)
-            ) {
-                document.documentElement.classList.add("dark");
-            } else {
-                document.documentElement.classList.remove("dark");
-            }
-
-            function attachEvent(selector, event, fn) {
-                const matches = document.querySelectorAll(selector);
-                if (matches && matches.length) {
-                    matches.forEach((elem) => {
-                        elem.addEventListener(event, () => fn(elem), false);
-                    });
-                }
-            }
-
-            window.onload = function () {
-                attachEvent("[data-toggle-menu]", "click", function (elem) {
-                    elem.classList.toggle("expanded");
-                    document.body.classList.toggle("overflow-hidden");
-                    document
-                        .getElementById("header")
-                        ?.classList.toggle("h-screen");
-                    document
-                        .querySelector("#header nav")
-                        ?.classList.toggle("hidden");
-                });
-
-attachEvent("[data-toggle-color-scheme]", "click", function () {
-                    document.documentElement.classList.toggle("light");
-                    localStorage.theme = "light";
-                });
-
-                attachEvent("[data-social-share]", "click", function (elem) {
-                    const network = elem.getAttribute("data-social-share");
-                    const url = encodeURIComponent(
-                        elem.getAttribute("data-url"),
-                    );
-                    const text = encodeURIComponent(
-                        elem.getAttribute("data-text"),
-                    );
-
-                    let href;
-                    switch (network) {
-                        case "facebook":
-                            href = `https://www.facebook.com/fujohnwang`;
-                            break;
-                        case "twitter":
-                            href = `https://twitter.com/afoo_me`;
-                            break;
-                        case "linkedin":
-                            href = `https://www.linkedin.com/in/fuqiangwang/`;
-                            break;
-                        case "mail":
-                            href = `mailto:fujohnwang@gmail.com?subject=%22${text}%22&body=${text}%20${url}`;
-                            break;
-
-                        default:
-                            return;
-                    }
-
-                    const newlink = document.createElement("a");
-                    newlink.target = "_blank";
-                    newlink.href = href;
-                    newlink.click();
-                });
-            };
-            window.onpageshow = function () {
-                const elem = document.querySelector("[data-toggle-menu]");
-                if (elem) {
-                    elem.classList.remove("expanded");
-                }
-                document.body.classList.remove("overflow-hidden");
-                document.getElementById("header")?.classList.remove("h-screen");
-                document.querySelector("#header nav")?.classList.add("hidden");
-            };
-        </script>
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            openIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
+        });
+    </script>
  </body>
 </html>
