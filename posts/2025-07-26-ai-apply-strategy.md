@@ -1,4 +1,4 @@
-% 使用AI的基础思路（Still stands）
+% 使用AI的基础步骤（Still stands）
 % 王福强
 % 2025-07-26
 
