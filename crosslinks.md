@@ -89,3 +89,4 @@
 - [曾国藩六诫](/zeng6.html)
 
 
+![](https://files.catbox.moe/rwqi91.png)
