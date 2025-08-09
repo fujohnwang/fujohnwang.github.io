@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="福强的本周AI热点回顾与简评 - 架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="福强的本周AI热点回顾与简评 - 福强说，扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+  <meta name="robots" content="index,follow"> 
+  <title>福强的本周AI热点回顾与简评 -王福强的个人博客：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2025-08-04"> 
+  <meta property="og:title" content="福强的本周AI热点回顾与简评"> 
+  <meta property="og:type" content="landing page"> 
+  <meta property="og:url" content="https://afoo.me/posts/2025-08-09-ai-weekly.html"> 
+  <meta property="og:image" content="https://og.afoo.me?url=https://afoo.me/posts/2025-08-09-ai-weekly.html"> 
+  <meta name="twitter:card" content="summary_large_image"> 
+  <meta name="twitter:title" content="福强的本周AI热点回顾与简评"> 
+  <meta name="twitter:site" content="@afoo_me"> 
+  <meta name="twitter:creator" content="@afoo_me"> 
+  <meta name="twitter:image" content="https://og.afoo.me?url=https://afoo.me/posts/2025-08-09-ai-weekly.html"> 
+  <meta name="twitter:description" content="福强的本周AI热点回顾与简评 - 王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <link rel="canonical" href="https://afoo.me/posts/2025-08-09-ai-weekly.html"> 
+  <link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"> 
+  <link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8"> 
+  <script src="https://unpkg.com/htmx.org@1.9.5"></script> 
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <script src="https://unpkg.com/@popperjs/core@2"></script> 
+  <script src="https://unpkg.com/tippy.js@6"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link rel="stylesheet" href="/css/components.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
+  <style type="text/css">
+        pre > code{
+          white-space: pre-wrap;
+          font-family: monospace;
+          font-size: 14px;
+          /* border-left: blueviolet;
+          border-left-width: thick;
+          border-left-style: double;
+          padding-left: 1rem !important; */
+        }
+        
+        .x-indicator{
+            display:none;
+        }
+        .htmx-request .x-indicator{
+            display:inline;
+        }
+        .htmx-request.x-indicator{
+            display:inline;
+        }
+    </style> 
+  <style type="text/css">
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { color: #008000; } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    </style> 
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "福强的本周AI热点回顾与简评",
+      "image": [
+        "https://afoo.me/images/fb_subscribe.jpg"
+       ],
+      "datePublished": "2025-08-04",
+      "author": [{
+          "@type": "Person",
+          "name": "王福强",
+          "url": "https://afoo.me"
+        }]
+    }
+  </script> 
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3687639021943715" crossorigin="anonymous"></script> 
+ </head> 
+ <body class="antialiased text-slate-800 dark:text-slate-300 tracking-tight bg-slate-50 dark:bg-gray-900 vsc-initialized"> 
+  <header class="sticky top-0 z-40 flex-none mx-auto w-full bg-slate-50 md:bg-slate-50/90 dark:bg-gray-900 dark:md:bg-gray-900/90 md:backdrop-blur-sm border-b border-slate-200 dark:border-b-0" id="header"> 
+   <div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"> 
+    <div class="flex justify-between"> <a class="flex items-center" href="https://afoo.me"> <span class="self-center ml-2 text-2xl font-extrabold text-slate-800 whitespace-nowrap dark:text-white"> <img src="/images/afoo.PNG" alt="logo" style="height:60px;"> </span> </a> 
+     <div class="flex items-center md:hidden"> <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""> 
+       <svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+         <circle cx="12" cy="12" r="4"></circle> 
+         <path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"> 
+         </path> 
+        </g> 
+       </svg> </button> <button type="button" class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition" aria-label="Toggle Menu" data-toggle-menu=""> 
+       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:menu"> <g class="icon-tabler" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+         <path d="M4 8h16"></path> 
+         <path d="M4 16h16"></path> 
+        </g> 
+       </svg> </button> 
+     </div> 
+    </div> 
+    <nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"> 
+     <ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"> 
+      <li><a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://kb.afoo.me/">福强私学</a></li> 
+      <li> <a id="aiedu" class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://ai.afoo.me"> 福强AI学堂</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com">架构百科</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html">博客文章 </a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html">创作出版</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://store.afoo.me">产品与服务</a> </li> 
+      <li><a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://auth.afoo.me/user.html">登录信息</a></li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/crosslinks.html">更多链接</a> </li> 
+     </ul> 
+     <div class="md:self-center flex items-center mb-4 md:mb-0 ml-2"> 
+      <div class="hidden items-center md:flex"> <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+          <circle cx="12" cy="12" r="4"></circle> 
+          <path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"> 
+          </path> 
+         </g> 
+        </svg> </button> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="RSS Feed" href="http://afoo.me/feeds.xml"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:rss"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+          <circle cx="5" cy="19" r="1"></circle> 
+          <path d="M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"></path> 
+         </g> 
+        </svg> </a> 
+      </div> 
+     </div> 
+    </nav> 
+   </div> 
+  </header> 
+  <main> 
+   <div id="leftSlot" class="visible md:invisible fixed top-0 left-0" style="width: 16rem;height: 80%;margin-top: 4rem;"> <!-- left --> 
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="3581141418" data-ad-format="auto" data-full-width-responsive="true"></ins> 
+    <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+      </script> 
+   </div> 
+   <div id="rightSlot" class="visible md:invisible fixed top-0 right-0" style="width: 16rem;height: 80%;margin-top: 4rem;"> <!-- right --> 
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="7030836806" data-ad-format="auto" data-full-width-responsive="true"></ins> 
+    <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script> 
+   </div> 
+   <section class="text-gray-600 body-font relative"> 
+    <div class="max-w-4xl mx-auto px-5 py-24 mb-12 prose prose-lg dark:prose-invert"> 
+     <p class="lead"> </p>
+     <h1 class="title">福强的本周AI热点回顾与简评</h1> <small> <h3 class="author">王福强</h3> 
+      <div style="text-align: left;">
+       2025-08-04
+      </div> </small> 
+     <p></p> <!-- random --> 
+     <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="2722720851" data-ad-format="auto" data-full-width-responsive="true"></ins> 
+     <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script> 
+     <hr> 
+     <p><strong>关注「福强私学」，紧跟AI前沿。</strong></p> 
+     <h2 id="ai-理论">AI 理论</h2> 
+     <p>暂无</p> 
+     <h2 id="ai-模型">AI 模型</h2> 
+     <h3 id="qwen-image">Qwen-Image</h3> 
+     <p>千问发了个开源图像生成的模型，重点突出文字海报的本地特色文字生成能力。</p> 
+     <ul> 
+      <li>https://qwenlm.github.io/blog/qwen-image/</li> 
+      <li>https://huggingface.co/Qwen/Qwen-Image</li> 
+     </ul> 
+     <h3 id="gpt-oss">gpt-oss</h3> 
+     <p>OpenAI 这回真的Open了两个模型， gpt-oss 120b和20b</p> <!-- ![](https://files.catbox.moe/3zrlb5.jpg) --> 
+     <p><img src="https://youke1.picui.cn/s1/2025/08/09/6896b21a5ebf9.png"></p> 
+     <p>各大平台和 AI IDE 跟进都挺快，刚发布就都支持了🤣</p> 
+     <p>另外，他们还顺道开放了使用的Reponse format： https://github.com/openai/harmony</p> 
+     <h3 id="claude-opus-4.1">Claude Opus 4.1</h3> 
+     <p>有用户经常反映说 Claude 4 降智了， 这次Claude 发布的Opus 4.1反而跟之前的模型差不多 🤣</p> 
+     <h3 id="genie-3">Genie 3</h3> 
+     <p>Google发布了新的世界模型Genie 3， 继李飞飞开辟世界模型（World Model）赛道之后，这个赛道也开始卷了🤣</p> 
+     <h3 id="dots.ocr">dots.ocr</h3> 
+     <p>小红书发了一个VLM模型<a href="https://huggingface.co/rednote-hilab/dots.ocr">dots.ocr</a></p> 
+     <h3 id="gpt-5">GPT-5</h3> 
+     <p>OpenAI本周也发布了让人期盼已久的GPT-5模型， https://openai.com/gpt-5/</p> 
+     <p>不过，可能是创始人给大家的预期太高，反响反而没那么高。🤣</p> 
+     <p><img src="https://youke1.picui.cn/s1/2025/08/09/6896b26fd0d48.png"></p> 
+     <h2 id="ai-产品">AI 产品</h2> 
+     <h3 id="flow-maker">Flow Maker</h3> 
+     <p>基于节点的产品很多了，LlamaIndex又发布了一个<a href="https://github.com/run-llama/flow-maker">Flow Maker</a></p> 
+     <p>可以帮助用户可视化的方式构建Agent程序。</p> 
+     <h3 id="gemini-storybook">Gemini Storybook</h3> 
+     <p><a href="https://gemini.google.com/gem/storybook">Gemini Storybook</a> 可以生成儿童绘本故事书</p> 
+     <p>只要描述要生成的故事，它就会给你生出一套角色一致性和风格都不错的故事绘本。</p> 
+     <p>还支持音频和自动播放。</p> 
+     <p>中文除了音频不支持，文字和插画都支持。</p> 
+     <h3 id="groq-cli">groq-cli</h3> 
+     <p>groq也发布了一个AI CLI客户端 <a href="https://github.com/build-with-groq/groq-code-cli">groq-cli</a></p> 
+     <blockquote> 
+      <p>NOTE</p> 
+      <p>是groq，不是grok。 grok是马斯克家的AI产品， groq是海外一家AI服务提供商（MaaS）。</p> 
+      <p>另外， qwen-cli开放了每天2000个免费请求的权益，还是靠免费策略拉人头啊，否则活跃度估计上不去😂</p> 
+     </blockquote> 
+     <h3 id="kvectors">KVectors</h3> 
+     <p>夹带私货啦～</p> 
+     <p><a href="https://github.com/fujohnwang/kvectors">KVectors</a>是本周新起的坑儿，即 Vector Store from Keevol(.cn)</p> 
+     <p>一个用纯Java（scala）实现的向量存储数据库， 只专注于语意相似性搜索。</p> 
+     <p><img src="https://youke1.picui.cn/s1/2025/08/09/6896b2710b843.png"></p> 
+     <p><a href="https://img.shields.io/badge/Make%20Java-Great%20Again-green.svg?style=flat">Make Java Great Again</a> 🤣</p> 
+     <p>从开始的7s打到200+ms，回头看看能不能进一步压缩到20ms左右…</p> 
+     <p>压倒10ms以下，我就可以对外吹牛逼了，跟头部产品对标，🤪， 比如milvus</p> 
+     <p><img src="https://youke1.picui.cn/s1/2025/08/09/6896b27061de3.png"></p> 
+     <p>感觉上更nb的硬件，可能还有更大的压榨空间</p> 
+     <h2 id="ai-infraai基础设施">AI Infra（AI基础设施）</h2> 
+     <h3 id="github-models开放了一个免费的聚合api服务">Github Models开放了一个免费的聚合API服务</h3> 
+     <p>为所有Github Models上的模型开放了一个兼容OpenAI API的Endpoint：</p> 
+     <div class="sourceCode" id="cb1">
+      <pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> OpenAI <span class="im">from</span> <span class="st">"openai"</span><span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> openai <span class="op">=</span> <span class="kw">new</span> <span class="fu">OpenAI</span>({</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">baseURL</span><span class="op">:</span> <span class="st">"https://models.github.ai/inference/chat/completions"</span><span class="op">,</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">apiKey</span><span class="op">:</span> <span class="bu">process</span><span class="op">.</span><span class="at">env</span><span class="op">.</span><span class="at">GITHUB_TOKEN</span>  <span class="co">// or any PAT with models:read</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> res <span class="op">=</span> <span class="cf">await</span> openai<span class="op">.</span><span class="at">chat</span><span class="op">.</span><span class="at">completions</span><span class="op">.</span><span class="fu">create</span>({</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">model</span><span class="op">:</span> <span class="st">"openai/gpt-4o"</span><span class="op">,</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">messages</span><span class="op">:</span> [{ <span class="dt">role</span><span class="op">:</span> <span class="st">"user"</span><span class="op">,</span> <span class="dt">content</span><span class="op">:</span> <span class="st">"Hi!"</span> }]</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(res<span class="op">.</span><span class="at">choices</span>[<span class="dv">0</span>]<span class="op">.</span><span class="at">message</span><span class="op">.</span><span class="at">content</span>)<span class="op">;</span></span></code></pre>
+     </div> 
+     <p>在项目没有起量之前，基本上等于免费使用。</p> 
+     <p>比如我用Scala写个代码测试如下：</p> 
+     <div class="sourceCode" id="cb2">
+      <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> req <span class="op">=</span> OpenAIPayloadBuilder<span class="op">.</span><span class="fu">build</span><span class="op">(</span><span class="st">"openai/gpt-4o"</span><span class="op">,</span> <span class="st">"tell me a joke"</span><span class="op">)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> response <span class="op">=</span> <span class="fu">OpenAIClient</span><span class="op">(</span><span class="st">"https://models.github.ai/inference/chat/completions"</span><span class="op">,</span> <span class="ex">System</span><span class="op">.</span><span class="fu">getenv</span><span class="op">(</span><span class="st">"GITHUB_MODEL_ACCESS_TOKEN"</span><span class="op">),</span> req<span class="op">)</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span><span class="op">(</span>JsonPath<span class="op">.</span><span class="fu">getString</span><span class="op">(</span><span class="kw">new</span> <span class="fu">JsonObject</span><span class="op">(</span>response<span class="op">),</span> <span class="st">"$.choices[0].message.content"</span><span class="op">))</span></span></code></pre>
+     </div> 
+     <p>获得的响应内容挺有意思，分享给大家：</p> 
+     <pre><code>Why don’t skeletons fight each other?
+
+Because they don’t have the guts! 😄</code></pre> 
+     <p>更多详情：https://github.blog/ai-and-ml/llms/solving-the-inference-problem-for-open-source-ai-projects-with-github-models/</p> 
+     <h2 id="ai-相关推荐阅读">AI 相关推荐阅读</h2> 
+     <ul> 
+      <li><a href="https://aipositive.substack.com/p/from-prompt-to-code-part-1-inside">From Prompt to Code Part 1: Inside the Gemini CLI’s Execution Engine</a></li> 
+     </ul> <!-- tail --> 
+     <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="7874087130" data-ad-format="auto" data-full-width-responsive="true"></ins> 
+     <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script> 
+     <hr> 
+     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+     </div> 
+     <div id="random_posts"> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2024-11-09-no-advice-proactively.html">别轻易给人建议！ </a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2024-08-29-a-founder-story.html">一个十年创业者的酸甜苦辣 </a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2023-09-05-chrome-tips.html">Chrome浏览器让你欲罢不能的三个小技巧 </a> 
+      </div> 
+     </div> 
+     <hr> 
+     <div id="comments"></div> 
+     <hr> <!-- Section CTA --> 
+     <section class="overflow-x-clip bg-zinc-50 py-16 md:py-24"> 
+      <div class="relative mx-auto w-full max-w-screen-xl px-4"> 
+       <div class="relative z-10 w-full"> <!-- 福强私学推荐 --> 
+        <div class="mx-auto max-w-screen-md"> 
+         <h2 class="mb-4 text-center text-4xl font-bold md:text-5xl"><a href="https://afoo.me/kb.html" class="border-b">「福强私学」</a>来一个？</h2> 
+         <p class="mx-auto mb-8 w-full text-center text-lg leading-8 text-zinc-700 md:w-5/6 md:text-xl">「福强私学」, 一部沉淀了个人成长、技术与架构、组织与管理以及商业上的方法与心法的百科全书。</p> 
+        </div> 
+        <div class="mx-auto mt-6 w-full md:mt-12 md:w-4/5"> <a href="https://afoo.me/kb.html"> <img alt="footer img for kb.afoo.me" loading="lazy" width="2911" height="1961" decoding="async" data-nimg="1" class="mx-auto rounded-lg object-contain shadow-lg sm:rounded-2xl lg:rounded-3xl" style="color:transparent" src="https://og.afoo.me/?url=footer"> </a> 
+        </div> <!-- 小报童推荐 --> 
+        <div class="mx-auto max-w-screen-md"> 
+         <h2 class="mt-8 mb-4 text-center text-4xl font-bold md:text-5xl"><a href="https://xiaobot.net/p/aifd" class="border-b">福强老师的 AI 通识课</a></h2><a href="https://xiaobot.net/p/aifd" class="border-b"> </a>
+        </div><a href="https://xiaobot.net/p/aifd" class="border-b"> </a>
+        <div class="mx-auto mt-6 w-full md:mt-12 md:w-4/5">
+         <a href="https://xiaobot.net/p/aifd" class="border-b"> </a><a href="https://xiaobot.net/p/aifd"> <img alt="footer img for kb.afoo.me" loading="lazy" width="2911" height="1961" decoding="async" data-nimg="1" class="mx-auto rounded-lg object-contain shadow-lg sm:rounded-2xl lg:rounded-3xl" style="color:transparent" src="/images/xbt-footer.webp"> </a> 
+        </div> 
+        <div class="mx-auto mt-6 w-full md:mt-12 md:w-4/5"> 
+         <img alt="footer img for kb.afoo.me" loading="lazy" decoding="async" data-nimg="1" class="mx-auto p-3" style="color:transparent" src="/images/footer-links-2025.webp"> 
+        </div> 
+       </div> 
+      </div> 
+     </section> 
+     <hr> 
+     <p> <span style="font-size: xx-large;"> 开天窗，拉认知，订阅「福报」，即刻拥有自己的全模态人工智能。 </span> </p> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe_v2.jpg" alt="订阅「福报」"> </a> 
+     <hr> 
+     <div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"> 
+      <div id="tfloader" class="x-indicator"> 
+       <svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"> <g fill="none" fill-rule="evenodd"> 
+         <g transform="translate(1 1)" stroke-width="2"> 
+          <circle cx="5" cy="50" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+          <circle cx="27" cy="5" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+          <circle cx="49" cy="50" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+         </g> 
+        </g> 
+       </svg> 
+      </div> 
+     </div> 
+    </div> 
+   </section> 
+  </main> 
+  <div style="position: fixed; left: 0; bottom: 0; padding: 10px; z-index: 1000;"> 
+   <img src="/icons/Written-By-Human-Not-By-AI-Badge-black@2x.png" alt loading="lazy"> 
+  </div> 
+  <footer class="border-t border-gray-200 dark:border-slate-800"> 
+   <div class="max-w-6xl mx-auto px-4 sm:px-6"> 
+    <div class="md:flex md:items-center md:justify-between py-6 md:py-8"> 
+     <ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0"> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Twitter" href="https://twitter.com/afoo_me"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-twitter"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z"> 
+         </path> 
+        </svg> </a> </li> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Facebook" href="https://www.facebook.com/fujohnwang/"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-facebook"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2H7"></path> 
+        </svg> </a> </li> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Github" href="https://github.com/fujohnwang"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-github"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"> 
+         </path> 
+        </svg> </a> </li> 
+     </ul> 
+     <div class="text-sm text-gray-700 mr-4 dark:text-slate-400"> <span class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 float-left rounded-sm"> <img src="https://afoo.me/favicon.svg" class="rounded-md" alt> </span> Copyright © 王福强个人版权所有 - Since 2004 (Everything is homebrewed with <a href="https://pandoc.org/">Pandoc</a> and Markdown, little <a href="https://www.scala-lang.org/">Scala</a> also included.) 
+     </div> 
+    </div> 
+   </div> 
+  </footer> 
+  <script>
+        // Set "light" theme as default
+        if (!localStorage.theme) {
+            localStorage.theme = "light";
+        }
+
+        if (
+            localStorage.theme === 'dark' ||
+            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function attachEvent(selector, event, fn) {
+            const matches = document.querySelectorAll(selector);
+            if (matches && matches.length) {
+                matches.forEach((elem) => {
+                    elem.addEventListener(event, () => fn(elem), false);
+                });
+            }
+        }
+
+        window.onload = function () {
+            attachEvent('[data-toggle-menu]', 'click', function (elem) {
+                elem.classList.toggle('expanded');
+                document.body.classList.toggle('overflow-hidden');
+                document.getElementById('header')?.classList.toggle('h-screen');
+                document.querySelector('#header nav')?.classList.toggle('hidden');
+            });
+            attachEvent("[data-toggle-color-scheme]", "click", function () {
+                    document.documentElement.classList.toggle("light");
+                    localStorage.theme = "light";
+                });
+        };
+        window.onpageshow = function () {
+            const elem = document.querySelector('[data-toggle-menu]');
+            if (elem) {
+                elem.classList.remove('expanded');
+            }
+            document.body.classList.remove('overflow-hidden');
+            document.getElementById('header')?.classList.remove('h-screen');
+            document.querySelector('#header nav')?.classList.add('hidden');
+        };
+    </script> 
+  <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '518a605d711883414ac0',
+          clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+          repo: 'afoo.me.comments',
+          owner: 'fujohnwang',
+          admin: ['fujohnwang'],
+          id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+        gitalk.render('comments')
+    </script> 
+  <script src="https://formspree.io/js/formbutton-v1.min.js" defer></script> 
+  <script>
+  /* paste this line in verbatim */
+  window.formbutton=window.formbutton||function(){(formbutton.q=formbutton.q||[]).push(arguments)};
+  /* customize formbutton below*/     
+  formbutton("create", {
+    action: "https://formspree.io/f/xknlpkkd",
+    title: "有什么可以帮到您？💕💕💕 How can I help you?",
+    buttonImg: "<img src='https://afoo.me/hero3/70.webp' alt/>",
+    fields: [
+      { 
+        type: "email", 
+        label: "您的电子邮箱（方便与您联系）:", 
+        name: "email",
+        required: true,
+        placeholder: "your@email.com"
+      },
+      {
+        type: "textarea",
+        label: "您想提交的反馈和询问信息:",
+        name: "message",
+        placeholder: "What's on your mind?",
+      },
+      { type: "submit" }      
+    ],
+    styles: {
+      title: {
+        backgroundColor: "blue"
+      },
+      button: {
+        backgroundColor: "blue"
+      }
+    }
+  });
+</script> 
+  <script>
+	// tooltips
+	tippy('#aiedu', {
+        content: "As to AI nowadays, LLM and Stable Diffusion are hot even hottest among them, If your want to both know-why and know-how with them, instead of only know-how which can't repeat itself, you should get you to https://ai.afoo.me right now ❗"
+    });  
+</script>  
+ </body>
+</html>
