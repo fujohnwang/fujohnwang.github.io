@@ -5,6 +5,450 @@
     <link>http://afoo.me</link>
     <description>王福强的个人博客：一个架构士的思考与沉淀</description>
     <item>
+      <title>KVectors 向量数据库基本成型！</title>
+      <link>http://afoo.me/posts/2025-08-22-kvectors-intro.html</link>
+      <description>&lt;!doctype html&gt;
+&lt;html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]"&gt; 
+ &lt;head&gt; 
+  &lt;meta charset="utf-8"&gt; 
+  &lt;meta name="keywords" content="KVectors 向量数据库基本成型！ - 架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
+  &lt;meta name="description" content="KVectors 向量数据库基本成型！ - 福强说，扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
+  &lt;meta name="author" content="王福强"&gt; 
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
+  &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt; 
+  &lt;meta name="robots" content="index,follow"&gt; 
+  &lt;title&gt;KVectors 向量数据库基本成型！ -王福强的个人博客：一个架构士的思考与沉淀&lt;/title&gt; 
+  &lt;meta name="date" content="2025-08-22"&gt; 
+  &lt;meta property="og:title" content="KVectors 向量数据库基本成型！"&gt; 
+  &lt;meta property="og:type" content="landing page"&gt; 
+  &lt;meta property="og:url" content="https://afoo.me/posts/2025-08-22-kvectors-intro.html"&gt; 
+  &lt;meta property="og:image" content="https://og.afoo.me?url=https://afoo.me/posts/2025-08-22-kvectors-intro.html"&gt; 
+  &lt;meta name="twitter:card" content="summary_large_image"&gt; 
+  &lt;meta name="twitter:title" content="KVectors 向量数据库基本成型！"&gt; 
+  &lt;meta name="twitter:site" content="@afoo_me"&gt; 
+  &lt;meta name="twitter:creator" content="@afoo_me"&gt; 
+  &lt;meta name="twitter:image" content="https://og.afoo.me?url=https://afoo.me/posts/2025-08-22-kvectors-intro.html"&gt; 
+  &lt;meta name="twitter:description" content="KVectors 向量数据库基本成型！ - 王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
+  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
+  &lt;link rel="canonical" href="https://afoo.me/posts/2025-08-22-kvectors-intro.html"&gt; 
+  &lt;link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"&gt; 
+  &lt;link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8"&gt; 
+  &lt;script src="https://unpkg.com/htmx.org@1.9.5"&gt;&lt;/script&gt; 
+  &lt;link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"&gt; 
+  &lt;script src="https://unpkg.com/gitalk/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script src="https://unpkg.com/@popperjs/core@2"&gt;&lt;/script&gt; 
+  &lt;script src="https://unpkg.com/tippy.js@6"&gt;&lt;/script&gt; 
+  &lt;link rel="stylesheet" href="/css/af.css"&gt; 
+  &lt;link rel="stylesheet" href="/css/components.css"&gt; 
+  &lt;link ref="stylesheet" href="/css/pygments.css"&gt; 
+  &lt;style type="text/css"&gt;
+        pre &gt; code{
+          white-space: pre-wrap;
+          font-family: monospace;
+          font-size: 14px;
+          /* border-left: blueviolet;
+          border-left-width: thick;
+          border-left-style: double;
+          padding-left: 1rem !important; */
+        }
+        
+        .x-indicator{
+            display:none;
+        }
+        .htmx-request .x-indicator{
+            display:inline;
+        }
+        .htmx-request.x-indicator{
+            display:inline;
+        }
+    &lt;/style&gt; 
+  &lt;style type="text/css"&gt;
+      pre &gt; code.sourceCode { white-space: pre; position: relative; }
+      pre &gt; code.sourceCode &gt; span { line-height: 1.25; }
+      pre &gt; code.sourceCode &gt; span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode &gt; span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre &gt; code.sourceCode { white-space: pre-wrap; }
+      pre &gt; code.sourceCode &gt; span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code &gt; span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code &gt; span &gt; a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre &gt; code.sourceCode &gt; span &gt; a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { color: #008000; } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    &lt;/style&gt; 
+  &lt;script type="application/ld+json"&gt;
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "KVectors 向量数据库基本成型！",
+      "image": [
+        "https://afoo.me/images/fb_subscribe.jpg"
+       ],
+      "datePublished": "2025-08-22",
+      "author": [{
+          "@type": "Person",
+          "name": "王福强",
+          "url": "https://afoo.me"
+        }]
+    }
+  &lt;/script&gt; 
+  &lt;script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3687639021943715" crossorigin="anonymous"&gt;&lt;/script&gt; 
+ &lt;/head&gt; 
+ &lt;body class="antialiased text-slate-800 dark:text-slate-300 tracking-tight bg-slate-50 dark:bg-gray-900 vsc-initialized"&gt; 
+  &lt;header class="sticky top-0 z-40 flex-none mx-auto w-full bg-slate-50 md:bg-slate-50/90 dark:bg-gray-900 dark:md:bg-gray-900/90 md:backdrop-blur-sm border-b border-slate-200 dark:border-b-0" id="header"&gt; 
+   &lt;div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"&gt; 
+    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-slate-800 whitespace-nowrap dark:text-white"&gt; &lt;img src="/images/afoo.PNG" alt="logo" style="height:60px;"&gt; &lt;/span&gt; &lt;/a&gt; 
+     &lt;div class="flex items-center md:hidden"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
+       &lt;svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
+         &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
+         &lt;path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"&gt; 
+         &lt;/path&gt; 
+        &lt;/g&gt; 
+       &lt;/svg&gt; &lt;/button&gt; &lt;button type="button" class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition" aria-label="Toggle Menu" data-toggle-menu=""&gt; 
+       &lt;svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:menu"&gt; &lt;g class="icon-tabler" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"&gt; 
+         &lt;path d="M4 8h16"&gt;&lt;/path&gt; 
+         &lt;path d="M4 16h16"&gt;&lt;/path&gt; 
+        &lt;/g&gt; 
+       &lt;/svg&gt; &lt;/button&gt; 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+    &lt;nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"&gt; 
+     &lt;ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"&gt; 
+      &lt;li&gt;&lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://kb.afoo.me/"&gt;福强私学&lt;/a&gt;&lt;/li&gt; 
+      &lt;li&gt; &lt;a id="aiedu" class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://ai.afoo.me"&gt; 福强AI学堂&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com"&gt;架构百科&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html"&gt;博客文章 &lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html"&gt;创作出版&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://store.afoo.me"&gt;产品与服务&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt;&lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://auth.afoo.me/user.html"&gt;登录信息&lt;/a&gt;&lt;/li&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
+     &lt;/ul&gt; 
+     &lt;div class="md:self-center flex items-center mb-4 md:mb-0 ml-2"&gt; 
+      &lt;div class="hidden items-center md:flex"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
+        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
+          &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
+          &lt;path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"&gt; 
+          &lt;/path&gt; 
+         &lt;/g&gt; 
+        &lt;/svg&gt; &lt;/button&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="RSS Feed" href="http://afoo.me/feeds.xml"&gt; 
+        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:rss"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
+          &lt;circle cx="5" cy="19" r="1"&gt;&lt;/circle&gt; 
+          &lt;path d="M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"&gt;&lt;/path&gt; 
+         &lt;/g&gt; 
+        &lt;/svg&gt; &lt;/a&gt; 
+      &lt;/div&gt; 
+     &lt;/div&gt; 
+    &lt;/nav&gt; 
+   &lt;/div&gt; 
+  &lt;/header&gt; 
+  &lt;main&gt; 
+   &lt;div id="leftSlot" class="visible md:invisible fixed top-0 left-0" style="width: 16rem;height: 80%;margin-top: 4rem;"&gt; &lt;!-- left --&gt; 
+    &lt;ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="3581141418" data-ad-format="auto" data-full-width-responsive="true"&gt;&lt;/ins&gt; 
+    &lt;script&gt;
+          (adsbygoogle = window.adsbygoogle || []).push({});
+      &lt;/script&gt; 
+   &lt;/div&gt; 
+   &lt;div id="rightSlot" class="visible md:invisible fixed top-0 right-0" style="width: 16rem;height: 80%;margin-top: 4rem;"&gt; &lt;!-- right --&gt; 
+    &lt;ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="7030836806" data-ad-format="auto" data-full-width-responsive="true"&gt;&lt;/ins&gt; 
+    &lt;script&gt;
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      &lt;/script&gt; 
+   &lt;/div&gt; 
+   &lt;section class="text-gray-600 body-font relative"&gt; 
+    &lt;div class="max-w-4xl mx-auto px-5 py-24 mb-12 prose prose-lg dark:prose-invert"&gt; 
+     &lt;p class="lead"&gt; &lt;/p&gt;
+     &lt;h1 class="title"&gt;KVectors 向量数据库基本成型！&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt; 
+      &lt;div style="text-align: left;"&gt;
+       2025-08-22
+      &lt;/div&gt; &lt;/small&gt; 
+     &lt;p&gt;&lt;/p&gt; &lt;!-- random --&gt; 
+     &lt;ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="2722720851" data-ad-format="auto" data-full-width-responsive="true"&gt;&lt;/ins&gt; 
+     &lt;script&gt;
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            &lt;/script&gt; 
+     &lt;hr&gt; 
+     &lt;p&gt;从这个月初（2025年8月初）开始筹划和编写KVectors的第一行代码，今天用&lt;a href="http://corpus-texmex.irisa.fr/"&gt;Sift的一百万向量数据集&lt;/a&gt;对AnnIndexVectorCollection做了个简单的测试（10亿那个数据集太大，我这2019年的老MacbookPro肚量不够，放不下🤣），怎么说呢？&lt;/p&gt; 
+     &lt;p&gt;构建索引的速度出乎我的意料，可能之前也没有具体的标准，反正不到六分钟， 100万向量就压缩和索引完成：&lt;/p&gt; 
+     &lt;p&gt;&lt;img src="./images/8f15097a63d9578296ff5a64a855cff8.jpg"&gt;&lt;/p&gt; 
+     &lt;p&gt;&lt;img src="./images/7d4f01f84fde792a4151efa511783ae4.jpg"&gt;&lt;/p&gt; 
+     &lt;p&gt;我在设计构建索引的触发方法上添加了webhook支持， 这样，大数据集的索引构建可以异步在后台跑，跑完了可以选择发个通知，同时，为了省事，也可以直接上线构建完成的新索引（生产环境建议验证索引后再手动enable新索引）：&lt;/p&gt; 
+     &lt;div class="sourceCode" id="cb1"&gt;
+      &lt;pre class="sourceCode scala"&gt;&lt;code class="sourceCode scala"&gt;&lt;span id="cb1-1"&gt;&lt;a href="#cb1-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;def&lt;/span&gt; &lt;span class="fu"&gt;buildFullIndexAsync&lt;/span&gt;&lt;span class="op"&gt;(&lt;/span&gt;enableAfterBuildSuccess&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="ex"&gt;Boolean&lt;/span&gt; &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="kw"&gt;true&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; webhook&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="ex"&gt;Option&lt;/span&gt;&lt;span class="op"&gt;[&lt;/span&gt;&lt;span class="ex"&gt;URL&lt;/span&gt;&lt;span class="op"&gt;]&lt;/span&gt; &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="bu"&gt;None&lt;/span&gt;&lt;span class="op"&gt;):&lt;/span&gt; CompletableFuture&lt;span class="op"&gt;[&lt;/span&gt;&lt;span class="ex"&gt;Void&lt;/span&gt;&lt;span class="op"&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+     &lt;/div&gt; 
+     &lt;p&gt;反而查询结果更出乎我意料，mmd，居然 100+ 毫秒的时延， 不应该啊！ 虽然我也没怎么正经的做性能测试：&lt;/p&gt; 
+     &lt;p&gt;&lt;img src="./images/0e9556a4f3371daa7e8418dd78e8c4e6.jpg"&gt;&lt;/p&gt; 
+     &lt;p&gt;想了下才发现问题在哪儿，原来是每个查询向量的加载牵扯了文件系统的IO，而我把这些时间也给平均进去了，怪不得呢…（果然没正经做测试😂）&lt;/p&gt; 
+     &lt;p&gt;&lt;img src="./images/f0019d148cfe7f5d6d3cdc3eb6d4ddf4.jpg"&gt;&lt;/p&gt; 
+     &lt;p&gt;至此， KVectors分别支持了三大类Vector Collections:&lt;/p&gt; 
+     &lt;ul&gt; 
+      &lt;li&gt;InMemoryNoIndexVectorCollection&lt;/li&gt; 
+      &lt;li&gt;GeneralNoIndexVectorCollection&lt;/li&gt; 
+      &lt;li&gt;AnnIndexVectorCollection&lt;/li&gt; 
+     &lt;/ul&gt; 
+     &lt;p&gt;基本满足了测试、小数据量以及大规模向量数据的索引与相似性检索需求。&lt;/p&gt; 
+     &lt;p&gt;KVectors的定位就是只做向量数据库：&lt;/p&gt; 
+     &lt;p&gt;&lt;img src="./images/kvectors-positioning.jpg"&gt;&lt;/p&gt; 
+     &lt;p&gt;之所以定位就是因为，我始终认为大模型与算力的生意是大厂拼杀大战场，跟SMB没啥关系，SMB要么做AI应用，要么就找个能抓住的点。&lt;/p&gt; 
+     &lt;p&gt;另外，为什么用Java/Scala写呢？&lt;/p&gt; 
+     &lt;p&gt;也是因为Java Vector API经历了七八轮incubator，也该进入正式发布了，基于Java Vector API，我们可以充分利用现代CPU的SIMD特性，极大加快向量相似性计算。&lt;/p&gt; 
+     &lt;p&gt;除此之外， KVecvtors还用了一些业界比较先进的思想和实践，比如HNSW和DiskANN算法&lt;/p&gt; 
+     &lt;p&gt;这其实也是为啥我能不到一个月就搞定这个产品原型的原因了，站在了巨人的肩膀上🤪&lt;/p&gt; 
+     &lt;p&gt;希望后面可以让KVectors在智能客服、知识库、推荐系统等场景发光发热。&lt;/p&gt; 
+     &lt;pre&gt;&lt;code&gt;
+ ██╗  ██╗ ██╗   ██╗ ███████╗  ██████╗ ████████╗  ██████╗  ██████╗  ███████╗
+ ██║ ██╔╝ ██║   ██║ ██╔════╝ ██╔════╝ ╚══██╔══╝ ██╔═══██╗ ██╔══██╗ ██╔════╝
+ █████╔╝  ██║   ██║ █████╗   ██║         ██║    ██║   ██║ ██████╔╝ ███████╗
+ ██╔═██╗  ╚██╗ ██╔╝ ██╔══╝   ██║         ██║    ██║   ██║ ██╔══██╗ ╚════██║
+ ██║  ██╗  ╚████╔╝  ███████╗ ╚██████╗    ██║    ╚██████╔╝ ██║  ██║ ███████║
+ ╚═╝  ╚═╝   ╚═══╝   ╚══════╝  ╚═════╝    ╚═╝     ╚═════╝  ╚═╝  ╚═╝ ╚══════╝&lt;/code&gt;&lt;/pre&gt; 
+     &lt;p&gt;Make Java Great Again！&lt;/p&gt; &lt;!-- tail --&gt; 
+     &lt;ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="7874087130" data-ad-format="auto" data-full-width-responsive="true"&gt;&lt;/ins&gt; 
+     &lt;script&gt;
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            &lt;/script&gt; 
+     &lt;hr&gt; 
+     &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div id="random_posts"&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2007-08-04-fucking-ridiculous.html"&gt;到底是在彰显什么？ &lt;/a&gt; 
+      &lt;/div&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2023-04-22-3-GPT-models-for-poor.html"&gt;中国企业自建GPT服务的三款开源可商用模型 &lt;/a&gt; 
+      &lt;/div&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2021-03-28-springcloud-vs-k8s.html"&gt;SpringCloud与K8S谁与争锋？ &lt;/a&gt; 
+      &lt;/div&gt; 
+     &lt;/div&gt; 
+     &lt;hr&gt; 
+     &lt;div id="comments"&gt;&lt;/div&gt; 
+     &lt;hr&gt; &lt;!-- Section CTA --&gt; 
+     &lt;section class="overflow-x-clip bg-zinc-50 py-16 md:py-24"&gt; 
+      &lt;div class="relative mx-auto w-full max-w-screen-xl px-4"&gt; 
+       &lt;div class="relative z-10 w-full"&gt; &lt;!-- 福强私学推荐 --&gt; 
+        &lt;div class="mx-auto max-w-screen-md"&gt; 
+         &lt;h2 class="mb-4 text-center text-4xl font-bold md:text-5xl"&gt;&lt;a href="https://afoo.me/kb.html" class="border-b"&gt;「福强私学」&lt;/a&gt;来一个？&lt;/h2&gt; 
+         &lt;p class="mx-auto mb-8 w-full text-center text-lg leading-8 text-zinc-700 md:w-5/6 md:text-xl"&gt;「福强私学」, 一部沉淀了个人成长、技术与架构、组织与管理以及商业上的方法与心法的百科全书。&lt;/p&gt; 
+        &lt;/div&gt; 
+        &lt;div class="mx-auto mt-6 w-full md:mt-12 md:w-4/5"&gt; &lt;a href="https://afoo.me/kb.html"&gt; &lt;img alt="footer img for kb.afoo.me" loading="lazy" width="2911" height="1961" decoding="async" data-nimg="1" class="mx-auto rounded-lg object-contain shadow-lg sm:rounded-2xl lg:rounded-3xl" style="color:transparent" src="https://og.afoo.me/?url=footer"&gt; &lt;/a&gt; 
+        &lt;/div&gt; &lt;!-- 小报童推荐 --&gt; 
+        &lt;div class="mx-auto max-w-screen-md"&gt; 
+         &lt;h2 class="mt-8 mb-4 text-center text-4xl font-bold md:text-5xl"&gt;&lt;a href="https://xiaobot.net/p/aifd" class="border-b"&gt;福强老师的 AI 通识课&lt;/a&gt;&lt;/h2&gt;&lt;a href="https://xiaobot.net/p/aifd" class="border-b"&gt; &lt;/a&gt;
+        &lt;/div&gt;&lt;a href="https://xiaobot.net/p/aifd" class="border-b"&gt; &lt;/a&gt;
+        &lt;div class="mx-auto mt-6 w-full md:mt-12 md:w-4/5"&gt;
+         &lt;a href="https://xiaobot.net/p/aifd" class="border-b"&gt; &lt;/a&gt;&lt;a href="https://xiaobot.net/p/aifd"&gt; &lt;img alt="footer img for kb.afoo.me" loading="lazy" width="2911" height="1961" decoding="async" data-nimg="1" class="mx-auto rounded-lg object-contain shadow-lg sm:rounded-2xl lg:rounded-3xl" style="color:transparent" src="/images/xbt-footer.webp"&gt; &lt;/a&gt; 
+        &lt;/div&gt; 
+        &lt;div class="mx-auto mt-6 w-full md:mt-12 md:w-4/5"&gt; 
+         &lt;img alt="footer img for kb.afoo.me" loading="lazy" decoding="async" data-nimg="1" class="mx-auto p-3" style="color:transparent" src="/images/footer-links-2025.webp"&gt; 
+        &lt;/div&gt; 
+       &lt;/div&gt; 
+      &lt;/div&gt; 
+     &lt;/section&gt; 
+     &lt;hr&gt; 
+     &lt;p&gt; &lt;span style="font-size: xx-large;"&gt; 开天窗，拉认知，订阅「福报」，即刻拥有自己的全模态人工智能。 &lt;/span&gt; &lt;/p&gt; &lt;a href="https://wfq.gumroad.com/l/fb"&gt; &lt;img src="/images/fb_subscribe_v2.jpg" alt="订阅「福报」"&gt; &lt;/a&gt; 
+     &lt;hr&gt; 
+     &lt;div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"&gt; 
+      &lt;div id="tfloader" class="x-indicator"&gt; 
+       &lt;svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"&gt; &lt;g fill="none" fill-rule="evenodd"&gt; 
+         &lt;g transform="translate(1 1)" stroke-width="2"&gt; 
+          &lt;circle cx="5" cy="50" r="5"&gt; 
+           &lt;animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /&gt; 
+           &lt;animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /&gt; 
+          &lt;/circle&gt; 
+          &lt;circle cx="27" cy="5" r="5"&gt; 
+           &lt;animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /&gt; 
+           &lt;animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /&gt; 
+          &lt;/circle&gt; 
+          &lt;circle cx="49" cy="50" r="5"&gt; 
+           &lt;animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /&gt; 
+           &lt;animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /&gt; 
+          &lt;/circle&gt; 
+         &lt;/g&gt; 
+        &lt;/g&gt; 
+       &lt;/svg&gt; 
+      &lt;/div&gt; 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+   &lt;/section&gt; 
+  &lt;/main&gt; 
+  &lt;div style="position: fixed; left: 0; bottom: 0; padding: 10px; z-index: 1000;"&gt; 
+   &lt;img src="/icons/Written-By-Human-Not-By-AI-Badge-black@2x.png" alt loading="lazy"&gt; 
+  &lt;/div&gt; 
+  &lt;footer class="border-t border-gray-200 dark:border-slate-800"&gt; 
+   &lt;div class="max-w-6xl mx-auto px-4 sm:px-6"&gt; 
+    &lt;div class="md:flex md:items-center md:justify-between py-6 md:py-8"&gt; 
+     &lt;ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0"&gt; 
+      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Twitter" href="https://twitter.com/afoo_me"&gt; 
+        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-twitter"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z"&gt; 
+         &lt;/path&gt; 
+        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Facebook" href="https://www.facebook.com/fujohnwang/"&gt; 
+        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-facebook"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2H7"&gt;&lt;/path&gt; 
+        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Github" href="https://github.com/fujohnwang"&gt; 
+        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-github"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"&gt; 
+         &lt;/path&gt; 
+        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
+     &lt;/ul&gt; 
+     &lt;div class="text-sm text-gray-700 mr-4 dark:text-slate-400"&gt; &lt;span class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 float-left rounded-sm"&gt; &lt;img src="https://afoo.me/favicon.svg" class="rounded-md" alt&gt; &lt;/span&gt; Copyright © 王福强个人版权所有 - Since 2004 (Everything is homebrewed with &lt;a href="https://pandoc.org/"&gt;Pandoc&lt;/a&gt; and Markdown, little &lt;a href="https://www.scala-lang.org/"&gt;Scala&lt;/a&gt; also included.) 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/footer&gt; 
+  &lt;script&gt;
+        // Set "light" theme as default
+        if (!localStorage.theme) {
+            localStorage.theme = "light";
+        }
+
+        if (
+            localStorage.theme === 'dark' ||
+            (!('theme' in localStorage) &amp;&amp; window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function attachEvent(selector, event, fn) {
+            const matches = document.querySelectorAll(selector);
+            if (matches &amp;&amp; matches.length) {
+                matches.forEach((elem) =&gt; {
+                    elem.addEventListener(event, () =&gt; fn(elem), false);
+                });
+            }
+        }
+
+        window.onload = function () {
+            attachEvent('[data-toggle-menu]', 'click', function (elem) {
+                elem.classList.toggle('expanded');
+                document.body.classList.toggle('overflow-hidden');
+                document.getElementById('header')?.classList.toggle('h-screen');
+                document.querySelector('#header nav')?.classList.toggle('hidden');
+            });
+            attachEvent("[data-toggle-color-scheme]", "click", function () {
+                    document.documentElement.classList.toggle("light");
+                    localStorage.theme = "light";
+                });
+        };
+        window.onpageshow = function () {
+            const elem = document.querySelector('[data-toggle-menu]');
+            if (elem) {
+                elem.classList.remove('expanded');
+            }
+            document.body.classList.remove('overflow-hidden');
+            document.getElementById('header')?.classList.remove('h-screen');
+            document.querySelector('#header nav')?.classList.add('hidden');
+        };
+    &lt;/script&gt; 
+  &lt;script type="text/javascript"&gt;
+        var gitalk = new Gitalk({
+          clientID: '518a605d711883414ac0',
+          clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+          repo: 'afoo.me.comments',
+          owner: 'fujohnwang',
+          admin: ['fujohnwang'],
+          id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+        gitalk.render('comments')
+    &lt;/script&gt; 
+  &lt;script src="https://formspree.io/js/formbutton-v1.min.js" defer&gt;&lt;/script&gt; 
+  &lt;script&gt;
+  /* paste this line in verbatim */
+  window.formbutton=window.formbutton||function(){(formbutton.q=formbutton.q||[]).push(arguments)};
+  /* customize formbutton below*/     
+  formbutton("create", {
+    action: "https://formspree.io/f/xknlpkkd",
+    title: "有什么可以帮到您？💕💕💕 How can I help you?",
+    buttonImg: "&lt;img src='https://afoo.me/hero3/70.webp' alt/&gt;",
+    fields: [
+      { 
+        type: "email", 
+        label: "您的电子邮箱（方便与您联系）:", 
+        name: "email",
+        required: true,
+        placeholder: "your@email.com"
+      },
+      {
+        type: "textarea",
+        label: "您想提交的反馈和询问信息:",
+        name: "message",
+        placeholder: "What's on your mind?",
+      },
+      { type: "submit" }      
+    ],
+    styles: {
+      title: {
+        backgroundColor: "blue"
+      },
+      button: {
+        backgroundColor: "blue"
+      }
+    }
+  });
+&lt;/script&gt; 
+  &lt;script&gt;
+	// tooltips
+	tippy('#aiedu', {
+        content: "As to AI nowadays, LLM and Stable Diffusion are hot even hottest among them, If your want to both know-why and know-how with them, instead of only know-how which can't repeat itself, you should get you to https://ai.afoo.me right now ❗"
+    });  
+&lt;/script&gt;  
+ &lt;/body&gt;
+&lt;/html&gt;</description>
+      <pubDate>Thu, 21 Aug 2025 16:00:00 GMT</pubDate>
+      <guid>http://afoo.me/posts/2025-08-22-kvectors-intro.html</guid>
+      <dc:date>2025-08-21T16:00:00Z</dc:date>
+    </item>
+    <item>
       <title>职业生涯真的有策略可循吗？</title>
       <link>http://afoo.me/posts/2025-08-19-career-strategy.html</link>
       <description>&lt;!doctype html&gt;
@@ -178,7 +622,7 @@
      &lt;blockquote&gt; 
       &lt;p&gt;糟糕的环境会把普通人变坏、阴毒:所以不能指望人，要指望制度、文化[得意]&lt;/p&gt; 
      &lt;/blockquote&gt; 
-     &lt;p&gt;其实，读过我的《极简管理课》 的同学都知道，制度和文化，其实原本就是环境的一部分，而环境，也是人塑造的。&lt;/p&gt; 
+     &lt;p&gt;其实，读过我的&lt;a href="https://afoo.me/books.html"&gt;《极简管理课》&lt;/a&gt; 的同学都知道，制度和文化，其实原本就是环境的一部分，而环境，也是人塑造的。&lt;/p&gt; 
      &lt;p&gt;老板的价值观，其实就是企业的价值观，老板想要塑造什么环境，自然会选择什么样的制度来塑造它，也会选择塑造什么样的企业文化来巩固它。&lt;/p&gt; &lt;!-- tail --&gt; 
      &lt;ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="7874087130" data-ad-format="auto" data-full-width-responsive="true"&gt;&lt;/ins&gt; 
      &lt;script&gt;
@@ -188,11 +632,11 @@
      &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
      &lt;/div&gt; 
      &lt;div id="random_posts"&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2011-12-16-first-meet-hadoop-mrv2.html"&gt;“初探Hadoop MapReduce NextGen|MRv2|YARN(工作上下文紧急切换， 该篇待续)” &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2024-09-21-sharp-thinking.html"&gt;如何拥有犀利的思维？ &lt;/a&gt; 
       &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2021-02-19-tech-releases-looking-forward-to-this-year.html"&gt;今年值得期待的几个技术发布 &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2023-11-28-death-of-commercial-research-institute.html"&gt;公司研究院的诅咒 &lt;/a&gt; 
       &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2025-04-18-AI-fake-requirements.html"&gt;这些都是AI伪需求？ &lt;/a&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-05-06-travel-to-lijiang-chap02.html"&gt;终于成行的丽江之旅(2) &lt;/a&gt; 
       &lt;/div&gt; 
      &lt;/div&gt; 
      &lt;hr&gt; 
@@ -3909,405 +4353,6 @@ Because they don’t have the guts! 😄&lt;/code&gt;&lt;/pre&gt;
       <pubDate>Mon, 21 Jul 2025 16:00:00 GMT</pubDate>
       <guid>http://afoo.me/posts/2025-07-22-ai-lowers-the-moat-of-software-industry.html</guid>
       <dc:date>2025-07-21T16:00:00Z</dc:date>
-    </item>
-    <item>
-      <title>福强的本周AI热点回顾与简评</title>
-      <link>http://afoo.me/posts/2025-07-19-ai-weekly.html</link>
-      <description>&lt;!doctype html&gt;
-&lt;html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]"&gt; 
- &lt;head&gt; 
-  &lt;meta charset="utf-8"&gt; 
-  &lt;meta name="keywords" content="福强的本周AI热点回顾与简评 - 架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
-  &lt;meta name="description" content="福强的本周AI热点回顾与简评 - 福强说，扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
-  &lt;meta name="author" content="王福强"&gt; 
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
-  &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt; 
-  &lt;meta name="robots" content="index,follow"&gt; 
-  &lt;title&gt;福强的本周AI热点回顾与简评 -王福强的个人博客：一个架构士的思考与沉淀&lt;/title&gt; 
-  &lt;meta name="date" content="2025-07-19"&gt; 
-  &lt;meta property="og:title" content="福强的本周AI热点回顾与简评"&gt; 
-  &lt;meta property="og:type" content="landing page"&gt; 
-  &lt;meta property="og:url" content="https://afoo.me/posts/2025-07-19-ai-weekly.html"&gt; 
-  &lt;meta property="og:image" content="https://og.afoo.me?url=https://afoo.me/posts/2025-07-19-ai-weekly.html"&gt; 
-  &lt;meta name="twitter:card" content="summary_large_image"&gt; 
-  &lt;meta name="twitter:title" content="福强的本周AI热点回顾与简评"&gt; 
-  &lt;meta name="twitter:site" content="@afoo_me"&gt; 
-  &lt;meta name="twitter:creator" content="@afoo_me"&gt; 
-  &lt;meta name="twitter:image" content="https://og.afoo.me?url=https://afoo.me/posts/2025-07-19-ai-weekly.html"&gt; 
-  &lt;meta name="twitter:description" content="福强的本周AI热点回顾与简评 - 王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
-  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
-  &lt;link rel="canonical" href="https://afoo.me/posts/2025-07-19-ai-weekly.html"&gt; 
-  &lt;link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"&gt; 
-  &lt;link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8"&gt; 
-  &lt;script src="https://unpkg.com/htmx.org@1.9.5"&gt;&lt;/script&gt; 
-  &lt;link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"&gt; 
-  &lt;script src="https://unpkg.com/gitalk/dist/gitalk.min.js"&gt;&lt;/script&gt; 
-  &lt;script src="https://unpkg.com/@popperjs/core@2"&gt;&lt;/script&gt; 
-  &lt;script src="https://unpkg.com/tippy.js@6"&gt;&lt;/script&gt; 
-  &lt;link rel="stylesheet" href="/css/af.css"&gt; 
-  &lt;link rel="stylesheet" href="/css/components.css"&gt; 
-  &lt;link ref="stylesheet" href="/css/pygments.css"&gt; 
-  &lt;style type="text/css"&gt;
-        pre &gt; code{
-          white-space: pre-wrap;
-          font-family: monospace;
-          font-size: 14px;
-          /* border-left: blueviolet;
-          border-left-width: thick;
-          border-left-style: double;
-          padding-left: 1rem !important; */
-        }
-        
-        .x-indicator{
-            display:none;
-        }
-        .htmx-request .x-indicator{
-            display:inline;
-        }
-        .htmx-request.x-indicator{
-            display:inline;
-        }
-    &lt;/style&gt; 
-  &lt;script type="application/ld+json"&gt;
-    {
-      "@context": "https://schema.org",
-      "@type": "NewsArticle",
-      "headline": "福强的本周AI热点回顾与简评",
-      "image": [
-        "https://afoo.me/images/fb_subscribe.jpg"
-       ],
-      "datePublished": "2025-07-19",
-      "author": [{
-          "@type": "Person",
-          "name": "王福强",
-          "url": "https://afoo.me"
-        }]
-    }
-  &lt;/script&gt; 
-  &lt;script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3687639021943715" crossorigin="anonymous"&gt;&lt;/script&gt; 
- &lt;/head&gt; 
- &lt;body class="antialiased text-slate-800 dark:text-slate-300 tracking-tight bg-slate-50 dark:bg-gray-900 vsc-initialized"&gt; 
-  &lt;header class="sticky top-0 z-40 flex-none mx-auto w-full bg-slate-50 md:bg-slate-50/90 dark:bg-gray-900 dark:md:bg-gray-900/90 md:backdrop-blur-sm border-b border-slate-200 dark:border-b-0" id="header"&gt; 
-   &lt;div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"&gt; 
-    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-slate-800 whitespace-nowrap dark:text-white"&gt; &lt;img src="/images/afoo.PNG" alt="logo" style="height:60px;"&gt; &lt;/span&gt; &lt;/a&gt; 
-     &lt;div class="flex items-center md:hidden"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
-       &lt;svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
-         &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
-         &lt;path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"&gt; 
-         &lt;/path&gt; 
-        &lt;/g&gt; 
-       &lt;/svg&gt; &lt;/button&gt; &lt;button type="button" class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition" aria-label="Toggle Menu" data-toggle-menu=""&gt; 
-       &lt;svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:menu"&gt; &lt;g class="icon-tabler" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"&gt; 
-         &lt;path d="M4 8h16"&gt;&lt;/path&gt; 
-         &lt;path d="M4 16h16"&gt;&lt;/path&gt; 
-        &lt;/g&gt; 
-       &lt;/svg&gt; &lt;/button&gt; 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-    &lt;nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"&gt; 
-     &lt;ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"&gt; 
-      &lt;li&gt;&lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://kb.afoo.me/"&gt;福强私学&lt;/a&gt;&lt;/li&gt; 
-      &lt;li&gt; &lt;a id="aiedu" class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://ai.afoo.me"&gt; 福强AI学堂&lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com"&gt;架构百科&lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html"&gt;博客文章 &lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html"&gt;创作出版&lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://store.afoo.me"&gt;产品与服务&lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt;&lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://auth.afoo.me/user.html"&gt;登录信息&lt;/a&gt;&lt;/li&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
-     &lt;/ul&gt; 
-     &lt;div class="md:self-center flex items-center mb-4 md:mb-0 ml-2"&gt; 
-      &lt;div class="hidden items-center md:flex"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
-        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
-          &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
-          &lt;path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"&gt; 
-          &lt;/path&gt; 
-         &lt;/g&gt; 
-        &lt;/svg&gt; &lt;/button&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="RSS Feed" href="http://afoo.me/feeds.xml"&gt; 
-        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:rss"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
-          &lt;circle cx="5" cy="19" r="1"&gt;&lt;/circle&gt; 
-          &lt;path d="M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"&gt;&lt;/path&gt; 
-         &lt;/g&gt; 
-        &lt;/svg&gt; &lt;/a&gt; 
-      &lt;/div&gt; 
-     &lt;/div&gt; 
-    &lt;/nav&gt; 
-   &lt;/div&gt; 
-  &lt;/header&gt; 
-  &lt;main&gt; 
-   &lt;div id="leftSlot" class="visible md:invisible fixed top-0 left-0" style="width: 16rem;height: 80%;margin-top: 4rem;"&gt; &lt;!-- left --&gt; 
-    &lt;ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="3581141418" data-ad-format="auto" data-full-width-responsive="true"&gt;&lt;/ins&gt; 
-    &lt;script&gt;
-          (adsbygoogle = window.adsbygoogle || []).push({});
-      &lt;/script&gt; 
-   &lt;/div&gt; 
-   &lt;div id="rightSlot" class="visible md:invisible fixed top-0 right-0" style="width: 16rem;height: 80%;margin-top: 4rem;"&gt; &lt;!-- right --&gt; 
-    &lt;ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="7030836806" data-ad-format="auto" data-full-width-responsive="true"&gt;&lt;/ins&gt; 
-    &lt;script&gt;
-           (adsbygoogle = window.adsbygoogle || []).push({});
-      &lt;/script&gt; 
-   &lt;/div&gt; 
-   &lt;section class="text-gray-600 body-font relative"&gt; 
-    &lt;div class="max-w-4xl mx-auto px-5 py-24 mb-12 prose prose-lg dark:prose-invert"&gt; 
-     &lt;p class="lead"&gt; &lt;/p&gt;
-     &lt;h1 class="title"&gt;福强的本周AI热点回顾与简评&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt; 
-      &lt;div style="text-align: left;"&gt;
-       2025-07-19
-      &lt;/div&gt; &lt;/small&gt; 
-     &lt;p&gt;&lt;/p&gt; &lt;!-- random --&gt; 
-     &lt;ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="2722720851" data-ad-format="auto" data-full-width-responsive="true"&gt;&lt;/ins&gt; 
-     &lt;script&gt;
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            &lt;/script&gt; 
-     &lt;hr&gt; 
-     &lt;p&gt;关注「福强私学」，紧跟AI前沿。&lt;/p&gt; 
-     &lt;h2 id="ai-理论"&gt;AI 理论&lt;/h2&gt; 
-     &lt;h3 id="mixture-of-recursions"&gt;Mixture-of-Recursions&lt;/h3&gt; 
-     &lt;p&gt;Google DeepMind刚发布了一个新的LLM模型架构叫 Mixture-of-Recursions&lt;/p&gt; 
-     &lt;p&gt;可以获得两倍推理速度的提升，而且降低训练的算力与一半的KV cache内存需求。&lt;/p&gt; 
-     &lt;p&gt;感觉有潜力干掉Transformer架构？&lt;/p&gt; 
-     &lt;p&gt;Paper来源：&lt;a href="https://www.alphaxiv.org/abs/2507.10524" class="uri"&gt;https://www.alphaxiv.org/abs/2507.10524&lt;/a&gt;&lt;/p&gt; 
-     &lt;h2 id="ai-模型"&gt;AI 模型&lt;/h2&gt; 
-     &lt;h3 id="kimi-k2"&gt;Kimi-K2&lt;/h3&gt; 
-     &lt;ul&gt; 
-      &lt;li&gt;这个算上周的，不过可以再提一下，对于Claude Code原版访问有难度的同学，K2带来的是类似当初国内的 Deepseek(R1) 时刻。&lt;/li&gt; 
-     &lt;/ul&gt; 
-     &lt;h3 id="gemini-embedding"&gt;Gemini Embedding&lt;/h3&gt; 
-     &lt;p&gt;国内可能更推荐Qwen3的Embedding模型。&lt;/p&gt; 
-     &lt;h3 id="voxtral"&gt;Voxtral&lt;/h3&gt; 
-     &lt;p&gt;Mistral（法国公司）新推出了一个ASR模型： Voxtral，类比OpenAI 的 Whisper large v3&lt;/p&gt; 
-     &lt;p&gt;据说比v3又快又便宜，感兴趣的同学可以试用看看🤪&lt;/p&gt; 
-     &lt;h2 id="ai-产品"&gt;AI 产品&lt;/h2&gt; 
-     &lt;h3 id="kiro"&gt;Kiro&lt;/h3&gt; 
-     &lt;p&gt;AWS新推出了他们家自己的AI IDE - Kiro，类似于亚马逊家的Cursor。&lt;/p&gt; 
-     &lt;p&gt;个人试用了下，it works 🤣&lt;/p&gt; 
-     &lt;p&gt;其实还是因为Claude4能打 😉&lt;/p&gt; 
-     &lt;p&gt;不过， Kira把两种典型的开发模式显性的在产品中表现出来，这个设计还是值得肯定的。&lt;/p&gt; 
-     &lt;p&gt;&lt;img src="./images/kiro-vibe-vs-spec.jpg"&gt;&lt;/p&gt; 
-     &lt;h3 id="claude-directory"&gt;Claude Directory&lt;/h3&gt; 
-     &lt;p&gt;Claude新搞了个一键接入第三方服务的&lt;a href="http://claude.ai/directory"&gt;目录服务&lt;/a&gt;, 通过将Notion、Canva、Figma等第三方平台统一接入自己的产品，大大提高了用户使用Claude客户端的便利性。&lt;/p&gt; 
-     &lt;p&gt;当然，底层肯定还是基于Claude最早提出的&lt;a href="https://jiagoubaike.com/posts/mcp"&gt;MCP&lt;/a&gt;。&lt;/p&gt; 
-     &lt;h3 id="grok-数字人"&gt;Grok 数字人&lt;/h3&gt; 
-     &lt;p&gt;Grok推出了waifu风格的数字人，好像看到了新瓶里的旧酒…&lt;/p&gt; 
-     &lt;p&gt;游戏 + AI，a new remix !&lt;/p&gt; 
-     &lt;p&gt;感觉电视可以给新终端腾地方了 🤣&lt;/p&gt; 
-     &lt;p&gt;或者电视自己AI升级？&lt;/p&gt; 
-     &lt;h3 id="aws推出s3-vector"&gt;AWS推出S3 Vector&lt;/h3&gt; 
-     &lt;ul&gt; 
-      &lt;li&gt;https://www.youtube.com/watch?v=Wp0LKeZhcTM&lt;/li&gt; 
-      &lt;li&gt;https://aws.amazon.com/blogs/aws/introducing-amazon-s3-vectors-first-cloud-storage-with-native-vector-support-at-scale/&lt;/li&gt; 
-     &lt;/ul&gt; 
-     &lt;p&gt;通过引入新的bucket类型，S3 Vector允许用户基于S3对象存储做向量存储和检索。&lt;/p&gt; 
-     &lt;p&gt;同一领域，还有个产品叫LanceDB，都归属于Lakehouse领域。&lt;/p&gt; 
-     &lt;h3 id="chatgpt-agent"&gt;ChatGPT agent&lt;/h3&gt; 
-     &lt;p&gt;OpenAI发布它家自己的类似Manus的通用智能体产品。&lt;/p&gt; 
-     &lt;h2 id="ai-infraai基础设施"&gt;AI Infra（AI基础设施）&lt;/h2&gt; 
-     &lt;h3 id="facebook-建设-1gw-超级算力集群"&gt;facebook 建设 1GW+ 超级算力集群&lt;/h3&gt; 
-     &lt;p&gt;这个1GW+超级算力集群叫普罗米修斯（Prometheus），而且，Meta声称，多个1GW+的算力集群也在规划中。其中，一个叫Hyperion（海伯利安）的超级群预期可以扩展到5GW。&lt;/p&gt; 
-     &lt;p&gt;1GW+什么概念？&lt;/p&gt; 
-     &lt;p&gt;马斯克 30 万张卡的集群功耗应该是 200-300 兆瓦，1GW相当于是其4-5倍。&lt;/p&gt; 
-     &lt;p&gt;哎， 真的是马太效应越来越明显啊，强者恒强。、&lt;/p&gt; 
-     &lt;p&gt;信息源：https://www.facebook.com/watch/?v=2300161320399228&amp;amp;rdid=QRq1A78367crtsaN&lt;/p&gt; 
-     &lt;p&gt;&lt;img src="https://img.shields.io/badge/Meta-超级智能实验室-green.svg?style=flat"&gt;&lt;/p&gt; 
-     &lt;h2 id="ai-相关-推荐阅读"&gt;AI 相关 推荐阅读&lt;/h2&gt; 
-     &lt;ul&gt; 
-      &lt;li&gt;https://www.builder.io/blog/claude-code&lt;/li&gt; 
-      &lt;li&gt;https://glaforge.dev/talks/2025/07/16/ai-agents-the-new-frontier-for-llms/&lt;/li&gt; 
-      &lt;li&gt;https://medium.com/&lt;span class="citation" data-cites="giuseppetrisciuoglio/claude-code-one-month-of-practical-experience-a-guide-for-software-architects-and-developers-e52b74236d1a"&gt;@giuseppetrisciuoglio/claude-code-one-month-of-practical-experience-a-guide-for-software-architects-and-developers-e52b74236d1a&lt;/span&gt;&lt;/li&gt; 
-     &lt;/ul&gt; &lt;!-- tail --&gt; 
-     &lt;ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="7874087130" data-ad-format="auto" data-full-width-responsive="true"&gt;&lt;/ins&gt; 
-     &lt;script&gt;
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            &lt;/script&gt; 
-     &lt;hr&gt; 
-     &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div id="random_posts"&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2023-06-20-jte3.html"&gt;借着Jte发新版，介绍下AI学堂背后的技术栈吧！ &lt;/a&gt; 
-      &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2009-02-27-movie-the-wrestler.html"&gt;看完《The Wrestler》心里挺不是滋味… &lt;/a&gt; 
-      &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2024-05-19-kb-tech-overview.html"&gt;分享几个数据… &lt;/a&gt; 
-      &lt;/div&gt; 
-     &lt;/div&gt; 
-     &lt;hr&gt; 
-     &lt;div id="comments"&gt;&lt;/div&gt; 
-     &lt;hr&gt; &lt;!-- Section CTA --&gt; 
-     &lt;section class="overflow-x-clip bg-zinc-50 py-16 md:py-24"&gt; 
-      &lt;div class="relative mx-auto w-full max-w-screen-xl px-4"&gt; 
-       &lt;div class="relative z-10 w-full"&gt; &lt;!-- 福强私学推荐 --&gt; 
-        &lt;div class="mx-auto max-w-screen-md"&gt; 
-         &lt;h2 class="mb-4 text-center text-4xl font-bold md:text-5xl"&gt;&lt;a href="https://afoo.me/kb.html" class="border-b"&gt;「福强私学」&lt;/a&gt;来一个？&lt;/h2&gt; 
-         &lt;p class="mx-auto mb-8 w-full text-center text-lg leading-8 text-zinc-700 md:w-5/6 md:text-xl"&gt;「福强私学」, 一部沉淀了个人成长、技术与架构、组织与管理以及商业上的方法与心法的百科全书。&lt;/p&gt; 
-        &lt;/div&gt; 
-        &lt;div class="mx-auto mt-6 w-full md:mt-12 md:w-4/5"&gt; &lt;a href="https://afoo.me/kb.html"&gt; &lt;img alt="footer img for kb.afoo.me" loading="lazy" width="2911" height="1961" decoding="async" data-nimg="1" class="mx-auto rounded-lg object-contain shadow-lg sm:rounded-2xl lg:rounded-3xl" style="color:transparent" src="https://og.afoo.me/?url=footer"&gt; &lt;/a&gt; 
-        &lt;/div&gt; &lt;!-- 小报童推荐 --&gt; 
-        &lt;div class="mx-auto max-w-screen-md"&gt; 
-         &lt;h2 class="mt-8 mb-4 text-center text-4xl font-bold md:text-5xl"&gt;&lt;a href="https://xiaobot.net/p/aifd" class="border-b"&gt;福强老师的 AI 通识课&lt;/a&gt;&lt;/h2&gt;&lt;a href="https://xiaobot.net/p/aifd" class="border-b"&gt; &lt;/a&gt;
-        &lt;/div&gt;&lt;a href="https://xiaobot.net/p/aifd" class="border-b"&gt; &lt;/a&gt;
-        &lt;div class="mx-auto mt-6 w-full md:mt-12 md:w-4/5"&gt;
-         &lt;a href="https://xiaobot.net/p/aifd" class="border-b"&gt; &lt;/a&gt;&lt;a href="https://xiaobot.net/p/aifd"&gt; &lt;img alt="footer img for kb.afoo.me" loading="lazy" width="2911" height="1961" decoding="async" data-nimg="1" class="mx-auto rounded-lg object-contain shadow-lg sm:rounded-2xl lg:rounded-3xl" style="color:transparent" src="/images/xbt-footer.webp"&gt; &lt;/a&gt; 
-        &lt;/div&gt; 
-        &lt;div class="mx-auto mt-6 w-full md:mt-12 md:w-4/5"&gt; 
-         &lt;img alt="footer img for kb.afoo.me" loading="lazy" decoding="async" data-nimg="1" class="mx-auto p-3" style="color:transparent" src="/images/footer-links-2025.webp"&gt; 
-        &lt;/div&gt; 
-       &lt;/div&gt; 
-      &lt;/div&gt; 
-     &lt;/section&gt; 
-     &lt;hr&gt; 
-     &lt;p&gt; &lt;span style="font-size: xx-large;"&gt; 开天窗，拉认知，订阅「福报」，即刻拥有自己的全模态人工智能。 &lt;/span&gt; &lt;/p&gt; &lt;a href="https://wfq.gumroad.com/l/fb"&gt; &lt;img src="/images/fb_subscribe_v2.jpg" alt="订阅「福报」"&gt; &lt;/a&gt; 
-     &lt;hr&gt; 
-     &lt;div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"&gt; 
-      &lt;div id="tfloader" class="x-indicator"&gt; 
-       &lt;svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"&gt; &lt;g fill="none" fill-rule="evenodd"&gt; 
-         &lt;g transform="translate(1 1)" stroke-width="2"&gt; 
-          &lt;circle cx="5" cy="50" r="5"&gt; 
-           &lt;animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /&gt; 
-           &lt;animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /&gt; 
-          &lt;/circle&gt; 
-          &lt;circle cx="27" cy="5" r="5"&gt; 
-           &lt;animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /&gt; 
-           &lt;animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /&gt; 
-          &lt;/circle&gt; 
-          &lt;circle cx="49" cy="50" r="5"&gt; 
-           &lt;animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /&gt; 
-           &lt;animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /&gt; 
-          &lt;/circle&gt; 
-         &lt;/g&gt; 
-        &lt;/g&gt; 
-       &lt;/svg&gt; 
-      &lt;/div&gt; 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-   &lt;/section&gt; 
-  &lt;/main&gt; 
-  &lt;div style="position: fixed; left: 0; bottom: 0; padding: 10px; z-index: 1000;"&gt; 
-   &lt;img src="/icons/Written-By-Human-Not-By-AI-Badge-black@2x.png" alt loading="lazy"&gt; 
-  &lt;/div&gt; 
-  &lt;footer class="border-t border-gray-200 dark:border-slate-800"&gt; 
-   &lt;div class="max-w-6xl mx-auto px-4 sm:px-6"&gt; 
-    &lt;div class="md:flex md:items-center md:justify-between py-6 md:py-8"&gt; 
-     &lt;ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0"&gt; 
-      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Twitter" href="https://twitter.com/afoo_me"&gt; 
-        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-twitter"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z"&gt; 
-         &lt;/path&gt; 
-        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Facebook" href="https://www.facebook.com/fujohnwang/"&gt; 
-        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-facebook"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2H7"&gt;&lt;/path&gt; 
-        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Github" href="https://github.com/fujohnwang"&gt; 
-        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-github"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"&gt; 
-         &lt;/path&gt; 
-        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
-     &lt;/ul&gt; 
-     &lt;div class="text-sm text-gray-700 mr-4 dark:text-slate-400"&gt; &lt;span class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 float-left rounded-sm"&gt; &lt;img src="https://afoo.me/favicon.svg" class="rounded-md" alt&gt; &lt;/span&gt; Copyright © 王福强个人版权所有 - Since 2004 (Everything is homebrewed with &lt;a href="https://pandoc.org/"&gt;Pandoc&lt;/a&gt; and Markdown, little &lt;a href="https://www.scala-lang.org/"&gt;Scala&lt;/a&gt; also included.) 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/footer&gt; 
-  &lt;script&gt;
-        // Set "light" theme as default
-        if (!localStorage.theme) {
-            localStorage.theme = "light";
-        }
-
-        if (
-            localStorage.theme === 'dark' ||
-            (!('theme' in localStorage) &amp;&amp; window.matchMedia('(prefers-color-scheme: dark)').matches)
-        ) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-
-        function attachEvent(selector, event, fn) {
-            const matches = document.querySelectorAll(selector);
-            if (matches &amp;&amp; matches.length) {
-                matches.forEach((elem) =&gt; {
-                    elem.addEventListener(event, () =&gt; fn(elem), false);
-                });
-            }
-        }
-
-        window.onload = function () {
-            attachEvent('[data-toggle-menu]', 'click', function (elem) {
-                elem.classList.toggle('expanded');
-                document.body.classList.toggle('overflow-hidden');
-                document.getElementById('header')?.classList.toggle('h-screen');
-                document.querySelector('#header nav')?.classList.toggle('hidden');
-            });
-            attachEvent("[data-toggle-color-scheme]", "click", function () {
-                    document.documentElement.classList.toggle("light");
-                    localStorage.theme = "light";
-                });
-        };
-        window.onpageshow = function () {
-            const elem = document.querySelector('[data-toggle-menu]');
-            if (elem) {
-                elem.classList.remove('expanded');
-            }
-            document.body.classList.remove('overflow-hidden');
-            document.getElementById('header')?.classList.remove('h-screen');
-            document.querySelector('#header nav')?.classList.add('hidden');
-        };
-    &lt;/script&gt; 
-  &lt;script type="text/javascript"&gt;
-        var gitalk = new Gitalk({
-          clientID: '518a605d711883414ac0',
-          clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-          repo: 'afoo.me.comments',
-          owner: 'fujohnwang',
-          admin: ['fujohnwang'],
-          id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-          distractionFreeMode: false  // Facebook-like distraction free mode
-        })
-        gitalk.render('comments')
-    &lt;/script&gt; 
-  &lt;script src="https://formspree.io/js/formbutton-v1.min.js" defer&gt;&lt;/script&gt; 
-  &lt;script&gt;
-  /* paste this line in verbatim */
-  window.formbutton=window.formbutton||function(){(formbutton.q=formbutton.q||[]).push(arguments)};
-  /* customize formbutton below*/     
-  formbutton("create", {
-    action: "https://formspree.io/f/xknlpkkd",
-    title: "有什么可以帮到您？💕💕💕 How can I help you?",
-    buttonImg: "&lt;img src='https://afoo.me/hero3/70.webp' alt/&gt;",
-    fields: [
-      { 
-        type: "email", 
-        label: "您的电子邮箱（方便与您联系）:", 
-        name: "email",
-        required: true,
-        placeholder: "your@email.com"
-      },
-      {
-        type: "textarea",
-        label: "您想提交的反馈和询问信息:",
-        name: "message",
-        placeholder: "What's on your mind?",
-      },
-      { type: "submit" }      
-    ],
-    styles: {
-      title: {
-        backgroundColor: "blue"
-      },
-      button: {
-        backgroundColor: "blue"
-      }
-    }
-  });
-&lt;/script&gt; 
-  &lt;script&gt;
-	// tooltips
-	tippy('#aiedu', {
-        content: "As to AI nowadays, LLM and Stable Diffusion are hot even hottest among them, If your want to both know-why and know-how with them, instead of only know-how which can't repeat itself, you should get you to https://ai.afoo.me right now ❗"
-    });  
-&lt;/script&gt;  
- &lt;/body&gt;
-&lt;/html&gt;</description>
-      <pubDate>Fri, 18 Jul 2025 16:00:00 GMT</pubDate>
-      <guid>http://afoo.me/posts/2025-07-19-ai-weekly.html</guid>
-      <dc:date>2025-07-18T16:00:00Z</dc:date>
     </item>
   </channel>
 </rss>
