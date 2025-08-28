@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vector Similarity Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen font-sans">
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-4xl">
+        <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">Vector Similarity Calculator</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label for="vectorA" class="block text-sm font-medium text-gray-700 mb-2">Vector 1 (JSON Array)</label>
+                <textarea id="vectorA" rows="12" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder='[0.1, 0.2, "0.3"]'></textarea>
+            </div>
+            <div>
+                <label for="vectorB" class="block text-sm font-medium text-gray-700 mb-2">Vector 2 (JSON Array)</label>
+                <textarea id="vectorB" rows="12" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder='[0.4, 0.5, 0.6]'></textarea>
+            </div>
+        </div>
+
+        <div class="mt-6">
+            <button id="calculateBtn" class="w-full bg-indigo-600 text-white py-3 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-300">
+                Calculate Similarity
+            </button>
+        </div>
+
+        <div id="result-container" class="mt-6 text-center p-4 border-gray-200 rounded-lg bg-gray-50 hidden">
+            <h2 class="text-lg font-semibold text-gray-800">Similarity Score</h2>
+            <p id="result" class="text-3xl font-bold text-indigo-600 mt-2"></p>
+        </div>
+        
+        <div id="error-container" class="mt-6 text-center p-3 border-red-300 bg-red-100 rounded-lg hidden">
+            <p id="error" class="text-sm font-medium text-red-700"></p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const vectorAInput = document.getElementById('vectorA');
+            const vectorBInput = document.getElementById('vectorB');
+            const calculateBtn = document.getElementById('calculateBtn');
+            const resultContainer = document.getElementById('result-container');
+            const resultEl = document.getElementById('result');
+            const errorContainer = document.getElementById('error-container');
+            const errorEl = document.getElementById('error');
+
+            calculateBtn.addEventListener('click', () => {
+                // Reset UI
+                errorContainer.classList.add('hidden');
+                resultContainer.classList.add('hidden');
+
+                try {
+                    const vecA = parseAndValidate(vectorAInput.value, 'Vector 1');
+                    const vecB = parseAndValidate(vectorBInput.value, 'Vector 2');
+
+                    if (vecA.length !== vecB.length) {
+                        throw new Error('Vectors must have the same number of dimensions.');
+                    }
+                    
+                    if (vecA.length === 0) {
+                        throw new Error('Vectors cannot be empty.');
+                    }
+
+                    const similarity = cosineSimilarity(vecA, vecB);
+
+                    resultEl.textContent = similarity.toFixed(6);
+                    resultContainer.classList.remove('hidden');
+
+                } catch (error) {
+                    errorEl.textContent = error.message;
+                    errorContainer.classList.remove('hidden');
+                }
+            });
+
+            function parseAndValidate(vectorStr, vectorName) {
+                if (vectorStr.trim() === '') {
+                    throw new Error(`${vectorName} input is empty.`);
+                }
+
+                let parsedVector;
+                try {
+                    parsedVector = JSON.parse(vectorStr);
+                } catch (e) {
+                    throw new Error(`${vectorName} is not valid JSON.`);
+                }
+
+                if (!Array.isArray(parsedVector)) {
+                    throw new Error(`${vectorName} must be a JSON array.`);
+                }
+
+                return parsedVector.map(val => {
+                    const num = parseFloat(val);
+                    if (isNaN(num)) {
+                        throw new Error(`Invalid element "${val}" in ${vectorName}. All elements must be numbers or strings convertible to numbers.`);
+                    }
+                    return num;
+                });
+            }
+
+            function dotProduct(vecA, vecB) {
+                return vecA.reduce((sum, val, i) => sum + val * vecB[i], 0);
+            }
+
+            function magnitude(vec) {
+                return Math.sqrt(vec.reduce((sum, val) => sum + val * val, 0));
+            }
+
+            function cosineSimilarity(vecA, vecB) {
+                const magA = magnitude(vecA);
+                const magB = magnitude(vecB);
+                
+                if (magA === 0 || magB === 0) {
+                    return 0; // Or handle as an error/undefined case
+                }
+                
+                const dot = dotProduct(vecA, vecB);
+                return dot / (magA * magB);
+            }
+        });
+    </script>
+</body>
+</html>
