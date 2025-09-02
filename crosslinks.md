@@ -15,6 +15,7 @@
 
 # [工具福强造](https://afoo.me/tools.html)
 
+- [向量相似性比较](https://afoo.me/tools/vecsim/index.html)
 - [福强海报](https://poster.keevol.cn/)
 - [汉字拼音工具](https://afoo.me/pinyin/index.html)
   - <https://hanzipinyin.blackwhole.cn>
@@ -44,6 +45,7 @@
 
 # AI工具
 
+- [向量相似性比较](https://afoo.me/tools/vecsim/index.html)
 - <https://playgroundai.com/>
 - <https://app.leonardo.ai/>
 - <https://www.midjourney.com/>
