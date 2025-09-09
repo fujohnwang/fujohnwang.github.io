@@ -1,60 +1,68 @@
 <!DOCTYPE html>
-<html>
-	<head>
+<html lang="zh">
+
+<head>
 	<meta charset="utf-8" />
-  	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  	<meta author="fujohnwang" />
-  	<meta keywords="王福强,fujohnwang" />
-  	<meta description="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+	<meta author="fujohnwang" />
+	<meta keywords="王福强,fujohnwang" />
+	<meta description="" />
 	<title>CHANGE</title>
 	<style>
-	::-webkit-scrollbar {
-        width: 11px;
-   }
-   ::-webkit-scrollbar-thumb{
-        background-color: #3F83F8;
-        border-radius: 3px;
-   }
-   :root {
-        text-autospace: normal;
-   }
-	html{
-	   scroll-behavior: smooth;   
-	}
-	body{
-	   font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif;
-	   background:radial-gradient(49.63% 57.02% at 58.99% -7.2%, rgba(13, 147, 115, 0.1) 39.4%, rgba(0, 0, 0, 0) 100%);
-	}
+		::-webkit-scrollbar {
+			width: 11px;
+		}
+
+		::-webkit-scrollbar-thumb {
+			background-color: #3F83F8;
+			border-radius: 3px;
+		}
+
+		:root {
+			text-autospace: normal;
+		}
+
+		html {
+			scroll-behavior: smooth;
+		}
+
+		body {
+			font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif;
+			background: radial-gradient(49.63% 57.02% at 58.99% -7.2%, rgba(13, 147, 115, 0.1) 39.4%, rgba(0, 0, 0, 0) 100%);
+		}
 	</style>
 	<link href="https://afoo.me/css/normalize.css" rel="stylesheet" />
 	<!-- <script src="https://cdn.tailwindcss.com/"></script> -->
 	<script src="https://afoo.me/js/tailwindcss.js"></script>
 	<script src="https://afoo.me/js/htmx.min.js"></script>
 	<script src="https://afoo.me/js/sweetalert2.all.min.js"></script>
-   <script src="https://afoo.me/js/popper.min.js"></script>
-   <script src="https://afoo.me/js/tippy.min.js"></script>
-	</head>
+	<script src="https://afoo.me/js/popper.min.js"></script>
+	<script src="https://afoo.me/js/tippy.min.js"></script>
+</head>
+
 <body>
 	<main class="container mx-auto p-3 space-y-3">
 		<h1 class="text-6xl">Euler's Identity</h1>
 		<p>In mathematics, <strong>Euler's identity</strong> is the equality</p>
 		<h2 class="text-3xl">Explanation</h2>
 		<p>Euler's identity is a special case of Euler's formula from complex
-analysis, which states that for any real number </p>
-        
-      <button id="myButton" class="bg-black text-white px-6 py-2" data-tippy-content="some tooltip content">My button</button>
+			analysis, which states that for any real number </p>
+
+		<button id="myButton" class="bg-black text-white px-6 py-2" data-tippy-content="some tooltip content">My
+			button</button>
 	</main>
-	
+
 	<script>
-    document.addEventListener("DOMContentLoaded", (event) => {
-        tippy('[data-tippy-content]');
-    });
-    window.addEventListener("beforeunload", (event) => {
-        // works, same as returning from window.onbeforeunload
-        // destroy or dispose resources in this method
-        event.returnValue = "There are unsaved changes. Leave now?";
-    });
-    </script>
-    
+		document.addEventListener("DOMContentLoaded", (event) => {
+			tippy('[data-tippy-content]');
+		});
+		window.addEventListener("beforeunload", (event) => {
+			// works, same as returning from window.onbeforeunload
+			// destroy or dispose resources in this method
+			event.returnValue = "There are unsaved changes. Leave now?";
+		});
+	</script>
+
 </body>
+
 </html>
