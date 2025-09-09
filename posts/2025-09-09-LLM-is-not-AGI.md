@@ -62,3 +62,5 @@ Small to Medium-Sized Business , 中小型企业
 
 我说的不因噎废食，是这个意思。
 
+![](./images/Allan-Karlsson.jpg)
+
