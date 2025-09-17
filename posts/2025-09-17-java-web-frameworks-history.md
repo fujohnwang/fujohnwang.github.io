@@ -5,6 +5,7 @@
 今天看到一海外老哥发了这么条短文字：
 
 > You can learn 100 JavaScript frameworks…
+> 
 > or you can learn Java and Spring once, and it’ll pay you back for years. 💚
 
 虽然JavaScript作为前端事实上的语言带动了前端JS框架的蓬勃发展，包括但不限于Jquery，React，Vue，Svelte [^1]， Angular，HTMX[^2]， etc
