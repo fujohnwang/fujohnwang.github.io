@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="使用KVectors向量数据库构建以图搜图应用 - 架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="使用KVectors向量数据库构建以图搜图应用 - 福强说，扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+  <meta name="robots" content="index,follow"> 
+  <title>使用KVectors向量数据库构建以图搜图应用 -王福强的个人博客：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2025-09-20"> 
+  <meta property="og:title" content="使用KVectors向量数据库构建以图搜图应用"> 
+  <meta property="og:type" content="landing page"> 
+  <meta property="og:url" content="https://afoo.me/posts/2025-09-20-kvec-appliction-in-image-search.html"> 
+  <meta property="og:image" content="https://og.afoo.me?url=https://afoo.me/posts/2025-09-20-kvec-appliction-in-image-search.html"> 
+  <meta name="twitter:card" content="summary_large_image"> 
+  <meta name="twitter:title" content="使用KVectors向量数据库构建以图搜图应用"> 
+  <meta name="twitter:site" content="@afoo_me"> 
+  <meta name="twitter:creator" content="@afoo_me"> 
+  <meta name="twitter:image" content="https://og.afoo.me?url=https://afoo.me/posts/2025-09-20-kvec-appliction-in-image-search.html"> 
+  <meta name="twitter:description" content="使用KVectors向量数据库构建以图搜图应用 - 王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <link rel="canonical" href="https://afoo.me/posts/2025-09-20-kvec-appliction-in-image-search.html"> 
+  <link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"> 
+  <link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8"> 
+  <script src="https://afoo.me/js/htmx.min.js"></script> 
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <script src="https://afoo.me/js/popper.min.js"></script> 
+  <script src="https://afoo.me/js/tippy.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link rel="stylesheet" href="/css/components.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
+  <style type="text/css">
+        pre > code{
+          white-space: pre-wrap;
+          font-family: monospace;
+          font-size: 14px;
+          /* border-left: blueviolet;
+          border-left-width: thick;
+          border-left-style: double;
+          padding-left: 1rem !important; */
+        }
+        
+        .x-indicator{
+            display:none;
+        }
+        .htmx-request .x-indicator{
+            display:inline;
+        }
+        .htmx-request.x-indicator{
+            display:inline;
+        }
+    </style> 
+  <style type="text/css">
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { color: #008000; } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    </style> 
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "使用KVectors向量数据库构建以图搜图应用",
+      "image": [
+        "https://afoo.me/images/fb_subscribe.jpg"
+       ],
+      "datePublished": "2025-09-20",
+      "author": [{
+          "@type": "Person",
+          "name": "王福强",
+          "url": "https://afoo.me"
+        }]
+    }
+  </script> 
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3687639021943715" crossorigin="anonymous"></script> 
+ </head> 
+ <body class="antialiased text-slate-800 dark:text-slate-300 tracking-tight bg-slate-50 dark:bg-gray-900 vsc-initialized"> 
+  <header class="sticky top-0 z-40 flex-none mx-auto w-full bg-slate-50 md:bg-slate-50/90 dark:bg-gray-900 dark:md:bg-gray-900/90 md:backdrop-blur-sm border-b border-slate-200 dark:border-b-0" id="header"> 
+   <div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"> 
+    <div class="flex justify-between"> <a class="flex items-center" href="https://afoo.me"> <span class="self-center ml-2 text-2xl font-extrabold text-slate-800 whitespace-nowrap dark:text-white"> <img src="/images/afoo.PNG" alt="logo" style="height:60px;"> </span> </a> 
+     <div class="flex items-center md:hidden"> <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""> 
+       <svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+         <circle cx="12" cy="12" r="4"></circle> 
+         <path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"> 
+         </path> 
+        </g> 
+       </svg> </button> <button type="button" class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition" aria-label="Toggle Menu" data-toggle-menu=""> 
+       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:menu"> <g class="icon-tabler" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+         <path d="M4 8h16"></path> 
+         <path d="M4 16h16"></path> 
+        </g> 
+       </svg> </button> 
+     </div> 
+    </div> 
+    <nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"> 
+     <ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"> 
+      <li><a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://kb.afoo.me/">福强私学</a></li> 
+      <li> <a id="aiedu" class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://ai.afoo.me"> 福强AI学堂</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com">架构百科</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html">博客文章 </a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html">创作出版</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://store.afoo.me">产品与服务</a> </li> 
+      <li><a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://auth.afoo.me/user.html">登录信息</a></li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/crosslinks.html">更多链接</a> </li> 
+     </ul> 
+     <div class="md:self-center flex items-center mb-4 md:mb-0 ml-2"> 
+      <div class="hidden items-center md:flex"> <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+          <circle cx="12" cy="12" r="4"></circle> 
+          <path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"> 
+          </path> 
+         </g> 
+        </svg> </button> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="RSS Feed" href="http://afoo.me/feeds.xml"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:rss"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+          <circle cx="5" cy="19" r="1"></circle> 
+          <path d="M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"></path> 
+         </g> 
+        </svg> </a> 
+      </div> 
+     </div> 
+    </nav> 
+   </div> 
+  </header> 
+  <main> 
+   <div id="leftSlot" class="visible md:invisible fixed top-0 left-0" style="width: 16rem;height: 80%;margin-top: 4rem;"> <!-- left --> 
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="3581141418" data-ad-format="auto" data-full-width-responsive="true"></ins> 
+    <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+      </script> 
+   </div> 
+   <div id="rightSlot" class="visible md:invisible fixed top-0 right-0" style="width: 16rem;height: 80%;margin-top: 4rem;"> <!-- right --> 
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="7030836806" data-ad-format="auto" data-full-width-responsive="true"></ins> 
+    <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script> 
+   </div> 
+   <section class="text-gray-600 body-font relative"> 
+    <div class="max-w-4xl mx-auto px-5 py-24 mb-12 prose prose-lg dark:prose-invert"> 
+     <p class="lead"> </p>
+     <h1 class="title">使用KVectors向量数据库构建以图搜图应用</h1> <small> <h3 class="author">王福强</h3> 
+      <div style="text-align: left;">
+       2025-09-20
+      </div> </small> 
+     <p></p> <!-- random --> 
+     <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="2722720851" data-ad-format="auto" data-full-width-responsive="true"></ins> 
+     <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script> 
+     <hr> 
+     <p>以图搜图是电商平台上很常见的用户需求，</p> 
+     <p>今天，我们尝试用最轻量级的方式，</p> 
+     <p>为大家演示如何用KVector向量数据库构建一个以图搜图应用。</p> 
+     <p><a href="https://github.com/fujohnwang/kvectors">KVectors</a> 支持三层访问模式：</p> 
+     <p><img src="./images/KVectors-Access-Layers.jpg"></p> 
+     <p>我们选择最内核的方式，即以Library/类库的方式使用KVectors，因为这可以帮助我们构建最内聚的应用集成度， 安装与部署和使用对用户来说都更为友好。</p> 
+     <p>整个以图搜图的应用流程很简单，主要两个方向：</p> 
+     <ol type="1"> 
+      <li>上传图片到图片存储到时候（比如云上的对象存储，或者其他第三方图床）， 我们会使用图像Embedding模型对上传的图片进行embedding操作， 然后将获得的图片对应的embedding（即向量）存入KVectors向量数据库。 当然，图片的上传与计算图像Embedding可以是并行的（也可以串行），这个根据应用的时延（Latency）要求决定就可以了。</li> 
+      <li>搜索图像的时候，用户提交一个图像，我们依然是先针对这个图像进行Embedding，获得对应的embedding向量之后，拿着它去KVectors向量数据库中去搜索相似的embeddings，然后将相似的embeddings作为搜索结果，并根据其对应的元信息（metadata）获取对应的原始图像信息（比如存储地址），然后再展示给用户，从而完成整体的以图搜图闭环功能。</li> 
+     </ol> 
+     <p>既然本次我们主要专注在轻量与集成度上，图像的embedding模型我们选择了一个比较老的小模型：MobileNetV2，相对于最新的VL模型或者CLIP模型，效果上可能不是最好的，但完成基础的以图搜图能力还是没有问题的（无非搜索的时候threshold要降低下标准🤪）</p> 
+     <p>图像embedding与存入KVectors的代码大体如下：</p> 
+     <div class="sourceCode" id="cb1">
+      <pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">float</span><span class="op">[]</span> <span class="fu">embed</span><span class="op">(</span><span class="bu">String</span> imagePath<span class="op">)</span> <span class="kw">throws</span> <span class="bu">IOException</span><span class="op">,</span> OrtException <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>        <span class="dt">float</span><span class="op">[]</span> preprocessedData <span class="op">=</span> MobileNetV2ImagePreprocessor<span class="op">.</span><span class="fu">preprocessImage</span><span class="op">(</span>imagePath<span class="op">);</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="dt">long</span><span class="op">[]</span> inputShape <span class="op">=</span> <span class="op">{</span><span class="dv">1</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">224</span><span class="op">,</span> <span class="dv">224</span><span class="op">};</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        OnnxTensor inputTensor <span class="op">=</span> OnnxTensor<span class="op">.</span><span class="fu">createTensor</span><span class="op">(</span>environment<span class="op">,</span> <span class="bu">FloatBuffer</span><span class="op">.</span><span class="fu">wrap</span><span class="op">(</span>preprocessedData<span class="op">),</span> inputShape<span class="op">);</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span> <span class="op">(</span>OrtSession<span class="op">.</span><span class="fu">Result</span> result <span class="op">=</span> session<span class="op">.</span><span class="fu">run</span><span class="op">(</span><span class="bu">Collections</span><span class="op">.</span><span class="fu">singletonMap</span><span class="op">(</span><span class="st">"pixel_values"</span><span class="op">,</span> inputTensor<span class="op">)))</span> <span class="op">{</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> ImageEmbeddingExtractor<span class="op">.</span><span class="fu">extractWithGlobalAvgPooling</span><span class="op">(</span>result<span class="op">);</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre>
+     </div> 
+     <div class="sourceCode" id="cb2">
+      <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> collectionOption <span class="op">=</span> kdb<span class="op">.</span><span class="fu">getCollection</span><span class="op">(</span><span class="st">"ImageSearchVectorCollectionName"</span><span class="op">)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>collectionOption<span class="op">.</span>isDefined<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>      <span class="kw">val</span> vectorCollection <span class="op">=</span> collectionOption<span class="op">.</span>get</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>      vectorCollection<span class="op">.</span><span class="fu">add</span><span class="op">(</span><span class="fu">VectorRecord</span><span class="op">(</span>vector<span class="op">,</span> <span class="fu">VectorMetadata</span><span class="op">(</span>url<span class="op">,</span> <span class="bu">None</span><span class="op">)))</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="cf">throw</span> <span class="kw">new</span> <span class="ex">IllegalStateException</span><span class="op">(</span><span class="ss">s"</span><span class="st">no vector collection found in kvectors db at </span><span class="ss">${</span>kdb<span class="op">.</span>dataDir<span class="ss">}"</span><span class="op">)</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre>
+     </div> 
+     <p>kdb即KVectors向量数据库的对象引用，它的初始化也很简单：</p> 
+     <div class="sourceCode" id="cb3">
+      <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> kdb <span class="op">=</span> <span class="kw">new</span> <span class="fu">KVectors</span><span class="op">(</span><span class="kw">new</span> <span class="ex">File</span><span class="op">(</span>keeboxDir<span class="op">,</span> <span class="st">"kvectors"</span><span class="op">))</span> <span class="co">// &lt;&lt;&lt; 主要这一行</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Shutdowns<span class="op">.</span><span class="fu">addShutdownRunnable</span><span class="op">(()</span> <span class="op">=&gt;</span> Cleaner<span class="op">.</span><span class="fu">closeWithLog</span><span class="op">(</span>kdb<span class="op">))</span> <span class="co">// 这行是为了擦屁股，在程序关闭后清理KVectors的相应资源</span></span></code></pre>
+     </div> 
+     <p>KVectors的设计包含向量数据库和向量集合（KVectorCollection）两级概念，一个KVectors向量数据库可以包含很多向量集合（KVectorCollection）， 向量最终存入相应的向量集合（KVectorCollection），比如上面是用一个假名字ImageSearchVectorCollectionName作为向量集合的名字（这个参数你可以根据情况取）获得对应的向量集合对象引用，然后向其中添加向量。（向量集合预先已经在其他地方创建）</p> 
+     <p>最后就是， VectorRecord的第一个参数vector就是前面embed方法返回的结果。 至于文件上传的代码，就不演示了，根据选用的公有云不同而API不同。</p> 
+     <p>当图像的embedding存入KVectors向量数据库之后， 我们就可以针对他们进行相似度搜索了，来了一个图像，我们依然对其进行embed调用获得图像对应的embedding向量， 然后根据获得的这个embedding向量到KVectors向量数据库中查询：</p> 
+     <div class="sourceCode" id="cb4">
+      <pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>      <span class="kw">val</span> embeddingVector <span class="op">=</span> imageEmbeddingExecutor<span class="op">.</span><span class="fu">embed</span><span class="op">(</span>tmpFile<span class="op">.</span>getAbsolutePath<span class="op">)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>      <span class="kw">val</span> collectionOption <span class="op">=</span> kdb<span class="op">.</span><span class="fu">getCollection</span><span class="op">(</span><span class="st">"ImageSearchVectorCollectionName"</span><span class="op">)</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> <span class="op">(</span>collectionOption<span class="op">.</span>isDefined<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> ab <span class="op">=</span> <span class="kw">new</span> <span class="bu">ArrayBuffer</span><span class="op">[</span><span class="ex">SearchResult</span><span class="op">]()</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        logger<span class="op">.</span><span class="fu">info</span><span class="op">(</span><span class="ss">s"</span><span class="st">start search with topK=</span><span class="ss">${</span>topK<span class="ss">}</span><span class="st">, threshold=</span><span class="ss">${</span>threshold<span class="ss">}</span><span class="st"> ..</span><span class="ss">"</span><span class="op">)</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        collectionOption<span class="op">.</span>get<span class="op">.</span><span class="fu">query</span><span class="op">(</span>embeddingVector<span class="op">,</span> topK <span class="op">=</span> topK<span class="op">,</span> threshold <span class="op">=</span> threshold<span class="op">).</span><span class="fu">forEach</span><span class="op">(</span>vectorResult <span class="op">=&gt;</span> <span class="op">{</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>          <span class="kw">val</span> score <span class="op">=</span> vectorResult<span class="op">.</span>score<span class="op">.</span>get</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>          <span class="kw">val</span> url <span class="op">=</span> vectorResult<span class="op">.</span>meta<span class="op">.</span><span class="fu">getString</span><span class="op">(</span><span class="st">"rid"</span><span class="op">)</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>          logger<span class="op">.</span><span class="fu">info</span><span class="op">(</span><span class="ss">s"</span><span class="st">found image meet threshold at </span><span class="ss">${</span>url<span class="ss">}</span><span class="st"> with score=</span><span class="ss">${</span>score<span class="ss">}"</span><span class="op">)</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>          ab<span class="op">.</span><span class="fu">append</span><span class="op">(</span><span class="ex">SearchResult</span><span class="op">(</span>url<span class="op">,</span> score<span class="op">))</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">})</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        ab<span class="op">.</span>toArray</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>      <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        <span class="ex">Array</span><span class="op">.</span>empty</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>      <span class="op">}</span></span></code></pre>
+     </div> 
+     <p>KVectors的设计中要求每个向量存入之前都要有一个 relation id 与之对应，在以图搜图这个场景中，我们使用图像的url作为这个relation id，即meta元信息中的rid的值就是图像的url， 这个值我们将用来获取图像展示给用户。（同时，用户点击图像的时候，会打开对应图像）</p> 
+     <p>搜索的时候，除了图像的embedding向量， 还有两个参数要跟大家说明下：</p> 
+     <ol type="1"> 
+      <li>topK，这个参数主要控制搜索结果的数量，比如返回11条相似性结果或者50条，这个根据应用需求决定就好了；</li> 
+      <li>threshold， 这个参数控制相似性匹配的标准，取值一般在0到1之间，假如Embedding模型质量很好，一般设置0.8以上就可以了，我们选择的 MobileNetV2 模型因为年代久远而且参数量比较少，有些时候效果不理想，所以，偶尔需要降低threshold的值，比如降低到0.6，0.7这样。</li> 
+     </ol> 
+     <p>下面是以图搜图的一个JavaFX应用的简单界面，供大家参考视觉效果：</p> 
+     <p><img src="./images/image-search-GUI-demo.jpg"></p> 
+     <p>用户通过拖拽或者剪切板粘贴要搜索的图像到目标区域（即Drop File Here图标位置），点击Search就可以获得搜索结果了。</p> 
+     <p>当然，点击搜索之前，也可以调整topK和threshold两个参数的默认值。</p> 
+     <p>至此，一个基于KVectors向量数据库的以图搜图应用就算构建完成了，是不是很简单？</p> 
+     <p>除了以图搜图场景，KVectors向量数据库还可以在产品推荐、客服知识库、传统与各种RAG变种等不同场景发挥同样强大的作用。</p> 
+     <p>海量向量数据集中搜索时延 6.8 毫秒，可不是谁家的向量数据库都能达到的指标哟 🤪</p> 
+     <p>同时<a href="https://keevol.cn">欢迎各大企业预定与选购KVectors向量数据库</a>，让自己在AI时代划出美丽的第二增长曲线。😎</p> <!-- tail --> 
+     <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="7874087130" data-ad-format="auto" data-full-width-responsive="true"></ins> 
+     <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script> 
+     <hr> 
+     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+     </div> 
+     <div id="random_posts"> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2023-03-08-divident-X-comes-to-real.html">人口红利或者工程师红利到底在强调什么？ </a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2025-05-28-wrangle.html">你被人死缠烂打过吗？ </a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2010-07-12-prefer-event-driven-api-design.html">Event Driven Style API Design Instead of Old Procedure Style Ones </a> 
+      </div> 
+     </div> 
+     <hr> 
+     <div id="comments"></div> 
+     <hr> <!-- Section CTA --> 
+     <section class="overflow-x-clip bg-zinc-50 py-16 md:py-24"> 
+      <div class="relative mx-auto w-full max-w-screen-xl px-4"> 
+       <div class="relative z-10 w-full"> <!-- 福强私学推荐 --> 
+        <div class="mx-auto max-w-screen-md"> 
+         <h2 class="mb-4 text-center text-4xl font-bold md:text-5xl"><a href="https://afoo.me/kb.html" class="border-b">「福强私学」</a>来一个？</h2> 
+         <p class="mx-auto mb-8 w-full text-center text-lg leading-8 text-zinc-700 md:w-5/6 md:text-xl">「福强私学」, 一部沉淀了个人成长、技术与架构、组织与管理以及商业上的方法与心法的百科全书。</p> 
+        </div> 
+        <div class="mx-auto mt-6 w-full md:mt-12 md:w-4/5"> <a href="https://afoo.me/kb.html"> <img alt="footer img for kb.afoo.me" loading="lazy" width="2911" height="1961" decoding="async" data-nimg="1" class="mx-auto rounded-lg object-contain shadow-lg sm:rounded-2xl lg:rounded-3xl" style="color:transparent" src="https://og.afoo.me/?url=footer"> </a> 
+        </div> <!-- 小报童推荐 --> 
+        <div class="mx-auto max-w-screen-md"> 
+         <h2 class="mt-8 mb-4 text-center text-4xl font-bold md:text-5xl"><a href="https://xiaobot.net/p/aifd" class="border-b">福强老师的 AI 通识课</a></h2><a href="https://xiaobot.net/p/aifd" class="border-b"> </a>
+        </div><a href="https://xiaobot.net/p/aifd" class="border-b"> </a>
+        <div class="mx-auto mt-6 w-full md:mt-12 md:w-4/5">
+         <a href="https://xiaobot.net/p/aifd" class="border-b"> </a><a href="https://xiaobot.net/p/aifd"> <img alt="footer img for kb.afoo.me" loading="lazy" width="2911" height="1961" decoding="async" data-nimg="1" class="mx-auto rounded-lg object-contain shadow-lg sm:rounded-2xl lg:rounded-3xl" style="color:transparent" src="/images/xbt-footer.webp"> </a> 
+        </div> 
+        <div class="mx-auto mt-6 w-full md:mt-12 md:w-4/5"> 
+         <img alt="footer img for kb.afoo.me" loading="lazy" decoding="async" data-nimg="1" class="mx-auto p-3" style="color:transparent" src="/images/footer-links-2025.webp"> 
+        </div> 
+       </div> 
+      </div> 
+     </section> 
+     <hr> 
+     <p> <span style="font-size: xx-large;"> 开天窗，拉认知，订阅「福报」，即刻拥有自己的全模态人工智能。 </span> </p> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe_v2.jpg" alt="订阅「福报」"> </a> 
+     <hr> 
+     <div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"> 
+      <div id="tfloader" class="x-indicator"> 
+       <svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"> <g fill="none" fill-rule="evenodd"> 
+         <g transform="translate(1 1)" stroke-width="2"> 
+          <circle cx="5" cy="50" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+          <circle cx="27" cy="5" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+          <circle cx="49" cy="50" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+         </g> 
+        </g> 
+       </svg> 
+      </div> 
+     </div> 
+    </div> 
+   </section> 
+  </main> 
+  <div style="position: fixed; left: 0; bottom: 0; padding: 10px; z-index: 1000;"> 
+   <img src="/icons/Written-By-Human-Not-By-AI-Badge-black@2x.png" alt loading="lazy"> 
+  </div> 
+  <footer class="border-t border-gray-200 dark:border-slate-800"> 
+   <div class="max-w-6xl mx-auto px-4 sm:px-6"> 
+    <div class="md:flex md:items-center md:justify-between py-6 md:py-8"> 
+     <ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0"> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Twitter" href="https://twitter.com/afoo_me"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-twitter"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z"> 
+         </path> 
+        </svg> </a> </li> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Facebook" href="https://www.facebook.com/fujohnwang/"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-facebook"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2H7"></path> 
+        </svg> </a> </li> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Github" href="https://github.com/fujohnwang"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-github"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"> 
+         </path> 
+        </svg> </a> </li> 
+     </ul> 
+     <div class="text-sm text-gray-700 mr-4 dark:text-slate-400"> <span class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 float-left rounded-sm"> <img src="https://afoo.me/favicon.svg" class="rounded-md" alt> </span> Copyright © 王福强个人版权所有 - Since 2004 (Everything is homebrewed with <a href="https://pandoc.org/">Pandoc</a> and Markdown, little <a href="https://www.scala-lang.org/">Scala</a> also included.) 
+     </div> 
+    </div> 
+   </div> 
+  </footer> 
+  <script>
+        // Set "light" theme as default
+        if (!localStorage.theme) {
+            localStorage.theme = "light";
+        }
+
+        if (
+            localStorage.theme === 'dark' ||
+            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function attachEvent(selector, event, fn) {
+            const matches = document.querySelectorAll(selector);
+            if (matches && matches.length) {
+                matches.forEach((elem) => {
+                    elem.addEventListener(event, () => fn(elem), false);
+                });
+            }
+        }
+
+        window.onload = function () {
+            attachEvent('[data-toggle-menu]', 'click', function (elem) {
+                elem.classList.toggle('expanded');
+                document.body.classList.toggle('overflow-hidden');
+                document.getElementById('header')?.classList.toggle('h-screen');
+                document.querySelector('#header nav')?.classList.toggle('hidden');
+            });
+            attachEvent("[data-toggle-color-scheme]", "click", function () {
+                    document.documentElement.classList.toggle("light");
+                    localStorage.theme = "light";
+                });
+        };
+        window.onpageshow = function () {
+            const elem = document.querySelector('[data-toggle-menu]');
+            if (elem) {
+                elem.classList.remove('expanded');
+            }
+            document.body.classList.remove('overflow-hidden');
+            document.getElementById('header')?.classList.remove('h-screen');
+            document.querySelector('#header nav')?.classList.add('hidden');
+        };
+    </script> 
+  <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '518a605d711883414ac0',
+          clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+          repo: 'afoo.me.comments',
+          owner: 'fujohnwang',
+          admin: ['fujohnwang'],
+          id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+        gitalk.render('comments')
+    </script> 
+  <script src="https://formspree.io/js/formbutton-v1.min.js" defer></script> 
+  <script>
+  /* paste this line in verbatim */
+  window.formbutton=window.formbutton||function(){(formbutton.q=formbutton.q||[]).push(arguments)};
+  /* customize formbutton below*/     
+  formbutton("create", {
+    action: "https://formspree.io/f/xknlpkkd",
+    title: "有什么可以帮到您？💕💕💕 How can I help you?",
+    buttonImg: "<img src='https://afoo.me/hero3/70.webp' alt/>",
+    fields: [
+      { 
+        type: "email", 
+        label: "您的电子邮箱（方便与您联系）:", 
+        name: "email",
+        required: true,
+        placeholder: "your@email.com"
+      },
+      {
+        type: "textarea",
+        label: "您想提交的反馈和询问信息:",
+        name: "message",
+        placeholder: "What's on your mind?",
+      },
+      { type: "submit" }      
+    ],
+    styles: {
+      title: {
+        backgroundColor: "blue"
+      },
+      button: {
+        backgroundColor: "blue"
+      }
+    }
+  });
+</script> 
+  <script>
+	// tooltips
+	tippy('#aiedu', {
+        content: "As to AI nowadays, LLM and Stable Diffusion are hot even hottest among them, If your want to both know-why and know-how with them, instead of only know-how which can't repeat itself, you should get you to https://ai.afoo.me right now ❗"
+    });  
+</script>  
+ </body>
+</html>
