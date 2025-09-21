@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>水塘抽样算法动画演示</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        accent: '#8B5CF6',
+                        neutral: '#1F2937',
+                        light: '#F3F4F6',
+                        danger: '#EF4444',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .update-highlight {
+                animation: pulse 1.5s;
+            }
+            @keyframes pulse {
+                0% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.7); }
+                70% { box-shadow: 0 0 0 10px rgba(139, 92, 246, 0); }
+                100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+            }
+            .range-track {
+                height: 8px;
+                border-radius: 4px;
+                background: linear-gradient(to right, #10B981 var(--threshold-percent), #e5e7eb var(--threshold-percent));
+            }
+            .range-cursor {
+                position: absolute;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #EF4444;
+                box-shadow: 0 0 0 3px white, 0 0 0 4px rgba(239, 68, 68, 0.3);
+                transition: left 1s ease-in-out;
+                z-index: 20;
+            }
+            .cursor-label {
+                position: absolute;
+                font-size: 12px;
+                font-weight: 600;
+                color: #EF4444;
+                top: 100%;
+                margin-top: 8px;
+                transform: translateX(-50%);
+                white-space: nowrap;
+                z-index: 20;
+            }
+            .index-marker {
+                position: absolute;
+                width: 2px;
+                height: 12px;
+                background-color: #9ca3af;
+                top: 100%;
+                margin-top: 4px;
+            }
+            .index-label {
+                position: absolute;
+                font-size: 10px;
+                color: #6b7280;
+                top: 100%;
+                margin-top: 20px;
+                transform: translateX(-50%);
+                white-space: nowrap;
+            }
+            .threshold-line {
+                position: absolute;
+                width: 2px;
+                height: 16px;
+                background-color: #10B981;
+                top: 0;
+            }
+            .threshold-label {
+                position: absolute;
+                font-size: 10px;
+                color: #10B981;
+                font-weight: 600;
+                top: 100%;
+                margin-top: 20px;
+                transform: translateX(-50%);
+                white-space: nowrap;
+            }
+            .connection-line {
+                position: absolute;
+                background-color: #3B82F6;
+                z-index: 10;
+                transform-origin: top left;
+                transition: all 1s ease-in-out;
+                opacity: 0;
+                animation: fadeIn 0.5s forwards 0.3s;
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            .connector-dot {
+                position: absolute;
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background-color: #3B82F6;
+                z-index: 20;
+                opacity: 0;
+                animation: fadeIn 0.5s forwards 0.3s;
+            }
+            .index-highlight {
+                animation: indexPulse 1.5s infinite;
+            }
+            @keyframes indexPulse {
+                0% { background-color: #3B82F6; }
+                50% { background-color: #8B5CF6; }
+                100% { background-color: #3B82F6; }
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-neutral">
+    <div class="container mx-auto px-4 py-8 max-w-6xl relative">
+        <!-- 连接线容器 -->
+        <div id="connectionContainer" class="absolute top-0 left-0 w-full h-full pointer-events-none z-50"></div>
+        
+        <!-- 标题部分 -->
+        <header class="text-center mb-10">
+            <h1 class="text-[clamp(1.8rem,5vw,3rem)] font-bold text-neutral mb-3">水塘抽样算法</h1>
+            <p class="text-gray-600 max-w-3xl mx-auto text-lg">
+                从大量数据中随机选择样本的高效算法，适用于数据量巨大且未知的场景
+            </p>
+        </header>
+
+        <!-- 控制面板 -->
+        <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <label for="populationSize" class="block text-sm font-medium text-gray-700 mb-1">总体大小 (N)</label>
+                    <div class="flex items-center">
+                        <input type="range" id="populationSize" min="10" max="100" value="30" 
+                               class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary">
+                        <span id="populationSizeValue" class="ml-3 text-primary font-semibold">30</span>
+                    </div>
+                </div>
+                <div>
+                    <label for="sampleSize" class="block text-sm font-medium text-gray-700 mb-1">样本大小 (k)</label>
+                    <div class="flex items-center">
+                        <input type="range" id="sampleSize" min="1" max="10" value="3" 
+                               class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary">
+                        <span id="sampleSizeValue" class="ml-3 text-primary font-semibold">3</span>
+                    </div>
+                </div>
+                <div class="flex items-end">
+                    <button id="startBtn" class="w-full bg-primary hover:bg-primary/90 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center">
+                        <i class="fa fa-play mr-2"></i> 开始演示
+                    </button>
+                </div>
+            </div>
+            <div class="mt-4 flex justify-center">
+                <button id="resetBtn" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg transition-all duration-300 flex items-center">
+                    <i class="fa fa-refresh mr-2"></i> 重置
+                </button>
+            </div>
+        </div>
+
+        <!-- 可视化区域 - 总体数据在最上方 -->
+        <div class="bg-white rounded-xl shadow-md p-6 mb-8 relative">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-neutral">1. 总体数据 (N)</h2>
+                <div id="statusDisplay" class="text-sm font-medium text-gray-500">
+                    就绪状态：请点击"开始演示"按钮
+                </div>
+            </div>
+            
+            <!-- 总体数据区域 -->
+            <div class="mb-8">
+                <div id="populationContainer" class="flex flex-wrap gap-2 justify-center min-h-[80px] p-4 bg-light rounded-lg">
+                    <!-- 数据元素将在这里动态生成 -->
+                </div>
+            </div>
+            
+            <!-- 水塘(样本)区域 -->
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold mb-3 text-gray-700">2. 水塘(样本) (k)</h3>
+                <div id="reservoirContainer" class="flex flex-wrap gap-6 justify-center min-h-[130px] p-4 bg-light rounded-lg">
+                    <!-- 样本元素将在这里动态生成 -->
+                </div>
+            </div>
+            
+            <!-- 随机选择判定区域 - 使用一个bar -->
+            <div class="mt-4 p-5 bg-light rounded-lg">
+                <h3 class="text-lg font-semibold mb-6 text-gray-700">3. 随机选择判定</h3>
+                
+                <!-- 合并为一个bar -->
+                <div class="relative mb-24" id="decisionBarContainer">
+                    <div id="decisionBar" class="range-track w-full"></div>
+                    
+                    <!-- 随机值游标和标签 -->
+                    <div id="randomCursor" class="range-cursor" style="left: 0%">
+                        <div id="cursorValueLabel" class="cursor-label">0</div>
+                    </div>
+                    
+                    <!-- 阈值线和标签将在这里动态生成 -->
+                    <div id="thresholdMarkers"></div>
+                    
+                    <!-- 索引标记将在这里动态生成 -->
+                    <div id="indexMarkers"></div>
+                    
+                    <div class="flex justify-between mt-2 text-sm text-gray-600">
+                        <span>0</span>
+                        <span id="currentIRange" class="text-primary font-medium">i = 1</span>
+                    </div>
+                </div>
+                
+                <!-- 判定结果 -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+                    <div class="bg-white p-3 rounded-lg shadow-sm">
+                        <div class="text-sm text-gray-500">水塘大小 (k)</div>
+                        <div id="thresholdValue" class="text-2xl font-bold text-secondary">3</div>
+                    </div>
+                    <div class="bg-white p-3 rounded-lg shadow-sm">
+                        <div class="text-sm text-gray-500">当前位置 (i)</div>
+                        <div id="currentPosition" class="text-2xl font-bold text-gray-700">1</div>
+                    </div>
+                    <div class="bg-white p-3 rounded-lg shadow-sm">
+                        <div class="text-sm text-gray-500">当前随机值 (r)</div>
+                        <div id="randomValue" class="text-2xl font-bold text-primary">-</div>
+                    </div>
+                    <div class="bg-white p-3 rounded-lg shadow-sm">
+                        <div class="text-sm text-gray-500">判定结果</div>
+                        <div id="resultText" class="text-2xl font-bold text-gray-700">-</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 算法说明和步骤 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- 算法说明 -->
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h2 class="text-xl font-bold mb-3 text-neutral">算法原理</h2>
+                <div class="bg-light p-4 rounded-lg">
+                    <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                        <li>先将前k个元素放入"水塘"(样本集合)中</li>
+                        <li>对于第i个元素(i > k)：
+                            <ul class="list-disc list-inside ml-4 mt-1">
+                                <li>生成一个0到i之间的随机整数r</li>
+                                <li>如果r < k（即r在0到k-1范围内），则用第i个元素替换水塘中第r个元素</li>
+                                <li>否则，该元素被忽略</li>
+                            </ul>
+                        </li>
+                        <li>处理完所有元素后，水塘中保留的就是随机选择的k个样本</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- 步骤说明 -->
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h2 class="text-xl font-bold mb-3 text-neutral">处理步骤</h2>
+                <div id="stepsContainer" class="space-y-2 max-h-[200px] overflow-y-auto text-gray-600">
+                    <p>演示尚未开始...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 概率说明 -->
+        <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+            <h2 class="text-xl font-bold mb-3 text-neutral">概率说明</h2>
+            <div id="probabilityInfo" class="text-gray-600">
+                <p>每个元素被选中的概率均为 k/N，保证了抽样的公平性。</p>
+                <p class="mt-2" id="currentProbability">准备开始演示...</p>
+            </div>
+        </div>
+
+        <!-- 页脚 -->
+        <footer class="mt-12 text-center text-gray-500 text-sm">
+            <p>水塘抽样算法可视化演示</p>
+        </footer>
+    </div>
+
+    <script>
+        // 全局变量
+        let population = [];          // 总体数据
+        let reservoir = [];           // 水塘(样本)
+        let populationSize = 30;      // 总体大小
+        let sampleSize = 3;           // 样本大小
+        let currentIndex = 0;         // 当前处理的元素索引
+        let animationInterval;        // 动画间隔ID
+        let isAnimating = false;      // 是否正在动画
+        let currentRandomValue = 0;   // 当前随机值（整数）
+        let currentReplaceIndex = -1; // 当前替换的水塘索引
+        let indexElements = [];       // 存储索引元素引用，便于精确定位
+
+        // DOM元素
+        const populationContainer = document.getElementById('populationContainer');
+        const reservoirContainer = document.getElementById('reservoirContainer');
+        const populationSizeSlider = document.getElementById('populationSize');
+        const populationSizeValue = document.getElementById('populationSizeValue');
+        const sampleSizeSlider = document.getElementById('sampleSize');
+        const sampleSizeValue = document.getElementById('sampleSizeValue');
+        const startBtn = document.getElementById('startBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const statusDisplay = document.getElementById('statusDisplay');
+        const stepsContainer = document.getElementById('stepsContainer');
+        const probabilityInfo = document.getElementById('probabilityInfo');
+        const decisionBar = document.getElementById('decisionBar');
+        const randomCursor = document.getElementById('randomCursor');
+        const cursorValueLabel = document.getElementById('cursorValueLabel');
+        const currentIRange = document.getElementById('currentIRange');
+        const randomValue = document.getElementById('randomValue');
+        const thresholdValue = document.getElementById('thresholdValue');
+        const currentPosition = document.getElementById('currentPosition');
+        const resultText = document.getElementById('resultText');
+        const decisionBarContainer = document.getElementById('decisionBarContainer');
+        const thresholdMarkers = document.getElementById('thresholdMarkers');
+        const indexMarkers = document.getElementById('indexMarkers');
+        const connectionContainer = document.getElementById('connectionContainer');
+
+        // 初始化
+        function initialize() {
+            // 清空容器
+            populationContainer.innerHTML = '';
+            reservoirContainer.innerHTML = '';
+            stepsContainer.innerHTML = '<p>演示尚未开始...</p>';
+            connectionContainer.innerHTML = '';
+            thresholdMarkers.innerHTML = '';
+            indexMarkers.innerHTML = '';
+            indexElements = [];
+            
+            // 生成总体数据
+            population = Array.from({length: populationSize}, (_, i) => i + 1);
+            
+            // 显示总体数据
+            population.forEach((num, index) => {
+                const element = document.createElement('div');
+                element.id = `pop-${index}`;
+                element.className = 'w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-700 font-medium transition-all duration-300';
+                element.textContent = num;
+                populationContainer.appendChild(element);
+            });
+            
+            // 初始化水塘为空
+            reservoir = [];
+            
+            // 创建阈值标记和索引标记
+            createThresholdMarker();
+            createIndexMarkers();
+            
+            // 设置阈值百分比
+            const thresholdPercent = (sampleSize / populationSize) * 100;
+            decisionBar.style.setProperty('--threshold-percent', `${thresholdPercent}%`);
+            
+            // 重置随机值显示
+            updateRandomDisplay(0);
+            randomValue.textContent = '-';
+            resultText.textContent = '-';
+            thresholdValue.textContent = sampleSize;
+            currentPosition.textContent = '1';
+            currentIRange.textContent = 'i = 1';
+            
+            // 重置状态
+            currentIndex = 0;
+            currentReplaceIndex = -1;
+            isAnimating = false;
+            statusDisplay.textContent = '就绪状态：请点击"开始演示"按钮';
+            updateProbabilityInfo();
+            
+            // 更新按钮文本
+            startBtn.innerHTML = '<i class="fa fa-play mr-2"></i> 开始演示';
+        }
+
+        // 创建阈值标记 (k值位置)
+        function createThresholdMarker() {
+            const thresholdPercent = (sampleSize / populationSize) * 100;
+            
+            // 创建阈值线
+            const line = document.createElement('div');
+            line.className = 'threshold-line';
+            line.style.left = `${thresholdPercent}%`;
+            thresholdMarkers.appendChild(line);
+            
+            // 创建阈值标签
+            const label = document.createElement('div');
+            label.className = 'threshold-label';
+            label.style.left = `${thresholdPercent}%`;
+            label.textContent = `k = ${sampleSize}`;
+            thresholdMarkers.appendChild(label);
+        }
+
+        // 创建索引标记 (0到k-1)
+        function createIndexMarkers() {
+            // 计算每个索引的位置百分比
+            for (let i = 0; i < sampleSize; i++) {
+                const percent = (i / populationSize) * 100;
+                
+                // 创建索引标记线
+                const marker = document.createElement('div');
+                marker.className = 'index-marker';
+                marker.style.left = `${percent}%`;
+                marker.dataset.index = i;
+                indexMarkers.appendChild(marker);
+                
+                // 创建索引标签
+                const label = document.createElement('div');
+                label.className = 'index-label';
+                label.style.left = `${percent}%`;
+                label.textContent = i;
+                label.dataset.index = i;
+                indexMarkers.appendChild(label);
+                
+                // 存储索引元素引用
+                indexElements.push({
+                    index: i,
+                    marker: marker,
+                    label: label,
+                    percent: percent
+                });
+            }
+        }
+
+        // 更新概率信息
+        function updateProbabilityInfo() {
+            document.getElementById('currentProbability').textContent = 
+                `当前设置下，每个元素被选中的概率为 ${sampleSize}/${populationSize} = ${(sampleSize/populationSize*100).toFixed(1)}%`;
+        }
+
+        // 更新随机值显示
+        function updateRandomDisplay(randomVal) {
+            // 计算随机值在0到当前i范围内的百分比
+            const currentI = currentIndex + 1;
+            const percent = currentI > 0 ? (randomVal / currentI) * 100 : 0;
+            randomCursor.style.left = `${percent}%`;
+            
+            // 更新游标下方的数值标签
+            cursorValueLabel.textContent = randomVal;
+        }
+
+        // 添加步骤说明
+        function addStep(description) {
+            const stepElement = document.createElement('p');
+            stepElement.className = 'py-1 border-b border-gray-100';
+            stepElement.textContent = description;
+            stepsContainer.appendChild(stepElement);
+            stepsContainer.scrollTop = stepsContainer.scrollHeight;
+        }
+
+        // 高亮当前处理的元素
+        function highlightCurrentElement() {
+            // 移除之前的高亮
+            document.querySelectorAll('#populationContainer > div').forEach(el => {
+                el.classList.remove('ring-4', 'ring-primary', 'scale-110');
+                el.classList.remove('bg-primary/10');
+            });
+            
+            // 高亮当前元素
+            if (currentIndex < populationSize) {
+                const currentEl = document.getElementById(`pop-${currentIndex}`);
+                currentEl.classList.add('ring-4', 'ring-primary', 'scale-110');
+                
+                // 给已处理的元素添加轻微背景色
+                for (let i = 0; i < currentIndex; i++) {
+                    const el = document.getElementById(`pop-${i}`);
+                    el.classList.add('bg-primary/10');
+                }
+            }
+        }
+
+        // 高亮索引标记
+        function highlightIndexMarker(index) {
+            // 移除所有高亮
+            document.querySelectorAll('.index-marker').forEach(marker => {
+                marker.classList.remove('index-highlight');
+                marker.style.backgroundColor = '#9ca3af';
+            });
+            
+            // 高亮指定索引
+            const targetMarker = document.querySelector(`.index-marker[data-index="${index}"]`);
+            if (targetMarker) {
+                targetMarker.classList.add('index-highlight');
+                targetMarker.style.backgroundColor = '#3B82F6';
+            }
+        }
+
+        // 创建动态连接线 - 恢复水塘样本与刻度之间的连线
+        function createConnections() {
+            // 清除现有连接线和高亮
+            connectionContainer.innerHTML = '';
+            highlightIndexMarker(-1); // 移除索引高亮
+            
+            if (currentIndex >= populationSize) return;
+            
+            // 获取容器位置参考
+            const containerRect = document.querySelector('.container').getBoundingClientRect();
+            
+            // 获取当前总体数据元素位置
+            const populationEl = document.getElementById(`pop-${currentIndex}`);
+            if (!populationEl) return;
+            
+            const popRect = populationEl.getBoundingClientRect();
+            const popCenter = {
+                x: popRect.left + popRect.width / 2 - containerRect.left,
+                y: popRect.top + popRect.height / 2 - containerRect.top
+            };
+            
+            // 如果是前k个元素，连接总体到水塘，以及水塘到对应索引
+            if (currentIndex < sampleSize) {
+                const reservoirEls = reservoirContainer.querySelectorAll('.reservoir-item');
+                const targetReservoirEl = reservoirEls[currentIndex];
+                
+                if (targetReservoirEl) {
+                    // 获取水塘元素中心
+                    const resRect = targetReservoirEl.getBoundingClientRect();
+                    const resCenter = {
+                        x: resRect.left + resRect.width / 2 - containerRect.left,
+                        y: resRect.top + resRect.height / 2 - containerRect.top
+                    };
+                    
+                    // 创建总体到水塘的连接线
+                    createConnectionLine(popCenter, resCenter);
+                    
+                    // 找到对应索引的标记
+                    const targetIndex = indexElements.find(el => el.index === currentIndex);
+                    if (targetIndex) {
+                        // 获取索引标记位置
+                        const markerRect = targetIndex.marker.getBoundingClientRect();
+                        const markerCenter = {
+                            x: markerRect.left + markerRect.width / 2 - containerRect.left,
+                            y: markerRect.top - containerRect.top - 10 // 标记上方
+                        };
+                        
+                        // 创建水塘到索引标记的连接线
+                        createConnectionLine(resCenter, markerCenter);
+                        
+                        // 高亮索引标记
+                        highlightIndexMarker(currentIndex);
+                    }
+                }
+            } 
+            // 如果是替换操作，连接总体到水塘，以及水塘到对应索引
+            else if (currentReplaceIndex !== -1) {
+                const reservoirEls = reservoirContainer.querySelectorAll('.reservoir-item');
+                const targetReservoirEl = reservoirEls[currentReplaceIndex];
+                
+                if (targetReservoirEl) {
+                    // 获取水塘元素中心
+                    const resRect = targetReservoirEl.getBoundingClientRect();
+                    const resCenter = {
+                        x: resRect.left + resRect.width / 2 - containerRect.left,
+                        y: resRect.top + resRect.height / 2 - containerRect.top
+                    };
+                    
+                    // 创建总体到水塘的连接线
+                    createConnectionLine(popCenter, resCenter);
+                    
+                    // 找到对应索引的标记
+                    const targetIndex = indexElements.find(el => el.index === currentReplaceIndex);
+                    if (targetIndex) {
+                        // 获取索引标记位置
+                        const markerRect = targetIndex.marker.getBoundingClientRect();
+                        const markerCenter = {
+                            x: markerRect.left + markerRect.width / 2 - containerRect.left,
+                            y: markerRect.top - containerRect.top - 10 // 标记上方
+                        };
+                        
+                        // 创建水塘到索引标记的连接线
+                        createConnectionLine(resCenter, markerCenter);
+                        
+                        // 高亮索引标记
+                        highlightIndexMarker(currentReplaceIndex);
+                    }
+                }
+            }
+        }
+
+        // 创建单条连接线
+        function createConnectionLine(from, to) {
+            // 计算线的长度和角度
+            const length = Math.sqrt(Math.pow(to.x - from.x, 2) + Math.pow(to.y - from.y, 2));
+            const angle = Math.atan2(to.y - from.y, to.x - from.x) * 180 / Math.PI;
+            
+            // 创建线
+            const line = document.createElement('div');
+            line.className = 'connection-line';
+            line.style.width = `${length}px`;
+            line.style.height = '2px';
+            line.style.left = `${from.x}px`;
+            line.style.top = `${from.y}px`;
+            line.style.transform = `rotate(${angle}deg)`;
+            
+            // 创建起点和终点圆点
+            const startDot = document.createElement('div');
+            startDot.className = 'connector-dot';
+            startDot.style.left = `${from.x - 5}px`;
+            startDot.style.top = `${from.y - 5}px`;
+            
+            const endDot = document.createElement('div');
+            endDot.className = 'connector-dot';
+            endDot.style.left = `${to.x - 5}px`;
+            endDot.style.top = `${to.y - 5}px`;
+            
+            connectionContainer.appendChild(line);
+            connectionContainer.appendChild(startDot);
+            connectionContainer.appendChild(endDot);
+        }
+
+        // 处理下一个元素
+        function processNextElement() {
+            if (currentIndex >= populationSize) {
+                // 所有元素处理完毕
+                finishAnimation();
+                return;
+            }
+            
+            // 重置当前替换索引
+            currentReplaceIndex = -1;
+            
+            const currentValue = population[currentIndex];
+            const currentPositionValue = currentIndex + 1;
+            statusDisplay.textContent = `正在处理第 ${currentPositionValue} 个元素: ${currentValue}`;
+            currentPosition.textContent = currentPositionValue;
+            currentIRange.textContent = `i = ${currentPositionValue}`;
+            
+            // 高亮当前元素
+            highlightCurrentElement();
+            
+            if (currentIndex < sampleSize) {
+                // 前k个元素直接加入水塘
+                reservoir.push(currentValue);
+                const reason = `将第 ${currentPositionValue} 个元素 (${currentValue}) 加入水塘，因为它是前${sampleSize}个元素之一`;
+                addStep(reason);
+                
+                // 更新水塘显示
+                updateReservoirDisplay();
+                
+                // 更新随机值显示
+                updateRandomDisplay(0);
+                randomValue.textContent = '-';
+                resultText.textContent = '入选';
+                resultText.className = 'text-2xl font-bold text-secondary';
+                
+                // 创建连接线
+                createConnections();
+            } else {
+                // 对于第i个元素(i > k)，以k/i的概率替换水塘中的元素
+                const maxVal = currentPositionValue;
+                const threshold = sampleSize;
+                
+                // 生成0到maxVal（含）之间的随机整数
+                currentRandomValue = Math.floor(Math.random() * (maxVal + 1));
+                
+                // 更新随机值显示
+                updateRandomDisplay(currentRandomValue);
+                
+                // 显示随机值（整数）
+                randomValue.textContent = currentRandomValue;
+                
+                if (currentRandomValue < threshold) {
+                    // 随机值落入取样区间，选择该元素
+                    resultText.textContent = '入选';
+                    resultText.className = 'text-2xl font-bold text-secondary';
+                    
+                    // 随机选择水塘中的一个位置进行替换
+                    currentReplaceIndex = currentRandomValue; // 使用随机值作为替换索引
+                    const replacedValue = reservoir[currentReplaceIndex];
+                    
+                    // 替换元素
+                    reservoir[currentReplaceIndex] = currentValue;
+                    
+                    const reason = `元素 ${currentValue} 被选中（随机索引: ${currentRandomValue} < ${threshold}），替换了水塘中索引 ${currentReplaceIndex} 的元素 ${replacedValue}`;
+                    addStep(reason);
+                    
+                    // 更新水塘显示，添加动画效果
+                    updateReservoirDisplay(currentReplaceIndex);
+                    
+                    // 创建连接线
+                    createConnections();
+                } else {
+                    // 随机值未落入取样区间，不选择该元素
+                    resultText.textContent = '未入选';
+                    resultText.className = 'text-2xl font-bold text-danger';
+                    
+                    const reason = `元素 ${currentValue} 未被选中（随机索引: ${currentRandomValue} ≥ ${threshold}）`;
+                    addStep(reason);
+                    
+                    // 清除连接线和高亮
+                    connectionContainer.innerHTML = '';
+                    highlightIndexMarker(-1);
+                }
+            }
+            
+            // 移动到下一个元素
+            currentIndex++;
+        }
+
+        // 更新水塘显示
+        function updateReservoirDisplay(replaceIndex = -1) {
+            reservoirContainer.innerHTML = '';
+            
+            reservoir.forEach((num, index) => {
+                const container = document.createElement('div');
+                container.className = 'reservoir-item flex flex-col items-center';
+                
+                // 水塘数量标签（上方）
+                const countLabel = document.createElement('div');
+                countLabel.className = 'text-xs text-gray-500 mb-1';
+                countLabel.textContent = `水塘 #${index + 1}`;
+                
+                // 元素值
+                const element = document.createElement('div');
+                element.className = 'w-16 h-16 rounded-lg bg-secondary flex items-center justify-center text-white font-bold text-xl transition-all duration-500 transform';
+                
+                // 索引标签（下方）
+                const indexLabel = document.createElement('div');
+                indexLabel.className = 'text-xs font-medium text-gray-600 mt-1';
+                indexLabel.textContent = `索引 ${index}`;
+                
+                // 如果是被替换的元素，添加动画效果
+                if (index === replaceIndex) {
+                    element.classList.add('update-highlight');
+                }
+                
+                element.textContent = num;
+                container.appendChild(countLabel);
+                container.appendChild(element);
+                container.appendChild(indexLabel);
+                reservoirContainer.appendChild(container);
+            });
+        }
+
+        // 开始动画
+        function startAnimation() {
+            if (isAnimating) {
+                // 暂停动画
+                clearInterval(animationInterval);
+                isAnimating = false;
+                startBtn.innerHTML = '<i class="fa fa-play mr-2"></i> 继续演示';
+                statusDisplay.textContent = `已暂停，当前处理到第 ${currentIndex + 1} 个元素`;
+                return;
+            }
+            
+            // 开始或继续动画
+            isAnimating = true;
+            startBtn.innerHTML = '<i class="fa fa-pause mr-2"></i> 暂停演示';
+            
+            // 立即处理当前元素
+            processNextElement();
+            
+            // 设置定时器处理后续元素
+            animationInterval = setInterval(processNextElement, 3000);
+        }
+
+        // 结束动画
+        function finishAnimation() {
+            clearInterval(animationInterval);
+            isAnimating = false;
+            statusDisplay.textContent = '演示完成！所有元素已处理完毕';
+            startBtn.innerHTML = '<i class="fa fa-play mr-2"></i> 重新开始';
+        }
+
+        // 重置演示
+        function resetDemo() {
+            // 清除动画定时器
+            clearInterval(animationInterval);
+            
+            // 重新初始化所有状态
+            initialize();
+        }
+
+        // 事件监听
+        populationSizeSlider.addEventListener('input', (e) => {
+            populationSize = parseInt(e.target.value);
+            populationSizeValue.textContent = populationSize;
+            // 确保样本大小不超过总体大小
+            if (sampleSize > populationSize) {
+                sampleSize = populationSize;
+                sampleSizeSlider.value = sampleSize;
+                sampleSizeValue.textContent = sampleSize;
+                thresholdValue.textContent = sampleSize;
+            }
+            
+            if (!isAnimating) {
+                initialize();
+            }
+        });
+
+        sampleSizeSlider.addEventListener('input', (e) => {
+            const value = parseInt(e.target.value);
+            // 确保样本大小不超过总体大小
+            if (value <= populationSize) {
+                sampleSize = value;
+                sampleSizeValue.textContent = sampleSize;
+                thresholdValue.textContent = sampleSize;
+                
+                if (!isAnimating) {
+                    initialize();
+                }
+            }
+        });
+
+        // 开始/重新开始按钮功能
+        startBtn.addEventListener('click', function() {
+            // 如果动画已完成（显示"重新开始"），则重置后再开始
+            if (this.innerHTML.includes('重新开始')) {
+                resetDemo();
+                startAnimation();
+            } else {
+                startAnimation();
+            }
+        });
+
+        resetBtn.addEventListener('click', resetDemo);
+
+        // 页面加载时初始化
+        window.addEventListener('load', initialize);
+    </script>
+</body>
+</html>
