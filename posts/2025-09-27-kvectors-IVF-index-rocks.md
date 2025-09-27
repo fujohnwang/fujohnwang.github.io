@@ -36,7 +36,7 @@
 
 所以，IVF索引功不可没啊！
 
-另外，感谢王总预约了下个月的新培训，感兴趣的企业也欢迎预约哟～
+另外，感谢王总预约了下个月的新培训，感兴趣的企业也[欢迎预约](https://keevol.cn/trainings.html)哟～
 
 ![](./images/vector-index-types-PPT.jpg)
 
