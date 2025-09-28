@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LSH 索引构建与检索动画</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f4f7f9; }
+        /* Tab 按钮样式 */
+        .tab-button {
+            padding: 10px 20px;
+            font-weight: 600;
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+            margin-bottom: -2px; /* Pull into border */
+        }
+        .tab-button.active {
+            background-color: white;
+            color: #3b82f6; /* Blue 600 */
+            border-color: #3b82f6;
+            border-bottom-color: transparent;
+            z-index: 10;
+        }
+        .tab-button:not(.active) {
+            background-color: #e5e7eb; /* Gray 200 */
+            color: #4b5563; /* Gray 600 */
+        }
+        /* 步骤卡片样式 */
+        .step-card {
+            min-height: 120px;
+            opacity: 0.3;
+            transition: all 0.5s ease-in-out;
+            transform: scale(0.95);
+            margin-bottom: 12px; /* Add margin for vertical spacing */
+        }
+        .step-card.active {
+            opacity: 1;
+            transform: scale(1);
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.2), 0 4px 6px -4px rgba(59, 130, 246, 0.2);
+            border-color: #3b82f6;
+        }
+        .step-card.completed {
+             background-color: #fff7ed; /* Yellowish background for completed steps */
+             border-color: #f97316; /* Orange border for completed steps */
+        }
+        /* 核心哈希值样式 */
+        .hash-bit {
+            display: inline-flex;
+            width: 30px;
+            height: 30px;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            border-radius: 4px;
+            margin: 2px;
+            color: white;
+            background-color: #f97316; /* Orange */
+        }
+        /* 限制阶段步骤容器高度并添加滚动条 */
+        .stage-steps-scroll {
+            max-height: 50vh; /* Limit height to enable scrolling */
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        /* 隐藏滚动条美化 */
+        .stage-steps-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .stage-steps-scroll::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+
+    <script>
+        // 使用 IIFE (立即执行函数表达式)
+        (() => {
+            // --- LSH 参数和数据 (共享) ---
+            const D = 4; // 向量维度 (简化)
+            const L_DEMO = 3; 
+            const K_DEMO = 4;
+            const RANDOM_PLANES = [
+                // Band 1 (K=4 vectors)
+                [0.5, -0.2, 0.8, -0.1], [-0.7, 0.9, 0.1, 0.4], [0.3, 0.5, -0.6, 0.2], [0.1, -0.8, 0.3, 0.7],
+                // Band 2 (K=4 vectors)
+                [0.9, 0.1, -0.5, 0.3], [-0.4, -0.6, 0.2, 0.8], [0.2, 0.7, -0.9, 0.1], [0.6, -0.3, 0.4, -0.5],
+                // Band 3 (K=4 vectors)
+                [-0.8, 0.4, 0.6, -0.2], [0.1, 0.5, -0.3, 0.7], [0.4, -0.7, 0.2, 0.9], [-0.5, 0.3, -0.1, -0.8]
+            ];
+
+            // --- 索引演示 (Indexing Demo) ---
+            const VECTOR_ID = "VEC_X_789";
+            const INPUT_VECTOR = [5, 8, 2, 9]; 
+            const INDEXING_TOTAL_STEPS = L_DEMO * K_DEMO + L_DEMO + 2; // 17 steps (0 to 16)
+            let currentStep = 0;
+            let indexingHashcodes = []; // Will store VEC_X_789's hashcodes
+
+            // --- 查询演示 (Querying Demo) ---
+            const Q_VECTOR_ID = "QUERY_Q_101";
+            // 确保查询向量Q与索引向量V接近，以演示LSH碰撞
+            const QUERY_VECTOR = [5.5, 7.8, 2.2, 9.1]; 
+            // 修复 bug 2: +1 步给 Lookup, +1 步给 Final Result. 总共是 L*K + L + 3 = 18 steps (0 to 17)
+            const QUERY_TOTAL_STEPS = L_DEMO * K_DEMO + L_DEMO + 3; // NOW 18 steps
+            let queryCurrentStep = 0;
+            let queryHashcodes = []; // Will store QUERY_Q_101's hashcodes
+            
+            // --- 全局状态 ---
+            let activeTab = 'indexing'; 
+
+            // --- DOM 元素引用 (Indexing) ---
+            let indexingNextButton, indexingCurrentStepDisplay, indexingFinalResultDiv;
+            let indexingInitialStepContainer, indexingStage1StepsContainer, indexingStage2StepsContainer, indexingFinalStepCardContainer;
+
+            // --- DOM 元素引用 (Querying) ---
+            let queryNextButton, queryCurrentStepDisplay, queryFinalResultDiv;
+            let queryInitialStepContainer, queryStage1StepsContainer, queryStage2StepsContainer, queryFinalStepCardContainer;
+            let queryLookupStepContainer; // 新增用于阶段 3 的容器引用
+            let nextButton; // Shared button reference
+
+            // --- 核心 LSH 工具函数 ---
+            function getProjectionBit(v, r) {
+                let dotProduct = v.reduce((sum, v_i, i) => sum + v_i * r[i], 0);
+                return dotProduct >= 0 ? 1 : 0;
+            }
+
+            function getHashcodesForVector(vector) {
+                let codes = [];
+                let currentBandBits = [];
+                for (let i = 0; i < RANDOM_PLANES.length; i++) {
+                    const randomPlane = RANDOM_PLANES[i];
+                    const bit = getProjectionBit(vector, randomPlane);
+                    currentBandBits.push(bit);
+
+                    if (currentBandBits.length === K_DEMO) {
+                        codes.push(currentBandBits.join(''));
+                        currentBandBits = [];
+                    }
+                }
+                return codes;
+            }
+
+            // --- 初始化函数 ---
+            window.onload = () => {
+                // Shared button
+                nextButton = document.getElementById('nextButton');
+                
+                // Indexing Refs
+                indexingCurrentStepDisplay = document.getElementById('indexingCurrentStepDisplay');
+                indexingFinalResultDiv = document.getElementById('indexingFinalResult');
+                indexingInitialStepContainer = document.getElementById('indexingInitialStepContainer'); 
+                indexingFinalStepCardContainer = document.getElementById('indexingFinalStepCardContainer'); 
+                indexingStage1StepsContainer = document.getElementById('indexingStage1-steps');
+                indexingStage2StepsContainer = document.getElementById('indexingStage2-steps');
+                
+                // Querying Refs
+                queryCurrentStepDisplay = document.getElementById('queryCurrentStepDisplay');
+                queryFinalResultDiv = document.getElementById('queryFinalResult');
+                queryInitialStepContainer = document.getElementById('queryInitialStepContainer'); 
+                queryFinalStepCardContainer = document.getElementById('queryFinalStepCardContainer'); 
+                queryStage1StepsContainer = document.getElementById('queryStage1-steps');
+                queryStage2StepsContainer = document.getElementById('queryStage2-steps');
+                queryLookupStepContainer = document.getElementById('queryLookupStepContainer'); // 引用新的阶段 3 容器
+                
+                // Tabs
+                document.getElementById('indexingTab').addEventListener('click', () => switchTab('indexing'));
+                document.getElementById('queryingTab').addEventListener('click', () => switchTab('querying'));
+                
+                // Initialize both demos
+                initializeIndexingSteps();
+                initializeQuerySteps();
+                
+                // Set initial tab and update UI
+                switchTab('indexing'); 
+                nextButton.addEventListener('click', handleNext);
+            };
+
+            // --- 步骤卡片创建工具 ---
+            function createStepCard(index, title, content, type, prefix) {
+                const card = document.createElement('div');
+                card.id = `${prefix}step-${index}`; 
+                let baseClass = `step-card p-4 rounded-xl border-2 border-gray-200 bg-white space-y-2`;
+                
+                if (type === 'initial' || type === 'final' || type === 'lookup') {
+                    card.className = `${baseClass} w-full my-6 mx-auto`;
+                } else {
+                    card.className = baseClass;
+                }
+                
+                card.innerHTML = `
+                    <h3 class="text-lg font-bold text-gray-800">${title}</h3>
+                    <p class="text-sm text-gray-600">${content}</p>
+                `;
+                return card;
+            }
+
+            // --- 通用 UI 查找函数 ---
+            function getAllStepCards(prefix, totalSteps) {
+                const cards = [];
+                for (let i = 0; i < totalSteps; i++) {
+                    const card = document.getElementById(`${prefix}step-${i}`);
+                    if (card) cards.push(card);
+                }
+                return cards;
+            }
+
+            // ==========================================================
+            // === 索引演示 (Indexing Demo) 逻辑 ===
+            // ==========================================================
+
+            function initializeIndexingSteps() {
+                indexingHashcodes = getHashcodesForVector(INPUT_VECTOR);
+                
+                indexingInitialStepContainer.innerHTML = '';
+                indexingStage1StepsContainer.innerHTML = '';
+                indexingStage2StepsContainer.innerHTML = '';
+                indexingFinalStepCardContainer.innerHTML = '';
+                
+                indexingInitialStepContainer.appendChild(createStepCard(0, '阶段 0: 输入原始向量', `V (${D}D) = [${INPUT_VECTOR.join(', ')}]`, 'initial', 'idx'));
+
+                let currentStepIndex = 1; 
+                let randomPlaneIndex = 0;
+
+                for (let l = 0; l < L_DEMO; l++) {
+                    // 阶段 1: K 次随机投射
+                    for (let k = 0; k < K_DEMO; k++) {
+                        const randomPlane = RANDOM_PLANES[randomPlaneIndex];
+                        const bit = getProjectionBit(INPUT_VECTOR, randomPlane);
+
+                        const card = createStepCard(
+                            currentStepIndex, 
+                            `哈希带 ${l + 1} | 投射 #${k + 1}`, 
+                            `平面 $R_{${randomPlaneIndex+1}}$: [${randomPlane.map(n => n.toFixed(1)).join(', ')}] $\implies$ 位: <span class="hash-bit">${bit}</span>`, 
+                            'projection', 'idx'
+                        );
+                        indexingStage1StepsContainer.appendChild(card);
+                        randomPlaneIndex++;
+                        currentStepIndex++;
+                    }
+
+                    // 阶段 2: K 位组成哈希码
+                    const hashcode = indexingHashcodes[l];
+                    const card = createStepCard(
+                        currentStepIndex, 
+                        `哈希表 ${l + 1} | 存储`,
+                        `$K=${K_DEMO}$ 位串联: <code>${hashcode}</code> $\implies$ **哈希桶 ID**。`,
+                        'hashcode', 'idx'
+                    );
+                    indexingStage2StepsContainer.appendChild(card);
+                    currentStepIndex++;
+                }
+
+                // 阶段 3: 最终结果
+                indexingFinalStepCardContainer.appendChild(createStepCard(INDEXING_TOTAL_STEPS - 1, '阶段 3: LSH 索引构建完成', '查看下方的最终索引结果表。', 'final', 'idx'));
+                renderFinalResult(indexingHashcodes, VECTOR_ID, indexingFinalResultDiv);
+            }
+
+            function resetDemo() {
+                currentStep = 0;
+                updateStepUI(currentStep);
+            }
+
+            function updateStepUI(step) {
+                const allStepCards = getAllStepCards('idx', INDEXING_TOTAL_STEPS);
+                indexingCurrentStepDisplay.textContent = `${step} / ${INDEXING_TOTAL_STEPS - 1}`;
+                
+                allStepCards.forEach((card, index) => {
+                    card.classList.remove('active', 'bg-blue-50', 'border-blue-500');
+                    card.classList.remove('completed', 'bg-yellow-50', 'border-yellow-500');
+
+                    if (index === step) {
+                        card.classList.add('active', 'bg-blue-50', 'border-blue-500');
+                        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } else if (index < step) {
+                        card.classList.add('completed', 'bg-yellow-50', 'border-yellow-500');
+                    }
+                });
+
+                if (step >= INDEXING_TOTAL_STEPS - 1) {
+                    nextButton.textContent = '重新演示';
+                    indexingFinalResultDiv.classList.remove('hidden');
+                } else {
+                    nextButton.textContent = '下一步 (Next)';
+                    indexingFinalResultDiv.classList.add('hidden');
+                }
+            }
+
+            // ==========================================================
+            // === 查询演示 (Querying Demo) 逻辑 ===
+            // ==========================================================
+
+            function initializeQuerySteps() {
+                queryHashcodes = getHashcodesForVector(QUERY_VECTOR);
+                
+                queryInitialStepContainer.innerHTML = '';
+                queryStage1StepsContainer.innerHTML = '';
+                queryStage2StepsContainer.innerHTML = '';
+                queryLookupStepContainer.innerHTML = ''; // 清空新的阶段 3 容器
+                queryFinalStepCardContainer.innerHTML = '';
+                
+                // Step 0: Initial (Index 0)
+                queryInitialStepContainer.appendChild(createStepCard(0, '阶段 0: 输入查询向量', `Q (${D}D) = [${QUERY_VECTOR.join(', ')}]`, 'initial', 'qry'));
+
+                let currentStepIndex = 1; 
+                let randomPlaneIndex = 0;
+
+                for (let l = 0; l < L_DEMO; l++) {
+                    // 阶段 1: K 次随机投射 (Index 1 to 12)
+                    for (let k = 0; k < K_DEMO; k++) {
+                        const randomPlane = RANDOM_PLANES[randomPlaneIndex];
+                        const bit = getProjectionBit(QUERY_VECTOR, randomPlane);
+
+                        const card = createStepCard(
+                            currentStepIndex, 
+                            `哈希带 ${l + 1} | 投射 #${k + 1}`, 
+                            `平面 $R_{${randomPlaneIndex+1}}$: [${randomPlane.map(n => n.toFixed(1)).join(', ')}] $\implies$ 位: <span class="hash-bit">${bit}</span>`, 
+                            'projection', 'qry'
+                        );
+                        queryStage1StepsContainer.appendChild(card);
+                        randomPlaneIndex++;
+                        currentStepIndex++;
+                    }
+
+                    // 阶段 2: 哈希码生成 (Index 13 to 15)
+                    const hashcode = queryHashcodes[l];
+                    const card = createStepCard(
+                        currentStepIndex, 
+                        `哈希表 ${l + 1} | 哈希码生成`,
+                        `$K=${K_DEMO}$ 位串联: <code>${hashcode}</code> $\implies$ **查询桶 ID**。`,
+                        'hashcode', 'qry'
+                    );
+                    queryStage2StepsContainer.appendChild(card);
+                    currentStepIndex++;
+                }
+                
+                // currentStepIndex is now 16
+
+                // 阶段 3: 哈希桶查找 (新增的步骤) (Index 16)
+                const lookupCard = createStepCard(
+                    currentStepIndex,
+                    '阶段 3: L 个哈希桶查找',
+                    `在 ${L_DEMO} 个哈希表中，根据生成的 ${queryHashcodes.map(c => `<code>${c}</code>`).join('、')} 查找所有存储的向量。`,
+                    'lookup', 'qry'
+                );
+                queryLookupStepContainer.appendChild(lookupCard); // 修复 bug 1: 放置在新的容器中
+                currentStepIndex++; // now 17
+
+                // 阶段 4: 最终结果 (Index 17, which is QUERY_TOTAL_STEPS - 1)
+                queryFinalStepCardContainer.appendChild(createStepCard(QUERY_TOTAL_STEPS - 1, '阶段 4: 检索候选集', 'LSH 找到候选集，接下来进行精确距离计算。', 'final', 'qry'));
+                renderFinalQueryResult(queryHashcodes, QUERY_VECTOR, Q_VECTOR_ID, VECTOR_ID, queryFinalResultDiv);
+            }
+
+            function queryResetDemo() {
+                queryCurrentStep = 0;
+                updateQueryStepUI(queryCurrentStep);
+            }
+
+            function updateQueryStepUI(step) {
+                const allStepCards = getAllStepCards('qry', QUERY_TOTAL_STEPS);
+                // QUERY_TOTAL_STEPS - 1 is now 17
+                queryCurrentStepDisplay.textContent = `${step} / ${QUERY_TOTAL_STEPS - 1}`;
+                
+                allStepCards.forEach((card, index) => {
+                    card.classList.remove('active', 'bg-blue-50', 'border-blue-500');
+                    card.classList.remove('completed', 'bg-yellow-50', 'border-yellow-500');
+
+                    if (index === step) {
+                        card.classList.add('active', 'bg-blue-50', 'border-blue-500');
+                        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } else if (index < step) {
+                        card.classList.add('completed', 'bg-yellow-50', 'border-yellow-500');
+                    }
+                });
+
+                // 修复 bug 2: 只有当 step 达到最终索引 17 时才显示最终结果
+                if (step >= QUERY_TOTAL_STEPS - 1) { 
+                    nextButton.textContent = '重新演示';
+                    queryFinalResultDiv.classList.remove('hidden');
+                } else {
+                    nextButton.textContent = '下一步 (Next)';
+                    queryFinalResultDiv.classList.add('hidden');
+                }
+            }
+            
+            // ==========================================================
+            // === 通用函数和 Tab 切换 ===
+            // ==========================================================
+            
+            const switchTab = (tabId) => {
+                const indexingContent = document.getElementById('indexingContent');
+                const queryingContent = document.getElementById('queryingContent');
+                const indexingTab = document.getElementById('indexingTab');
+                const queryingTab = document.getElementById('queryingTab');
+
+                activeTab = tabId;
+
+                indexingTab.classList.remove('active');
+                queryingTab.classList.remove('active');
+                indexingContent.classList.add('hidden');
+                queryingContent.classList.add('hidden');
+
+                if (tabId === 'indexing') {
+                    indexingContent.classList.remove('hidden');
+                    indexingTab.classList.add('active');
+                    updateStepUI(currentStep);
+                } else {
+                    queryingContent.classList.remove('hidden');
+                    queryingTab.classList.add('active');
+                    updateQueryStepUI(queryCurrentStep);
+                }
+            };
+
+            function handleNext() {
+                if (activeTab === 'indexing') {
+                    if (currentStep < INDEXING_TOTAL_STEPS - 1) {
+                        currentStep++;
+                        updateStepUI(currentStep);
+                    } else {
+                        resetDemo();
+                    }
+                } else if (activeTab === 'querying') {
+                    if (queryCurrentStep < QUERY_TOTAL_STEPS - 1) {
+                        queryCurrentStep++;
+                        updateQueryStepUI(queryCurrentStep);
+                    } else {
+                        queryResetDemo();
+                    }
+                }
+            }
+
+            // --- 最终结果渲染 (索引) ---
+            function renderFinalResult(hashcodes, vectorId, targetDiv) {
+                let tableHtml = `
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">最终索引结果：向量 ${vectorId} 存储位置</h3>
+                    <table class="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
+                        <thead class="bg-blue-600 text-white">
+                            <tr>
+                                <th class="py-3 px-4 text-left">L (哈希带)</th>
+                                <th class="py-3 px-4 text-left">K 位哈希码 (桶 ID)</th>
+                                <th class="py-3 px-4 text-left">存储操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${hashcodes.map((item, index) => `
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="py-3 px-4 text-blue-700 font-semibold">哈希表 ${index + 1}</td>
+                                    <td class="py-3 px-4 font-mono text-lg text-orange-600">${item}</td>
+                                    <td class="py-3 px-4 text-gray-700">将 ${vectorId} 存储到 哈希表 ${index + 1} 的 **${item}** 桶中</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+                targetDiv.innerHTML = tableHtml;
+            }
+            
+            // --- 最终结果渲染 (查询) ---
+            function renderFinalQueryResult(queryHashcodes, queryVector, queryId, indexedId, targetDiv) {
+                // 模拟查找结果：因为查询向量Q与索引向量V非常接近，它们在所有3个带中都发生了碰撞
+                const collisionCount = 3; 
+                let resultHtml = `
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">LSH 检索结果分析</h3>
+                    <div class="space-y-4">
+                        <p class="text-lg text-gray-700">查询向量 $\mathbf{Q} = [${queryVector.join(', ')}]$ 生成了 ${L_DEMO} 个哈希码:</p>
+                        <div class="flex space-x-4">
+                            ${queryHashcodes.map((code, index) => `<div class="p-3 bg-indigo-100 rounded-lg text-center shadow-sm">
+                                <p class="text-sm text-indigo-700 font-semibold">哈希表 ${index + 1}</p>
+                                <code class="text-xl font-mono text-indigo-900">${code}</code>
+                            </div>`).join('')}
+                        </div>
+                        
+                        <div class="p-4 bg-green-100 border-l-4 border-green-500 rounded-lg shadow-md">
+                            <p class="font-bold text-green-800 mb-2">查找结果 (碰撞检测):</p>
+                            <p class="text-green-700">在 ${L_DEMO} 个哈希表中，有 <span class="text-2xl font-extrabold text-green-600">${collisionCount}</span> 个哈希码与已索引向量 ${indexedId} 匹配。</p>
+                            <ul class="list-disc list-inside text-sm text-green-700 mt-2">
+                                <li>候选邻居 ${indexedId} (索引向量) 被加入到候选列表中。</li>
+                                <li>LSH 成功地将相似向量映射到相同的桶中。</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="p-4 bg-red-100 border-l-4 border-red-500 rounded-lg shadow-md">
+                            <p class="font-bold text-red-800 mb-2">下一步（精确计算）:</p>
+                            <p class="text-red-700">LSH 仅提供近似邻居。下一步是对所有候选（如 ${indexedId}）计算精确的欧氏距离，以确定最终的最近邻。</p>
+                        </div>
+                    </div>
+                `;
+                targetDiv.innerHTML = resultHtml;
+            }
+            
+        })();
+    </script>
+
+    <header class="text-center mb-8">
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-2">LSH 索引构建与检索的**动画演示**</h1>
+    </header>
+
+    <div class="max-w-4xl mx-auto">
+        
+        <!-- Tabs -->
+        <div class="flex border-b-2 border-gray-300 mb-6 -mx-4 sm:mx-0">
+            <button id="indexingTab" class="tab-button active">向量索引演示</button>
+            <button id="queryingTab" class="tab-button">向量检索演示</button>
+        </div>
+
+        <!-- FIXED HEADER/CONTROLS -->
+        <div class="sticky top-0 z-10 p-4 bg-gray-100 rounded-xl shadow-xl"> 
+            <div class="flex justify-between items-center p-4 bg-white rounded-lg shadow">
+                <h2 class="text-2xl font-bold text-gray-800">当前进度: 
+                    <span id="indexingCurrentStepDisplay" class="text-blue-600 ml-2"></span>
+                    <span id="queryCurrentStepDisplay" class="text-blue-600 ml-2 hidden"></span>
+                </h2>
+                <button id="nextButton" class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300 disabled:bg-gray-400">
+                    下一步 (Next)
+                </button>
+            </div>
+        </div>
+
+        <!-- -------------------------------------------------- -->
+        <!-- Tab 1: 向量索引演示 (Indexing Content) -->
+        <!-- -------------------------------------------------- -->
+        <div id="indexingContent" class="tab-content">
+            <div class="p-6 bg-gray-100 rounded-xl shadow-inner mt-4">
+
+                <!-- 阶段 0: 初始输入 (Standalone) -->
+                <div id="indexingInitialStepContainer" class="mb-8">
+                    <!-- 步骤 0 将在此处动态生成 -->
+                </div>
+
+                <!-- 横向阶段容器 (Stages 1 and 2) -->
+                <div class="flex space-x-6 overflow-x-auto pb-4">
+                    
+                    <!-- 阶段 1: 向量投影 (L*K 步骤) -->
+                    <div class="flex-shrink-0 w-[450px] p-4 bg-white rounded-xl shadow-lg border-t-4 border-blue-500">
+                        <h3 class="text-xl font-bold mb-3 text-blue-700">阶段 1: 向量投影 ($L \times K = 12$ 次)</h3>
+                        <div id="indexingStage1-steps" class="stage-steps-scroll">
+                            <!-- 投影步骤将在此处生成 -->
+                        </div>
+                    </div>
+
+                    <!-- 阶段 2: 哈希码生成与分带 (L 步骤) -->
+                    <div class="flex-shrink-0 w-[450px] p-4 bg-white rounded-xl shadow-lg border-t-4 border-orange-500">
+                        <h3 class="text-xl font-bold mb-3 text-orange-700">阶段 2: 哈希码生成与索引存储 ($L=3$ 次)</h3>
+                        <div id="indexingStage2-steps" class="stage-steps-scroll">
+                            <!-- 哈希步骤将在此处生成 -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 阶段 3: 最终结果卡片 (Standalone) -->
+                <div id="indexingFinalStepCardContainer" class="mt-8 mb-8">
+                    <!-- 步骤 N 将在此处动态生成 -->
+                </div>
+
+                <!-- 最终结果表 -->
+                <div id="indexingFinalResult" class="mt-8 hidden p-4 bg-white rounded-xl shadow-lg">
+                    <!-- 最终索引结果表将在此处渲染 -->
+                </div>
+
+                <div class="mt-8 p-4 bg-yellow-100 border-l-4 border-yellow-500 rounded-lg">
+                    <p class="font-semibold text-yellow-800">演示说明:</p>
+                    <ul class="list-disc list-inside text-sm text-yellow-700 mt-2 space-y-1">
+                        <li>本演示使用 **Euclidean LSH (随机投射)** 策略。</li>
+                        <li>**$K=4$** (每带 4 个位) 决定了哈希码的长度和精确率。</li>
+                        <li>**$L=3$** (3 个哈希带) 决定了哈希表的数量和召回率。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- -------------------------------------------------- -->
+        <!-- Tab 2: 向量检索演示 (Querying Content) -->
+        <!-- -------------------------------------------------- -->
+        <div id="queryingContent" class="tab-content hidden">
+            <div class="p-6 bg-gray-100 rounded-xl shadow-inner mt-4">
+
+                <!-- 阶段 0: 初始输入 (Standalone) -->
+                <div id="queryInitialStepContainer" class="mb-8">
+                    <!-- 步骤 0 将在此处动态生成 -->
+                </div>
+
+                <!-- 横向阶段容器 (Stages 1 and 2) -->
+                <div class="flex space-x-6 overflow-x-auto pb-4">
+                    
+                    <!-- 阶段 1: 向量投影 (L*K 步骤) -->
+                    <div class="flex-shrink-0 w-[450px] p-4 bg-white rounded-xl shadow-lg border-t-4 border-blue-500">
+                        <h3 class="text-xl font-bold mb-3 text-blue-700">阶段 1: 向量投影 ($L \times K = 12$ 次)</h3>
+                        <div id="queryStage1-steps" class="stage-steps-scroll">
+                            <!-- 投影步骤将在此处生成 -->
+                        </div>
+                    </div>
+
+                    <!-- 阶段 2: 哈希码生成 (L 步骤) -->
+                    <div class="flex-shrink-0 w-[450px] p-4 bg-white rounded-xl shadow-lg border-t-4 border-orange-500">
+                        <h3 class="text-xl font-bold mb-3 text-orange-700">阶段 2: 哈希码生成 ($L=3$ 次)</h3>
+                        <div id="queryStage2-steps" class="stage-steps-scroll">
+                            <!-- 哈希步骤将在此处生成 -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 阶段 3: 哈希桶查找 (Standalone) - 修复 Bug 1：新的容器，放在阶段 1/2 后面 -->
+                <div id="queryLookupStepContainer" class="mt-8 mb-8">
+                    <!-- 阶段 3 步骤将在此处动态生成 -->
+                </div>
+
+                <!-- 阶段 4: 最终结果卡片 (Standalone) -->
+                <div id="queryFinalStepCardContainer" class="mt-8 mb-8">
+                    <!-- 步骤 N 将在此处动态生成 -->
+                </div>
+
+                <!-- 最终结果表 (检索) -->
+                <div id="queryFinalResult" class="mt-8 hidden p-4 bg-white rounded-xl shadow-lg">
+                    <!-- 最终索引结果表将在此处渲染 -->
+                </div>
+
+                <div class="mt-8 p-4 bg-yellow-100 border-l-4 border-yellow-500 rounded-lg">
+                    <p class="font-semibold text-yellow-800">检索说明:</p>
+                    <ul class="list-disc list-inside text-sm text-yellow-700 mt-2 space-y-1">
+                        <li>查询向量 $\mathbf{Q}$ (Query) 与已索引向量 $\mathbf{V}$ (Index) 使用**相同的** LSH 族。</li>
+                        <li>因为 $\mathbf{Q}$ 与 $\mathbf{V}$ 相似，它们在多个哈希带中碰撞（生成相同的哈希码）。</li>
+                        <li>所有碰撞的向量 $\mathbf{V}$ 组成了 **候选邻居集**。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- End of Tabbed Content -->
+    </div>
+
+</body>
+</html>
+

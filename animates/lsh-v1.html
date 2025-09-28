@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LSH 索引构建过程演示</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 使用 Inter 字体 */
+        body { font-family: 'Inter', sans-serif; background-color: #f4f7f9; }
+        .bit-container {
+            display: flex;
+            gap: 2px;
+            padding: 8px;
+            border-radius: 8px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+        .bit {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            color: white;
+            cursor: default;
+        }
+        .bit-0 { background-color: #3b82f6; } /* Blue */
+        .bit-1 { background-color: #10b981; } /* Green */
+        .band-segment {
+            border: 2px solid #93c5fd;
+            padding: 4px 0;
+            margin: 0 4px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            transition: all 0.5s ease;
+        }
+        .band-segment.highlight {
+            border-color: #f97316; /* Orange highlight */
+            background-color: #fff7ed;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #3b82f6;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+
+    <script>
+        // 使用 IIFE (立即执行函数表达式) 包裹所有代码，创建私有作用域，解决变量重复声明问题。
+        (() => {
+            // --- 全局常量和数据定义 ---
+            const R = 20; // 总签名长度固定为 20。
+            const NUM_BUCKETS = 16; // 假设每个哈希表有 16 个桶 (用于演示哈希过程)。
+            const V1_SIGNATURE = [0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1]; // 示例向量 V1 的签名
+            const VECTOR_ID = "VEC_X_789"; // 假设的向量 ID
+            
+            // --- DOM 元素引用 ---
+            let sliderL, LValueDisplay, KValueDisplay, v1SignatureDiv, indexBuildingStepsDiv, explanationP;
+
+            // --- 初始化函数 ---
+            window.onload = () => {
+                // 获取DOM元素
+                sliderL = document.getElementById('sliderL');
+                LValueDisplay = document.getElementById('LValue');
+                KValueDisplay = document.getElementById('KValue');
+                v1SignatureDiv = document.getElementById('v1Signature');
+                indexBuildingStepsDiv = document.getElementById('indexBuildingSteps');
+                explanationP = document.getElementById('explanation');
+
+                // 初始渲染
+                updateLSHDemo(sliderL.value);
+
+                // 监听L滑动条变化
+                sliderL.addEventListener('input', (event) => {
+                    updateLSHDemo(event.target.value);
+                });
+            };
+
+            /**
+             * 更新LSH演示的核心逻辑
+             * @param {string} L_str - 用户选择的哈希带数量 L
+             */
+            function updateLSHDemo(L_str) {
+                const L = parseInt(L_str, 10);
+                
+                // K (每带哈希函数数量) 自动计算: K = floor(R/L)
+                const K = Math.floor(R / L); 
+                
+                LValueDisplay.textContent = L;
+                KValueDisplay.textContent = K;
+
+                // 1. 渲染签名并进行分带
+                renderSignatureAndBanding(V1_SIGNATURE, L, K);
+                
+                // 2. 执行索引构建步骤（哈希）
+                const steps = performIndexing(V1_SIGNATURE, L, K);
+                renderIndexingSteps(steps, L, K);
+
+                // 3. 更新原理解释
+                updateExplanation(L, K);
+            }
+
+            /**
+             * 渲染签名和分带可视化
+             */
+            function renderSignatureAndBanding(V1, L, K) {
+                v1SignatureDiv.innerHTML = '';
+                
+                let currentBand = document.createElement('div');
+                currentBand.className = 'flex'; 
+
+                for (let i = 0; i < R; i++) {
+                    // Start of a new band
+                    if (i % K === 0) {
+                        if (currentBand.children.length > 0) {
+                             v1SignatureDiv.appendChild(currentBand);
+                        }
+                        const segmentIndex = Math.floor(i / K);
+
+                        // New band container
+                        currentBand = document.createElement('div');
+                        currentBand.className = `band-segment flex items-center transition duration-500`;
+                        currentBand.title = `哈希带 ${segmentIndex + 1}`;
+                    }
+
+                    const bitValue = V1[i];
+                    const bitEl = document.createElement('div');
+                    bitEl.className = `bit ${bitValue === 1 ? 'bit-1' : 'bit-0'}`;
+                    bitEl.textContent = bitValue;
+                    
+                    currentBand.appendChild(bitEl);
+                }
+                
+                // Append the last band
+                if (currentBand.children.length > 0) {
+                    v1SignatureDiv.appendChild(currentBand);
+                }
+            }
+            
+            /**
+             * 执行 LSH 索引构建过程：分带和哈希
+             * @returns {Array<{bandIndex: number, bandBits: string, bucketId: number}>} 每个带的哈希结果
+             */
+            function performIndexing(V1, L, K) {
+                const steps = [];
+
+                for (let i = 0; i < L; i++) {
+                    const startIndex = i * K;
+                    const endIndex = Math.min(startIndex + K, R);
+                    
+                    // 1. 提取当前 Band 的位
+                    const bandArray = V1.slice(startIndex, endIndex);
+                    const bandBits = bandArray.join('');
+
+                    // 2. 简单哈希函数：将二进制字符串转换为整数，然后取模
+                    let hashValue = 0;
+                    if (bandBits.length > 0) {
+                        // 将二进制转换为整数 (如果 K 过大，可能会超出 JS safe integer 范围, 但 K <= 20 没问题)
+                        hashValue = parseInt(bandBits, 2); 
+                    }
+                    
+                    // 3. 确定 Bucket ID
+                    // 使用模运算将哈希值映射到固定的桶数
+                    const bucketId = hashValue % NUM_BUCKETS;
+
+                    steps.push({
+                        bandIndex: i,
+                        bandBits: bandBits,
+                        bucketId: bucketId
+                    });
+                }
+                return steps;
+            }
+
+            /**
+             * 渲染索引构建的步骤和结果
+             */
+            function renderIndexingSteps(steps, L, K) {
+                indexBuildingStepsDiv.innerHTML = `
+                    <h3 class="text-xl font-bold text-gray-700 mb-4">LSH 索引构建结果 (${L} 个哈希表)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        ${steps.map(step => `
+                            <div class="bg-white p-4 rounded-xl shadow border-l-4 border-blue-500 transition duration-300 hover:shadow-md">
+                                <p class="text-sm text-gray-500 font-medium">哈希表 (Band) #${step.bandIndex + 1}</p>
+                                <p class="text-2xl font-extrabold text-blue-700 my-1">
+                                    桶 ID (Bucket ID): ${step.bucketId}
+                                </p>
+                                <p class="text-sm text-gray-600">
+                                    <span class="font-semibold">Band 位串 ($K=${K}$):</span> <code>${step.bandBits}</code>
+                                </p>
+                                <p class="text-xs text-gray-400 mt-1">
+                                    [操作]: 将向量 <code>${VECTOR_ID}</code> 存储到 Band #${step.bandIndex + 1} 的 Bucket #${step.bucketId} 中。
+                                </p>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            /**
+             * 更新原理解释文本
+             */
+            function updateExplanation(L, K) {
+                explanationP.innerHTML = `
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">构建过程解析</h3>
+                    <p class="mb-3">LSH 索引构建是为了将相似的向量映射到相同的**哈希桶**中，从而实现快速检索。</p>
+                    <ul class="list-disc list-inside space-y-2 ml-4 text-gray-700">
+                        <li>**阶段一：签名**：输入向量（概念上）首先通过 SimHash 或 MinHash 转换为 **${R} 位签名**（Signature）。</li>
+                        <li>**阶段二：分带（Banding）**：该 ${R} 位签名被均匀地分割成 $L=${L}$ 个哈希带，每带包含 $K=${K}$ 个位。</li>
+                        <li>**阶段三：哈希**：每个哈希带（$K$ 个位）作为一个整体，独立地进行哈希运算（在本例中为简单的二进制转整数后取模运算），生成一个 **桶 ID**。</li>
+                        <li>**阶段四：存储**：该向量 (${VECTOR_ID}) 被复制并存储到 $L$ 个独立的哈希表中，每个哈希表对应一个哈希带，并且被放置在对应的 **桶 ID** 下。</li>
+                    </ul>
+                    <p class="mt-4 p-3 bg-blue-100 rounded-lg font-medium">
+                        **关键**: 如果两个向量在**任何一个**哈希带中碰撞（即 $K$ 个位完全相同），它们就会被哈希到同一个桶中，从而被标记为潜在邻居。
+                    </p>
+                `;
+            }
+        })();
+    </script>
+
+    <header class="text-center mb-8">
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-2">LSH 索引构建过程演示</h1>
+        <p class="text-xl text-gray-600">展示单个向量如何通过 $K$ 和 $L$ 参数构建索引</p>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        
+        <!-- 控制面板 -->
+        <div class="lg:col-span-1 bg-white p-6 rounded-xl shadow-lg h-full">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">参数控制 (R = 20 位固定)</h2>
+            
+            <div class="space-y-6">
+                <!-- L 参数控制 -->
+                <div class="p-4 bg-gray-50 rounded-lg">
+                    <label for="sliderL" class="block text-lg font-semibold text-gray-700 mb-2">
+                        L: 哈希带数量 (L)
+                        <span id="LValue" class="text-3xl font-extrabold text-blue-600 ml-2">5</span>
+                    </label>
+                    <input type="range" id="sliderL" min="1" max="5" value="5" step="1" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                </div>
+                
+                <!-- K 参数展示 (自动计算) -->
+                <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-400">
+                    <p class="block text-lg font-semibold text-gray-700 mb-2">
+                        K: 每带哈希函数数量 (K) (自动计算: K = floor(20/L))
+                        <span id="KValue" class="text-3xl font-extrabold text-blue-600 ml-2">4</span>
+                    </p>
+                    <p class="text-sm text-gray-600">
+                        **影响**: $K$ 决定了每带哈希的严格程度（精确率）。
+                        $K$ 越大 $\implies$ 哈希带越长 $\implies$ 精确率 $\uparrow$。
+                    </p>
+                </div>
+            </div>
+            
+             <!-- 原理解释 -->
+            <div class="bg-white p-6 rounded-xl shadow-lg mt-8">
+                <div id="explanation" class="text-gray-700 leading-relaxed">
+                    <!-- Detailed explanation will be inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 演示可视化与结果 -->
+        <div class="lg:col-span-2 space-y-8">
+            <!-- 向量签名展示 -->
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">阶段一 & 二：输入签名与分带</h2>
+                <p class="text-lg font-semibold text-gray-700 mb-2">输入向量签名 (${VECTOR_ID}):</p>
+                <div id="v1Signature" class="bit-container">
+                    <!-- V1 bits and banding visualization -->
+                </div>
+            </div>
+
+            <!-- 索引构建步骤 -->
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">阶段三 & 四：哈希与索引存储</h2>
+                <div id="indexBuildingSteps" class="text-gray-700 leading-relaxed">
+                    <!-- Hashing steps and results will be displayed here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
