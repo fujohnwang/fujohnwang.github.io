@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HNSW索引算法动态演示</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1e1e2e;
+            color: #cdd6f4;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            padding: 10px;
+        }
+
+        /* 左上角标题 */
+        .title-overlay {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            z-index: 1001;
+        }
+
+        .title-overlay h1 {
+            color: #89b4fa;
+            font-size: 24px;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .visualization {
+            flex: 1;
+            background: #181825;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            min-width: 0;
+            min-height: 0;
+        }
+
+        /* 右上角控制面板 */
+        .control-panel-floating {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(24, 24, 37, 0.95);
+            border: 1px solid #89b4fa;
+            border-radius: 10px;
+            padding: 0;
+            width: 280px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+
+        .control-tabs {
+            display: flex;
+            background: rgba(137, 180, 250, 0.1);
+            border-radius: 10px 10px 0 0;
+        }
+
+        .tab-btn {
+            flex: 1;
+            background: none;
+            border: none;
+            color: #cdd6f4;
+            padding: 12px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .tab-btn.active {
+            background: #89b4fa;
+            color: #1e1e2e;
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: rgba(137, 180, 250, 0.2);
+        }
+
+        .tab-content {
+            padding: 15px;
+        }
+
+        .tab-content.hidden {
+            display: none;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .control-group label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #cdd6f4;
+        }
+
+        .control-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #585b70;
+            border-radius: 4px;
+            background: #45475a;
+            color: #cdd6f4;
+            font-size: 14px;
+        }
+
+        .control-group input:focus {
+            outline: none;
+            border-color: #89b4fa;
+            box-shadow: 0 0 0 2px rgba(137, 180, 250, 0.2);
+        }
+
+        .control-group input[type="number"] {
+            text-align: center;
+        }
+
+        .control-group button {
+            margin: 2px;
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .primary-btn {
+            width: 100%;
+            background: #89b4fa;
+            color: #1e1e2e;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+
+        .primary-btn:hover {
+            background: #74c7ec;
+        }
+
+        /* 重置按钮特殊样式 */
+        .control-group button#resetBtn {
+            background: #a6e3a1;
+            color: #1e1e2e;
+        }
+
+        .control-group button#resetBtn:hover {
+            background: #94d3a2;
+        }
+
+        .panel-section {
+            background: #45475a;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        h1, h2, h3 {
+            color: #89b4fa;
+            margin-bottom: 10px;
+        }
+
+        .step-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        button {
+            background: #89b4fa;
+            color: #1e1e2e;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #74c7ec;
+        }
+
+        button:disabled {
+            background: #6c7086;
+            cursor: not-allowed;
+        }
+
+        .step-info {
+            background: #585b70;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-size: 14px;
+            min-height: 60px;
+        }
+
+        /* 演示步骤独立面板 */
+        .step-panel {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: transparent;
+            border-radius: 10px;
+            padding: 20px;
+            width: 500px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+
+
+        .unified-info-overlay {
+            background: transparent;
+            padding: 0;
+            border-radius: 0;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #cdd6f4;
+            text-align: center;
+            min-height: 60px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 1200px) {
+            .step-panel {
+                width: 400px;
+            }
+        }
+
+        @media (max-width: 800px) {
+            .step-panel {
+                width: 300px;
+                padding: 15px;
+            }
+            
+            .unified-info-overlay {
+                font-size: 14px;
+            }
+        }
+
+        .node-info {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(24, 24, 37, 0.9);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #89b4fa;
+            display: none;
+        }
+
+        .distance-label {
+            position: absolute;
+            background: rgba(24, 24, 37, 0.8);
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            pointer-events: none;
+        }
+
+        .legend {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        #threeCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            border-radius: 10px; /* 匹配容器的圆角 */
+        }
+
+        /* 底部作者信息 */
+        .author-info {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #6c7086;
+            font-size: 12px;
+            text-align: center;
+            z-index: 1001;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .author-info a {
+            color: #89b4fa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .author-info a:hover {
+            color: #74c7ec;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- 3D可视化区域 -->
+        <div class="visualization">
+            <!-- 左上角标题 -->
+            <div class="title-overlay">
+                <h1>HNSW索引算法演示</h1>
+            </div>
+            
+            <canvas id="threeCanvas"></canvas>
+            
+            <!-- 演示信息面板 -->
+            <div class="step-panel" id="stepPanel">
+                <div class="unified-info-overlay" id="unifiedInfo">
+                    <strong>演示状态</strong><br>
+                    点击"下一步"开始演示...
+                </div>
+            </div>
+            
+            <!-- 右上角控制面板 -->
+            <div class="control-panel-floating" id="controlPanel">
+                <div class="control-tabs">
+                    <button class="tab-btn active" onclick="switchTab('build')" id="buildTab">构建索引</button>
+                    <button class="tab-btn" onclick="switchTab('search')" id="searchTab">查询</button>
+                </div>
+                
+                <div class="tab-content" id="buildContent">
+                    <div class="control-group">
+                        <label>节点数量:</label>
+                        <input type="number" id="nodeCount" value="30" min="10" max="100">
+                    </div>
+                    <div class="control-group">
+                        <label>最大连接数:</label>
+                        <input type="number" id="maxConnections" value="4" min="2" max="10">
+                    </div>
+                    <div class="control-group">
+                        <label>层数:</label>
+                        <input type="number" id="maxLayers" value="3" min="2" max="6">
+                    </div>
+                    <div class="control-group">
+                        <label>播放间隔 (秒):</label>
+                        <input type="number" id="playInterval" value="2" min="0.5" max="10" step="0.5">
+                    </div>
+                    
+                    <div class="control-group">
+                        <button onclick="previousStep()" id="prevBtn">上一步</button>
+                        <button onclick="nextStep()" id="nextBtn">下一步</button>
+                        <button id="playBtn">播放</button>
+                        <button onclick="resetDemo()" id="resetBtn">重置</button>
+                    </div>
+                </div>
+                
+                <div class="tab-content hidden" id="searchContent">
+                    <div class="control-group">
+                        <label>查询节点ID:</label>
+                        <input type="number" id="queryNode" value="0" min="0">
+                    </div>
+                    <button onclick="searchNode()" class="primary-btn">开始检索</button>
+                </div>
+            </div>
+            
+            <!-- 节点信息覆盖层 -->
+            <div class="node-info" id="nodeInfo">
+                <h3>节点信息</h3>
+                <div id="nodeDetails"></div>
+            </div>
+            
+            <!-- 底部作者信息 -->
+            <div class="author-info">
+                福强(<a href="https://afoo.me" target="_blank">https://afoo.me</a>)与Kiro共同协作迭代创作
+            </div>
+        </div>
+    </div>
+
+    <!-- 引入Three.js库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    
+    <!-- 算法逻辑和演示控制 -->
+    <script src="hnsw.js"></script>
+    <script src="visualization.js"></script>
+    <script src="demo.js"></script>
+</body>
+</html>
