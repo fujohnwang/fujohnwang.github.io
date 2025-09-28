@@ -1,0 +1,2603 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HNSW索引算法动态演示</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1e1e2e;
+            color: #cdd6f4;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            padding: 10px;
+        }
+
+        /* 左上角标题 */
+        .title-overlay {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            z-index: 1001;
+        }
+
+        .title-overlay h1 {
+            color: #89b4fa;
+            font-size: 24px;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .visualization {
+            flex: 1;
+            background: #181825;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            min-width: 0;
+            min-height: 0;
+        }
+
+        /* 右上角控制面板 */
+        .control-panel-floating {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(24, 24, 37, 0.95);
+            border: 1px solid #89b4fa;
+            border-radius: 10px;
+            padding: 0;
+            width: 280px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+
+        .control-tabs {
+            display: flex;
+            background: rgba(137, 180, 250, 0.1);
+            border-radius: 10px 10px 0 0;
+        }
+
+        .tab-btn {
+            flex: 1;
+            background: none;
+            border: none;
+            color: #cdd6f4;
+            padding: 12px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .tab-btn.active {
+            background: #89b4fa;
+            color: #1e1e2e;
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: rgba(137, 180, 250, 0.2);
+        }
+
+        .tab-content {
+            padding: 15px;
+        }
+
+        .tab-content.hidden {
+            display: none;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .control-group label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #cdd6f4;
+        }
+
+        .control-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #585b70;
+            border-radius: 4px;
+            background: #45475a;
+            color: #cdd6f4;
+            font-size: 14px;
+        }
+
+        .control-group input:focus {
+            outline: none;
+            border-color: #89b4fa;
+            box-shadow: 0 0 0 2px rgba(137, 180, 250, 0.2);
+        }
+
+        .control-group input[type="number"] {
+            text-align: center;
+        }
+
+        .control-group button {
+            margin: 2px;
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .primary-btn {
+            width: 100%;
+            background: #89b4fa;
+            color: #1e1e2e;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+
+        .primary-btn:hover {
+            background: #74c7ec;
+        }
+
+        /* 重置按钮特殊样式 */
+        .control-group button#resetBtn {
+            background: #a6e3a1;
+            color: #1e1e2e;
+        }
+
+        .control-group button#resetBtn:hover {
+            background: #94d3a2;
+        }
+
+        .panel-section {
+            background: #45475a;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        h1, h2, h3 {
+            color: #89b4fa;
+            margin-bottom: 10px;
+        }
+
+        .step-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        button {
+            background: #89b4fa;
+            color: #1e1e2e;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #74c7ec;
+        }
+
+        button:disabled {
+            background: #6c7086;
+            cursor: not-allowed;
+        }
+
+        .step-info {
+            background: #585b70;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-size: 14px;
+            min-height: 60px;
+        }
+
+        /* 演示步骤独立面板 */
+        .step-panel {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: transparent;
+            border-radius: 10px;
+            padding: 20px;
+            width: 500px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+
+
+        .unified-info-overlay {
+            background: transparent;
+            padding: 0;
+            border-radius: 0;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #cdd6f4;
+            text-align: center;
+            min-height: 60px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 1200px) {
+            .step-panel {
+                width: 400px;
+            }
+        }
+
+        @media (max-width: 800px) {
+            .step-panel {
+                width: 300px;
+                padding: 15px;
+            }
+            
+            .unified-info-overlay {
+                font-size: 14px;
+            }
+        }
+
+        .node-info {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(24, 24, 37, 0.9);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #89b4fa;
+            display: none;
+        }
+
+        .distance-label {
+            position: absolute;
+            background: rgba(24, 24, 37, 0.8);
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            pointer-events: none;
+        }
+
+        .legend {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        #threeCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            border-radius: 10px; /* 匹配容器的圆角 */
+        }
+
+        /* 底部作者信息 */
+        .author-info {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #6c7086;
+            font-size: 12px;
+            text-align: center;
+            z-index: 1001;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .author-info a {
+            color: #89b4fa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .author-info a:hover {
+            color: #74c7ec;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- 3D可视化区域 -->
+        <div class="visualization">
+            <!-- 左上角标题 -->
+            <div class="title-overlay">
+                <h1>HNSW索引算法演示</h1>
+            </div>
+            
+            <canvas id="threeCanvas"></canvas>
+            
+            <!-- 演示信息面板 -->
+            <div class="step-panel" id="stepPanel">
+                <div class="unified-info-overlay" id="unifiedInfo">
+                    <strong>演示状态</strong><br>
+                    点击"下一步"开始演示...
+                </div>
+            </div>
+            
+            <!-- 右上角控制面板 -->
+            <div class="control-panel-floating" id="controlPanel">
+                <div class="control-tabs">
+                    <button class="tab-btn active" onclick="switchTab('build')" id="buildTab">构建索引</button>
+                    <button class="tab-btn" onclick="switchTab('search')" id="searchTab">查询</button>
+                </div>
+                
+                <div class="tab-content" id="buildContent">
+                    <div class="control-group">
+                        <label>节点数量:</label>
+                        <input type="number" id="nodeCount" value="30" min="10" max="100">
+                    </div>
+                    <div class="control-group">
+                        <label>最大连接数:</label>
+                        <input type="number" id="maxConnections" value="4" min="2" max="10">
+                    </div>
+                    <div class="control-group">
+                        <label>层数:</label>
+                        <input type="number" id="maxLayers" value="3" min="2" max="6">
+                    </div>
+                    <div class="control-group">
+                        <label>播放间隔 (秒):</label>
+                        <input type="number" id="playInterval" value="2" min="0.5" max="10" step="0.5">
+                    </div>
+                    
+                    <div class="control-group">
+                        <button onclick="previousStep()" id="prevBtn">上一步</button>
+                        <button onclick="nextStep()" id="nextBtn">下一步</button>
+                        <button id="playBtn">播放</button>
+                        <button onclick="resetDemo()" id="resetBtn">重置</button>
+                    </div>
+                </div>
+                
+                <div class="tab-content hidden" id="searchContent">
+                    <div class="control-group">
+                        <label>查询节点ID:</label>
+                        <input type="number" id="queryNode" value="0" min="0">
+                    </div>
+                    <button onclick="searchNode()" class="primary-btn">开始检索</button>
+                </div>
+            </div>
+            
+            <!-- 节点信息覆盖层 -->
+            <div class="node-info" id="nodeInfo">
+                <h3>节点信息</h3>
+                <div id="nodeDetails"></div>
+            </div>
+            
+            <!-- 底部作者信息 -->
+            <div class="author-info">
+                福强(<a href="https://afoo.me" target="_blank">https://afoo.me</a>)与Kiro共同协作迭代创作
+            </div>
+        </div>
+    </div>
+
+    <!-- 引入Three.js库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    
+    <!-- 算法逻辑和演示控制 -->
+    <script>
+// HNSW算法实现
+class HNSW {
+    constructor(maxConnections = 4, maxLayers = 3) {
+        this.maxConnections = maxConnections;
+        this.maxLayers = maxLayers; // 可调层数
+        this.entryPoint = null;
+        this.nodes = [];
+        this.currentStep = 0;
+        this.steps = [];
+        this.searchPath = [];
+    }
+
+    // 生成随机节点数据
+    generateNodes(count) {
+        this.nodes = [];
+        for (let i = 0; i < count; i++) {
+            this.nodes.push({
+                id: i,
+                vector: this.generateRandomVector(3), // 3D向量用于3D可视化
+                layers: [],
+                neighbors: Array(this.maxLayers).fill().map(() => [])
+            });
+        }
+        return this.nodes;
+    }
+
+    // 生成随机向量
+    generateRandomVector(dimensions) {
+        const vector = [];
+        for (let i = 0; i < dimensions; i++) {
+            vector.push(Math.random() * 10 - 5); // 在-5到5之间
+        }
+        return vector;
+    }
+
+    // 计算欧几里得距离
+    calculateDistance(vec1, vec2) {
+        let sum = 0;
+        for (let i = 0; i < vec1.length; i++) {
+            sum += Math.pow(vec1[i] - vec2[i], 2);
+        }
+        return Math.sqrt(sum);
+    }
+
+    // 选择节点的层数（指数分布）
+    selectLayer() {
+        const mL = 1 / Math.log(2); // 层级因子
+        const level = Math.floor(-Math.log(Math.random()) * mL);
+        return Math.min(level, this.maxLayers - 1);
+    }
+
+    // 构建HNSW索引
+    buildIndex() {
+        this.steps = [];
+        this.currentStep = 0;
+        this.entryPoint = null;
+
+        // 添加初始步骤：空的索引状态
+        this.addStep('初始化索引', `准备构建HNSW索引，将逐个插入${this.nodes.length}个节点`);
+
+        // 创建一个临时的构建节点列表，用于逐步插入
+        const nodesToInsert = [...this.nodes];
+
+        // 重置所有节点的连接和层级
+        this.nodes.forEach(node => {
+            node.neighbors = Array(this.maxLayers).fill().map(() => []);
+            node.layers = [];
+            node.inserted = false; // 标记节点是否已插入
+        });
+
+        // 步骤1: 插入第一个节点作为入口点
+        if (nodesToInsert.length > 0) {
+            const firstNode = nodesToInsert[0];
+            const firstLayer = this.selectLayer();
+            firstNode.layers = Array(firstLayer + 1).fill().map((_, idx) => idx);
+            firstNode.inserted = true;
+            this.entryPoint = firstNode;
+            this.addStep('插入第一个节点', `节点${firstNode.id}被插入并分配到${firstLayer + 1}层，设为入口点`);
+        }
+
+        // 步骤2: 逐个插入剩余节点
+        for (let i = 1; i < nodesToInsert.length; i++) {
+            const node = nodesToInsert[i];
+            const nodeLayer = this.selectLayer();
+            node.layers = Array(nodeLayer + 1).fill().map((_, idx) => idx);
+            node.inserted = true;
+
+            this.addStep(`插入节点${node.id}`, `节点${node.id}被插入并分配到${nodeLayer + 1}层`);
+
+            // 从入口点开始搜索
+            let currentNodes = [this.entryPoint];
+            let currentMaxLayer = Math.max(...this.entryPoint.layers);
+
+            // 从最高层向下搜索到目标节点的层+1
+            for (let layer = currentMaxLayer; layer > nodeLayer; layer--) {
+                currentNodes = this.searchLayerGreedy(node, currentNodes, layer, 1);
+                this.addStep(`在第${layer}层搜索插入位置`, `当前最近节点: ${currentNodes[0].id}`);
+            }
+
+            // 在节点存在的每一层进行搜索和连接
+            for (let layer = Math.min(nodeLayer, currentMaxLayer); layer >= 0; layer--) {
+                const candidates = this.searchLayerGreedy(node, currentNodes, layer, this.maxConnections * 2);
+
+                // 选择最佳邻居
+                const selectedNeighbors = this.selectNeighbors(node, candidates, this.maxConnections);
+
+                // 建立双向连接
+                node.neighbors[layer] = selectedNeighbors;
+                selectedNeighbors.forEach(neighbor => {
+                    if (!neighbor.neighbors[layer].find(n => n.id === node.id)) {
+                        neighbor.neighbors[layer].push(node);
+
+                        // 如果邻居连接数超过限制，进行修剪
+                        if (neighbor.neighbors[layer].length > this.maxConnections) {
+                            neighbor.neighbors[layer] = this.selectNeighbors(
+                                neighbor,
+                                neighbor.neighbors[layer],
+                                this.maxConnections
+                            );
+                        }
+                    }
+                });
+
+                this.addStep(`在第${layer}层建立连接`,
+                    `节点${node.id}与邻居建立连接: ${selectedNeighbors.map(n => n.id).join(', ')}`);
+
+                currentNodes = selectedNeighbors;
+            }
+
+            // 更新入口点（如果新节点层数更高）
+            if (nodeLayer > currentMaxLayer) {
+                this.entryPoint = node;
+                this.addStep(`更新入口点`, `节点${node.id}层数更高，成为新的入口点`);
+            }
+        }
+
+        this.addStep('索引构建完成', `HNSW索引构建完成，共${this.nodes.length}个节点`);
+    }
+
+    // 贪婪搜索层
+    searchLayerGreedy(queryNode, entryPoints, layer, numClosest) {
+        const visited = new Set();
+        const candidates = [];
+        const w = []; // 动态候选列表
+
+        // 初始化
+        entryPoints.forEach(ep => {
+            const dist = this.calculateDistance(queryNode.vector, ep.vector);
+            candidates.push({ node: ep, distance: dist });
+            w.push({ node: ep, distance: dist });
+            visited.add(ep.id);
+        });
+
+        // 按距离排序
+        candidates.sort((a, b) => a.distance - b.distance);
+
+        while (candidates.length > 0) {
+            const current = candidates.shift();
+
+            // 如果当前距离大于w中最远的距离，停止搜索
+            if (w.length >= numClosest && current.distance > w[w.length - 1].distance) {
+                break;
+            }
+
+            // 检查当前节点的邻居
+            const neighbors = current.node.neighbors[layer] || [];
+            for (const neighbor of neighbors) {
+                if (!visited.has(neighbor.id)) {
+                    visited.add(neighbor.id);
+                    const dist = this.calculateDistance(queryNode.vector, neighbor.vector);
+
+                    if (w.length < numClosest || dist < w[w.length - 1].distance) {
+                        candidates.push({ node: neighbor, distance: dist });
+                        w.push({ node: neighbor, distance: dist });
+
+                        // 保持w按距离排序并限制大小
+                        w.sort((a, b) => a.distance - b.distance);
+                        if (w.length > numClosest) {
+                            w.pop();
+                        }
+
+                        // 保持candidates按距离排序
+                        candidates.sort((a, b) => a.distance - b.distance);
+                    }
+                }
+            }
+        }
+
+        return w.map(item => item.node);
+    }
+
+    // 在指定层搜索（用于最终搜索）
+    searchLayer(queryNode, entryPoint, layer, ef) {
+        return this.searchLayerGreedy(queryNode, [entryPoint], layer, ef);
+    }
+
+    // 选择最佳邻居（启发式选择）
+    selectNeighbors(node, candidates, maxConnections) {
+        if (candidates.length <= maxConnections) {
+            return candidates;
+        }
+
+        // 简单启发式：选择距离最近的邻居
+        const candidatesWithDist = candidates.map(candidate => ({
+            node: candidate,
+            distance: this.calculateDistance(node.vector, candidate.vector)
+        }));
+
+        candidatesWithDist.sort((a, b) => a.distance - b.distance);
+        return candidatesWithDist.slice(0, maxConnections).map(item => item.node);
+    }
+
+    // 获取最大层数
+    getMaxLayer() {
+        return this.maxLayers - 1;
+    }
+
+    // 搜索最近邻居（支持分步骤展示）
+    search(queryNodeId, ef = 10) {
+        this.searchSteps = []; // 专门用于搜索步骤
+        this.searchPath = [];
+        const queryNode = this.nodes[queryNodeId];
+        if (!queryNode || !this.entryPoint) return null;
+
+        // 重置搜索相关的步骤索引
+        this.searchStepIndex = 0;
+
+        this.addSearchStep('准备搜索', `开始搜索节点${queryNodeId}`, {
+            queryNodeId: queryNodeId,
+            currentLayer: null,
+            currentNodes: [],
+            searchPath: [],
+            phase: 'init'
+        });
+
+        let currentNodes = [this.entryPoint];
+        let currentMaxLayer = Math.max(...this.entryPoint.layers);
+        this.searchPath.push(this.entryPoint);
+
+        this.addSearchStep('设置入口点', `从入口点节点${this.entryPoint.id}开始搜索`, {
+            queryNodeId: queryNodeId,
+            currentLayer: currentMaxLayer,
+            currentNodes: [this.entryPoint],
+            searchPath: [...this.searchPath],
+            phase: 'entry'
+        });
+
+        // 从最高层向下搜索到第1层
+        for (let layer = currentMaxLayer; layer >= 1; layer--) {
+            this.addSearchStep(`第${layer}层搜索`, `在第${layer}层进行贪婪搜索`, {
+                queryNodeId: queryNodeId,
+                currentLayer: layer,
+                currentNodes: [...currentNodes],
+                searchPath: [...this.searchPath],
+                phase: 'layer-search'
+            });
+
+            const newCurrentNodes = this.searchLayerGreedy(queryNode, currentNodes, layer, 1);
+            if (newCurrentNodes.length > 0 && newCurrentNodes[0].id !== currentNodes[0].id) {
+                this.searchPath.push(newCurrentNodes[0]);
+                this.addSearchStep(`第${layer}层移动`, `移动到更近的节点${newCurrentNodes[0].id}`, {
+                    queryNodeId: queryNodeId,
+                    currentLayer: layer,
+                    currentNodes: newCurrentNodes,
+                    searchPath: [...this.searchPath],
+                    phase: 'layer-move'
+                });
+            }
+            currentNodes = newCurrentNodes;
+        }
+
+        // 在第0层执行精细搜索
+        this.addSearchStep('底层精细搜索', `在第0层执行精细搜索，ef=${ef}`, {
+            queryNodeId: queryNodeId,
+            currentLayer: 0,
+            currentNodes: [...currentNodes],
+            searchPath: [...this.searchPath],
+            phase: 'fine-search'
+        });
+
+        const candidates = this.searchLayerGreedy(queryNode, currentNodes, 0, ef);
+
+        // 记录搜索路径中的所有候选节点
+        candidates.forEach(candidate => {
+            if (!this.searchPath.find(n => n.id === candidate.id)) {
+                this.searchPath.push(candidate);
+            }
+        });
+
+        if (candidates.length > 0) {
+            const nearest = candidates[0];
+            const distance = this.calculateDistance(queryNode.vector, nearest.vector);
+
+            this.addSearchStep('搜索完成', `找到最近邻居: 节点${nearest.id}，距离: ${distance.toFixed(2)}`, {
+                queryNodeId: queryNodeId,
+                currentLayer: 0,
+                currentNodes: [nearest],
+                searchPath: [...this.searchPath],
+                phase: 'complete',
+                result: { nodeId: nearest.id, distance: distance }
+            });
+
+            return nearest;
+        }
+
+        return null;
+    }
+
+    // 添加搜索步骤
+    addSearchStep(title, description, searchData) {
+        // 创建搜索步骤的安全拷贝
+        const stepData = {
+            title: title,
+            description: description,
+            queryNodeId: searchData.queryNodeId,
+            currentLayer: searchData.currentLayer,
+            currentNodes: searchData.currentNodes.map(node => ({
+                id: node.id,
+                vector: [...node.vector],
+                layers: [...node.layers]
+            })),
+            searchPath: searchData.searchPath.map(node => ({
+                id: node.id,
+                vector: [...node.vector],
+                layers: [...node.layers]
+            })),
+            phase: searchData.phase,
+            result: searchData.result || null,
+            // 包含当前已插入的节点状态
+            nodes: this.nodes.filter(node => node.inserted === true).map(node => ({
+                id: node.id,
+                vector: [...node.vector],
+                layers: [...node.layers],
+                inserted: true,
+                neighbors: node.neighbors.map(layerNeighbors =>
+                    layerNeighbors.map(neighbor => ({
+                        id: neighbor.id,
+                        vector: [...neighbor.vector],
+                        layers: [...neighbor.layers]
+                    }))
+                )
+            }))
+        };
+
+        this.searchSteps = this.searchSteps || [];
+        this.searchSteps.push(stepData);
+    }
+
+    // 添加演示步骤
+    addStep(title, description) {
+        // 只包含已插入的节点，避免循环引用
+        const insertedNodes = this.nodes.filter(node => node.inserted === true);
+        const nodesCopy = insertedNodes.map(node => ({
+            id: node.id,
+            vector: [...node.vector],
+            layers: [...node.layers],
+            inserted: true,
+            neighbors: node.neighbors.map(layerNeighbors =>
+                layerNeighbors.map(neighbor => ({
+                    id: neighbor.id,
+                    vector: [...neighbor.vector],
+                    layers: [...neighbor.layers]
+                }))
+            )
+        }));
+
+        this.steps.push({
+            title: title,
+            description: description,
+            nodes: nodesCopy,
+            searchPath: this.searchPath.map(pathNode => ({
+                id: pathNode.id,
+                vector: [...pathNode.vector],
+                layers: [...pathNode.layers]
+            })),
+            entryPoint: this.entryPoint ? this.entryPoint.id : null
+        });
+    }
+
+    // 获取当前步骤
+    getCurrentStep() {
+        return this.steps[this.currentStep] || null;
+    }
+
+    // 获取下一步
+    nextStep() {
+        if (this.currentStep < this.steps.length - 1) {
+            this.currentStep++;
+            return this.getCurrentStep();
+        }
+        return null;
+    }
+
+    // 获取上一步
+    previousStep() {
+        if (this.currentStep > 0) {
+            this.currentStep--;
+            return this.getCurrentStep();
+        }
+        return null;
+    }
+}
+
+// 全局HNSW实例
+window.hnsw = new HNSW();
+</script>
+    <script>
+// 简化的Three.js可视化实现
+class HNSWVisualization {
+    constructor() {
+        this.scene = null;
+        this.camera = null;
+        this.renderer = null;
+        this.nodes = [];
+        this.connections = [];
+        this.animationId = null;
+        
+        // 延迟初始化，等待Three.js加载完成
+        setTimeout(() => this.init(), 100);
+    }
+
+    init() {
+        try {
+            // 检查Three.js是否加载
+            if (typeof THREE === 'undefined') {
+                console.error('Three.js未加载');
+                setTimeout(() => this.init(), 500);
+                return;
+            }
+
+            // 创建场景
+            this.scene = new THREE.Scene();
+            this.scene.background = new THREE.Color(0x181825);
+
+            // 创建相机
+            const canvas = document.getElementById('threeCanvas');
+            const container = canvas.parentElement;
+            
+            // 确保canvas占满容器
+            const containerWidth = container.clientWidth;
+            const containerHeight = container.clientHeight;
+            
+            this.camera = new THREE.PerspectiveCamera(75, containerWidth / containerHeight, 0.1, 1000);
+            this.camera.position.set(15, 20, 25);
+            this.camera.lookAt(0, 0, 0);
+
+            // 创建渲染器
+            this.renderer = new THREE.WebGLRenderer({ 
+                canvas: canvas,
+                antialias: true 
+            });
+            this.renderer.setSize(containerWidth, containerHeight);
+            this.renderer.setPixelRatio(window.devicePixelRatio);
+            
+            console.log(`Canvas初始化尺寸: ${containerWidth} x ${containerHeight}`);
+
+            // 添加轨道控制器
+            if (typeof THREE.OrbitControls !== 'undefined') {
+                this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
+                this.controls.enableDamping = true;
+                this.controls.dampingFactor = 0.05;
+                this.controls.screenSpacePanning = false;
+                this.controls.minDistance = 10;
+                this.controls.maxDistance = 100;
+                this.controls.maxPolarAngle = Math.PI;
+            }
+
+            // 添加光源
+            const ambientLight = new THREE.AmbientLight(0x404040, 0.8);
+            this.scene.add(ambientLight);
+
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1.0);
+            directionalLight.position.set(50, 50, 50);
+            directionalLight.castShadow = true;
+            this.scene.add(directionalLight);
+
+            // 坐标轴已移除，通过分层平面来表示空间方向
+
+            // 窗口大小调整
+            window.addEventListener('resize', () => this.onWindowResize());
+
+            // 开始动画循环
+            this.animate();
+            
+            // 延迟调整尺寸，确保容器已完全渲染
+            setTimeout(() => {
+                this.onWindowResize();
+            }, 100);
+            
+            console.log('Three.js可视化初始化完成');
+        console.log(`初始化完成 - 容器尺寸: ${containerWidth} x ${containerHeight}`);
+        } catch (error) {
+            console.error('Three.js初始化失败:', error);
+            // 重试初始化
+            setTimeout(() => this.init(), 1000);
+        }
+    }
+
+    // 创建节点球体
+    createNode(position, color = 0x89b4fa, size = 0.5, id = 0, layer = 0) {
+        const geometry = new THREE.SphereGeometry(size, 16, 16);
+        const material = new THREE.MeshPhongMaterial({ 
+            color: color,
+            shininess: 100,
+            transparent: layer > 0,
+            opacity: layer > 0 ? 0.8 : 1.0
+        });
+        
+        const sphere = new THREE.Mesh(geometry, material);
+        sphere.position.set(position[0], position[1], position[2]);
+        
+        // 添加用户数据
+        sphere.userData = { id: id, type: 'node', layer: layer };
+        
+        this.scene.add(sphere);
+        
+        // 为每个节点添加标签
+        this.createNodeLabel(sphere, id);
+        
+        return sphere;
+    }
+
+    // 创建节点编号标签（直接在球体中心显示）
+    createNodeLabel(node, id) {
+        try {
+            // 创建文本纹理
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            canvas.width = 128;
+            canvas.height = 128;
+            
+            // 绘制透明背景的文本
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.fillStyle = '#ffffff';
+            context.font = 'bold 48px Arial';
+            context.textAlign = 'center';
+            context.textBaseline = 'middle';
+            context.fillText(id.toString(), canvas.width / 2, canvas.height / 2);
+            
+            // 创建纹理
+            const texture = new THREE.CanvasTexture(canvas);
+            texture.needsUpdate = true;
+            
+            // 创建标签平面，放在球体中心
+            const labelGeometry = new THREE.PlaneGeometry(0.8, 0.8);
+            const labelMaterial = new THREE.MeshBasicMaterial({
+                map: texture,
+                transparent: true,
+                alphaTest: 0.1,
+                depthTest: false // 确保文字始终可见
+            });
+            
+            const labelMesh = new THREE.Mesh(labelGeometry, labelMaterial);
+            labelMesh.position.copy(node.position);
+            labelMesh.renderOrder = 1; // 确保在球体之上渲染
+            
+            // 让标签始终面向相机
+            labelMesh.userData = { type: 'label', nodeId: id };
+            
+            this.scene.add(labelMesh);
+            this.connections.push(labelMesh);
+            
+            // 保存标签引用用于更新
+            this.nodeLabels = this.nodeLabels || [];
+            this.nodeLabels.push({ label: labelMesh, nodeId: id, node });
+            
+        } catch (error) {
+            console.warn('创建节点标签失败:', error);
+        }
+    }
+
+    // 备用HTML标签方法
+    createHTMLLabel(node, id) {
+        const label = document.createElement('div');
+        label.className = 'node-label';
+        label.textContent = id;
+        label.style.cssText = `
+            position: absolute;
+            color: white;
+            background: rgba(0,0,0,0.8);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 12px;
+            pointer-events: none;
+            font-family: monospace;
+            z-index: 1000;
+            border: 1px solid rgba(255,255,255,0.3);
+        `;
+        
+        const canvas = document.getElementById('threeCanvas');
+        canvas.parentElement.appendChild(label);
+        
+        this.nodeLabels = this.nodeLabels || [];
+        this.nodeLabels.push({ label, nodeId: id, node, isHTML: true });
+    }
+
+    // 创建连接线
+    createConnection(startNode, endNode, color = 0x585b70, layer = 0) {
+        const material = new THREE.LineBasicMaterial({ 
+            color: color,
+            transparent: true,
+            opacity: 0.6 
+        });
+
+        const points = [
+            new THREE.Vector3(startNode.position.x, startNode.position.y, startNode.position.z),
+            new THREE.Vector3(endNode.position.x, endNode.position.y, endNode.position.z)
+        ];
+
+        const geometry = new THREE.BufferGeometry().setFromPoints(points);
+        const line = new THREE.Line(geometry, material);
+        
+        line.userData = { 
+            type: 'connection', 
+            startId: startNode.userData.id, 
+            endId: endNode.userData.id,
+            layer: layer 
+        };
+        
+        this.scene.add(line);
+        return line;
+    }
+
+    // 可视化HNSW状态
+    visualizeStep(stepData) {
+        // 清空场景
+        this.clearScene();
+        
+        if (!stepData || !stepData.nodes) {
+            console.warn('无效的步骤数据');
+            return;
+        }
+
+        // 创建分层平面
+        this.createLayerPlanes();
+
+        // 创建所有已插入的节点并按层分布
+        stepData.nodes.forEach(node => {
+            if (node.vector && Array.isArray(node.vector) && node.inserted) {
+                const color = this.getNodeColor(node, stepData);
+                
+                // 为每个层级创建节点副本
+                if (node.layers && node.layers.length > 0) {
+                    node.layers.forEach(layer => {
+                        const nodePosition = [...node.vector];
+                        nodePosition[1] = layer * 6; // Y轴分层，每层间隔6个单位
+                        
+                        const size = layer === 0 ? 0.6 : 0.4; // 底层节点稍大
+                        const sphere = this.createNode(nodePosition, color, size, node.id, layer);
+                        this.nodes.push(sphere);
+                    });
+                }
+            }
+        });
+
+        // 创建连接
+        stepData.nodes.forEach(node => {
+            if (node.neighbors && Array.isArray(node.neighbors)) {
+                for (let layer = 0; layer < node.neighbors.length; layer++) {
+                    if (node.neighbors[layer] && Array.isArray(node.neighbors[layer])) {
+                        node.neighbors[layer].forEach(neighbor => {
+                            // 找到对应层级的节点
+                            const startNode = this.nodes.find(n => 
+                                n.userData.id === node.id && n.userData.layer === layer);
+                            const endNode = this.nodes.find(n => 
+                                n.userData.id === neighbor.id && n.userData.layer === layer);
+                            
+                            if (startNode && endNode) {
+                                const color = this.getConnectionColor(layer);
+                                const connection = this.createConnection(startNode, endNode, color, layer);
+                                this.connections.push(connection);
+                            }
+                        });
+                    }
+                }
+            }
+        });
+
+        // 高亮搜索路径
+        if (stepData.searchPath && stepData.searchPath.length > 0) {
+            this.highlightSearchPath(stepData.searchPath);
+        }
+
+        // 高亮入口点
+        if (stepData.entryPoint !== null && stepData.entryPoint !== undefined) {
+            this.highlightEntryPoint(stepData.entryPoint);
+        }
+
+        // 添加跨层连接
+        this.createCrossLayerConnections(stepData.nodes);
+
+        console.log('可视化步骤完成，节点数:', this.nodes.length, '连接数:', this.connections.length);
+    }
+
+    // 创建分层平面
+    createLayerPlanes() {
+        if (!window.hnsw) return;
+        
+        const maxLayers = window.hnsw.maxLayers;
+        
+        // 创建各层级平面
+        for (let layer = 0; layer < maxLayers; layer++) {
+            // 创建半透明平面
+            const planeGeometry = new THREE.PlaneGeometry(30, 30);
+            const planeMaterial = new THREE.MeshBasicMaterial({
+                color: this.getLayerColor(layer),
+                side: THREE.DoubleSide,
+                transparent: true,
+                opacity: 0.05
+            });
+            
+            const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+            plane.rotation.x = Math.PI / 2;
+            plane.position.y = layer * 6;
+            plane.userData = { type: 'layer-plane', layer: layer };
+            
+            this.scene.add(plane);
+            this.connections.push(plane);
+            
+            // 创建层级边框
+            const edges = new THREE.EdgesGeometry(planeGeometry);
+            const lineMaterial = new THREE.LineBasicMaterial({ 
+                color: this.getLayerColor(layer),
+                transparent: true,
+                opacity: 0.3
+            });
+            const wireframe = new THREE.LineSegments(edges, lineMaterial);
+            wireframe.rotation.x = Math.PI / 2;
+            wireframe.position.y = layer * 6;
+            
+            this.scene.add(wireframe);
+            this.connections.push(wireframe);
+            
+            // 创建层标签
+            this.createLayerLabel(`Layer ${layer}`, layer * 6);
+        }
+    }
+
+    // 创建层标签
+    createLayerLabel(layerName, yPos) {
+        const label = document.createElement('div');
+        label.className = 'layer-label';
+        label.textContent = layerName;
+        label.style.cssText = `
+            position: absolute;
+            color: white;
+            background: rgba(0,0,0,0.8);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            pointer-events: none;
+            font-weight: bold;
+            border: 1px solid rgba(255,255,255,0.3);
+        `;
+        
+        // 使用粗略的2D投影（简化实现）
+        const canvas = document.getElementById('threeCanvas');
+        canvas.parentElement.appendChild(label);
+        
+        // 根据层级位置计算标签位置
+        const layerIndex = parseInt(layerName.replace('Layer ', ''));
+        const topOffset = 300 - (layerIndex * 40);
+        
+        label.style.left = '20px';
+        label.style.top = `${topOffset}px`;
+        
+        this.layerLabels = this.layerLabels || [];
+        this.layerLabels.push(label);
+    }
+
+    // 获取层颜色
+    getLayerColor(layer) {
+        const colors = [0x89b4fa, 0xa6e3a1, 0xf9e2af, 0xf5c2e7, 0x74c7ec];
+        return colors[layer % colors.length];
+    }
+
+    // 获取节点颜色
+    getNodeColor(node, stepData) {
+        // 搜索路径中的节点
+        if (stepData.searchPath && stepData.searchPath.some(n => n && n.id === node.id)) {
+            return 0xf38ba8; // 红色 - 查询路径
+        }
+        
+        // 入口点
+        if (stepData.entryPoint === node.id) {
+            return 0xf9e2af; // 黄色 - 入口点
+        }
+        
+        return 0x89b4fa; // 蓝色 - 普通节点
+    }
+
+    // 获取连接颜色
+    getConnectionColor(layer) {
+        const colors = [0xa6e3a1, 0xf9e2af, 0x89b4fa, 0xf5c2e7]; // 不同层的颜色
+        return colors[layer % colors.length] || 0x585b70;
+    }
+
+    // 高亮搜索路径
+    highlightSearchPath(searchPath) {
+        // 为搜索路径中的每个节点在所有层级添加高亮
+        searchPath.forEach((pathNode, index) => {
+            if (pathNode && pathNode.id !== undefined) {
+                // 找到该节点在所有层级的表示
+                const nodeSpheresInAllLayers = this.nodes.filter(n => n.userData.id === pathNode.id);
+                
+                nodeSpheresInAllLayers.forEach(sphere => {
+                    // 添加搜索路径高亮环
+                    const geometry = new THREE.RingGeometry(0.8, 1.2, 16);
+                    const material = new THREE.MeshBasicMaterial({ 
+                        color: 0xf38ba8, 
+                        side: THREE.DoubleSide,
+                        transparent: true,
+                        opacity: 0.6
+                    });
+                    
+                    const ring = new THREE.Mesh(geometry, material);
+                    ring.position.copy(sphere.position);
+                    ring.rotation.x = Math.PI / 2;
+                    ring.userData = { type: 'search-highlight' };
+                    this.scene.add(ring);
+                    this.connections.push(ring);
+                });
+            }
+        });
+
+        // 连接搜索路径中相邻的节点
+        for (let i = 0; i < searchPath.length - 1; i++) {
+            const currentNode = searchPath[i];
+            const nextNode = searchPath[i + 1];
+            
+            if (currentNode && nextNode && currentNode.id !== undefined && nextNode.id !== undefined) {
+                // 在底层连接搜索路径
+                const startSphere = this.nodes.find(n => 
+                    n.userData.id === currentNode.id && n.userData.layer === 0);
+                const endSphere = this.nodes.find(n => 
+                    n.userData.id === nextNode.id && n.userData.layer === 0);
+                
+                if (startSphere && endSphere) {
+                    const material = new THREE.LineBasicMaterial({ 
+                        color: 0xf38ba8,
+                        linewidth: 4,
+                        transparent: true,
+                        opacity: 0.8
+                    });
+
+                    const points = [
+                        new THREE.Vector3(startSphere.position.x, startSphere.position.y, startSphere.position.z),
+                        new THREE.Vector3(endSphere.position.x, endSphere.position.y, endSphere.position.z)
+                    ];
+
+                    const geometry = new THREE.BufferGeometry().setFromPoints(points);
+                    const line = new THREE.Line(geometry, material);
+                    line.userData = { type: 'search-path' };
+                    this.scene.add(line);
+                    this.connections.push(line);
+                }
+            }
+        }
+    }
+
+    // 高亮入口点
+    highlightEntryPoint(entryPointId) {
+        // 找到入口点在所有层级的表示
+        const entrySpheresInAllLayers = this.nodes.filter(n => n.userData.id === entryPointId);
+        
+        entrySpheresInAllLayers.forEach(sphere => {
+            // 添加入口点光环效果
+            const geometry = new THREE.RingGeometry(0.7, 1.1, 16);
+            const material = new THREE.MeshBasicMaterial({ 
+                color: 0xf9e2af, 
+                side: THREE.DoubleSide,
+                transparent: true,
+                opacity: 0.9
+            });
+            
+            const ring = new THREE.Mesh(geometry, material);
+            ring.position.copy(sphere.position);
+            ring.rotation.x = Math.PI / 2;
+            ring.userData = { type: 'entry-point-highlight' };
+            this.scene.add(ring);
+            this.connections.push(ring);
+            
+            // 添加脉冲动画效果
+            const time = Date.now() * 0.003;
+            ring.scale.setScalar(1 + Math.sin(time) * 0.1);
+        });
+    }
+
+    // 清空场景
+    clearScene() {
+        // 移除节点
+        this.nodes.forEach(node => {
+            if (this.scene) {
+                this.scene.remove(node);
+            }
+        });
+        this.nodes = [];
+
+        // 移除连接
+        this.connections.forEach(connection => {
+            if (this.scene) {
+                this.scene.remove(connection);
+            }
+        });
+        this.connections = [];
+
+        // 移除层标签
+        if (this.layerLabels) {
+            this.layerLabels.forEach(label => {
+                if (label.parentElement) {
+                    label.parentElement.removeChild(label);
+                }
+            });
+            this.layerLabels = [];
+        }
+
+        // 移除节点标签
+        if (this.nodeLabels) {
+            this.nodeLabels.forEach(labelData => {
+                if (labelData.isHTML && labelData.label.parentElement) {
+                    // HTML标签
+                    labelData.label.parentElement.removeChild(labelData.label);
+                } else if (!labelData.isHTML && labelData.label && this.scene) {
+                    // 3D标签
+                    this.scene.remove(labelData.label);
+                }
+            });
+            this.nodeLabels = [];
+        }
+    }
+
+    // 窗口大小调整
+    onWindowResize() {
+        if (this.camera && this.renderer) {
+            const canvas = document.getElementById('threeCanvas');
+            const container = canvas.parentElement;
+            
+            const containerWidth = container.clientWidth;
+            const containerHeight = container.clientHeight;
+            
+            this.camera.aspect = containerWidth / containerHeight;
+            this.camera.updateProjectionMatrix();
+            this.renderer.setSize(containerWidth, containerHeight);
+            
+            console.log(`Canvas调整尺寸: ${containerWidth} x ${containerHeight}`);
+        }
+    }
+
+    // 动画循环
+    animate() {
+        if (!this.scene || !this.camera || !this.renderer) {
+            // 如果初始化未完成，等待下次重试
+            setTimeout(() => this.animate(), 100);
+            return;
+        }
+
+        this.animationId = requestAnimationFrame(() => this.animate());
+        
+        // 更新轨道控制器
+        if (this.controls) {
+            this.controls.update();
+        }
+        
+        // 节点旋转动画
+        this.nodes.forEach((node, index) => {
+            const time = Date.now() * 0.001;
+            node.rotation.y = Math.sin(time + index * 0.1) * 0.1;
+        });
+
+        // 更新节点标签位置
+        this.updateNodeLabels();
+
+        this.renderer.render(this.scene, this.camera);
+    }
+
+    // 更新节点标签位置
+    updateNodeLabels() {
+        if (!this.nodeLabels || !this.camera || !this.renderer) return;
+        
+        this.nodeLabels.forEach(labelData => {
+            const { label, node, isHTML } = labelData;
+            
+            try {
+                if (isHTML) {
+                    // HTML标签的位置更新
+                    const vector = new THREE.Vector3();
+                    node.getWorldPosition(vector);
+                    vector.project(this.camera);
+                    
+                    const canvas = document.getElementById('threeCanvas');
+                    const rect = canvas.getBoundingClientRect();
+                    
+                    // 检查节点是否在相机前方
+                    if (vector.z > 1) {
+                        label.style.display = 'none';
+                        return;
+                    }
+                    
+                    const x = (vector.x * 0.5 + 0.5) * rect.width + rect.left;
+                    const y = (-vector.y * 0.5 + 0.5) * rect.height + rect.top;
+                    
+                    // 确保标签在可视区域内
+                    if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
+                        label.style.display = 'block';
+                        label.style.left = (x + 10) + 'px';
+                        label.style.top = (y - 15) + 'px';
+                    } else {
+                        label.style.display = 'none';
+                    }
+                } else {
+                    // 3D标签的位置更新（让标签面向相机）
+                    if (label && label.lookAt) {
+                        label.lookAt(this.camera.position);
+                        // 保持标签在节点上方
+                        label.position.copy(node.position);
+                        label.position.y += 1;
+                    }
+                }
+            } catch (error) {
+                console.warn('更新节点标签位置时出错:', error);
+            }
+        });
+    }
+
+    // 创建跨层连接
+    createCrossLayerConnections(nodes) {
+        // 为每个节点创建跨层连接
+        nodes.forEach(node => {
+            if (node.layers && node.layers.length > 1) {
+                // 找到该节点在所有层级的表示
+                const nodeSpheresInAllLayers = this.nodes.filter(n => n.userData.id === node.id);
+                
+                // 按层级排序
+                nodeSpheresInAllLayers.sort((a, b) => a.userData.layer - b.userData.layer);
+                
+                // 创建相邻层级之间的虚线连接
+                for (let i = 0; i < nodeSpheresInAllLayers.length - 1; i++) {
+                    const lowerSphere = nodeSpheresInAllLayers[i];
+                    const upperSphere = nodeSpheresInAllLayers[i + 1];
+                    
+                    // 创建虚线材质
+                    const material = new THREE.LineDashedMaterial({
+                        color: 0x89b4fa,
+                        dashSize: 0.3,
+                        gapSize: 0.2,
+                        transparent: true,
+                        opacity: 0.6
+                    });
+                    
+                    const points = [
+                        new THREE.Vector3(lowerSphere.position.x, lowerSphere.position.y, lowerSphere.position.z),
+                        new THREE.Vector3(upperSphere.position.x, upperSphere.position.y, upperSphere.position.z)
+                    ];
+                    
+                    const geometry = new THREE.BufferGeometry().setFromPoints(points);
+                    const line = new THREE.Line(geometry, material);
+                    line.computeLineDistances(); // 必须调用这个方法才能显示虚线
+                    
+                    line.userData = { type: 'cross-layer-connection', nodeId: node.id };
+                    
+                    this.scene.add(line);
+                    this.connections.push(line);
+                }
+            }
+        });
+    }
+
+    // 可视化搜索步骤
+    visualizeSearchStep(searchStepData) {
+        // 清空场景
+        this.clearScene();
+        
+        if (!searchStepData || !searchStepData.nodes) {
+            console.warn('无效的搜索步骤数据');
+            return;
+        }
+
+        // 创建分层平面
+        this.createLayerPlanes();
+
+        // 创建所有已插入的节点并按层分布
+        searchStepData.nodes.forEach(node => {
+            if (node.vector && Array.isArray(node.vector) && node.inserted) {
+                const color = this.getSearchNodeColor(node, searchStepData);
+                
+                // 为每个层级创建节点副本
+                if (node.layers && node.layers.length > 0) {
+                    node.layers.forEach(layer => {
+                        const nodePosition = [...node.vector];
+                        nodePosition[1] = layer * 6; // Y轴分层，每层间隔6个单位
+                        
+                        const size = this.getSearchNodeSize(node, searchStepData, layer);
+                        const sphere = this.createNode(nodePosition, color, size, node.id, layer);
+                        this.nodes.push(sphere);
+                    });
+                }
+            }
+        });
+
+        // 创建连接
+        searchStepData.nodes.forEach(node => {
+            if (node.neighbors && Array.isArray(node.neighbors)) {
+                for (let layer = 0; layer < node.neighbors.length; layer++) {
+                    if (node.neighbors[layer] && Array.isArray(node.neighbors[layer])) {
+                        node.neighbors[layer].forEach(neighbor => {
+                            // 找到对应层级的节点
+                            const startNode = this.nodes.find(n => 
+                                n.userData.id === node.id && n.userData.layer === layer);
+                            const endNode = this.nodes.find(n => 
+                                n.userData.id === neighbor.id && n.userData.layer === layer);
+                            
+                            if (startNode && endNode) {
+                                const color = this.getSearchConnectionColor(layer, searchStepData);
+                                const connection = this.createConnection(startNode, endNode, color, layer);
+                                this.connections.push(connection);
+                            }
+                        });
+                    }
+                }
+            }
+        });
+
+        // 高亮查询节点
+        if (searchStepData.queryNodeId !== undefined) {
+            this.highlightQueryNode(searchStepData.queryNodeId);
+        }
+
+        // 高亮当前搜索层
+        if (searchStepData.currentLayer !== null && searchStepData.currentLayer !== undefined) {
+            this.highlightCurrentLayer(searchStepData.currentLayer);
+        }
+
+        // 高亮当前候选节点
+        if (searchStepData.currentNodes && searchStepData.currentNodes.length > 0) {
+            this.highlightCurrentNodes(searchStepData.currentNodes, searchStepData.currentLayer);
+        }
+
+        // 显示搜索路径
+        if (searchStepData.searchPath && searchStepData.searchPath.length > 0) {
+            this.visualizeSearchPath(searchStepData.searchPath);
+        }
+
+        // 根据搜索阶段添加特殊效果
+        this.addSearchPhaseEffects(searchStepData);
+
+        // 添加跨层连接
+        this.createCrossLayerConnections(searchStepData.nodes);
+
+        console.log('搜索步骤可视化完成，阶段:', searchStepData.phase);
+    }
+
+    // 获取搜索节点颜色
+    getSearchNodeColor(node, searchStepData) {
+        // 查询节点
+        if (node.id === searchStepData.queryNodeId) {
+            return 0xf38ba8; // 红色 - 查询节点
+        }
+        
+        // 当前候选节点
+        if (searchStepData.currentNodes && searchStepData.currentNodes.some(n => n.id === node.id)) {
+            return 0xa6e3a1; // 绿色 - 当前候选
+        }
+        
+        // 搜索路径中的节点
+        if (searchStepData.searchPath && searchStepData.searchPath.some(n => n.id === node.id)) {
+            return 0xf9e2af; // 黄色 - 搜索路径
+        }
+        
+        return 0x89b4fa; // 蓝色 - 普通节点
+    }
+
+    // 获取搜索节点大小
+    getSearchNodeSize(node, searchStepData, layer) {
+        let baseSize = layer === 0 ? 0.6 : 0.4;
+        
+        // 查询节点稍大
+        if (node.id === searchStepData.queryNodeId) {
+            baseSize *= 1.3;
+        }
+        
+        // 当前候选节点稍大
+        if (searchStepData.currentNodes && searchStepData.currentNodes.some(n => n.id === node.id)) {
+            baseSize *= 1.2;
+        }
+        
+        return baseSize;
+    }
+
+    // 获取搜索连接颜色
+    getSearchConnectionColor(layer, searchStepData) {
+        // 当前搜索层的连接更亮
+        if (layer === searchStepData.currentLayer) {
+            return 0xfab387; // 橙色 - 当前层连接
+        }
+        
+        const colors = [0xa6e3a1, 0xf9e2af, 0x89b4fa, 0xf5c2e7];
+        return colors[layer % colors.length] || 0x585b70;
+    }
+
+    // 高亮查询节点
+    highlightQueryNode(queryNodeId) {
+        const querySpheresInAllLayers = this.nodes.filter(n => n.userData.id === queryNodeId);
+        
+        querySpheresInAllLayers.forEach(sphere => {
+            // 添加查询节点的特殊光环
+            const geometry = new THREE.RingGeometry(0.9, 1.4, 16);
+            const material = new THREE.MeshBasicMaterial({ 
+                color: 0xf38ba8, 
+                side: THREE.DoubleSide,
+                transparent: true,
+                opacity: 0.8
+            });
+            
+            const ring = new THREE.Mesh(geometry, material);
+            ring.position.copy(sphere.position);
+            ring.rotation.x = Math.PI / 2;
+            ring.userData = { type: 'query-highlight' };
+            this.scene.add(ring);
+            this.connections.push(ring);
+            
+            // 添加脉冲动画
+            const time = Date.now() * 0.005;
+            ring.scale.setScalar(1 + Math.sin(time) * 0.15);
+        });
+    }
+
+    // 高亮当前搜索层
+    highlightCurrentLayer(currentLayer) {
+        // 为当前层添加特殊边框
+        const planeGeometry = new THREE.PlaneGeometry(32, 32);
+        const edges = new THREE.EdgesGeometry(planeGeometry);
+        const lineMaterial = new THREE.LineBasicMaterial({ 
+            color: 0xfab387,
+            linewidth: 3,
+            transparent: true,
+            opacity: 0.8
+        });
+        const wireframe = new THREE.LineSegments(edges, lineMaterial);
+        wireframe.rotation.x = Math.PI / 2;
+        wireframe.position.y = currentLayer * 6;
+        wireframe.userData = { type: 'current-layer-highlight' };
+        
+        this.scene.add(wireframe);
+        this.connections.push(wireframe);
+    }
+
+    // 高亮当前候选节点
+    highlightCurrentNodes(currentNodes, currentLayer) {
+        currentNodes.forEach(node => {
+            // 找到该节点在当前层的表示
+            const sphere = this.nodes.find(n => 
+                n.userData.id === node.id && n.userData.layer === currentLayer);
+            
+            if (sphere) {
+                // 添加候选节点光环
+                const geometry = new THREE.RingGeometry(0.7, 1.0, 16);
+                const material = new THREE.MeshBasicMaterial({ 
+                    color: 0xa6e3a1, 
+                    side: THREE.DoubleSide,
+                    transparent: true,
+                    opacity: 0.7
+                });
+                
+                const ring = new THREE.Mesh(geometry, material);
+                ring.position.copy(sphere.position);
+                ring.rotation.x = Math.PI / 2;
+                ring.userData = { type: 'candidate-highlight' };
+                this.scene.add(ring);
+                this.connections.push(ring);
+            }
+        });
+    }
+
+    // 可视化搜索路径
+    visualizeSearchPath(searchPath) {
+        // 连接搜索路径中相邻的节点（在底层）
+        for (let i = 0; i < searchPath.length - 1; i++) {
+            const currentNode = searchPath[i];
+            const nextNode = searchPath[i + 1];
+            
+            if (currentNode && nextNode && currentNode.id !== undefined && nextNode.id !== undefined) {
+                const startSphere = this.nodes.find(n => 
+                    n.userData.id === currentNode.id && n.userData.layer === 0);
+                const endSphere = this.nodes.find(n => 
+                    n.userData.id === nextNode.id && n.userData.layer === 0);
+                
+                if (startSphere && endSphere) {
+                    const material = new THREE.LineBasicMaterial({ 
+                        color: 0xf9e2af,
+                        linewidth: 4,
+                        transparent: true,
+                        opacity: 0.9
+                    });
+
+                    const points = [
+                        new THREE.Vector3(startSphere.position.x, startSphere.position.y, startSphere.position.z),
+                        new THREE.Vector3(endSphere.position.x, endSphere.position.y, endSphere.position.z)
+                    ];
+
+                    const geometry = new THREE.BufferGeometry().setFromPoints(points);
+                    const line = new THREE.Line(geometry, material);
+                    line.userData = { type: 'search-path-line' };
+                    this.scene.add(line);
+                    this.connections.push(line);
+                }
+            }
+        }
+
+        // 为搜索路径中的每个节点添加路径标记
+        searchPath.forEach((pathNode, index) => {
+            if (pathNode && pathNode.id !== undefined) {
+                const nodeSpheresInAllLayers = this.nodes.filter(n => n.userData.id === pathNode.id);
+                
+                nodeSpheresInAllLayers.forEach(sphere => {
+                    // 添加路径序号标记
+                    const geometry = new THREE.RingGeometry(0.5, 0.7, 8);
+                    const material = new THREE.MeshBasicMaterial({ 
+                        color: 0xf9e2af, 
+                        side: THREE.DoubleSide,
+                        transparent: true,
+                        opacity: 0.6
+                    });
+                    
+                    const ring = new THREE.Mesh(geometry, material);
+                    ring.position.copy(sphere.position);
+                    ring.position.z += 0.1; // 稍微前移避免重叠
+                    ring.rotation.x = Math.PI / 2;
+                    ring.userData = { type: 'path-marker', pathIndex: index };
+                    this.scene.add(ring);
+                    this.connections.push(ring);
+                });
+            }
+        });
+    }
+
+    // 添加搜索阶段特效
+    addSearchPhaseEffects(searchStepData) {
+        switch (searchStepData.phase) {
+            case 'init':
+                // 初始化阶段 - 添加准备效果
+                this.addInitializationEffect();
+                break;
+                
+            case 'entry':
+                // 入口点阶段 - 高亮入口点
+                if (searchStepData.currentNodes && searchStepData.currentNodes.length > 0) {
+                    this.addEntryPointEffect(searchStepData.currentNodes[0].id);
+                }
+                break;
+                
+            case 'layer-search':
+                // 层搜索阶段 - 添加搜索波纹效果
+                this.addLayerSearchEffect(searchStepData.currentLayer);
+                break;
+                
+            case 'layer-move':
+                // 层移动阶段 - 添加移动轨迹
+                this.addMoveTrailEffect(searchStepData);
+                break;
+                
+            case 'fine-search':
+                // 精细搜索阶段 - 添加扩散效果
+                this.addFineSearchEffect(searchStepData);
+                break;
+                
+            case 'complete':
+                // 完成阶段 - 添加成功效果
+                this.addCompletionEffect(searchStepData);
+                break;
+        }
+    }
+
+    // 初始化效果
+    addInitializationEffect() {
+        // 添加整体场景的淡入效果（通过调整透明度）
+        this.nodes.forEach(node => {
+            if (node.material) {
+                node.material.transparent = true;
+                node.material.opacity = 0.3;
+            }
+        });
+    }
+
+    // 入口点效果
+    addEntryPointEffect(entryPointId) {
+        const entrySpheresInAllLayers = this.nodes.filter(n => n.userData.id === entryPointId);
+        
+        entrySpheresInAllLayers.forEach(sphere => {
+            // 添加入口点光环效果
+            const geometry = new THREE.RingGeometry(1.0, 1.5, 16);
+            const material = new THREE.MeshBasicMaterial({ 
+                color: 0xf9e2af, 
+                side: THREE.DoubleSide,
+                transparent: true,
+                opacity: 0.8
+            });
+            
+            const ring = new THREE.Mesh(geometry, material);
+            ring.position.copy(sphere.position);
+            ring.rotation.x = Math.PI / 2;
+            ring.userData = { type: 'entry-effect' };
+            this.scene.add(ring);
+            this.connections.push(ring);
+        });
+    }
+
+    // 层搜索效果
+    addLayerSearchEffect(currentLayer) {
+        // 在当前层添加搜索波纹
+        const geometry = new THREE.RingGeometry(5, 15, 32);
+        const material = new THREE.MeshBasicMaterial({ 
+            color: 0xfab387, 
+            side: THREE.DoubleSide,
+            transparent: true,
+            opacity: 0.2
+        });
+        
+        const ripple = new THREE.Mesh(geometry, material);
+        ripple.rotation.x = Math.PI / 2;
+        ripple.position.y = currentLayer * 6;
+        ripple.userData = { type: 'search-ripple' };
+        this.scene.add(ripple);
+        this.connections.push(ripple);
+    }
+
+    // 移动轨迹效果
+    addMoveTrailEffect(searchStepData) {
+        // 在当前层显示移动轨迹
+        if (searchStepData.currentNodes && searchStepData.currentNodes.length > 0) {
+            const currentNode = searchStepData.currentNodes[0];
+            const sphere = this.nodes.find(n => 
+                n.userData.id === currentNode.id && n.userData.layer === searchStepData.currentLayer);
+            
+            if (sphere) {
+                // 添加移动指示器
+                const geometry = new THREE.ConeGeometry(0.3, 1, 8);
+                const material = new THREE.MeshBasicMaterial({ 
+                    color: 0xa6e3a1,
+                    transparent: true,
+                    opacity: 0.8
+                });
+                
+                const cone = new THREE.Mesh(geometry, material);
+                cone.position.copy(sphere.position);
+                cone.position.y += 1.5;
+                cone.userData = { type: 'move-indicator' };
+                this.scene.add(cone);
+                this.connections.push(cone);
+            }
+        }
+    }
+
+    // 精细搜索效果
+    addFineSearchEffect(searchStepData) {
+        // 在底层添加扩散搜索效果
+        if (searchStepData.currentNodes && searchStepData.currentNodes.length > 0) {
+            searchStepData.currentNodes.forEach(node => {
+                const sphere = this.nodes.find(n => 
+                    n.userData.id === node.id && n.userData.layer === 0);
+                
+                if (sphere) {
+                    // 添加扩散圆环
+                    const geometry = new THREE.RingGeometry(1.5, 3.0, 16);
+                    const material = new THREE.MeshBasicMaterial({ 
+                        color: 0x74c7ec, 
+                        side: THREE.DoubleSide,
+                        transparent: true,
+                        opacity: 0.4
+                    });
+                    
+                    const ring = new THREE.Mesh(geometry, material);
+                    ring.position.copy(sphere.position);
+                    ring.rotation.x = Math.PI / 2;
+                    ring.userData = { type: 'fine-search-ring' };
+                    this.scene.add(ring);
+                    this.connections.push(ring);
+                }
+            });
+        }
+    }
+
+    // 完成效果
+    addCompletionEffect(searchStepData) {
+        if (searchStepData.result) {
+            // 高亮最终结果
+            const resultSpheresInAllLayers = this.nodes.filter(n => n.userData.id === searchStepData.result.nodeId);
+            
+            resultSpheresInAllLayers.forEach(sphere => {
+                // 添加成功光环
+                const geometry = new THREE.RingGeometry(1.2, 2.0, 16);
+                const material = new THREE.MeshBasicMaterial({ 
+                    color: 0xa6e3a1, 
+                    side: THREE.DoubleSide,
+                    transparent: true,
+                    opacity: 0.9
+                });
+                
+                const ring = new THREE.Mesh(geometry, material);
+                ring.position.copy(sphere.position);
+                ring.rotation.x = Math.PI / 2;
+                ring.userData = { type: 'success-ring' };
+                this.scene.add(ring);
+                this.connections.push(ring);
+                
+                // 添加成功粒子效果
+                this.addSuccessParticles(sphere.position);
+            });
+        }
+    }
+
+    // 成功粒子效果
+    addSuccessParticles(position) {
+        const particleCount = 20;
+        const particles = new THREE.BufferGeometry();
+        const positions = new Float32Array(particleCount * 3);
+        
+        for (let i = 0; i < particleCount; i++) {
+            positions[i * 3] = position.x + (Math.random() - 0.5) * 4;
+            positions[i * 3 + 1] = position.y + (Math.random() - 0.5) * 4;
+            positions[i * 3 + 2] = position.z + (Math.random() - 0.5) * 4;
+        }
+        
+        particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        
+        const material = new THREE.PointsMaterial({
+            color: 0xa6e3a1,
+            size: 0.2,
+            transparent: true,
+            opacity: 0.8
+        });
+        
+        const particleSystem = new THREE.Points(particles, material);
+        particleSystem.userData = { type: 'success-particles' };
+        this.scene.add(particleSystem);
+        this.connections.push(particleSystem);
+    }
+
+    // 强制刷新canvas尺寸
+    forceResize() {
+        console.log('强制刷新canvas尺寸...');
+        this.onWindowResize();
+    }
+
+    // 停止动画
+    stop() {
+        if (this.animationId) {
+            cancelAnimationFrame(this.animationId);
+        }
+    }
+}
+
+// 全局可视化实例
+window.visualization = new HNSWVisualization();
+</script>
+    <script>
+// 演示控制逻辑
+class HNSWDemo {
+    constructor() {
+        this.isPlaying = false;
+        this.animationInterval = null;
+        this.currentStepIndex = 0;
+        this.isSearchMode = false;
+        this.searchStepIndex = 0;
+        
+        // 等待页面加载完成后初始化
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => this.init());
+        } else {
+            this.init();
+        }
+    }
+
+    // 初始化演示
+    init() {
+        console.log('开始初始化HNSW演示...');
+        
+        // 初始化HNSW算法
+        this.initializeHNSW();
+        
+        // 设置事件监听器
+        this.setupEventListeners();
+        
+        console.log('HNSW演示初始化完成');
+    }
+
+    // 初始化HNSW算法
+    initializeHNSW() {
+        const nodeCount = parseInt(document.getElementById('nodeCount').value) || 20;
+        const maxConnections = parseInt(document.getElementById('maxConnections').value) || 4;
+        const maxLayers = parseInt(document.getElementById('maxLayers').value) || 3;
+
+        console.log(`初始化HNSW: 节点数=${nodeCount}, 最大连接数=${maxConnections}, 层数=${maxLayers}`);
+
+        // 创建新的HNSW实例
+        window.hnsw = new HNSW(maxConnections, maxLayers);
+        
+        // 生成节点
+        window.hnsw.generateNodes(nodeCount);
+        
+        // 构建索引（这会生成所有演示步骤）
+        window.hnsw.buildIndex();
+
+        // 重置演示状态
+        this.currentStepIndex = 0;
+        this.isPlaying = false;
+        this.stopAnimation();
+
+        // 显示初始状态
+        this.showStep(0);
+        this.updateControlButtons();
+
+        // 强制刷新canvas尺寸
+        setTimeout(() => {
+            if (window.visualization) {
+                window.visualization.forceResize();
+            }
+        }, 200);
+
+        document.getElementById('unifiedInfo').innerHTML = 
+            `<strong>HNSW索引已构建</strong><br>共${window.hnsw.steps.length}个演示步骤<br>当前显示：空索引状态<br>点击"下一步"开始逐个插入节点...`;
+    }
+
+    // 设置事件监听器
+    setupEventListeners() {
+        // 为输入框添加事件监听
+        document.getElementById('nodeCount').addEventListener('change', () => {
+            this.initializeHNSW();
+        });
+        
+        document.getElementById('maxConnections').addEventListener('change', () => {
+            this.initializeHNSW();
+        });
+        
+        document.getElementById('maxLayers').addEventListener('change', () => {
+            this.initializeHNSW();
+        });
+
+        // 播放间隔输入框事件监听
+        const playIntervalInput = document.getElementById('playInterval');
+        if (playIntervalInput) {
+            playIntervalInput.addEventListener('change', () => {
+                const interval = parseFloat(playIntervalInput.value) || 2;
+                console.log(`播放间隔已更改为: ${interval}秒`);
+                
+                // 如果正在播放，重新启动以应用新的间隔
+                if (this.isPlaying) {
+                    this.pauseAnimation();
+                    setTimeout(() => this.playAnimation(), 100);
+                }
+            });
+
+            // 实时验证输入值
+            playIntervalInput.addEventListener('input', () => {
+                const value = parseFloat(playIntervalInput.value);
+                if (value < 0.5) {
+                    playIntervalInput.value = 0.5;
+                } else if (value > 10) {
+                    playIntervalInput.value = 10;
+                }
+            });
+        }
+
+        // 键盘控制
+        document.addEventListener('keydown', (event) => {
+            this.handleKeyPress(event);
+        });
+
+        // 画布点击事件
+        document.getElementById('threeCanvas').addEventListener('click', (event) => {
+            this.handleCanvasClick(event);
+        });
+
+        // 窗口大小调整事件
+        window.addEventListener('resize', () => {
+            if (window.visualization) {
+                window.visualization.onWindowResize();
+            }
+        });
+
+        // 设置播放按钮的初始点击事件
+        const playBtn = document.getElementById('playBtn');
+        if (playBtn) {
+            playBtn.onclick = () => this.playAnimation();
+        }
+
+        console.log('事件监听器设置完成');
+    }
+
+    // 显示指定步骤
+    showStep(stepIndex) {
+        if (!window.hnsw || !window.hnsw.steps || window.hnsw.steps.length === 0) {
+            console.error('HNSW步骤数据无效');
+            return;
+        }
+
+        if (stepIndex >= 0 && stepIndex < window.hnsw.steps.length) {
+            this.currentStepIndex = stepIndex;
+            const step = window.hnsw.steps[stepIndex];
+            
+            console.log(`显示步骤 ${stepIndex}: ${step.title}`);
+            
+            // 更新演示信息
+            document.getElementById('unifiedInfo').innerHTML = 
+                `<strong>${step.title}</strong><br>${step.description}`;
+            
+            // 更新3D可视化
+            if (window.visualization) {
+                window.visualization.visualizeStep(step);
+            }
+            
+            // 更新控制按钮状态
+            this.updateControlButtons();
+        }
+    }
+
+    // 下一步
+    nextStep() {
+        if (this.isSearchMode) {
+            // 搜索模式下使用搜索步骤控制
+            this.nextSearchStep();
+        } else if (window.hnsw && this.currentStepIndex < window.hnsw.steps.length - 1) {
+            // 构建模式下使用构建步骤控制
+            this.showStep(this.currentStepIndex + 1);
+        }
+    }
+
+    // 上一步
+    previousStep() {
+        if (this.isSearchMode) {
+            // 搜索模式下使用搜索步骤控制
+            this.previousSearchStep();
+        } else if (this.currentStepIndex > 0) {
+            // 构建模式下使用构建步骤控制
+            this.showStep(this.currentStepIndex - 1);
+        }
+    }
+
+    // 播放动画
+    playAnimation() {
+        if (this.isPlaying) return;
+
+        this.isPlaying = true;
+        this.updateControlButtons();
+
+        // 获取用户设置的播放间隔时间
+        const intervalInput = document.getElementById('playInterval');
+        const intervalSeconds = intervalInput ? parseFloat(intervalInput.value) || 2 : 2;
+        const intervalMs = intervalSeconds * 1000;
+
+        this.animationInterval = setInterval(() => {
+            if (this.isSearchMode && window.hnsw && window.hnsw.searchSteps) {
+                // 搜索模式下的播放
+                if (this.searchStepIndex < window.hnsw.searchSteps.length - 1) {
+                    this.nextSearchStep();
+                } else {
+                    this.pauseAnimation();
+                }
+            } else if (window.hnsw && this.currentStepIndex < window.hnsw.steps.length - 1) {
+                // 构建模式下的播放
+                this.nextStep();
+            } else {
+                this.pauseAnimation();
+            }
+        }, intervalMs);
+
+        console.log(`开始播放动画，间隔: ${intervalSeconds}秒`);
+    }
+
+    // 暂停动画
+    pauseAnimation() {
+        this.isPlaying = false;
+        if (this.animationInterval) {
+            clearInterval(this.animationInterval);
+            this.animationInterval = null;
+        }
+        this.updateControlButtons();
+        console.log('暂停动画');
+    }
+
+    // 停止动画
+    stopAnimation() {
+        this.pauseAnimation();
+        this.showStep(0);
+        console.log('停止动画');
+    }
+
+    // 更新控制按钮状态
+    updateControlButtons() {
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const playBtn = document.getElementById('playBtn');
+        const resetBtn = document.getElementById('resetBtn');
+
+        if (this.isSearchMode) {
+            // 搜索模式下使用搜索步骤控制
+            this.updateSearchControlButtons();
+        } else {
+            // 构建模式下使用构建步骤控制
+            if (window.hnsw && window.hnsw.steps) {
+                prevBtn.disabled = this.currentStepIndex === 0;
+                nextBtn.disabled = this.currentStepIndex === window.hnsw.steps.length - 1;
+            } else {
+                prevBtn.disabled = true;
+                nextBtn.disabled = true;
+            }
+            
+            // 播放按钮在播放时显示为"暂停"文本
+            if (this.isPlaying) {
+                playBtn.textContent = '暂停';
+                playBtn.onclick = () => this.pauseAnimation();
+            } else {
+                playBtn.textContent = '播放';
+                playBtn.onclick = () => this.playAnimation();
+            }
+            
+            // 重置按钮恢复正常功能
+            if (resetBtn) {
+                resetBtn.textContent = '重置';
+                resetBtn.onclick = () => resetDemo();
+            }
+        }
+    }
+
+    // 搜索节点
+    searchNode() {
+        const queryNodeId = parseInt(document.getElementById('queryNode').value) || 0;
+        
+        if (!window.hnsw || !window.hnsw.nodes || window.hnsw.nodes.length === 0) {
+            document.getElementById('unifiedInfo').innerHTML = 
+                '<strong>搜索错误</strong><br><span style="color: #f38ba8;">HNSW索引未初始化</span>';
+            return;
+        }
+
+        if (queryNodeId < 0 || queryNodeId >= window.hnsw.nodes.length) {
+            document.getElementById('unifiedInfo').innerHTML = 
+                `<strong>搜索错误</strong><br><span style="color: #f38ba8;">节点ID超出范围 (0-${window.hnsw.nodes.length - 1})</span>`;
+            return;
+        }
+
+        console.log(`开始搜索节点 ${queryNodeId}`);
+        
+        // 执行搜索（生成搜索步骤）
+        const result = window.hnsw.search(queryNodeId);
+        
+        if (result && window.hnsw.searchSteps) {
+            // 进入搜索演示模式
+            this.isSearchMode = true;
+            this.searchStepIndex = 0;
+            
+            // 显示第一个搜索步骤
+            this.showSearchStep(0);
+            
+            // 更新控制按钮为搜索模式
+            this.updateSearchControlButtons();
+            
+            console.log(`搜索完成: 节点${queryNodeId} -> 节点${result.id}, 共${window.hnsw.searchSteps.length}个搜索步骤`);
+        } else {
+            document.getElementById('unifiedInfo').innerHTML = 
+                '<strong>搜索失败</strong><br><span style="color: #f38ba8;">未找到有效结果</span>';
+        }
+    }
+
+    // 显示搜索步骤
+    showSearchStep(stepIndex) {
+        if (!window.hnsw || !window.hnsw.searchSteps || stepIndex >= window.hnsw.searchSteps.length) {
+            return;
+        }
+
+        const searchStep = window.hnsw.searchSteps[stepIndex];
+        this.searchStepIndex = stepIndex;
+
+        // 更新信息显示
+        document.getElementById('unifiedInfo').innerHTML = 
+            `<strong>${searchStep.title}</strong><br>
+             ${searchStep.description}<br>
+             <small>搜索步骤 ${stepIndex + 1}/${window.hnsw.searchSteps.length}</small>`;
+
+        // 可视化当前搜索步骤
+        if (window.visualization) {
+            window.visualization.visualizeSearchStep(searchStep);
+        }
+    }
+
+    // 搜索步骤控制
+    nextSearchStep() {
+        if (this.isSearchMode && window.hnsw && window.hnsw.searchSteps) {
+            if (this.searchStepIndex < window.hnsw.searchSteps.length - 1) {
+                this.showSearchStep(this.searchStepIndex + 1);
+                this.updateSearchControlButtons();
+            }
+        }
+    }
+
+    previousSearchStep() {
+        if (this.isSearchMode && window.hnsw && window.hnsw.searchSteps) {
+            if (this.searchStepIndex > 0) {
+                this.showSearchStep(this.searchStepIndex - 1);
+                this.updateSearchControlButtons();
+            }
+        }
+    }
+
+    // 退出搜索模式
+    exitSearchMode() {
+        this.isSearchMode = false;
+        this.searchStepIndex = 0;
+        
+        // 回到构建演示的最后一步
+        if (window.hnsw && window.hnsw.steps) {
+            this.showStep(window.hnsw.steps.length - 1);
+        }
+        
+        // 恢复正常控制按钮
+        this.updateControlButtons();
+        
+        document.getElementById('unifiedInfo').innerHTML = 
+            '<strong>退出搜索模式</strong><br>返回到索引构建演示';
+    }
+
+    // 重置步骤到开始
+    resetSteps() {
+        this.currentStepIndex = 0;
+        this.showStep(0);
+        this.updateControlButtons();
+    }
+
+    // 更新搜索控制按钮
+    updateSearchControlButtons() {
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const playBtn = document.getElementById('playBtn');
+        const resetBtn = document.getElementById('resetBtn');
+
+        if (window.hnsw && window.hnsw.searchSteps) {
+            prevBtn.disabled = this.searchStepIndex === 0;
+            nextBtn.disabled = this.searchStepIndex === window.hnsw.searchSteps.length - 1;
+            
+            // 在搜索模式下，播放按钮变为"退出搜索"
+            playBtn.textContent = '退出搜索';
+            playBtn.onclick = () => this.exitSearchMode();
+            
+            // 重置按钮在搜索模式下变为"重新搜索"
+            resetBtn.textContent = '重新搜索';
+            resetBtn.onclick = () => this.searchNode();
+        }
+    }
+
+    // 处理画布点击
+    handleCanvasClick(event) {
+        if (!window.visualization || !window.visualization.scene || !window.visualization.camera) {
+            return;
+        }
+
+        try {
+            // 获取鼠标位置
+            const mouse = new THREE.Vector2();
+            const rect = event.target.getBoundingClientRect();
+            mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+            mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+            // 执行射线检测
+            const raycaster = new THREE.Raycaster();
+            raycaster.setFromCamera(mouse, window.visualization.camera);
+            
+            const intersects = raycaster.intersectObjects(window.visualization.nodes);
+            
+            if (intersects.length > 0) {
+                const clickedNode = intersects[0].object;
+                if (clickedNode.userData && clickedNode.userData.id !== undefined) {
+                    this.showNodeInfo(clickedNode.userData.id);
+                }
+            } else {
+                // 点击空白处隐藏节点信息
+                document.getElementById('nodeInfo').style.display = 'none';
+            }
+        } catch (error) {
+            console.warn('处理画布点击时出错:', error);
+        }
+    }
+
+    // 显示节点信息
+    showNodeInfo(nodeId) {
+        if (!window.hnsw || !window.hnsw.nodes) return;
+
+        const node = window.hnsw.nodes.find(n => n.id === nodeId);
+        if (!node) return;
+
+        const nodeInfo = document.getElementById('nodeInfo');
+        const nodeDetails = document.getElementById('nodeDetails');
+        
+        let neighborsInfo = '';
+        for (let layer = 0; layer < node.neighbors.length; layer++) {
+            const layerNeighbors = node.neighbors[layer];
+            if (layerNeighbors && layerNeighbors.length > 0) {
+                neighborsInfo += `第${layer}层邻居: ${layerNeighbors.map(n => n.id).join(', ')}<br>`;
+            }
+        }
+
+        nodeDetails.innerHTML = `
+            <strong>节点 ${nodeId}</strong><br>
+            位置: (${node.vector.map(v => v.toFixed(2)).join(', ')})<br>
+            层数: ${node.layers.length}<br>
+            ${neighborsInfo}
+        `;
+        
+        nodeInfo.style.display = 'block';
+        
+        // 5秒后自动隐藏
+        setTimeout(() => {
+            nodeInfo.style.display = 'none';
+        }, 5000);
+    }
+
+    // 处理键盘按键
+    handleKeyPress(event) {
+        switch(event.key) {
+            case 'ArrowLeft':
+                event.preventDefault();
+                this.previousStep();
+                break;
+            case 'ArrowRight':
+                event.preventDefault();
+                this.nextStep();
+                break;
+            case ' ':
+                event.preventDefault();
+                if (this.isPlaying) {
+                    this.pauseAnimation();
+                } else {
+                    this.playAnimation();
+                }
+                break;
+            case 'r':
+            case 'R':
+                event.preventDefault();
+                this.initializeHNSW();
+                break;
+        }
+    }
+}
+
+// 全局函数 - 用于HTML按钮调用
+function initializeHNSW() {
+    try {
+        if (window.demo) {
+            window.demo.initializeHNSW();
+        } else {
+            console.error('演示实例未初始化');
+        }
+    } catch (error) {
+        console.error('初始化HNSW时出错:', error);
+    }
+}
+
+function nextStep() {
+    try {
+        if (window.demo) {
+            window.demo.nextStep();
+        } else {
+            console.error('演示实例未初始化');
+        }
+    } catch (error) {
+        console.error('下一步操作出错:', error);
+    }
+}
+
+function previousStep() {
+    try {
+        if (window.demo) {
+            window.demo.previousStep();
+        } else {
+            console.error('演示实例未初始化');
+        }
+    } catch (error) {
+        console.error('上一步操作出错:', error);
+    }
+}
+
+function playAnimation() {
+    try {
+        if (window.demo) {
+            window.demo.playAnimation();
+        } else {
+            console.error('演示实例未初始化');
+        }
+    } catch (error) {
+        console.error('播放动画出错:', error);
+    }
+}
+
+function pauseAnimation() {
+    try {
+        if (window.demo) {
+            window.demo.pauseAnimation();
+        } else {
+            console.error('演示实例未初始化');
+        }
+    } catch (error) {
+        console.error('暂停动画出错:', error);
+    }
+}
+
+function resetDemo() {
+    try {
+        if (window.demo) {
+            // 重置演示并根据当前参数重新初始化
+            window.demo.initializeHNSW();
+        } else {
+            console.error('演示实例未初始化');
+        }
+    } catch (error) {
+        console.error('重置演示出错:', error);
+    }
+}
+
+function searchNode() {
+    try {
+        if (window.demo) {
+            window.demo.searchNode();
+        } else {
+            console.error('演示实例未初始化');
+        }
+    } catch (error) {
+        console.error('搜索节点出错:', error);
+    }
+}
+
+// 标签切换功能
+function switchTab(tabName) {
+    try {
+        // 移除所有标签的active类
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        
+        // 隐藏所有标签内容
+        document.querySelectorAll('.tab-content').forEach(content => {
+            content.classList.add('hidden');
+        });
+        
+        // 激活当前标签
+        document.getElementById(tabName + 'Tab').classList.add('active');
+        document.getElementById(tabName + 'Content').classList.remove('hidden');
+        
+    } catch (error) {
+        console.error('切换标签出错:', error);
+    }
+}
+
+// 保持向后兼容的空函数
+function toggleStepPanel() {
+    // 简化后的面板不需要切换功能
+}
+
+function toggleStepOverlay() {
+    // 简化后的面板不需要切换功能
+}
+
+// 页面加载完成后初始化演示
+window.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM内容加载完成，开始初始化演示...');
+    
+    // 确保Three.js完全加载
+    setTimeout(() => {
+        try {
+            window.demo = new HNSWDemo();
+            
+            // 添加使用说明
+            console.log('HNSW演示页面已初始化');
+            console.log('使用说明:');
+            console.log('- 点击"下一步"逐步演示构建过程');
+            console.log('- 使用"播放"按钮自动演示');
+            console.log('- 在右侧输入节点ID进行搜索演示');
+            console.log('- 点击3D场景中的节点查看详细信息');
+            console.log('- 键盘控制: 左右箭头切换步骤, 空格播放/暂停, R重置');
+        } catch (error) {
+            console.error('初始化演示时出错:', error);
+        }
+    }, 500);
+});
+
+// 添加错误处理
+window.addEventListener('error', (event) => {
+    console.error('演示页面错误:', event.error);
+});
+</script>
+</body>
+</html>
