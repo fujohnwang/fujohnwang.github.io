@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IVF 索引构建与查询动态演示</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f4f7f9; }
+        
+        /* 标签页样式 */
+        .tab-button {
+            padding: 10px 20px;
+            font-weight: 600;
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+            margin-bottom: -2px; 
+        }
+        .tab-button.active {
+            background-color: white;
+            color: #ef4444; /* Red 500 */
+            border-color: #ef4444;
+            border-bottom-color: transparent;
+            z-index: 10;
+        }
+        .tab-button:not(.active) {
+            background-color: #e5e7eb; 
+            color: #4b5563; 
+        }
+        
+        /* 步骤卡片样式 */
+        .step-card {
+            min-height: 120px;
+            opacity: 0.5;
+            transition: all 0.5s ease-in-out;
+            transform: scale(0.98);
+            margin-bottom: 12px;
+            cursor: pointer; 
+        }
+        .step-card.active {
+            opacity: 1;
+            transform: scale(1);
+            box-shadow: 0 10px 15px -3px rgba(239, 68, 68, 0.2), 0 4px 6px -4px rgba(239, 68, 68, 0.2); 
+            border-color: #ef4444;
+            background-color: #fee2e2; /* Red 100 */
+        }
+        .step-card.completed {
+             background-color: #fef2f2; /* Red 50 */
+             border-color: #fecaca; /* Red 200 */
+             opacity: 0.8;
+        }
+        .stage-steps-scroll {
+            max-height: 60vh; 
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        /* 2D 可视化容器和点样式 */
+        #visualizationContainer {
+            position: relative; 
+            border: 2px solid #ccc;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: #2d3748; /* Dark Gray background */
+            width: 100%;
+            height: 60vh; 
+            touch-action: none; 
+        }
+        
+        #svgLayer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10; 
+            pointer-events: none; 
+        }
+
+        .data-point, .centroid-point, .query-point {
+            position: absolute;
+            border-radius: 50%;
+            transform: translate(-50%, -50%); 
+            transition: all 0.3s ease; 
+            z-index: 20; 
+            cursor: default;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+
+    <script>
+    (function() {
+        // --- IVF 核心参数和数据 ---
+        const NUM_VECTORS = 50; 
+        const NUM_CLUSTERS = 5; 
+        const N_PROBE = 2; // 查询时探查的 Centroids 数量
+        const K_NN = 3;    // 最终返回的最近邻数量
+
+        // Mock Centroids (C)
+        const CENTROIDS = [
+            { id: 'C1', pos: [-8, 8], color: 0xff0000, members: [] },
+            { id: 'C2', pos: [8, 8], color: 0x00ff00, members: [] },
+            { id: 'C3', pos: [-8, -8], color: 0x0000ff, members: [] },
+            { id: 'C4', pos: [8, -8], color: 0xffff00, members: [] },
+            { id: 'C5', pos: [0, 0], color: 0x00ffff, members: [] }
+        ];
+
+        // Mock Data Vectors (V) - Generated based on Centroids for clear visualization
+        let VECTORS = [];
+        
+        // Mock Query Vector (Q) - Placed near C1 and C5
+        const QUERY_VECTOR = { id: 'Q', pos: [-2, 3], color: 0xffa500 }; 
+        
+        // --- 2D 渲染和状态变量 ---
+        const OBJECT_MESHES = {}; // Stores { element: HTMLElement, label: HTMLElement }
+        const VIS_SCALE = 1.0; 
+        const DATA_RANGE = 30; // Coordinates span from -15 to 15 (total range 30)
+
+        // Point sizes (in pixels)
+        const VECTOR_SIZE = 8;
+        const CENTROID_SIZE = 16;
+        const QUERY_SIZE = 12;
+        
+        let VIS_CONTAINER, SVG_LAYER;
+        
+        // 视觉化颜色常量 (Hex)
+        const QUERY_COLOR = 0xffa500; // 橙色
+        const COARSE_LINE_COLOR = 0x9333ea; // 紫色，粗量化线 (被选中 Centroid/线颜色)
+        const COARSE_LINE_DEFAULT_COLOR = 0x4a4e69; // 暗灰色，未选中的粗量化线 (也是非选中 Centroid 的颜色)
+        const SEARCHED_COLOR = 0x10b981; // 绿色，被搜索的向量
+        const FINE_LINE_DEFAULT_COLOR = 0x3b82f6; // 蓝色，精确搜索线
+        const KNN_COLOR = 0xec4899; // 粉色，最终 K 最近邻
+        const VECTOR_DEFAULT_COLOR = 0xcccccc; // 默认向量颜色
+        
+        const FONT_COLOR = 0xffffff; // 标签颜色
+
+        // --- 动画状态 ---
+        let currentStep = 0;
+        let activeTab = 'indexing'; 
+        let indexingStepsData = [];
+        let queryingStepsData = [];
+        
+        // --- DOM 元素引用 ---
+        let currentStepDisplay;
+        let nextButton, restartButton;
+
+        // --- 辅助函数 ---
+        
+        function getDistanceSq(pos1, pos2) {
+            return (pos1[0] - pos2[0]) ** 2 + (pos1[1] - pos2[1]) ** 2;
+        }
+
+        // Helper to get Data object
+        function getXZPosition(id) {
+            if (id === 'Q') return QUERY_VECTOR;
+            if (id.startsWith('C')) return CENTROIDS.find(c => c.id === id);
+            return VECTORS.find(v => v.id === id);
+        }
+
+        function generateMockData() {
+            VECTORS = [];
+            CENTROIDS.forEach(c => c.members = []);
+            
+            for (let i = 0; i < NUM_VECTORS; i++) {
+                const clusterIndex = i % NUM_CLUSTERS;
+                const centroid = CENTROIDS[clusterIndex];
+                
+                // Generate point near its assigned centroid
+                const x = centroid.pos[0] + (Math.random() - 0.5) * 5;
+                const z = centroid.pos[1] + (Math.random() - 0.5) * 5;
+                
+                const vector = {
+                    id: `V${i + 1}`,
+                    pos: [x, z],
+                    clusterId: centroid.id,
+                    initialColor: VECTOR_DEFAULT_COLOR
+                };
+                VECTORS.push(vector);
+                centroid.members.push(vector);
+            }
+        }
+        
+        // -----------------------------------------------------
+        // --- 2D 可视化核心函数 (替代 Three.js) ---
+        // -----------------------------------------------------
+        
+        // 坐标映射: 将数据坐标 [-15, 15] 映射到像素坐标 [0, width/height]
+        function mapToPixel(pos) {
+            if (!VIS_CONTAINER) return [0, 0];
+            const w = VIS_CONTAINER.clientWidth;
+            const h = VIS_CONTAINER.clientHeight;
+            
+            // Map X: (-DATA_RANGE/2) -> 0, (DATA_RANGE/2) -> w
+            const pixelX = ((pos[0] * VIS_SCALE) + DATA_RANGE / 2) / DATA_RANGE * w;
+            // Map Z (Y-axis in 2D): (DATA_RANGE/2) -> 0, (-DATA_RANGE/2) -> h (Inverted Y)
+            const pixelY = (DATA_RANGE / 2 - (pos[1] * VIS_SCALE)) / DATA_RANGE * h; 
+            
+            return [pixelX, pixelY];
+        }
+
+        function createPointElement(data, size, className) {
+            const [x, y] = mapToPixel(data.pos);
+            
+            const point = document.createElement('div');
+            point.id = `point-${data.id}`;
+            point.className = `${className} absolute`;
+            point.style.width = `${size}px`;
+            point.style.height = `${size}px`;
+            // Use initial color for setup, visualization function handles dynamic colors
+            point.style.backgroundColor = `#${(data.initialColor || data.color).toString(16).padStart(6, '0')}`;
+            point.style.left = `${x}px`;
+            point.style.top = `${y}px`;
+            point.style.borderRadius = '50%';
+            point.style.transform = 'translate(-50%, -50%)';
+            point.style.transition = 'all 0.3s ease';
+            point.dataset.id = data.id; 
+
+            // Label (for C and Q)
+            if (data.id.startsWith('C') || data.id === 'Q') {
+                const label = document.createElement('span');
+                label.className = 'text-xs font-bold absolute whitespace-nowrap';
+                label.style.bottom = `${-size/2 - 4}px`;
+                label.style.left = '50%';
+                label.style.transform = 'translateX(-50%)';
+                label.textContent = data.id;
+                label.style.color = `#${FONT_COLOR.toString(16).padStart(6, '0')}`;
+                point.appendChild(label);
+                OBJECT_MESHES[data.id] = { element: point, label: label };
+            } else {
+                OBJECT_MESHES[data.id] = { element: point };
+            }
+
+            return point;
+        }
+
+        function init2DVisualization() {
+            VIS_CONTAINER = document.getElementById('visualizationContainer');
+            
+            // 1. Set up SVG layer
+            SVG_LAYER = document.getElementById('svgLayer');
+            
+            // 2. Clear any previous points
+            VIS_CONTAINER.querySelectorAll('.data-point, .centroid-point, .query-point').forEach(e => {
+                if(e !== SVG_LAYER) e.remove();
+            });
+
+            // 3. Add Centroids
+            CENTROIDS.forEach(c => {
+                const point = createPointElement(c, CENTROID_SIZE, 'centroid-point');
+                VIS_CONTAINER.appendChild(point);
+            });
+            
+            // 4. Add Data Vectors
+            VECTORS.forEach(v => {
+                const point = createPointElement(v, VECTOR_SIZE, 'data-point');
+                VIS_CONTAINER.appendChild(point);
+            });
+            
+            // 5. Add Query Point Q
+            const queryPoint = createPointElement(QUERY_VECTOR, QUERY_SIZE, 'query-point');
+            VIS_CONTAINER.appendChild(queryPoint);
+
+            // 6. Handle resizing
+            window.addEventListener('resize', onWindowResize, false);
+            
+            // Initial render call to position points correctly
+            onWindowResize();
+        }
+
+        function onWindowResize() {
+            if (!VIS_CONTAINER || !SVG_LAYER) return;
+            const w = VIS_CONTAINER.clientWidth;
+            const h = VIS_CONTAINER.clientHeight;
+            
+            // Update SVG size
+            SVG_LAYER.setAttribute('width', w);
+            SVG_LAYER.setAttribute('height', h);
+
+            // Reposition all points (Centroids, Vectors, Query)
+            [...CENTROIDS, ...VECTORS, QUERY_VECTOR].forEach(data => {
+                const meshInfo = OBJECT_MESHES[data.id];
+                if (meshInfo && meshInfo.element) {
+                    const [pixelX, pixelY] = mapToPixel(data.pos);
+                    meshInfo.element.style.left = `${pixelX}px`;
+                    meshInfo.element.style.top = `${pixelY}px`;
+                }
+            });
+            
+            // Re-draw visualization to redraw lines based on new coordinates
+            updateVisualization(currentStep); 
+        }
+
+        function clearVisualization() {
+            // Clear all lines from SVG
+            SVG_LAYER.innerHTML = ''; 
+            
+            // Reset visibility of Q point
+            if (OBJECT_MESHES['Q']) {
+                OBJECT_MESHES['Q'].element.style.opacity = 0; 
+                if(OBJECT_MESHES['Q'].label) OBJECT_MESHES['Q'].label.style.opacity = 0;
+            }
+        }
+        
+        /**
+         * 绘制边线 (SVG Line)
+         */
+        function drawEdge(startId, endId, color, width = 1, opacity = 0.5) { 
+            const startData = getXZPosition(startId);
+            const endData = getXZPosition(endId);
+            
+            const [x1, y1] = mapToPixel(startData.pos);
+            const [x2, y2] = mapToPixel(endData.pos);
+
+            const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            line.setAttribute('x1', x1);
+            line.setAttribute('y1', y1);
+            line.setAttribute('x2', x2);
+            line.setAttribute('y2', y2);
+            line.setAttribute('stroke', '#' + color.toString(16).padStart(6, '0'));
+            line.setAttribute('stroke-width', width * 1.5); 
+            line.setAttribute('stroke-opacity', opacity);
+            line.style.transition = 'all 0.3s ease'; 
+            
+            SVG_LAYER.appendChild(line);
+        }
+
+        function updateVisualization(step) {
+            clearVisualization(); 
+            
+            const isIndexing = activeTab === 'indexing';
+            const stepsData = isIndexing ? indexingStepsData : queryingStepsData;
+            const stepData = stepsData[step];
+
+            if (!stepData) return;
+            
+            // 1. 结构化重置所有节点状态 (大小，缩放, zIndex, opacity)
+            [...VECTORS, ...CENTROIDS, QUERY_VECTOR].forEach(data => {
+                const meshInfo = OBJECT_MESHES[data.id];
+                if (!meshInfo) return;
+                
+                const defaultSize = data.id.startsWith('V') ? VECTOR_SIZE : 
+                                    (data.id.startsWith('C') ? CENTROID_SIZE : QUERY_SIZE);
+                                    
+                // Structural Reset
+                meshInfo.element.style.width = `${defaultSize}px`;
+                meshInfo.element.style.height = `${defaultSize}px`;
+                meshInfo.element.style.transform = 'translate(-50%, -50%)'; 
+                meshInfo.element.style.opacity = 1;
+                meshInfo.element.style.zIndex = 20;
+                meshInfo.element.style.boxShadow = 'none';
+
+                // Color Reset based on mode
+                let resetColor;
+                if (data.id.startsWith('V')) {
+                    // Indexing: Vector color is cluster color. Querying: Vector color is default gray.
+                    if (isIndexing) {
+                        const cluster = CENTROIDS.find(c => c.id === data.clusterId);
+                        resetColor = cluster ? cluster.color : VECTOR_DEFAULT_COLOR;
+                    } else {
+                        resetColor = VECTOR_DEFAULT_COLOR;
+                    }
+                } else if (data.id.startsWith('C')) {
+                    // C point reset: Indexing uses cluster color, Querying uses neutral color
+                    resetColor = isIndexing ? data.color : COARSE_LINE_DEFAULT_COLOR; 
+                } else if (data.id === 'Q') {
+                    resetColor = QUERY_COLOR;
+                }
+                
+                meshInfo.element.style.backgroundColor = `#${resetColor.toString(16).padStart(6, '0')}`;
+            });
+
+            // 2. 索引模式: 绘制聚类连接
+            if (isIndexing) {
+                // Ensure Query point is hidden
+                if (OBJECT_MESHES['Q']) {
+                    OBJECT_MESHES['Q'].element.style.opacity = 0; 
+                    if(OBJECT_MESHES['Q'].label) OBJECT_MESHES['Q'].label.style.opacity = 0;
+                }
+                
+                // Indexing Step 2 & 3: show V->C connections
+                if (step >= 2 && stepData.connections) {
+                     stepData.connections.forEach(([vId, cId, color]) => {
+                        drawEdge(vId, cId, color, 1, 0.7); 
+                        OBJECT_MESHES[vId].element.style.backgroundColor = `#${color.toString(16).padStart(6, '0')}`;
+                    });
+                    CENTROIDS.forEach(c => {
+                         OBJECT_MESHES[c.id].element.style.backgroundColor = `#${c.color.toString(16).padStart(6, '0')}`;
+                    });
+                } else if (step < 2) {
+                     // Step 0 & 1: all points are default colors
+                     CENTROIDS.forEach(c => {
+                         OBJECT_MESHES[c.id].element.style.backgroundColor = `#${COARSE_LINE_DEFAULT_COLOR.toString(16).padStart(6, '0')}`;
+                     });
+                     VECTORS.forEach(v => {
+                        OBJECT_MESHES[v.id].element.style.backgroundColor = `#${VECTOR_DEFAULT_COLOR.toString(16).padStart(6, '0')}`;
+                     });
+                }
+            } 
+            
+            // 3. 查询模式: 动态绘制 (核心联动逻辑)
+            else { 
+                // Show Q point and add pulse effect
+                OBJECT_MESHES['Q'].element.style.opacity = 1;
+                if(OBJECT_MESHES['Q'].label) OBJECT_MESHES['Q'].label.style.opacity = 1;
+                if (step >= 1) OBJECT_MESHES['Q'].element.style.boxShadow = '0 0 8px 3px rgba(255, 165, 0, 0.7)'; 
+
+                const selectedCentroidIds = stepData.highlightCentroids || [];
+                
+                // 3.1 Centroid 状态同步
+                CENTROIDS.forEach(c => {
+                    const meshInfo = OBJECT_MESHES[c.id];
+                    const isSelected = selectedCentroidIds.includes(c.id);
+                    
+                    // Always reset to neutral dark color first
+                    meshInfo.element.style.backgroundColor = `#${COARSE_LINE_DEFAULT_COLOR.toString(16).padStart(6, '0')}`;
+                    meshInfo.element.style.opacity = 1;
+
+                    if (step >= 2) { 
+                        // Step 2 onwards: Apply highlighing/fading
+                        if (isSelected) {
+                            meshInfo.element.style.backgroundColor = `#${COARSE_LINE_COLOR.toString(16).padStart(6, '0')}`; 
+                            meshInfo.element.style.transform = 'translate(-50%, -50%) scale(1.3)';
+                            meshInfo.element.style.zIndex = 30; 
+                        } else {
+                            meshInfo.element.style.opacity = 0.3;
+                        }
+                    }
+                });
+                
+                // 3.2 粗量化线 (Q -> Centroids) (从 Step 1 开始)
+                if (stepData.coarseLines && step >= 1) {
+                    stepData.coarseLines.forEach(([qId, cId]) => {
+                        const isSelected = selectedCentroidIds.includes(cId);
+                        
+                        // Step 1: All lines are neutral color/opacity
+                        if (step === 1) {
+                            drawEdge(qId, cId, COARSE_LINE_DEFAULT_COLOR, 1, 0.5);
+                        } 
+                        // Step 2 onwards: Selected lines are purple/thick, others are faded/thin
+                        else if (step >= 2) {
+                            const color = isSelected ? COARSE_LINE_COLOR : COARSE_LINE_DEFAULT_COLOR;
+                            const width = isSelected ? 3 : 1;
+                            const opacity = isSelected ? 1.0 : 0.3;
+                            drawEdge(qId, cId, color, width, opacity);
+                        }
+                    });
+                }
+
+                // 3.3 限制搜索范围 (突出显示的向量) (从 Step 3 开始)
+                if (stepData.searchedVectors && step >= 3) {
+                    stepData.searchedVectors.forEach(vId => {
+                        const meshInfo = OBJECT_MESHES[vId];
+                        if (meshInfo) {
+                            // 突出显示被搜索桶中的所有向量
+                            meshInfo.element.style.backgroundColor = `#${SEARCHED_COLOR.toString(16).padStart(6, '0')}`;
+                            meshInfo.element.style.width = `${VECTOR_SIZE + 4}px`; 
+                            meshInfo.element.style.height = `${VECTOR_SIZE + 4}px`;
+                            meshInfo.element.style.opacity = 1;
+                        }
+                    });
+                    
+                    // Faded Centroids also have their associated vectors faded if they are NOT searched
+                    CENTROIDS.forEach(c => {
+                         if (!selectedCentroidIds.includes(c.id)) {
+                             c.members.forEach(v => {
+                                 OBJECT_MESHES[v.id].element.style.opacity = 0.3;
+                             });
+                         }
+                    });
+                } else if (step >= 1 && step < 3) {
+                     // Before step 3, all vectors are default color
+                     VECTORS.forEach(v => {
+                         OBJECT_MESHES[v.id].element.style.backgroundColor = `#${VECTOR_DEFAULT_COLOR.toString(16).padStart(6, '0')}`;
+                     });
+                }
+                
+                // 3.4 精确搜索线 & KNN (从 Step 4 开始)
+                if (stepData.fineLines && step >= 4) {
+                     stepData.fineLines.forEach(([qId, vId]) => {
+                        const isKNN = stepData.knnResults && stepData.knnResults.includes(vId);
+                        
+                        // 绘制 Q->V 线
+                        const color = isKNN ? KNN_COLOR : FINE_LINE_DEFAULT_COLOR; 
+                        const width = isKNN ? 4 : 1;
+                        const opacity = isKNN ? 1.0 : 0.5;
+                        
+                        // Step 4: All searched vectors have FineLines (blue)
+                        if (step === 4) {
+                             drawEdge(qId, vId, FINE_LINE_DEFAULT_COLOR, 1, 0.5);
+                        }
+                        
+                        // Step 5: KNN lines are pink/thick, others are blue/thin
+                        if (step === 5) {
+                            drawEdge(qId, vId, color, width, opacity);
+                        }
+
+                        if (isKNN && step === 5) {
+                            // 最终 K-NN 结果高亮 (Step 5 强制覆盖颜色和大小)
+                            OBJECT_MESHES[vId].element.style.backgroundColor = `#${KNN_COLOR.toString(16).padStart(6, '0')}`;
+                            OBJECT_MESHES[vId].element.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                            OBJECT_MESHES[vId].element.style.zIndex = 40;
+                        }
+                    });
+                }
+                
+                 // 3.5 确保未被搜索的 Centroids 的桶内向量被淡化 (适用于 Step 3, 4, 5)
+                if (step >= 3) {
+                     const allCentroids = CENTROIDS.map(c => c.id);
+                     const unselectedCentroids = allCentroids.filter(cId => !selectedCentroidIds.includes(cId));
+                     
+                     unselectedCentroids.forEach(cId => {
+                         const centroid = CENTROIDS.find(c => c.id === cId);
+                         if (centroid) {
+                             centroid.members.forEach(v => {
+                                 OBJECT_MESHES[v.id].element.style.opacity = 0.3;
+                             });
+                         }
+                     });
+                }
+            }
+        }
+
+        // --- UI 逻辑控制函数 ---
+        
+        function initializeIndexingSteps() {
+            indexingStepsData = [
+                { title: '步骤 0: 初始数据和聚类中心', content: `数据空间中有 ${NUM_VECTORS} 个向量 (V) 和 ${NUM_CLUSTERS} 个随机初始化的聚类中心 (C)。`, connections: [] },
+                { title: '步骤 1: K-Means 聚类', content: `运行 K-Means 算法（粗量化阶段），将所有向量分配给最近的聚类中心。`, connections: [] },
+                { title: '步骤 2: 建立倒排文件 (Inverted File)', content: `每个聚类中心 (Centroid) 成为一个**桶**，存储分配给它的所有向量的引用。`, connections: CENTROIDS.map(c => c.members.map(v => [v.id, c.id, c.color])).flat() },
+                { title: '步骤 3: 索引构建完成', content: `IVF 索引构建完成。查询时，我们只需要探查少数 Centroids 对应的桶。`, connections: CENTROIDS.map(c => c.members.map(v => [v.id, c.id, c.color])).flat(), isFinal: true },
+            ];
+            const container = document.getElementById('indexingStepsContainer');
+            container.innerHTML = '';
+            indexingStepsData.forEach((data, index) => {
+                container.appendChild(createStepCard(index, data.title, data.content, 'idx'));
+            });
+            renderFinalIndexingResult(document.getElementById('indexingFinalResult'));
+        }
+
+        function initializeQuerySteps() {
+            // Pre-calculate nearest Centroids to Q for the demo
+            const qPos = QUERY_VECTOR.pos;
+            const centroidDistances = CENTROIDS.map(c => ({
+                id: c.id,
+                distance: getDistanceSq(qPos, c.pos),
+                color: c.color
+            })).sort((a, b) => a.distance - b.distance);
+            
+            const allCentroidLines = CENTROIDS.map(c => ['Q', c.id]); // All Q->C lines
+            const selectedCentroids = centroidDistances.slice(0, N_PROBE);
+            const selectedCentroidIds = selectedCentroids.map(c => c.id);
+            
+            // Get all vectors in the selected buckets
+            let searchedVectors = CENTROIDS.filter(c => selectedCentroidIds.includes(c.id)).map(c => c.members).flat();
+            const allSearchedVectorLines = searchedVectors.map(v => ['Q', v.id]); // All Q->V lines for searched vectors
+            
+            // Find K_NN results among the searched vectors
+            let knnResults = searchedVectors.map(v => ({
+                id: v.id,
+                distance: getDistanceSq(qPos, v.pos)
+            })).sort((a, b) => a.distance - b.distance).slice(0, K_NN);
+            
+            // --- 保证视觉元素状态的连续性 (每个步骤都包含其所需的持续状态) ---
+            queryingStepsData = [
+                // Step 0: 只有 Q 出现
+                { title: '步骤 0: 待查询向量', content: `查询向量 <strong class="font-mono text-orange-400">Q</strong> 出现，我们需要在索引中找到 K=${K_NN} 个最近邻。`, highlightQuery: true },
+                
+                // Step 1: 粗量化 - 显示所有 Q->C 线
+                { title: '步骤 1: 粗量化 (Coarse Quantization)', content: `计算 <strong class="font-mono">Q</strong> 到所有 Centroid 的距离。`, coarseLines: allCentroidLines },
+                
+                // Step 2: 选择 N_probe - 突出显示 Centroids 及其对应的 Q->C 线 (状态开始固定)
+                { 
+                    title: `步骤 2: 选择 N_probe=${N_PROBE} 个 Centroids`, 
+                    content: `选择距离 <strong class="font-mono">Q</strong> 最近的 ${N_PROBE} 个 Centroid (本例中为 ${selectedCentroidIds.join(', ')}).`, 
+                    coarseLines: allCentroidLines, 
+                    highlightCentroids: selectedCentroidIds 
+                },
+                
+                // Step 3: 限制搜索范围 - 保持 Centroid 高亮，同时高亮选中的向量
+                { 
+                    title: '步骤 3: 限制搜索范围 (Bucket Selection)', 
+                    content: `只搜索被选中的 ${N_PROBE} 个 Centroid 所对应的倒排文件桶中的向量。`, 
+                    coarseLines: allCentroidLines, 
+                    highlightCentroids: selectedCentroidIds, 
+                    searchedVectors: searchedVectors.map(v => v.id) 
+                },
+                
+                // Step 4: 精确搜索 - 保持所有高亮，显示所有 Q->V 线
+                { 
+                    title: '步骤 4: 精确搜索 (Fine Quantization)', 
+                    content: `在限制后的 ${searchedVectors.length} 个向量中，计算与 <strong class="font-mono">Q</strong> 的精确距离。`, 
+                    coarseLines: allCentroidLines, 
+                    highlightCentroids: selectedCentroidIds, 
+                    searchedVectors: searchedVectors.map(v => v.id), 
+                    fineLines: allSearchedVectorLines 
+                },
+                
+                // Step 5: 返回 K 最近邻 - 保持所有高亮，高亮 K-NN 结果和线
+                { 
+                    title: '步骤 5: 返回 K 最近邻', 
+                    content: `从搜索结果中选出距离最近的 K=${K_NN} 个向量：${knnResults.map(r => r.id).join(', ')}。`, 
+                    coarseLines: allCentroidLines, 
+                    highlightCentroids: selectedCentroidIds, 
+                    searchedVectors: searchedVectors.map(v => v.id), 
+                    fineLines: allSearchedVectorLines, 
+                    knnResults: knnResults.map(r => r.id), 
+                    isFinal: true 
+                },
+            ];
+            // --- 状态连续性结束 ---
+            
+            const container = document.getElementById('queryingStepsContainer');
+            container.innerHTML = '';
+            queryingStepsData.forEach((data, index) => {
+                container.appendChild(createStepCard(index, data.title, data.content, 'qry'));
+            });
+            renderFinalQueryResult(document.getElementById('queryingFinalResult'), knnResults.map(r => r.id));
+        }
+
+        function createStepCard(index, title, content, prefix) {
+            const card = document.createElement('div');
+            card.id = `${prefix}step-${index}`; // Example: 'idxstep-0' or 'qrystep-5'
+            card.className = `step-card p-4 rounded-xl border-2 border-gray-200 bg-white space-y-2`;
+            card.innerHTML = `<h3 class="text-lg font-bold text-gray-800">${title}</h3><div class="text-sm text-gray-600">${content}</div>`;
+            
+            // 增加点击事件：点击卡片可直接跳转到该步骤
+            card.addEventListener('click', () => {
+                // Ensure we only update if the card belongs to the currently active tab
+                if (activeTab === (prefix === 'idx' ? 'indexing' : 'querying')) {
+                    currentStep = index;
+                    // Pass the prefix explicitly
+                    updateStepUI(currentStep, prefix);
+                }
+            });
+
+            return card;
+        }
+
+        function updateStepUI(step, prefix) {
+            const stepsData = prefix === 'idx' ? indexingStepsData : queryingStepsData;
+            
+            // 1. 更新进度显示
+            currentStepDisplay.textContent = `${step} / ${stepsData.length - 1}`;
+            
+            const allStepCards = document.querySelectorAll(`#stepContentWrapper .step-card`);
+            
+            // 2. 核心修复点: 更新卡片高亮状态 - 通过解析 ID 获得步骤号
+            allStepCards.forEach((card) => {
+                const cardPrefix = card.id.substring(0, 3);
+                // 修复逻辑: 从卡片ID中解析出正确的步骤数字 (e.g., 'qrystep-5' -> 5)
+                const cardStepIndex = parseInt(card.id.split('-')[1]); 
+                
+                card.classList.remove('active', 'border-red-500', 'completed');
+
+                if (cardPrefix === prefix) {
+                    card.style.display = 'block'; // Show cards for active tab
+                    
+                    if (cardStepIndex === step) {
+                        card.classList.add('active', 'border-red-500');
+                        // 确保步骤卡片滚动到视图中央
+                        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } 
+                    // 确保已完成的步骤卡片有 completed 样式
+                    else if (cardStepIndex < step) {
+                        card.classList.add('completed');
+                    }
+                } else {
+                     card.style.display = 'none'; // Hide cards for inactive tab
+                }
+            });
+            
+            // 3. 更新可视化
+            updateVisualization(step); 
+            const isEnd = step >= stepsData.length - 1;
+            updateButtonStates(isEnd);
+            
+            // 4. Toggle final result visibility
+            const indexingFinalResult = document.getElementById('indexingFinalResult');
+            const queryingFinalResult = document.getElementById('queryingFinalResult');
+            
+            indexingFinalResult.classList.add('hidden');
+            queryingFinalResult.classList.add('hidden');
+
+            if (isEnd) {
+                if (prefix === 'idx') indexingFinalResult.classList.remove('hidden');
+                if (prefix === 'qry') queryingFinalResult.classList.remove('hidden');
+            }
+        }
+        
+        function updateButtonStates(isEnd) {
+            if (isEnd) {
+                nextButton.textContent = '演示结束';
+                nextButton.disabled = true;
+                restartButton.classList.remove('hidden');
+            } else {
+                nextButton.textContent = '下一步 (Next)';
+                nextButton.disabled = false; 
+                restartButton.classList.add('hidden');
+            }
+        }
+
+        const switchTab = (tabId) => {
+            document.getElementById('indexingTab').classList.remove('active');
+            document.getElementById('queryingTab').classList.remove('active');
+            
+            activeTab = tabId;
+
+            let prefix = 'idx';
+            if (tabId === 'indexing') {
+                document.getElementById('indexingTab').classList.add('active');
+                prefix = 'idx';
+            } else {
+                document.getElementById('queryingTab').classList.add('active');
+                prefix = 'qry';
+            }
+            
+            // 重置步骤为 0 并更新 UI
+            currentStep = 0;
+            updateStepUI(currentStep, prefix);
+        };
+
+        function handleNext() {
+            const stepsData = activeTab === 'indexing' ? indexingStepsData : queryingStepsData;
+            const prefix = activeTab === 'indexing' ? 'idx' : 'qry';
+            
+            if (currentStep < stepsData.length - 1) {
+                currentStep++;
+                updateStepUI(currentStep, prefix);
+            }
+        }
+        
+        function handleRestart() {
+             currentStep = 0;
+             const prefix = activeTab === 'indexing' ? 'idx' : 'qry';
+             updateStepUI(currentStep, prefix);
+        }
+
+        function renderFinalIndexingResult(targetDiv) {
+            let html = `<h3 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">IVF 索引最终结构 (K=${NUM_CLUSTERS} 个 Centroids)</h3>`;
+            
+            CENTROIDS.forEach(c => {
+                const colorHex = '#' + c.color.toString(16).padStart(6, '0');
+                html += `<div class="p-3 bg-white rounded-lg mb-3 shadow-sm border-l-4" style="border-color:${colorHex}">
+                    <h4 class="font-bold text-lg" style="color:${colorHex}">${c.id} (Centroid)</h4>
+                    <p class="text-sm text-gray-600">位置: [${c.pos.join(', ')}]</p>
+                    <p class="text-sm text-gray-600">桶大小: <span class="font-bold">${c.members.length} 个向量</span></p>
+                    <div class="mt-1 flex flex-wrap gap-1">
+                        ${c.members.map(v => `<span class="px-2 py-0.5 text-xs rounded-full bg-gray-200 text-gray-700">${v.id}</span>`).join('')}
+                    </div>
+                </div>`;
+            });
+            targetDiv.innerHTML = html;
+        }
+
+        function renderFinalQueryResult(targetDiv, knnIds) {
+            let html = `
+                <h3 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">查询 <strong class="font-mono text-orange-400">Q</strong> 的最终 K 近邻结果 (K=${K_NN})</h3>
+                <div class="space-y-4">
+                    <p class="text-lg text-gray-700">查询向量 <strong class="font-mono">Q</strong> = [${QUERY_VECTOR.pos.join(', ')}]</p>
+                    
+                    <div class="p-4 bg-pink-100 border-l-4 border-pink-500 rounded-lg shadow-md">
+                        <p class="font-bold text-pink-800 mb-2">IVF 搜索结果 (K=${K_NN}):</p>
+                        <div class="flex space-x-4 justify-center">
+                            ${knnIds.map((id, index) => {
+                                return `
+                                    <div class="p-3 bg-white rounded-lg text-center shadow-sm border border-pink-300">
+                                        <p class="text-sm text-gray-700">第 ${index + 1} 近</p>
+                                        <code class="text-xl font-mono text-pink-900">${id}</code>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2">注: 仅搜索了 <strong class="font-mono">${N_PROBE}</strong> 个 Centroid 对应的桶。</p>
+                    </div>
+                </div>
+            `;
+            targetDiv.innerHTML = html;
+        }
+
+        window.onload = () => {
+            generateMockData();
+            
+            // 获取 DOM 引用
+            nextButton = document.getElementById('nextButton');
+            restartButton = document.getElementById('restartButton'); 
+            currentStepDisplay = document.getElementById('currentStepDisplay');
+            
+            // Tabs
+            document.getElementById('indexingTab').addEventListener('click', () => switchTab('indexing'));
+            document.getElementById('queryingTab').addEventListener('click', () => switchTab('querying'));
+            
+            // Add event listeners
+            nextButton.addEventListener('click', handleNext);
+            restartButton.addEventListener('click', handleRestart);
+            
+            // 初始化所有步骤和 2D 可视化
+            initializeIndexingSteps();
+            initializeQuerySteps();
+            init2DVisualization();
+            
+            // Inject parameters into the new UI panel
+            document.getElementById('paramN').textContent = NUM_VECTORS;
+            document.getElementById('paramK').textContent = NUM_CLUSTERS;
+            document.getElementById('paramNProbe').textContent = N_PROBE;
+            const sqrtN = Math.sqrt(NUM_VECTORS).toFixed(2);
+            document.getElementById('paramSqrtN').textContent = sqrtN;
+
+
+            // 设置初始 Tab
+            switchTab('indexing'); 
+        };
+    })(); 
+    </script>
+
+    <header class="text-center mb-8">
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-2">IVF 倒排文件索引的**动态演示** (2D)</h1>
+        <p class="text-xl text-gray-600">IVF (Inverted File Index) 通过**粗量化**和**限制搜索**加速向量检索。</p>
+    </header>
+    
+    <!-- FIXED HEADER/CONTROLS -->
+    <div id="fixedHeaderWrapper" class="fixed top-0 left-0 right-0 z-50 bg-gray-100/95 backdrop-blur-sm pt-4 pb-4 shadow-xl"> 
+        <div class="max-w-6xl mx-auto px-4 sm:px-8"> 
+            <div class="flex justify-between items-center p-4 bg-white rounded-xl shadow border-t-4 border-red-500">
+                
+                <h2 class="text-2xl font-bold text-gray-800">IVF 演示进度</h2>
+                
+                <div class="flex items-center space-x-4">
+                    <div class="text-2xl font-bold text-gray-800">
+                        <!-- 步骤显示: 当前步骤 / 总步骤数 -->
+                        <span id="currentStepDisplay" class="text-red-600">0 / 0</span>
+                    </div>
+                    
+                    <button id="restartButton" class="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-300 hidden">
+                        重新演示
+                    </button>
+
+                    <button id="nextButton" class="px-6 py-3 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 transition duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed">
+                        下一步 (Next)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main content wrapper -->
+    <div class="max-w-6xl mx-auto">
+        
+        <!-- Placeholder to offset content below the fixed header (approx 120px height) -->
+        <div class="h-[120px] w-full"></div> 
+        
+        <!-- Tabs -->
+        <div class="flex border-b-2 border-gray-300 mb-6 -mx-4 sm:mx-0">
+            <button id="indexingTab" class="tab-button active">IVF 索引构建</button>
+            <button id="queryingTab" class="tab-button">IVF 向量查询</button>
+        </div>
+
+        <!-- Main Content Area: Flex Container for Steps (Left) and Visualization (Right) -->
+        <div class="flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-6 p-6 bg-gray-100 rounded-xl shadow-inner mt-4">
+
+            <!-- 左侧：步骤说明和最终结果 -->
+            <div class="flex-1 p-4 bg-white rounded-xl shadow-lg border-t-4 border-red-500">
+                <h3 class="text-xl font-bold mb-3 text-red-700">流程详解 (点击卡片可快速跳转)</h3>
+                
+                <!-- 步骤内容容器 -->
+                <div id="stepContentWrapper" class="stage-steps-scroll">
+                    <!-- 所有的步骤卡片都将放在这里，由 JS 控制显示/隐藏 -->
+                    <div id="indexingStepsContainer">
+                        <!-- 索引步骤将在此处生成 -->
+                    </div>
+
+                    <div id="queryingStepsContainer">
+                        <!-- 查询步骤将在此处生成 -->
+                    </div>
+                </div>
+                
+                <!-- 最终结果显示（根据 activeTab 显示对应内容） -->
+                <div id="indexingFinalResult" class="mt-4 hidden p-4 bg-white rounded-xl shadow-lg border-t-4 border-gray-200">
+                    <!-- 最终索引结果将在此处渲染 -->
+                </div>
+                <div id="queryingFinalResult" class="mt-4 hidden p-4 bg-white rounded-xl shadow-lg border-t-4 border-gray-200">
+                    <!-- 最终查询结果将在此处渲染 -->
+                </div>
+            </div>
+
+            <!-- 右侧：2D 可视化 (统一的容器，解决 ID 冲突) -->
+            <div class="flex-shrink-0 lg:w-[450px] p-2 bg-white rounded-xl shadow-lg border-t-4 border-gray-700">
+                <h3 class="text-xl font-bold mb-3 text-gray-700">2D 向量空间视图 (俯视)</h3>
+                <div id="visualizationContainer">
+                    <!-- SVG Layer for Lines -->
+                    <svg id="svgLayer"></svg>
+                    <!-- Point elements are inserted by JavaScript -->
+                </div>
+                 
+                <!-- Parameter and Legend Panel -->
+                <div class="mt-4 p-4 bg-gray-50 rounded-xl border border-gray-200 shadow-inner">
+                    <h4 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">IVF 核心参数 (K 平衡点)</h4>
+                    <div class="flex justify-between text-sm font-mono mb-2 px-2">
+                        <span>总向量数 (N): <span id="paramN" class="text-red-600">50</span></span>
+                        <span>$\sqrt{N}$ (平衡点): <span id="paramSqrtN" class="text-red-600">7.07</span></span>
+                    </div>
+                    <div class="text-sm font-mono mb-2 px-2">
+                        <span>当前聚类数 (K): <span id="paramK" class="text-indigo-600">5</span></span>
+                        <span class="ml-4">探针数 ($N_{probe}$): <span id="paramNProbe" class="text-indigo-600">2</span></span>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-2 p-1 border-t pt-2">
+                        <strong class="text-red-500">参数调优关键:</strong> K 的选择（例如 $\text{K} \approx \sqrt{\text{N}}$）是在 Centroid 搜索和 Inverted List 搜索之间取得平衡的关键。
+                    </p>
+                </div>
+                 
+                <div class="mt-4 text-xs text-gray-500 text-center space-x-3">
+                    <span class="text-gray-400 font-bold">● 向量 (V)</span>
+                    <span class="text-purple-500 font-bold">● Centroid (C)</span>
+                    <span class="text-orange-500 font-bold">● 查询点 (Q)</span>
+                    <span class="text-purple-500 font-bold">搜索路径</span>
+                </div>
+            </div>
+
+        </div>
+        <!-- End of Main Content Area -->
+    </div>
+
+</body>
+</html>
+
