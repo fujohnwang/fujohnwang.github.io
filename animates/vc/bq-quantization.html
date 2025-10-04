@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>BQ（二进制量化）向量压缩演示</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',    // 主色：代表向量与技术
+                        positive: '#10B981',   // 正向量：绿色
+                        negative: '#EF4444',   // 负向量：红色
+                        binary: '#8B5CF6',     // 二进制：紫色
+                        neutral: '#64748B'     // 中性色：灰色
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .vector-element {
+                @apply w-10 h-10 flex items-center justify-center rounded-md text-sm font-medium transition-all duration-300;
+            }
+            .binary-element {
+                @apply w-10 h-10 flex items-center justify-center rounded-md text-lg font-bold transition-all duration-300;
+            }
+            .step-active {
+                @apply bg-primary/10 border-primary text-primary;
+            }
+            .progress-bar {
+                @apply h-2 bg-gray-200 rounded-full overflow-hidden;
+            }
+            .progress-fill {
+                @apply h-full bg-primary transition-all duration-700 ease-out;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+    <div class="max-w-6xl mx-auto p-4 md:p-6 lg:p-8">
+        <!-- 标题区域 -->
+        <header class="mb-8 text-center">
+            <h1 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-2">BQ（Binary Quantization，二进制量化）向量压缩</h1>
+            <p class="text-neutral max-w-3xl mx-auto">将高维实值向量量化为二进制向量（{-1,1}或{0,1}），以极小精度损失换取极高压缩率（通常压缩比为32:1或64:1）</p>
+        </header>
+
+        <!-- 步骤导航 -->
+        <div class="mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                    <div class="flex items-center mb-2">
+                        <span id="step1-indicator" class="w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center mr-2">1</span>
+                        <h3 class="font-semibold">原始高维向量</h3>
+                    </div>
+                    <p class="text-xs text-neutral">生成随机高维实值向量（模拟特征向量）</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                    <div class="flex items-center mb-2">
+                        <span id="step2-indicator" class="w-6 h-6 rounded-full bg-gray-300 text-white flex items-center justify-center mr-2">2</span>
+                        <h3 class="font-semibold">量化阈值确定</h3>
+                    </div>
+                    <p class="text-xs text-neutral">计算二值化阈值（通常为0或均值）</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                    <div class="flex items-center mb-2">
+                        <span id="step3-indicator" class="w-6 h-6 rounded-full bg-gray-300 text-white flex items-center justify-center mr-2">3</span>
+                        <h3 class="font-semibold">二进制量化</h3>
+                    </div>
+                    <p class="text-xs text-neutral">将每个维度值转换为二进制表示</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                    <div class="flex items-center mb-2">
+                        <span id="step4-indicator" class="w-6 h-6 rounded-full bg-gray-300 text-white flex items-center justify-center mr-2">4</span>
+                        <h3 class="font-semibold">压缩结果与精度</h3>
+                    </div>
+                    <p class="text-xs text-neutral">展示压缩结果及量化误差分析</p>
+                </div>
+            </div>
+            
+            <div class="mt-6 flex justify-center">
+                <button id="prevBtn" class="mr-4 px-4 py-2 bg-gray-200 hover:bg-gray-300 text-neutral rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    <i class="fa fa-arrow-left mr-1"></i> 上一步
+                </button>
+                <button id="nextBtn" class="px-6 py-2 bg-primary hover:bg-primary/90 text-white rounded-md transition-colors">
+                    开始演示 <i class="fa fa-play ml-1"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 主体内容 -->
+        <div class="bg-white rounded-xl shadow-md p-4 md:p-6 mb-8">
+            <div class="flex flex-col md:flex-row gap-6">
+                <!-- 左侧控制面板 -->
+                <div class="w-full md:w-1/4 space-y-6">
+                    <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                        <h2 class="text-lg font-semibold mb-3 flex items-center">
+                            <i class="fa fa-sliders mr-2 text-primary"></i>参数设置
+                        </h2>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-neutral mb-1">向量维度 (D)</label>
+                                <input type="number" id="vectorDim" value="16" min="8" max="32" step="4"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50">
+                                <p class="text-xs text-neutral mt-1">高维向量的维度（通常为16-1024）</p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-neutral mb-1">量化方式</label>
+                                <div class="flex items-center space-x-4">
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" name="quantMode" value="sign" checked class="text-primary focus:ring-primary">
+                                        <span class="ml-2 text-sm">符号量化 ({-1, 1})</span>
+                                    </label>
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" name="quantMode" value="binary" class="text-primary focus:ring-primary">
+                                        <span class="ml-2 text-sm">二进制 ({0, 1})</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-neutral mb-1">阈值类型</label>
+                                <div class="flex items-center space-x-4">
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" name="thresholdType" value="zero" checked class="text-primary focus:ring-primary">
+                                        <span class="ml-2 text-sm">零阈值</span>
+                                    </label>
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" name="thresholdType" value="mean" class="text-primary focus:ring-primary">
+                                        <span class="ml-2 text-sm">均值阈值</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <button id="resetBtn" class="w-full bg-primary hover:bg-primary/90 text-white py-2 px-4 rounded-md transition-colors flex items-center justify-center">
+                                <i class="fa fa-refresh mr-2"></i>应用参数并重置
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                        <h2 class="text-lg font-semibold mb-3 flex items-center">
+                            <i class="fa fa-info-circle mr-2 text-primary"></i>压缩信息
+                        </h2>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-neutral">原始向量大小：</span>
+                                <span id="originalSize" class="font-medium">16个浮点数</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-neutral">压缩后大小：</span>
+                                <span id="compressedSize" class="font-medium">16位二进制</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-neutral">压缩率：</span>
+                                <span id="compressionRatio" class="font-medium text-primary">32:1</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-neutral">量化误差：</span>
+                                <span id="quantError" class="font-medium">-</span>
+                            </div>
+                            <div class="mt-4">
+                                <div class="text-xs text-neutral mb-1">压缩效率</div>
+                                <div class="progress-bar">
+                                    <div id="compressionProgress" class="progress-fill" style="width: 96.875%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                        <h2 class="text-lg font-semibold mb-3 flex items-center">
+                            <i class="fa fa-lightbulb-o mr-2 text-primary"></i>BQ核心原理
+                        </h2>
+                        <ul class="text-xs text-neutral space-y-2 list-disc pl-4">
+                            <li>将实值向量每个维度量化为二进制值（{-1,1}或{0,1}）</li>
+                            <li>量化规则：若维度值 > 阈值 → 1；否则 → 0（或-1）</li>
+                            <li>极高压缩率：每个维度从32/64位浮点数变为1位二进制</li>
+                            <li>适用场景：近似最近邻搜索、大规模向量检索、内存受限系统</li>
+                            <li>优势：计算速度快，存储成本低，距离计算可通过位运算加速</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 右侧可视化区域 -->
+                <div class="w-full md:w-3/4 space-y-6">
+                    <!-- 步骤1：原始向量 -->
+                    <div id="step1" class="space-y-3">
+                        <h3 class="text-lg font-semibold flex items-center">
+                            <span class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center mr-2">1</span>
+                            原始高维向量（实值）
+                        </h3>
+                        <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                            <p class="text-sm text-neutral mb-4">随机生成的D维实值向量（数值范围[-5, 5]，模拟特征向量）：</p>
+                            
+                            <div id="originalVector" class="flex flex-wrap gap-2 justify-center mb-6">
+                                <!-- 向量元素由JS动态生成 -->
+                            </div>
+                            
+                            <div class="h-64">
+                                <canvas id="originalVectorChart"></canvas>
+                            </div>
+                            <p class="text-xs text-neutral text-center mt-2">向量维度值分布可视化</p>
+                        </div>
+                    </div>
+
+                    <!-- 步骤2：量化阈值 -->
+                    <div id="step2" class="space-y-3 hidden">
+                        <h3 class="text-lg font-semibold flex items-center">
+                            <span class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center mr-2">2</span>
+                            量化阈值确定
+                        </h3>
+                        <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                            <p class="text-sm text-neutral mb-4">根据选择的阈值类型，计算二值化的分界点：</p>
+                            
+                            <div class="bg-white p-4 rounded-lg border border-gray-200 mb-6">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-sm font-medium">阈值计算</span>
+                                    <span id="thresholdValue" class="px-2 py-1 bg-primary/10 text-primary rounded text-sm font-medium">-</span>
+                                </div>
+                                <div id="thresholdCalculation" class="text-sm text-neutral space-y-2">
+                                    <!-- 阈值计算过程由JS动态生成 -->
+                                </div>
+                            </div>
+                            
+                            <div class="h-64">
+                                <canvas id="thresholdChart"></canvas>
+                            </div>
+                            <p class="text-xs text-neutral text-center mt-2">向量分布与量化阈值（红色线）</p>
+                        </div>
+                    </div>
+
+                    <!-- 步骤3：二进制量化 -->
+                    <div id="step3" class="space-y-3 hidden">
+                        <h3 class="text-lg font-semibold flex items-center">
+                            <span class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center mr-2">3</span>
+                            二进制量化过程
+                        </h3>
+                        <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                            <p class="text-sm text-neutral mb-4">根据阈值将原始向量的每个维度转换为二进制表示：</p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                                <div>
+                                    <h4 class="text-sm font-medium mb-2">原始向量值</h4>
+                                    <div id="quantOriginalVector" class="flex flex-wrap gap-2 justify-center">
+                                        <!-- 原始向量值由JS动态生成 -->
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-medium mb-2">量化后二进制值</h4>
+                                    <div id="binaryVector" class="flex flex-wrap gap-2 justify-center">
+                                        <!-- 二进制向量由JS动态生成 -->
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white p-3 rounded-lg border border-gray-200">
+                                <h4 class="text-sm font-medium mb-2">量化规则</h4>
+                                <div id="quantizationRule" class="text-sm text-neutral">
+                                    <!-- 量化规则由JS动态生成 -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 步骤4：压缩结果与精度 -->
+                    <div id="step4" class="space-y-3 hidden">
+                        <h3 class="text-lg font-semibold flex items-center">
+                            <span class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center mr-2">4</span>
+                            压缩结果与精度分析
+                        </h3>
+                        <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                            <p class="text-sm text-neutral mb-4">BQ压缩最终结果及原始向量与量化向量的对比：</p>
+                            
+                            <div class="mb-6">
+                                <h4 class="text-sm font-medium mb-3">二进制压缩表示</h4>
+                                <div id="finalBinaryRepresentation" class="bg-white p-4 rounded-lg border border-gray-200 text-center">
+                                    <!-- 最终二进制表示由JS动态生成 -->
+                                </div>
+                            </div>
+                            
+                            <div class="h-64 mb-6">
+                                <canvas id="comparisonChart"></canvas>
+                            </div>
+                            <p class="text-xs text-neutral text-center mb-6">原始向量与量化向量对比（蓝色：原始值，紫色：量化值）</p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-white p-3 rounded-lg border border-gray-200">
+                                    <h4 class="text-sm font-medium mb-2">误差分析</h4>
+                                    <div id="errorAnalysis" class="text-sm text-neutral space-y-1">
+                                        <!-- 误差分析由JS动态生成 -->
+                                    </div>
+                                </div>
+                                <div class="bg-white p-3 rounded-lg border border-gray-200">
+                                    <h4 class="text-sm font-medium mb-2">应用场景</h4>
+                                    <ul class="text-sm text-neutral space-y-1 list-disc pl-5">
+                                        <li>大规模图像/视频检索系统</li>
+                                        <li>推荐系统中的快速相似性计算</li>
+                                        <li>内存受限的嵌入式设备</li>
+                                        <li>需要快速距离计算的场景（汉明距离）</li>
+                                        <li>与哈希学习结合的近似检索</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="text-center text-neutral text-sm">
+            <p>BQ（Binary Quantization）向量压缩演示 | 展示二进制量化如何实现高维向量的极致压缩</p>
+        </footer>
+    </div>
+
+    <script>
+        // 全局变量
+        let currentStep = 1;
+        const maxSteps = 4;
+        let originalVector = [];
+        let binaryVector = [];
+        let threshold = 0;
+        let quantMode = 'sign'; // 'sign' 或 'binary'
+        let thresholdType = 'zero'; // 'zero' 或 'mean'
+        let originalChart = null;
+        let thresholdChart = null;
+        let comparisonChart = null;
+        
+        // DOM元素
+        const nextBtn = document.getElementById('nextBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const vectorDimInput = document.getElementById('vectorDim');
+        const originalSizeEl = document.getElementById('originalSize');
+        const compressedSizeEl = document.getElementById('compressedSize');
+        const compressionRatioEl = document.getElementById('compressionRatio');
+        const quantErrorEl = document.getElementById('quantError');
+        const compressionProgressEl = document.getElementById('compressionProgress');
+        const thresholdValueEl = document.getElementById('thresholdValue');
+        const thresholdCalculationEl = document.getElementById('thresholdCalculation');
+        const quantizationRuleEl = document.getElementById('quantizationRule');
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            // 监听量化方式和阈值类型变化
+            document.querySelectorAll('input[name="quantMode"]').forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    quantMode = e.target.value;
+                    if (currentStep >= 3) {
+                        updateQuantization();
+                        if (currentStep >= 4) {
+                            updateComparison();
+                        }
+                    }
+                });
+            });
+            
+            document.querySelectorAll('input[name="thresholdType"]').forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    thresholdType = e.target.value;
+                    if (currentStep >= 2) {
+                        calculateThreshold();
+                        if (currentStep >= 3) {
+                            updateQuantization();
+                            if (currentStep >= 4) {
+                                updateComparison();
+                            }
+                        }
+                    }
+                });
+            });
+            
+            // 初始化演示
+            initDemo();
+            
+            // 按钮事件
+            nextBtn.addEventListener('click', () => {
+                if (currentStep < maxSteps) {
+                    goToStep(currentStep + 1);
+                }
+            });
+            
+            prevBtn.addEventListener('click', () => {
+                if (currentStep > 1) {
+                    goToStep(currentStep - 1);
+                }
+            });
+            
+            resetBtn.addEventListener('click', () => {
+                initDemo();
+            });
+        });
+        
+        // 初始化演示
+        function initDemo() {
+            currentStep = 1;
+            updateStepIndicators();
+            hideAllSteps();
+            document.getElementById('step1').classList.remove('hidden');
+            
+            // 生成随机向量
+            generateRandomVector();
+            
+            // 更新压缩信息
+            updateCompressionInfo();
+            
+            // 重置按钮状态
+            nextBtn.disabled = false;
+            prevBtn.disabled = true;
+            nextBtn.innerHTML = '开始演示 <i class="fa fa-play ml-1"></i>';
+        }
+        
+        // 生成随机向量
+        function generateRandomVector() {
+            const dim = parseInt(vectorDimInput.value);
+            originalVector = [];
+            
+            // 生成范围在[-5, 5]之间的随机数
+            for (let i = 0; i < dim; i++) {
+                originalVector.push((Math.random() * 10 - 5).toFixed(2) * 1);
+            }
+            
+            // 渲染原始向量
+            renderOriginalVector();
+            renderOriginalVectorChart();
+        }
+        
+        // 渲染原始向量
+        function renderOriginalVector() {
+            const container = document.getElementById('originalVector');
+            container.innerHTML = '';
+            
+            originalVector.forEach((value, index) => {
+                const item = document.createElement('div');
+                item.className = 'vector-element border border-gray-300 bg-white';
+                
+                // 根据值的正负设置颜色
+                if (value >= 0) {
+                    item.classList.add('text-positive');
+                } else {
+                    item.classList.add('text-negative');
+                }
+                
+                item.textContent = value;
+                
+                // 添加出现动画
+                item.style.opacity = '0';
+                item.style.transform = 'scale(0.8)';
+                container.appendChild(item);
+                
+                // 触发动画
+                setTimeout(() => {
+                    item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    item.style.opacity = '1';
+                    item.style.transform = 'scale(1)';
+                }, index * 50);
+            });
+        }
+        
+        // 渲染原始向量图表
+        function renderOriginalVectorChart() {
+            const ctx = document.getElementById('originalVectorChart').getContext('2d');
+            
+            // 销毁现有图表
+            if (originalChart) {
+                originalChart.destroy();
+            }
+            
+            // 创建新图表
+            originalChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: originalVector.map((_, i) => `d${i+1}`),
+                    datasets: [{
+                        label: '向量值',
+                        data: originalVector,
+                        backgroundColor: originalVector.map(v => v >= 0 ? 'rgba(16, 185, 129, 0.6)' : 'rgba(239, 68, 68, 0.6)'),
+                        borderColor: originalVector.map(v => v >= 0 ? 'rgb(16, 185, 129)' : 'rgb(239, 68, 68)'),
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                drawBorder: false
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+        
+        // 计算阈值
+        function calculateThreshold() {
+            if (thresholdType === 'zero') {
+                threshold = 0;
+                thresholdCalculationEl.innerHTML = `
+                    <p>选择零阈值策略，直接使用0作为分界点</p>
+                    <p class="font-medium">阈值 = 0</p>
+                `;
+            } else {
+                // 计算向量均值作为阈值
+                const sum = originalVector.reduce((acc, val) => acc + val, 0);
+                threshold = (sum / originalVector.length).toFixed(2) * 1;
+                thresholdCalculationEl.innerHTML = `
+                    <p>选择均值阈值策略，计算向量所有维度的平均值</p>
+                    <p>均值 = (${originalVector.slice(0, 3).join(' + ')} + ... + ${originalVector.slice(-1)}) / ${originalVector.length}</p>
+                    <p class="font-medium">阈值 = ${threshold}</p>
+                `;
+            }
+            
+            thresholdValueEl.textContent = threshold;
+            renderThresholdChart();
+        }
+        
+        // 渲染阈值图表
+        function renderThresholdChart() {
+            const ctx = document.getElementById('thresholdChart').getContext('2d');
+            
+            // 销毁现有图表
+            if (thresholdChart) {
+                thresholdChart.destroy();
+            }
+            
+            // 创建新图表
+            thresholdChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: originalVector.map((_, i) => `d${i+1}`),
+                    datasets: [{
+                        label: '向量值',
+                        data: originalVector,
+                        backgroundColor: originalVector.map(v => v >= threshold ? 'rgba(16, 185, 129, 0.6)' : 'rgba(239, 68, 68, 0.6)'),
+                        borderColor: originalVector.map(v => v >= threshold ? 'rgb(16, 185, 129)' : 'rgb(239, 68, 68)'),
+                        borderWidth: 1
+                    }, {
+                        label: '阈值',
+                        data: originalVector.map(() => threshold),
+                        type: 'line',
+                        borderColor: 'rgb(239, 68, 68)',
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        pointRadius: 0,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            grid: {
+                                drawBorder: false
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+        
+        // 更新量化结果
+        function updateQuantization() {
+            binaryVector = [];
+            
+            // 根据阈值和量化方式生成二进制向量
+            originalVector.forEach(value => {
+                if (quantMode === 'sign') {
+                    binaryVector.push(value >= threshold ? 1 : -1);
+                } else {
+                    binaryVector.push(value >= threshold ? 1 : 0);
+                }
+            });
+            
+            // 渲染量化前后的向量
+            renderQuantVectors();
+            
+            // 更新量化规则说明
+            updateQuantizationRule();
+        }
+        
+        // 渲染量化前后的向量
+        function renderQuantVectors() {
+            // 原始向量
+            const originalContainer = document.getElementById('quantOriginalVector');
+            originalContainer.innerHTML = '';
+            
+            // 二进制向量
+            const binaryContainer = document.getElementById('binaryVector');
+            binaryContainer.innerHTML = '';
+            
+            originalVector.forEach((value, index) => {
+                // 原始向量元素
+                const originalItem = document.createElement('div');
+                originalItem.className = 'vector-element border border-gray-300 bg-white';
+                originalItem.textContent = value;
+                originalItem.style.opacity = '0';
+                originalItem.style.transform = 'translateX(-10px)';
+                
+                if (value >= threshold) {
+                    originalItem.classList.add('text-positive');
+                } else {
+                    originalItem.classList.add('text-negative');
+                }
+                
+                originalContainer.appendChild(originalItem);
+                
+                // 二进制向量元素
+                const binaryItem = document.createElement('div');
+                binaryItem.className = 'binary-element border-2 bg-white';
+                binaryItem.textContent = binaryVector[index];
+                binaryItem.style.opacity = '0';
+                binaryItem.style.transform = 'translateX(10px)';
+                binaryItem.style.borderColor = 'rgb(139, 92, 246)';
+                binaryItem.style.color = 'rgb(139, 92, 246)';
+                
+                binaryContainer.appendChild(binaryItem);
+                
+                // 触发动画
+                setTimeout(() => {
+                    originalItem.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    originalItem.style.opacity = '1';
+                    originalItem.style.transform = 'translateX(0)';
+                    
+                    binaryItem.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    binaryItem.style.opacity = '1';
+                    binaryItem.style.transform = 'translateX(0)';
+                }, index * 80);
+            });
+        }
+        
+        // 更新量化规则说明
+        function updateQuantizationRule() {
+            const quantSymbol = quantMode === 'sign' ? '-1' : '0';
+            quantizationRuleEl.innerHTML = `
+                <p>对于每个维度值 v：</p>
+                <p class="mt-1">• 如果 v ≥ ${threshold} → 量化为 <span class="text-binary font-medium">1</span></p>
+                <p>• 如果 v < ${threshold} → 量化为 <span class="text-binary font-medium">${quantSymbol}</span></p>
+            `;
+        }
+        
+        // 更新对比图表和最终结果
+        function updateComparison() {
+            // 渲染最终二进制表示
+            renderFinalBinaryRepresentation();
+            
+            // 计算量化误差
+            calculateQuantizationError();
+            
+            // 渲染对比图表
+            renderComparisonChart();
+            
+            // 更新误差分析
+            updateErrorAnalysis();
+        }
+        
+        // 渲染最终二进制表示
+        function renderFinalBinaryRepresentation() {
+            const container = document.getElementById('finalBinaryRepresentation');
+            
+            // 创建二进制字符串
+            const binaryStr = binaryVector.join(' ');
+            
+            // 计算原始存储和压缩后存储
+            const dim = originalVector.length;
+            const originalBits = dim * 32; // 假设每个浮点数32位
+            const compressedBits = dim * 1; // 每个维度1位
+            
+            container.innerHTML = `
+                <div class="text-lg font-medium text-binary mb-2">${binaryStr}</div>
+                <div class="text-sm text-neutral mt-3">
+                    <p>原始存储：${dim}个32位浮点数 = ${originalBits}位</p>
+                    <p>压缩后存储：${dim}位二进制 = ${compressedBits}位</p>
+                </div>
+            `;
+        }
+        
+        // 计算量化误差
+        function calculateQuantizationError() {
+            // 计算MSE（均方误差）
+            let mse = 0;
+            originalVector.forEach((value, index) => {
+                // 对于符号量化，将-1映射回-1.0进行误差计算
+                const quantValue = binaryVector[index] === -1 ? -1.0 : binaryVector[index];
+                mse += Math.pow(value - quantValue, 2);
+            });
+            mse /= originalVector.length;
+            
+            // 计算信噪比（SNR）
+            const signalPower = originalVector.reduce((acc, val) => acc + Math.pow(val, 2), 0) / originalVector.length;
+            const snr = 10 * Math.log10(signalPower / mse);
+            
+            // 更新UI
+            quantErrorEl.textContent = `MSE = ${mse.toFixed(4)}, SNR = ${snr.toFixed(2)}dB`;
+        }
+        
+        // 渲染对比图表
+        function renderComparisonChart() {
+            const ctx = document.getElementById('comparisonChart').getContext('2d');
+            
+            // 销毁现有图表
+            if (comparisonChart) {
+                comparisonChart.destroy();
+            }
+            
+            // 准备量化值（对于符号量化，将-1保持为-1.0）
+            const quantValues = binaryVector.map(v => v === -1 ? -1.0 : v);
+            
+            // 创建新图表
+            comparisonChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: originalVector.map((_, i) => `d${i+1}`),
+                    datasets: [{
+                        label: '原始值',
+                        data: originalVector,
+                        borderColor: 'rgb(59, 130, 246)',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0.1,
+                        pointRadius: 4,
+                        pointBackgroundColor: 'rgb(59, 130, 246)'
+                    }, {
+                        label: '量化值',
+                        data: quantValues,
+                        borderColor: 'rgb(139, 92, 246)',
+                        backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0.1,
+                        pointRadius: 4,
+                        pointBackgroundColor: 'rgb(139, 92, 246)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            grid: {
+                                drawBorder: false
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top'
+                        }
+                    }
+                }
+            });
+        }
+        
+        // 更新误差分析
+        function updateErrorAnalysis() {
+            const container = document.getElementById('errorAnalysis');
+            
+            // 计算正负样本数量
+            const positiveCount = binaryVector.filter(v => v === 1).length;
+            const negativeCount = binaryVector.length - positiveCount;
+            
+            // 找出误差最大的维度
+            let maxError = 0;
+            let maxErrorDim = 0;
+            
+            originalVector.forEach((value, index) => {
+                const quantValue = binaryVector[index] === -1 ? -1.0 : binaryVector[index];
+                const error = Math.abs(value - quantValue);
+                if (error > maxError) {
+                    maxError = error;
+                    maxErrorDim = index + 1; // 维度从1开始计数
+                }
+            });
+            
+            container.innerHTML = `
+                <p>• 量化为1的维度：${positiveCount}个</p>
+                <p>• 量化为${quantMode === 'sign' ? '-1' : '0'}的维度：${negativeCount}个</p>
+                <p>• 最大量化误差：${maxError.toFixed(4)}（维度d${maxErrorDim}）</p>
+                <p>• 量化后可使用汉明距离快速计算相似度</p>
+            `;
+        }
+        
+        // 更新压缩信息
+        function updateCompressionInfo() {
+            const dim = parseInt(vectorDimInput.value);
+            const originalBits = dim * 32; // 每个浮点数32位
+            const compressedBits = dim * 1; // 每个维度1位
+            const ratio = originalBits / compressedBits;
+            const efficiency = 100 - (100 / ratio);
+            
+            originalSizeEl.textContent = `${dim}个32位浮点数（${originalBits}位）`;
+            compressedSizeEl.textContent = `${dim}位二进制`;
+            compressionRatioEl.textContent = `${ratio}:1`;
+            compressionProgressEl.style.width = `${efficiency}%`;
+        }
+        
+        // 前往指定步骤
+        function goToStep(step) {
+            if (step < 1 || step > maxSteps) return;
+            
+            // 隐藏当前步骤
+            document.getElementById(`step${currentStep}`).classList.add('hidden');
+            
+            // 处理步骤逻辑
+            if (step === 2) {
+                calculateThreshold();
+            } else if (step === 3) {
+                updateQuantization();
+            } else if (step === 4) {
+                updateComparison();
+            }
+            
+            // 显示新步骤
+            document.getElementById(`step${step}`).classList.remove('hidden');
+            
+            // 更新当前步骤
+            currentStep = step;
+            updateStepIndicators();
+            
+            // 更新按钮状态和文本
+            prevBtn.disabled = currentStep === 1;
+            nextBtn.disabled = currentStep === maxSteps;
+            
+            if (currentStep === 1) {
+                nextBtn.innerHTML = '下一步 <i class="fa fa-arrow-right ml-1"></i>';
+            } else if (currentStep === maxSteps) {
+                nextBtn.innerHTML = '完成 <i class="fa fa-check ml-1"></i>';
+            } else {
+                nextBtn.innerHTML = '下一步 <i class="fa fa-arrow-right ml-1"></i>';
+                prevBtn.innerHTML = '<i class="fa fa-arrow-left mr-1"></i> 上一步';
+            }
+        }
+        
+        // 更新步骤指示器
+        function updateStepIndicators() {
+            for (let i = 1; i <= maxSteps; i++) {
+                const indicator = document.getElementById(`step${i}-indicator`);
+                if (i < currentStep) {
+                    indicator.className = 'w-6 h-6 rounded-full bg-secondary text-white flex items-center justify-center mr-2';
+                } else if (i === currentStep) {
+                    indicator.className = 'w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center mr-2 scale-110';
+                } else {
+                    indicator.className = 'w-6 h-6 rounded-full bg-gray-300 text-white flex items-center justify-center mr-2';
+                }
+            }
+        }
+        
+        // 隐藏所有步骤
+        function hideAllSteps() {
+            for (let i = 1; i <= maxSteps; i++) {
+                document.getElementById(`step${i}`).classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
+    

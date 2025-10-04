@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>PQ压缩过程动态演示</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        accent: '#8B5CF6',
+                        neutral: '#64748B',
+                        light: '#F1F5F9',
+                        dark: '#1E293B'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .vector-item {
+                @apply w-8 h-8 flex items-center justify-center rounded-md text-sm font-medium transition-all duration-300;
+            }
+            .codebook-item {
+                @apply w-6 h-6 flex items-center justify-center rounded-sm text-xs transition-all duration-300;
+            }
+            .step-active {
+                @apply border-primary bg-primary/10 text-primary;
+            }
+            .progress-bar {
+                @apply h-2 bg-gray-200 rounded-full overflow-hidden;
+            }
+            .progress-value {
+                @apply h-full bg-primary transition-all duration-500 ease-out;
+            }
+            .parameter-info {
+                @apply text-xs text-neutral mt-1 italic;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-dark">
+    <div class="max-w-6xl mx-auto p-4 md:p-6 lg:p-8">
+        <header class="mb-8 text-center">
+            <h1 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-2">PQ（乘积量化）压缩过程演示</h1>
+            <p class="text-neutral max-w-3xl mx-auto">PQ是一种高效的高维向量压缩技术，通过将高维向量分块并对每个子向量独立量化，实现数据的高效压缩</p>
+        </header>
+
+        <!-- 参数设置与压缩信息区块 - 改为3:1比例 -->
+        <div class="bg-white rounded-xl shadow-md p-4 md:p-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <!-- 参数设置 - 占据3/4宽度，内部水平布局 -->
+                <div class="md:col-span-3 bg-light rounded-lg p-4">
+                    <h2 class="text-lg font-semibold mb-3 flex items-center">
+                        <i class="fa fa-sliders mr-2 text-primary"></i>参数设置
+                    </h2>
+                    <div class="space-y-4">
+                        <!-- 输入框改为网格布局 -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-neutral mb-1">向量维度 (D)</label>
+                                <input type="number" id="vectorDim" value="16" min="4" max="32" step="4" 
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50">
+                                <div class="parameter-info">高维向量的维度</div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-neutral mb-1">分块数量 (M)</label>
+                                <input type="number" id="numBlocks" value="4" min="1" max="8" step="1"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50">
+                                <div class="parameter-info">将向量分为M个子向量</div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-neutral mb-1">子向量维度 (d)</label>
+                                <input type="number" id="subvectorDim" value="4" min="1" max="32" step="1" readonly
+                                    class="w-full px-3 py-2 border border-gray-300 bg-gray-100 rounded-md focus:outline-none">
+                                <div class="parameter-info">自动计算: d = D/M</div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-neutral mb-1">每个子码本大小 (K)</label>
+                                <input type="number" id="codebookSize" value="4" min="2" max="16" step="2"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50">
+                                <div class="parameter-info">每个子码本包含的聚类中心数</div>
+                            </div>
+                        </div>
+                        <button id="resetBtn" class="w-full bg-primary hover:bg-primary/90 text-white py-2 px-4 rounded-md transition-colors flex items-center justify-center">
+                            <i class="fa fa-refresh mr-2"></i>应用参数并重置
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 压缩信息 - 占据1/4宽度 -->
+                <div class="md:col-span-1 bg-light rounded-lg p-4">
+                    <h2 class="text-lg font-semibold mb-3 flex items-center">
+                        <i class="fa fa-info-circle mr-2 text-primary"></i>压缩信息
+                    </h2>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-neutral">原始大小:</span>
+                            <span id="originalSize" class="font-medium">16个数值</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-neutral">压缩后大小:</span>
+                            <span id="compressedSize" class="font-medium">4个索引</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-neutral">压缩率:</span>
+                            <span id="compressionRatio" class="font-medium text-primary">4:1</span>
+                        </div>
+                        <div class="mt-3">
+                            <div class="text-xs text-neutral mb-1">压缩效率</div>
+                            <div class="progress-bar">
+                                <div id="compressionProgress" class="progress-value" style="width: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 主体内容区 -->
+        <div class="bg-white rounded-xl shadow-md p-4 md:p-6 mb-8">
+            <div class="flex flex-col md:flex-row gap-6">
+                <!-- 压缩步骤区块 -->
+                <div class="w-full md:w-1/4 space-y-4">
+                    <h2 class="text-lg font-semibold flex items-center">
+                        <i class="fa fa-list-ol mr-2 text-primary"></i>压缩步骤
+                    </h2>
+                    
+                    <div>
+                        <button id="nextBtn" class="w-full bg-secondary hover:bg-secondary/90 text-white py-2 px-6 rounded-md transition-colors flex items-center justify-center">
+                            <span>开始演示</span>
+                            <i class="fa fa-play ml-2"></i>
+                        </button>
+                    </div>
+
+                    <div class="flex flex-col gap-4">
+                        <div class="bg-light p-3 rounded-lg border border-gray-200">
+                            <div class="flex items-center mb-2">
+                                <span id="step1-indicator" class="w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center mr-2 flex-shrink-0">1</span>
+                                <span class="font-medium">生成随机高维向量</span>
+                            </div>
+                            <p class="text-xs text-neutral">创建需要压缩的原始高维数据点</p>
+                        </div>
+                        
+                        <div class="bg-light p-3 rounded-lg border border-gray-200">
+                            <div class="flex items-center mb-2">
+                                <span id="step2-indicator" class="w-6 h-6 rounded-full bg-gray-300 text-white flex items-center justify-center mr-2 flex-shrink-0">2</span>
+                                <span class="font-medium">向量分块</span>
+                            </div>
+                            <p class="text-xs text-neutral">将原始向量分为M个子向量</p>
+                        </div>
+                        
+                        <div class="bg-light p-3 rounded-lg border border-gray-200">
+                            <div class="flex items-center mb-2">
+                                <span id="step3-indicator" class="w-6 h-6 rounded-full bg-gray-300 text-white flex items-center justify-center mr-2 flex-shrink-0">3</span>
+                                <span class="font-medium">子码本生成</span>
+                            </div>
+                            <p class="text-xs text-neutral">为每个子空间生成聚类中心</p>
+                        </div>
+                        
+                        <div class="bg-light p-3 rounded-lg border border-gray-200">
+                            <div class="flex items-center mb-2">
+                                <span id="step4-indicator" class="w-6 h-6 rounded-full bg-gray-300 text-white flex items-center justify-center mr-2 flex-shrink-0">4</span>
+                                <span class="font-medium">子向量量化</span>
+                            </div>
+                            <p class="text-xs text-neutral">匹配每个子向量到最近的中心</p>
+                        </div>
+                        
+                        <div class="bg-light p-3 rounded-lg border border-gray-200">
+                            <div class="flex items-center mb-2">
+                                <span id="step5-indicator" class="w-6 h-6 rounded-full bg-gray-300 text-white flex items-center justify-center mr-2 flex-shrink-0">5</span>
+                                <span class="font-medium">压缩结果</span>
+                            </div>
+                            <p class="text-xs text-neutral">组合索引形成最终压缩表示</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 可视化区域 -->
+                <div class="w-full md:w-3/4 space-y-8">
+                    <!-- 步骤1: 原始向量 -->
+                    <div id="step1" class="space-y-3">
+                        <h3 class="text-lg font-semibold flex items-center">
+                            <span class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center mr-2">1</span>
+                            原始高维向量
+                        </h3>
+                        <div class="bg-light rounded-lg p-4">
+                            <p class="text-sm text-neutral mb-3">随机生成的D维向量（每个元素代表一个维度的值）：</p>
+                            <div id="originalVector" class="flex flex-wrap gap-2 justify-center">
+                                <!-- 向量元素将通过JS动态生成 -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 步骤2: 向量分块 -->
+                    <div id="step2" class="space-y-3 hidden">
+                        <h3 class="text-lg font-semibold flex items-center">
+                            <span class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center mr-2">2</span>
+                            向量分块
+                        </h3>
+                        <div class="bg-light rounded-lg p-4">
+                            <p class="text-sm text-neutral mb-3">将原始向量分为M个子向量，每个子向量维度为d = D/M：</p>
+                            <div id="vectorBlocks" class="flex flex-col gap-4">
+                                <!-- 分块后的向量将通过JS动态生成 -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 步骤3: 码本生成 -->
+                    <div id="step3" class="space-y-3 hidden">
+                        <h3 class="text-lg font-semibold flex items-center">
+                            <span class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center mr-2">3</span>
+                            子码本生成
+                        </h3>
+                        <div class="bg-light rounded-lg p-4">
+                            <p class="text-sm text-neutral mb-3">为每个子空间生成包含K个中心的码本（每个中心是d维向量）：</p>
+                            <div id="codebooks" class="flex flex-col gap-4">
+                                <!-- 码本将通过JS动态生成 -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 步骤4: 子向量量化 -->
+                    <div id="step4" class="space-y-3 hidden">
+                        <h3 class="text-lg font-semibold flex items-center">
+                            <span class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center mr-2">4</span>
+                            子向量量化
+                        </h3>
+                        <div class="bg-light rounded-lg p-4">
+                            <p class="text-sm text-neutral mb-3">将每个子向量与对应码本中的中心匹配，找到最接近的中心索引：</p>
+                            <div id="quantization" class="flex flex-col gap-4">
+                                <!-- 量化过程将通过JS动态生成 -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 步骤5: 压缩结果 -->
+                    <div id="step5" class="space-y-3 hidden">
+                        <h3 class="text-lg font-semibold flex items-center">
+                            <span class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center mr-2">5</span>
+                            压缩结果
+                        </h3>
+                        <div class="bg-light rounded-lg p-4">
+                            <p class="text-sm text-neutral mb-3">组合所有子向量的索引，形成最终的压缩表示：</p>
+                            <div class="flex justify-center mb-4">
+                                <div id="compressedResult" class="flex gap-3 p-4 bg-white rounded-lg shadow-sm">
+                                    <!-- 压缩结果将通过JS动态生成 -->
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6 p-4 bg-white rounded-lg border border-gray-200">
+                                <h4 class="font-medium mb-2">PQ压缩参数联动关系</h4>
+                                <ul class="text-sm space-y-2 text-neutral list-disc pl-5">
+                                    <li><strong>强制联动</strong>：子向量维度 d = 向量维度 D / 分块数量 M</li>
+                                    <li><strong>约束条件</strong>：D 必须是 M 的整数倍（保证 d 为整数）</li>
+                                    <li><strong>独立参数</strong>：码本大小 K 需根据精度需求手动设置</li>
+                                    <li><strong>压缩率</strong>：等于 D / M（原始维度与分块数量的比值）</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="text-center text-neutral text-sm">
+            <p>PQ（Product Quantization）压缩演示 | 直观展示高维向量的高效压缩过程</p>
+        </footer>
+    </div>
+
+    <script>
+        // 全局变量
+        let currentStep = 1;
+        let maxStep = 5;
+        let vectorData = [];
+        let vectorBlocks = [];
+        let codebooks = [];
+        let quantizedIndices = [];
+        let colors = ['#3B82F6', '#10B981', '#8B5CF6', '#F59E0B', '#EF4444', '#EC4899', '#14B8A6', '#6366F1'];
+        
+        // DOM元素
+        const nextBtn = document.getElementById('nextBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const vectorDimInput = document.getElementById('vectorDim');
+        const numBlocksInput = document.getElementById('numBlocks');
+        const subvectorDimInput = document.getElementById('subvectorDim');
+        const codebookSizeInput = document.getElementById('codebookSize');
+        const originalSizeEl = document.getElementById('originalSize');
+        const compressedSizeEl = document.getElementById('compressedSize');
+        const compressionRatioEl = document.getElementById('compressionRatio');
+        const compressionProgressEl = document.getElementById('compressionProgress');
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            // 监听参数变化，实时更新子向量维度
+            vectorDimInput.addEventListener('input', updateSubvectorDimension);
+            numBlocksInput.addEventListener('input', updateSubvectorDimension);
+            
+            // 初始化子向量维度
+            updateSubvectorDimension();
+            
+            // 初始化演示
+            initDemo();
+            
+            nextBtn.addEventListener('click', () => {
+                if (currentStep < maxStep) {
+                    goToStep(currentStep + 1);
+                }
+            });
+            
+            resetBtn.addEventListener('click', () => {
+                // 验证参数是否合理
+                const D = parseInt(vectorDimInput.value);
+                const M = parseInt(numBlocksInput.value);
+                
+                if (D % M !== 0) {
+                    alert('向量维度必须是分块数量的整数倍！请调整参数使 D 能被 M 整除');
+                    return;
+                }
+                
+                if (M > colors.length) {
+                    alert(`分块数量不能超过 ${colors.length}！`);
+                    return;
+                }
+                
+                initDemo();
+            });
+        });
+        
+        // 更新子向量维度（d = D/M）
+        function updateSubvectorDimension() {
+            const D = parseInt(vectorDimInput.value) || 0;
+            const M = parseInt(numBlocksInput.value) || 0;
+            
+            if (D > 0 && M > 0 && D % M === 0) {
+                const d = D / M;
+                subvectorDimInput.value = d;
+                // 为输入框添加绿色边框表示有效状态
+                subvectorDimInput.classList.remove('border-red-500');
+                subvectorDimInput.classList.add('border-green-500');
+            } else {
+                subvectorDimInput.value = '无效 (D必须是M的整数倍)';
+                // 为输入框添加红色边框表示无效状态
+                subvectorDimInput.classList.remove('border-green-500');
+                subvectorDimInput.classList.add('border-red-500');
+            }
+        }
+        
+        // 初始化演示
+        function initDemo() {
+            currentStep = 1;
+            updateStepIndicators();
+            hideAllSteps();
+            document.getElementById('step1').classList.remove('hidden');
+            
+            // 生成随机向量
+            generateRandomVector();
+            
+            // 更新压缩信息
+            updateCompressionInfo();
+            
+            // 重置按钮状态
+            nextBtn.disabled = false;
+            nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            nextBtn.innerHTML = '<span>下一步</span><i class="fa fa-arrow-right ml-2"></i>';
+        }
+        
+        // 生成随机向量
+        function generateRandomVector() {
+            const D = parseInt(vectorDimInput.value);
+            vectorData = [];
+            
+            // 生成D个随机数（0-99）
+            for (let i = 0; i < D; i++) {
+                vectorData.push(Math.floor(Math.random() * 100));
+            }
+            
+            // 显示原始向量
+            renderOriginalVector();
+        }
+        
+        // 渲染原始向量
+        function renderOriginalVector() {
+            const container = document.getElementById('originalVector');
+            container.innerHTML = '';
+            
+            vectorData.forEach((value, index) => {
+                const item = document.createElement('div');
+                item.className = 'vector-item bg-primary/10 text-primary border border-primary/30';
+                item.textContent = value;
+                item.dataset.index = index;
+                
+                // 添加出现动画
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(10px)';
+                container.appendChild(item);
+                
+                // 触发动画
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, index * 50);
+            });
+        }
+        
+        // 向量分块
+        function splitVectorIntoBlocks() {
+            const D = parseInt(vectorDimInput.value);
+            const M = parseInt(numBlocksInput.value);
+            const blockSize = D / M;
+            vectorBlocks = [];
+            
+            // 分块
+            for (let i = 0; i < M; i++) {
+                const start = i * blockSize;
+                const end = start + blockSize;
+                vectorBlocks.push(vectorData.slice(start, end));
+            }
+            
+            // 显示分块结果
+            renderVectorBlocks();
+        }
+        
+        // 渲染向量分块
+        function renderVectorBlocks() {
+            const container = document.getElementById('vectorBlocks');
+            container.innerHTML = '';
+            
+            vectorBlocks.forEach((block, blockIndex) => {
+                const blockContainer = document.createElement('div');
+                blockContainer.className = 'flex flex-wrap gap-2 items-center';
+                
+                const label = document.createElement('div');
+                label.className = 'w-16 text-sm font-medium';
+                label.textContent = `子向量 ${blockIndex + 1}:`;
+                blockContainer.appendChild(label);
+                
+                const valuesContainer = document.createElement('div');
+                valuesContainer.className = 'flex flex-wrap gap-2 flex-1';
+                
+                block.forEach((value, valueIndex) => {
+                    const item = document.createElement('div');
+                    item.className = `vector-item border border-opacity-30`;
+                    item.style.backgroundColor = `${colors[blockIndex]}33`;
+                    item.style.color = colors[blockIndex];
+                    item.style.borderColor = `${colors[blockIndex]}55`;
+                    item.textContent = value;
+                    
+                    // 添加动画
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateX(-10px)';
+                    valuesContainer.appendChild(item);
+                    
+                    // 触发动画
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateX(0)';
+                    }, blockIndex * 300 + valueIndex * 50);
+                });
+                
+                blockContainer.appendChild(valuesContainer);
+                container.appendChild(blockContainer);
+            });
+        }
+        
+        // 生成码本
+        function generateCodebooks() {
+            const M = parseInt(numBlocksInput.value);
+            const K = parseInt(codebookSizeInput.value);
+            const blockSize = parseInt(subvectorDimInput.value);
+            codebooks = [];
+            
+            // 为每个子空间生成码本
+            for (let i = 0; i < M; i++) {
+                const codebook = [];
+                // 基于子向量の分布生成聚类中心
+                const blockMin = Math.min(...vectorBlocks[i]);
+                const blockMax = Math.max(...vectorBlocks[i]);
+                const range = blockMax - blockMin;
+                
+                for (let j = 0; j < K; j++) {
+                    const center = [];
+                    for (let d = 0; d < blockSize; d++) {
+                        // 生成在合理范围内的中心值
+                        const value = Math.floor(blockMin + (j / (K - 1)) * range + Math.random() * range * 0.1 - range * 0.05);
+                        center.push(Math.max(blockMin, Math.min(blockMax, value)));
+                    }
+                    codebook.push(center);
+                }
+                
+                codebooks.push(codebook);
+            }
+            
+            // 显示码本
+            renderCodebooks();
+        }
+        
+        // 渲染码本
+        function renderCodebooks() {
+            const container = document.getElementById('codebooks');
+            container.innerHTML = '';
+            
+            codebooks.forEach((codebook, blockIndex) => {
+                const codebookContainer = document.createElement('div');
+                codebookContainer.className = 'space-y-2';
+                
+                const label = document.createElement('div');
+                label.className = 'text-sm font-medium';
+                label.textContent = `子码本 ${blockIndex + 1}（每个中心是${subvectorDimInput.value}维向量）：`;
+                codebookContainer.appendChild(label);
+                
+                const centersContainer = document.createElement('div');
+                centersContainer.className = 'flex flex-wrap gap-4';
+                
+                codebook.forEach((center, centerIndex) => {
+                    const centerContainer = document.createElement('div');
+                    centerContainer.className = 'flex flex-col items-center';
+                    
+                    const indexLabel = document.createElement('div');
+                    indexLabel.className = 'text-xs text-neutral mb-1';
+                    indexLabel.textContent = `索引 ${centerIndex}`;
+                    centerContainer.appendChild(indexLabel);
+                    
+                    const valuesContainer = document.createElement('div');
+                    valuesContainer.className = 'flex gap-1 p-2 bg-white rounded border border-gray-200';
+                    
+                    center.forEach((value, valueIndex) => {
+                        const item = document.createElement('div');
+                        item.className = `codebook-item`;
+                        item.style.backgroundColor = `${colors[blockIndex]}22`;
+                        item.style.color = colors[blockIndex];
+                        item.style.border = `1px solid ${colors[blockIndex]}55`;
+                        item.textContent = value;
+                        
+                        // 添加动画
+                        item.style.opacity = '0';
+                        item.style.transform = 'scale(0.8)';
+                        valuesContainer.appendChild(item);
+                        
+                        // 触发动画
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'scale(1)';
+                        }, blockIndex * 400 + centerIndex * 200 + valueIndex * 50);
+                    });
+                    
+                    centerContainer.appendChild(valuesContainer);
+                    centersContainer.appendChild(centerContainer);
+                });
+                
+                codebookContainer.appendChild(centersContainer);
+                container.appendChild(codebookContainer);
+            });
+        }
+        
+        // 量化子向量
+        function quantizeVectors() {
+            quantizedIndices = [];
+            
+            // 为每个子向量找到最接近的码本中心
+            vectorBlocks.forEach((block, blockIndex) => {
+                const codebook = codebooks[blockIndex];
+                let minDistance = Infinity;
+                let bestIndex = 0;
+                
+                // 计算与每个中心的距离（欧氏距离）
+                codebook.forEach((center, centerIndex) => {
+                    let distance = 0;
+                    for (let i = 0; i < block.length; i++) {
+                        distance += Math.pow(block[i] - center[i], 2);
+                    }
+                    distance = Math.sqrt(distance);
+                    
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        bestIndex = centerIndex;
+                    }
+                });
+                
+                quantizedIndices.push(bestIndex);
+            });
+            
+            // 显示量化过程
+            renderQuantization();
+        }
+        
+        // 渲染量化过程
+        function renderQuantization() {
+            const container = document.getElementById('quantization');
+            container.innerHTML = '';
+            
+            vectorBlocks.forEach((block, blockIndex) => {
+                const quantContainer = document.createElement('div');
+                quantContainer.className = 'p-3 bg-white rounded border border-gray-200';
+                
+                const blockHeader = document.createElement('div');
+                blockHeader.className = 'text-sm font-medium mb-2';
+                blockHeader.textContent = `子向量 ${blockIndex + 1} 量化过程：`;
+                quantContainer.appendChild(blockHeader);
+                
+                // 显示子向量
+                const vectorContainer = document.createElement('div');
+                vectorContainer.className = 'flex items-center mb-3';
+                vectorContainer.innerHTML = `<span class="text-xs text-neutral mr-2">子向量值：</span>`;
+                
+                block.forEach(value => {
+                    const item = document.createElement('div');
+                    item.className = `vector-item border border-opacity-30 text-xs w-6 h-6`;
+                    item.style.backgroundColor = `${colors[blockIndex]}33`;
+                    item.style.color = colors[blockIndex];
+                    item.style.borderColor = `${colors[blockIndex]}55`;
+                    item.textContent = value;
+                    vectorContainer.appendChild(item);
+                });
+                
+                quantContainer.appendChild(vectorContainer);
+                
+                // 添加箭头指示
+                const arrow = document.createElement('div');
+                arrow.className = 'text-center my-2';
+                arrow.innerHTML = '<i class="fa fa-long-arrow-down text-neutral"></i>';
+                quantContainer.appendChild(arrow);
+                
+                // 显示匹配的中心
+                const codebook = codebooks[blockIndex];
+                const bestIndex = quantizedIndices[blockIndex];
+                const bestCenter = codebook[bestIndex];
+                
+                const matchContainer = document.createElement('div');
+                matchContainer.className = 'flex items-center';
+                matchContainer.innerHTML = `<span class="text-xs text-neutral mr-2">最匹配的码本中心（索引 ${bestIndex}）：</span>`;
+                
+                bestCenter.forEach((value, valueIndex) => {
+                    const item = document.createElement('div');
+                    item.className = `vector-item border border-opacity-30 text-xs w-6 h-6 ring-2 ring-primary`;
+                    item.style.backgroundColor = `${colors[blockIndex]}33`;
+                    item.style.color = colors[blockIndex];
+                    item.style.borderColor = `${colors[blockIndex]}55`;
+                    item.textContent = value;
+                    
+                    // 添加高亮动画
+                    item.style.transform = 'scale(0.9)';
+                    item.style.opacity = '0.7';
+                    matchContainer.appendChild(item);
+                    
+                    // 触发动画
+                    setTimeout(() => {
+                        item.style.transform = 'scale(1)';
+                        item.style.opacity = '1';
+                    }, blockIndex * 500 + valueIndex * 100);
+                });
+                
+                quantContainer.appendChild(matchContainer);
+                
+                // 添加到容器，带延迟动画
+                quantContainer.style.opacity = '0';
+                quantContainer.style.transform = 'translateY(20px)';
+                container.appendChild(quantContainer);
+                
+                setTimeout(() => {
+                    quantContainer.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    quantContainer.style.opacity = '1';
+                    quantContainer.style.transform = 'translateY(0)';
+                }, blockIndex * 300);
+            });
+        }
+        
+        // 显示压缩结果
+        function renderCompressedResult() {
+            const container = document.getElementById('compressedResult');
+            container.innerHTML = '';
+            
+            quantizedIndices.forEach((index, blockIndex) => {
+                const item = document.createElement('div');
+                item.className = 'w-10 h-10 flex items-center justify-center rounded-lg font-medium text-lg transform transition-all duration-500';
+                item.style.backgroundColor = colors[blockIndex];
+                item.style.color = 'white';
+                item.textContent = index;
+                item.style.opacity = '0';
+                item.style.transform = 'scale(0.5) rotate(-10deg)';
+                
+                const label = document.createElement('div');
+                label.className = 'text-xs text-center text-neutral mt-1';
+                label.textContent = `子向量 ${blockIndex + 1}`;
+                
+                const indexContainer = document.createElement('div');
+                indexContainer.className = 'flex flex-col items-center';
+                indexContainer.appendChild(item);
+                indexContainer.appendChild(label);
+                
+                container.appendChild(indexContainer);
+                
+                // 添加出现动画
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'scale(1) rotate(0)';
+                }, blockIndex * 200);
+            });
+        }
+        
+        // 更新压缩信息
+        function updateCompressionInfo() {
+            const D = parseInt(vectorDimInput.value);
+            const M = parseInt(numBlocksInput.value);
+            
+            originalSizeEl.textContent = `${D}个数值`;
+            compressedSizeEl.textContent = `${M}个索引`;
+            
+            const ratio = D / M;
+            compressionRatioEl.textContent = `${ratio}:1`;
+            
+            // 计算压缩效率（0-100%）
+            const efficiency = 100 - (100 / ratio);
+            compressionProgressEl.style.width = `${efficiency}%`;
+        }
+        
+        // 前往指定步骤
+        function goToStep(step) {
+            if (step > maxStep) return;
+            
+            // 添加当前步骤淡出动画
+            const currentStepEl = document.getElementById(`step${currentStep}`);
+            currentStepEl.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            currentStepEl.style.opacity = '0';
+            currentStepEl.style.transform = 'translateY(10px)';
+            
+            // 延迟后处理下一步
+            setTimeout(() => {
+                // 隐藏当前步骤
+                currentStepEl.classList.add('hidden');
+                currentStepEl.style.transition = '';
+                currentStepEl.style.opacity = '';
+                currentStepEl.style.transform = '';
+                
+                // 处理步骤间的逻辑
+                if (step === 2) {
+                    splitVectorIntoBlocks();
+                } else if (step === 3) {
+                    generateCodebooks();
+                } else if (step === 4) {
+                    quantizeVectors();
+                } else if (step === 5) {
+                    renderCompressedResult();
+                    nextBtn.disabled = true;
+                    nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                }
+                
+                // 更新当前步骤并显示
+                currentStep = step;
+                const nextStepEl = document.getElementById(`step${currentStep}`);
+                nextStepEl.classList.remove('hidden');
+                
+                // 添加淡入动画
+                nextStepEl.style.opacity = '0';
+                nextStepEl.style.transform = 'translateY(10px)';
+                setTimeout(() => {
+                    nextStepEl.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    nextStepEl.style.opacity = '1';
+                    nextStepEl.style.transform = 'translateY(0)';
+                }, 50);
+                
+                updateStepIndicators();
+                
+                // 更新按钮文本
+                if (currentStep === 1) {
+                    nextBtn.innerHTML = '<span>下一步</span><i class="fa fa-arrow-right ml-2"></i>';
+                } else if (currentStep === maxStep) {
+                    nextBtn.innerHTML = '<span>完成</span><i class="fa fa-check ml-2"></i>';
+                }
+            }, 300);
+        }
+        
+        // 更新步骤指示器
+        function updateStepIndicators() {
+            for (let i = 1; i <= maxStep; i++) {
+                const indicator = document.getElementById(`step${i}-indicator`);
+                if (i < currentStep) {
+                    indicator.className = 'w-6 h-6 rounded-full bg-secondary text-white flex items-center justify-center mr-2 flex-shrink-0 transition-all duration-300';
+                } else if (i === currentStep) {
+                    indicator.className = 'w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center mr-2 flex-shrink-0 scale-110 transition-all duration-300';
+                } else {
+                    indicator.className = 'w-6 h-6 rounded-full bg-gray-300 text-white flex items-center justify-center mr-2 flex-shrink-0 transition-all duration-300';
+                }
+            }
+        }
+        
+        // 隐藏所有步骤
+        function hideAllSteps() {
+            for (let i = 1; i <= maxStep; i++) {
+                document.getElementById(`step${i}`).classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>

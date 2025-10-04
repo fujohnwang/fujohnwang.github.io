@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>随机投影(Random Projection)动态演示</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        accent: '#8B5CF6',
+                        dark: '#1E293B',
+                        light: '#F8FAFC'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .matrix-cell {
+                @apply w-14 h-14 flex items-center justify-center border border-gray-300 text-sm font-medium transition-all;
+            }
+            .vector-cell {
+                @apply w-14 h-14 flex items-center justify-center border border-gray-300 text-sm font-medium transition-all;
+            }
+            .matrix-row {
+                @apply flex;
+            }
+            .calculation-step {
+                @apply my-2 p-3 bg-gray-50 rounded border border-gray-200 transition-all duration-500;
+            }
+            .highlight {
+                @apply bg-yellow-100 border-yellow-300;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+    <header class="bg-gradient-to-r from-primary to-accent text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <h1 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold">随机投影(Random Projection)动态演示</h1>
+            <p class="text-blue-100 mt-2">包含矩阵乘法计算过程的可视化展示</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- 控制面板 -->
+        <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+            <div class="flex flex-col md:flex-row gap-6 items-center">
+                <div class="w-full md:w-1/3">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">原始维度 (d)</label>
+                    <div class="flex items-center">
+                        <button id="decrease-d" class="bg-gray-200 hover:bg-gray-300 p-2 rounded-l-md transition">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <input type="number" id="d-value" value="5" min="2" max="8" 
+                            class="w-20 text-center border-y border-gray-300 py-2">
+                        <button id="increase-d" class="bg-gray-200 hover:bg-gray-300 p-2 rounded-r-md transition">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="w-full md:w-1/3">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">目标维度 (k)</label>
+                    <div class="flex items-center">
+                        <button id="decrease-k" class="bg-gray-200 hover:bg-gray-300 p-2 rounded-l-md transition">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <input type="number" id="k-value" value="2" min="1" max="4" 
+                            class="w-20 text-center border-y border-gray-300 py-2">
+                        <button id="increase-k" class="bg-gray-200 hover:bg-gray-300 p-2 rounded-r-md transition">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="w-full md:w-1/3 flex gap-4 justify-center md:justify-end">
+                    <button id="generate-vector" class="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-md transition">
+                        <i class="fa fa-refresh mr-2"></i>生成随机向量
+                    </button>
+                    <button id="project-button" class="bg-secondary hover:bg-secondary/90 text-white px-6 py-2 rounded-md transition">
+                        <i class="fa fa-calculator mr-2"></i>执行投影计算
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 可视化区域 -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <!-- 左侧：原始向量和投影矩阵并排 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- 原始向量 -->
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-xl font-semibold mb-4 flex items-center">
+                        <span class="inline-block w-3 h-3 bg-primary rounded-full mr-2"></span>
+                        原始高维向量 (d = <span id="d-display">5</span>)
+                    </h2>
+                    <div id="original-vector-container" class="flex flex-wrap gap-2 justify-center my-6 min-h-[100px]">
+                        <!-- 向量将在这里动态生成 -->
+                    </div>
+                    <div class="mt-4 text-sm text-gray-600">
+                        <p>这是一个随机生成的<span id="d-display-2">5</span>维向量，代表高维空间中的一个数据点。</p>
+                    </div>
+                </div>
+
+                <!-- 随机投影矩阵 -->
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-xl font-semibold mb-4 flex items-center">
+                        <span class="inline-block w-3 h-3 bg-accent rounded-full mr-2"></span>
+                        随机投影矩阵 (k×d)
+                    </h2>
+                    <div id="projection-matrix-container" class="overflow-auto max-h-64 my-6 flex justify-center">
+                        <!-- 矩阵将在这里以二维表格形式动态生成 -->
+                    </div>
+                    <div class="mt-4 text-sm text-gray-600">
+                        <p>这是一个随机生成的<span id="k-display">2</span>×<span id="d-display-3">5</span>矩阵，用于将高维向量投影到低维空间。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧：投影结果和计算过程 -->
+            <div class="flex flex-col gap-8">
+                <!-- 投影结果 -->
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-xl font-semibold mb-4 flex items-center">
+                        <span class="inline-block w-3 h-3 bg-secondary rounded-full mr-2"></span>
+                        投影后的低维向量 (k = <span id="k-display-2">2</span>)
+                    </h2>
+                    <div id="projected-vector-container" class="flex flex-wrap gap-2 justify-center my-6 min-h-[100px]">
+                        <!-- 投影后的向量将在这里动态生成 -->
+                    </div>
+                    <div id="projection-plot-container" class="w-full h-64 mt-6 border border-gray-200 rounded-lg overflow-hidden">
+                        <canvas id="projection-plot"></canvas>
+                    </div>
+                </div>
+
+                <!-- 计算过程 -->
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-xl font-semibold mb-4 flex items-center">
+                        <span class="inline-block w-3 h-3 bg-orange-500 rounded-full mr-2"></span>
+                        矩阵乘法计算过程
+                    </h2>
+                    <div id="calculation-steps-container" class="overflow-auto max-h-64 my-4 text-sm">
+                        <p class="text-gray-500 italic">点击"执行投影计算"按钮查看详细计算步骤...</p>
+                        <!-- 计算步骤将在这里动态生成 -->
+                    </div>
+                    <div class="mt-2 text-xs text-gray-500">
+                        <p>投影公式：y = R·x，其中y是投影后的向量，R是投影矩阵，x是原始向量</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 步骤说明 -->
+        <div class="bg-white rounded-xl shadow-md p-6 mt-8">
+            <h2 class="text-xl font-semibold mb-6">随机投影的工作原理</h2>
+            
+            <div class="space-y-6">
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0 w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-bold">1</div>
+                    <div>
+                        <h3 class="font-semibold text-lg">高维数据表示</h3>
+                        <p class="text-gray-600 mt-1">原始数据点表示为d维向量，其中d是数据的原始维度。在许多实际应用中，d可能非常大（如文本分类中的词袋模型可能有数千维）。</p>
+                    </div>
+                </div>
+                
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0 w-10 h-10 bg-accent text-white rounded-full flex items-center justify-center font-bold">2</div>
+                    <div>
+                        <h3 class="font-semibold text-lg">随机矩阵生成</h3>
+                        <p class="text-gray-600 mt-1">构造一个k×d的随机矩阵R，其中k是目标维度（k << d）。矩阵元素通常服从均值为0、方差为1/k的正态分布。</p>
+                    </div>
+                </div>
+                
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0 w-10 h-10 bg-secondary text-white rounded-full flex items-center justify-center font-bold">3</div>
+                    <div>
+                        <h3 class="font-semibold text-lg">矩阵乘法投影</h3>
+                        <p class="text-gray-600 mt-1">通过矩阵乘法y = R·x将d维向量x投影到k维空间，得到低维向量y。对于结果中的每个元素y<sub>i</sub>，计算方法是矩阵第i行与原始向量的点积：</p>
+                        <p class="text-gray-600 mt-1 font-mono">y<sub>i</sub> = R<sub>i1</sub>·x<sub>1</sub> + R<sub>i2</sub>·x<sub>2</sub> + ... + R<sub>id</sub>·x<sub>d</sub></p>
+                    </div>
+                </div>
+                
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0 w-10 h-10 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold">4</div>
+                    <div>
+                        <h3 class="font-semibold text-lg">距离近似保持</h3>
+                        <p class="text-gray-600 mt-1">根据Johnson-Lindenstrauss引理，随机投影可以在降低维度的同时近似保持数据点之间的距离关系。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-gray-300 mt-12">
+        <div class="container mx-auto px-4 py-6">
+            <p class="text-center">随机投影可视化演示 &copy; 2023</p>
+        </div>
+    </footer>
+
+    <script>
+        // 获取DOM元素
+        const dValueInput = document.getElementById('d-value');
+        const kValueInput = document.getElementById('k-value');
+        const decreaseDButton = document.getElementById('decrease-d');
+        const increaseDButton = document.getElementById('increase-d');
+        const decreaseKButton = document.getElementById('decrease-k');
+        const increaseKButton = document.getElementById('increase-k');
+        const generateVectorButton = document.getElementById('generate-vector');
+        const projectButton = document.getElementById('project-button');
+        const originalVectorContainer = document.getElementById('original-vector-container');
+        const projectionMatrixContainer = document.getElementById('projection-matrix-container');
+        const projectedVectorContainer = document.getElementById('projected-vector-container');
+        const calculationStepsContainer = document.getElementById('calculation-steps-container');
+        const dDisplayElements = [
+            document.getElementById('d-display'),
+            document.getElementById('d-display-2'),
+            document.getElementById('d-display-3')
+        ];
+        const kDisplayElements = [
+            document.getElementById('k-display'),
+            document.getElementById('k-display-2'),
+            document.getElementById('k-display-3')
+        ];
+
+        // 全局变量
+        let originalVector = [];
+        let projectionMatrix = [];
+        let projectedVector = [];
+        let projectionPlot = null;
+
+        // 初始化图表
+        function initPlot() {
+            const ctx = document.getElementById('projection-plot').getContext('2d');
+            projectionPlot = new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: '投影结果',
+                        data: [],
+                        backgroundColor: '#10B981',
+                        borderColor: '#059669',
+                        borderWidth: 2,
+                        pointRadius: 8,
+                        pointHoverRadius: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: '维度 1'
+                            },
+                            min: -5,
+                            max: 5,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: '维度 2'
+                            },
+                            min: -5,
+                            max: 5,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `(${context.parsed.x.toFixed(2)}, ${context.parsed.y.toFixed(2)})`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // 更新图表显示
+        function updatePlot() {
+            if (projectionPlot && projectedVector.length >= 2) {
+                projectionPlot.data.datasets[0].data = [{
+                    x: projectedVector[0],
+                    y: projectedVector[1]
+                }];
+                projectionPlot.update();
+            }
+        }
+
+        // 生成随机向量
+        function generateRandomVector(d) {
+            return Array.from({ length: d }, () => (Math.random() * 10 - 5).toFixed(2) * 1);
+        }
+
+        // 生成随机投影矩阵
+        function generateRandomMatrix(k, d) {
+            const matrix = [];
+            const variance = 1 / k; // 方差设置为1/k，保证投影后能量不变
+            const stdDev = Math.sqrt(variance);
+            
+            for (let i = 0; i < k; i++) {
+                const row = [];
+                for (let j = 0; j < d; j++) {
+                    // 生成服从正态分布N(0, 1/k)的随机数
+                    const u1 = Math.random();
+                    const u2 = Math.random();
+                    const z0 = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+                    row.push((z0 * stdDev).toFixed(2) * 1);
+                }
+                matrix.push(row);
+            }
+            
+            return matrix;
+        }
+
+        // 执行矩阵乘法（投影）并记录计算步骤
+        function projectVectorWithSteps(vector, matrix) {
+            const k = matrix.length;
+            const d = vector.length;
+            const result = [];
+            const steps = [];
+            
+            for (let i = 0; i < k; i++) {
+                let sum = 0;
+                const stepDetails = [];
+                
+                // 记录每一步乘法
+                for (let j = 0; j < d; j++) {
+                    const product = matrix[i][j] * vector[j];
+                    stepDetails.push({
+                        matrixVal: matrix[i][j],
+                        vectorVal: vector[j],
+                        product: product.toFixed(4) * 1
+                    });
+                    sum += product;
+                }
+                
+                // 四舍五入保留两位小数
+                const finalValue = sum.toFixed(2) * 1;
+                result.push(finalValue);
+                
+                // 保存这一行的计算步骤
+                steps.push({
+                    rowIndex: i,
+                    steps: stepDetails,
+                    result: finalValue
+                });
+            }
+            
+            return { result, steps };
+        }
+
+        // 渲染向量
+        function renderVector(container, vector, colorClass) {
+            container.innerHTML = '';
+            vector.forEach((value, index) => {
+                const cell = document.createElement('div');
+                cell.id = `vector-cell-${index}`;
+                cell.className = `vector-cell ${colorClass} transform transition-all duration-500`;
+                cell.innerHTML = `<span>${value}</span>`;
+                cell.style.opacity = '0';
+                cell.style.transform = 'translateY(20px)';
+                container.appendChild(cell);
+                
+                // 添加延迟动画效果
+                setTimeout(() => {
+                    cell.style.opacity = '1';
+                    cell.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        }
+
+        // 渲染矩阵（二维表格形式）
+        function renderMatrix(container, matrix) {
+            container.innerHTML = '';
+            
+            // 创建矩阵容器
+            const matrixWrapper = document.createElement('div');
+            matrixWrapper.className = 'matrix-wrapper';
+            
+            // 逐行创建矩阵
+            matrix.forEach((row, rowIndex) => {
+                const rowDiv = document.createElement('div');
+                rowDiv.className = 'matrix-row mb-1';
+                
+                row.forEach((value, colIndex) => {
+                    const cell = document.createElement('div');
+                    cell.id = `matrix-cell-${rowIndex}-${colIndex}`;
+                    cell.className = 'matrix-cell bg-purple-50 text-accent';
+                    cell.innerHTML = `<span>${value}</span>`;
+                    cell.style.opacity = '0';
+                    cell.style.transform = 'translateY(20px)';
+                    rowDiv.appendChild(cell);
+                    
+                    // 添加延迟动画效果，使矩阵逐行逐列显示
+                    setTimeout(() => {
+                        cell.style.opacity = '1';
+                        cell.style.transform = 'translateY(0)';
+                    }, rowIndex * 200 + colIndex * 100);
+                });
+                
+                matrixWrapper.appendChild(rowDiv);
+            });
+            
+            container.appendChild(matrixWrapper);
+        }
+
+        // 渲染计算步骤
+        function renderCalculationSteps(container, steps) {
+            container.innerHTML = '';
+            
+            steps.forEach((rowStep, rowIndex) => {
+                // 创建行标题
+                const rowHeader = document.createElement('div');
+                rowHeader.className = 'font-medium text-gray-800 mb-2';
+                rowHeader.innerHTML = `计算投影向量第 ${rowIndex + 1} 个元素：`;
+                container.appendChild(rowHeader);
+                
+                // 创建计算步骤容器
+                const stepContainer = document.createElement('div');
+                stepContainer.className = 'ml-4 space-y-2';
+                container.appendChild(stepContainer);
+                
+                // 渲染每一步乘法
+                rowStep.steps.forEach((step, colIndex) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'calculation-step';
+                    stepElement.innerHTML = `
+                        步骤 ${colIndex + 1}：矩阵第 ${rowIndex + 1} 行第 ${colIndex + 1} 列元素 
+                        <span class="text-accent font-medium">${step.matrixVal}</span> 
+                        与向量第 ${colIndex + 1} 个元素 
+                        <span class="text-primary font-medium">${step.vectorVal}</span> 
+                        相乘 = <span class="font-medium">${step.product}</span>
+                    `;
+                    stepElement.style.opacity = '0';
+                    stepElement.style.transform = 'translateX(20px)';
+                    stepContainer.appendChild(stepElement);
+                    
+                    // 添加延迟动画
+                    setTimeout(() => {
+                        // 高亮显示正在计算的矩阵和向量元素
+                        const matrixCell = document.getElementById(`matrix-cell-${rowIndex}-${colIndex}`);
+                        const vectorCell = document.getElementById(`vector-cell-${colIndex}`);
+                        
+                        if (matrixCell && vectorCell) {
+                            matrixCell.classList.add('highlight');
+                            vectorCell.classList.add('highlight');
+                            
+                            // 移除高亮
+                            setTimeout(() => {
+                                matrixCell.classList.remove('highlight');
+                                vectorCell.classList.remove('highlight');
+                            }, 800);
+                        }
+                        
+                        stepElement.style.opacity = '1';
+                        stepElement.style.transform = 'translateX(0)';
+                    }, rowIndex * 2000 + colIndex * 600);
+                });
+                
+                // 渲染求和结果
+                const resultElement = document.createElement('div');
+                resultElement.className = 'calculation-step bg-green-50 border-green-200 font-medium mt-3';
+                
+                // 构建求和表达式
+                let sumExpression = '';
+                rowStep.steps.forEach((step, index) => {
+                    sumExpression += step.product;
+                    if (index < rowStep.steps.length - 1) {
+                        sumExpression += ' + ';
+                    }
+                });
+                
+                resultElement.innerHTML = `
+                    求和：${sumExpression} = <span class="text-secondary font-bold">${rowStep.result}</span>
+                `;
+                resultElement.style.opacity = '0';
+                resultElement.style.transform = 'translateX(20px)';
+                stepContainer.appendChild(resultElement);
+                
+                // 添加结果动画
+                const resultDelay = rowIndex * 2000 + rowStep.steps.length * 600 + 300;
+                setTimeout(() => {
+                    resultElement.style.opacity = '1';
+                    resultElement.style.transform = 'translateX(0)';
+                }, resultDelay);
+                
+                // 添加分隔线
+                if (rowIndex < steps.length - 1) {
+                    const divider = document.createElement('div');
+                    divider.className = 'my-4 border-t border-gray-200';
+                    container.appendChild(divider);
+                }
+            });
+            
+            // 自动滚动到计算步骤区域
+            setTimeout(() => {
+                calculationStepsContainer.scrollTop = 0;
+            }, 500);
+        }
+
+        // 更新显示的维度值
+        function updateDimensionDisplays() {
+            const d = parseInt(dValueInput.value);
+            const k = parseInt(kValueInput.value);
+            
+            dDisplayElements.forEach(el => el.textContent = d);
+            kDisplayElements.forEach(el => el.textContent = k);
+        }
+
+        // 生成并显示新的向量和矩阵
+        function generateAndDisplay() {
+            const d = parseInt(dValueInput.value);
+            const k = parseInt(kValueInput.value);
+            
+            // 确保k不大于d
+            if (k > d) {
+                kValueInput.value = d;
+                updateDimensionDisplays();
+                return;
+            }
+            
+            // 生成新的向量和矩阵
+            originalVector = generateRandomVector(d);
+            projectionMatrix = generateRandomMatrix(k, d);
+            
+            // 渲染
+            renderVector(originalVectorContainer, originalVector, 'bg-blue-50 text-primary');
+            renderMatrix(projectionMatrixContainer, projectionMatrix);
+            
+            // 清空投影结果和计算步骤
+            projectedVectorContainer.innerHTML = '';
+            calculationStepsContainer.innerHTML = '<p class="text-gray-500 italic">点击"执行投影计算"按钮查看详细计算步骤...</p>';
+            
+            if (projectionPlot) {
+                projectionPlot.data.datasets[0].data = [];
+                projectionPlot.update();
+            }
+        }
+
+        // 执行投影并显示结果和计算过程
+        function performProjection() {
+            if (originalVector.length === 0 || projectionMatrix.length === 0) {
+                generateAndDisplay();
+            }
+            
+            // 执行投影计算并获取步骤
+            const { result, steps } = projectVectorWithSteps(originalVector, projectionMatrix);
+            projectedVector = result;
+            
+            // 渲染投影结果（添加延迟以配合计算步骤动画）
+            setTimeout(() => {
+                renderVector(projectedVectorContainer, projectedVector, 'bg-green-50 text-secondary');
+                updatePlot();
+            }, steps.length * 2000);
+            
+            // 渲染计算步骤
+            renderCalculationSteps(calculationStepsContainer, steps);
+        }
+
+        // 事件监听器
+        decreaseDButton.addEventListener('click', () => {
+            if (parseInt(dValueInput.value) > parseInt(dValueInput.min)) {
+                dValueInput.value = parseInt(dValueInput.value) - 1;
+                updateDimensionDisplays();
+                generateAndDisplay();
+            }
+        });
+
+        increaseDButton.addEventListener('click', () => {
+            if (parseInt(dValueInput.value) < parseInt(dValueInput.max)) {
+                dValueInput.value = parseInt(dValueInput.value) + 1;
+                updateDimensionDisplays();
+                generateAndDisplay();
+            }
+        });
+
+        decreaseKButton.addEventListener('click', () => {
+            if (parseInt(kValueInput.value) > parseInt(kValueInput.min)) {
+                kValueInput.value = parseInt(kValueInput.value) - 1;
+                updateDimensionDisplays();
+                generateAndDisplay();
+            }
+        });
+
+        increaseKButton.addEventListener('click', () => {
+            if (parseInt(kValueInput.value) < parseInt(kValueInput.max) && 
+                parseInt(kValueInput.value) < parseInt(dValueInput.value)) {
+                kValueInput.value = parseInt(kValueInput.value) + 1;
+                updateDimensionDisplays();
+                generateAndDisplay();
+            }
+        });
+
+        dValueInput.addEventListener('change', () => {
+            // 确保值在有效范围内
+            let d = parseInt(dValueInput.value);
+            d = Math.max(parseInt(dValueInput.min), Math.min(parseInt(dValueInput.max), d));
+            dValueInput.value = d;
+            
+            // 确保k不大于d
+            if (parseInt(kValueInput.value) > d) {
+                kValueInput.value = d;
+            }
+            
+            updateDimensionDisplays();
+            generateAndDisplay();
+        });
+
+        kValueInput.addEventListener('change', () => {
+            // 确保值在有效范围内
+            let k = parseInt(kValueInput.value);
+            const d = parseInt(dValueInput.value);
+            k = Math.max(parseInt(kValueInput.min), Math.min(Math.min(parseInt(kValueInput.max), d), k));
+            kValueInput.value = k;
+            
+            updateDimensionDisplays();
+            generateAndDisplay();
+        });
+
+        generateVectorButton.addEventListener('click', generateAndDisplay);
+        projectButton.addEventListener('click', performProjection);
+
+        // 初始化
+        window.addEventListener('load', () => {
+            // 加载Chart.js库
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js';
+            script.onload = () => {
+                initPlot();
+                updateDimensionDisplays();
+                generateAndDisplay();
+            };
+            document.head.appendChild(script);
+        });
+    </script>
+</body>
+</html>
