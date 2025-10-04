@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-D Tree 算法动态演示</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+
+        .container {
+            max-width: 95vw;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            min-height: 90vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4a5568;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #f093fb, #f5576c);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+            color: white;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .visualization {
+            display: flex;
+            gap: 40px;
+            margin-top: 30px;
+            height: calc(100vh - 300px);
+            min-height: 600px;
+        }
+
+        .canvas-container {
+            flex: 1;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+
+        canvas {
+            border: 3px solid #e2e8f0;
+            border-radius: 10px;
+            background: #f8fafc;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            height: 100%;
+        }
+
+        .info-panel {
+            flex: 1;
+            min-width: 350px;
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .step-info {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .step-title {
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 8px;
+        }
+
+        .step-description {
+            color: #718096;
+            line-height: 1.5;
+        }
+
+        .tree-structure {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #f5576c;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        .tree-structure:last-child {
+            margin-bottom: 0;
+        }
+
+        /* D3 树形图样式 */
+        .tree-node {
+            cursor: pointer;
+        }
+
+        .tree-node circle {
+            fill: #fff;
+            stroke: #4a5568;
+            stroke-width: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .tree-node.x-split circle {
+            fill: #667eea;
+        }
+
+        .tree-node.y-split circle {
+            fill: #f093fb;
+        }
+
+        .tree-node.building circle {
+            fill: #ffd700;
+            stroke: #ff6b35;
+            stroke-width: 3px;
+            animation: pulse 1.5s infinite;
+        }
+
+        .tree-node.searching circle {
+            fill: #ffd700;
+            stroke: #ff6b35;
+            stroke-width: 4px;
+            animation: searchPulse 1s infinite;
+        }
+
+        @keyframes searchPulse {
+            0% {
+                transform: scale(1);
+                stroke-width: 4px;
+            }
+
+            50% {
+                transform: scale(1.2);
+                stroke-width: 6px;
+            }
+
+            100% {
+                transform: scale(1);
+                stroke-width: 4px;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.7;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .author-info {
+            text-align: center;
+            padding: 20px;
+            color: #718096;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.8);
+            margin-top: 20px;
+        }
+
+        .author-info a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .author-info a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        .speed-control-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .speed-control {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .speed-label {
+            color: #4a5568;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .speed-btn {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 12px;
+        }
+
+        .speed-btn:hover {
+            background: #667eea !important;
+            color: white !important;
+            transform: translateY(-1px);
+        }
+
+        .speed-slider {
+            width: 200px;
+            margin: 0 10px;
+        }
+
+        .speed-value {
+            color: #667eea;
+            font-weight: bold;
+            margin-left: 10px;
+            white-space: nowrap;
+        }
+
+        .algorithm-intro {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 40px 20px;
+            margin-top: 40px;
+        }
+
+        .intro-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .algorithm-intro h2 {
+            text-align: center;
+            color: #2d3748;
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        .intro-section {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid #667eea;
+        }
+
+        .intro-section h3 {
+            color: #4a5568;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .intro-section p {
+            color: #718096;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .intro-section ul {
+            color: #718096;
+            line-height: 1.7;
+            padding-left: 20px;
+        }
+
+        .intro-section li {
+            margin-bottom: 8px;
+        }
+
+        .intro-section li strong {
+            color: #4a5568;
+        }
+
+        .advantages {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .advantage-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .advantage-icon {
+            font-size: 1.5em;
+            flex-shrink: 0;
+        }
+
+        .advantage-item strong {
+            color: #4a5568;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .advantage-item p {
+            color: #718096;
+            font-size: 0.9em;
+            margin: 0;
+        }
+
+        .applications {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .app-tag {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .complexity {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .complexity-item {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            color: #4a5568;
+            font-weight: 500;
+        }
+
+        .speed-control input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .speed-control input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #667eea;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .speed-control input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: #667eea;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+
+
+        .tree-node:hover circle {
+            stroke-width: 3px;
+            transform: scale(1.1);
+        }
+
+        .tree-node text {
+            font: 11px sans-serif;
+            fill: #4a5568;
+            text-anchor: middle;
+            dominant-baseline: middle;
+            pointer-events: none;
+        }
+
+        .tree-link {
+            fill: none;
+            stroke: #718096;
+            stroke-width: 1.5px;
+            stroke-opacity: 0.6;
+        }
+
+        .tree-tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🌳 K-D Tree 算法动态演示</h1>
+
+        <div class="controls">
+            <button class="btn-primary" onclick="generateRandomPoints()">生成随机点</button>
+            <button class="btn-secondary" onclick="buildKDTree()">构建 K-D Tree</button>
+            <button class="btn-success" onclick="startSearch()">开始搜索</button>
+            <button class="btn-secondary" onclick="toggleSearchPause()" id="pauseBtn" style="display: none;">暂停</button>
+            <button class="btn-primary" onclick="reset()">重置</button>
+        </div>
+
+        <div class="speed-control-container">
+            <div class="speed-control">
+                <label for="speedSlider" class="speed-label">搜索速度:</label>
+                <button onclick="setSpeed(0.5)" class="speed-btn">快速</button>
+                <input type="range" id="speedSlider" min="0.5" max="3" step="0.1" value="1.2" class="speed-slider"
+                    onchange="updateSearchSpeed()">
+                <button onclick="setSpeed(3)" class="speed-btn">慢速</button>
+                <span id="speedValue" class="speed-value">1.2s</span>
+            </div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background: #3182ce;"></div>
+                <span>数据点</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #e53e3e;"></div>
+                <span>查询点</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #38a169;"></div>
+                <span>最近邻</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #805ad5;"></div>
+                <span>分割线</span>
+            </div>
+        </div>
+
+        <div class="visualization">
+            <div class="canvas-container">
+                <canvas id="canvas" width="800" height="600"></canvas>
+            </div>
+
+            <div class="info-panel">
+                <div class="step-info">
+                    <div class="step-title">当前步骤</div>
+                    <div class="step-description" id="stepDescription">
+                        点击"生成随机点"开始演示
+                    </div>
+                </div>
+
+                <div class="tree-structure">
+                    <div style="font-weight: bold; margin-bottom: 10px; color: #4a5568;">构建信息:</div>
+                    <div id="buildInfo" style="margin-bottom: 15px; color: #718096; font-size: 14px;">
+                        点击"生成随机点"开始
+                    </div>
+                </div>
+
+                <div class="tree-structure" style="flex: 1; display: flex; flex-direction: column;">
+                    <div style="font-weight: bold; margin-bottom: 10px; color: #4a5568;">树结构可视化:</div>
+                    <div id="treeVisualization"
+                        style="width: 100%; flex: 1; border: 1px solid #e2e8f0; border-radius: 5px; background: #f8fafc;">
+                        <svg id="treeSvg" width="100%" height="100%"></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="algorithm-intro">
+        <div class="intro-container">
+            <h2>🌳 K-D Tree 算法介绍</h2>
+
+            <div class="intro-section">
+                <h3>📖 算法概述</h3>
+                <p>K-D Tree（K-Dimensional Tree）是一种用于组织k维空间中点的数据结构。它是二叉搜索树的多维扩展，特别适用于多维搜索问题，如最近邻搜索、范围查询等。</p>
+            </div>
+
+            <div class="intro-section">
+                <h3>🔧 核心思想</h3>
+                <ul>
+                    <li><strong>递归分割</strong>：在每个层级选择一个维度，用该维度的中位数将空间分割为两部分</li>
+                    <li><strong>轮换维度</strong>：按照维度顺序轮换（如2D空间中X轴→Y轴→X轴...）</li>
+                    <li><strong>平衡构建</strong>：选择中位数确保树的平衡性，提高搜索效率</li>
+                    <li><strong>空间分割</strong>：每个节点代表一个超平面，将空间递归分割</li>
+                </ul>
+            </div>
+
+            <div class="intro-section">
+                <h3>🚀 算法优势</h3>
+                <div class="advantages">
+                    <div class="advantage-item">
+                        <span class="advantage-icon">⚡</span>
+                        <div>
+                            <strong>高效搜索</strong>
+                            <p>最近邻搜索平均时间复杂度为O(log n)</p>
+                        </div>
+                    </div>
+                    <div class="advantage-item">
+                        <span class="advantage-icon">🎯</span>
+                        <div>
+                            <strong>智能剪枝</strong>
+                            <p>通过几何约束避免搜索不必要的子树</p>
+                        </div>
+                    </div>
+                    <div class="advantage-item">
+                        <span class="advantage-icon">📐</span>
+                        <div>
+                            <strong>多维支持</strong>
+                            <p>天然支持任意维度的空间数据</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="intro-section">
+                <h3>💡 应用场景</h3>
+                <div class="applications">
+                    <span class="app-tag">🖼️ 图像检索</span>
+                    <span class="app-tag">🤖 机器学习</span>
+                    <span class="app-tag">🗺️ 地理信息系统</span>
+                    <span class="app-tag">🎮 游戏开发</span>
+                    <span class="app-tag">📊 数据挖掘</span>
+                    <span class="app-tag">🔍 相似性搜索</span>
+                </div>
+            </div>
+
+            <div class="intro-section">
+                <h3>📈 复杂度分析</h3>
+                <div class="complexity">
+                    <div class="complexity-item">
+                        <strong>构建时间</strong>: O(n log n)
+                    </div>
+                    <div class="complexity-item">
+                        <strong>搜索时间</strong>: O(log n) 平均，O(n) 最坏
+                    </div>
+                    <div class="complexity-item">
+                        <strong>空间复杂度</strong>: O(n)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="author-info">
+        by <a href="https://afoo.me" target="_blank">福强</a> & Kiro
+    </div>
+
+    <script>
+        class Point {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+            }
+
+            distance(other) {
+                return Math.sqrt((this.x - other.x) ** 2 + (this.y - other.y) ** 2);
+            }
+        }
+
+        class KDNode {
+            constructor(point, dimension, left = null, right = null) {
+                this.point = point;
+                this.dimension = dimension; // 0 for x, 1 for y
+                this.left = left;
+                this.right = right;
+            }
+        }
+
+        class KDTree {
+            constructor() {
+                this.root = null;
+                this.buildSteps = [];
+            }
+
+            build(points) {
+                this.buildSteps = [];
+                this.root = this.buildRecursive(points, 0, 0);
+                return this.buildSteps;
+            }
+
+            buildRecursive(points, depth, level) {
+                if (points.length === 0) return null;
+
+                const dimension = depth % 2; // 0 for x, 1 for y
+
+                // Sort points by current dimension
+                points.sort((a, b) => {
+                    return dimension === 0 ? a.x - b.x : a.y - b.y;
+                });
+
+                const medianIndex = Math.floor(points.length / 2);
+                const medianPoint = points[medianIndex];
+
+                this.buildSteps.push({
+                    type: 'split',
+                    point: medianPoint,
+                    dimension: dimension,
+                    level: level,
+                    points: [...points]
+                });
+
+                const leftPoints = points.slice(0, medianIndex);
+                const rightPoints = points.slice(medianIndex + 1);
+
+                const node = new KDNode(medianPoint, dimension);
+                node.left = this.buildRecursive(leftPoints, depth + 1, level + 1);
+                node.right = this.buildRecursive(rightPoints, depth + 1, level + 1);
+
+                return node;
+            }
+
+            findNearest(queryPoint) {
+                if (!this.root) return null;
+
+                let best = null;
+                let bestDistance = Infinity;
+                const searchSteps = [];
+
+                const search = (node, depth) => {
+                    if (!node) return;
+
+                    const distance = queryPoint.distance(node.point);
+                    searchSteps.push({
+                        type: 'visit',
+                        node: node,
+                        distance: distance,
+                        isBest: distance < bestDistance
+                    });
+
+                    if (distance < bestDistance) {
+                        best = node.point;
+                        bestDistance = distance;
+                    }
+
+                    const dimension = depth % 2;
+                    const queryValue = dimension === 0 ? queryPoint.x : queryPoint.y;
+                    const nodeValue = dimension === 0 ? node.point.x : node.point.y;
+
+                    const primarySide = queryValue < nodeValue ? node.left : node.right;
+                    const secondarySide = queryValue < nodeValue ? node.right : node.left;
+
+                    search(primarySide, depth + 1);
+
+                    // Check if we need to search the other side
+                    const axisDistance = Math.abs(queryValue - nodeValue);
+                    if (axisDistance < bestDistance) {
+                        searchSteps.push({
+                            type: 'backtrack',
+                            node: node,
+                            axisDistance: axisDistance
+                        });
+                        search(secondarySide, depth + 1);
+                    }
+                };
+
+                search(this.root, 0);
+
+                return {
+                    nearest: best,
+                    distance: bestDistance,
+                    steps: searchSteps
+                };
+            }
+        }
+
+        // Visualization
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        let points = [];
+        let kdTree = new KDTree();
+        let buildSteps = [];
+        let currentStep = 0;
+        let queryPoint = null;
+        let searchResult = null;
+        let animationId = null;
+
+        function generateRandomPoints() {
+            points = [];
+            for (let i = 0; i < 15; i++) {
+                points.push(new Point(
+                    Math.random() * (canvas.width - 40) + 20,
+                    Math.random() * (canvas.height - 40) + 20
+                ));
+            }
+
+            reset();
+            drawPoints();
+            updateStepDescription("已生成 " + points.length + " 个随机点，点击\"构建 K-D Tree\"继续");
+            updateBuildInfo();
+        }
+
+        function buildKDTree() {
+            if (points.length === 0) {
+                alert('请先生成随机点！');
+                return;
+            }
+
+            buildSteps = kdTree.build([...points]);
+            currentStep = 0;
+            animateBuild();
+        }
+
+        function animateBuild() {
+            if (currentStep >= buildSteps.length) {
+                updateStepDescription("K-D Tree 构建完成！点击\"开始搜索\"进行最近邻搜索");
+                updateTreeStructure();
+                return;
+            }
+
+            const step = buildSteps[currentStep];
+            drawVisualization(step);
+
+            // 创建当前步骤的部分树结构并显示
+            const partialTree = buildPartialTree(currentStep);
+            createTreeVisualization(partialTree);
+            updateBuildInfo();
+
+            updateStepDescription(`构建步骤 ${currentStep + 1}/${buildSteps.length}: 
+                在${step.dimension === 0 ? 'X' : 'Y'}轴上分割，选择中位数点 (${step.point.x.toFixed(1)}, ${step.point.y.toFixed(1)})`);
+
+            currentStep++;
+            setTimeout(() => animateBuild(), 1500);
+        }
+
+        let searchSteps = [];
+        let currentSearchStep = 0;
+        let isSearching = false;
+        let searchPaused = false;
+        let searchTimeoutId = null;
+        let searchSpeed = 1200; // 默认1.2秒间隔
+
+        function startSearch() {
+            if (!kdTree.root) {
+                alert('请先构建 K-D Tree！');
+                return;
+            }
+
+            if (isSearching) {
+                return; // 防止重复搜索
+            }
+
+            // Generate random query point
+            queryPoint = new Point(
+                Math.random() * (canvas.width - 40) + 20,
+                Math.random() * (canvas.height - 40) + 20
+            );
+
+            // 获取搜索步骤
+            searchResult = kdTree.findNearest(queryPoint);
+            searchSteps = searchResult.steps;
+            currentSearchStep = 0;
+            isSearching = true;
+
+            updateStepDescription(`开始搜索最近邻！查询点: (${queryPoint.x.toFixed(1)}, ${queryPoint.y.toFixed(1)})`);
+
+            // 显示暂停按钮
+            document.getElementById('pauseBtn').style.display = 'inline-block';
+
+            // 开始动画搜索过程
+            animateSearch();
+        }
+
+        function animateSearch() {
+            if (searchPaused) return;
+
+            if (currentSearchStep >= searchSteps.length) {
+                // 搜索完成
+                isSearching = false;
+                searchPaused = false;
+                document.getElementById('pauseBtn').style.display = 'none';
+                drawSearchResult();
+                updateStepDescription(`搜索完成！查询点: (${queryPoint.x.toFixed(1)}, ${queryPoint.y.toFixed(1)})
+                    最近邻: (${searchResult.nearest.x.toFixed(1)}, ${searchResult.nearest.y.toFixed(1)})
+                    距离: ${searchResult.distance.toFixed(2)}`);
+                return;
+            }
+
+            const step = searchSteps[currentSearchStep];
+            drawSearchStep(step);
+
+            // 更新步骤描述
+            updateSearchStepDescription(step);
+
+            currentSearchStep++;
+            searchTimeoutId = setTimeout(() => animateSearch(), searchSpeed);
+        }
+
+        function toggleSearchPause() {
+            const pauseBtn = document.getElementById('pauseBtn');
+            if (searchPaused) {
+                searchPaused = false;
+                pauseBtn.textContent = '暂停';
+                animateSearch();
+            } else {
+                searchPaused = true;
+                pauseBtn.textContent = '继续';
+                if (searchTimeoutId) {
+                    clearTimeout(searchTimeoutId);
+                }
+            }
+        }
+
+        function updateSearchSpeed() {
+            const slider = document.getElementById('speedSlider');
+            const speedValue = document.getElementById('speedValue');
+            searchSpeed = parseFloat(slider.value) * 1000; // 转换为毫秒
+            speedValue.textContent = slider.value + 's';
+        }
+
+        function setSpeed(speed) {
+            const slider = document.getElementById('speedSlider');
+            const speedValue = document.getElementById('speedValue');
+            slider.value = speed;
+            searchSpeed = speed * 1000;
+            speedValue.textContent = speed + 's';
+        }
+
+        function drawSearchStep(step) {
+            // 绘制基础内容
+            drawPoints();
+
+            // 绘制所有分割线
+            buildSteps.forEach(buildStep => {
+                drawSplittingLine(buildStep.point, buildStep.dimension);
+            });
+
+            // 绘制查询点
+            ctx.fillStyle = '#e53e3e';
+            ctx.beginPath();
+            ctx.arc(queryPoint.x, queryPoint.y, 8, 0, 2 * Math.PI);
+            ctx.fill();
+
+            // 根据步骤类型绘制不同的可视化效果
+            if (step.type === 'visit') {
+                // 高亮当前访问的节点
+                ctx.fillStyle = '#ffd700';
+                ctx.strokeStyle = '#ff6b35';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.arc(step.node.point.x, step.node.point.y, 12, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.stroke();
+
+                // 绘制距离线
+                ctx.strokeStyle = step.isBest ? '#38a169' : '#718096';
+                ctx.lineWidth = 2;
+                ctx.setLineDash([5, 5]);
+                ctx.beginPath();
+                ctx.moveTo(queryPoint.x, queryPoint.y);
+                ctx.lineTo(step.node.point.x, step.node.point.y);
+                ctx.stroke();
+                ctx.setLineDash([]);
+
+                // 如果是当前最佳，标记为绿色
+                if (step.isBest) {
+                    ctx.fillStyle = '#38a169';
+                    ctx.beginPath();
+                    ctx.arc(step.node.point.x, step.node.point.y, 10, 0, 2 * Math.PI);
+                    ctx.fill();
+                }
+            } else if (step.type === 'backtrack') {
+                // 绘制回溯决策
+                ctx.fillStyle = '#805ad5';
+                ctx.beginPath();
+                ctx.arc(step.node.point.x, step.node.point.y, 10, 0, 2 * Math.PI);
+                ctx.fill();
+
+                // 绘制轴距离可视化
+                const dimension = step.node.dimension;
+                if (dimension === 0) {
+                    // X轴距离
+                    ctx.strokeStyle = '#805ad5';
+                    ctx.lineWidth = 3;
+                    ctx.beginPath();
+                    ctx.moveTo(queryPoint.x, queryPoint.y - 15);
+                    ctx.lineTo(queryPoint.x, queryPoint.y + 15);
+                    ctx.moveTo(step.node.point.x, step.node.point.y - 15);
+                    ctx.lineTo(step.node.point.x, step.node.point.y + 15);
+                    ctx.stroke();
+                } else {
+                    // Y轴距离
+                    ctx.strokeStyle = '#805ad5';
+                    ctx.lineWidth = 3;
+                    ctx.beginPath();
+                    ctx.moveTo(queryPoint.x - 15, queryPoint.y);
+                    ctx.lineTo(queryPoint.x + 15, queryPoint.y);
+                    ctx.moveTo(step.node.point.x - 15, step.node.point.y);
+                    ctx.lineTo(step.node.point.x + 15, step.node.point.y);
+                    ctx.stroke();
+                }
+            }
+
+            // 高亮树结构中对应的节点
+            highlightTreeNode(step);
+        }
+
+        function updateSearchStepDescription(step) {
+            let description = `搜索步骤 ${currentSearchStep + 1}/${searchSteps.length}: `;
+
+            if (step.type === 'visit') {
+                description += `访问节点 (${step.node.point.x.toFixed(1)}, ${step.node.point.y.toFixed(1)})
+                    距离: ${step.distance.toFixed(2)}`;
+                if (step.isBest) {
+                    description += ` - 新的最近邻！`;
+                }
+            } else if (step.type === 'backtrack') {
+                description += `回溯检查节点 (${step.node.point.x.toFixed(1)}, ${step.node.point.y.toFixed(1)})
+                    轴距离: ${step.axisDistance.toFixed(2)} - 需要搜索另一侧`;
+            }
+
+            updateStepDescription(description);
+        }
+
+        function highlightTreeNode(step) {
+            // 在树形图中高亮对应的节点
+            d3.selectAll('.tree-node').classed('searching', false);
+
+            // 找到对应的节点并高亮
+            d3.selectAll('.tree-node')
+                .filter(d => {
+                    return Math.abs(d.data.x - step.node.point.x) < 0.1 &&
+                        Math.abs(d.data.y - step.node.point.y) < 0.1;
+                })
+                .classed('searching', true);
+        }
+
+        function reset() {
+            currentStep = 0;
+            buildSteps = [];
+            queryPoint = null;
+            searchResult = null;
+            searchSteps = [];
+            currentSearchStep = 0;
+            isSearching = false;
+            kdTree = new KDTree();
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            updateStepDescription("点击\"生成随机点\"开始演示");
+            d3.select("#treeSvg").selectAll("*").remove();
+            d3.selectAll(".tree-tooltip").remove();
+            d3.selectAll('.tree-node').classed('searching', false);
+            document.getElementById('pauseBtn').style.display = 'none';
+            if (searchTimeoutId) {
+                clearTimeout(searchTimeoutId);
+            }
+            updateBuildInfo();
+        }
+
+        function drawPoints() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            points.forEach(point => {
+                ctx.fillStyle = '#3182ce';
+                ctx.beginPath();
+                ctx.arc(point.x, point.y, 6, 0, 2 * Math.PI);
+                ctx.fill();
+            });
+        }
+
+        function drawVisualization(step) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw all points
+            points.forEach(point => {
+                ctx.fillStyle = '#3182ce';
+                ctx.beginPath();
+                ctx.arc(point.x, point.y, 6, 0, 2 * Math.PI);
+                ctx.fill();
+            });
+
+            // Draw splitting lines for completed steps
+            for (let i = 0; i <= currentStep && i < buildSteps.length; i++) {
+                const s = buildSteps[i];
+                drawSplittingLine(s.point, s.dimension, i === currentStep);
+            }
+        }
+
+        function drawSplittingLine(point, dimension, highlight = false) {
+            ctx.strokeStyle = highlight ? '#e53e3e' : '#805ad5';
+            ctx.lineWidth = highlight ? 3 : 1;
+            ctx.setLineDash(highlight ? [] : [5, 5]);
+
+            ctx.beginPath();
+            if (dimension === 0) { // vertical line
+                ctx.moveTo(point.x, 0);
+                ctx.lineTo(point.x, canvas.height);
+            } else { // horizontal line
+                ctx.moveTo(0, point.y);
+                ctx.lineTo(canvas.width, point.y);
+            }
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Highlight the splitting point
+            if (highlight) {
+                ctx.fillStyle = '#e53e3e';
+                ctx.beginPath();
+                ctx.arc(point.x, point.y, 8, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+        }
+
+        function drawSearchResult() {
+            drawPoints();
+
+            // Draw all splitting lines
+            buildSteps.forEach(step => {
+                drawSplittingLine(step.point, step.dimension);
+            });
+
+            // Draw query point
+            ctx.fillStyle = '#e53e3e';
+            ctx.beginPath();
+            ctx.arc(queryPoint.x, queryPoint.y, 8, 0, 2 * Math.PI);
+            ctx.fill();
+
+            // Draw nearest neighbor
+            ctx.fillStyle = '#38a169';
+            ctx.beginPath();
+            ctx.arc(searchResult.nearest.x, searchResult.nearest.y, 10, 0, 2 * Math.PI);
+            ctx.fill();
+
+            // Draw connection line
+            ctx.strokeStyle = '#38a169';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(queryPoint.x, queryPoint.y);
+            ctx.lineTo(searchResult.nearest.x, searchResult.nearest.y);
+            ctx.stroke();
+        }
+
+        function updateStepDescription(text) {
+            document.getElementById('stepDescription').textContent = text;
+        }
+
+        function updateTreeStructure() {
+            createTreeVisualization(kdTree.root);
+            updateBuildInfo();
+        }
+
+        function buildPartialTree(stepIndex) {
+            if (stepIndex < 0 || stepIndex >= buildSteps.length) return null;
+
+            // 创建一个映射来跟踪已处理的节点
+            const processedNodes = new Map();
+
+            // 按步骤顺序处理，构建部分树
+            for (let i = 0; i <= stepIndex; i++) {
+                const step = buildSteps[i];
+                const nodeKey = `${step.point.x},${step.point.y}`;
+
+                if (!processedNodes.has(nodeKey)) {
+                    const node = new KDNode(step.point, step.dimension);
+                    processedNodes.set(nodeKey, node);
+                }
+            }
+
+            // 构建树结构关系
+            const nodeArray = Array.from(processedNodes.values());
+            if (nodeArray.length === 0) return null;
+
+            // 使用第一个节点作为根节点
+            const root = nodeArray[0];
+
+            // 简化的树构建逻辑，基于已处理的步骤
+            buildTreeRelationships(root, nodeArray.slice(1), 0);
+
+            return root;
+        }
+
+        function buildTreeRelationships(parent, remainingNodes, depth) {
+            if (remainingNodes.length === 0) return;
+
+            const dimension = depth % 2;
+            const parentValue = dimension === 0 ? parent.point.x : parent.point.y;
+
+            const leftNodes = [];
+            const rightNodes = [];
+
+            remainingNodes.forEach(node => {
+                const nodeValue = dimension === 0 ? node.point.x : node.point.y;
+                if (nodeValue < parentValue) {
+                    leftNodes.push(node);
+                } else {
+                    rightNodes.push(node);
+                }
+            });
+
+            if (leftNodes.length > 0) {
+                parent.left = leftNodes[0];
+                buildTreeRelationships(parent.left, leftNodes.slice(1), depth + 1);
+            }
+
+            if (rightNodes.length > 0) {
+                parent.right = rightNodes[0];
+                buildTreeRelationships(parent.right, rightNodes.slice(1), depth + 1);
+            }
+        }
+
+        function createTreeVisualization(root) {
+            if (!root) {
+                d3.select("#treeSvg").selectAll("*").remove();
+                return;
+            }
+
+            const svg = d3.select("#treeSvg");
+            const container = document.getElementById('treeVisualization');
+            const width = container.clientWidth - 20;
+            const height = container.clientHeight - 20;
+
+            svg.selectAll("*").remove();
+
+            // 清理现有的tooltip
+            d3.selectAll(".tree-tooltip").remove();
+
+            // 创建树布局
+            const treeLayout = d3.tree().size([width - 80, height - 80]);
+
+            // 转换数据格式
+            const hierarchyData = convertToHierarchy(root);
+            const treeData = treeLayout(d3.hierarchy(hierarchyData));
+
+            const g = svg.append("g").attr("transform", "translate(40,40)");
+
+            // 创建tooltip
+            const tooltip = d3.select("body").append("div")
+                .attr("class", "tree-tooltip");
+
+            // 绘制连接线
+            g.selectAll(".tree-link")
+                .data(treeData.links())
+                .enter().append("path")
+                .attr("class", "tree-link")
+                .attr("d", d3.linkVertical()
+                    .x(d => d.x)
+                    .y(d => d.y));
+
+            // 绘制节点
+            const nodes = g.selectAll(".tree-node")
+                .data(treeData.descendants())
+                .enter().append("g")
+                .attr("class", d => {
+                    const baseClass = `tree-node ${d.data.dimension === 0 ? 'x-split' : 'y-split'}`;
+                    const isBuilding = currentStep > 0 && currentStep <= buildSteps.length && d.depth === currentStep - 1;
+                    return isBuilding ? `${baseClass} building` : baseClass;
+                })
+                .attr("transform", d => `translate(${d.x},${d.y})`);
+
+            // 添加圆圈
+            nodes.append("circle")
+                .attr("r", 15);
+
+            // 添加维度标签（在圆圈内）
+            nodes.append("text")
+                .attr("dy", "-0.2em")
+                .text(d => d.data.dimension === 0 ? 'X' : 'Y')
+                .style("font-weight", "bold")
+                .style("font-size", "12px")
+                .style("fill", "white")
+                .style("text-anchor", "middle");
+
+            // 添加坐标标签（在圆圈下方）
+            nodes.append("text")
+                .attr("dy", "25px")
+                .text(d => `(${d.data.x.toFixed(1)}, ${d.data.y.toFixed(1)})`)
+                .style("font-size", "10px")
+                .style("fill", "#4a5568")
+                .style("text-anchor", "middle")
+                .style("font-weight", "500");
+
+            // 添加深度标签（在坐标下方）
+            nodes.append("text")
+                .attr("dy", "37px")
+                .text(d => `深度: ${d.depth}`)
+                .style("font-size", "9px")
+                .style("fill", "#718096")
+                .style("text-anchor", "middle");
+
+            // 添加交互
+            nodes
+                .on("mouseover", function (event, d) {
+                    tooltip.transition().duration(200).style("opacity", 1);
+                    tooltip.html(`
+                        <strong>节点信息</strong><br>
+                        坐标: (${d.data.x.toFixed(1)}, ${d.data.y.toFixed(1)})<br>
+                        分割轴: ${d.data.dimension === 0 ? 'X轴' : 'Y轴'}<br>
+                        深度: ${d.depth}
+                    `)
+                        .style("left", (event.pageX + 10) + "px")
+                        .style("top", (event.pageY - 10) + "px");
+                })
+                .on("mouseout", function () {
+                    tooltip.transition().duration(200).style("opacity", 0);
+                });
+        }
+
+        function convertToHierarchy(node) {
+            if (!node) return null;
+
+            const result = {
+                x: node.point.x,
+                y: node.point.y,
+                dimension: node.dimension,
+                children: []
+            };
+
+            if (node.left) {
+                result.children.push(convertToHierarchy(node.left));
+            }
+            if (node.right) {
+                result.children.push(convertToHierarchy(node.right));
+            }
+
+            if (result.children.length === 0) {
+                delete result.children;
+            }
+
+            return result;
+        }
+
+        function updateBuildInfo() {
+            const buildInfoElement = document.getElementById('buildInfo');
+            if (points.length === 0) {
+                buildInfoElement.innerHTML = '点击"生成随机点"开始';
+                return;
+            }
+
+            const totalSteps = buildSteps.length;
+            const isBuilding = currentStep > 0 && currentStep <= totalSteps;
+
+            if (isBuilding) {
+                // 构建过程中显示进度信息
+                buildInfoElement.innerHTML = `
+                    数据点数: ${points.length}<br>
+                    构建进度: ${currentStep}/${totalSteps} (${Math.round(currentStep / totalSteps * 100)}%)<br>
+                    当前显示: 部分树结构<br>
+                    状态: 构建中...
+                `;
+            } else {
+                // 构建完成后显示完整信息
+                const treeDepth = getTreeDepth(kdTree.root);
+                const nodeCount = countNodes(kdTree.root);
+
+                buildInfoElement.innerHTML = `
+                    数据点数: ${points.length}<br>
+                    构建步骤: ${totalSteps}<br>
+                    树深度: ${treeDepth}<br>
+                    节点总数: ${nodeCount}<br>
+                    状态: 构建完成
+                `;
+            }
+        }
+
+        function getTreeDepth(node) {
+            if (!node) return 0;
+            return 1 + Math.max(getTreeDepth(node.left), getTreeDepth(node.right));
+        }
+
+        function countNodes(node) {
+            if (!node) return 0;
+            return 1 + countNodes(node.left) + countNodes(node.right);
+        }
+
+        // Initialize
+        generateRandomPoints();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KD-Tree 算法可视化</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- 配置Tailwind自定义颜色和字体 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        accent: '#8B5CF6',
+                        neutral: '#1F2937',
+                        'neutral-light': '#F3F4F6',
+                        'visited': '#F59E0B',     // 已访问节点颜色
+                        'current': '#EC4899',     // 当前处理节点颜色
+                        'boundary': '#6366F1',    // 查询边界颜色
+                        'tree-line': '#9CA3AF'    // 树连接线颜色
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .transition-smooth {
+                transition: all 0.3s ease-in-out;
+            }
+            .shadow-soft {
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            }
+            .tree-node {
+                transition: all 0.3s ease;
+            }
+            .tree-node:hover {
+                transform: scale(1.05);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-neutral">
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+        <!-- 标题部分 -->
+        <header class="mb-8 text-center">
+            <h1 class="text-[clamp(1.8rem,5vw,3rem)] font-bold text-neutral mb-2">KD-Tree 算法可视化</h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">交互式演示KD-Tree的构建过程、分割平面以及最近邻查询操作</p>
+        </header>
+        
+        <!-- 主要内容区 -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- 控制面板 -->
+            <div class="lg:col-span-1 bg-white rounded-xl shadow-soft p-6">
+                <h2 class="text-xl font-semibold mb-4 flex items-center">
+                    <i class="fa fa-sliders text-primary mr-2"></i>控制面板
+                </h2>
+                
+                <div class="space-y-6">
+                    <!-- 数据点控制 -->
+                    <div>
+                        <h3 class="font-medium text-gray-700 mb-3">数据点设置</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm text-gray-600 mb-1">点数量</label>
+                                <input type="range" id="pointCount" min="5" max="30" value="15" 
+                                    class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary">
+                                <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                    <span>5</span>
+                                    <span id="pointCountValue">15</span>
+                                    <span>30</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex space-x-2">
+                                <button id="generatePoints" class="flex-1 bg-primary hover:bg-primary/90 text-white py-2 px-4 rounded-lg transition-smooth flex items-center justify-center">
+                                    <i class="fa fa-random mr-1"></i> 生成点
+                                </button>
+                                <button id="clearPoints" class="bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 px-4 rounded-lg transition-smooth">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </div>
+                            
+                            <div>
+                                <button id="addPointManually" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 px-4 rounded-lg transition-smooth flex items-center justify-center">
+                                    <i class="fa fa-plus mr-1"></i> 手动添加点
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- KD-Tree 控制 -->
+                    <div>
+                        <h3 class="font-medium text-gray-700 mb-3">KD-Tree 操作</h3>
+                        <div class="space-y-3">
+                            <button id="buildTree" class="w-full bg-secondary hover:bg-secondary/90 text-white py-2 px-4 rounded-lg transition-smooth flex items-center justify-center">
+                                <i class="fa fa-tree mr-1"></i> 构建KD-Tree
+                            </button>
+                            
+                            <div class="grid grid-cols-2 gap-2">
+                                <button id="stepBuild" class="bg-blue-100 hover:bg-blue-200 text-blue-700 py-2 px-4 rounded-lg transition-smooth text-sm">
+                                    <i class="fa fa-step-forward mr-1"></i> 逐步构建
+                                </button>
+                                <button id="resetTree" class="bg-orange-100 hover:bg-orange-200 text-orange-700 py-2 px-4 rounded-lg transition-smooth text-sm">
+                                    <i class="fa fa-refresh mr-1"></i> 重置
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 查询控制 -->
+                    <div>
+                        <h3 class="font-medium text-gray-700 mb-3">最近邻查询</h3>
+                        <div class="space-y-3">
+                            <button id="enableQuery" class="w-full bg-accent hover:bg-accent/90 text-white py-2 px-4 rounded-lg transition-smooth flex items-center justify-center">
+                                <i class="fa fa-search mr-1"></i> 启用查询
+                            </button>
+                            
+                            <div>
+                                <label class="block text-sm text-gray-600 mb-1">查询点数量</label>
+                                <select id="queryCount" class="w-full bg-gray-100 border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent/50">
+                                    <option value="1">1个最近点</option>
+                                    <option value="3">3个最近点</option>
+                                    <option value="5">5个最近点</option>
+                                </select>
+                            </div>
+                            
+                            <div id="queryStepControls" class="hidden">
+                                <button id="stepQuery" class="w-full bg-purple-100 hover:bg-purple-200 text-purple-700 py-2 px-4 rounded-lg transition-smooth text-sm">
+                                    <i class="fa fa-step-forward mr-1"></i> 逐步查询
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 可视化区域 -->
+            <div class="lg:col-span-2 flex flex-col">
+                <div class="bg-white rounded-xl shadow-soft p-4 flex-grow">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xl font-semibold flex items-center">
+                            <i class="fa fa-area-chart text-primary mr-2"></i>可视化区域
+                        </h2>
+                        <div class="text-sm text-gray-500" id="statusText">
+                            就绪 - 请生成数据点
+                        </div>
+                    </div>
+                    
+                    <!-- 步骤说明区域 -->
+                    <div class="bg-blue-50 border border-blue-100 rounded-lg p-4 mb-4">
+                        <h3 class="font-medium text-blue-800 mb-2 flex items-center">
+                            <i class="fa fa-info-circle mr-2"></i>步骤说明
+                        </h3>
+                        <div class="text-sm text-blue-700" id="stepDescription">
+                            请生成数据点并开始构建KD-Tree，这里将显示每一步的详细说明。
+                        </div>
+                    </div>
+                    
+                    <!-- 查询过程信息 -->
+                    <div id="queryInfo" class="bg-purple-50 border border-purple-100 rounded-lg p-4 mb-4 hidden">
+                        <h3 class="font-medium text-purple-800 mb-2 flex items-center">
+                            <i class="fa fa-search mr-2"></i>查询过程
+                        </h3>
+                        <div class="text-sm space-y-2">
+                            <div>
+                                <span class="font-medium">当前最近邻:</span>
+                                <span id="currentNeighbors">无</span>
+                            </div>
+                            <div>
+                                <span class="font-medium">最短距离:</span>
+                                <span id="shortestDistance">--</span>
+                            </div>
+                            <div>
+                                <span class="font-medium">已访问节点:</span>
+                                <span id="visitedNodesCount">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Canvas容器 -->
+                    <div class="relative w-full" style="height: 400px;">
+                        <canvas id="visualizationCanvas" class="w-full h-full border border-gray-200 rounded-lg"></canvas>
+                        <div id="canvasOverlay" class="absolute inset-0 flex items-center justify-center bg-black/50 rounded-lg hidden">
+                            <div class="bg-white p-6 rounded-xl shadow-lg max-w-md">
+                                <h3 class="text-xl font-bold mb-2 text-primary">KD-Tree 构建完成</h3>
+                                <p class="text-gray-600 mb-4">已成功构建包含 <span id="finalPointCount">0</span> 个点的KD-Tree</p>
+                                <div class="flex justify-end">
+                                    <button id="closeOverlay" class="bg-primary hover:bg-primary/90 text-white py-2 px-4 rounded-lg transition-smooth">
+                                        继续
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 树结构可视化区域 -->
+                    <div class="mt-4 border border-gray-200 rounded-lg p-4 overflow-x-auto" style="max-height: 300px;">
+                        <h3 class="font-medium text-gray-800 mb-3 flex items-center">
+                            <i class="fa fa-sitemap text-primary mr-2"></i>KD-Tree 结构
+                            <span class="ml-2 text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full">
+                                <i class="fa fa-circle text-xs mr-1"></i>节点: 蓝色=未访问, 橙色=已访问, 粉色=当前处理
+                            </span>
+                        </h3>
+                        <div id="treeVisualization" class="flex justify-center">
+                            <div class="text-gray-500 italic text-sm py-8">
+                                构建KD-Tree后将显示树结构
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 信息面板 -->
+                <div class="mt-4 bg-white rounded-xl shadow-soft p-4">
+                    <h2 class="text-lg font-semibold mb-3 flex items-center">
+                        <i class="fa fa-info-circle text-primary mr-2"></i>算法信息
+                    </h2>
+                    <div class="text-sm text-gray-600 space-y-2" id="algorithmInfo">
+                        <p>KD-Tree（k-dimensional tree）是一种用于组织k维空间中点的数据结构，常用于高维空间中的最近邻搜索和范围搜索。</p>
+                        <p>构建过程：算法通过递归选择分割轴和分割点，将空间划分为两个部分，形成二叉树结构。在2D情况下，通常交替使用x轴和y轴进行分割。</p>
+                        <p>查询过程：通过比较查询点与分割点的位置，优先搜索可能包含最近邻的子树，同时通过计算边界距离决定是否需要搜索另一棵子树。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="position: fixed; left: 0; bottom: 0; padding: 10px; z-index: 1000;" >
+            <img src="/images/fq-producer.jpg" alt loading="lazy" />
+        </div>
+
+        <!-- 页脚 -->
+        <footer class="mt-12 text-center text-gray-500 text-sm">
+            <p>福强出品 (<a href="https://afoo.me" target="_blank">https://afoo.me</a>)</p>
+        </footer>
+    </div>
+
+    <script>
+        // 等待DOM加载完成
+        document.addEventListener('DOMContentLoaded', () => {
+            // 获取Canvas和上下文
+            const canvas = document.getElementById('visualizationCanvas');
+            const ctx = canvas.getContext('2d');
+            const treeVisualizationContainer = document.getElementById('treeVisualization');
+            
+            // 状态变量
+            let points = [];
+            let pointLabels = new Map(); // 用于存储点与标签的映射
+            let nextLabelId = 0; // 用于生成点的唯一标签
+            let kdTree = null;
+            let buildSteps = [];
+            let buildStepDescriptions = []; // 存储每一步的说明文本
+            let currentStep = 0;
+            let queryPoint = null;
+            let nearestNeighbors = [];
+            let isBuildingStepByStep = false;
+            let isAddingPointManually = false;
+            let isEnablingQuery = false;
+            
+            // 查询过程相关变量
+            let querySteps = [];          // 存储查询过程的每一步
+            let currentQueryStep = 0;     // 当前查询步骤
+            let isQueryingStepByStep = false; // 是否正在逐步查询
+            
+            // 获取DOM元素
+            const stepDescriptionElement = document.getElementById('stepDescription');
+            const queryInfoElement = document.getElementById('queryInfo');
+            const currentNeighborsElement = document.getElementById('currentNeighbors');
+            const shortestDistanceElement = document.getElementById('shortestDistance');
+            const visitedNodesCountElement = document.getElementById('visitedNodesCount');
+            const queryStepControls = document.getElementById('queryStepControls');
+            const stepQueryBtn = document.getElementById('stepQuery');
+            
+            // 设置Canvas尺寸
+            function resizeCanvas() {
+                const container = canvas.parentElement;
+                canvas.width = container.clientWidth;
+                canvas.height = container.clientHeight;
+                redraw();
+            }
+            
+            // 监听窗口大小变化
+            window.addEventListener('resize', resizeCanvas);
+            
+            // UI元素
+            const pointCountSlider = document.getElementById('pointCount');
+            const pointCountValue = document.getElementById('pointCountValue');
+            const generatePointsBtn = document.getElementById('generatePoints');
+            const clearPointsBtn = document.getElementById('clearPoints');
+            const addPointManuallyBtn = document.getElementById('addPointManually');
+            const buildTreeBtn = document.getElementById('buildTree');
+            const stepBuildBtn = document.getElementById('stepBuild');
+            const resetTreeBtn = document.getElementById('resetTree');
+            const enableQueryBtn = document.getElementById('enableQuery');
+            const queryCountSelect = document.getElementById('queryCount');
+            const statusText = document.getElementById('statusText');
+            const canvasOverlay = document.getElementById('canvasOverlay');
+            const finalPointCount = document.getElementById('finalPointCount');
+            const closeOverlayBtn = document.getElementById('closeOverlay');
+            
+            // 初始化画布尺寸
+            resizeCanvas();
+            
+            // 更新点数量显示
+            pointCountSlider.addEventListener('input', () => {
+                pointCountValue.textContent = pointCountSlider.value;
+            });
+            
+            // 生成随机点
+            generatePointsBtn.addEventListener('click', () => {
+                const count = parseInt(pointCountSlider.value);
+                points = [];
+                pointLabels.clear();
+                nextLabelId = 0;
+                
+                for (let i = 0; i < count; i++) {
+                    const point = {
+                        x: 50 + Math.random() * (canvas.width - 100),
+                        y: 50 + Math.random() * (canvas.height - 100),
+                        color: '#3B82F6' // 蓝色
+                    };
+                    points.push(point);
+                    pointLabels.set(getPointKey(point), nextLabelId++);
+                }
+                
+                resetTreeState();
+                redraw();
+                statusText.textContent = `已生成 ${count} 个数据点`;
+                stepDescriptionElement.textContent = `已生成 ${count} 个随机数据点，每个点都有唯一标签（如P0、P1）。点击"构建KD-Tree"一次性完成构建，或点击"逐步构建"分步查看构建过程。`;
+            });
+            
+            // 清除所有点
+            clearPointsBtn.addEventListener('click', () => {
+                points = [];
+                pointLabels.clear();
+                nextLabelId = 0;
+                resetTreeState();
+                redraw();
+                updateTreeVisualization(null);
+                statusText.textContent = '已清除所有点';
+                stepDescriptionElement.textContent = '已清除所有数据点。请生成新的数据点来构建KD-Tree。';
+            });
+            
+            // 手动添加点模式
+            addPointManuallyBtn.addEventListener('click', () => {
+                isAddingPointManually = !isAddingPointManually;
+                isEnablingQuery = false;
+                resetQueryState();
+                
+                if (isAddingPointManually) {
+                    addPointManuallyBtn.classList.remove('bg-gray-100', 'hover:bg-gray-200', 'text-gray-700');
+                    addPointManuallyBtn.classList.add('bg-primary', 'hover:bg-primary/90', 'text-white');
+                    statusText.textContent = '点击画布添加点，再次点击按钮退出模式';
+                    stepDescriptionElement.textContent = '手动添加点模式已启用。点击画布任意位置添加数据点，每个点将自动分配唯一标签。';
+                    canvas.style.cursor = 'crosshair';
+                } else {
+                    addPointManuallyBtn.classList.remove('bg-primary', 'hover:bg-primary/90', 'text-white');
+                    addPointManuallyBtn.classList.add('bg-gray-100', 'hover:bg-gray-200', 'text-gray-700');
+                    statusText.textContent = `当前有 ${points.length} 个数据点`;
+                    stepDescriptionElement.textContent = `已添加 ${points.length} 个数据点。点击"构建KD-Tree"开始构建过程。`;
+                    canvas.style.cursor = 'default';
+                }
+            });
+            
+            // 构建KD-Tree
+            buildTreeBtn.addEventListener('click', () => {
+                if (points.length < 2) {
+                    statusText.textContent = '请至少添加2个点来构建KD-Tree';
+                    stepDescriptionElement.textContent = '构建KD-Tree需要至少2个数据点。请添加更多数据点后重试。';
+                    return;
+                }
+                
+                resetTreeState();
+                kdTree = buildKDTree(points, 0);
+                buildSteps = getBuildSteps(kdTree);
+                buildStepDescriptions = getBuildStepDescriptions(kdTree);
+                currentStep = buildSteps.length;
+                redraw();
+                updateTreeVisualization(kdTree);
+                
+                // 更新步骤说明
+                stepDescriptionElement.textContent = `KD-Tree构建完成！共进行了 ${currentStep} 步分割，形成了一个包含 ${points.length} 个数据点的KD-Tree结构。现在可以使用"启用查询"功能查找最近邻点。`;
+                
+                // 显示完成提示
+                finalPointCount.textContent = points.length;
+                canvasOverlay.classList.remove('hidden');
+                statusText.textContent = `KD-Tree 构建完成，包含 ${points.length} 个点`;
+            });
+            
+            // 逐步构建
+            stepBuildBtn.addEventListener('click', () => {
+                if (points.length < 2) {
+                    statusText.textContent = '请至少添加2个点来构建KD-Tree';
+                    stepDescriptionElement.textContent = '构建KD-Tree需要至少2个数据点。请添加更多数据点后重试。';
+                    return;
+                }
+                
+                if (!kdTree) {
+                    resetTreeState();
+                    kdTree = buildKDTree(points, 0);
+                    buildSteps = getBuildSteps(kdTree);
+                    buildStepDescriptions = getBuildStepDescriptions(kdTree);
+                    currentStep = 0;
+                    isBuildingStepByStep = true;
+                }
+                
+                if (currentStep < buildSteps.length) {
+                    currentStep++;
+                    redraw();
+                    // 更新树可视化，只显示到当前步骤的节点
+                    updateTreeVisualization(kdTree, currentStep);
+                    statusText.textContent = `构建步骤 ${currentStep}/${buildSteps.length}`;
+                    
+                    // 更新步骤说明
+                    if (currentStep - 1 < buildStepDescriptions.length) {
+                        stepDescriptionElement.textContent = buildStepDescriptions[currentStep - 1];
+                    }
+                } else {
+                    statusText.textContent = 'KD-Tree 构建完成';
+                    isBuildingStepByStep = false;
+                    
+                    // 更新步骤说明
+                    stepDescriptionElement.textContent = `KD-Tree构建完成！共进行了 ${currentStep} 步分割，形成了一个包含 ${points.length} 个数据点的KD-Tree结构。现在可以使用"启用查询"功能查找最近邻点。`;
+                    
+                    // 显示完成提示
+                    finalPointCount.textContent = points.length;
+                    canvasOverlay.classList.remove('hidden');
+                }
+            });
+            
+            // 重置树状态
+            resetTreeBtn.addEventListener('click', () => {
+                resetTreeState();
+                redraw();
+                updateTreeVisualization(null);
+                statusText.textContent = `已重置KD-Tree，当前有 ${points.length} 个点`;
+                stepDescriptionElement.textContent = `已重置KD-Tree。当前有 ${points.length} 个数据点，点击"构建KD-Tree"或"逐步构建"重新开始构建过程。`;
+            });
+            
+            // 启用查询模式
+            enableQueryBtn.addEventListener('click', () => {
+                if (!kdTree) {
+                    statusText.textContent = '请先构建KD-Tree';
+                    stepDescriptionElement.textContent = '请先构建KD-Tree，然后才能进行最近邻查询操作。';
+                    return;
+                }
+                
+                isEnablingQuery = !isEnablingQuery;
+                isAddingPointManually = false;
+                resetQueryState();
+                
+                if (isEnablingQuery) {
+                    enableQueryBtn.classList.remove('bg-accent/80', 'hover:bg-accent/90');
+                    enableQueryBtn.classList.add('bg-accent', 'hover:bg-accent/90');
+                    statusText.textContent = '点击画布选择查询点';
+                    stepDescriptionElement.textContent = '查询模式已启用。点击画布任意位置设置查询点，系统将分步展示查询过程，树结构中会用颜色标记当前处理节点和已访问节点。';
+                    canvas.style.cursor = 'crosshair';
+                    // 重置树节点高亮
+                    updateTreeVisualization(kdTree);
+                } else {
+                    enableQueryBtn.classList.remove('bg-accent', 'hover:bg-accent/90');
+                    enableQueryBtn.classList.add('bg-accent/80', 'hover:bg-accent/90');
+                    statusText.textContent = '查询模式已关闭';
+                    stepDescriptionElement.textContent = '查询模式已关闭。您可以继续构建新的KD-Tree或重新启用查询模式。';
+                    canvas.style.cursor = 'default';
+                    queryInfoElement.classList.add('hidden');
+                    queryStepControls.classList.add('hidden');
+                    // 重置树节点高亮
+                    updateTreeVisualization(kdTree);
+                }
+                
+                redraw();
+            });
+            
+            // 逐步查询
+            stepQueryBtn.addEventListener('click', () => {
+                if (!isQueryingStepByStep || currentQueryStep >= querySteps.length) {
+                    return;
+                }
+                
+                currentQueryStep++;
+                redraw();
+                
+                // 更新树可视化，高亮当前查询步骤涉及的节点
+                updateTreeVisualization(kdTree, null, currentQueryStep);
+                
+                // 更新查询信息
+                updateQueryInfo();
+                
+                // 更新步骤说明
+                if (currentQueryStep - 1 < querySteps.length) {
+                    stepDescriptionElement.textContent = querySteps[currentQueryStep - 1].description;
+                }
+                
+                // 检查是否查询完成
+                if (currentQueryStep >= querySteps.length) {
+                    statusText.textContent = `查询完成，找到 ${nearestNeighbors.length} 个最近邻点`;
+                    stepDescriptionElement.textContent = `查询完成！共访问了 ${querySteps.length} 个节点，找到距离查询点最近的 ${nearestNeighbors.length} 个点（绿色高亮显示）。`;
+                    isQueryingStepByStep = false;
+                } else {
+                    statusText.textContent = `查询步骤 ${currentQueryStep}/${querySteps.length}`;
+                }
+            });
+            
+            // 关闭覆盖层
+            closeOverlayBtn.addEventListener('click', () => {
+                canvasOverlay.classList.add('hidden');
+            });
+            
+            // 画布点击事件
+            canvas.addEventListener('click', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                if (isAddingPointManually) {
+                    // 添加新点
+                    const point = { x, y, color: '#3B82F6' };
+                    points.push(point);
+                    pointLabels.set(getPointKey(point), nextLabelId++);
+                    resetTreeState();
+                    redraw();
+                    updateTreeVisualization(null);
+                    statusText.textContent = `已添加点 P${nextLabelId-1}，当前共 ${points.length} 个点`;
+                    stepDescriptionElement.textContent = `已添加点 P${nextLabelId-1}，当前共 ${points.length} 个点。继续添加或点击"构建KD-Tree"开始构建过程。`;
+                } else if (isEnablingQuery) {
+                    // 设置查询点并准备分步查询
+                    queryPoint = { x, y };
+                    const k = parseInt(queryCountSelect.value);
+                    
+                    // 获取查询步骤
+                    querySteps = [];
+                    nearestNeighbors = [];
+                    recordKNearestNeighborsSteps(kdTree, queryPoint, k);
+                    
+                    currentQueryStep = 0;
+                    isQueryingStepByStep = true;
+                    
+                    // 显示查询信息面板和控制按钮
+                    queryInfoElement.classList.remove('hidden');
+                    queryStepControls.classList.remove('hidden');
+                    
+                    redraw();
+                    // 初始树可视化，无高亮
+                    updateTreeVisualization(kdTree);
+                    
+                    statusText.textContent = `查询开始，共 ${querySteps.length} 个步骤`;
+                    stepDescriptionElement.textContent = `已在位置 (${Math.round(x)}, ${Math.round(y)}) 设置查询点。点击"逐步查询"按钮开始查看查询过程，共 ${querySteps.length} 个步骤。树结构中会用颜色标记当前处理节点（粉色）和已访问节点（橙色）。`;
+                    
+                    // 更新查询信息
+                    updateQueryInfo();
+                }
+            });
+            
+            // 重置树状态
+            function resetTreeState() {
+                kdTree = null;
+                buildSteps = [];
+                buildStepDescriptions = [];
+                currentStep = 0;
+                isBuildingStepByStep = false;
+                resetQueryState();
+                
+                enableQueryBtn.classList.remove('bg-accent', 'hover:bg-accent/90');
+                enableQueryBtn.classList.add('bg-accent/80', 'hover:bg-accent/90');
+                queryInfoElement.classList.add('hidden');
+                queryStepControls.classList.add('hidden');
+            }
+            
+            // 重置查询状态
+            function resetQueryState() {
+                queryPoint = null;
+                nearestNeighbors = [];
+                querySteps = [];
+                currentQueryStep = 0;
+                isQueryingStepByStep = false;
+            }
+            
+            // 更新查询信息面板
+            function updateQueryInfo() {
+                // 显示当前最近邻
+                if (nearestNeighbors.length > 0) {
+                    currentNeighborsElement.textContent = nearestNeighbors.map(n => {
+                        const label = pointLabels.get(getPointKey(n.point));
+                        return `P${label} (${Math.round(n.point.x)}, ${Math.round(n.point.y)})`;
+                    }).join(', ');
+                    
+                    // 显示最短距离
+                    shortestDistanceElement.textContent = nearestNeighbors[0].distance.toFixed(2);
+                } else {
+                    currentNeighborsElement.textContent = '无';
+                    shortestDistanceElement.textContent = '--';
+                }
+                
+                // 显示已访问节点数量
+                visitedNodesCountElement.textContent = currentQueryStep;
+            }
+            
+            // 更新树结构可视化
+            function updateTreeVisualization(node, buildStep = null, queryStep = null) {
+                if (!node) {
+                    treeVisualizationContainer.innerHTML = `
+                        <div class="text-gray-500 italic text-sm py-8">
+                            构建KD-Tree后将显示树结构
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // 收集构建步骤中已创建的节点
+                const builtNodes = new Set();
+                if (buildStep !== null && buildSteps) {
+                    for (let i = 0; i < buildStep; i++) {
+                        if (buildSteps[i] && buildSteps[i].point) {
+                            builtNodes.add(getPointKey(buildSteps[i].point));
+                        }
+                    }
+                }
+                
+                // 收集查询步骤中已访问的节点
+                const visitedNodes = new Set();
+                let currentNodeKey = null;
+                if (queryStep !== null && querySteps) {
+                    for (let i = 0; i < queryStep; i++) {
+                        if (querySteps[i] && querySteps[i].node && querySteps[i].node.point) {
+                            visitedNodes.add(getPointKey(querySteps[i].node.point));
+                        }
+                    }
+                    // 标记当前节点
+                    if (queryStep - 1 < querySteps.length && querySteps[queryStep - 1] && 
+                        querySteps[queryStep - 1].node && querySteps[queryStep - 1].node.point) {
+                        currentNodeKey = getPointKey(querySteps[queryStep - 1].node.point);
+                    }
+                }
+                
+                // 递归生成树结构HTML
+                function createTreeNodeHtml(n, depth) {
+                    if (!n) return '';
+                    
+                    const pointKey = getPointKey(n.point);
+                    const axis = n.axis === 0 ? 'x' : 'y';
+                    const label = pointLabels.get(pointKey);
+                    
+                    // 确定节点样式
+                    let nodeStyle = 'bg-primary text-white';
+                    if (buildStep !== null && !builtNodes.has(pointKey)) {
+                        nodeStyle = 'bg-gray-200 text-gray-500';
+                    } else if (queryStep !== null) {
+                        if (currentNodeKey === pointKey) {
+                            nodeStyle = 'bg-current text-white';
+                        } else if (visitedNodes.has(pointKey)) {
+                            nodeStyle = 'bg-visited text-white';
+                        }
+                    }
+                    
+                    // 生成节点HTML
+                    let html = `
+                        <div class="tree-node text-center">
+                            <div class="inline-flex items-center justify-center w-20 h-12 rounded-md ${nodeStyle} text-xs font-medium mb-2">
+                                P${label}<br>
+                                (${Math.round(n.point.x)}, ${Math.round(n.point.y)})<br>
+                                <span class="text-[10px]">${axis}轴</span>
+                            </div>
+                    `;
+                    
+                    // 检查是否有子节点且该节点已被构建
+                    const hasChildren = n.left || n.right;
+                    const showChildren = buildStep === null || builtNodes.has(pointKey);
+                    
+                    if (hasChildren && showChildren) {
+                        html += `
+                            <div class="flex justify-center">
+                                <div class="w-0.5 bg-tree-line"></div>
+                            </div>
+                            <div class="flex justify-center space-x-4 mt-2">
+                                ${createTreeNodeHtml(n.left, depth + 1)}
+                                ${createTreeNodeHtml(n.right, depth + 1)}
+                            </div>
+                        `;
+                    }
+                    
+                    html += `</div>`;
+                    return html;
+                }
+                
+                // 生成完整的树HTML
+                const treeHtml = createTreeNodeHtml(node, 0);
+                treeVisualizationContainer.innerHTML = `<div class="tree-container p-4">${treeHtml}</div>`;
+            }
+            
+            // 生成点的唯一标识
+            function getPointKey(point) {
+                return `${Math.round(point.x)},${Math.round(point.y)}`;
+            }
+            
+            // 重绘函数
+            function redraw() {
+                // 清空画布
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // 绘制网格背景
+                drawGrid();
+                
+                // 绘制分割线（如果有构建步骤）
+                if (buildSteps.length > 0 && currentStep > 0) {
+                    for (let i = 0; i < currentStep; i++) {
+                        const step = buildSteps[i];
+                        drawSplitLine(step.point, step.depth, step.bounds);
+                    }
+                }
+                
+                // 绘制查询过程中的边界圆（如果有）
+                if (queryPoint && currentQueryStep > 0 && nearestNeighbors.length > 0) {
+                    // 获取当前步骤的最短距离
+                    const currentStepData = currentQueryStep - 1 < querySteps.length ? 
+                                          querySteps[currentQueryStep - 1] : null;
+                    
+                    if (currentStepData && currentStepData.shortestDistance > 0) {
+                        ctx.beginPath();
+                        ctx.arc(queryPoint.x, queryPoint.y, currentStepData.shortestDistance, 0, Math.PI * 2);
+                        ctx.strokeStyle = 'rgba(99, 102, 241, 0.3)'; // boundary color with alpha
+                        ctx.lineWidth = 2;
+                        ctx.setLineDash([5, 3]);
+                        ctx.stroke();
+                        ctx.setLineDash([]);
+                    }
+                }
+                
+                // 绘制所有点
+                points.forEach(point => {
+                    // 检查是否是最近邻点
+                    const isNeighbor = nearestNeighbors.some(nn => 
+                        getPointKey(nn.point) === getPointKey(point)
+                    );
+                    
+                    // 检查是否是查询过程中访问过的节点
+                    let pointColor = point.color;
+                    let isCurrentNode = false;
+                    
+                    if (isQueryingStepByStep && currentQueryStep > 0) {
+                        // 检查是否是当前步骤的节点
+                        if (currentQueryStep - 1 < querySteps.length) {
+                            const currentNode = querySteps[currentQueryStep - 1].node;
+                            if (currentNode && getPointKey(currentNode.point) === getPointKey(point)) {
+                                pointColor = '#EC4899'; // current node color
+                                isCurrentNode = true;
+                            }
+                        }
+                        
+                        // 检查是否是已访问的节点
+                        if (!isCurrentNode) {
+                            for (let i = 0; i < Math.min(currentQueryStep, querySteps.length); i++) {
+                                const node = querySteps[i].node;
+                                if (node && getPointKey(node.point) === getPointKey(point)) {
+                                    pointColor = '#F59E0B'; // visited node color
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    
+                    // 最近邻点始终显示为绿色
+                    if (isNeighbor) {
+                        pointColor = '#10B981';
+                    }
+                    
+                    drawPoint(point.x, point.y, pointColor, isCurrentNode ? 10 : (isNeighbor ? 8 : 6), isCurrentNode);
+                    
+                    // 绘制点标签
+                    const label = pointLabels.get(getPointKey(point));
+                    if (label !== undefined) {
+                        ctx.font = '12px Arial';
+                        ctx.fillStyle = '#374151';
+                        ctx.textAlign = 'center';
+                        ctx.fillText(`P${label}`, point.x, point.y - 12);
+                    }
+                });
+                
+                // 绘制查询点
+                if (queryPoint) {
+                    drawPoint(queryPoint.x, queryPoint.y, '#8B5CF6', 10, true);
+                    ctx.font = '12px Arial';
+                    ctx.fillStyle = '#8B5CF6';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('Q', queryPoint.x, queryPoint.y - 12);
+                    
+                    // 只在查询完成后绘制连接线
+                    if (currentQueryStep >= querySteps.length) {
+                        nearestNeighbors.forEach(nn => {
+                            drawLine(queryPoint.x, queryPoint.y, nn.point.x, nn.point.y, '#8B5CF6', 1);
+                        });
+                    }
+                }
+            }
+            
+            // 绘制网格
+            function drawGrid() {
+                ctx.strokeStyle = '#EEEEEE';
+                ctx.lineWidth = 1;
+                
+                // 水平网格线
+                for (let y = 0; y < canvas.height; y += 50) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(canvas.width, y);
+                    ctx.stroke();
+                }
+                
+                // 垂直网格线
+                for (let x = 0; x < canvas.width; x += 50) {
+                    ctx.beginPath();
+                    ctx.moveTo(x, 0);
+                    ctx.lineTo(x, canvas.height);
+                    ctx.stroke();
+                }
+            }
+            
+            // 绘制点
+            function drawPoint(x, y, color, radius, isSpecial = false) {
+                ctx.beginPath();
+                ctx.arc(x, y, radius, 0, Math.PI * 2);
+                ctx.fillStyle = color;
+                ctx.fill();
+                
+                if (isSpecial) {
+                    ctx.strokeStyle = '#FFFFFF';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                } else {
+                    ctx.strokeStyle = '#FFFFFF';
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                }
+            }
+            
+            // 绘制线
+            function drawLine(x1, y1, x2, y2, color, width) {
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.strokeStyle = color;
+                ctx.lineWidth = width;
+                ctx.setLineDash([5, 3]);
+                ctx.stroke();
+                ctx.setLineDash([]); // 重置为实线
+            }
+            
+            // 绘制分割线
+            function drawSplitLine(point, depth, bounds) {
+                const axis = depth % 2; // 0 for x-axis, 1 for y-axis
+                
+                ctx.strokeStyle = 'rgba(239, 68, 68, 0.7)'; // 红色
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                
+                if (axis === 0) {
+                    // 垂直分割线 (x-axis)
+                    ctx.moveTo(point.x, bounds.minY);
+                    ctx.lineTo(point.x, bounds.maxY);
+                } else {
+                    // 水平分割线 (y-axis)
+                    ctx.moveTo(bounds.minX, point.y);
+                    ctx.lineTo(bounds.maxX, point.y);
+                }
+                
+                ctx.stroke();
+                
+                // 标记分割点
+                ctx.fillStyle = 'rgba(239, 68, 68, 1)';
+                ctx.beginPath();
+                ctx.arc(point.x, point.y, 5, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            
+            // 获取构建步骤的说明文本
+            function getBuildStepDescriptions(node) {
+                const descriptions = [];
+                
+                function traverse(n, depth) {
+                    if (!n) return;
+                    
+                    const axis = depth % 2;
+                    const axisName = axis === 0 ? 'x' : 'y';
+                    const pointCoord = axis === 0 ? n.point.x.toFixed(1) : n.point.y.toFixed(1);
+                    const leftCount = countPoints(n.left);
+                    const rightCount = countPoints(n.right);
+                    const label = pointLabels.get(getPointKey(n.point));
+                    
+                    // 生成步骤说明
+                    let description = `步骤 ${descriptions.length + 1}：在深度 ${depth}，选择分割轴为${axisName}轴，分割点为 P${label} (${n.point.x.toFixed(1)}, ${n.point.y.toFixed(1)})，在${axisName}=${pointCoord}处绘制分割线。`;
+                    description += ` 左侧子空间包含 ${leftCount} 个点，右侧子空间包含 ${rightCount} 个点。`;
+                    
+                    descriptions.push(description);
+                    
+                    traverse(n.left, depth + 1);
+                    traverse(n.right, depth + 1);
+                }
+                
+                traverse(node, 0);
+                return descriptions;
+            }
+            
+            // 计算节点包含的点数量
+            function countPoints(node) {
+                if (!node) return 0;
+                return 1 + countPoints(node.left) + countPoints(node.right);
+            }
+            
+            // KD-Tree 节点类
+            class Node {
+                constructor(point, axis, left, right, bounds) {
+                    this.point = point;
+                    this.axis = axis; // 0 for x, 1 for y
+                    this.left = left;
+                    this.right = right;
+                    this.bounds = bounds; // 该节点所代表的空间范围
+                }
+            }
+            
+            // 构建KD-Tree
+            function buildKDTree(points, depth, bounds = null) {
+                if (points.length === 0) return null;
+                
+                // 确定当前分割轴
+                const axis = depth % 2;
+                
+                // 如果没有边界，计算初始边界
+                if (!bounds) {
+                    let minX = Infinity, maxX = -Infinity;
+                    let minY = Infinity, maxY = -Infinity;
+                    
+                    points.forEach(p => {
+                        minX = Math.min(minX, p.x);
+                        maxX = Math.max(maxX, p.x);
+                        minY = Math.min(minY, p.y);
+                        maxY = Math.max(maxY, p.y);
+                    });
+                    
+                    bounds = { minX, maxX, minY, maxY };
+                }
+                
+                // 对点进行排序
+                const sortedPoints = [...points].sort((a, b) => {
+                    return axis === 0 ? a.x - b.x : a.y - b.y;
+                });
+                
+                // 选择中间点作为分割点
+                const median = Math.floor(sortedPoints.length / 2);
+                const point = sortedPoints[median];
+                
+                // 分割点集
+                const leftPoints = sortedPoints.slice(0, median);
+                const rightPoints = sortedPoints.slice(median + 1);
+                
+                // 计算左右子树的边界
+                let leftBounds, rightBounds;
+                
+                if (axis === 0) {
+                    // x轴分割
+                    leftBounds = { ...bounds, maxX: point.x };
+                    rightBounds = { ...bounds, minX: point.x };
+                } else {
+                    // y轴分割
+                    leftBounds = { ...bounds, maxY: point.y };
+                    rightBounds = { ...bounds, minY: point.y };
+                }
+                
+                // 递归构建左右子树
+                return new Node(
+                    point,
+                    axis,
+                    buildKDTree(leftPoints, depth + 1, leftBounds),
+                    buildKDTree(rightPoints, depth + 1, rightBounds),
+                    bounds
+                );
+            }
+            
+            // 获取构建步骤
+            function getBuildSteps(node) {
+                const steps = [];
+                
+                function traverse(n, depth) {
+                    if (!n) return;
+                    
+                    // 先序遍历 - 记录分割步骤
+                    steps.push({
+                        point: n.point,
+                        depth: depth,
+                        bounds: n.bounds
+                    });
+                    
+                    traverse(n.left, depth + 1);
+                    traverse(n.right, depth + 1);
+                }
+                
+                traverse(node, 0);
+                return steps;
+            }
+            
+            // 计算两点之间的欧氏距离
+            function distance(p1, p2) {
+                const dx = p1.x - p2.x;
+                const dy = p1.y - p2.y;
+                return Math.sqrt(dx * dx + dy * dy);
+            }
+            
+            // 记录k最近邻查询的步骤
+            function recordKNearestNeighborsSteps(node, query, k) {
+                const neighbors = [];
+                querySteps = [];
+                
+                function search(n) {
+                    if (!n) return;
+                    
+                    // 记录访问此节点
+                    const dist = distance(n.point, query);
+                    
+                    // 保存当前邻居状态用于步骤记录
+                    const currentNeighbors = [...neighbors];
+                    
+                    // 检查是否应将当前点添加到邻居列表
+                    let addedToNeighbors = false;
+                    if (neighbors.length < k || dist < neighbors[neighbors.length - 1].distance) {
+                        neighbors.push({ point: n.point, distance: dist });
+                        // 按距离排序并保持最多k个元素
+                        neighbors.sort((a, b) => a.distance - b.distance);
+                        if (neighbors.length > k) {
+                            neighbors.pop();
+                        }
+                        addedToNeighbors = true;
+                    }
+                    
+                    // 确定当前最短距离
+                    const shortestDistance = neighbors.length > 0 ? neighbors[neighbors.length - 1].distance : Infinity;
+                    
+                    // 生成步骤说明
+                    const axisName = n.axis === 0 ? 'x' : 'y';
+                    const queryCoord = n.axis === 0 ? query.x : query.y;
+                    const nodeCoord = n.axis === 0 ? n.point.x : n.point.y;
+                    const direction = queryCoord < nodeCoord ? '左侧' : '右侧';
+                    const label = pointLabels.get(getPointKey(n.point));
+                    
+                    let description = `查询步骤 ${querySteps.length + 1}：访问节点 P${label} (${n.point.x.toFixed(1)}, ${n.point.y.toFixed(1)})，`;
+                    description += `分割轴为${axisName}轴。查询点${axisName}坐标为${queryCoord.toFixed(1)}，`;
+                    description += `位于该节点${axisName}=${nodeCoord.toFixed(1)}的${direction}。`;
+                    
+                    if (addedToNeighbors) {
+                        description += ` 该节点距离查询点为${dist.toFixed(2)}，被添加到最近邻列表。`;
+                    } else if (neighbors.length > 0) {
+                        description += ` 该节点距离(${dist.toFixed(2)})大于当前最短距离(${shortestDistance.toFixed(2)})，未被添加到最近邻列表。`;
+                    }
+                    
+                    // 记录此步骤
+                    querySteps.push({
+                        node: n,
+                        description: description,
+                        shortestDistance: shortestDistance,
+                        neighbors: currentNeighbors
+                    });
+                    
+                    // 确定分割轴和搜索方向
+                    const isLeft = (n.axis === 0 && query.x < n.point.x) || (n.axis === 1 && query.y < n.point.y);
+                    
+                    // 先搜索可能包含更近点的子树
+                    if (isLeft) {
+                        search(n.left);
+                        
+                        // 检查是否需要搜索右子树
+                        const shouldSearchOther = neighbors.length < k || 
+                                                (n.axis === 0 && Math.abs(query.x - n.point.x) < shortestDistance) ||
+                                                (n.axis === 1 && Math.abs(query.y - n.point.y) < shortestDistance);
+                        
+                        if (shouldSearchOther) {
+                            // 记录需要搜索另一子树的决策
+                            const decisionStep = {
+                                node: n,
+                                description: `查询步骤 ${querySteps.length + 1}：决策点 - 查询点到${axisName}=${nodeCoord.toFixed(1)}的距离为${Math.abs(queryCoord - nodeCoord).toFixed(2)}，` +
+                                            `小于当前最短距离${shortestDistance.toFixed(2)}，因此需要搜索另一子树。`,
+                                shortestDistance: shortestDistance,
+                                neighbors: [...neighbors]
+                            };
+                            querySteps.push(decisionStep);
+                            search(n.right);
+                        } else {
+                            // 记录不需要搜索另一子树的决策
+                            const decisionStep = {
+                                node: n,
+                                description: `查询步骤 ${querySteps.length + 1}：决策点 - 查询点到${axisName}=${nodeCoord.toFixed(1)}的距离为${Math.abs(queryCoord - nodeCoord).toFixed(2)}，` +
+                                            `大于当前最短距离${shortestDistance.toFixed(2)}，因此不需要搜索另一子树。`,
+                                shortestDistance: shortestDistance,
+                                neighbors: [...neighbors]
+                            };
+                            querySteps.push(decisionStep);
+                        }
+                    } else {
+                        search(n.right);
+                        
+                        // 检查是否需要搜索左子树
+                        const shouldSearchOther = neighbors.length < k || 
+                                                (n.axis === 0 && Math.abs(query.x - n.point.x) < shortestDistance) ||
+                                                (n.axis === 1 && Math.abs(query.y - n.point.y) < shortestDistance);
+                        
+                        if (shouldSearchOther) {
+                            // 记录需要搜索另一子树的决策
+                            const decisionStep = {
+                                node: n,
+                                description: `查询步骤 ${querySteps.length + 1}：决策点 - 查询点到${axisName}=${nodeCoord.toFixed(1)}的距离为${Math.abs(queryCoord - nodeCoord).toFixed(2)}，` +
+                                            `小于当前最短距离${shortestDistance.toFixed(2)}，因此需要搜索另一子树。`,
+                                shortestDistance: shortestDistance,
+                                neighbors: [...neighbors]
+                            };
+                            querySteps.push(decisionStep);
+                            search(n.left);
+                        } else {
+                            // 记录不需要搜索另一子树的决策
+                            const decisionStep = {
+                                node: n,
+                                description: `查询步骤 ${querySteps.length + 1}：决策点 - 查询点到${axisName}=${nodeCoord.toFixed(1)}的距离为${Math.abs(queryCoord - nodeCoord).toFixed(2)}，` +
+                                            `大于当前最短距离${shortestDistance.toFixed(2)}，因此不需要搜索另一子树。`,
+                                shortestDistance: shortestDistance,
+                                neighbors: [...neighbors]
+                            };
+                            querySteps.push(decisionStep);
+                        }
+                    }
+                }
+                
+                search(node);
+                nearestNeighbors = neighbors;
+                return neighbors;
+            }
+            
+            // k最近邻查询（用于直接查询，非演示）
+            function kNearestNeighbors(node, query, k) {
+                const neighbors = [];
+                
+                function search(n) {
+                    if (!n) return;
+                    
+                    // 计算当前点与查询点的距离
+                    const dist = distance(n.point, query);
+                    
+                    // 如果邻居数量不足k，或当前点比最远的邻居更近，则添加到邻居列表
+                    if (neighbors.length < k || dist < neighbors[neighbors.length - 1].distance) {
+                        neighbors.push({ point: n.point, distance: dist });
+                        // 按距离排序并保持最多k个元素
+                        neighbors.sort((a, b) => a.distance - b.distance);
+                        if (neighbors.length > k) {
+                            neighbors.pop();
+                        }
+                    }
+                    
+                    // 确定分割轴
+                    const axis = n.axis;
+                    const isLeft = (axis === 0 && query.x < n.point.x) || (axis === 1 && query.y < n.point.y);
+                    
+                    // 先搜索可能包含更近点的子树
+                    if (isLeft) {
+                        search(n.left);
+                        // 检查另一个子树是否可能包含更近的点
+                        if (neighbors.length < k || 
+                            (axis === 0 && Math.abs(query.x - n.point.x) < neighbors[neighbors.length - 1].distance) ||
+                            (axis === 1 && Math.abs(query.y - n.point.y) < neighbors[neighbors.length - 1].distance)) {
+                            search(n.right);
+                        }
+                    } else {
+                        search(n.right);
+                        // 检查另一个子树是否可能包含更近的点
+                        if (neighbors.length < k || 
+                            (axis === 0 && Math.abs(query.x - n.point.x) < neighbors[neighbors.length - 1].distance) ||
+                            (axis === 1 && Math.abs(query.y - n.point.y) < neighbors[neighbors.length - 1].distance)) {
+                            search(n.left);
+                        }
+                    }
+                }
+                
+                search(node);
+                return neighbors;
+            }
+        });
+    </script>
+</body>
+</html>
