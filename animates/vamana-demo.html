@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vamana 算法动态演示</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: #333;
+        }
+
+        .container {
+            max-width: 95vw;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            min-height: 90vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4a5568;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #f093fb, #f5576c);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+            color: white;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .visualization {
+            display: flex;
+            gap: 40px;
+            margin-top: 30px;
+            height: calc(100vh - 300px);
+            min-height: 600px;
+        }
+
+        .canvas-container {
+            flex: 1;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+
+        canvas {
+            border: 3px solid #e2e8f0;
+            border-radius: 10px;
+            background: #f8fafc;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            height: 100%;
+        }
+
+        .info-panel {
+            flex: 1;
+            min-width: 350px;
+            background: #f8fafc;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-info {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .step-title {
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 8px;
+        }
+
+        .step-description {
+            color: #718096;
+            line-height: 1.5;
+        }
+
+        .graph-info {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #f093fb;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        .author-info {
+            text-align: center;
+            padding: 20px;
+            color: #718096;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.8);
+            margin-top: 20px;
+        }
+
+        .author-info a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .author-info a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        .speed-control-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .speed-control {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .speed-label {
+            color: #4a5568;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .speed-btn {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 12px;
+        }
+
+        .speed-btn:hover {
+            background: #667eea !important;
+            color: white !important;
+            transform: translateY(-1px);
+        }
+
+        .speed-slider {
+            width: 200px;
+            margin: 0 10px;
+        }
+
+        .speed-value {
+            color: #667eea;
+            font-weight: bold;
+            margin-left: 10px;
+            white-space: nowrap;
+        }
+
+        .algorithm-intro {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 40px 20px;
+            margin-top: 40px;
+        }
+
+        .intro-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .algorithm-intro h2 {
+            text-align: center;
+            color: #2d3748;
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        .intro-section {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid #667eea;
+        }
+
+        .intro-section h3 {
+            color: #4a5568;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .intro-section p {
+            color: #718096;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .intro-section ul {
+            color: #718096;
+            line-height: 1.7;
+            padding-left: 20px;
+        }
+
+        .intro-section li {
+            margin-bottom: 8px;
+        }
+
+        .intro-section li strong {
+            color: #4a5568;
+        }
+
+        .advantages {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .advantage-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .advantage-icon {
+            font-size: 1.5em;
+            flex-shrink: 0;
+        }
+
+        .advantage-item strong {
+            color: #4a5568;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .advantage-item p {
+            color: #718096;
+            font-size: 0.9em;
+            margin: 0;
+        }
+
+        .applications {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .app-tag {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .comparison-item {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .comparison-item h4 {
+            color: #4a5568;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .comparison-item ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .complexity {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .complexity-item {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            color: #4a5568;
+            font-weight: 500;
+        }
+
+        .speed-control input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .speed-control input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #667eea;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .speed-control input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: #667eea;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+        }
+
+        .legend-line {
+            width: 20px;
+            height: 3px;
+            border-radius: 2px;
+        }
+
+        .stats {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #4facfe;
+        }
+
+        .stats-title {
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 8px;
+        }
+
+        .stats-content {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        .parameter-controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .param-control {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .param-label {
+            color: #4a5568;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .param-value {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🔄 Vamana 算法动态演示</h1>
+
+        <div class="controls">
+            <button class="btn-primary" onclick="generateRandomPoints()">生成随机点</button>
+            <button class="btn-secondary" onclick="buildVamana()">构建 Vamana 图</button>
+            <button class="btn-success" onclick="startSearch()">开始搜索</button>
+            <button class="btn-secondary" onclick="toggleSearchPause()" id="pauseBtn" style="display: none;">暂停</button>
+            <button class="btn-primary" onclick="reset()">重置</button>
+        </div>
+
+        <div class="parameter-controls">
+            <div class="param-control">
+                <span class="param-label">最大度数 R:</span>
+                <span class="param-value" id="maxDegree">6</span>
+            </div>
+            <div class="param-control">
+                <span class="param-label">候选集大小 L:</span>
+                <span class="param-value" id="candidateSize">10</span>
+            </div>
+            <div class="param-control">
+                <span class="param-label">剪枝参数 α:</span>
+                <span class="param-value" id="pruningAlpha">1.2</span>
+            </div>
+        </div>
+
+        <div class="speed-control-container">
+            <div class="speed-control">
+                <label for="speedSlider" class="speed-label">构建速度:</label>
+                <button onclick="setSpeed(0.5)" class="speed-btn">快速</button>
+                <input type="range" id="speedSlider" min="0.5" max="3" step="0.1" value="1.5" class="speed-slider"
+                    onchange="updateBuildSpeed()">
+                <button onclick="setSpeed(3)" class="speed-btn">慢速</button>
+                <span id="speedValue" class="speed-value">1.5s</span>
+            </div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background: #3182ce;"></div>
+                <span>数据点</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #ff6b35;"></div>
+                <span>搜索起点</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #ffd700;"></div>
+                <span>当前节点</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #f093fb;"></div>
+                <span>候选点</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #38a169;"></div>
+                <span>最近邻</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-line" style="background: #667eea;"></div>
+                <span>图边</span>
+            </div>
+        </div>
+
+        <div class="visualization">
+            <div class="canvas-container">
+                <canvas id="canvas" width="800" height="600"></canvas>
+            </div>
+
+            <div class="info-panel">
+                <div class="step-info">
+                    <div class="step-title">当前步骤</div>
+                    <div class="step-description" id="stepDescription">
+                        点击"生成随机点"开始演示
+                    </div>
+                </div>
+
+                <div class="graph-info">
+                    <div style="font-weight: bold; margin-bottom: 10px; color: #4a5568;">构建信息:</div>
+                    <div id="buildInfo" style="margin-bottom: 15px; color: #718096; font-size: 14px;">
+                        点击"生成随机点"开始
+                    </div>
+                </div>
+
+                <div class="stats">
+                    <div class="stats-title">算法统计</div>
+                    <div class="stats-content" id="algorithmStats">
+                        等待开始构建...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="algorithm-intro">
+        <div class="intro-container">
+            <h2>🔄 Vamana 算法介绍</h2>
+
+            <div class="intro-section">
+                <h3>📖 算法概述</h3>
+                <p>Vamana是DiskANN中的核心图构建算法，通过迭代优化过程构建高质量的近似最近邻搜索图。它使用贪心搜索和智能剪枝策略，在保证搜索质量的同时控制图的复杂度。</p>
+            </div>
+
+            <div class="intro-section">
+                <h3>🔧 核心思想</h3>
+                <ul>
+                    <li><strong>随机图初始化</strong>：为每个节点随机分配初始邻居连接</li>
+                    <li><strong>迭代优化</strong>：通过贪心搜索为每个节点寻找最优邻居集合</li>
+                    <li><strong>RobustPrune剪枝</strong>：使用角度剪枝和距离约束优化图结构</li>
+                    <li><strong>度数控制</strong>：限制每个节点的最大连接数，平衡质量和效率</li>
+                </ul>
+            </div>
+
+            <div class="intro-section">
+                <h3>🚀 算法优势</h3>
+                <div class="advantages">
+                    <div class="advantage-item">
+                        <span class="advantage-icon">🎯</span>
+                        <div>
+                            <strong>高质量图</strong>
+                            <p>通过迭代优化构建高连通性的搜索图</p>
+                        </div>
+                    </div>
+                    <div class="advantage-item">
+                        <span class="advantage-icon">⚡</span>
+                        <div>
+                            <strong>高效搜索</strong>
+                            <p>优化的图结构支持快速的贪心搜索</p>
+                        </div>
+                    </div>
+                    <div class="advantage-item">
+                        <span class="advantage-icon">🔧</span>
+                        <div>
+                            <strong>参数可调</strong>
+                            <p>支持多种参数调节以适应不同场景</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="intro-section">
+                <h3>💡 应用场景</h3>
+                <div class="applications">
+                    <span class="app-tag">🔍 大规模检索</span>
+                    <span class="app-tag">🖼️ 图像搜索</span>
+                    <span class="app-tag">📊 向量数据库</span>
+                    <span class="app-tag">🤖 机器学习</span>
+                    <span class="app-tag">🎵 多媒体检索</span>
+                    <span class="app-tag">📝 文档相似性</span>
+                </div>
+            </div>
+
+            <div class="intro-section">
+                <h3>⚙️ 关键参数</h3>
+                <div class="comparison">
+                    <div class="comparison-item">
+                        <h4>🔢 最大度数 R</h4>
+                        <ul>
+                            <li>控制每个节点的最大连接数</li>
+                            <li>影响图的稠密度和搜索质量</li>
+                            <li>典型值：32-128</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-item">
+                        <h4>📋 候选集大小 L</h4>
+                        <ul>
+                            <li>搜索过程中维��的候选数量</li>
+                            <li>影响构建质量和时间复杂度</li>
+                            <li>通常设为 R 的 1.5-2 倍</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-item">
+                        <h4>✂️ 剪枝参数 α</h4>
+                        <ul>
+                            <li>控制剪枝的激进程度</li>
+                            <li>平衡图质量和构建效率</li>
+                            <li>典型值：1.0-1.5</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="intro-section">
+                <h3>📈 复杂度分析</h3>
+                <div class="complexity">
+                    <div class="complexity-item">
+                        <strong>构建时间</strong>: O(n·L·R)
+                    </div>
+                    <div class="complexity-item">
+                        <strong>搜索时间</strong>: O(L·log n)
+                    </div>
+                    <div class="complexity-item">
+                        <strong>空间复杂度</strong>: O(n·R)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="author-info">
+        by <a href="https://afoo.me" target="_blank">福强</a> & Kiro
+    </div>
+
+    <script>
+        class Point {
+            constructor(x, y, id) {
+                this.x = x;
+                this.y = y;
+                this.id = id;
+                this.neighbors = [];
+            }
+
+            distance(other) {
+                return Math.sqrt((this.x - other.x) ** 2 + (this.y - other.y) ** 2);
+            }
+        }
+
+        class VamanaGraph {
+            constructor(maxDegree = 6, candidateSize = 10, alpha = 1.2) {
+                this.points = [];
+                this.startingPoint = null;
+                this.maxDegree = maxDegree;
+                this.candidateSize = candidateSize;
+                this.alpha = alpha;
+                this.buildSteps = [];
+            }
+
+            build(points) {
+                this.points = [...points];
+                this.buildSteps = [];
+
+                if (points.length === 0) return [];
+
+                // 第一步：初始化随机图
+                this.initializeRandomGraph();
+
+                // 第二步：迭代优化每个节点的邻居
+                for (let i = 0; i < this.points.length; i++) {
+                    this.optimizeNodeNeighbors(this.points[i], i);
+                }
+
+                // 构建完成
+                this.buildSteps.push({
+                    type: 'build_complete',
+                    message: 'Vamana图构建完成'
+                });
+
+                return this.buildSteps;
+            }
+
+
+
+            initializeRandomGraph() {
+                // 为每个点初始化随机邻居（简化版）
+                for (const point of this.points) {
+                    const others = this.points.filter(p => p !== point);
+                    const shuffled = others.sort(() => Math.random() - 0.5);
+                    point.neighbors = shuffled.slice(0, Math.min(this.maxDegree, others.length));
+                }
+
+                this.buildSteps.push({
+                    type: 'initialize_random',
+                    message: '初始化随机图结构'
+                });
+            }
+
+            optimizeNodeNeighbors(point, pointIndex) {
+                this.buildSteps.push({
+                    type: 'start_optimize',
+                    point: point,
+                    index: pointIndex
+                });
+
+                // 使用贪心搜索找到候选邻居
+                const candidates = this.greedySearchCandidates(point);
+
+                this.buildSteps.push({
+                    type: 'find_candidates',
+                    point: point,
+                    candidates: candidates
+                });
+
+                // 使用RobustPrune剪枝选择最终邻居
+                const prunedNeighbors = this.robustPrune(point, candidates);
+
+                // 更新邻居
+                point.neighbors = prunedNeighbors;
+
+                this.buildSteps.push({
+                    type: 'prune_neighbors',
+                    point: point,
+                    candidates: candidates,
+                    finalNeighbors: prunedNeighbors,
+                    prunedCount: candidates.length - prunedNeighbors.length
+                });
+
+                // 反向连接更新
+                this.updateReverseConnections(point, prunedNeighbors);
+            }
+
+            greedySearchCandidates(queryPoint) {
+                const visited = new Set();
+                const candidates = [];
+
+                // 在构建阶段，从随机点开始贪心搜索
+                let current = this.points[Math.floor(Math.random() * this.points.length)];
+                visited.add(current.id);
+
+                if (current !== queryPoint) {
+                    candidates.push({
+                        point: current,
+                        distance: queryPoint.distance(current)
+                    });
+                }
+
+                // 贪心搜索扩展
+                let improved = true;
+                while (improved && candidates.length < this.candidateSize) {
+                    improved = false;
+                    let bestNeighbor = null;
+                    let bestDistance = Infinity;
+
+                    // 检查当前点的所有邻居
+                    for (const neighbor of current.neighbors) {
+                        if (!visited.has(neighbor.id) && neighbor !== queryPoint) {
+                            const distance = queryPoint.distance(neighbor);
+                            if (distance < bestDistance) {
+                                bestDistance = distance;
+                                bestNeighbor = neighbor;
+                            }
+                        }
+                    }
+
+                    if (bestNeighbor) {
+                        visited.add(bestNeighbor.id);
+                        candidates.push({
+                            point: bestNeighbor,
+                            distance: bestDistance
+                        });
+                        current = bestNeighbor;
+                        improved = true;
+                    }
+                }
+
+                // 如果候选不够，添加一些随机点
+                while (candidates.length < this.candidateSize) {
+                    const remaining = this.points.filter(p =>
+                        !visited.has(p.id) && p !== queryPoint);
+                    if (remaining.length === 0) break;
+
+                    const randomPoint = remaining[Math.floor(Math.random() * remaining.length)];
+                    visited.add(randomPoint.id);
+                    candidates.push({
+                        point: randomPoint,
+                        distance: queryPoint.distance(randomPoint)
+                    });
+                }
+
+                // 按距离排序
+                candidates.sort((a, b) => a.distance - b.distance);
+                return candidates.slice(0, this.candidateSize);
+            }
+
+            robustPrune(queryPoint, candidates) {
+                if (candidates.length <= this.maxDegree) {
+                    return candidates.map(c => c.point);
+                }
+
+                const result = [];
+                const remaining = [...candidates];
+
+                // 总是保留最近的点
+                if (remaining.length > 0) {
+                    result.push(remaining.shift().point);
+                }
+
+                // 使用角度剪枝选择其余邻居
+                while (result.length < this.maxDegree && remaining.length > 0) {
+                    let bestCandidate = null;
+                    let bestIndex = -1;
+                    let bestScore = -Infinity;
+
+                    for (let i = 0; i < remaining.length; i++) {
+                        const candidate = remaining[i];
+
+                        // 计算与已选择邻居的角度分散性
+                        let minAngle = Math.PI;
+                        for (const neighbor of result) {
+                            const angle = this.calculateAngle(queryPoint, candidate.point, neighbor);
+                            minAngle = Math.min(minAngle, angle);
+                        }
+
+                        // 结合距离和角度的评分
+                        const distanceScore = 1.0 / (1.0 + candidate.distance);
+                        const angleScore = minAngle / Math.PI;
+                        const score = distanceScore * this.alpha + angleScore;
+
+                        if (score > bestScore) {
+                            bestScore = score;
+                            bestCandidate = candidate;
+                            bestIndex = i;
+                        }
+                    }
+
+                    if (bestCandidate) {
+                        result.push(bestCandidate.point);
+                        remaining.splice(bestIndex, 1);
+                    } else {
+                        break;
+                    }
+                }
+
+                return result;
+            }
+
+            calculateAngle(center, point1, point2) {
+                const v1x = point1.x - center.x;
+                const v1y = point1.y - center.y;
+                const v2x = point2.x - center.x;
+                const v2y = point2.y - center.y;
+
+                const dot = v1x * v2x + v1y * v2y;
+                const mag1 = Math.sqrt(v1x * v1x + v1y * v1y);
+                const mag2 = Math.sqrt(v2x * v2x + v2y * v2y);
+
+                if (mag1 === 0 || mag2 === 0) return 0;
+
+                const cosAngle = dot / (mag1 * mag2);
+                return Math.acos(Math.max(-1, Math.min(1, cosAngle)));
+            }
+
+            updateReverseConnections(point, neighbors) {
+                for (const neighbor of neighbors) {
+                    // 如果邻居的连接数未满，考虑添加反向连接
+                    if (neighbor.neighbors.length < this.maxDegree &&
+                        !neighbor.neighbors.includes(point)) {
+
+                        // 简化版：直接添加反向连接
+                        neighbor.neighbors.push(point);
+
+                        this.buildSteps.push({
+                            type: 'add_reverse',
+                            from: neighbor,
+                            to: point
+                        });
+
+                        // 如果超过最大度数，需要剪枝
+                        if (neighbor.neighbors.length > this.maxDegree) {
+                            neighbor.neighbors = neighbor.neighbors
+                                .map(n => ({ point: n, distance: neighbor.distance(n) }))
+                                .sort((a, b) => a.distance - b.distance)
+                                .slice(0, this.maxDegree)
+                                .map(n => n.point);
+                        }
+                    }
+                }
+            }
+
+            search(queryPoint, k = 1) {
+                if (this.points.length === 0) return null;
+
+                const visited = new Set();
+                const candidates = [];
+                const searchSteps = [];
+
+                // 随机选择一个起始点进行搜索（更符合Vamana算法）
+                const randomStartIndex = Math.floor(Math.random() * this.points.length);
+                let current = this.points[randomStartIndex];
+                visited.add(current.id);
+
+                searchSteps.push({
+                    type: 'start_search',
+                    point: current,
+                    distance: queryPoint.distance(current),
+                    isRandomStart: true
+                });
+
+                candidates.push({
+                    point: current,
+                    distance: queryPoint.distance(current)
+                });
+
+                // 贪心搜索
+                let improved = true;
+                while (improved) {
+                    improved = false;
+
+                    for (const neighbor of current.neighbors) {
+                        if (!visited.has(neighbor.id)) {
+                            visited.add(neighbor.id);
+                            const distance = queryPoint.distance(neighbor);
+
+                            searchSteps.push({
+                                type: 'visit_neighbor',
+                                from: current,
+                                to: neighbor,
+                                distance: distance
+                            });
+
+                            candidates.push({
+                                point: neighbor,
+                                distance: distance
+                            });
+
+                            if (distance < queryPoint.distance(current)) {
+                                current = neighbor;
+                                improved = true;
+
+                                searchSteps.push({
+                                    type: 'update_current',
+                                    point: current,
+                                    distance: distance
+                                });
+                            }
+                        }
+                    }
+                }
+
+                candidates.sort((a, b) => a.distance - b.distance);
+                const result = candidates.slice(0, k);
+
+                return {
+                    results: result,
+                    steps: searchSteps,
+                    visited: Array.from(visited)
+                };
+            }
+        }
+
+        // Visualization
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        let points = [];
+        let vamanaGraph = new VamanaGraph();
+        let buildSteps = [];
+        let currentStep = 0;
+        let queryPoint = null;
+        let searchResult = null;
+        let animationId = null;
+
+        function generateRandomPoints() {
+            points = [];
+            // 生成聚类点以便更好地展示算法效果
+            const clusters = 3;
+            const pointsPerCluster = 8;
+            let pointId = 0;
+
+            for (let i = 0; i < clusters; i++) {
+                const centerX = Math.random() * (canvas.width - 200) + 100;
+                const centerY = Math.random() * (canvas.height - 200) + 100;
+
+                for (let j = 0; j < pointsPerCluster; j++) {
+                    const angle = Math.random() * 2 * Math.PI;
+                    const radius = Math.random() * 60 + 20;
+
+                    points.push(new Point(
+                        centerX + Math.cos(angle) * radius,
+                        centerY + Math.sin(angle) * radius,
+                        pointId++
+                    ));
+                }
+            }
+
+            reset();
+            drawPoints();
+            updateStepDescription("已生成 " + points.length + " 个聚类点，点击\"构建 Vamana 图\"继续");
+            updateBuildInfo();
+        }
+
+        function buildVamana() {
+            if (points.length === 0) {
+                alert('请先生成随机点！');
+                return;
+            }
+
+            buildSteps = vamanaGraph.build([...points]);
+            currentStep = 0;
+            animateBuild();
+        }
+
+        let buildSpeed = 1500; // 默认1.5秒间隔
+
+        function animateBuild() {
+            if (currentStep >= buildSteps.length) {
+                updateStepDescription("Vamana 图构建完成！点击\"开始搜索\"进行最近邻搜索");
+                drawCompleteGraph();
+                updateAlgorithmStats();
+                return;
+            }
+
+            const step = buildSteps[currentStep];
+            drawBuildStep(step);
+
+            updateBuildStepDescription(step);
+            updateBuildInfo();
+            currentStep++;
+            setTimeout(() => animateBuild(), buildSpeed);
+        }
+
+        let searchSteps = [];
+        let currentSearchStep = 0;
+        let isSearching = false;
+        let searchPaused = false;
+        let searchTimeoutId = null;
+        let searchSpeed = 1500;
+
+        function startSearch() {
+            if (points.length === 0) {
+                alert('请先构建 Vamana 图！');
+                return;
+            }
+
+            if (isSearching) {
+                return;
+            }
+
+            // 生成随机查询点
+            queryPoint = new Point(
+                Math.random() * (canvas.width - 40) + 20,
+                Math.random() * (canvas.height - 40) + 20,
+                -1
+            );
+
+            searchResult = vamanaGraph.search(queryPoint);
+            searchSteps = searchResult.steps;
+            currentSearchStep = 0;
+            isSearching = true;
+
+            updateStepDescription(`开始搜索最近邻！查询点: (${queryPoint.x.toFixed(1)}, ${queryPoint.y.toFixed(1)})`);
+
+            document.getElementById('pauseBtn').style.display = 'inline-block';
+            animateSearch();
+        }
+
+        function animateSearch() {
+            if (searchPaused) return;
+
+            if (currentSearchStep >= searchSteps.length) {
+                isSearching = false;
+                searchPaused = false;
+                document.getElementById('pauseBtn').style.display = 'none';
+                drawSearchResult();
+
+                const nearest = searchResult.results[0];
+                updateStepDescription(`搜索完成！查询点: (${queryPoint.x.toFixed(1)}, ${queryPoint.y.toFixed(1)})
+                    最近邻: (${nearest.point.x.toFixed(1)}, ${nearest.point.y.toFixed(1)})
+                    距离: ${nearest.distance.toFixed(2)}`);
+
+                updateSearchStats();
+                return;
+            }
+
+            const step = searchSteps[currentSearchStep];
+            drawSearchStep(step);
+            updateSearchStepDescription(step);
+
+            currentSearchStep++;
+            searchTimeoutId = setTimeout(() => animateSearch(), searchSpeed);
+        }
+
+        function toggleSearchPause() {
+            const pauseBtn = document.getElementById('pauseBtn');
+            if (searchPaused) {
+                searchPaused = false;
+                pauseBtn.textContent = '暂停';
+                animateSearch();
+            } else {
+                searchPaused = true;
+                pauseBtn.textContent = '继续';
+                if (searchTimeoutId) {
+                    clearTimeout(searchTimeoutId);
+                }
+            }
+        }
+
+        function updateBuildSpeed() {
+            const slider = document.getElementById('speedSlider');
+            const speedValue = document.getElementById('speedValue');
+            buildSpeed = parseFloat(slider.value) * 1000;
+            searchSpeed = buildSpeed; // 同步搜索速度
+            speedValue.textContent = slider.value + 's';
+        }
+
+        function setSpeed(speed) {
+            const slider = document.getElementById('speedSlider');
+            const speedValue = document.getElementById('speedValue');
+            slider.value = speed;
+            buildSpeed = speed * 1000;
+            searchSpeed = buildSpeed;
+            speedValue.textContent = speed + 's';
+        }
+
+        function reset() {
+            currentStep = 0;
+            buildSteps = [];
+            queryPoint = null;
+            searchResult = null;
+            searchSteps = [];
+            currentSearchStep = 0;
+            isSearching = false;
+            vamanaGraph = new VamanaGraph();
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            updateStepDescription("点击\"生成随机点\"开始演示");
+            document.getElementById('pauseBtn').style.display = 'none';
+            if (searchTimeoutId) {
+                clearTimeout(searchTimeoutId);
+            }
+            updateBuildInfo();
+            updateAlgorithmStats();
+        }
+
+        function drawPoints() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            points.forEach(point => {
+                ctx.fillStyle = '#3182ce';
+                ctx.beginPath();
+                ctx.arc(point.x, point.y, 6, 0, 2 * Math.PI);
+                ctx.fill();
+            });
+        }
+
+        function drawStartingPoint(point) {
+            // 绘制星形背景
+            ctx.fillStyle = '#ff6b35';
+            ctx.strokeStyle = '#e53e3e';
+            ctx.lineWidth = 4;
+
+            // 绘制星形
+            drawStar(ctx, point.x, point.y, 5, 14, 7);
+            ctx.fill();
+            ctx.stroke();
+
+            // 绘制中心圆点
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(point.x, point.y, 5, 0, 2 * Math.PI);
+            ctx.fill();
+
+            // 添加文字标识
+            ctx.fillStyle = '#ff6b35';
+            ctx.font = 'bold 10px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('起始', point.x, point.y - 20);
+        }
+
+        function drawStar(ctx, cx, cy, spikes, outerRadius, innerRadius) {
+            let rot = Math.PI / 2 * 3;
+            let x = cx;
+            let y = cy;
+            const step = Math.PI / spikes;
+
+            ctx.beginPath();
+            ctx.moveTo(cx, cy - outerRadius);
+
+            for (let i = 0; i < spikes; i++) {
+                x = cx + Math.cos(rot) * outerRadius;
+                y = cy + Math.sin(rot) * outerRadius;
+                ctx.lineTo(x, y);
+                rot += step;
+
+                x = cx + Math.cos(rot) * innerRadius;
+                y = cy + Math.sin(rot) * innerRadius;
+                ctx.lineTo(x, y);
+                rot += step;
+            }
+
+            ctx.lineTo(cx, cy - outerRadius);
+            ctx.closePath();
+        }
+
+        function drawBuildStep(step) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // 绘制所有点
+            points.forEach(point => {
+                if (step.type === 'start_optimize' && point === step.point) {
+                    // 高亮当前优化的节点
+                    ctx.fillStyle = '#ffd700';
+                    ctx.strokeStyle = '#f6ad55';
+                    ctx.lineWidth = 4;
+                    ctx.beginPath();
+                    ctx.arc(point.x, point.y, 10, 0, 2 * Math.PI);
+                    ctx.fill();
+                    ctx.stroke();
+                } else {
+                    ctx.fillStyle = '#3182ce';
+                    ctx.beginPath();
+                    ctx.arc(point.x, point.y, 6, 0, 2 * Math.PI);
+                    ctx.fill();
+                }
+            });
+
+            // 绘制已建立的连接
+            points.forEach(point => {
+                point.neighbors.forEach(neighbor => {
+                    drawEdge(point, neighbor);
+                });
+            });
+
+            // 根据步骤类型绘制特殊效果
+            if (step.type === 'find_candidates') {
+                // 高亮候选点
+                step.candidates.forEach(candidate => {
+                    ctx.fillStyle = '#f093fb';
+                    ctx.strokeStyle = '#e879f9';
+                    ctx.lineWidth = 3;
+                    ctx.beginPath();
+                    ctx.arc(candidate.point.x, candidate.point.y, 8, 0, 2 * Math.PI);
+                    ctx.fill();
+                    ctx.stroke();
+
+                    // 绘制候选连接线
+                    ctx.strokeStyle = '#f093fb';
+                    ctx.lineWidth = 2;
+                    ctx.setLineDash([3, 3]);
+                    ctx.beginPath();
+                    ctx.moveTo(step.point.x, step.point.y);
+                    ctx.lineTo(candidate.point.x, candidate.point.y);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                });
+            } else if (step.type === 'prune_neighbors') {
+                // 显示剪枝结果
+                step.finalNeighbors.forEach(neighbor => {
+                    ctx.fillStyle = '#38a169';
+                    ctx.strokeStyle = '#2f855a';
+                    ctx.lineWidth = 3;
+                    ctx.beginPath();
+                    ctx.arc(neighbor.x, neighbor.y, 8, 0, 2 * Math.PI);
+                    ctx.fill();
+                    ctx.stroke();
+
+                    // 绘制最终连接
+                    ctx.strokeStyle = '#667eea';
+                    ctx.lineWidth = 3;
+                    ctx.beginPath();
+                    ctx.moveTo(step.point.x, step.point.y);
+                    ctx.lineTo(neighbor.x, neighbor.y);
+                    ctx.stroke();
+                });
+
+                // 显示被剪枝的候选
+                const prunedCandidates = step.candidates.filter(c =>
+                    !step.finalNeighbors.includes(c.point));
+                prunedCandidates.forEach(candidate => {
+                    ctx.fillStyle = '#e53e3e';
+                    ctx.strokeStyle = '#c53030';
+                    ctx.lineWidth = 2;
+                    ctx.globalAlpha = 0.6;
+                    ctx.beginPath();
+                    ctx.arc(candidate.point.x, candidate.point.y, 7, 0, 2 * Math.PI);
+                    ctx.fill();
+                    ctx.stroke();
+                    ctx.globalAlpha = 1;
+                });
+            }
+        }
+
+        function drawCompleteGraph() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // 绘制所有边
+            points.forEach(point => {
+                point.neighbors.forEach(neighbor => {
+                    drawEdge(point, neighbor);
+                });
+            });
+
+            // 绘制所有点
+            points.forEach(point => {
+                ctx.fillStyle = '#3182ce';
+                ctx.beginPath();
+                ctx.arc(point.x, point.y, 6, 0, 2 * Math.PI);
+                ctx.fill();
+            });
+        }
+
+        function drawEdge(from, to, highlight = false) {
+            ctx.strokeStyle = highlight ? '#e53e3e' : '#718096';
+            ctx.lineWidth = highlight ? 3 : 1;
+            ctx.globalAlpha = highlight ? 1 : 0.6;
+
+            ctx.beginPath();
+            ctx.moveTo(from.x, from.y);
+            ctx.lineTo(to.x, to.y);
+            ctx.stroke();
+
+            ctx.globalAlpha = 1;
+        }
+
+        function drawSearchStep(step) {
+            drawCompleteGraph();
+
+            // 绘制查询点
+            ctx.fillStyle = '#e53e3e';
+            ctx.beginPath();
+            ctx.arc(queryPoint.x, queryPoint.y, 8, 0, 2 * Math.PI);
+            ctx.fill();
+
+            // 根据步骤类型绘制效果
+            if (step.type === 'start_search') {
+                // 高亮随机选择的搜索起点
+                ctx.fillStyle = '#ff6b35';
+                ctx.strokeStyle = '#e53e3e';
+                ctx.lineWidth = 4;
+                ctx.beginPath();
+                ctx.arc(step.point.x, step.point.y, 12, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.stroke();
+
+                // 添加文字标识
+                ctx.fillStyle = '#ff6b35';
+                ctx.font = 'bold 10px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('起点', step.point.x, step.point.y - 18);
+
+            } else if (step.type === 'visit_neighbor') {
+                ctx.fillStyle = '#f093fb';
+                ctx.strokeStyle = '#e879f9';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.arc(step.to.x, step.to.y, 9, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.stroke();
+
+                // 绘制搜索路径
+                ctx.strokeStyle = '#f093fb';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.moveTo(step.from.x, step.from.y);
+                ctx.lineTo(step.to.x, step.to.y);
+                ctx.stroke();
+
+            } else if (step.type === 'update_current') {
+                ctx.fillStyle = '#38a169';
+                ctx.strokeStyle = '#2f855a';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.arc(step.point.x, step.point.y, 10, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.stroke();
+            }
+        }
+
+        function drawSearchResult() {
+            drawCompleteGraph();
+
+            // 绘制查询点
+            ctx.fillStyle = '#e53e3e';
+            ctx.beginPath();
+            ctx.arc(queryPoint.x, queryPoint.y, 8, 0, 2 * Math.PI);
+            ctx.fill();
+
+            // 绘制最近邻
+            const nearest = searchResult.results[0];
+            ctx.fillStyle = '#38a169';
+            ctx.beginPath();
+            ctx.arc(nearest.point.x, nearest.point.y, 10, 0, 2 * Math.PI);
+            ctx.fill();
+
+            // 绘制连接线
+            ctx.strokeStyle = '#38a169';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(queryPoint.x, queryPoint.y);
+            ctx.lineTo(nearest.point.x, nearest.point.y);
+            ctx.stroke();
+        }
+
+        function updateBuildStepDescription(step) {
+            let description = `构建步骤 ${currentStep + 1}/${buildSteps.length}: `;
+
+            if (step.type === 'build_complete') {
+                description += step.message;
+            } else if (step.type === 'initialize_random') {
+                description += step.message;
+            } else if (step.type === 'start_optimize') {
+                description += `优化节点 ${step.index + 1}/${points.length}
+                    (${step.point.x.toFixed(1)}, ${step.point.y.toFixed(1)})`;
+            } else if (step.type === 'find_candidates') {
+                description += `贪心搜索找到 ${step.candidates.length} 个候选邻居`;
+            } else if (step.type === 'prune_neighbors') {
+                description += `RobustPrune剪枝：保留 ${step.finalNeighbors.length} 个邻居，
+                    剪除 ${step.prunedCount} 个候选`;
+            } else if (step.type === 'add_reverse') {
+                description += `添加反向连接: (${step.from.x.toFixed(1)}, ${step.from.y.toFixed(1)}) → 
+                    (${step.to.x.toFixed(1)}, ${step.to.y.toFixed(1)})`;
+            }
+
+            updateStepDescription(description);
+        }
+
+        function updateSearchStepDescription(step) {
+            let description = `搜索步骤 ${currentSearchStep + 1}/${searchSteps.length}: `;
+
+            if (step.type === 'start_search') {
+                description += `从随机起始点开始 (${step.point.x.toFixed(1)}, ${step.point.y.toFixed(1)})
+                    距离: ${step.distance.toFixed(2)}`;
+            } else if (step.type === 'visit_neighbor') {
+                description += `访问邻居 (${step.to.x.toFixed(1)}, ${step.to.y.toFixed(1)})
+                    距离: ${step.distance.toFixed(2)}`;
+            } else if (step.type === 'update_current') {
+                description += `更新当前最佳点 (${step.point.x.toFixed(1)}, ${step.point.y.toFixed(1)})
+                    距离: ${step.distance.toFixed(2)}`;
+            }
+
+            updateStepDescription(description);
+        }
+
+        function updateStepDescription(text) {
+            document.getElementById('stepDescription').textContent = text;
+        }
+
+        function updateBuildInfo() {
+            const buildInfoElement = document.getElementById('buildInfo');
+            if (points.length === 0) {
+                buildInfoElement.innerHTML = '点击"生成随机点"开始';
+                return;
+            }
+
+            const totalSteps = buildSteps.length;
+            const isBuilding = currentStep > 0 && currentStep <= totalSteps;
+
+            if (isBuilding) {
+                const processedNodes = buildSteps.slice(0, currentStep + 1)
+                    .filter(s => s.type === 'start_optimize').length;
+                buildInfoElement.innerHTML = `
+                    数据点数: ${points.length}<br>
+                    构建进度: ${currentStep}/${totalSteps} (${Math.round(currentStep / totalSteps * 100)}%)<br>
+                    已优化节点: ${processedNodes}<br>
+                    状态: 构建中...
+                `;
+            } else {
+                const totalConnections = points.reduce((sum, point) => sum + point.neighbors.length, 0);
+                const avgConnections = points.length > 0 ? (totalConnections / points.length).toFixed(1) : 0;
+
+                buildInfoElement.innerHTML = `
+                    数据点数: ${points.length}<br>
+                    构建步骤: ${totalSteps}<br>
+                    总连接数: ${totalConnections}<br>
+                    平均连接数: ${avgConnections}<br>
+                    最大度数: ${vamanaGraph.maxDegree}<br>
+                    状态: 构建完成
+                `;
+            }
+        }
+
+        function updateAlgorithmStats() {
+            const statsElement = document.getElementById('algorithmStats');
+            if (points.length === 0) {
+                statsElement.innerHTML = '等待开始构建...';
+                return;
+            }
+
+            const totalConnections = points.reduce((sum, point) => sum + point.neighbors.length, 0);
+            const maxConnections = Math.max(...points.map(p => p.neighbors.length));
+            const minConnections = Math.min(...points.map(p => p.neighbors.length));
+
+            if (searchResult) {
+                const visitedCount = searchResult.visited.length;
+                const searchEfficiency = ((points.length - visitedCount) / points.length * 100).toFixed(1);
+
+                statsElement.innerHTML = `
+                    总连接数: ${totalConnections}<br>
+                    最大/最小度数: ${maxConnections}/${minConnections}<br>
+                    访问节点: ${visitedCount}/${points.length}<br>
+                    搜索效率: ${searchEfficiency}% 节省<br>
+                    最终距离: ${searchResult.results[0].distance.toFixed(2)}
+                `;
+            } else {
+                statsElement.innerHTML = `
+                    总连接数: ${totalConnections}<br>
+                    最大/最小度数: ${maxConnections}/${minConnections}<br>
+                    图密度: ${(totalConnections / (points.length * (points.length - 1)) * 100).toFixed(2)}%<br>
+                    构建完成度: 100%
+                `;
+            }
+        }
+
+        function updateSearchStats() {
+            updateAlgorithmStats();
+        }
+
+        // Initialize
+        generateRandomPoints();
+    </script>
+</body>
+
+</html>
