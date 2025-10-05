@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NSG 图索引算法动态演示</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: #333;
+        }
+
+        .container {
+            max-width: 95vw;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            min-height: 90vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4a5568;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #f093fb, #f5576c);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+            color: white;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .visualization {
+            display: flex;
+            gap: 40px;
+            margin-top: 30px;
+            height: calc(100vh - 300px);
+            min-height: 600px;
+        }
+
+        .canvas-container {
+            flex: 1;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+
+        canvas {
+            border: 3px solid #e2e8f0;
+            border-radius: 10px;
+            background: #f8fafc;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            height: 100%;
+        }
+
+        .info-panel {
+            flex: 1;
+            min-width: 350px;
+            background: #f8fafc;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-info {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .step-title {
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 8px;
+        }
+
+        .step-description {
+            color: #718096;
+            line-height: 1.5;
+        }
+
+        .graph-info {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #f093fb;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        .graph-info:last-child {
+            margin-bottom: 0;
+        }
+
+        .author-info {
+            text-align: center;
+            padding: 20px;
+            color: #718096;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.8);
+            margin-top: 20px;
+        }
+
+        .author-info a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .author-info a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        .speed-control-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .speed-control {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .speed-label {
+            color: #4a5568;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .speed-btn {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 12px;
+        }
+
+        .speed-btn:hover {
+            background: #667eea !important;
+            color: white !important;
+            transform: translateY(-1px);
+        }
+
+        .speed-slider {
+            width: 200px;
+            margin: 0 10px;
+        }
+
+        .speed-value {
+            color: #667eea;
+            font-weight: bold;
+            margin-left: 10px;
+            white-space: nowrap;
+        }
+
+        .algorithm-intro {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 40px 20px;
+            margin-top: 40px;
+        }
+
+        .intro-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .algorithm-intro h2 {
+            text-align: center;
+            color: #2d3748;
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        .intro-section {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid #667eea;
+        }
+
+        .intro-section h3 {
+            color: #4a5568;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .intro-section p {
+            color: #718096;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .intro-section ul {
+            color: #718096;
+            line-height: 1.7;
+            padding-left: 20px;
+        }
+
+        .intro-section li {
+            margin-bottom: 8px;
+        }
+
+        .intro-section li strong {
+            color: #4a5568;
+        }
+
+        .advantages {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .advantage-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .advantage-icon {
+            font-size: 1.5em;
+            flex-shrink: 0;
+        }
+
+        .advantage-item strong {
+            color: #4a5568;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .advantage-item p {
+            color: #718096;
+            font-size: 0.9em;
+            margin: 0;
+        }
+
+        .applications {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .app-tag {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .comparison-item {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .comparison-item h4 {
+            color: #4a5568;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .comparison-item ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .complexity {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .complexity-item {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            color: #4a5568;
+            font-weight: 500;
+        }
+
+        .speed-control input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .speed-control input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #667eea;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .speed-control input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: #667eea;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+        }
+
+        .legend-line {
+            width: 20px;
+            height: 3px;
+            border-radius: 2px;
+        }
+
+        .stats {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #4facfe;
+        }
+
+        .stats-title {
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 8px;
+        }
+
+        .stats-content {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        /* 图节点和边的样式 */
+        .graph-node {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .graph-node.data-point {
+            fill: #3182ce;
+            stroke: #2c5aa0;
+            stroke-width: 2;
+        }
+
+        .graph-node.entry-point {
+            fill: #ff6b35;
+            stroke: #e53e3e;
+            stroke-width: 4;
+            animation: entryPulse 2s infinite;
+        }
+
+        @keyframes entryPulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .graph-node.query-point {
+            fill: #e53e3e;
+            stroke: #c53030;
+            stroke-width: 3;
+        }
+
+        .graph-node.nearest {
+            fill: #38a169;
+            stroke: #2f855a;
+            stroke-width: 3;
+        }
+
+        .graph-node.visited {
+            fill: #ffd700;
+            stroke: #f6ad55;
+            stroke-width: 3;
+            animation: visitPulse 1s infinite;
+        }
+
+        .graph-node.candidate {
+            fill: #f093fb;
+            stroke: #e879f9;
+            stroke-width: 3;
+        }
+
+        @keyframes visitPulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .graph-edge {
+            stroke: #718096;
+            stroke-width: 1;
+            stroke-opacity: 0.6;
+            fill: none;
+        }
+
+        .graph-edge.active {
+            stroke: #667eea;
+            stroke-width: 3;
+            stroke-opacity: 1;
+            animation: edgePulse 1s infinite;
+        }
+
+        .graph-edge.search-path {
+            stroke: #f093fb;
+            stroke-width: 2;
+            stroke-opacity: 0.8;
+        }
+
+        @keyframes edgePulse {
+            0% {
+                stroke-opacity: 0.8;
+            }
+
+            50% {
+                stroke-opacity: 1;
+            }
+
+            100% {
+                stroke-opacity: 0.8;
+            }
+        }
+
+        .graph-tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🔗 NSG 图索引算法动态演示</h1>
+
+        <div class="controls">
+            <button class="btn-primary" onclick="generateRandomPoints()">生成随机点</button>
+            <button class="btn-secondary" onclick="buildNSG()">构建 NSG 图</button>
+            <button class="btn-success" onclick="startSearch()">开始搜索</button>
+            <button class="btn-secondary" onclick="toggleSearchPause()" id="pauseBtn" style="display: none;">暂停</button>
+            <button class="btn-primary" onclick="reset()">重置</button>
+        </div>
+
+        <div class="speed-control-container">
+            <div class="speed-control">
+                <label for="speedSlider" class="speed-label">搜索速度:</label>
+                <button onclick="setSpeed(0.5)" class="speed-btn">快速</button>
+                <input type="range" id="speedSlider" min="0.5" max="3" step="0.1" value="1.5" class="speed-slider"
+                    onchange="updateSearchSpeed()">
+                <button onclick="setSpeed(3)" class="speed-btn">慢速</button>
+                <span id="speedValue" class="speed-value">1.5s</span>
+            </div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background: #3182ce;"></div>
+                <span>数据点</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #ff6b35;"></div>
+                <span>入口点 ⭐</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #e53e3e;"></div>
+                <span>查询点</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #38a169;"></div>
+                <span>最近邻</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-line" style="background: #667eea;"></div>
+                <span>图边</span>
+            </div>
+        </div>
+
+        <div class="visualization">
+            <div class="canvas-container">
+                <canvas id="canvas" width="800" height="600"></canvas>
+            </div>
+
+            <div class="info-panel">
+                <div class="step-info">
+                    <div class="step-title">当前步骤</div>
+                    <div class="step-description" id="stepDescription">
+                        点击"生成随机点"开始演示
+                    </div>
+                </div>
+
+                <div class="graph-info">
+                    <div style="font-weight: bold; margin-bottom: 10px; color: #4a5568;">图构建信息:</div>
+                    <div id="buildInfo" style="margin-bottom: 15px; color: #718096; font-size: 14px;">
+                        点击"生成随机点"开始
+                    </div>
+                </div>
+
+                <div class="stats">
+                    <div class="stats-title">搜索统计</div>
+                    <div class="stats-content" id="searchStats">
+                        等待开始搜索...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="algorithm-intro">
+        <div class="intro-container">
+            <h2>🔗 NSG 图索引算法介绍</h2>
+
+            <div class="intro-section">
+                <h3>📖 算法概述</h3>
+                <p>NSG（Navigating Spreading-out Graph）是一种基于图的近似最近邻搜索算法，通过构建一个导航图来实现高效的向量检索。NSG在保证搜索质量的同时，显著提升了搜索速度和内存效率。
+                </p>
+            </div>
+
+            <div class="intro-section">
+                <h3>🔧 核心思想</h3>
+                <ul>
+                    <li><strong>图构建</strong>：为每个数据点建立与其最近邻的连接，形成一个连通图</li>
+                    <li><strong>导航搜索</strong>：从入口点开始，沿着图边进行贪心搜索</li>
+                    <li><strong>候选扩展</strong>：维护候选集合，不断扩展搜索范围</li>
+                    <li><strong>剪枝优化</strong>：通过距离比较和角度约束进行有效剪枝</li>
+                </ul>
+            </div>
+
+            <div class="intro-section">
+                <h3>🚀 算法优势</h3>
+                <div class="advantages">
+                    <div class="advantage-item">
+                        <span class="advantage-icon">⚡</span>
+                        <div>
+                            <strong>高效搜索</strong>
+                            <p>通过图导航实现亚线性时间复杂度</p>
+                        </div>
+                    </div>
+                    <div class="advantage-item">
+                        <span class="advantage-icon">💾</span>
+                        <div>
+                            <strong>内存友好</strong>
+                            <p>相比树结构，图结构更节省内存</p>
+                        </div>
+                    </div>
+                    <div class="advantage-item">
+                        <span class="advantage-icon">🎯</span>
+                        <div>
+                            <strong>高精度</strong>
+                            <p>在高维空间中保持良好的搜索精度</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="intro-section">
+                <h3>💡 应用场景</h3>
+                <div class="applications">
+                    <span class="app-tag">🔍 向量搜索</span>
+                    <span class="app-tag">🖼️ 图像检索</span>
+                    <span class="app-tag">📝 文档相似性</span>
+                    <span class="app-tag">🎵 音频匹配</span>
+                    <span class="app-tag">🤖 推荐系统</span>
+                    <span class="app-tag">🧬 生物信息学</span>
+                </div>
+            </div>
+
+            <div class="intro-section">
+                <h3>⚖️ 与其他算法对比</h3>
+                <div class="comparison">
+                    <div class="comparison-item">
+                        <h4>🌳 树结构 (K-D Tree)</h4>
+                        <ul>
+                            <li>适用于低维数据</li>
+                            <li>构建简单</li>
+                            <li>高维性能下降</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-item">
+                        <h4>🔗 图结构 (NSG)</h4>
+                        <ul>
+                            <li>适用于高维数据</li>
+                            <li>搜索路径灵活</li>
+                            <li>内存效率高</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="intro-section">
+                <h3>📈 复杂度分析</h3>
+                <div class="complexity">
+                    <div class="complexity-item">
+                        <strong>构建时间</strong>: O(n²) 最坏
+                    </div>
+                    <div class="complexity-item">
+                        <strong>搜索时间</strong>: O(log n) 平均
+                    </div>
+                    <div class="complexity-item">
+                        <strong>空间复杂度</strong>: O(n·k)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="author-info">
+        by <a href="https://afoo.me" target="_blank">福强</a> & Kiro
+    </div>
+
+    <script>
+        class Point {
+            constructor(x, y, id) {
+                this.x = x;
+                this.y = y;
+                this.id = id;
+                this.neighbors = [];
+            }
+
+            distance(other) {
+                return Math.sqrt((this.x - other.x) ** 2 + (this.y - other.y) ** 2);
+            }
+        }
+
+        class NSGGraph {
+            constructor(maxConnections = 6) {
+                this.points = [];
+                this.entryPoint = null;
+                this.maxConnections = maxConnections;
+                this.buildSteps = [];
+            }
+
+            build(points) {
+                this.points = [...points];
+                this.buildSteps = [];
+
+                if (points.length === 0) return [];
+
+                // 选择入口点（这里简单选择第一个点）
+                this.entryPoint = points[0];
+                this.buildSteps.push({
+                    type: 'select_entry',
+                    point: this.entryPoint
+                });
+
+                // 为每个点构建邻居连接
+                for (let i = 0; i < points.length; i++) {
+                    const point = points[i];
+                    this.buildConnections(point, i);
+                }
+
+                return this.buildSteps;
+            }
+
+            buildConnections(point, pointIndex) {
+                // 计算到所有其他点的距离
+                const distances = [];
+                for (let i = 0; i < this.points.length; i++) {
+                    if (i !== pointIndex) {
+                        distances.push({
+                            point: this.points[i],
+                            distance: point.distance(this.points[i]),
+                            index: i
+                        });
+                    }
+                }
+
+                // 按距离排序
+                distances.sort((a, b) => a.distance - b.distance);
+
+                // 选择最近的几个点作为邻居
+                const numConnections = Math.min(this.maxConnections, distances.length);
+                for (let i = 0; i < numConnections; i++) {
+                    const neighbor = distances[i].point;
+                    point.neighbors.push(neighbor);
+
+                    this.buildSteps.push({
+                        type: 'add_connection',
+                        from: point,
+                        to: neighbor,
+                        distance: distances[i].distance
+                    });
+                }
+            }
+
+            search(queryPoint, k = 1) {
+                if (!this.entryPoint) return null;
+
+                const visited = new Set();
+                const candidates = [];
+                const searchSteps = [];
+
+                // 从入口点开始搜索
+                let current = this.entryPoint;
+                visited.add(current.id);
+
+                searchSteps.push({
+                    type: 'start_search',
+                    point: current,
+                    distance: queryPoint.distance(current)
+                });
+
+                candidates.push({
+                    point: current,
+                    distance: queryPoint.distance(current)
+                });
+
+                let improved = true;
+                while (improved) {
+                    improved = false;
+
+                    // 检查当前点的所有邻居
+                    for (const neighbor of current.neighbors) {
+                        if (!visited.has(neighbor.id)) {
+                            visited.add(neighbor.id);
+                            const distance = queryPoint.distance(neighbor);
+
+                            searchSteps.push({
+                                type: 'visit_neighbor',
+                                from: current,
+                                to: neighbor,
+                                distance: distance
+                            });
+
+                            candidates.push({
+                                point: neighbor,
+                                distance: distance
+                            });
+
+                            // 如果找到更近的点，更新当前点
+                            if (distance < queryPoint.distance(current)) {
+                                current = neighbor;
+                                improved = true;
+
+                                searchSteps.push({
+                                    type: 'update_current',
+                                    point: current,
+                                    distance: distance
+                                });
+                            }
+                        }
+                    }
+                }
+
+                // 排序候选点，返回最近的k个
+                candidates.sort((a, b) => a.distance - b.distance);
+                const result = candidates.slice(0, k);
+
+                return {
+                    results: result,
+                    steps: searchSteps,
+                    visited: Array.from(visited)
+                };
+            }
+        }
+
+        // Visualization
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        let points = [];
+        let nsgGraph = new NSGGraph();
+        let buildSteps = [];
+        let currentStep = 0;
+        let queryPoint = null;
+        let searchResult = null;
+        let animationId = null;
+
+        function generateRandomPoints() {
+            points = [];
+            // 生成聚类点以便更好地展示图结构
+            const clusters = 4;
+            const pointsPerCluster = 6;
+            let pointId = 0;
+
+            for (let i = 0; i < clusters; i++) {
+                const centerX = Math.random() * (canvas.width - 200) + 100;
+                const centerY = Math.random() * (canvas.height - 200) + 100;
+
+                for (let j = 0; j < pointsPerCluster; j++) {
+                    const angle = Math.random() * 2 * Math.PI;
+                    const radius = Math.random() * 80 + 20;
+
+                    points.push(new Point(
+                        centerX + Math.cos(angle) * radius,
+                        centerY + Math.sin(angle) * radius,
+                        pointId++
+                    ));
+                }
+            }
+
+            reset();
+            drawPoints();
+            updateStepDescription("已生成 " + points.length + " 个聚类点，点击\"构建 NSG 图\"继续");
+            updateBuildInfo();
+        }
+
+        function buildNSG() {
+            if (points.length === 0) {
+                alert('请先生成随机点！');
+                return;
+            }
+
+            buildSteps = nsgGraph.build([...points]);
+            currentStep = 0;
+            animateBuild();
+        }
+
+        function animateBuild() {
+            if (currentStep >= buildSteps.length) {
+                updateStepDescription("NSG 图构建完成！点击\"开始搜索\"进行最近邻搜索");
+                drawCompleteGraph();
+                return;
+            }
+
+            const step = buildSteps[currentStep];
+            drawBuildStep(step);
+
+            if (step.type === 'select_entry') {
+                updateStepDescription(`选择入口点: (${step.point.x.toFixed(1)}, ${step.point.y.toFixed(1)})`);
+            } else if (step.type === 'add_connection') {
+                updateStepDescription(`添加连接: (${step.from.x.toFixed(1)}, ${step.from.y.toFixed(1)}) → 
+                    (${step.to.x.toFixed(1)}, ${step.to.y.toFixed(1)}) 距离: ${step.distance.toFixed(2)}`);
+            }
+
+            updateBuildInfo();
+            currentStep++;
+            setTimeout(() => animateBuild(), 800);
+        }
+
+        let searchSteps = [];
+        let currentSearchStep = 0;
+        let isSearching = false;
+        let searchPaused = false;
+        let searchTimeoutId = null;
+        let searchSpeed = 1500; // 默认1.5秒间隔
+
+        function startSearch() {
+            if (points.length === 0 || !nsgGraph.entryPoint) {
+                alert('请先构建 NSG 图！');
+                return;
+            }
+
+            if (isSearching) {
+                return; // 防止重复搜索
+            }
+
+            // 生成随机查询点
+            queryPoint = new Point(
+                Math.random() * (canvas.width - 40) + 20,
+                Math.random() * (canvas.height - 40) + 20,
+                -1 // 查询点使用特殊ID
+            );
+
+            // 获取搜索步骤
+            searchResult = nsgGraph.search(queryPoint);
+            searchSteps = searchResult.steps;
+            currentSearchStep = 0;
+            isSearching = true;
+
+            updateStepDescription(`开始搜索最近邻！查询点: (${queryPoint.x.toFixed(1)}, ${queryPoint.y.toFixed(1)})`);
+
+            // 显示暂停按钮
+            document.getElementById('pauseBtn').style.display = 'inline-block';
+
+            // 开始动画搜索过程
+            animateSearch();
+        }
+
+        function animateSearch() {
+            if (searchPaused) return;
+
+            if (currentSearchStep >= searchSteps.length) {
+                // 搜索完成
+                isSearching = false;
+                searchPaused = false;
+                document.getElementById('pauseBtn').style.display = 'none';
+                drawSearchResult();
+
+                const nearest = searchResult.results[0];
+                updateStepDescription(`搜索完成！查询点: (${queryPoint.x.toFixed(1)}, ${queryPoint.y.toFixed(1)})
+                    最近邻: (${nearest.point.x.toFixed(1)}, ${nearest.point.y.toFixed(1)})
+                    距离: ${nearest.distance.toFixed(2)}`);
+
+                updateSearchStats();
+                return;
+            }
+
+            const step = searchSteps[currentSearchStep];
+            drawSearchStep(step);
+
+            // 更新步骤描述
+            updateSearchStepDescription(step);
+
+            currentSearchStep++;
+            searchTimeoutId = setTimeout(() => animateSearch(), searchSpeed);
+        }
+
+        function toggleSearchPause() {
+            const pauseBtn = document.getElementById('pauseBtn');
+            if (searchPaused) {
+                searchPaused = false;
+                pauseBtn.textContent = '暂停';
+                animateSearch();
+            } else {
+                searchPaused = true;
+                pauseBtn.textContent = '继续';
+                if (searchTimeoutId) {
+                    clearTimeout(searchTimeoutId);
+                }
+            }
+        }
+
+        function updateSearchSpeed() {
+            const slider = document.getElementById('speedSlider');
+            const speedValue = document.getElementById('speedValue');
+            searchSpeed = parseFloat(slider.value) * 1000; // 转换为毫秒
+            speedValue.textContent = slider.value + 's';
+        }
+
+        function setSpeed(speed) {
+            const slider = document.getElementById('speedSlider');
+            const speedValue = document.getElementById('speedValue');
+            slider.value = speed;
+            searchSpeed = speed * 1000;
+            speedValue.textContent = speed + 's';
+        }
+
+        function reset() {
+            currentStep = 0;
+            buildSteps = [];
+            queryPoint = null;
+            searchResult = null;
+            searchSteps = [];
+            currentSearchStep = 0;
+            isSearching = false;
+            nsgGraph = new NSGGraph();
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            updateStepDescription("点击\"生成随机点\"开始演示");
+            document.getElementById('pauseBtn').style.display = 'none';
+            if (searchTimeoutId) {
+                clearTimeout(searchTimeoutId);
+            }
+            updateBuildInfo();
+            updateSearchStats();
+        }
+
+        function drawPoints() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            points.forEach(point => {
+                ctx.fillStyle = '#3182ce';
+                ctx.beginPath();
+                ctx.arc(point.x, point.y, 6, 0, 2 * Math.PI);
+                ctx.fill();
+            });
+        }
+
+        function drawBuildStep(step) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // 绘制所有点
+            points.forEach(point => {
+                if (point === nsgGraph.entryPoint) {
+                    drawEntryPoint(point);
+                } else {
+                    ctx.fillStyle = '#3182ce';
+                    ctx.beginPath();
+                    ctx.arc(point.x, point.y, 6, 0, 2 * Math.PI);
+                    ctx.fill();
+                }
+            });
+
+            // 绘制已建立的连接
+            for (let i = 0; i <= currentStep && i < buildSteps.length; i++) {
+                const s = buildSteps[i];
+                if (s.type === 'add_connection') {
+                    drawEdge(s.from, s.to, i === currentStep);
+                }
+            }
+        }
+
+        function drawCompleteGraph() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // 绘制所有边
+            points.forEach(point => {
+                point.neighbors.forEach(neighbor => {
+                    drawEdge(point, neighbor);
+                });
+            });
+
+            // 绘制所有点
+            points.forEach(point => {
+                if (point === nsgGraph.entryPoint) {
+                    drawEntryPoint(point);
+                } else {
+                    ctx.fillStyle = '#3182ce';
+                    ctx.beginPath();
+                    ctx.arc(point.x, point.y, 6, 0, 2 * Math.PI);
+                    ctx.fill();
+                }
+            });
+        }
+
+        function drawEntryPoint(point) {
+            // 绘制星形背景
+            ctx.fillStyle = '#ff6b35';
+            ctx.strokeStyle = '#e53e3e';
+            ctx.lineWidth = 3;
+
+            // 绘制星形
+            drawStar(ctx, point.x, point.y, 5, 12, 6);
+            ctx.fill();
+            ctx.stroke();
+
+            // 绘制中心圆点
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(point.x, point.y, 4, 0, 2 * Math.PI);
+            ctx.fill();
+
+            // 添加文字标识
+            ctx.fillStyle = '#ff6b35';
+            ctx.font = 'bold 10px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('入口', point.x, point.y - 18);
+        }
+
+        function drawStar(ctx, cx, cy, spikes, outerRadius, innerRadius) {
+            let rot = Math.PI / 2 * 3;
+            let x = cx;
+            let y = cy;
+            const step = Math.PI / spikes;
+
+            ctx.beginPath();
+            ctx.moveTo(cx, cy - outerRadius);
+
+            for (let i = 0; i < spikes; i++) {
+                x = cx + Math.cos(rot) * outerRadius;
+                y = cy + Math.sin(rot) * outerRadius;
+                ctx.lineTo(x, y);
+                rot += step;
+
+                x = cx + Math.cos(rot) * innerRadius;
+                y = cy + Math.sin(rot) * innerRadius;
+                ctx.lineTo(x, y);
+                rot += step;
+            }
+
+            ctx.lineTo(cx, cy - outerRadius);
+            ctx.closePath();
+        }
+
+        function drawEdge(from, to, highlight = false) {
+            ctx.strokeStyle = highlight ? '#e53e3e' : '#718096';
+            ctx.lineWidth = highlight ? 3 : 1;
+            ctx.globalAlpha = highlight ? 1 : 0.6;
+
+            ctx.beginPath();
+            ctx.moveTo(from.x, from.y);
+            ctx.lineTo(to.x, to.y);
+            ctx.stroke();
+
+            ctx.globalAlpha = 1;
+        }
+
+        function drawSearchStep(step) {
+            // 绘制完整图
+            drawCompleteGraph();
+
+            // 绘制查询点
+            ctx.fillStyle = '#e53e3e';
+            ctx.beginPath();
+            ctx.arc(queryPoint.x, queryPoint.y, 8, 0, 2 * Math.PI);
+            ctx.fill();
+
+            // 根据步骤类型绘制不同效果
+            if (step.type === 'start_search') {
+                // 高亮入口点
+                ctx.fillStyle = '#ffd700';
+                ctx.strokeStyle = '#ff6b35';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.arc(step.point.x, step.point.y, 10, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.stroke();
+
+            } else if (step.type === 'visit_neighbor') {
+                // 高亮访问的邻居
+                ctx.fillStyle = '#f093fb';
+                ctx.strokeStyle = '#e879f9';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.arc(step.to.x, step.to.y, 9, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.stroke();
+
+                // 绘制搜索路径
+                ctx.strokeStyle = '#f093fb';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.moveTo(step.from.x, step.from.y);
+                ctx.lineTo(step.to.x, step.to.y);
+                ctx.stroke();
+
+                // 绘制到查询点的距离线
+                ctx.strokeStyle = '#718096';
+                ctx.lineWidth = 1;
+                ctx.setLineDash([3, 3]);
+                ctx.beginPath();
+                ctx.moveTo(queryPoint.x, queryPoint.y);
+                ctx.lineTo(step.to.x, step.to.y);
+                ctx.stroke();
+                ctx.setLineDash([]);
+
+            } else if (step.type === 'update_current') {
+                // 高亮新的当前最佳点
+                ctx.fillStyle = '#38a169';
+                ctx.strokeStyle = '#2f855a';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.arc(step.point.x, step.point.y, 10, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.stroke();
+            }
+        }
+
+        function drawSearchResult() {
+            drawCompleteGraph();
+
+            // 绘制查询点
+            ctx.fillStyle = '#e53e3e';
+            ctx.beginPath();
+            ctx.arc(queryPoint.x, queryPoint.y, 8, 0, 2 * Math.PI);
+            ctx.fill();
+
+            // 绘制最近邻
+            const nearest = searchResult.results[0];
+            ctx.fillStyle = '#38a169';
+            ctx.beginPath();
+            ctx.arc(nearest.point.x, nearest.point.y, 10, 0, 2 * Math.PI);
+            ctx.fill();
+
+            // 绘制连接线
+            ctx.strokeStyle = '#38a169';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(queryPoint.x, queryPoint.y);
+            ctx.lineTo(nearest.point.x, nearest.point.y);
+            ctx.stroke();
+        }
+
+        function updateSearchStepDescription(step) {
+            let description = `搜索步骤 ${currentSearchStep + 1}/${searchSteps.length}: `;
+
+            if (step.type === 'start_search') {
+                description += `从入口点开始 (${step.point.x.toFixed(1)}, ${step.point.y.toFixed(1)})
+                    距离: ${step.distance.toFixed(2)}`;
+            } else if (step.type === 'visit_neighbor') {
+                description += `访问邻居 (${step.to.x.toFixed(1)}, ${step.to.y.toFixed(1)})
+                    距离: ${step.distance.toFixed(2)}`;
+            } else if (step.type === 'update_current') {
+                description += `更新当前最佳点 (${step.point.x.toFixed(1)}, ${step.point.y.toFixed(1)})
+                    距离: ${step.distance.toFixed(2)}`;
+            }
+
+            updateStepDescription(description);
+        }
+
+        function updateStepDescription(text) {
+            document.getElementById('stepDescription').textContent = text;
+        }
+
+        function updateBuildInfo() {
+            const buildInfoElement = document.getElementById('buildInfo');
+            if (points.length === 0) {
+                buildInfoElement.innerHTML = '点击"生成随机点"开始';
+                return;
+            }
+
+            const totalSteps = buildSteps.length;
+            const isBuilding = currentStep > 0 && currentStep <= totalSteps;
+
+            if (isBuilding) {
+                const connectionSteps = buildSteps.slice(0, currentStep + 1).filter(s => s.type === 'add_connection');
+                buildInfoElement.innerHTML = `
+                    数据点数: ${points.length}<br>
+                    构建进度: ${currentStep}/${totalSteps} (${Math.round(currentStep / totalSteps * 100)}%)<br>
+                    已建连接: ${connectionSteps.length}<br>
+                    入口点: ${nsgGraph.entryPoint ? '已选择' : '未选择'}<br>
+                    状态: 构建中...
+                `;
+            } else {
+                const totalConnections = points.reduce((sum, point) => sum + point.neighbors.length, 0);
+                const avgConnections = points.length > 0 ? (totalConnections / points.length).toFixed(1) : 0;
+
+                buildInfoElement.innerHTML = `
+                    数据点数: ${points.length}<br>
+                    构建步骤: ${totalSteps}<br>
+                    总连接数: ${totalConnections}<br>
+                    平均连接数: ${avgConnections}<br>
+                    最大连接数: ${nsgGraph.maxConnections}<br>
+                    状态: 构建完成
+                `;
+            }
+        }
+
+        function updateSearchStats() {
+            const statsElement = document.getElementById('searchStats');
+            if (!searchResult) {
+                statsElement.innerHTML = '等待开始搜索...';
+                return;
+            }
+
+            const visitedCount = searchResult.visited.length;
+            const totalPoints = points.length;
+            const searchEfficiency = ((totalPoints - visitedCount) / totalPoints * 100).toFixed(1);
+
+            statsElement.innerHTML = `
+                访问节点数: ${visitedCount}/${totalPoints}<br>
+                搜索效率: ${searchEfficiency}% 节省<br>
+                搜索步骤: ${searchSteps.length}<br>
+                最终距离: ${searchResult.results[0].distance.toFixed(2)}
+            `;
+        }
+
+        // Initialize
+        generateRandomPoints();
+    </script>
+</body>
+
+</html>
