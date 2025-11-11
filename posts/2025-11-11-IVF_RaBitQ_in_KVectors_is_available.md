@@ -69,7 +69,7 @@ KVectors向量数据库已经正式支持了如下几种业界主流的向量索
 3. HNSW+PQ
 3. IVF
 4. IVF_RABITQ
-5. ISH
+5. LSH
 
 软著申请提交后处于待审查状态
 
