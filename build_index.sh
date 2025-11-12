@@ -95,7 +95,7 @@ cat << EOF > "$INDEX_FILE"
     <title>福强新建索引</title>
 </head>
 <body>
-<h1><a href="https://afoo.me" target="_blank">福强</a>新建索引</h1>
+<h1><a href="https://afoo.me" target="_blank">福强</a>新建页面索引（via a simple shell script）</h1>
 <ul>
 EOF
 
