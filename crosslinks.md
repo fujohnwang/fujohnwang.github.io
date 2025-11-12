@@ -16,6 +16,7 @@
 # [工具福强造](https://afoo.me/tools.html)
 
 - [向量相似性比较](https://afoo.me/tools/vecsim/index.html)
+- [算法动态演示页面索引](https://afoo.me/animates/)
 - [福强海报](https://poster.keevol.cn/)
 - [汉字拼音工具](https://afoo.me/pinyin/index.html)
   - <https://hanzipinyin.blackwhole.cn>
