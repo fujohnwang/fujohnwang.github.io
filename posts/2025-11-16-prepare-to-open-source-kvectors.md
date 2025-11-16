@@ -2,7 +2,7 @@
 % 王福强
 % 2025-11-16
 
-前阵子老王说，
+[前阵子老王说](https://afoo.me/posts/2025-11-12-AI-oss-and-microservices.html)，
 
 KVectors可以搞开源+商业服务的模式
 
