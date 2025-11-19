@@ -2,48 +2,303 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>福强新建索引</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>福强算法演示索引 | Afoo.me</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent-color: #38bdf8;
+            --accent-hover: #0ea5e9;
+            --border-color: #334155;
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        header {
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+            text-align: center;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, var(--accent-color), #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .subtitle a {
+            color: var(--accent-color);
+            text-decoration: none;
+            border-bottom: 1px dashed var(--accent-color);
+            transition: all 0.2s;
+        }
+
+        .subtitle a:hover {
+            color: var(--text-primary);
+            border-bottom-style: solid;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin: 3rem 0 1.5rem;
+            padding-left: 1rem;
+            border-left: 4px solid var(--accent-color);
+            color: var(--text-primary);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent-color);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-color), #818cf8);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 99px;
+            background-color: rgba(56, 189, 248, 0.1);
+            color: var(--accent-color);
+            margin-top: 1rem;
+            align-self: flex-start;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            body { padding: 1rem; }
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
-<h1><a href="https://afoo.me" target="_blank">福强</a>新建页面索引（via a simple shell script）</h1>
-<ul>
-<li><a href="goldenfish.html" target="_blank">goldenfish - p5.js Animation</a></li>
-<li><a href="HNSW.html" target="_blank">HNSW - HNSW索引算法动态演示</a></li>
-<li><a href="IVF.html" target="_blank">IVF - IVF 索引构建与查询动态演示</a></li>
-<li><a href="nsg-demo.html" target="_blank">nsg-demo - NSG 图索引算法动态演示</a></li>
-<li><a href="reservoir-sampling.html" target="_blank">reservoir-sampling - 水塘抽样算法动画演示</a></li>
-<li><a href="vamana-demo.html" target="_blank">vamana-demo - Vamana 算法动态演示</a></li>
-<li><strong>HNSW</strong>
-<ul>
-<li><strong>v0</strong>
-<ul>
-<li><a href="HNSW//v0//index.html" target="_blank">index - HNSW索引算法动态演示</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>LSH</strong>
-<ul>
-<li><a href="LSH//EuclideanLSH_v0.1.html" target="_blank">EuclideanLSH_v0.1 - LSH 索引构建与检索动画</a></li>
-<li><a href="LSH//EuclideanLSH_v0.2.html" target="_blank">EuclideanLSH_v0.2 - LSH 索引构建与检索动画</a></li>
-<li><a href="LSH//EuclideanLSH.html" target="_blank">EuclideanLSH - LSH 索引构建与检索动画</a></li>
-<li><a href="LSH//lsh-v1.html" target="_blank">lsh-v1 - LSH 索引构建过程演示</a></li>
-</ul>
-</li>
-<li><strong>tree_alg</strong>
-<ul>
-<li><a href="tree_alg//ball-tree-demo.html" target="_blank">ball-tree-demo - Ball Tree 算法动态演示</a></li>
-<li><a href="tree_alg//kd-tree-demo.html" target="_blank">kd-tree-demo - K-D Tree 算法动态演示</a></li>
-<li><a href="tree_alg//kdtree.html" target="_blank">kdtree - KD-Tree 算法可视化</a></li>
-</ul>
-</li>
-<li><strong>vc</strong>
-<ul>
-<li><a href="vc//bq-quantization.html" target="_blank">bq-quantization - BQ（二进制量化）向量压缩演示</a></li>
-<li><a href="vc//pq-quantization.html" target="_blank">pq-quantization - PQ压缩过程动态演示</a></li>
-<li><a href="vc//random-projection.html" target="_blank">random-projection - 随机投影(Random Projection)动态演示</a></li>
-</ul>
-</li>
-</ul>
+
+    <header>
+        <h1>Algorithm Visualizations</h1>
+        <p class="subtitle">
+            <a href="https://afoo.me">Afoo.me</a> 的可视化算法演示合集
+        </p>
+    </header>
+
+    <div class="container">
+        
+        <!-- 核心算法演示 -->
+        <div class="section-title">Core Algorithms</div>
+        <div class="grid">
+            <a href="HNSW.html" class="card">
+                <div>
+                    <div class="card-title">HNSW Index</div>
+                    <div class="card-desc">HNSW 索引算法动态演示，直观展示图索引构建过程。</div>
+                </div>
+                <span class="tag">Graph Index</span>
+            </a>
+            <a href="IVF.html" class="card">
+                <div>
+                    <div class="card-title">IVF Index</div>
+                    <div class="card-desc">IVF (Inverted File) 索引构建与查询的动态演示。</div>
+                </div>
+                <span class="tag">Vector Search</span>
+            </a>
+            <a href="nsg-demo.html" class="card">
+                <div>
+                    <div class="card-title">NSG Demo</div>
+                    <div class="card-desc">NSG 图索引算法的动态构建与搜索过程演示。</div>
+                </div>
+                <span class="tag">Graph Index</span>
+            </a>
+            <a href="vamana-demo.html" class="card">
+                <div>
+                    <div class="card-title">Vamana Demo</div>
+                    <div class="card-desc">DiskANN 核心算法 Vamana 的动态演示。</div>
+                </div>
+                <span class="tag">Graph Index</span>
+            </a>
+            <a href="reservoir-sampling.html" class="card">
+                <div>
+                    <div class="card-title">Reservoir Sampling</div>
+                    <div class="card-desc">水塘抽样算法动画演示，流式数据处理经典算法。</div>
+                </div>
+                <span class="tag">Streaming</span>
+            </a>
+            <a href="goldenfish.html" class="card">
+                <div>
+                    <div class="card-title">Golden Fish</div>
+                    <div class="card-desc">基于 p5.js 的趣味动画演示。</div>
+                </div>
+                <span class="tag">Creative</span>
+            </a>
+        </div>
+
+        <!-- LSH (Locality Sensitive Hashing) -->
+        <div class="section-title">LSH (局部敏感哈希)</div>
+        <div class="grid">
+            <a href="LSH/EuclideanLSH.html" class="card">
+                <div>
+                    <div class="card-title">Euclidean LSH</div>
+                    <div class="card-desc">欧式距离 LSH 索引构建与检索动画。</div>
+                </div>
+                <span class="tag">Hashing</span>
+            </a>
+            <a href="LSH/lsh-v1.html" class="card">
+                <div>
+                    <div class="card-title">LSH v1 Demo</div>
+                    <div class="card-desc">LSH 索引构建过程的早期版本演示。</div>
+                </div>
+                <span class="tag">Hashing</span>
+            </a>
+            <!-- 若 v0.1 和 v0.2 是旧版本，可根据需要决定是否折叠或只展示最新版 -->
+             <a href="LSH/EuclideanLSH_v0.2.html" class="card">
+                <div>
+                    <div class="card-title">Euclidean LSH v0.2</div>
+                    <div class="card-desc">LSH 算法演示 v0.2 版本。</div>
+                </div>
+                <span class="tag">Archive</span>
+            </a>
+        </div>
+
+        <!-- Tree Algorithms -->
+        <div class="section-title">Tree Algorithms</div>
+        <div class="grid">
+            <a href="tree_alg/kd-tree-demo.html" class="card">
+                <div>
+                    <div class="card-title">K-D Tree Demo</div>
+                    <div class="card-desc">K-Dimensional Tree 空间划分算法动态演示。</div>
+                </div>
+                <span class="tag">Spatial</span>
+            </a>
+            <a href="tree_alg/ball-tree-demo.html" class="card">
+                <div>
+                    <div class="card-title">Ball Tree Demo</div>
+                    <div class="card-desc">Ball Tree 结构在高维数据下的构建演示。</div>
+                </div>
+                <span class="tag">Spatial</span>
+            </a>
+             <a href="tree_alg/kdtree.html" class="card">
+                <div>
+                    <div class="card-title">KD-Tree Vis</div>
+                    <div class="card-desc">另一种 KD-Tree 算法的可视化视角。</div>
+                </div>
+                <span class="tag">Spatial</span>
+            </a>
+        </div>
+
+        <!-- Vector Compression -->
+        <div class="section-title">Vector Compression</div>
+        <div class="grid">
+            <a href="vc/pq-quantization.html" class="card">
+                <div>
+                    <div class="card-title">PQ Quantization</div>
+                    <div class="card-desc">Product Quantization (乘积量化) 压缩过程演示。</div>
+                </div>
+                <span class="tag">Compression</span>
+            </a>
+            <a href="vc/bq-quantization.html" class="card">
+                <div>
+                    <div class="card-title">BQ Quantization</div>
+                    <div class="card-desc">Binary Quantization (二进制量化) 向量压缩演示。</div>
+                </div>
+                <span class="tag">Compression</span>
+            </a>
+            <a href="vc/random-projection.html" class="card">
+                <div>
+                    <div class="card-title">Random Projection</div>
+                    <div class="card-desc">随机投影降维算法动态演示。</div>
+                </div>
+                <span class="tag">Dimensionality</span>
+            </a>
+        </div>
+
+    </div>
+
+    <footer>
+        &copy; 2024 Afoo.me | Generated via a simple shell script, Redesigned with ❤️
+    </footer>
+
 </body>
 </html>
