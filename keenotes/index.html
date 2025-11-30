@@ -27,7 +27,7 @@
             text-align: center;
         }
 
-        textarea {
+        /* textarea {
             font-size: x-large;
             line-height: 1.5; 
             width: 100%;
@@ -40,7 +40,52 @@
             -webkit-appearance: none;
             appearance: none; 
             box-shadow: inset 0 1px 3px black;
-            /* border-radius: 19px; */
+            box-sizing: border-box;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 12px;
+            padding-bottom: 12px;
+        } */
+        
+        textarea {
+            font-size: x-large;
+            width: 100%;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #3883F8;
+            
+            /* --- 核心修改开始 --- */
+            
+            /* 1. 显式设置字体颜色和填充颜色，防止iOS默认渲染覆盖 */
+            color: white; 
+            -webkit-text-fill-color: white;
+            
+            /* 2. 强制不透明度为1，iOS有时会把输入框渲染成半透明导致光标淡化 */
+            opacity: 1; 
+            
+            /* 3. 背景色 */
+            background-color: #3883F8;
+            
+            /* 4.【重要】建议去掉 inset 阴影，或者改用 filter。
+               内阴影(inset)在iOS上极易遮挡光标。
+               如果必须要有阴影，建议改为外阴影，或者暂时去掉以测试效果。
+             */
+            box-shadow: none; 
+            /* box-shadow: inset 0 1px 3px black; <--- 这一行先注释掉 */
+
+            /* 5. 强制光标颜色，并加 !important 防止被覆盖 */
+            caret-color: #FFD700 !important; /* 金黄色 */
+            
+            /* 6. 去除 iOS 默认圆角和外观 */
+            border-radius: 0;
+            -webkit-appearance: none;
+            appearance: none;
+            
+            /* 7. 开启硬件加速，解决光标闪烁或渲染层级问题 */
+            transform: translateZ(0);
+            
+            /* --- 核心修改结束 --- */
+
             box-sizing: border-box;
             padding-left: 20px;
             padding-right: 20px;
@@ -140,7 +185,7 @@
 </head>
 
 <body onload="javascript: document.getElementById('note').focus();">
-<!--<div class="center"><h1>趣悟笔记</h1></div>-->
+<div class="center"><h1>趣悟笔记</h1></div>
 
 <div class="fadeMe hide-loader" id="mask">
     <div class="loader">
@@ -148,8 +193,8 @@
 </div>
 <div id="app">
     <form v-on:submit="sub" action="#" method="post">
-        <button id="submit" type="submit">记存</button>
         <textarea id="note" v-model="note" placeholder="" rows="11"></textarea>
+        <button id="submit" type="submit">记存</button>
     </form>
     <p style="white-space: pre-wrap; color: aqua;">{{ message }}</p>
     <span style="font-size: 11px; color: rosybrown;">{{timestamp}}</span>
