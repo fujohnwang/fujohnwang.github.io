@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keenotes - 个人私密短笔记</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 定义用户指定的颜色变量 */
+        :root {
+            --brand-blue: #3F83F8;
+            --brand-dark-blue: #1A3E78; /* 用于Logo深蓝 */
+            --brand-yellow: #FAE548;    /* 用于Logo黄色 */
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--brand-blue);
+            color: white;
+            /* 稍微加一点抗锯齿，让白字在蓝底上更清晰 */
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 玻璃拟态效果，用于卡片背景，比纯白更现代，且不破坏蓝色背景的一致性 */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* 按钮悬停动效 */
+        .hover-lift {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body class="selection:bg-yellow-300 selection:text-blue-900">
+
+    <!-- 导航栏 -->
+    <nav class="max-w-6xl mx-auto px-6 py-8 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <!-- SVG Logo 嵌入位置 -->
+            <svg width="48" height="48" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="shadow-lg rounded-2xl">
+                <!-- 黄色外圈 -->
+                <rect x="2" y="2" width="96" height="96" rx="28" fill="#FCE938"/>
+                <!-- 深蓝内框 -->
+                <rect x="8" y="8" width="84" height="84" rx="22" fill="#0F3880"/>
+                <!-- 白色背景 -->
+                <rect x="14" y="14" width="72" height="72" rx="16" fill="white"/>
+                <!-- 内部折角阴影 (模拟图片右下角的卷角效果) -->
+                <path d="M70 70 L86 86 L70 86 Z" fill="#D1D5DB" opacity="0.5"/>
+                
+                <!-- 笔的图形 (简化版) -->
+                <g transform="translate(50, 50) rotate(45) translate(-50, -50)">
+                     <!-- 笔身 -->
+                    <rect x="42" y="25" width="16" height="40" rx="2" fill="#0F3880"/>
+                    <!-- 笔头 (三角形) -->
+                    <path d="M42 65 L50 78 L58 65 Z" fill="#0F3880"/>
+                    <!-- 笔尖白点 -->
+                    <circle cx="50" cy="74" r="1.5" fill="white"/>
+                    <!-- 笔身上的白色装饰线 -->
+                    <rect x="42" y="32" width="16" height="3" fill="white"/>
+                </g>
+                
+                <!-- 星星 (左侧) -->
+                <path d="M30 35 C32 35, 33 33, 33 31 C33 33, 35 35, 37 35 C35 35, 33 37, 33 39 C33 37, 32 35, 30 35" fill="#0F3880"/>
+                <path d="M40 45 C41 45, 41.5 44, 41.5 43 C41.5 44, 42.5 45, 43.5 45 C42.5 45, 41.5 46, 41.5 47 C41.5 46, 41 45, 40 45" fill="#0F3880"/>
+            </svg>
+            
+            <span class="font-bold text-2xl tracking-tight">Keenotes</span>
+        </div>
+        
+        <div class="hidden md:flex gap-8 text-sm font-semibold text-blue-100">
+            <a href="#features" class="hover:text-white transition">功能</a>
+            <a href="#preview" class="hover:text-white transition">预览</a>
+            <a href="https://afoo.me" target="_blank" class="hover:text-white transition">Blog</a>
+        </div>
+        
+        <a href="#download" class="hidden md:block bg-white text-blue-600 px-5 py-2 rounded-full font-bold text-sm hover:bg-yellow-300 hover:text-blue-900 transition shadow-md">
+            下载 App
+        </a>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="max-w-4xl mx-auto px-6 py-20 text-center">
+        <!-- 装饰性光晕 -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-white opacity-5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+
+        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-8 drop-shadow-sm">
+            AI 时代，<br class="md:hidden" />向量工具不可少。
+        </h1>
+        <p class="text-xl md:text-2xl text-blue-100 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
+            Keenotes 是你的个人私密短笔记。<br>
+            专为记录转瞬即逝的灵感与闪念而生。
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-5 justify-center items-center">
+            <!-- 主按钮：使用白色背景，呼应蓝白主色 -->
+            <a href="#download" class="hover-lift w-full sm:w-auto px-8 py-4 bg-white text-blue-600 rounded-xl font-bold text-lg shadow-xl shadow-blue-900/20 flex items-center justify-center gap-2">
+                <span>免费下载使用</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+            </a>
+            <!-- 次要按钮：使用玻璃拟态 -->
+            <a href="#features" class="hover-lift w-full sm:w-auto px-8 py-4 glass-card text-white rounded-xl font-bold text-lg hover:bg-white/20 transition">
+                了解更多
+            </a>
+        </div>
+        
+        <div class="mt-16 text-sm text-blue-200 font-medium">
+            支持 macOS · Windows · Linux
+        </div>
+    </header>
+
+    <!-- Screenshot Preview / 模拟界面 -->
+    <section id="preview" class="max-w-5xl mx-auto px-6 pb-20">
+        <div class="relative rounded-xl overflow-hidden shadow-2xl shadow-blue-900/40 border border-white/20 bg-[#1e293b]">
+            <!-- 模拟 macOS 窗口顶部 -->
+            <div class="bg-[#0f172a] px-4 py-3 flex items-center border-b border-gray-700/50">
+                <div class="flex gap-2">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+                <div class="mx-auto text-xs text-gray-400 font-medium">Keenotes - Local Flash Thoughts</div>
+            </div>
+            
+            <!-- 模拟应用内容区域 (暗色模式，显得更酷) -->
+            <div class="flex h-[400px] md:h-[500px]">
+                <!-- 侧边栏 -->
+                <div class="w-16 md:w-64 bg-[#1e293b] border-r border-gray-700/50 flex flex-col p-4 gap-4">
+                    <div class="h-8 bg-blue-600/20 rounded w-full hidden md:block animate-pulse"></div>
+                    <div class="flex-1 flex flex-col gap-3">
+                        <div class="h-6 bg-gray-700/30 rounded w-3/4 hidden md:block"></div>
+                        <div class="h-6 bg-gray-700/30 rounded w-1/2 hidden md:block"></div>
+                        <div class="h-6 bg-gray-700/30 rounded w-5/6 hidden md:block"></div>
+                    </div>
+                </div>
+                <!-- 主内容区 -->
+                <div class="flex-1 bg-[#0f172a] p-6 md:p-10 flex flex-col gap-6">
+                    <!-- 模拟一条笔记 -->
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 rounded-full bg-blue-600 flex-shrink-0 flex items-center justify-center text-white font-bold text-xs">AI</div>
+                        <div class="flex-1">
+                            <div class="bg-[#1e293b] p-4 rounded-lg rounded-tl-none border border-gray-700 text-gray-300 text-sm leading-relaxed shadow-lg">
+                                向量相似度比较是 AI 时代的核心。向量工具不可少。
+                                <br><br>
+                                <span class="text-blue-400">#Keenotes #Idea</span>
+                            </div>
+                            <div class="mt-2 text-xs text-gray-500">Just now</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 模拟输入框 -->
+                    <div class="mt-auto">
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <svg class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                            </div>
+                            <input type="text" class="block w-full pl-10 pr-12 py-3 bg-[#1e293b] border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-500 text-white" placeholder="记录当下的闪念...">
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                <span class="text-xs text-gray-500">Enter ⮐</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section id="features" class="max-w-6xl mx-auto px-6 py-20">
+        <div class="grid md:grid-cols-3 gap-6">
+            <!-- Feature 1 -->
+            <div class="glass-card p-8 rounded-2xl hover:bg-white/20 transition duration-300">
+                <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-blue-600 mb-6 shadow-md">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">极致私密</h3>
+                <p class="text-blue-100 text-sm leading-relaxed opacity-90">
+                    你的笔记只属于你。数据本地存储，支持私有化部署，告别云端泄露焦虑。
+                </p>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="glass-card p-8 rounded-2xl hover:bg-white/20 transition duration-300">
+                <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-blue-600 mb-6 shadow-md">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">极速启动</h3>
+                <p class="text-blue-100 text-sm leading-relaxed opacity-90">
+                    不打断心流。快捷键一键唤起，毫秒级响应，就像你的第二大脑。
+                </p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="glass-card p-8 rounded-2xl hover:bg-white/20 transition duration-300">
+                <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-blue-600 mb-6 shadow-md">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">向量检索</h3>
+                <p class="text-blue-100 text-sm leading-relaxed opacity-90">
+                    AI 时代的标配。不仅仅是关键词匹配，更能通过语义理解找到你模糊的记忆。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="py-20 text-center">
+        <div class="max-w-4xl mx-auto px-6 bg-white text-slate-800 rounded-3xl p-12 md:p-16 shadow-2xl">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-slate-900">开始构建你的知识库</h2>
+            <p class="text-slate-500 mb-10 max-w-xl mx-auto">
+                简单、快速、强大。今天就试试 Keenotes。
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-md mx-auto">
+                <button class="flex items-center justify-center gap-3 bg-slate-900 text-white px-6 py-4 rounded-xl font-semibold hover:bg-slate-800 transition">
+                    <!-- Apple Icon -->
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.74 1.18 0 2.21-1.11 3.96-1.11 1.63.07 2.74.74 3.44 1.76-3.05 1.59-2.52 5.95.53 7.35-.63 1.68-1.57 3.25-2.98 4.23zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+                    <span>macOS (Apple Silicon)</span>
+                </button>
+                <button class="flex items-center justify-center gap-3 bg-slate-100 text-slate-900 border border-slate-200 px-6 py-4 rounded-xl font-semibold hover:bg-slate-200 transition">
+                    <!-- Intel Icon -->
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.74 1.18 0 2.21-1.11 3.96-1.11 1.63.07 2.74.74 3.44 1.76-3.05 1.59-2.52 5.95.53 7.35-.63 1.68-1.57 3.25-2.98 4.23zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+                    <span>macOS (Intel)</span>
+                </button>
+            </div>
+            <p class="mt-6 text-sm text-slate-400">
+                Also available for <a href="#" class="text-blue-600 font-semibold hover:underline">Windows</a> and <a href="#" class="text-blue-600 font-semibold hover:underline">Linux</a>
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 py-12 text-center">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-blue-200 text-sm">
+                <div>
+                    Designed by <a href="https://afoo.me" class="font-bold text-white hover:text-yellow-300 transition">王福强（@afoo_me）</a>
+                </div>
+                <div class="flex gap-6">
+                    <span class="opacity-60">&copy; 2025 Keenotes</span>
+                    <a href="#" class="hover:text-white transition">Privacy</a>
+                    <a href="#" class="hover:text-white transition">Terms</a>
+                </div>
+            </div>
+            <div class="mt-8 text-xs text-blue-300/50">
+                Related: <a href="#" class="hover:text-white">Keebox</a> · <a href="#" class="hover:text-white">FooSnippets</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
