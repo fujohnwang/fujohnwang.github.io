@@ -3,25 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keenotes - 个人私密短笔记</title>
+    <title>Keenotes - Local Flash Thoughts</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* 定义用户指定的颜色变量 */
         :root {
             --brand-blue: #3F83F8;
-            --brand-dark-blue: #1A3E78; /* 用于Logo深蓝 */
-            --brand-yellow: #FAE548;    /* 用于Logo黄色 */
+            --brand-dark-blue: #1A3E78;
+            --brand-yellow: #FAE548;
+            --accent-glow: #60A5FA;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background-color: var(--brand-blue);
             color: white;
-            /* 稍微加一点抗锯齿，让白字在蓝底上更清晰 */
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
-        /* 玻璃拟态效果，用于卡片背景，比纯白更现代，且不破坏蓝色背景的一致性 */
         .glass-card {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
@@ -29,7 +28,6 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        /* 按钮悬停动效 */
         .hover-lift {
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
@@ -37,89 +35,115 @@
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0.5; }
+            to { opacity: 1; }
+        }
+
+        /* --- SVG Animation Styles --- */
+        .dash-flow {
+            stroke-dasharray: 10;
+            stroke-dashoffset: 200;
+            animation: dashScroll 1.5s linear infinite;
+        }
+        
+        .pulse-server {
+            animation: pulseScale 3s ease-in-out infinite;
+            transform-origin: center; /* 确保从中心缩放 */
+            /* 关键修复：移除 translate，只保留 scale */
+        }
+        
+        .shield-glow {
+            animation: glowPulse 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes dashScroll {
+            to { stroke-dashoffset: 0; }
+        }
+
+        @keyframes pulseScale {
+            /* 关键修复：这里只控制缩放，位置由 HTML SVG 属性控制 */
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes glowPulse {
+            from { opacity: 0.1; r: 50; }
+            to { opacity: 0.4; r: 60; }
+        }
+        
+        /* Device floating animation */
+        .float-device {
+            animation: float 4s ease-in-out infinite;
+        }
+        .float-device-delay {
+            animation: float 4s ease-in-out infinite;
+            animation-delay: 2s;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
     </style>
 </head>
-<body class="selection:bg-yellow-300 selection:text-blue-900">
+<body class="selection:bg-yellow-300 selection:text-blue-900 flex flex-col min-h-screen">
 
     <!-- 导航栏 -->
-    <nav class="max-w-6xl mx-auto px-6 py-8 flex justify-between items-center">
+    <nav class="max-w-6xl mx-auto px-6 py-6 md:py-8 flex justify-between items-center w-full relative z-20">
         <div class="flex items-center gap-3">
-            <!-- SVG Logo 嵌入位置 -->
-            <svg width="48" height="48" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="shadow-lg rounded-2xl">
-                <!-- 黄色外圈 -->
+            <svg width="40" height="40" viewBox="0 0 100 100" fill="none" class="shadow-lg rounded-xl md:w-[48px] md:h-[48px] md:rounded-2xl shrink-0">
                 <rect x="2" y="2" width="96" height="96" rx="28" fill="#FCE938"/>
-                <!-- 深蓝内框 -->
                 <rect x="8" y="8" width="84" height="84" rx="22" fill="#0F3880"/>
-                <!-- 白色背景 -->
                 <rect x="14" y="14" width="72" height="72" rx="16" fill="white"/>
-                <!-- 内部折角阴影 (模拟图片右下角的卷角效果) -->
                 <path d="M70 70 L86 86 L70 86 Z" fill="#D1D5DB" opacity="0.5"/>
-                
-                <!-- 笔的图形 (简化版) -->
                 <g transform="translate(50, 50) rotate(45) translate(-50, -50)">
-                     <!-- 笔身 -->
                     <rect x="42" y="25" width="16" height="40" rx="2" fill="#0F3880"/>
-                    <!-- 笔头 (三角形) -->
                     <path d="M42 65 L50 78 L58 65 Z" fill="#0F3880"/>
-                    <!-- 笔尖白点 -->
                     <circle cx="50" cy="74" r="1.5" fill="white"/>
-                    <!-- 笔身上的白色装饰线 -->
                     <rect x="42" y="32" width="16" height="3" fill="white"/>
                 </g>
-                
-                <!-- 星星 (左侧) -->
-                <path d="M30 35 C32 35, 33 33, 33 31 C33 33, 35 35, 37 35 C35 35, 33 37, 33 39 C33 37, 32 35, 30 35" fill="#0F3880"/>
-                <path d="M40 45 C41 45, 41.5 44, 41.5 43 C41.5 44, 42.5 45, 43.5 45 C42.5 45, 41.5 46, 41.5 47 C41.5 46, 41 45, 40 45" fill="#0F3880"/>
             </svg>
-            
-            <span class="font-bold text-2xl tracking-tight">Keenotes</span>
+            <span class="font-bold text-xl md:text-2xl tracking-tight">Keenotes</span>
         </div>
         
-        <div class="hidden md:flex gap-8 text-sm font-semibold text-blue-100">
-            <a href="#features" class="hover:text-white transition">功能</a>
-            <a href="#preview" class="hover:text-white transition">预览</a>
-            <a href="https://afoo.me" target="_blank" class="hover:text-white transition">Blog</a>
+        <div class="flex items-center gap-4 md:gap-8">
+            <div class="hidden md:flex gap-8 text-sm font-semibold text-blue-100">
+                <a href="#features" class="hover:text-white transition" data-i18n="nav_features">功能</a>
+                <a href="#sync" class="hover:text-white transition" data-i18n="nav_sync">同步</a>
+                <a href="#preview" class="hover:text-white transition" data-i18n="nav_preview">预览</a>
+                <a href="https://afoo.me" target="_blank" class="hover:text-white transition" data-i18n="nav_blog">Blog</a>
+            </div>
+            <button id="lang-toggle" class="text-sm font-bold text-blue-100 hover:text-white border border-blue-300/30 rounded px-2 py-1 transition bg-blue-800/20 hover:bg-blue-800/40">EN</button>
+            <a href="#download" class="hidden md:block bg-white text-blue-600 px-5 py-2 rounded-full font-bold text-sm hover:bg-yellow-300 hover:text-blue-900 transition shadow-md" data-i18n="nav_download">下载 App</a>
         </div>
-        
-        <a href="#download" class="hidden md:block bg-white text-blue-600 px-5 py-2 rounded-full font-bold text-sm hover:bg-yellow-300 hover:text-blue-900 transition shadow-md">
-            下载 App
-        </a>
     </nav>
 
     <!-- Hero Section -->
-    <header class="max-w-4xl mx-auto px-6 py-20 text-center">
-        <!-- 装饰性光晕 -->
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-white opacity-5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
-
-        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-8 drop-shadow-sm">
+    <header class="max-w-4xl mx-auto px-6 py-16 md:py-20 text-center relative z-10">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] md:w-[800px] md:h-[600px] bg-white opacity-5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+        <h1 class="text-4xl md:text-7xl font-extrabold tracking-tight mb-8 drop-shadow-sm leading-tight" data-i18n="hero_title">
             灵感与闪念捕捉神器，<br class="md:hidden" />让灵感与念头不再一闪而过。
         </h1>
-        <p class="text-xl md:text-2xl text-blue-100 mb-12 max-w-2xl mx-auto leading-relaxed">
-            Keenotes 是你的个人私密短笔记。<br>
-            专为记录和留存转瞬即逝的灵感与闪念而生。
+        <p class="text-lg md:text-2xl text-blue-100 mb-12 max-w-2xl mx-auto leading-relaxed" data-i18n="hero_subtitle">
+            Keenotes 是你的个人私密短笔记。<br>专为记录和留存转瞬即逝的灵感与闪念而生。
         </p>
-        
         <div class="flex flex-col sm:flex-row gap-5 justify-center items-center">
-            <!-- 主按钮：使用白色背景，呼应蓝白主色 -->
             <a href="#download" class="hover-lift w-full sm:w-auto px-8 py-4 bg-white text-blue-600 rounded-xl font-bold text-lg shadow-xl shadow-blue-900/20 flex items-center justify-center gap-2">
-                <span>免费下载使用</span>
+                <span data-i18n="btn_download_free">免费下载使用</span>
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
             </a>
-            <!-- 次要按钮：使用玻璃拟态 -->
-            <a href="#features" class="hover-lift w-full sm:w-auto px-8 py-4 glass-card text-white rounded-xl font-bold text-lg hover:bg-white/20 transition">
-                了解更多
-            </a>
+            <a href="#features" class="hover-lift w-full sm:w-auto px-8 py-4 glass-card text-white rounded-xl font-bold text-lg hover:bg-white/20 transition" data-i18n="btn_learn_more">了解更多</a>
         </div>
-        
-        <div class="mt-16 text-sm text-blue-200 font-medium">
-            支持 macOS · Windows · Linux · Android · iOS
-        </div>
+        <div class="mt-16 text-sm text-blue-200 font-medium" data-i18n="hero_platforms">支持 macOS · Windows · Linux · Android · iOS</div>
     </header>
 
-    <!-- Screenshot Preview / 模拟界面 -->
+    <!-- Screenshot Preview -->
     <section id="preview" class="max-w-5xl mx-auto px-6 pb-20">
         <div class="relative rounded-xl overflow-hidden shadow-2xl shadow-blue-900/40 border border-white/20 bg-[#1e293b]">
-            <!-- 模拟 macOS 窗口顶部 -->
             <div class="bg-[#0f172a] px-4 py-3 flex items-center border-b border-gray-700/50">
                 <div class="flex gap-2">
                     <div class="w-3 h-3 rounded-full bg-red-500"></div>
@@ -128,43 +152,29 @@
                 </div>
                 <div class="mx-auto text-xs text-gray-400 font-medium">Keenotes - Local Flash Thoughts</div>
             </div>
-            
-            <!-- 模拟应用内容区域 (暗色模式，显得更酷) -->
             <div class="flex h-[400px] md:h-[500px]">
-                <!-- 侧边栏 -->
                 <div class="w-16 md:w-64 bg-[#1e293b] border-r border-gray-700/50 flex flex-col p-4 gap-4">
                     <div class="h-8 bg-blue-600/20 rounded w-full hidden md:block animate-pulse"></div>
                     <div class="flex-1 flex flex-col gap-3">
                         <div class="h-6 bg-gray-700/30 rounded w-3/4 hidden md:block"></div>
                         <div class="h-6 bg-gray-700/30 rounded w-1/2 hidden md:block"></div>
-                        <div class="h-6 bg-gray-700/30 rounded w-5/6 hidden md:block"></div>
                     </div>
                 </div>
-                <!-- 主内容区 -->
                 <div class="flex-1 bg-[#0f172a] p-6 md:p-10 flex flex-col gap-6">
-                    <!-- 模拟一条笔记 -->
                     <div class="flex gap-4">
                         <div class="w-10 h-10 rounded-full bg-blue-600 flex-shrink-0 flex items-center justify-center text-white font-bold text-xs">AI</div>
                         <div class="flex-1">
                             <div class="bg-[#1e293b] p-4 rounded-lg rounded-tl-none border border-gray-700 text-gray-300 text-sm leading-relaxed shadow-lg">
-                                向量相似度比较是 AI 时代的核心。向量工具不可少。
+                                <span data-i18n="preview_note_text">向量相似度比较是 AI 时代的核心。向量工具不可少。</span>
                                 <br><br>
                                 <span class="text-blue-400">#Keenotes #Idea</span>
                             </div>
                             <div class="mt-2 text-xs text-gray-500">Just now</div>
                         </div>
                     </div>
-                    
-                    <!-- 模拟输入框 -->
                     <div class="mt-auto">
                         <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <svg class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                            </div>
-                            <input type="text" class="block w-full pl-10 pr-12 py-3 bg-[#1e293b] border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-500 text-white" placeholder="记录当下的闪念...">
-                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
-                                <span class="text-xs text-gray-500">Enter ⮐</span>
-                            </div>
+                            <input type="text" id="preview-input" class="block w-full pl-4 pr-12 py-3 bg-[#1e293b] border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 placeholder-gray-500 text-white transition" placeholder="记录当下的闪念...">
                         </div>
                     </div>
                 </div>
@@ -172,71 +182,196 @@
         </div>
     </section>
 
+    <!-- NEW SECTION: Secure Sync Animation (FIXED: 5 Lines + Centered Vault) -->
+    <section id="sync" class="py-20 relative overflow-hidden bg-blue-900/30 border-y border-white/5">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+        
+        <!-- Text Header -->
+        <div class="max-w-4xl mx-auto px-6 text-center mb-10 relative z-10">
+            <div class="inline-block px-3 py-1 bg-yellow-400/20 text-yellow-300 rounded-full text-xs font-bold mb-4 border border-yellow-400/30" data-i18n="sync_badge">E2EE ENCRYPTED</div>
+            <h2 class="text-3xl md:text-5xl font-bold mb-6 text-white" data-i18n="sync_title">
+                多端汇聚，<br>安全如一。
+            </h2>
+            <p class="text-lg text-blue-100 leading-relaxed max-w-2xl mx-auto" data-i18n="sync_desc">
+                无论你在手机、平板还是电脑上记录，数据都会经过端到端加密通道，安全汇聚至云端核心。
+            </p>
+        </div>
+
+        <!-- SVG Animation Container -->
+        <div class="w-full max-w-5xl mx-auto h-[400px] md:h-[500px] relative z-10 px-4">
+            <svg viewBox="0 0 800 500" class="w-full h-full drop-shadow-2xl" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                    <linearGradient id="upward-flow" x1="0%" y1="100%" x2="0%" y2="0%">
+                        <stop offset="0%" stop-color="#3F83F8" stop-opacity="0.1" />
+                        <stop offset="50%" stop-color="#60A5FA" stop-opacity="0.6" />
+                        <stop offset="100%" stop-color="#FAE548" stop-opacity="1" />
+                    </linearGradient>
+                    
+                    <filter id="glow-heavy" x="-50%" y="-50%" width="200%" height="200%">
+                        <feGaussianBlur stdDeviation="4" result="blur" />
+                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                </defs>
+            
+                <!-- Connection Paths (5 Lines) -->
+                <!-- Linux (100) -> Center (400) -->
+                <path id="path-linux" d="M100 380 C 100 200, 380 250, 400 120" stroke="url(#upward-flow)" stroke-width="2" fill="none" class="dash-flow" opacity="0.4"/>
+                <!-- Apple (250) -> Center (400) -->
+                <path id="path-apple" d="M250 380 C 250 250, 400 300, 400 120" stroke="url(#upward-flow)" stroke-width="2" fill="none" class="dash-flow" opacity="0.4"/>
+                <!-- Windows (400) -> Center (400) -->
+                <path id="path-win" d="M400 380 C 400 300, 400 250, 400 120" stroke="url(#upward-flow)" stroke-width="2" fill="none" class="dash-flow" opacity="0.4"/>
+                <!-- Android (550) -> Center (400) -->
+                <path id="path-android" d="M550 380 C 550 250, 400 300, 400 120" stroke="url(#upward-flow)" stroke-width="2" fill="none" class="dash-flow" opacity="0.4"/>
+                <!-- Web (700) -> Center (400) -->
+                <path id="path-web" d="M700 380 C 700 200, 420 250, 400 120" stroke="url(#upward-flow)" stroke-width="2" fill="none" class="dash-flow" opacity="0.4"/>
+            
+                <!-- Data Packets (5 Circles) -->
+                <circle r="4" fill="#FAE548" filter="url(#glow-heavy)">
+                    <animateMotion dur="4s" repeatCount="indefinite" rotate="auto"><mpath href="#path-linux"/></animateMotion>
+                </circle>
+                <circle r="4" fill="#FAE548" filter="url(#glow-heavy)">
+                    <animateMotion dur="3s" repeatCount="indefinite" rotate="auto"><mpath href="#path-apple"/></animateMotion>
+                </circle>
+                <circle r="4" fill="#FAE548" filter="url(#glow-heavy)">
+                    <animateMotion dur="2.5s" repeatCount="indefinite" rotate="auto"><mpath href="#path-win"/></animateMotion>
+                </circle>
+                <circle r="4" fill="#FAE548" filter="url(#glow-heavy)">
+                    <animateMotion dur="3.2s" repeatCount="indefinite" rotate="auto"><mpath href="#path-android"/></animateMotion>
+                </circle>
+                <circle r="4" fill="#FAE548" filter="url(#glow-heavy)">
+                    <animateMotion dur="3.8s" repeatCount="indefinite" rotate="auto"><mpath href="#path-web"/></animateMotion>
+                </circle>
+            
+                <!-- Top Node: The Vault (Center Fixed) -->
+                <!-- Use 'translate' here for positioning, CSS only handles 'scale' -->
+                <g transform="translate(400, 80)"> 
+                    <g class="pulse-server">
+                        <circle r="50" fill="url(#upward-flow)" opacity="0.1" class="shield-glow"/>
+                        <rect x="-35" y="-35" width="70" height="70" rx="10" fill="#0F3880" stroke="#FAE548" stroke-width="3"/>
+                        <rect x="-30" y="-30" width="60" height="60" rx="6" fill="#1e293b" opacity="0.5"/>
+                        <circle cx="0" cy="0" r="18" fill="#1e293b" stroke="#FAE548" stroke-width="2"/>
+                        <rect x="-2" y="-12" width="4" height="6" fill="#FAE548"/> 
+                        <rect x="-2" y="6" width="4" height="6" fill="#FAE548"/>
+                        <rect x="-12" y="-2" width="6" height="4" fill="#FAE548"/>
+                        <rect x="6" y="-2" width="6" height="4" fill="#FAE548"/>
+                        <circle cx="0" cy="0" r="8" fill="#FAE548"/>
+                        <text y="-50" text-anchor="middle" fill="#FAE548" font-size="14" font-weight="bold" letter-spacing="1">ENCRYPTED VAULT</text>
+                    </g>
+                </g>
+            
+                <!-- Bottom Nodes: Devices -->
+                
+                <!-- Linux (Left Far) -->
+                <g transform="translate(100, 380)">
+                    <g class="float-device">
+                        <circle r="35" fill="#1e293b" stroke="#60A5FA" stroke-width="2"/>
+                        <path d="M-12 15 C-12 15 -18 15 -18 5 C-18 -15 -5 -20 0 -20 C 5 -20 18 -15 18 5 C 18 15 12 15 12 15" fill="white"/> 
+                        <path d="M-6 15 L6 15 L0 18 Z" fill="#FCE938"/>
+                        <ellipse cx="-5" cy="-5" rx="2" ry="2" fill="black"/>
+                        <ellipse cx="5" cy="-5" rx="2" ry="2" fill="black"/>
+                        <text y="55" text-anchor="middle" fill="#94A3B8" font-size="12">Linux</text>
+                    </g>
+                </g>
+            
+                <!-- Apple (Left Center) -->
+                <g transform="translate(250, 380)">
+                    <g class="float-device-delay">
+                        <circle r="35" fill="#1e293b" stroke="#60A5FA" stroke-width="2"/>
+                        <path d="M-5 -9 C-8 -9 -11 -7 -11 -2 C-11 5 -6 10 -2 10 C 0 10 1 9 4 9 C 6 9 8 10 10 10 C 12 10 13 8 13 6 C 11 5 11 2 13 1 C 11 -3 9 -9 4 -9 M 1 -13 C 2 -15 5 -15 6 -13 C 5 -11 2 -11 1 -13" fill="white" transform="scale(1.2)"/>
+                        <text y="55" text-anchor="middle" fill="#94A3B8" font-size="12">macOS / iOS</text>
+                    </g>
+                </g>
+            
+                <!-- Windows (Center) -->
+                <g transform="translate(400, 380)">
+                    <g class="float-device">
+                        <rect x="-1" y="-14" width="2" height="28" fill="#1e293b"/>
+                        <circle r="35" fill="#1e293b" stroke="#60A5FA" stroke-width="2"/>
+                        <path d="M-10 -10 L-1 -10 L-1 -1 L-10 -1 Z M1 -10 L10 -10 L10 -1 L1 -1 Z M-10 1 L-1 1 L-1 10 L-10 10 Z M1 1 L10 1 L10 10 L1 10 Z" fill="white" transform="scale(1.2)"/>
+                        <text y="55" text-anchor="middle" fill="#94A3B8" font-size="12">Windows</text>
+                    </g>
+                </g>
+            
+                <!-- Android (Right Center) -->
+                <g transform="translate(550, 380)">
+                    <g class="float-device-delay">
+                        <circle r="35" fill="#1e293b" stroke="#60A5FA" stroke-width="2"/>
+                        <path d="M-12 5 L12 5 L12 -2 C12 -10 6 -14 0 -14 C-6 -14 -12 -10 -12 -2 Z" fill="white"/>
+                        <line x1="-7" y1="-12" x2="-12" y2="-18" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="7" y1="-12" x2="12" y2="-18" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="-5" cy="-6" r="1.5" fill="#1e293b"/>
+                        <circle cx="5" cy="-6" r="1.5" fill="#1e293b"/>
+                        <text y="55" text-anchor="middle" fill="#94A3B8" font-size="12">Android</text>
+                    </g>
+                </g>
+                
+                 <!-- Web/Other (Right Far) -->
+                 <g transform="translate(700, 380)">
+                    <g class="float-device">
+                        <circle r="35" fill="#1e293b" stroke="#60A5FA" stroke-width="2"/>
+                        <rect x="-12" y="-10" width="24" height="20" rx="2" stroke="white" stroke-width="2" fill="none"/>
+                        <line x1="-12" y1="-4" x2="12" y2="-4" stroke="white" stroke-width="1"/>
+                        <text y="55" text-anchor="middle" fill="#94A3B8" font-size="12">Web / Tablet</text>
+                    </g>
+                </g>
+
+            </svg>
+        </div>
+    </section>
+
     <!-- Features Grid -->
     <section id="features" class="max-w-6xl mx-auto px-6 py-20">
         <div class="grid md:grid-cols-3 gap-6">
-            <!-- Feature 1 -->
-            <div class="glass-card p-8 rounded-2xl hover:bg-white/20 transition duration-300">
-                <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-blue-600 mb-6 shadow-md">
+            <div class="glass-card p-8 rounded-2xl hover:bg-white/20 transition duration-300 flex flex-col">
+                <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-blue-600 mb-6 shadow-md shrink-0">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                 </div>
-                <h3 class="text-xl font-bold mb-3">极致私密</h3>
-                <p class="text-sm leading-relaxed">
-                    你的笔记只属于你。<br><b class="text-yellow-100">Your thoughts, your assets</b>。<br>数据ASE-GCM加密存储，完全端到端加解密（E2EE），私有化部署，告别云端泄露焦虑。
+                <h3 class="text-xl font-bold mb-3" data-i18n="feat_1_title">极致私密</h3>
+                <p class="text-sm leading-relaxed text-blue-100" data-i18n="feat_1_desc">
+                    你的笔记只属于你。<br><b class="text-yellow-100">Your thoughts, your assets</b>。<br>数据ASE-GCM加密存储，完全端到端加解密（E2EE），私有化部署。
                 </p>
             </div>
-
-            <!-- Feature 2 -->
-            <div class="glass-card p-8 rounded-2xl hover:bg-white/20 transition duration-300">
-                <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-blue-600 mb-6 shadow-md">
+            <div class="glass-card p-8 rounded-2xl hover:bg-white/20 transition duration-300 flex flex-col">
+                <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-blue-600 mb-6 shadow-md shrink-0">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                 </div>
-                <h3 class="text-xl font-bold mb-3">数据存档与安全</h3>
-                <p class="text-sm leading-relaxed">
-                    Keenotes以远端服务器端的数据为Single Source Of Truth，同时支持对其进行进一步备份以保证数据不丢失。
-                    但因为数据离端即加密，所以远端服务器端的数据其实是加密状态，就算泄漏（原则上概率也很低），窃取者也无法读取数据内容。
-                    总之，数据主权是使用者个人的，只有持有密码的个人才能读取和写入。
+                <h3 class="text-xl font-bold mb-3" data-i18n="feat_2_title">数据存档与安全</h3>
+                <p class="text-sm leading-relaxed text-blue-100" data-i18n="feat_2_desc">
+                    Keenotes以远端服务器端的数据为Single Source Of Truth。因为数据离端即加密，服务器端数据其实是加密状态，窃取者无法读取。
                 </p>
             </div>
-            
-
-            <!-- Feature 3 -->
-            <div class="glass-card p-8 rounded-2xl hover:bg-white/20 transition duration-300">
-                <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-blue-600 mb-6 shadow-md">
+            <div class="glass-card p-8 rounded-2xl hover:bg-white/20 transition duration-300 flex flex-col">
+                <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-blue-600 mb-6 shadow-md shrink-0">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                 </div>
-                <h3 class="text-xl font-bold mb-3">极速捕捉</h3>
-                <p class="text-sm leading-relaxed">
-                    多终端支持，闪念一来，触手可及，不打断心流，让灵感直接进入你的第二大脑。操作简单，使用简单，功能更简单，是个人就会用🤪。
-                    <br>
-                    支持 macOS · Windows · Linux · Android · iOS 
+                <h3 class="text-xl font-bold mb-3" data-i18n="feat_3_title">极速捕捉</h3>
+                <p class="text-sm leading-relaxed text-blue-100" data-i18n="feat_3_desc">
+                    多终端支持，闪念一来，触手可及，不打断心流。操作简单，功能纯粹。<br>支持 macOS · Windows · Linux · Android · iOS 
                 </p>
             </div>
         </div>
     </section>
 
     <!-- Download Section -->
-    <section id="download" class="py-20 text-center">
+    <section id="download" class="py-20 text-center mt-auto">
         <div class="max-w-4xl mx-auto px-6 bg-white text-slate-800 rounded-3xl p-12 md:p-16 shadow-2xl">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-slate-900">开始构建你的私人“树洞”吧～</h2>
-            <p class="text-slate-500 mb-10 max-w-xl mx-auto">
-                简单、快速、强大。今天就试试 Keenotes。
-            </p>
-            
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-slate-900" data-i18n="dl_title">开始构建你的私人“树洞”吧～</h2>
+            <p class="text-slate-500 mb-10 max-w-xl mx-auto" data-i18n="dl_subtitle">简单、快速、强大。今天就试试 Keenotes。</p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-md mx-auto">
-                <button class="flex items-center justify-center gap-3 bg-slate-900 text-white px-6 py-4 rounded-xl font-semibold hover:bg-slate-800 transition">
-                    <!-- Apple Icon -->
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.74 1.18 0 2.21-1.11 3.96-1.11 1.63.07 2.74.74 3.44 1.76-3.05 1.59-2.52 5.95.53 7.35-.63 1.68-1.57 3.25-2.98 4.23zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+                <button class="flex items-center justify-center gap-3 bg-slate-900 text-white px-6 py-4 rounded-xl font-semibold hover:bg-slate-800 transition group">
+                    <svg class="w-6 h-6 group-hover:scale-110 transition" fill="currentColor" viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.74 1.18 0 2.21-1.11 3.96-1.11 1.63.07 2.74.74 3.44 1.76-3.05 1.59-2.52 5.95.53 7.35-.63 1.68-1.57 3.25-2.98 4.23zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
                     <span>macOS (Apple Silicon)</span>
                 </button>
-                <button class="flex items-center justify-center gap-3 bg-slate-100 text-slate-900 border border-slate-200 px-6 py-4 rounded-xl font-semibold hover:bg-slate-200 transition">
-                    <!-- Intel Icon -->
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.74 1.18 0 2.21-1.11 3.96-1.11 1.63.07 2.74.74 3.44 1.76-3.05 1.59-2.52 5.95.53 7.35-.63 1.68-1.57 3.25-2.98 4.23zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+                <button class="flex items-center justify-center gap-3 bg-slate-100 text-slate-900 border border-slate-200 px-6 py-4 rounded-xl font-semibold hover:bg-slate-200 transition group">
+                    <svg class="w-6 h-6 group-hover:scale-110 transition" fill="currentColor" viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.74 1.18 0 2.21-1.11 3.96-1.11 1.63.07 2.74.74 3.44 1.76-3.05 1.59-2.52 5.95.53 7.35-.63 1.68-1.57 3.25-2.98 4.23zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
                     <span>macOS (Intel)</span>
                 </button>
             </div>
             <p class="mt-6 text-sm text-slate-400">
-                Also available for <a href="#" class="text-blue-600 font-semibold hover:underline">Windows</a> and <a href="#" class="text-blue-600 font-semibold hover:underline">Linux</a>
+                <span data-i18n="dl_other_platforms">Also available for</span> 
+                <a href="#" class="text-blue-600 font-semibold hover:underline">Windows</a> 
+                <span class="px-1">&</span> 
+                <a href="#" class="text-blue-600 font-semibold hover:underline">Linux</a>
             </p>
         </div>
     </section>
@@ -246,20 +381,128 @@
         <div class="max-w-4xl mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-blue-200 text-sm">
                 <div>
-                    Designed by <a href="https://afoo.me" class="font-bold text-white hover:text-yellow-300 transition">王福强（@afoo_me）</a>
+                    <span data-i18n="footer_designed">Designed by</span> 
+                    <a href="https://afoo.me" class="font-bold text-white hover:text-yellow-300 transition" data-i18n="footer_author">王福强（@afoo_me）</a>
                 </div>
                 <div class="text-xs text-blue-300/50">
                     More: <a href="/tools.html" class="hover:text-white">Tools</a> · <a href="/foosnippets.html" class="hover:text-white">FooSnippets</a>
                 </div>
                 <div class="flex gap-6">
                     <span class="opacity-60">&copy; 2025 Keenotes</span>
-                    <a href="#" class="hover:text-white transition">Privacy</a>
-                    <a href="#" class="hover:text-white transition">Terms</a>
+                    <a href="#" class="hover:text-white transition" data-i18n="footer_privacy">Privacy</a>
+                    <a href="#" class="hover:text-white transition" data-i18n="footer_terms">Terms</a>
                 </div>
             </div>
-            
         </div>
     </footer>
 
+    <!-- I18n Script -->
+    <script>
+        const translations = {
+            zh: {
+                nav_features: "功能",
+                nav_sync: "同步",
+                nav_preview: "预览",
+                nav_blog: "Blog",
+                nav_download: "下载 App",
+                hero_title: "灵感与闪念捕捉神器，<br class='md:hidden' />让灵感与念头不再一闪而过。",
+                hero_subtitle: "Keenotes 是你的个人私密短笔记。<br>专为记录和留存转瞬即逝的灵感与闪念而生。",
+                btn_download_free: "免费下载使用",
+                btn_learn_more: "了解更多",
+                hero_platforms: "支持 macOS · Windows · Linux · Android · iOS",
+                preview_note_text: "向量相似度比较是 AI 时代的核心。向量工具不可少。",
+                preview_placeholder: "记录当下的闪念...",
+                sync_badge: "E2EE 端到端加密",
+                sync_title: "多端汇聚，<br>安全如一。",
+                sync_desc: "无论你在手机、平板还是电脑上记录，数据都会经过端到端加密通道，安全汇聚至云端核心。我们不仅同步你的思想，更守护你的隐私。",
+                feat_1_title: "极致私密",
+                feat_1_desc: "你的笔记只属于你。<br><b class='text-yellow-100'>Your thoughts, your assets</b>。<br>数据ASE-GCM加密存储，完全端到端加解密（E2EE），私有化部署。",
+                feat_2_title: "数据存档与安全",
+                feat_2_desc: "Keenotes以远端服务器端的数据为Single Source Of Truth。因为数据离端即加密，服务器端数据其实是加密状态，窃取者无法读取。",
+                feat_3_title: "极速捕捉",
+                feat_3_desc: "多终端支持，闪念一来，触手可及，不打断心流，让灵感直接进入你的第二大脑。操作简单，功能纯粹。<br>支持 macOS · Windows · Linux · Android · iOS",
+                dl_title: "开始构建你的私人“树洞”吧～",
+                dl_subtitle: "简单、快速、强大。今天就试试 Keenotes。",
+                dl_other_platforms: "也支持",
+                footer_designed: "Designed by",
+                footer_author: "王福强（@afoo_me）",
+                footer_privacy: "隐私",
+                footer_terms: "条款"
+            },
+            en: {
+                nav_features: "Features",
+                nav_sync: "Sync",
+                nav_preview: "Preview",
+                nav_blog: "Blog",
+                nav_download: "Download",
+                hero_title: "Capture Inspiration &<br class='md:hidden' /> Flash Thoughts Instantly.",
+                hero_subtitle: "Keenotes is your private short-note vault.<br>Designed to catch fleeting ideas before they vanish.",
+                btn_download_free: "Download for Free",
+                btn_learn_more: "Learn More",
+                hero_platforms: "Available on macOS · Windows · Linux · Android · iOS",
+                preview_note_text: "Vector similarity is the core of the AI era. Vector tools are essential.",
+                preview_placeholder: "Capture your thought...",
+                sync_badge: "E2EE ENCRYPTED",
+                sync_title: "Multi-Device Sync,<br>Uncompromised Security.",
+                sync_desc: "Whether on mobile, tablet, or desktop, your data travels through E2EE tunnels to the cloud core. We don't just sync your thoughts; we guard your privacy.",
+                feat_1_title: "Ultimate Privacy",
+                feat_1_desc: "Your notes belong only to you.<br><b class='text-yellow-100'>Your thoughts, your assets</b>.<br>Data is stored with ASE-GCM encryption, fully End-to-End Encrypted (E2EE). Self-hosted options available.",
+                feat_2_title: "Secure Archiving",
+                feat_2_desc: "Keenotes uses the remote server as the Single Source Of Truth. Since data is encrypted before leaving your device, the remote server holds only encrypted blobs. Data sovereignty is yours.",
+                feat_3_title: "Instant Capture",
+                feat_3_desc: "Multi-platform support. When an idea strikes, it's within reach. Don't break your flow; let inspiration enter your second brain directly.<br>Supports macOS · Windows · Linux · Android · iOS",
+                dl_title: "Start building your private 'Tree Hollow' today.",
+                dl_subtitle: "Simple, Fast, Powerful. Try Keenotes today.",
+                dl_other_platforms: "Also available for",
+                footer_designed: "Designed by",
+                footer_author: "Fuqiang Wang (@afoo_me)",
+                footer_privacy: "Privacy",
+                footer_terms: "Terms"
+            }
+        };
+
+        let currentLang = 'zh';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            const content = translations[lang];
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (content[key]) {
+                    element.innerHTML = content[key];
+                    element.classList.remove('fade-in');
+                    void element.offsetWidth;
+                    element.classList.add('fade-in');
+                }
+            });
+            const input = document.getElementById('preview-input');
+            if (input && content['preview_placeholder']) {
+                input.placeholder = content['preview_placeholder'];
+            }
+            const toggleBtn = document.getElementById('lang-toggle');
+            if (toggleBtn) {
+                toggleBtn.textContent = lang === 'zh' ? 'EN' : '中';
+            }
+            document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en-US';
+        }
+
+        function initLanguage() {
+            const browserLang = navigator.language || navigator.userLanguage;
+            if (browserLang.toLowerCase().startsWith('zh')) {
+                setLanguage('zh');
+            } else {
+                setLanguage('en');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initLanguage();
+            const toggleBtn = document.getElementById('lang-toggle');
+            toggleBtn.addEventListener('click', () => {
+                const newLang = currentLang === 'zh' ? 'en' : 'zh';
+                setLanguage(newLang);
+            });
+        });
+    </script>
 </body>
 </html>
