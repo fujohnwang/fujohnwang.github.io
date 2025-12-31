@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts Trend - Afoo.me</title>
+    <style>
+        :root {
+            --bg-color: #3F83F8;
+            --text-color: #ffffff;
+            --accent-color: #FF9F1C;
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --card-border: rgba(255, 255, 255, 0.2);
+            --grid-line: rgba(255, 255, 255, 0.15);
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            /* 更加细腻的背景纹理 */
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(255,255,255,0.08) 0%, transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(255,255,255,0.08) 0%, transparent 25%);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+        }
+
+        a { color: var(--text-color); text-decoration: none; transition: all 0.2s; border-bottom: 1px dashed rgba(255,255,255,0.4); }
+        a:hover { color: var(--accent-color); border-bottom-color: var(--accent-color); }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            flex: 1;
+        }
+
+        /* Header */
+        header { margin-bottom: 40px; text-align: center; animation: fadeInDown 0.8s ease-out; }
+        h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px; }
+        .meta { opacity: 0.8; font-size: 1rem; font-weight: 300; }
+
+        /* Stats Cards */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 24px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        .card:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.3); }
+
+        .stat-item { text-align: center; }
+        .stat-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 8px; }
+        .stat-value { font-size: 2rem; font-weight: 700; color: var(--accent-color); text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .stat-sub { font-size: 0.8rem; opacity: 0.6; }
+
+        /* Chart Area */
+        .chart-card { animation: fadeInUp 0.8s ease-out 0.4s both; margin-bottom: 30px; }
+        .chart-wrapper {
+            position: relative;
+            width: 100%;
+            height: 450px;
+            overflow: hidden;
+        }
+
+        /* SVG Styles */
+        svg { width: 100%; height: 100%; overflow: visible; }
+        
+        .axis-line { stroke: var(--grid-line); stroke-width: 1; stroke-dasharray: 4 4; }
+        .axis-text { fill: rgba(255,255,255,0.6); font-size: 11px; font-family: monospace; }
+        
+        .bar-rect { 
+            fill: rgba(255,255,255,0.15); 
+            transition: fill 0.2s;
+            cursor: pointer;
+        }
+        .bar-rect:hover { fill: rgba(255,255,255,0.4); }
+
+        .line-path {
+            fill: none;
+            stroke: var(--accent-color);
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+            stroke-dasharray: 3000;
+            stroke-dashoffset: 3000;
+            animation: drawLine 2.5s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.5s;
+        }
+
+        .area-path {
+            fill: url(#gradient-area);
+            stroke: none;
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards 1.2s;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: absolute;
+            background: rgba(0,0,0,0.9);
+            color: #fff;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s, top 0.1s, left 0.1s;
+            border: 1px solid var(--accent-color);
+            transform: translate(-50%, -130%);
+            white-space: nowrap;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .tooltip strong { color: var(--accent-color); font-size: 15px; display: block; margin-bottom: 2px; }
+
+        /* Crosshair */
+        .crosshair {
+            stroke: rgba(255,255,255,0.8);
+            stroke-width: 1;
+            stroke-dasharray: 3 3;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .data-point {
+            fill: var(--bg-color);
+            stroke: var(--accent-color);
+            stroke-width: 3;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: auto;
+            padding: 40px 20px;
+            background: rgba(0,0,0,0.1);
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+        .footer-links a { font-weight: 500; border-bottom-style: solid; border-bottom-width: 2px; border-color: transparent; text-decoration: none; }
+        .footer-links a:hover { border-bottom-color: var(--accent-color); }
+        .copyright { opacity: 0.6; font-size: 0.8rem; line-height: 1.8; }
+
+        @keyframes drawLine { to { stroke-dashoffset: 0; } }
+        @keyframes fadeIn { to { opacity: 0.7; } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .stats-row { grid-template-columns: 1fr; gap: 15px; }
+            .chart-wrapper { height: 350px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Posts Trend</h1>
+            <p class="meta">Afoo.me 博客产出统计 (2004 - 2025)</p>
+        </header>
+
+        <!-- Stats Overview -->
+        <div class="stats-row">
+            <div class="card stat-item">
+                <div class="stat-label">Total Posts</div>
+                <div class="stat-value" id="total-val">0</div>
+            </div>
+            <div class="card stat-item">
+                <div class="stat-label">Peak Year</div>
+                <div class="stat-value" id="peak-val">-</div>
+                <div class="stat-sub" id="peak-year-sub">-</div>
+            </div>
+            <div class="card stat-item">
+                <div class="stat-label">Current (2025)</div>
+                <div class="stat-value" id="current-val">0</div>
+            </div>
+        </div>
+
+        <!-- Main Chart -->
+        <div class="card chart-card">
+            <div class="chart-wrapper" id="chart-container">
+                <div id="tooltip" class="tooltip"></div>
+                <!-- SVG injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="/whoami.html">About</a>
+            <a href="/posts.html">Posts</a>
+            <a href="/books.html">Books</a>
+            <a href="/crosslinks.html">Links</a>
+        </div>
+        <div class="copyright">
+            Copyright © 王福强个人版权所有 - Since 2004<br>
+            Powered by Vanilla JS & SVG (No Dependencies)
+        </div>
+    </footer>
+
+    <script>
+        // === Data Source (Updated 2004-2025) ===
+        const rawData = [
+            { year: '2004', count: 3 },
+            { year: '2005', count: 25 },
+            { year: '2006', count: 14 },
+            { year: '2007', count: 56 },
+            { year: '2008', count: 40 },
+            { year: '2009', count: 71 },
+            { year: '2010', count: 45 },
+            { year: '2011', count: 16 },
+            { year: '2012', count: 11 },
+            { year: '2013', count: 24 },
+            { year: '2014', count: 33 },
+            { year: '2015', count: 22 },
+            { year: '2016', count: 9 },
+            { year: '2017', count: 35 },
+            { year: '2018', count: 24 },
+            { year: '2019', count: 26 },
+            { year: '2020', count: 38 },
+            { year: '2021', count: 58 },
+            { year: '2022', count: 41 },
+            { year: '2023', count: 69 },
+            { year: '2024', count: 116 },
+            { year: '2025', count: 143 }
+        ];
+
+        // === Statistics Logic ===
+        function renderStats() {
+            const total = rawData.reduce((acc, cur) => acc + cur.count, 0);
+            const peak = rawData.reduce((max, cur) => max.count > cur.count ? max : cur, rawData[0]);
+            const current = rawData.find(d => d.year === '2025');
+
+            document.getElementById('total-val').textContent = total.toLocaleString();
+            document.getElementById('peak-val').textContent = peak.count.toLocaleString();
+            document.getElementById('peak-year-sub').textContent = `Year ${peak.year}`;
+            document.getElementById('current-val').textContent = current ? current.count.toLocaleString() : '-';
+        }
+
+        // === Chart Drawing Logic (SVG) ===
+        function drawChart() {
+            const container = document.getElementById('chart-container');
+            const tooltip = document.getElementById('tooltip');
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            // Margins: Left needs space for 3-digit numbers
+            const padding = { top: 40, right: 20, bottom: 40, left: 40 };
+
+            // Cleanup
+            const oldSvg = container.querySelector('svg');
+            if(oldSvg) oldSvg.remove();
+
+            // Setup SVG
+            const svgNs = "http://www.w3.org/2000/svg";
+            const svg = document.createElementNS(svgNs, "svg");
+            svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+            
+            // Gradients
+            const defs = document.createElementNS(svgNs, "defs");
+            const gradient = document.createElementNS(svgNs, "linearGradient");
+            gradient.id = "gradient-area";
+            gradient.setAttribute("x1", "0%"); gradient.setAttribute("y1", "0%");
+            gradient.setAttribute("x2", "0%"); gradient.setAttribute("y2", "100%");
+            
+            const stop1 = document.createElementNS(svgNs, "stop");
+            stop1.setAttribute("offset", "0%");
+            stop1.setAttribute("stop-color", "#FF9F1C");
+            stop1.setAttribute("stop-opacity", "0.6");
+            
+            const stop2 = document.createElementNS(svgNs, "stop");
+            stop2.setAttribute("offset", "100%");
+            stop2.setAttribute("stop-color", "#3F83F8");
+            stop2.setAttribute("stop-opacity", "0");
+            
+            gradient.appendChild(stop1);
+            gradient.appendChild(stop2);
+            defs.appendChild(gradient);
+            svg.appendChild(defs);
+
+            // Scales
+            const maxVal = Math.max(...rawData.map(d => d.count));
+            const yMax = maxVal * 1.1; // 10% headroom
+            
+            const chartWidth = width - padding.left - padding.right;
+            const chartHeight = height - padding.top - padding.bottom;
+            const stepX = chartWidth / (rawData.length - 1);
+
+            const getX = (index) => padding.left + index * stepX;
+            const getY = (val) => height - padding.bottom - (val / yMax * chartHeight);
+
+            // --- Y Axis (Grid) ---
+            const gridCount = 5;
+            for (let i = 0; i <= gridCount; i++) {
+                const val = (yMax / gridCount) * i;
+                const y = getY(val);
+                
+                const line = document.createElementNS(svgNs, "line");
+                line.setAttribute("x1", padding.left);
+                line.setAttribute("y1", y);
+                line.setAttribute("x2", width - padding.right);
+                line.setAttribute("y2", y);
+                line.setAttribute("class", "axis-line");
+                svg.appendChild(line);
+
+                if (i > 0) {
+                    const text = document.createElementNS(svgNs, "text");
+                    text.setAttribute("x", padding.left - 8);
+                    text.setAttribute("y", y + 4);
+                    text.setAttribute("text-anchor", "end");
+                    text.setAttribute("class", "axis-text");
+                    text.textContent = Math.round(val);
+                    svg.appendChild(text);
+                }
+            }
+
+            // --- X Axis (Labels) ---
+            // Logic: Show every Nth label if density is high on small screens
+            const skipStep = width < 600 ? 3 : 2; // Mobile: show every 3rd, Desktop: every 2nd
+            
+            rawData.forEach((d, i) => {
+                const x = getX(i);
+                
+                // Show label logic: First, Last, and every 'skipStep'
+                if (i === 0 || i === rawData.length - 1 || i % skipStep === 0) {
+                    const text = document.createElementNS(svgNs, "text");
+                    text.setAttribute("x", x);
+                    text.setAttribute("y", height - 15);
+                    text.setAttribute("text-anchor", "middle");
+                    text.setAttribute("class", "axis-text");
+                    text.textContent = d.year.slice(2); // '2004' -> '04' to save space
+                    svg.appendChild(text);
+                }
+            });
+
+            // --- Bars ---
+            const barWidth = (chartWidth / rawData.length) * 0.5;
+            
+            rawData.forEach((d, i) => {
+                const x = getX(i) - barWidth / 2;
+                const y = getY(d.count);
+                const h = (height - padding.bottom) - y;
+
+                const rect = document.createElementNS(svgNs, "rect");
+                rect.setAttribute("x", x);
+                rect.setAttribute("y", height - padding.bottom);
+                rect.setAttribute("height", 0);
+                rect.setAttribute("width", barWidth);
+                rect.setAttribute("rx", 2);
+                rect.setAttribute("class", "bar-rect");
+
+                // Animation
+                setTimeout(() => {
+                    rect.setAttribute("y", y);
+                    rect.setAttribute("height", h);
+                }, 100 + i * 30); // Faster stagger for more data
+
+                svg.appendChild(rect);
+            });
+
+            // --- Trend Line & Area ---
+            let pathD = "";
+            let areaD = `M ${getX(0)} ${height - padding.bottom} `; 
+
+            rawData.forEach((d, i) => {
+                const x = getX(i);
+                const y = getY(d.count);
+                const cmd = i === 0 ? "M" : "L";
+                pathD += `${cmd} ${x} ${y} `;
+                areaD += `L ${x} ${y} `;
+            });
+
+            areaD += `L ${getX(rawData.length - 1)} ${height - padding.bottom} Z`;
+
+            const areaPath = document.createElementNS(svgNs, "path");
+            areaPath.setAttribute("d", areaD);
+            areaPath.setAttribute("class", "area-path");
+            svg.appendChild(areaPath);
+
+            const linePath = document.createElementNS(svgNs, "path");
+            linePath.setAttribute("d", pathD);
+            linePath.setAttribute("class", "line-path");
+            svg.appendChild(linePath);
+
+            // --- Data Points (Highlight) ---
+            const highlightPoint = document.createElementNS(svgNs, "circle");
+            highlightPoint.setAttribute("r", 6);
+            highlightPoint.setAttribute("class", "data-point");
+            svg.appendChild(highlightPoint);
+
+            // --- Interactions ---
+            const crosshairV = document.createElementNS(svgNs, "line");
+            crosshairV.setAttribute("class", "crosshair");
+            crosshairV.setAttribute("y1", padding.top);
+            crosshairV.setAttribute("y2", height - padding.bottom);
+            svg.appendChild(crosshairV);
+
+            const triggerRect = document.createElementNS(svgNs, "rect");
+            triggerRect.setAttribute("width", width);
+            triggerRect.setAttribute("height", height);
+            triggerRect.setAttribute("fill", "transparent");
+            svg.appendChild(triggerRect);
+
+            triggerRect.addEventListener('mousemove', (e) => {
+                const rect = container.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left;
+                
+                // Find closest index
+                let idx = Math.round((mouseX - padding.left) / stepX);
+                if (idx < 0) idx = 0;
+                if (idx >= rawData.length) idx = rawData.length - 1;
+
+                const d = rawData[idx];
+                const x = getX(idx);
+                const y = getY(d.count);
+
+                // Update visuals
+                crosshairV.setAttribute("x1", x);
+                crosshairV.setAttribute("x2", x);
+                crosshairV.style.opacity = 1;
+
+                highlightPoint.setAttribute("cx", x);
+                highlightPoint.setAttribute("cy", y);
+                highlightPoint.style.opacity = 1;
+
+                tooltip.style.opacity = 1;
+                tooltip.style.left = x + 'px';
+                tooltip.style.top = y + 'px';
+                tooltip.innerHTML = `<strong>${d.year}</strong>Posts: ${d.count}`;
+            });
+
+            triggerRect.addEventListener('mouseleave', () => {
+                tooltip.style.opacity = 0;
+                crosshairV.style.opacity = 0;
+                highlightPoint.style.opacity = 0;
+            });
+
+            container.appendChild(svg);
+        }
+
+        // === Init ===
+        window.addEventListener('load', () => {
+            renderStats();
+            drawChart();
+        });
+
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(drawChart, 200);
+        });
+    </script>
+</body>
+</html>
