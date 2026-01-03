@@ -15,6 +15,8 @@
 
 # [工具福强造](https://afoo.me/tools.html)
 
+- [Keenotes: 为你个人闪念打造的专属“树洞”](https://afoo.me/knotes.html)
+- [FooSnippets: 管理并快速输入你的任何内容片段](https://afoo.me/foosnippets.html)
 - [向量相似性比较](https://afoo.me/tools/vecsim/index.html)
 - [算法动态演示页面索引](https://afoo.me/animates/)
 - [福强海报](https://poster.keevol.cn/)
