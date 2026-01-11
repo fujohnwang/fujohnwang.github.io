@@ -89,13 +89,13 @@
             50% { transform: translateY(-8px); }
         }
 
-        /* 气泡悬浮动画 */
+        /* 缓动浮动动画 */
         .float-bubble {
-            animation: floatBubble 3s ease-in-out infinite;
+            animation: floatBubble 4s ease-in-out infinite;
         }
         @keyframes floatBubble {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); }
+            0%, 100% { transform: translateY(0) rotate(2deg); }
+            50% { transform: translateY(-10px) rotate(2deg); } /* 保持旋转角度 */
         }
     </style>
 </head>
@@ -534,22 +534,31 @@
         </div>
     </footer>
 
-    <!-- Floating Speech Bubble -->
-    <a href="#download" class="fixed bottom-8 right-6 z-50 group hidden md:block">
-        <!-- 气泡主体 -->
-        <div class="float-bubble relative bg-white text-slate-800 px-5 py-3 rounded-2xl rounded-br-sm shadow-xl shadow-blue-900/30 border border-blue-100 hover:scale-105 transition-transform duration-300 origin-bottom-right">
-            <!-- 文本 -->
-            <p class="font-bold text-sm tracking-wide whitespace-nowrap">
-                💡 <span data-i18n="float_slogan">好记性 不如 Keenotes ～</span>
-            </p>
+    <!-- Top-Right Floating SVG Bubble -->
+    <a href="#download" class="fixed top-28 right-10 z-40 hidden xl:block group">
+        <div class="float-bubble relative w-64 h-32 flex items-center justify-center cursor-pointer">
             
-            <!-- 气泡尾巴 (SVG) -->
-            <svg class="absolute -bottom-2 -right-[1px] w-4 h-4 text-white" fill="currentColor" viewBox="0 0 100 100">
-                <path d="M0 0 L100 0 L0 100 Z" />
+            <!-- 背景：手绘风格 SVG 气泡 -->
+            <svg class="absolute inset-0 w-full h-full drop-shadow-xl transition-transform duration-300 group-hover:scale-110" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- 黄色手绘填充 -->
+                <path d="M185.5 45.5C192 65.5 178.5 98.5 137.5 108.5C96.5 118.5 45 112 25.5 92C6 72 10.5 35.5 41.5 19.5C72.5 3.5 145.5 -4.5 175.5 19.5C188.454 29.8633 189.661 38.6256 185.5 45.5Z" fill="#FAE548"/>
+                <!-- 白色高光笔触 -->
+                <path d="M45 25C60 15 120 10 160 25" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+                <!-- 尾巴 -->
+                <path d="M50 105 L30 130 L70 110" fill="#FAE548"/>
             </svg>
+
+            <!-- 文本内容 (HTML 叠加在 SVG 上，方便翻译和排版) -->
+            <div class="relative z-10 text-center transform -rotate-2 -translate-y-2">
+                <p class="font-black text-xl md:text-2xl text-blue-900 leading-tight" style="font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;">
+                    💡 <span data-i18n="float_slogan">好记性<br>不如 Keenotes</span>
+                </p>
+                <div class="mt-1 text-xs font-bold text-blue-800/60 uppercase tracking-widest group-hover:text-blue-900 transition-colors">
+                    Click to Download
+                </div>
+            </div>
         </div>
     </a>
-
     <!-- I18n Script -->
     <script>
         const translations = {
@@ -597,7 +606,7 @@
                 target_1_title: "一特",
                 target_1_subtitle: "极少数人群里的 i 人",
                 target_1_desc: "特殊在于，他们不习惯语音和说话，更习惯默默的写字和打字。",
-                float_slogan: "好记性不如 Keenotes"
+                float_slogan: "好记性<br>不如 Keenotes"
             },
             en: {
                 nav_features: "Features",
@@ -643,7 +652,7 @@
                 target_1_title: "One Unique",
                 target_1_subtitle: "The Niche Introverts",
                 target_1_desc: "Those who find solace in silence, preferring the quiet power of typing and writing over speaking.",
-                float_slogan: "Better than a good memory."
+                float_slogan: "Better than<br>a good memory"
             }
         };
 
