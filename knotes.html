@@ -88,6 +88,15 @@
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-8px); }
         }
+
+        /* 气泡悬浮动画 */
+        .float-bubble {
+            animation: floatBubble 3s ease-in-out infinite;
+        }
+        @keyframes floatBubble {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
     </style>
 </head>
 <body class="selection:bg-yellow-300 selection:text-blue-900 flex flex-col min-h-screen">
@@ -525,6 +534,22 @@
         </div>
     </footer>
 
+    <!-- Floating Speech Bubble -->
+    <a href="#download" class="fixed bottom-8 right-6 z-50 group hidden md:block">
+        <!-- 气泡主体 -->
+        <div class="float-bubble relative bg-white text-slate-800 px-5 py-3 rounded-2xl rounded-br-sm shadow-xl shadow-blue-900/30 border border-blue-100 hover:scale-105 transition-transform duration-300 origin-bottom-right">
+            <!-- 文本 -->
+            <p class="font-bold text-sm tracking-wide whitespace-nowrap">
+                💡 <span data-i18n="float_slogan">好记性 不如 Keenotes ～</span>
+            </p>
+            
+            <!-- 气泡尾巴 (SVG) -->
+            <svg class="absolute -bottom-2 -right-[1px] w-4 h-4 text-white" fill="currentColor" viewBox="0 0 100 100">
+                <path d="M0 0 L100 0 L0 100 Z" />
+            </svg>
+        </div>
+    </a>
+
     <!-- I18n Script -->
     <script>
         const translations = {
@@ -571,7 +596,8 @@
                 target_2_l2: "好记录",
                 target_1_title: "一特",
                 target_1_subtitle: "极少数人群里的 i 人",
-                target_1_desc: "特殊在于，他们不习惯语音和说话，更习惯默默的写字和打字。"
+                target_1_desc: "特殊在于，他们不习惯语音和说话，更习惯默默的写字和打字。",
+                float_slogan: "好记性不如 Keenotes"
             },
             en: {
                 nav_features: "Features",
@@ -616,7 +642,8 @@
                 target_2_l2: "Love Recording",
                 target_1_title: "One Unique",
                 target_1_subtitle: "The Niche Introverts",
-                target_1_desc: "Those who find solace in silence, preferring the quiet power of typing and writing over speaking."
+                target_1_desc: "Those who find solace in silence, preferring the quiet power of typing and writing over speaking.",
+                float_slogan: "Better than a good memory."
             }
         };
 
