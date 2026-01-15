@@ -188,6 +188,19 @@
             color: rgba(255,255,255,0.5);
         }
 
+        /* 新增：针对 Footer 内部链接的样式 */
+        footer a {
+            color: var(--accent-color); /* 使用主题定义的蜜桔色 */
+            text-decoration: none;      /* 去掉默认下划线 */
+            font-weight: 600;           /* 稍微加粗一点 */
+            transition: all 0.2s;       /* 添加平滑过渡 */
+        }
+
+        footer a:hover {
+            color: var(--accent-hover); /* 悬停时变亮 */
+            text-decoration: underline; /* 悬停时显示下划线 */
+        }
+
         @media (max-width: 600px) {
             .container { padding: 20px; }
             h1 { font-size: 1.75rem; }
