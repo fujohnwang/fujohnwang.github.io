@@ -531,17 +531,27 @@
     <footer class="border-t border-white/10 py-12 text-center">
         <div class="max-w-4xl mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-blue-200 text-sm">
+                
+                <!-- 左侧版权信息 -->
                 <div>
                     <span data-i18n="footer_designed">Designed by</span> 
                     <a href="https://afoo.me" class="font-bold text-white hover:text-yellow-300 transition" data-i18n="footer_author">王福强（@afoo_me）</a>
                 </div>
+                
+                <!-- 中间链接 (可选，保留或移除，这里保留原来的 Tools) -->
                 <div class="text-xs text-blue-300/50">
                     More: <a href="/tools.html" class="hover:text-white">Tools</a> · <a href="/foosnippets.html" class="hover:text-white">FooSnippets</a>
                 </div>
-                <div class="flex gap-6">
+
+                <!-- 右侧法律链接 (关键修改) -->
+                <div class="flex flex-wrap justify-center gap-4 md:gap-6">
                     <span class="opacity-60">&copy; 2025 Keenotes</span>
-                    <a href="#" class="hover:text-white transition" data-i18n="footer_privacy">Privacy</a>
-                    <a href="#" class="hover:text-white transition" data-i18n="footer_terms">Terms</a>
+                    
+                    <!-- Privacy Policy -->
+                    <a href="https://afoo.me/knotes_privacy_policy.html" class="hover:text-white transition" data-i18n="footer_privacy_policy">Privacy Policy</a>
+                    
+                    <!-- User Privacy Choices -->
+                    <a href="https://afoo.me/knotes_user_privacy_choices.html" class="hover:text-white transition" data-i18n="footer_privacy_choices">User Privacy Choices</a>
                 </div>
             </div>
         </div>
@@ -549,33 +559,34 @@
 
     <!-- Top-Right Floating SVG Bubble (Large & Calligraphy) -->
     <a href="#download" class="fixed top-20 -right-10 md:right-10 z-0 hidden xl:block group pointer-events-auto">
-        <!-- 容器尺寸放大约 2 倍 -->
+        <!-- 容器尺寸 -->
         <div class="float-bubble relative w-[32rem] h-[20rem] flex items-center justify-center cursor-pointer hover:scale-105 transition-transform duration-300">
             
             <!-- 背景：SVG 气泡 -->
-            <svg class="absolute inset-0 w-full h-full drop-shadow-2xl opacity-90" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- 黄色手绘填充 -->
+            <!-- 关键修改：viewBox 高度增加到 150，防止尾巴被切掉 -->
+            <svg class="absolute inset-0 w-full h-full drop-shadow-2xl opacity-90" viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- 黄色手绘填充 (气泡主体) -->
                 <path d="M185.5 45.5C192 65.5 178.5 98.5 137.5 108.5C96.5 118.5 45 112 25.5 92C6 72 10.5 35.5 41.5 19.5C72.5 3.5 145.5 -4.5 175.5 19.5C188.454 29.8633 189.661 38.6256 185.5 45.5Z" fill="#FAE548"/>
+                
                 <!-- 白色高光 -->
                 <path d="M45 25C60 15 120 10 160 25" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
-                <!-- 尾巴 -->
-                <path d="M60 100 L40 130 L80 110" fill="#FAE548"/>
+                
+                <!-- 尾巴 (关键修改：尖锐三角形，并且与主体融合) -->
+                <!-- M60 100 (起点) -> L30 135 (尖端，向左下) -> L90 105 (回点) -> Z (闭合) -->
+                <path d="M60 100 L30 135 L90 105 Z" fill="#FAE548"/>
             </svg>
 
-            <!-- 文本内容 -->
-            <div class="relative z-10 text-center transform -rotate-6 -translate-y-4 -translate-x-2">
-                <!-- 应用书法字体，字号极大 -->
-                <p class="font-calligraphy text-7xl text-blue-900 leading-tight drop-shadow-sm select-none">
+            <!-- 文本内容 (位置微调以适应新气泡重心) -->
+            <div class="relative z-10 text-center transform -rotate-6 -translate-y-6 -translate-x-2">
+                <p class="font-calligraphy text-5xl text-blue-900 leading-tight drop-shadow-sm select-none">
                     <span data-i18n="float_slogan">好记性<br>不如 Keenotes</span>
                 </p>
-                <!-- 小英文提示保持无衬线体，形成对比 -->
                 <div class="mt-4 text-xs font-bold text-blue-900/50 uppercase tracking-[0.2em] font-sans group-hover:text-blue-900 transition-colors" data-i18n="float_click">
-                Click to Download
+                    马上去下载
                 </div>
             </div>
         </div>
     </a>
-
 
     <!-- I18n Script -->
     <script>
@@ -609,6 +620,8 @@
                 dl_other_platforms: "也支持",
                 footer_designed: "Designed by",
                 footer_author: "王福强（@afoo_me）",
+                footer_privacy_policy: "隐私政策",
+                footer_privacy_choices: "用户隐私选择",
                 footer_privacy: "隐私",
                 footer_terms: "条款",
                 target_label: "面向人群",
@@ -656,6 +669,8 @@
                 dl_other_platforms: "Also available for",
                 footer_designed: "Designed by",
                 footer_author: "Fuqiang Wang (@afoo_me)",
+                footer_privacy_policy: "Privacy Policy",
+                footer_privacy_choices: "User Privacy Choices",
                 footer_privacy: "Privacy",
                 footer_terms: "Terms",
                 target_label: "Target Audience",
