@@ -30,21 +30,6 @@
             overflow-x: hidden;
         }
 
-        h2 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            color: var(--accent-color);
-        }
-
-        h2 svg {
-            margin-right: 12px;
-            fill: currentColor;
-            width: 28px;
-            height: 28px;
-        }
-
         .glass-card {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
@@ -542,20 +527,22 @@
         </div>
     </section>
 
-    <section class="py-20 text-center mt-auto">
-        <h2>
-            <!-- Icon: Mail -->
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
-                <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                <path d="M22 6L12 13L2 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>
-            Contact Us
-        </h2>
-        <p>
-            If you have any questions or suggestions about our Privacy Policy, please do not hesitate to contact us.
-        </p>
-        <div style="text-align: center; margin-top: 30px;">
-            <a href="mailto:i@afoo.me" class="cta-button">Email: i@afoo.me</a>
+    <!-- Contact Us Section -->
+    <section id="contact" class="max-w-4xl mx-auto px-6 pb-20 pt-8 text-center">
+        <div class="glass-card p-8 md:p-10 rounded-2xl w-full md:w-2/3 mx-auto hover:bg-white/15 transition duration-300 border-white/10">
+            <h3 class="text-2xl font-bold mb-4 text-white flex items-center justify-center gap-2">
+                <svg class="w-6 h-6 text-yellow-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                <span data-i18n="contact_title">Contact Us</span>
+            </h3>
+            
+            <p class="text-blue-100 mb-6 leading-relaxed opacity-90" data-i18n="contact_desc">
+                If you have any questions or suggestions about our Privacy Policy, please do not hesitate to contact us.
+            </p>
+            
+            <a href="mailto:i@afoo.me" class="inline-block px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full text-yellow-300 font-mono text-lg transition-all hover:scale-105 group">
+                i@afoo.me
+                <span class="inline-block ml-2 opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:translate-x-1">→</span>
+            </a>
         </div>
     </section>
 
@@ -656,6 +643,8 @@
                 footer_privacy_choices: "用户隐私选择",
                 footer_privacy: "隐私",
                 footer_terms: "条款",
+                contact_title: "联系我们",
+                contact_desc: "如果您对我们的隐私政策或产品有任何疑问与建议，请随时联系我们。",
                 target_label: "面向人群",
                 target_title: "三二一，即“三高、二好、一特”。",
                 target_subtitle: "Keenotes 并不为所有人设计，只为特定的灵魂服务。",
@@ -705,6 +694,8 @@
                 footer_privacy_choices: "User Privacy Choices",
                 footer_privacy: "Privacy",
                 footer_terms: "Terms",
+                contact_title: "Contact Us",
+                contact_desc: "If you have any questions or suggestions about our Privacy Policy, please do not hesitate to contact us.",
                 target_label: "Target Audience",
                 target_title: "The 3-2-1 Profile.",
                 target_subtitle: "Keenotes isn't for everyone. It's for a specific kind of soul.",
