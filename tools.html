@@ -153,6 +153,30 @@
 			(adsbygoogle = window.adsbygoogle || []).push({});
 	   </script>
 
+	   <section class="text-gray-600 body-font">
+			<div class="container px-5 py-12 mx-auto">
+				<div class="flex flex-wrap w-full mb-10 flex-col items-center text-center">
+					<h1 class="text-3xl font-extrabold mb-2 text-gray-900">福强造的工具</h1>
+				</div>
+				<div class="flex flex-wrap -m-4">
+					<div id="tooling-footer" style="display: flex;
+					justify-content: center;
+					margin: 3rem;"></div>
+				</div>
+			</div>
+		</section>
+		<script>
+			var xhr = new XMLHttpRequest();
+			xhr.open("GET", "https://toolfooter.afoo.me/", true);
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState === 4 && xhr.status === 200) {
+					var footerElement = document.getElementById("tooling-footer");
+					footerElement.innerHTML = xhr.responseText;
+				}
+			};
+			xhr.send();
+		</script>
+
 		<section class="text-gray-600 body-font">
 			<div class="container px-5 py-12 mx-auto" x-data="{
 				loading: false,
@@ -340,30 +364,6 @@
 
 
 		</section>
-
-		<section class="text-gray-600 body-font">
-			<div class="container px-5 py-12 mx-auto">
-				<div class="flex flex-wrap w-full mb-10 flex-col items-center text-center">
-					<h1 class="text-3xl font-extrabold mb-2 text-gray-900">福强造的工具</h1>
-				</div>
-				<div class="flex flex-wrap -m-4">
-					<div id="tooling-footer" style="display: flex;
-					justify-content: center;
-					margin: 3rem;"></div>
-				</div>
-			</div>
-		</section>
-		<script>
-			var xhr = new XMLHttpRequest();
-			xhr.open("GET", "https://toolfooter.afoo.me/", true);
-			xhr.onreadystatechange = function () {
-				if (xhr.readyState === 4 && xhr.status === 200) {
-					var footerElement = document.getElementById("tooling-footer");
-					footerElement.innerHTML = xhr.responseText;
-				}
-			};
-			xhr.send();
-		</script>
 
 
 			<!-- tail -->
