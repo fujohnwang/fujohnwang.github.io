@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加入 Keenotes 等待名单 - Join the Waitlist of Keenotes</title>
+    <meta name="description" content="Be the first to know when we launch.">
+    
+    <style>
+        /* =========================================
+           CSS Reset & Variables
+           ========================================= */
+        :root {
+            --bg-color: #3F83F8;
+            --bg-gradient: linear-gradient(135deg, #3F83F8 0%, #2c63c2 100%);
+            --text-color: #ffffff;
+            --accent-color: #FF8C42; /* 活力橘色 */
+            --accent-hover: #FF6B00; /* 深橘色 */
+            --input-bg: rgba(255, 255, 255, 0.15);
+            --input-border: rgba(255, 255, 255, 0.3);
+            --input-focus: rgba(255, 255, 255, 0.5);
+            --error-color: #ffcccc;
+            --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: var(--font-stack);
+            background-color: var(--bg-color);
+            background-image: var(--bg-gradient);
+            color: var(--text-color);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* =========================================
+           Layout & Container
+           ========================================= */
+        .wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Background decoration (CSS Shapes) */
+        .bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            z-index: 1;
+            pointer-events: none;
+        }
+        .shape-1 { width: 400px; height: 400px; top: -100px; left: -100px; }
+        .shape-2 { width: 300px; height: 300px; bottom: 50px; right: -50px; }
+
+        .content-card {
+            max-width: 500px;
+            width: 100%;
+            z-index: 10;
+        }
+
+        /* =========================================
+           Typography & Visuals
+           ========================================= */
+        .logo-area {
+            margin-bottom: 2rem;
+        }
+        
+        /* Animated SVG Icon Styling */
+        .hero-icon {
+            width: 80px;
+            height: 80px;
+            stroke: white;
+            stroke-width: 1.5;
+            fill: none;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        p.subtitle {
+            font-size: 1.125rem;
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* =========================================
+           Form Elements
+           ========================================= */
+        .waitlist-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .input-group {
+            position: relative;
+            width: 100%;
+            display: flex;
+            flex-direction: column; /* Mobile first */
+            gap: 1rem;
+        }
+
+        /* Desktop Layout for Input */
+        @media (min-width: 640px) {
+            .input-group {
+                flex-direction: row;
+                background: var(--input-bg);
+                padding: 5px;
+                border-radius: 50px; /* Pill shape */
+                border: 1px solid var(--input-border);
+                box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            }
+            
+            input[type="email"] {
+                background: transparent !important;
+                border: none !important;
+                box-shadow: none !important;
+                margin-bottom: 0 !important;
+                padding-left: 20px !important;
+            }
+        }
+
+        input[type="email"] {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 50px;
+            border: 1px solid var(--input-border);
+            background: var(--input-bg);
+            color: white;
+            outline: none;
+            transition: all 0.3s ease;
+            -webkit-appearance: none;
+        }
+
+        input[type="email"]::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        input[type="email"]:focus {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: var(--input-focus);
+        }
+
+        .keenotes {
+            color: var(--accent-color);
+        }
+
+        button {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            background-color: var(--accent-color);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        button:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            opacity: 0.8;
+        }
+
+        /* Messages */
+        .feedback-message {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            min-height: 1.5em;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feedback-message.error {
+            color: var(--error-color);
+            opacity: 1;
+        }
+
+        /* Success View */
+        .success-view {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .check-icon {
+            width: 64px;
+            height: 64px;
+            color: var(--accent-color); /* 成功时使用橙色作为强调 */
+            background: white;
+            border-radius: 50%;
+            padding: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Spinner */
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            display: none;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .footer {
+            margin-top: auto;
+            padding: 1.5rem;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-align: center;
+            z-index: 10;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        #nicky {
+           position: absolute;
+           opacity: 0;
+           top: 0;
+           left: 0;
+           height: 0;
+           width: 0;
+           z-index: -1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Decorative background shapes -->
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+
+    <div class="wrapper">
+        <div class="content-card">
+            
+            <!-- Hero Icon (Paper Plane / Mail Concept) -->
+            <div class="logo-area">
+                <svg class="hero-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 2L11 13"></path>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </div>
+
+            <!-- Content -->
+            <div id="main-content">
+                <h1>Amazing <span class="keenotes">Keenotes</span> Suite<br>Is Coming Soon</h1>
+                <p class="subtitle">我们正在构建 Keenotes 产品完整生态。<br>感兴趣的话，可以留下您的邮箱，成为首批体验用户。</p>
+
+                <!-- Form -->
+                <form id="waitlistForm" class="waitlist-form" novalidate>
+                    <div class="input-group">
+                        <input type="email" id="emailInput" placeholder="请输入您的邮箱地址" required>
+                        <input type="text" id="nicky" name="nickname" autocomplete="off" tabindex="-1">
+                        <button type="submit" id="submitBtn">
+                            <span class="btn-text">加入等待名单</span>
+                            <div class="spinner" id="spinner"></div>
+                            <!-- Arrow Icon -->
+                            <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </button>
+                    </div>
+                    <div id="feedback" class="feedback-message"></div>
+                </form>
+            </div>
+
+            <!-- Success State (Hidden initially) -->
+            <div id="successView" class="success-view">
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <h2>提交成功！</h2>
+                <p class="subtitle" style="margin-top:1rem;">我们已收到您的申请。请留意您的收件箱，好消息即将送达。</p>
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="footer">
+        &copy; 2026 <a href="https://afoo.me" class="keenotes" target="_blank">Fuqiang</a> Corp. All rights reserved.
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // ================= CONFIGURATION =================
+            // 请在此处填写你的后端 API 地址
+            const API_URL = 'https://waitlist-api.afoo.workers.dev'; 
+            // ===============================================
+
+            const form = document.getElementById('waitlistForm');
+            const emailInput = document.getElementById('emailInput');
+            const submitBtn = document.getElementById('submitBtn');
+            const feedback = document.getElementById('feedback');
+            const mainContent = document.getElementById('main-content');
+            const successView = document.getElementById('successView');
+            const spinner = document.getElementById('spinner');
+            const btnText = document.querySelector('.btn-text');
+            const btnIcon = document.querySelector('.btn-icon');
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const honeyInput = document.getElementById('nicky');
+                if (honeyInput.value !== '') {
+                    console.log('Bot detected via honeypot.');
+                    // 伪装成功，不发送真实请求
+                    showSuccess(); 
+                    return;
+                }
+                // 1. Basic Validation
+                const email = emailInput.value.trim();
+                if (!validateEmail(email)) {
+                    showError('请输入有效的电子邮箱地址');
+                    return;
+                }
+
+                // 2. Set Loading State
+                setLoading(true);
+                showError(''); // Clear previous errors
+
+                try {
+                    // 3. API Request
+                    // 注意：这里假设你的 API 接受 JSON 格式: { "email": "user@example.com" }
+                    // 如果你需要 Form Data，请修改 body 部分
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({ email: email , product:"keenotes"})
+                    });
+
+                    // 模拟网络延迟以便查看 loading 效果 (发布时请删除)
+                    // await new Promise(r => setTimeout(r, 1000));
+
+                    if (response.ok) {
+                        // 4. Success Handling
+                        showSuccess();
+                    } else {
+                        // Handle server errors (4xx, 5xx)
+                        const data = await response.json().catch(() => ({}));
+                        throw new Error(data.message || '提交失败，请稍后重试');
+                    }
+
+                } catch (error) {
+                    console.error('Submission Error:', error);
+                    // 如果是 Mock 测试，可以在这里拦截 Error 并强制显示成功
+                    // showSuccess(); // 取消注释此行以在没有真实 API 时测试成功界面
+                    
+                    showError(error.message || '网络连接错误，请检查您的网络。');
+                } finally {
+                    setLoading(false);
+                }
+            });
+
+            function validateEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(email);
+            }
+
+            function setLoading(isLoading) {
+                if (isLoading) {
+                    submitBtn.disabled = true;
+                    spinner.style.display = 'block';
+                    btnText.textContent = '提交中...';
+                    btnIcon.style.display = 'none';
+                    emailInput.disabled = true;
+                } else {
+                    submitBtn.disabled = false;
+                    spinner.style.display = 'none';
+                    // Don't reset text if success, handled by view switch
+                    if (successView.style.display !== 'flex') {
+                        btnText.textContent = '加入等待名单';
+                        btnIcon.style.display = 'block';
+                        emailInput.disabled = false;
+                    }
+                }
+            }
+
+            function showError(msg) {
+                feedback.textContent = msg;
+                if (msg) {
+                    feedback.classList.add('error');
+                    // Shake animation for visual feedback
+                    form.style.transform = 'translateX(5px)';
+                    setTimeout(() => { form.style.transform = 'translateX(-5px)'; }, 100);
+                    setTimeout(() => { form.style.transform = 'translateX(0)'; }, 200);
+                } else {
+                    feedback.classList.remove('error');
+                }
+            }
+
+            function showSuccess() {
+                // Fade out form
+                mainContent.style.opacity = '0';
+                
+                setTimeout(() => {
+                    mainContent.style.display = 'none';
+                    successView.style.display = 'flex'; // Trigger CSS animation
+                }, 400); // Wait for fade out
+            }
+        });
+    </script>
+</body>
+</html>
