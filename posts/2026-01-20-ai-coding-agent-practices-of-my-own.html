@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="keywords" content="打造 Keenotes 过程中使用 AI/Coding Agents 的一些感想 - 架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"> 
+  <meta name="description" content="打造 Keenotes 过程中使用 AI/Coding Agents 的一些感想 - 福强说，扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <meta name="author" content="王福强"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+  <meta name="robots" content="index,follow"> 
+  <title>打造 Keenotes 过程中使用 AI/Coding Agents 的一些感想 -王福强的个人博客：一个架构士的思考与沉淀</title> 
+  <meta name="date" content="2026-01-22"> 
+  <meta property="og:title" content="打造 Keenotes 过程中使用 AI/Coding Agents 的一些感想"> 
+  <meta property="og:type" content="landing page"> 
+  <meta property="og:url" content="https://afoo.me/posts/2026-01-20-ai-coding-agent-practices-of-my-own.html"> 
+  <meta property="og:image" content="https://og.afoo.me?url=https://afoo.me/posts/2026-01-20-ai-coding-agent-practices-of-my-own.html"> 
+  <meta name="twitter:card" content="summary_large_image"> 
+  <meta name="twitter:title" content="打造 Keenotes 过程中使用 AI/Coding Agents 的一些感想"> 
+  <meta name="twitter:site" content="@afoo_me"> 
+  <meta name="twitter:creator" content="@afoo_me"> 
+  <meta name="twitter:image" content="https://og.afoo.me?url=https://afoo.me/posts/2026-01-20-ai-coding-agent-practices-of-my-own.html"> 
+  <meta name="twitter:description" content="打造 Keenotes 过程中使用 AI/Coding Agents 的一些感想 - 王福强的个人博客， 一个架构士的思考与沉淀"> 
+  <link rel="shortcut icon" href="/favicon.ico"> 
+  <link rel="canonical" href="https://afoo.me/posts/2026-01-20-ai-coding-agent-practices-of-my-own.html"> 
+  <link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"> 
+  <link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8"> 
+  <script src="https://afoo.me/js/htmx.min.js"></script> 
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> 
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> 
+  <script src="https://afoo.me/js/popper.min.js"></script> 
+  <script src="https://afoo.me/js/tippy.min.js"></script> 
+  <link rel="stylesheet" href="/css/af.css"> 
+  <link rel="stylesheet" href="/css/components.css"> 
+  <link ref="stylesheet" href="/css/pygments.css"> 
+  <style type="text/css">
+        pre > code{
+          white-space: pre-wrap;
+          font-family: monospace;
+          font-size: 14px;
+          /* border-left: blueviolet;
+          border-left-width: thick;
+          border-left-style: double;
+          padding-left: 1rem !important; */
+        }
+        
+        .x-indicator{
+            display:none;
+        }
+        .htmx-request .x-indicator{
+            display:inline;
+        }
+        .htmx-request.x-indicator{
+            display:inline;
+        }
+    </style> 
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "打造 Keenotes 过程中使用 AI/Coding Agents
+的一些感想",
+      "image": [
+        "https://afoo.me/images/fb_subscribe.jpg"
+       ],
+      "datePublished": "2026-01-22",
+      "author": [{
+          "@type": "Person",
+          "name": "王福强",
+          "url": "https://afoo.me"
+        }]
+    }
+  </script> 
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3687639021943715" crossorigin="anonymous"></script> 
+ </head> 
+ <body class="antialiased text-slate-800 dark:text-slate-300 tracking-tight bg-slate-50 dark:bg-gray-900 vsc-initialized"> 
+  <header class="sticky top-0 z-40 flex-none mx-auto w-full bg-slate-50 md:bg-slate-50/90 dark:bg-gray-900 dark:md:bg-gray-900/90 md:backdrop-blur-sm border-b border-slate-200 dark:border-b-0" id="header"> 
+   <div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"> 
+    <div class="flex justify-between"> <a class="flex items-center" href="https://afoo.me"> <span class="self-center ml-2 text-2xl font-extrabold text-slate-800 whitespace-nowrap dark:text-white"> <img src="/images/afoo.PNG" alt="logo" style="height:60px;"> </span> </a> 
+     <div class="flex items-center md:hidden"> <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""> 
+       <svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+         <circle cx="12" cy="12" r="4"></circle> 
+         <path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"> 
+         </path> 
+        </g> 
+       </svg> </button> <button type="button" class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition" aria-label="Toggle Menu" data-toggle-menu=""> 
+       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:menu"> <g class="icon-tabler" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+         <path d="M4 8h16"></path> 
+         <path d="M4 16h16"></path> 
+        </g> 
+       </svg> </button> 
+     </div> 
+    </div> 
+    <nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"> 
+     <ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"> 
+      <li><a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://kb.afoo.me/">福强私学</a></li> 
+      <li> <a id="aiedu" class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://ai.afoo.me"> 福强AI学堂</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com">架构百科</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html">博客文章 </a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html">创作出版</a> </li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://store.afoo.me">产品与服务</a> </li> 
+      <li><a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://auth.afoo.me/user.html">登录信息</a></li> 
+      <li> <a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/crosslinks.html">更多链接</a> </li> 
+     </ul> 
+     <div class="md:self-center flex items-center mb-4 md:mb-0 ml-2"> 
+      <div class="hidden items-center md:flex"> <button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+          <circle cx="12" cy="12" r="4"></circle> 
+          <path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"> 
+          </path> 
+         </g> 
+        </svg> </button> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="RSS Feed" href="http://afoo.me/feeds.xml"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:rss"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"> 
+          <circle cx="5" cy="19" r="1"></circle> 
+          <path d="M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"></path> 
+         </g> 
+        </svg> </a> 
+      </div> 
+     </div> 
+    </nav> 
+   </div> 
+  </header> 
+  <main> 
+   <div id="leftSlot" class="visible md:invisible fixed top-0 left-0" style="width: 16rem;height: 80%;margin-top: 4rem;"> <!-- left --> 
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="3581141418" data-ad-format="auto" data-full-width-responsive="true"></ins> 
+    <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+      </script> 
+   </div> 
+   <div id="rightSlot" class="visible md:invisible fixed top-0 right-0" style="width: 16rem;height: 80%;margin-top: 4rem;"> <!-- right --> 
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="7030836806" data-ad-format="auto" data-full-width-responsive="true"></ins> 
+    <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script> 
+   </div> 
+   <section class="text-gray-600 body-font relative"> 
+    <div class="max-w-4xl mx-auto px-5 py-24 mb-12 prose prose-lg dark:prose-invert"> 
+     <p class="lead"> </p>
+     <h1 class="title">打造 Keenotes 过程中使用 AI/Coding Agents 的一些感想</h1> <small> <h3 class="author">王福强</h3> 
+      <div style="text-align: left;">
+       2026-01-22
+      </div> </small> 
+     <p></p> <!-- random --> 
+     <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="2722720851" data-ad-format="auto" data-full-width-responsive="true"></ins> 
+     <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script> 
+     <hr> 
+     <p>关于什么是<a href="https://keenotes.afoo.me/">keenotes</a>， <a href="https://keenotes.afoo.me/">看这里</a></p> 
+     <h2 id="all-in-还是-cherry-pick"><strong>all in</strong> 还是 <strong>cherry-pick</strong></h2> 
+     <p>其实很长一段时间，我都不敢放开把所有都交给AI，所以，从来都是用AI做调研，确定差不多了，再让它写局部代码，然后人工合并到codebase。</p> 
+     <p>这种方式我称其为cherry-pick， 也就是挑出能用的再用。</p> 
+     <p>但在搞keenotes的过程中，我加快了动作，把目标和要求写完后，让AI/Coding Agents <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>自己去搞，搞完之后，我在从外围以黑盒的形式做验收，验收不过的，也不直接改代码，而是让coding agent自己去分析原因并修复。</p> 
+     <p>这个时候，你会发现，当什么都交给AI/coding agent去干的时候，你相当于放弃了对实现细节的掌控。而且，随着codebase的增大，你也很难去从全局到细节事无巨细的完全了解。</p> 
+     <p>这时候职能AI对AI，完全放权给AI去搞，所以，我称这种方式为all-in</p> 
+     <p>这两种方式，我觉得后者的挑战其实挺大的，因为你一旦决定用这种all-in的方式，就意味着此后所有的动作都需要AI native。</p> 
+     <p>企业负责人敢不敢这么干，自己的团队有没有能力承载，这些可能都是顾虑的点。</p> 
+     <p>不过，整体上来看，效率肯定是提升的，所以，我相信慢慢地大家还是会发现如何更好的管理AI在这条路上的效率与风险。</p> 
+     <h2 id="验收">验收</h2> 
+     <p>验收依然是最重要的工作，或者说，依然是管理者最重要的工作。</p> 
+     <p>有了AI之后，从0到1其实更简单了，但从1到100甚至1000、10000更难了，因为迭代过程中对细节的验证和修复上耗费的时间和精力，可能也更多了。</p> 
+     <p>按下葫芦起了瓢，成了常态，玩过的都知道吧？🤣</p> 
+     <p>毕竟，魔鬼藏在细节里，从产品层面黑盒式的打磨，相当考验耐心。</p> 
+     <h2 id="plan-first-and-plan-matters">plan first and plan matters</h2> 
+     <p>很多时候，再打磨细节的过程中，经常会被AI的反复（按下葫芦起了瓢）搞得想发疯，这时候，你肯定会吼AI，但吼它是没用的。</p> 
+     <p>吼它确实发泄情绪了，但不解决问题，而且耗费tokens（也意味着耗费金钱，哈哈哈）</p> 
+     <p>这时候，就得回顾本心，冷静一下， 从头开始梳理目标和路径，然后再让AI去分析和执行。</p> 
+     <p>也就是你想得多了、想得全面了， AI就不用在模糊的上下文里猜来猜去了， 说白了，能把需求说清楚，执行反而是最快的， 跟曾经一个研发遇到一个好的产品经理一样，哈哈哈</p> 
+     <p>Instead of shouting to AI, you should think more in front and give a crystal-clear context to it.</p> 
+     <p>写完上面这句英文总结，恰好又读了 <a href="https://www.vibekanban.com/vibe-guide#plan-more-review-less">这篇文章</a>，发现真是 “great mind think alike” 🤣</p> 
+     <h2 id="模型优先于对模型的调教">模型优先于对模型的调教</h2> 
+     <p>基本上只用opus 4.5和sonnet 4.5模型，opus贵， 2个credit，4.5便宜点儿，1.3个credit，（嗯，定价方面，kiro鸡贼，用credit代替了token数量）</p> 
+     <p>对于思考范围要大一些的重构，我一般就切换到opus；</p> 
+     <p>对于小范围局部修复，我一般就切到sonnet；</p> 
+     <p>但有时候对于一些大点儿的重构，sonnet的效果也不错， 反而你让opus去做一些小范围的修复，反而效果不咋地。</p> 
+     <p>订阅的额度用完了后，没想升级到更高的price plan，就尝试了下国内几个模型，比如GLM4.7和Minimax2.1, 效果跟预期的差别很大，不知道是营销的成分更大，还是模型层面就是不如opus和sonnet</p> 
+     <p>但不管怎么说，整体感觉， 模型好可以解决大部分问题， 模型不行，工具再炫也没鸟用。</p> 
+     <p>token或者price plan便宜是一会儿事儿，最主要浪费时间和感情🤣</p> 
+     <blockquote> 
+      <p>NOTE</p> 
+      <p>据说openai的gpt5.2在处理深度问题上效果不错，不过， 2023年注册了chatgpt后就没用过， 所以，没一手体感，就不做评价了。</p> 
+     </blockquote> 
+     <h2 id="vibe-vs.-sddspec-driven-development">Vibe VS. SDD（Spec-Driven Development）</h2> 
+     <p>虽然Kiro老早就提出了两种方式，而且当我写了比较长、比较规范的prompt给它的时候，它经常自动提示让我切到spec driven的模式，但大部分时候都让我拒绝掉了。</p> 
+     <p>整个过程下来，我可能还是vibe的成分多一些。</p> 
+     <p>不过，为了让它别瞎搞，我在steering file里（也就是Kiro里定义的rules，类似于CLAUDE.md或者AGENTS.md）加了一些约束。</p> 
+     <p>而且，为了让它按照我的流程来，我也将CLAUDE.md里定义的流程要求放到了steering file里。</p> 
+     <p>我的流程其实也挺简单的，就是“阿里黑话”的适配版，将“我说你听，你说我听”转成了类似“我提出了需求给你，你先了解，不明白的地方，可以跟我确认，所有事情清晰之后，得到我的运行你才能开工”。</p> 
+     <p>大部分时候，它还算遵循这套流程要求， 但偶尔也会都已经干了一半了，session会话里跟你说，“哎呀不好意思啊，我忘了先跟你确认了”，艹， 这就像是“先干了再跟你道歉的人”一样， 甚至于哪天用哪个模型测试的时候，它改错了东西居然说“手滑了”，我日！ 跟tmd推卸责任的员工一模一样🤣 “手滑”这词儿我还是2019年在上海第一次从某推卸责任的员工嘴里听到的…</p> 
+     <h2 id="focus-on-the-goal">focus on the goal</h2> 
+     <p>纵观各种自媒体，你会发现极其高亢</p> 
+     <p>但假如你被他们带着走，那可能就有点儿走偏了。</p> 
+     <p>我要说的是，</p> 
+     <p><strong>Don’t focus on the tools, focus on the goals.</strong></p> 
+     <p>除非是你专职做AI自媒体的，那么，没问题，毕竟， 你玩的就是流量。(If you are focusing on social media traffic, then forget about it)</p> 
+     <p>假如你不是专职做AI自媒体的，那么，应该冷静下，想想自己的目标到底什么，不管AI工具如何变换，他们终归是工具，它们应该是帮你完成目标的东西。</p> 
+     <p>这其实也是为啥我选了Kiro之后，基本主力就用它了。 你说其它工具有没有比它更好的，肯定有，但不重要，我的目标又不是AI工具评测🤪</p> 
+     <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"> 
+      <hr> 
+      <ol> 
+       <li id="fn1"><p>我用的kiro，好处有两个： 1. 不需要翻墙，不受梯子稳定性影响（这个很影响心情）；2. 信用卡直接购买。（前期免费使用额度也挺高，不过这阵子估计被薅羊毛薅凸了吧，降低了额度，还去掉了opus模型）<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li> 
+      </ol> 
+     </section> <!-- tail --> 
+     <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="7874087130" data-ad-format="auto" data-full-width-responsive="true"></ins> 
+     <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script> 
+     <hr> 
+     <div> <a href="/posts.html"> <b> &gt;&gt;&gt;&gt;&gt;&gt; 更多阅读 &lt;&lt;&lt;&lt;&lt;&lt; </b></a> 
+     </div> 
+     <div id="random_posts"> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2025-11-12-AI-oss-and-microservices.html">AI、开源与微服务：老王两个观点，谈谈个人想法 </a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2007-11-08-BF4768EE8B110260_691.html">栽了，呵呵</a> 
+      </div> 
+      <div class="alert alert-light" role="alert"> <a href="/posts/2025-04-18-AI-comes-to-help.html">AI 时代依然要善用工具！ </a> 
+      </div> 
+     </div> 
+     <hr> 
+     <div id="comments"></div> 
+     <hr> <!-- Section CTA --> 
+     <section class="overflow-x-clip bg-zinc-50 py-16 md:py-24"> 
+      <div class="relative mx-auto w-full max-w-screen-xl px-4"> 
+       <div class="relative z-10 w-full"> <!-- 福强私学推荐 --> 
+        <div class="mx-auto max-w-screen-md"> 
+         <h2 class="mb-4 text-center text-4xl font-bold md:text-5xl"><a href="https://afoo.me/kb.html" class="border-b">「福强私学」</a>来一个？</h2> 
+         <p class="mx-auto mb-8 w-full text-center text-lg leading-8 text-zinc-700 md:w-5/6 md:text-xl">「福强私学」, 一部沉淀了个人成长、技术与架构、组织与管理以及商业上的方法与心法的百科全书。</p> 
+        </div> 
+        <div class="mx-auto mt-6 w-full md:mt-12 md:w-4/5"> <a href="https://afoo.me/kb.html"> <img alt="footer img for kb.afoo.me" loading="lazy" width="2911" height="1961" decoding="async" data-nimg="1" class="mx-auto rounded-lg object-contain shadow-lg sm:rounded-2xl lg:rounded-3xl" style="color:transparent" src="https://og.afoo.me/?url=footer"> </a> 
+        </div> <!-- 小报童推荐 --> 
+        <div class="mx-auto max-w-screen-md"> 
+         <h2 class="mt-8 mb-4 text-center text-4xl font-bold md:text-5xl"><a href="https://xiaobot.net/p/aifd" class="border-b">福强老师的 AI 通识课</a></h2><a href="https://xiaobot.net/p/aifd" class="border-b"> </a>
+        </div><a href="https://xiaobot.net/p/aifd" class="border-b"> </a>
+        <div class="mx-auto mt-6 w-full md:mt-12 md:w-4/5">
+         <a href="https://xiaobot.net/p/aifd" class="border-b"> </a><a href="https://xiaobot.net/p/aifd"> <img alt="footer img for kb.afoo.me" loading="lazy" width="2911" height="1961" decoding="async" data-nimg="1" class="mx-auto rounded-lg object-contain shadow-lg sm:rounded-2xl lg:rounded-3xl" style="color:transparent" src="/images/xbt-footer.webp"> </a> 
+        </div> 
+        <div class="mx-auto mt-6 w-full md:mt-12 md:w-4/5"> 
+         <img alt="footer img for kb.afoo.me" loading="lazy" decoding="async" data-nimg="1" class="mx-auto p-3" style="color:transparent" src="/images/footer-links-2025.webp"> 
+        </div> 
+       </div> 
+      </div> 
+     </section> 
+     <hr> 
+     <p> <span style="font-size: xx-large;"> 开天窗，拉认知，订阅「福报」，即刻拥有自己的全模态人工智能。 </span> </p> <a href="https://wfq.gumroad.com/l/fb"> <img src="/images/fb_subscribe_v2.jpg" alt="订阅「福报」"> </a> 
+     <hr> 
+     <div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"> 
+      <div id="tfloader" class="x-indicator"> 
+       <svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"> <g fill="none" fill-rule="evenodd"> 
+         <g transform="translate(1 1)" stroke-width="2"> 
+          <circle cx="5" cy="50" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+          <circle cx="27" cy="5" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+          <circle cx="49" cy="50" r="5"> 
+           <animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /> 
+           <animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /> 
+          </circle> 
+         </g> 
+        </g> 
+       </svg> 
+      </div> 
+     </div> 
+    </div> 
+   </section> 
+  </main> 
+  <div style="position: fixed; left: 0; bottom: 0; padding: 10px; z-index: 1000;"> 
+   <img src="/icons/Written-By-Human-Not-By-AI-Badge-black@2x.png" alt loading="lazy"> 
+  </div> 
+  <footer class="border-t border-gray-200 dark:border-slate-800"> 
+   <div class="max-w-6xl mx-auto px-4 sm:px-6"> 
+    <div class="md:flex md:items-center md:justify-between py-6 md:py-8"> 
+     <ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0"> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Twitter" href="https://twitter.com/afoo_me"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-twitter"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z"> 
+         </path> 
+        </svg> </a> </li> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Facebook" href="https://www.facebook.com/fujohnwang/"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-facebook"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2H7"></path> 
+        </svg> </a> </li> 
+      <li> <a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Github" href="https://github.com/fujohnwang"> 
+        <svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-github"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"> 
+         </path> 
+        </svg> </a> </li> 
+     </ul> 
+     <div class="text-sm text-gray-700 mr-4 dark:text-slate-400"> <span class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 float-left rounded-sm"> <img src="https://afoo.me/favicon.svg" class="rounded-md" alt> </span> Copyright © 王福强个人版权所有 - Since 2004 (Everything is homebrewed with <a href="https://pandoc.org/">Pandoc</a> and Markdown, little <a href="https://www.scala-lang.org/">Scala</a> also included.) 
+     </div> 
+    </div> 
+   </div> 
+  </footer> 
+  <script>
+        // Set "light" theme as default
+        if (!localStorage.theme) {
+            localStorage.theme = "light";
+        }
+
+        if (
+            localStorage.theme === 'dark' ||
+            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function attachEvent(selector, event, fn) {
+            const matches = document.querySelectorAll(selector);
+            if (matches && matches.length) {
+                matches.forEach((elem) => {
+                    elem.addEventListener(event, () => fn(elem), false);
+                });
+            }
+        }
+
+        window.onload = function () {
+            attachEvent('[data-toggle-menu]', 'click', function (elem) {
+                elem.classList.toggle('expanded');
+                document.body.classList.toggle('overflow-hidden');
+                document.getElementById('header')?.classList.toggle('h-screen');
+                document.querySelector('#header nav')?.classList.toggle('hidden');
+            });
+            attachEvent("[data-toggle-color-scheme]", "click", function () {
+                    document.documentElement.classList.toggle("light");
+                    localStorage.theme = "light";
+                });
+        };
+        window.onpageshow = function () {
+            const elem = document.querySelector('[data-toggle-menu]');
+            if (elem) {
+                elem.classList.remove('expanded');
+            }
+            document.body.classList.remove('overflow-hidden');
+            document.getElementById('header')?.classList.remove('h-screen');
+            document.querySelector('#header nav')?.classList.add('hidden');
+        };
+    </script> 
+  <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '518a605d711883414ac0',
+          clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+          repo: 'afoo.me.comments',
+          owner: 'fujohnwang',
+          admin: ['fujohnwang'],
+          id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+        gitalk.render('comments')
+    </script> 
+  <script src="https://formspree.io/js/formbutton-v1.min.js" defer></script> 
+  <script>
+  /* paste this line in verbatim */
+  window.formbutton=window.formbutton||function(){(formbutton.q=formbutton.q||[]).push(arguments)};
+  /* customize formbutton below*/     
+  formbutton("create", {
+    action: "https://formspree.io/f/xknlpkkd",
+    title: "有什么可以帮到您？💕💕💕 How can I help you?",
+    buttonImg: "<img src='https://afoo.me/hero3/70.webp' alt/>",
+    fields: [
+      { 
+        type: "email", 
+        label: "您的电子邮箱（方便与您联系）:", 
+        name: "email",
+        required: true,
+        placeholder: "your@email.com"
+      },
+      {
+        type: "textarea",
+        label: "您想提交的反馈和询问信息:",
+        name: "message",
+        placeholder: "What's on your mind?",
+      },
+      { type: "submit" }      
+    ],
+    styles: {
+      title: {
+        backgroundColor: "blue"
+      },
+      button: {
+        backgroundColor: "blue"
+      }
+    }
+  });
+</script> 
+  <script>
+	// tooltips
+	tippy('#aiedu', {
+        content: "As to AI nowadays, LLM and Stable Diffusion are hot even hottest among them, If your want to both know-why and know-how with them, instead of only know-how which can't repeat itself, you should get you to https://ai.afoo.me right now ❗"
+    });  
+</script>  
+ </body>
+</html>
