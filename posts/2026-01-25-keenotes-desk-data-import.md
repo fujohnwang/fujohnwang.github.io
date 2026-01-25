@@ -2,7 +2,7 @@
 % 王福强
 % 2026-01-25
 
-[新发布的 V1.3.4.26 版](https://github.com/fujohnwang/keenotes-releases/releases) 支持用户从本地导入自己之前的闪念，不管是自己持有的，还是其它软件的。
+[Keenotes](https://keenotes.afoo.me) [新发布的 V1.3.4.26 版](https://github.com/fujohnwang/keenotes-releases/releases) 支持用户从本地导入自己之前的闪念，不管是自己持有的，还是其它软件的。
 
 通过桌面版KeeNotes，你有两种方式导入数据（从而在所有端上都可以访问）：
 
@@ -58,8 +58,14 @@ sqlite3 -list -noheader "notes.sqlite3" "select json_object('content', content, 
 
 因为原来的数据就是sqlite3数据库存储，所以，直接使用sqlite3的json_object函数导出就可以了。
 
-至于对于用户你来说，AI时代，不知道怎么把老数据转成NDJSON，直接交代AI去干就好了，原本它也适合干这个 ^-6
+至于对于用户你来说，AI时代，不知道怎么把老数据转成NDJSON，直接交代AI去干就好了，原本它也适合干这个 `^-^`
 
+## 写在最后
 
+经常遇到有人问 keenotes 跟其它同类软件有啥差别，其实个人也没特别想要去做这方面的对比， 把这个东西做出来，纯粹是自己实践了（或者说毫不费力地坚持了）9年，觉得应该有人会有类似的需求，所以才开始正式打磨出来。
+
+如果你实在想做个对比，可以看看这篇简单介绍，自己对比吧🤣
+
+[https://mp.weixin.qq.com/s/eLSm7OqUiny66LuPZaCNQw](https://mp.weixin.qq.com/s/eLSm7OqUiny66LuPZaCNQw)
 
 
