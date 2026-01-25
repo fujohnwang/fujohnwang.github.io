@@ -287,6 +287,26 @@
            width: 0;
            z-index: -1;
         }
+
+        .lang-switch {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .lang-switch:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
     </style>
 </head>
 <body>
@@ -297,7 +317,9 @@
 
     <div class="wrapper">
         <div class="content-card">
-            
+            <!-- 1. 新增：语言切换按钮 (建议放在 .wrapper 顶部或 .content-card 之前) -->
+            <button id="langSwitch" class="lang-switch">EN</button>
+
             <!-- Hero Icon (Paper Plane / Mail Concept) -->
             <div class="logo-area">
                 <svg class="hero-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -308,16 +330,16 @@
 
             <!-- Content -->
             <div id="main-content">
-                <h1>Amazing <span class="keenotes">Keenotes</span> Suite<br>Is Coming Soon</h1>
-                <p class="subtitle">我们正在构建 Keenotes 产品完整生态。<br>感兴趣的话，可以留下您的邮箱，成为首批体验用户。</p>
+                <h1 data-i18n="title">Amazing <span class="keenotes">Keenotes</span> Suite<br>Is Coming Soon</h1>
+                <p class="subtitle" data-i18n="subtitle">我们正在构建 Keenotes 产品完整生态。<br>感兴趣的话，可以留下您的邮箱，成为首批体验用户。</p>
 
                 <!-- Form -->
                 <form id="waitlistForm" class="waitlist-form" novalidate>
                     <div class="input-group">
-                        <input type="email" id="emailInput" placeholder="请输入您的邮箱地址" required>
+                        <input type="email" id="emailInput" data-i18n-placeholder="inputPlaceholder" placeholder="请输入您的邮箱地址" required>
                         <input type="text" id="nicky" name="nickname" autocomplete="off" tabindex="-1">
                         <button type="submit" id="submitBtn">
-                            <span class="btn-text">加入等待名单</span>
+                            <span class="btn-text" data-i18n="btnText">加入等待名单</span>
                             <div class="spinner" id="spinner"></div>
                             <!-- Arrow Icon -->
                             <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -335,8 +357,8 @@
                 <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="20 6 9 17 4 12"></polyline>
                 </svg>
-                <h2>提交成功！</h2>
-                <p class="subtitle" style="margin-top:1rem;">我们已收到您的申请。请留意您的收件箱，好消息即将送达。</p>
+                <h2 data-i18n="successTitle">提交成功！</h2>
+                <p class="subtitle" data-i18n="successMsg" style="margin-top:1rem;">我们已收到您的申请。请留意您的收件箱，好消息即将送达。</p>
             </div>
 
         </div>
@@ -348,6 +370,73 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+
+            // === 1. 定义翻译字典 ===
+            const i18n = {
+                zh: {
+                    langBtn: "EN", // 按钮显示对方语言
+                    title: "即将<br>震撼发布",
+                    subtitle: "我们正在构建下一代产品。留下您的邮箱，成为首批体验用户。",
+                    inputPlaceholder: "请输入您的邮箱地址",
+                    btnText: "加入等待名单",
+                    btnLoading: "提交中...",
+                    successTitle: "提交成功！",
+                    successMsg: "我们已收到您的申请。请留意您的收件箱，好消息即将送达。",
+                    errorEmail: "请输入有效的电子邮箱地址",
+                    errorNet: "网络连接错误，请检查您的网络。",
+                    errorServer: "提交失败，请稍后重试"
+                },
+                en: {
+                    langBtn: "中文",
+                    title: "Something Amazing<br>Is Coming Soon",
+                    subtitle: "We are building the next generation product. Be the first to experience it.",
+                    inputPlaceholder: "Enter your email address",
+                    btnText: "Join Waitlist",
+                    btnLoading: "Submitting...",
+                    successTitle: "Submission Successful!",
+                    successMsg: "We've received your request. Watch your inbox for good news coming soon.",
+                    errorEmail: "Please enter a valid email address",
+                    errorNet: "Network error, check your connection.",
+                    errorServer: "Submission failed, please try again later."
+                }
+            };
+
+            // === 2. 初始化状态 ===
+            let currentLang = 'zh'; // 默认语言
+            // 可选：自动检测浏览器语言
+            // if (navigator.language.startsWith('en')) currentLang = 'en';
+
+            const langSwitchBtn = document.getElementById('langSwitch');
+
+            // === 3. 更新界面文字的函数 ===
+            function updateContent() {
+                const t = i18n[currentLang];
+                
+                // 更新按钮文字
+                langSwitchBtn.textContent = t.langBtn;
+                
+                // 更新所有带 data-i18n 的文本
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if (t[key]) el.innerHTML = t[key]; // 使用 innerHTML 支持 <br>
+                });
+
+                // 更新 placeholder
+                document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                    const key = el.getAttribute('data-i18n-placeholder');
+                    if (t[key]) el.placeholder = t[key];
+                });
+            }
+
+            // === 4. 绑定点击事件 ===
+            langSwitchBtn.addEventListener('click', () => {
+                currentLang = currentLang === 'zh' ? 'en' : 'zh';
+                updateContent();
+            });
+
+            // 初始化调用一次
+            updateContent();
+
             // ================= CONFIGURATION =================
             // 请在此处填写你的后端 API 地址
             const API_URL = 'https://waitlist.afoo.me'; 
@@ -375,7 +464,7 @@
                 // 1. Basic Validation
                 const email = emailInput.value.trim();
                 if (!validateEmail(email)) {
-                    showError('请输入有效的电子邮箱地址');
+                    showError(i18n[currentLang].errorEmail);
                     return;
                 }
 
@@ -410,10 +499,7 @@
 
                 } catch (error) {
                     console.error('Submission Error:', error);
-                    // 如果是 Mock 测试，可以在这里拦截 Error 并强制显示成功
-                    // showSuccess(); // 取消注释此行以在没有真实 API 时测试成功界面
-                    
-                    showError(error.message || '网络连接错误，请检查您的网络。');
+                    showError(i18n[currentLang].errorNet);
                 } finally {
                     setLoading(false);
                 }
@@ -428,7 +514,7 @@
                 if (isLoading) {
                     submitBtn.disabled = true;
                     spinner.style.display = 'block';
-                    btnText.textContent = '提交中...';
+                    btnText.textContent = i18n[currentLang].btnLoading;
                     btnIcon.style.display = 'none';
                     emailInput.disabled = true;
                 } else {
@@ -436,7 +522,7 @@
                     spinner.style.display = 'none';
                     // Don't reset text if success, handled by view switch
                     if (successView.style.display !== 'flex') {
-                        btnText.textContent = '加入等待名单';
+                        btnText.textContent = i18n[currentLang].btnText; 
                         btnIcon.style.display = 'block';
                         emailInput.disabled = false;
                     }
