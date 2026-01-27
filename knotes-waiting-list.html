@@ -307,6 +307,101 @@
         .lang-switch:hover {
             background: rgba(255, 255, 255, 0.4);
         }
+
+        /* =========================================
+           Wizard / Steps Styling
+           ========================================= */
+        .wizard-container {
+            margin-top: 2rem;
+            background: rgba(0, 0, 0, 0.1); /* 轻微的深色背景衬托 */
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: left;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .wizard-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            opacity: 0.7;
+            margin-bottom: 1.25rem;
+            font-weight: 700;
+        }
+
+        .wizard-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            position: relative;
+        }
+
+        /* 左侧连接线 */
+        .wizard-steps::before {
+            content: '';
+            position: absolute;
+            left: 15px; /* Icon width/2 */
+            top: 10px;
+            bottom: 30px;
+            width: 2px;
+            background: rgba(255, 255, 255, 0.2);
+            z-index: 0;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 1rem;
+            position: relative;
+            z-index: 1; /* Ensure on top of line */
+        }
+
+        .step-icon-box {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            color: white;
+        }
+
+        .step-content {
+            padding-top: 2px;
+        }
+
+        .step-content h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: white;
+        }
+
+        .step-content p {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            line-height: 1.4;
+            margin: 0;
+            color: rgba(255,255,255,0.9);
+        }
+
+        /* 简单的进场动画 */
+        .step-item {
+            opacity: 0;
+            animation: slideUpFade 0.5s ease forwards;
+        }
+
+        .step-item:nth-child(1) { animation-delay: 0.2s; }
+        .step-item:nth-child(2) { animation-delay: 0.4s; }
+        .step-item:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
@@ -354,11 +449,63 @@
 
             <!-- Success State (Hidden initially) -->
             <div id="successView" class="success-view">
+                <!-- 顶部成功图标 -->
                 <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="20 6 9 17 4 12"></polyline>
                 </svg>
+                
                 <h2 data-i18n="successTitle">提交成功！</h2>
-                <p class="subtitle" data-i18n="successMsg" style="margin-top:1rem;">我们已收到您的申请。请留意您的收件箱，好消息即将送达。</p>
+                <p class="subtitle" data-i18n="successMsg">我们已收到您的申请。</p>
+
+                <!-- 新增：引导 Wizard -->
+                <div class="wizard-container">
+                    <h3 class="wizard-title" data-i18n="wizardTitle">快速上手指南</h3>
+                    
+                    <div class="wizard-steps">
+                        <!-- Step 1 -->
+                        <div class="step-item">
+                            <div class="step-icon-box">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                </svg>
+                            </div>
+                            <div class="step-content">
+                                <h4 data-i18n="step1Title">查收邮件</h4>
+                                <p data-i18n="step1Desc">获取您的专属 Token。</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="step-item">
+                            <div class="step-icon-box">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                            </div>
+                            <div class="step-content">
+                                <h4 data-i18n="step2Title">下载配置</h4>
+                                <p data-i18n="step2Desc">下载客户端，在 Settings 中填入 Token，设置加密密码并保存。</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="step-item">
+                            <div class="step-icon-box">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                </svg>
+                            </div>
+                            <div class="step-content">
+                                <h4 data-i18n="step3Title">开始记录</h4>
+                                <p data-i18n="step3Desc">发送您的第一条 Note。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -382,6 +529,13 @@
                     btnLoading: "提交中...",
                     successTitle: "提交成功！",
                     successMsg: "我们已收到您的申请。请留意您的收件箱，好消息即将送达。",
+                    wizardTitle: "接下来只需三步",
+                    step1Title: "1. 查收邮件",
+                    step1Desc: "获取您的专属 Token。",
+                    step2Title: "2. 下载配置",
+                    step2Desc: "下载客户端，在 Settings 中填入 Token，设置加密密码并点击 Save。",
+                    step3Title: "3. 开始记录",
+                    step3Desc: "发送您的第一条 Note。",
                     errorEmail: "请输入有效的电子邮箱地址",
                     errorNet: "网络连接错误，请检查您的网络。",
                     errorServer: "提交失败，请稍后重试"
@@ -395,6 +549,13 @@
                     btnLoading: "Submitting...",
                     successTitle: "Submission Successful!",
                     successMsg: "We've received your request. Watch your inbox for good news coming soon.",
+                    wizardTitle: "Next Steps",
+                    step1Title: "1. Check Email",
+                    step1Desc: "Get your unique Token from the email.",
+                    step2Title: "2. Setup Client",
+                    step2Desc: "Download client, enter Token in Settings, set encryption password & Save.",
+                    step3Title: "3. Start Writing",
+                    step3Desc: "Send your very first Note.",
                     errorEmail: "Please enter a valid email address",
                     errorNet: "Network error, check your connection.",
                     errorServer: "Submission failed, please try again later."
