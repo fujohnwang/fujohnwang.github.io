@@ -139,6 +139,14 @@
         .animate-pointer {
             animation: pointer-nudge 1s ease-in-out infinite;
         }
+        /* 修正后的指引动画：沿着箭头的轴向（右上方）戳动 */
+        @keyframes pointer-nudge-diagonal {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(8px, -6px); } /* 向右上方顶 */
+        }
+        .animate-pointer-diagonal {
+            animation: pointer-nudge-diagonal 1.2s ease-in-out infinite;
+        }
     </style>
 </head>
 <body class="selection:bg-yellow-300 selection:text-blue-900 flex flex-col min-h-screen">
@@ -196,23 +204,24 @@
         </p>
         
 
+
+        <!-- 按钮容器 -->
         <div class="relative inline-flex flex-col sm:flex-row gap-5 justify-center items-center mb-16 z-20">
-            
-            <div class="hidden md:block absolute right-full top-1/2 -translate-y-1/2 mr-4 w-max text-white/80 animate-pointer z-0">
+            <div class="hidden md:block absolute right-[105%] top-1/2 mt-4 w-max text-white/90 animate-pointer-diagonal z-0">
                 <div class="relative">
-                    <svg width="60" height="60" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2)); transform: rotate(15deg);">
-                        <!-- 调整了箭头路径，让它指向感更强 -->
-                        <path d="M10 50 Q 40 10 90 40" /> <!-- 箭身 -->
-                        <path d="M90 40 L 80 60" />       <!-- 箭头翼上 -->
-                        <path d="M90 40 L 75 5" />       <!-- 箭头翼下 -->
+                    <svg width="80" height="80" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2)); transform: rotate(-10deg);">
+                        <path d="M 20 90 Q 50 110 100 30" />
+                        <path d="M 100 30 L 80 25" />
+                        <path d="M 100 30 L 90 50" />
                     </svg>
-                    <!-- Click Me 文字位置微调 -->
-                    <div class="absolute -top-2 -left-2 text-sm font-handwriting transform -rotate-12 font-bold text-yellow-300">
+                    
+                    <!-- Click Me 文字：放在箭尾附近 -->
+                    <div class="absolute bottom-2 left-0 text-sm font-handwriting transform -rotate-12 font-bold text-yellow-300 -translate-x-2">
                         Click Me!
                     </div>
                 </div>
             </div>
-
+            
             <a href="./knotes-waiting-list.html" target="_blank" 
                class="animate-breath group relative w-full sm:w-auto px-12 py-5 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-full font-bold text-xl transition-all duration-300 flex items-center justify-center gap-2 overflow-hidden border border-orange-400/50 shadow-2xl shadow-orange-500/30">
                 
@@ -226,6 +235,8 @@
             </a>
             
         </div>
+
+
 
         
         <div class="mt-8 text-sm text-blue-200 font-medium mb-6" data-i18n="hero_platforms">
