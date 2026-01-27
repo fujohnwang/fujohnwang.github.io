@@ -147,6 +147,14 @@
         .animate-pointer-diagonal {
             animation: pointer-nudge-diagonal 1.2s ease-in-out infinite;
         }
+        /* 让箭头更有力地向右上方“顶” */
+        @keyframes pointer-thrust {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(10px, -5px) rotate(2deg); } /* 稍微带点旋转，更生动 */
+        }
+        .animate-thrust {
+            animation: pointer-thrust 1s ease-in-out infinite;
+        }
     </style>
 </head>
 <body class="selection:bg-yellow-300 selection:text-blue-900 flex flex-col min-h-screen">
@@ -205,23 +213,46 @@
         
 
 
-        <!-- 按钮容器 -->
+<!-- 按钮容器 -->
         <div class="relative inline-flex flex-col sm:flex-row gap-5 justify-center items-center mb-16 z-20">
-            <div class="hidden md:block absolute right-[105%] top-1/2 mt-4 w-max text-white/90 animate-pointer-diagonal z-0">
+            
+            <!-- === 终极版：涂鸦回环箭头 === -->
+            <!-- 
+               位置调整：
+               - right-[95%]: 稍微叠一点或者紧挨着，不要离太远
+               - -top-4: 稍微往上提，让箭头指向按钮的中心偏左
+            -->
+            <div class="hidden md:block absolute right-[98%] top-0 w-max text-white animate-thrust z-0">
                 <div class="relative">
-                    <svg width="80" height="80" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2)); transform: rotate(-10deg);">
-                        <path d="M 20 90 Q 50 110 100 30" />
-                        <path d="M 100 30 L 80 25" />
-                        <path d="M 100 30 L 90 50" />
+                    <!-- 
+                       Canvas: 150x100 
+                       Stroke: 5 (加粗)
+                       Opacity: 0.9 (稍微透一点点，像马克笔)
+                    -->
+                    <svg width="100" height="80" viewBox="0 0 150 120" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(3px 5px 2px rgba(0,0,0,0.2)); transform: rotate(-5deg);">
+                        
+                        <!-- 
+                           涂鸦路径：
+                           从左下开始(40, 90) -> 往左上绕圈 -> 穿过 -> 指向右侧(140, 50) 
+                           这是一个带回环的贝塞尔曲线
+                        -->
+                        <path d="M 40 90 C 10 90 10 40 50 40 C 80 40 80 70 140 50" />
+                        
+                        <!-- 箭头翼上 -->
+                        <path d="M 140 50 L 115 35" />
+                        
+                        <!-- 箭头翼下 -->
+                        <path d="M 140 50 L 120 70" />
                     </svg>
                     
-                    <!-- Click Me 文字：放在箭尾附近 -->
-                    <div class="absolute bottom-2 left-0 text-sm font-handwriting transform -rotate-12 font-bold text-yellow-300 -translate-x-2">
+                    <!-- Click Me 文字：放在圈圈的上方，稍微歪一点 -->
+                    <div class="absolute -top-2 left-2 text-sm font-handwriting transform -rotate-12 font-bold text-yellow-300 tracking-wider" style="text-shadow: 1px 1px 0 rgba(0,0,0,0.1);">
                         Click Me!
                     </div>
                 </div>
             </div>
-            
+
+            <!-- === 橘色 CTA 按钮 (保持不变) === -->
             <a href="./knotes-waiting-list.html" target="_blank" 
                class="animate-breath group relative w-full sm:w-auto px-12 py-5 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-full font-bold text-xl transition-all duration-300 flex items-center justify-center gap-2 overflow-hidden border border-orange-400/50 shadow-2xl shadow-orange-500/30">
                 
