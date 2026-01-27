@@ -690,22 +690,49 @@
 
 
 
-    <!-- Contact Us Section -->
-    <section id="contact" class="max-w-4xl mx-auto px-6 pb-20 pt-8 text-center">
-        <div class="glass-card p-8 md:p-10 rounded-2xl w-full md:w-2/3 mx-auto hover:bg-white/15 transition duration-300 border-white/10">
-            <h3 class="text-2xl font-bold mb-4 text-white flex items-center justify-center gap-2">
-                <svg class="w-6 h-6 text-yellow-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                <span data-i18n="contact_title">Contact Us</span>
-            </h3>
-            
-            <p class="text-blue-100 mb-6 leading-relaxed opacity-90" data-i18n="contact_desc">
-                If you have any questions or suggestions about our Privacy Policy, please do not hesitate to contact us.
-            </p>
-            
-            <a href="mailto:i@afoo.me" class="inline-block px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full text-yellow-300 font-mono text-lg transition-all hover:scale-105 group">
-                i@afoo.me
-                <span class="inline-block ml-2 opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:translate-x-1">→</span>
+    <!-- Contact Us Section (With Local Bubble) -->
+    <section id="contact" class="max-w-4xl mx-auto px-6 pb-24 pt-10 text-center relative z-10">
+        <div class="relative w-full md:w-2/3 mx-auto">
+            <a href="/knotes-waiting-list.html" class="absolute -top-48 -right-36 z-20 hidden lg:block group transform scale-75 rotate-6 hover:scale-[0.8] transition-transform duration-300">
+                <div class="relative w-[32rem] h-[20rem] flex items-center justify-center cursor-pointer">
+                    <!-- 背景 SVG (保持不变，带尖尾巴) -->
+                    <svg class="absolute inset-0 w-full h-full drop-shadow-2xl opacity-90" viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M185.5 45.5C192 65.5 178.5 98.5 137.5 108.5C96.5 118.5 45 112 25.5 92C6 72 10.5 35.5 41.5 19.5C72.5 3.5 145.5 -4.5 175.5 19.5C188.454 29.8633 189.661 38.6256 185.5 45.5Z" fill="#FAE548"/>
+                        <path d="M45 25C60 15 120 10 160 25" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+                        <!-- 尖尾巴指向左下方，正好指向 Contact 卡片 -->
+                        <path d="M60 100 L30 135 L90 105 Z" fill="#FAE548"/>
+                    </svg>
+
+                    <!-- 文本内容 -->
+                    <div class="relative z-10 text-center transform -rotate-6 -translate-y-6 -translate-x-2">
+                        <p class="font-calligraphy text-5xl text-blue-900 leading-tight drop-shadow-sm select-none">
+                            <span data-i18n="float_slogan">Flash thoughts?<br>Keenotes NOW!</span>
+                        </p>
+                        <div class="mt-4 text-xs font-bold text-blue-900/50 uppercase tracking-[0.2em] font-sans group-hover:text-blue-900 transition-colors" data-i18n="float_click">
+                            FREE TRIAL
+                        </div>
+                    </div>
+                </div>
             </a>
+            <!-- === 气泡结束 === -->
+
+            <!-- Contact Card (主体卡片) -->
+            <div class="glass-card p-8 md:p-10 rounded-2xl hover:bg-white/15 transition duration-300 border-white/10 shadow-2xl relative z-10">
+                <h3 class="text-2xl font-bold mb-4 text-white flex items-center justify-center gap-2">
+                    <svg class="w-6 h-6 text-yellow-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    <span data-i18n="contact_title">Contact Us</span>
+                </h3>
+                
+                <p class="text-blue-100 mb-6 leading-relaxed opacity-90" data-i18n="contact_desc">
+                    If you have any questions or suggestions about our Privacy Policy, please do not hesitate to contact us.
+                </p>
+                
+                <a href="mailto:i@afoo.me" class="inline-block px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full text-yellow-300 font-mono text-lg transition-all hover:scale-105 group">
+                    i@afoo.me
+                    <span class="inline-block ml-2 opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:translate-x-1">→</span>
+                </a>
+            </div>
+
         </div>
     </section>
 
@@ -739,36 +766,6 @@
         </div>
     </footer>
 
-    <!-- Top-Right Floating SVG Bubble (Large & Calligraphy) -->
-    <a href="/knotes-waiting-list.html" class="fixed top-20 -right-10 md:right-10 z-0 hidden xl:block group pointer-events-auto">
-        <!-- 容器尺寸 -->
-        <div class="float-bubble relative w-[32rem] h-[20rem] flex items-center justify-center cursor-pointer hover:scale-105 transition-transform duration-300">
-            
-            <!-- 背景：SVG 气泡 -->
-            <!-- 关键修改：viewBox 高度增加到 150，防止尾巴被切掉 -->
-            <svg class="absolute inset-0 w-full h-full drop-shadow-2xl opacity-90" viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- 黄色手绘填充 (气泡主体) -->
-                <path d="M185.5 45.5C192 65.5 178.5 98.5 137.5 108.5C96.5 118.5 45 112 25.5 92C6 72 10.5 35.5 41.5 19.5C72.5 3.5 145.5 -4.5 175.5 19.5C188.454 29.8633 189.661 38.6256 185.5 45.5Z" fill="#FAE548"/>
-                
-                <!-- 白色高光 -->
-                <path d="M45 25C60 15 120 10 160 25" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
-                
-                <!-- 尾巴 (关键修改：尖锐三角形，并且与主体融合) -->
-                <!-- M60 100 (起点) -> L30 135 (尖端，向左下) -> L90 105 (回点) -> Z (闭合) -->
-                <path d="M60 100 L30 135 L90 105 Z" fill="#FAE548"/>
-            </svg>
-
-            <!-- 文本内容 (位置微调以适应新气泡重心) -->
-            <div class="relative z-10 text-center transform -rotate-6 -translate-y-6 -translate-x-2">
-                <p class="font-calligraphy text-5xl text-blue-900 leading-tight drop-shadow-sm select-none">
-                    <span data-i18n="float_slogan">好记性<br>不如 Keenotes</span>
-                </p>
-                <div class="mt-4 text-xs font-bold text-blue-900/50 uppercase tracking-[0.2em] font-sans group-hover:text-blue-900 transition-colors" data-i18n="float_click">
-                    免费试用
-                </div>
-            </div>
-        </div>
-    </a>
 
     <!-- I18n Script -->
     <script>
