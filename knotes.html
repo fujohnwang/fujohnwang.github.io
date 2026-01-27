@@ -195,40 +195,38 @@
             Keenotes 是你的个人私密短笔记。<br>专为记录和留存转瞬即逝的灵感与闪念而生。
         </p>
         
-        <!-- 按钮容器，需要 relative 用于定位箭头 -->
-        <div class="relative flex flex-col sm:flex-row gap-5 justify-center items-center mb-16 z-20">
+
+        <div class="relative inline-flex flex-col sm:flex-row gap-5 justify-center items-center mb-16 z-20">
             
-            <!-- === 新增：动态指引箭头 (Attention Seeker) === -->
-            <!-- 在 PC 端显示在左侧，一直指着按钮 -->
-            <div class="hidden md:block absolute -left-12 lg:-left-20 top-1/2 -translate-y-1/2 text-white/80 animate-pointer z-0">
-                <svg width="60" height="60" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2));">
-                    <!-- 手绘风格的弯曲箭头 -->
-                    <path d="M10 50 Q 30 20 80 40" /> <!-- 箭身 -->
-                    <path d="M80 40 L 60 30" />       <!-- 箭头翼上 -->
-                    <path d="M80 40 L 65 55" />       <!-- 箭头翼下 -->
-                </svg>
-                <div class="text-xs font-handwriting transform -rotate-12 mt-1 ml-2 font-bold text-yellow-300">
-                    Click Me!
+            <div class="hidden md:block absolute right-full top-1/2 -translate-y-1/2 mr-4 w-max text-white/80 animate-pointer z-0">
+                <div class="relative">
+                    <svg width="60" height="60" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2)); transform: rotate(15deg);">
+                        <!-- 调整了箭头路径，让它指向感更强 -->
+                        <path d="M10 50 Q 40 10 90 40" /> <!-- 箭身 -->
+                        <path d="M90 40 L 70 30" />       <!-- 箭头翼上 -->
+                        <path d="M90 40 L 75 55" />       <!-- 箭头翼下 -->
+                    </svg>
+                    <!-- Click Me 文字位置微调 -->
+                    <div class="absolute -top-2 -left-2 text-sm font-handwriting transform -rotate-12 font-bold text-yellow-300">
+                        Click Me!
+                    </div>
                 </div>
             </div>
 
-            <!-- === 橘色 CTA 按钮 (自身带有呼吸和扫光) === -->
             <a href="./knotes-waiting-list.html" target="_blank" 
-               class="animate-breath group relative w-full sm:w-auto px-12 py-5 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-full font-bold text-xl transition-all duration-300 flex items-center justify-center gap-2 overflow-hidden border border-orange-400/50">
+               class="animate-breath group relative w-full sm:w-auto px-12 py-5 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-full font-bold text-xl transition-all duration-300 flex items-center justify-center gap-2 overflow-hidden border border-orange-400/50 shadow-2xl shadow-orange-500/30">
                 
-                <!-- 内部文字 -->
                 <span class="relative z-10" data-i18n="btn_waitlist">免费试用</span>
                 
-                <!-- 内部小箭头 -->
                 <svg class="relative z-10 w-6 h-6 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                 </svg>
 
-                <!-- === 扫光特效层 (一直循环播放) === -->
                 <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent z-0 w-1/2 h-full animate-shimmer"></div>
             </a>
             
         </div>
+
         
         <div class="mt-8 text-sm text-blue-200 font-medium mb-6" data-i18n="hero_platforms">
             支持 macOS · Windows · Linux · Android · iOS
