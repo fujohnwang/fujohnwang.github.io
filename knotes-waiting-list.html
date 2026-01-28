@@ -402,6 +402,23 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        .detail-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7); /* 默认稍微暗一点，不抢视觉重心 */
+            text-decoration: underline;
+            text-underline-offset: 4px; /* 下划线稍微远离文字一点，更好看 */
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .detail-link:hover {
+            color: #ffffff; /* 悬停变亮 */
+            opacity: 1;
+            transform: translateY(-2px); /* 轻微上浮 */
+        }
     </style>
 </head>
 <body>
@@ -505,7 +522,16 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
+                
+                <a href="https://github.com/fujohnwang/keenotes-releases/discussions/1" 
+                   target="_blank" 
+                   class="detail-link" 
+                   data-i18n="detailLink">
+                   更详细的快速上手指南看这里...
+                </a>
+
             </div>
 
         </div>
@@ -538,7 +564,8 @@
                     step3Desc: "发送您的第一条 Note。",
                     errorEmail: "请输入有效的电子邮箱地址",
                     errorNet: "网络连接错误，请检查您的网络。",
-                    errorServer: "提交失败，请稍后重试"
+                    errorServer: "提交失败，请稍后重试",
+                    detailLink: "更详细的快速上手指南看这里..."
                 },
                 en: {
                     langBtn: "中文",
@@ -558,7 +585,8 @@
                     step3Desc: "Send your very first Note.",
                     errorEmail: "Please enter a valid email address",
                     errorNet: "Network error, check your connection.",
-                    errorServer: "Submission failed, please try again later."
+                    errorServer: "Submission failed, please try again later.",
+                    detailLink: "Read the detailed Quick Start Guide here..."
                 }
             };
 
