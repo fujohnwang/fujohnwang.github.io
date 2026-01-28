@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>开始使用 KeeNotes - 全平台加密笔记</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f5f7ff',
+                            100: '#ebf0fe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white text-gray-800 antialiased selection:bg-brand-100 selection:text-brand-900">
+
+    <!-- Hero Section -->
+    <header class="relative pt-20 pb-16 md:pt-32 md:pb-24 overflow-hidden">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 relative z-10 text-center">
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900 mb-6">
+                快速上手 <span class="text-brand-600">KeeNotes</span>
+            </h1>
+            <p class="text-xl text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
+                全平台支持、端到端加密 (E2EE) 的私人笔记工具。<br>
+                一个 Token，打通 iOS、Android、Windows、macOS 与 Linux。
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#step1" class="px-8 py-3 bg-gray-900 text-white rounded-lg font-semibold hover:bg-gray-800 transition shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                    立即开始
+                </a>
+                <a href="https://github.com/fujohnwang/keenotes-releases/releases" target="_blank" class="px-8 py-3 bg-white text-gray-900 border border-gray-200 rounded-lg font-semibold hover:bg-gray-50 transition">
+                    下载客户端
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 核心流程 Steps -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 pb-24 space-y-24">
+        
+        <!-- Step 1: Get Token -->
+        <section id="step1" class="relative pl-8 md:pl-0">
+            <div class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-gray-200 -z-10 transform -translate-x-1/2"></div>
+            
+            <div class="md:flex items-center justify-between gap-12 group">
+                <div class="md:w-1/2 md:text-right order-1">
+                    <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-brand-100 text-brand-600 font-bold mb-4 md:mb-0 md:ml-auto">1</div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-3">获取你的专属 Token</h2>
+                    <p class="text-gray-600 mb-4">
+                        访问 <a href="https://keenotes.afoo.me/" target="_blank" class="text-brand-600 underline decoration-brand-200 underline-offset-2">keenotes.afoo.me</a> 点击 <strong>FREE Trial</strong>。
+                        在 Waiting List 页面输入邮箱，你将收到一封包含 Token 的授权邮件。
+                    </p>
+                    <div class="bg-amber-50 border-l-4 border-amber-400 p-3 text-sm text-amber-800 text-left md:text-right rounded-r">
+                        <span class="font-bold">注意：</span> Token 是你设备间通信的唯一令牌，请妥善保管。
+                    </div>
+                </div>
+                <div class="md:w-1/2 order-2 mt-6 md:mt-0">
+                    <div class="rounded-xl overflow-hidden shadow-2xl border border-gray-100 bg-gray-50 p-2 transform group-hover:scale-[1.02] transition duration-500">
+                        <!-- 使用 Discussion 中的 Waiting List 输入图 -->
+                        <img src="https://private-user-images.githubusercontent.com/451506/540901891-03adeba4-aaaa-4445-9ac8-c719f7225373.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Njk1NjgyMDMsIm5iZiI6MTc2OTU2NzkwMywicGF0aCI6Ii80NTE1MDYvNTQwOTAxODkxLTAzYWRlYmE0LWFhYWEtNDQ0NS05YWM4LWM3MTlmNzIyNTM3My5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMTI4JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDEyOFQwMjM4MjNaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT01NTdmNWZhOThhYWRkZTYwOTlhZTJkMzdjOTRiZWQ2Y2QyODliNDRiY2ZkMzhjYTU2YTg5ZjBkMDU0NGJlN2EwJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.t4c9_ZJOYki6sN3rvfExNJTg_A0rW_v4mX4ZJ2QQCE8" alt="Waiting List Email Input" class="w-full rounded-lg">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Step 2: Download -->
+        <section class="relative pl-8 md:pl-0">
+            <div class="md:flex items-center justify-between gap-12 group">
+                <div class="md:w-1/2 order-2 md:order-1 mt-6 md:mt-0">
+                    <div class="rounded-xl overflow-hidden shadow-2xl border border-gray-100 bg-gray-50 p-2 transform group-hover:scale-[1.02] transition duration-500">
+                        <!-- 使用 Discussion 中的 Release 列表图 -->
+                        <img src="https://private-user-images.githubusercontent.com/451506/540904192-d6e186d7-8ae1-4333-9ba3-76df6172b94d.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Njk1NjgyMDMsIm5iZiI6MTc2OTU2NzkwMywicGF0aCI6Ii80NTE1MDYvNTQwOTA0MTkyLWQ2ZTE4NmQ3LThhZTEtNDMzMy05YmEzLTc2ZGY2MTcyYjk0ZC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMTI4JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDEyOFQwMjM4MjNaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT04YzdmMGZkMjdiNjgwNmI3N2FjOWNlYmZhOGJiNjc1MGQ2YmI3MDkyNjY1NDI2ZDdjZjMzNGRlZTgzZTkxYzJlJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.cWG6VmHe_qcXeXbkbpvh4-z75u_ZLIvpVaeKvn5duvg" alt="Releases Page" class="w-full rounded-lg opacity-90">
+                    </div>
+                </div>
+                <div class="md:w-1/2 order-1 md:order-2">
+                    <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-brand-100 text-brand-600 font-bold mb-4">2</div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-3">下载全平台客户端</h2>
+                    <p class="text-gray-600 mb-4">
+                        前往 GitHub Releases 页面下载适合你设备的版本。
+                    </p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center gap-2 text-sm text-gray-600">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-green-500"></i> 支持 macOS (Intel/M1) & Windows & Linux
+                        </li>
+                        <li class="flex items-center gap-2 text-sm text-gray-600">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-green-500"></i> 支持 iOS & Android
+                        </li>
+                    </ul>
+                    <div class="bg-gray-100 p-4 rounded-lg border border-gray-200">
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="shield-alert" class="w-5 h-5 text-gray-500 mt-0.5"></i>
+                            <div class="text-sm text-gray-600">
+                                <span class="font-bold text-gray-800">为何没有 Web 端？</span><br>
+                                为了确保绝对的端到端加密 (E2EE)，Web 端存在潜在安全风险，因此我们坚持使用原生客户端。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Step 3: Configure -->
+        <section class="relative pl-8 md:pl-0">
+            <div class="md:flex items-center justify-between gap-12 group">
+                <div class="md:w-1/2 md:text-right order-1">
+                    <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-brand-100 text-brand-600 font-bold mb-4 md:mb-0 md:ml-auto">3</div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-3">配置与同步</h2>
+                    <p class="text-gray-600 mb-4">
+                        启动程序，在 Settings 界面输入你的 Token。
+                    </p>
+                    <p class="text-gray-600 mb-6">
+                        <strong>关键一步：</strong> 设置一个<span class="text-brand-600 font-medium">只有你自己知道的密码</span>（二次确认）。点击 Save 后，你的安全笔记之旅正式开始。
+                    </p>
+                    <div class="flex flex-col md:items-end gap-2 text-sm text-gray-500">
+                        <span class="flex items-center gap-2"><i data-lucide="smartphone" class="w-4 h-4"></i> 只要 Token 一致，多端自动同步</span>
+                    </div>
+                </div>
+                <div class="md:w-1/2 order-2 mt-6 md:mt-0">
+                    <div class="grid grid-cols-2 gap-4">
+                        <!-- 手机端截图 -->
+                        <div class="rounded-xl overflow-hidden shadow-lg border border-gray-100">
+                            <img src="https://private-user-images.githubusercontent.com/451506/540905634-93aef139-1f95-427a-82d4-02871404101d.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Njk1NjgyMDMsIm5iZiI6MTc2OTU2NzkwMywicGF0aCI6Ii80NTE1MDYvNTQwOTA1NjM0LTkzYWVmMTM5LTFmOTUtNDI3YS04MmQ0LTAyODcxNDA0MTAxZC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMTI4JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDEyOFQwMjM4MjNaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT04ZTg3NjdjMzI2YzFkNWMxMDExZjNmZGJmMmQ4YWQ2ZTg4ODQ4YTllNDMzOTU4YjQ3N2ZiMTQ2MmUzMzVjMjI4JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.msCewh94e-G5yswDqARVeEkpuEjFJSBDxC9_GoeUaUA" alt="Mobile UI" class="w-full object-cover">
+                        </div>
+                        <!-- 桌面端截图 -->
+                        <div class="rounded-xl overflow-hidden shadow-lg border border-gray-100 mt-8">
+                            <img src="https://private-user-images.githubusercontent.com/451506/540908479-39d5bc50-d92c-4ac0-bf2f-cd1078ab6e8e.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Njk1NjgyMDMsIm5iZiI6MTc2OTU2NzkwMywicGF0aCI6Ii80NTE1MDYvNTQwOTA4NDc5LTM5ZDViYzUwLWQ5MmMtNGFjMC1iZjJmLWNkMTA3OGFiNmU4ZS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMTI4JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDEyOFQwMjM4MjNaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT03ZmRkMGU4Yjg5M2UyYzk3NzZkOTk1M2M1N2I0NWRhNzFiY2VhNmZiNmI0MTg5ZTNkZDgxMzJmMDU2NDIxNDBlJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.tuRNjXWktm6rvlqDEQlWw2JUB2IuTYedz8pvWdBdLWM" alt="Desktop UI" class="w-full object-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 border-t border-gray-200 py-12">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h3 class="text-xl font-bold text-gray-900 mb-4">准备好发送你的第一条笔记了吗？</h3>
+            <div class="flex justify-center gap-6 mb-8">
+                <a href="https://keenotes.afoo.me/" class="text-brand-600 font-medium hover:text-brand-800 flex items-center gap-1">
+                    获取 Token <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+                <a href="https://github.com/fujohnwang/keenotes-releases/releases" class="text-brand-600 font-medium hover:text-brand-800 flex items-center gap-1">
+                    下载客户端 <i data-lucide="download" class="w-4 h-4"></i>
+                </a>
+            </div>
+            <p class="text-sm text-gray-400">
+                Designed based on <a href="https://github.com/fujohnwang/keenotes-releases/discussions/1" class="underline hover:text-gray-600">Discussion #1</a> by fujohnwang.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
