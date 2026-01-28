@@ -419,6 +419,36 @@
             opacity: 1;
             transform: translateY(-2px); /* 轻微上浮 */
         }
+
+        /* =========================================
+           Direct Buy Link Styling
+           ========================================= */
+        .direct-buy-area {
+            margin-top: 2.5rem; /* 与上方表单拉开距离 */
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7); /* 默认稍微暗淡一点 */
+            line-height: 1.6;
+            transition: opacity 0.3s ease;
+        }
+
+        .gumroad-link {
+            color: var(--accent-color); /* 使用你的橘色强调色 */
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s ease;
+            margin-left: 4px;
+        }
+
+        .gumroad-link:hover {
+            color: var(--accent-hover);
+            border-bottom-color: var(--accent-hover); /* Hover时出现下划线 */
+        }
+
+        /* 整个区域 hover 时稍微变亮，增加可读性 */
+        .direct-buy-area:hover {
+            color: rgba(255, 255, 255, 0.95);
+        }
     </style>
 </head>
 <body>
@@ -462,6 +492,13 @@
                     </div>
                     <div id="feedback" class="feedback-message"></div>
                 </form>
+                <div class="direct-buy-area">
+                    <span data-i18n="directBuyText">当然，您也可以做个孤勇者，不试用、直接订阅，</span>
+                    <a href="https://wfq.gumroad.com/l/knss" target="_blank" class="gumroad-link">
+                        <span data-i18n="directBuyLink">订阅地址 →</span>
+                    </a>
+                </div>
+
             </div>
 
             <!-- Success State (Hidden initially) -->
@@ -565,7 +602,9 @@
                     errorEmail: "请输入有效的电子邮箱地址",
                     errorNet: "网络连接错误，请检查您的网络。",
                     errorServer: "提交失败，请稍后重试",
-                    detailLink: "→ 更详细的快速上手指南看这里..."
+                    detailLink: "→ 更详细的快速上手指南看这里...",
+                    directBuyText: "当然，您也可以做个孤勇者，不试用、直接订阅，",
+                    directBuyLink: "订阅地址 →"
                 },
                 en: {
                     langBtn: "中文",
@@ -586,7 +625,9 @@
                     errorEmail: "Please enter a valid email address",
                     errorNet: "Network error, check your connection.",
                     errorServer: "Submission failed, please try again later.",
-                    detailLink: "→ More-detailed Quick Start Guide..."
+                    detailLink: "→ More-detailed Quick Start Guide...",
+                    directBuyText: "Or, be a lone wolf — skip the trial and subscribe directly via",
+                    directBuyLink: "Gumroad →"
                 }
             };
 
