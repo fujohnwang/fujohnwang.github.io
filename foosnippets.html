@@ -89,7 +89,7 @@
             <div class="hidden md:flex gap-8 text-sm font-semibold text-blue-100">
                 <a href="#features" class="hover:text-white transition" data-i18n="nav_features">功能特性</a>
                 <a href="#demo" class="hover:text-white transition" data-i18n="nav_demo">演示</a>
-                <a href="https://afoo.me" target="_blank" class="hover:text-white transition" data-i18n="nav_blog">Blog</a>
+                <a href="#" target="_blank" class="hover:text-white transition" data-i18n="nav_quickstart">快速上手</a>
             </div>
 
             <!-- Language Switcher -->
@@ -289,7 +289,7 @@
             zh: {
                 nav_features: "功能特性",
                 nav_demo: "演示",
-                nav_blog: "Blog",
+                nav_quickstart: "快速上手",
                 nav_download: "下载 macOS 版",
                 hero_tag: "✨ 让快速输入和内容复用更上一层楼",
                 hero_title: "常用的文本片段，<br /><span class='text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-100 to-orange-200'>指尖一触即发。</span>",
@@ -318,7 +318,7 @@
             en: {
                 nav_features: "Features",
                 nav_demo: "Demo",
-                nav_blog: "Blog",
+                nav_quickstart: "Quick Start",
                 nav_download: "Download",
                 hero_tag: "✨ Take text expansion & reuse to the next level",
                 hero_title: "Frequent text snippets,<br /><span class='text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-100 to-orange-200'>At your fingertips.</span>",
@@ -363,6 +363,17 @@
                     element.classList.add('fade-in');
                 }
             });
+
+            const quickStartLink = document.querySelector('[data-i18n="nav_quickstart"]');
+            if (quickStartLink) {
+                if (lang === 'zh') {
+                    // 替换成你的中文文档链接
+                    quickStartLink.href = "https://afoo.me/foosnippets/FooSnippets-permission-grant-howto-zh.html"; 
+                } else {
+                    // 替换成你的英文文档链接
+                    quickStartLink.href = "https://afoo.me/foosnippets/FooSnippets-permission-grant-howto-en.html"; 
+                }
+            }
 
             // Update Toggle Button Text
             const toggleBtn = document.getElementById('lang-toggle');
