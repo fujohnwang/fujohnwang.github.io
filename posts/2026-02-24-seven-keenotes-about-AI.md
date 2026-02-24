@@ -1,4 +1,4 @@
-% 分享关于AI的几个KeeNotes
+% 分享关于 AI 的 7 个 KeeNotes
 % 王福强
 % 2026-02-24
 
