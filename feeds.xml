@@ -5,6 +5,457 @@
     <link>http://afoo.me</link>
     <description>王福强的个人博客：一个架构士的思考与沉淀</description>
     <item>
+      <title>claude code with qwen3.5 via ollama</title>
+      <link>http://afoo.me/posts/2026-03-05-claude-code-with-qwen3-via-ollama.html</link>
+      <description>&lt;!doctype html&gt;
+&lt;html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]"&gt; 
+ &lt;head&gt; 
+  &lt;meta charset="utf-8"&gt; 
+  &lt;meta name="keywords" content="claude code with qwen3.5 via ollama - 架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
+  &lt;meta name="description" content="claude code with qwen3.5 via ollama - 福强说，扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
+  &lt;meta name="author" content="王福强"&gt; 
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
+  &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt; 
+  &lt;meta name="robots" content="index,follow"&gt; 
+  &lt;title&gt;claude code with qwen3.5 via ollama -王福强的个人博客：一个架构士的思考与沉淀&lt;/title&gt; 
+  &lt;meta name="date" content="2026-03-05"&gt; 
+  &lt;meta property="og:title" content="claude code with qwen3.5 via ollama"&gt; 
+  &lt;meta property="og:type" content="landing page"&gt; 
+  &lt;meta property="og:url" content="https://afoo.me/posts/2026-03-05-claude-code-with-qwen3-via-ollama.html"&gt; 
+  &lt;meta property="og:image" content="https://og.afoo.me?url=https://afoo.me/posts/2026-03-05-claude-code-with-qwen3-via-ollama.html"&gt; 
+  &lt;meta name="twitter:card" content="summary_large_image"&gt; 
+  &lt;meta name="twitter:title" content="claude code with qwen3.5 via ollama"&gt; 
+  &lt;meta name="twitter:site" content="@afoo_me"&gt; 
+  &lt;meta name="twitter:creator" content="@afoo_me"&gt; 
+  &lt;meta name="twitter:image" content="https://og.afoo.me?url=https://afoo.me/posts/2026-03-05-claude-code-with-qwen3-via-ollama.html"&gt; 
+  &lt;meta name="twitter:description" content="claude code with qwen3.5 via ollama - 王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
+  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
+  &lt;link rel="canonical" href="https://afoo.me/posts/2026-03-05-claude-code-with-qwen3-via-ollama.html"&gt; 
+  &lt;link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"&gt; 
+  &lt;link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8"&gt; 
+  &lt;script src="https://afoo.me/js/htmx.min.js"&gt;&lt;/script&gt; 
+  &lt;link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"&gt; 
+  &lt;script src="https://unpkg.com/gitalk/dist/gitalk.min.js"&gt;&lt;/script&gt; 
+  &lt;script src="https://afoo.me/js/popper.min.js"&gt;&lt;/script&gt; 
+  &lt;script src="https://afoo.me/js/tippy.min.js"&gt;&lt;/script&gt; 
+  &lt;link rel="stylesheet" href="/css/af.css"&gt; 
+  &lt;link rel="stylesheet" href="/css/components.css"&gt; 
+  &lt;link ref="stylesheet" href="/css/pygments.css"&gt; 
+  &lt;style type="text/css"&gt;
+        pre &gt; code{
+          white-space: pre-wrap;
+          font-family: monospace;
+          font-size: 14px;
+          /* border-left: blueviolet;
+          border-left-width: thick;
+          border-left-style: double;
+          padding-left: 1rem !important; */
+        }
+        
+        .x-indicator{
+            display:none;
+        }
+        .htmx-request .x-indicator{
+            display:inline;
+        }
+        .htmx-request.x-indicator{
+            display:inline;
+        }
+    &lt;/style&gt; 
+  &lt;style type="text/css"&gt;
+      pre &gt; code.sourceCode { white-space: pre; position: relative; }
+      pre &gt; code.sourceCode &gt; span { line-height: 1.25; }
+      pre &gt; code.sourceCode &gt; span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode &gt; span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre &gt; code.sourceCode { white-space: pre-wrap; }
+      pre &gt; code.sourceCode &gt; span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code &gt; span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code &gt; span &gt; a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre &gt; code.sourceCode &gt; span &gt; a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { color: #008000; } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    &lt;/style&gt; 
+  &lt;script type="application/ld+json"&gt;
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "claude code with qwen3.5 via ollama",
+      "image": [
+        "https://afoo.me/images/fb_subscribe.jpg"
+       ],
+      "datePublished": "2026-03-05",
+      "author": [{
+          "@type": "Person",
+          "name": "王福强",
+          "url": "https://afoo.me"
+        }]
+    }
+  &lt;/script&gt; 
+  &lt;script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3687639021943715" crossorigin="anonymous"&gt;&lt;/script&gt; 
+ &lt;/head&gt; 
+ &lt;body class="antialiased text-slate-800 dark:text-slate-300 tracking-tight bg-slate-50 dark:bg-gray-900 vsc-initialized"&gt; 
+  &lt;header class="sticky top-0 z-40 flex-none mx-auto w-full bg-slate-50 md:bg-slate-50/90 dark:bg-gray-900 dark:md:bg-gray-900/90 md:backdrop-blur-sm border-b border-slate-200 dark:border-b-0" id="header"&gt; 
+   &lt;div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"&gt; 
+    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-slate-800 whitespace-nowrap dark:text-white"&gt; &lt;img src="/images/afoo.PNG" alt="logo" style="height:60px;"&gt; &lt;/span&gt; &lt;/a&gt; 
+     &lt;div class="flex items-center md:hidden"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
+       &lt;svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
+         &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
+         &lt;path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"&gt; 
+         &lt;/path&gt; 
+        &lt;/g&gt; 
+       &lt;/svg&gt; &lt;/button&gt; &lt;button type="button" class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition" aria-label="Toggle Menu" data-toggle-menu=""&gt; 
+       &lt;svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:menu"&gt; &lt;g class="icon-tabler" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"&gt; 
+         &lt;path d="M4 8h16"&gt;&lt;/path&gt; 
+         &lt;path d="M4 16h16"&gt;&lt;/path&gt; 
+        &lt;/g&gt; 
+       &lt;/svg&gt; &lt;/button&gt; 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+    &lt;nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"&gt; 
+     &lt;ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"&gt; 
+      &lt;li&gt;&lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://kb.afoo.me/"&gt;福强私学&lt;/a&gt;&lt;/li&gt; 
+      &lt;li&gt; &lt;a id="aiedu" class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://ai.afoo.me"&gt; 福强AI学堂&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com"&gt;架构百科&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html"&gt;博客文章 &lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html"&gt;创作出版&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://store.afoo.me"&gt;产品与服务&lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt;&lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://auth.afoo.me/user.html"&gt;登录信息&lt;/a&gt;&lt;/li&gt; 
+      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
+     &lt;/ul&gt; 
+     &lt;div class="md:self-center flex items-center mb-4 md:mb-0 ml-2"&gt; 
+      &lt;div class="hidden items-center md:flex"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
+        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
+          &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
+          &lt;path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"&gt; 
+          &lt;/path&gt; 
+         &lt;/g&gt; 
+        &lt;/svg&gt; &lt;/button&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="RSS Feed" href="http://afoo.me/feeds.xml"&gt; 
+        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:rss"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
+          &lt;circle cx="5" cy="19" r="1"&gt;&lt;/circle&gt; 
+          &lt;path d="M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"&gt;&lt;/path&gt; 
+         &lt;/g&gt; 
+        &lt;/svg&gt; &lt;/a&gt; 
+      &lt;/div&gt; 
+     &lt;/div&gt; 
+    &lt;/nav&gt; 
+   &lt;/div&gt; 
+  &lt;/header&gt; 
+  &lt;main&gt; 
+   &lt;div id="leftSlot" class="visible md:invisible fixed top-0 left-0" style="width: 16rem;height: 80%;margin-top: 4rem;"&gt; &lt;!-- left --&gt; 
+    &lt;ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="3581141418" data-ad-format="auto" data-full-width-responsive="true"&gt;&lt;/ins&gt; 
+    &lt;script&gt;
+          (adsbygoogle = window.adsbygoogle || []).push({});
+      &lt;/script&gt; 
+   &lt;/div&gt; 
+   &lt;div id="rightSlot" class="visible md:invisible fixed top-0 right-0" style="width: 16rem;height: 80%;margin-top: 4rem;"&gt; &lt;!-- right --&gt; 
+    &lt;ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="7030836806" data-ad-format="auto" data-full-width-responsive="true"&gt;&lt;/ins&gt; 
+    &lt;script&gt;
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      &lt;/script&gt; 
+   &lt;/div&gt; 
+   &lt;section class="text-gray-600 body-font relative"&gt; 
+    &lt;div class="max-w-4xl mx-auto px-5 py-24 mb-12 prose prose-lg dark:prose-invert"&gt; 
+     &lt;p class="lead"&gt; &lt;/p&gt;
+     &lt;h1 class="title"&gt;claude code with qwen3.5 via ollama&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt; 
+      &lt;div style="text-align: left;"&gt;
+       2026-03-05
+      &lt;/div&gt; &lt;/small&gt; 
+     &lt;p&gt;&lt;/p&gt; &lt;!-- random --&gt; 
+     &lt;ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="2722720851" data-ad-format="auto" data-full-width-responsive="true"&gt;&lt;/ins&gt; 
+     &lt;script&gt;
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            &lt;/script&gt; 
+     &lt;hr&gt; 
+     &lt;p&gt;&lt;code&gt;ollama run qwen3.5:9b&lt;/code&gt;然后：&lt;/p&gt; 
+     &lt;pre&gt;&lt;code&gt;curl http://localhost:11434/api/chat \
+  -d '{
+    "model": "qwen3.5:9b",
+    "messages": [{"role": "user", "content": "tell me a joke"}],
+    "stream": false
+  }'&lt;/code&gt;&lt;/pre&gt; 
+     &lt;p&gt;不过这种情况下，thinking mode太耗时间：&lt;/p&gt; 
+     &lt;div class="sourceCode" id="cb2"&gt;
+      &lt;pre class="sourceCode bash"&gt;&lt;code class="sourceCode bash"&gt;&lt;span id="cb2-1"&gt;&lt;a href="#cb2-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="co"&gt;## 这种方式只是过滤输出，但thinking过程依然存在，只是不显示，所以时长该在还在。&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-2"&gt;&lt;a href="#cb2-2" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="ex"&gt;🍀&lt;/span&gt; LuckyJohn💫 af:~/ $ curl http://localhost:11434/api/chat &lt;span class="dt"&gt;\ &lt;/span&gt;                                                                                                                                           &lt;span class="pp"&gt;[&lt;/span&gt;&lt;span class="ss"&gt;12:01:58&lt;/span&gt;&lt;span class="pp"&gt;]&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-3"&gt;&lt;a href="#cb2-3" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="ex"&gt;-d&lt;/span&gt; &lt;span class="st"&gt;'{&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-4"&gt;&lt;a href="#cb2-4" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="st"&gt;   "model": "qwen3.5:9b",&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-5"&gt;&lt;a href="#cb2-5" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="st"&gt;   "messages": [{"role": "user", "content": "tell me a joke"}],&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-6"&gt;&lt;a href="#cb2-6" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="st"&gt;        "options": {&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-7"&gt;&lt;a href="#cb2-7" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="st"&gt;                "stop": ["&amp;lt;thought&amp;gt;", "&amp;lt;/thought&amp;gt;"],&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-8"&gt;&lt;a href="#cb2-8" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="st"&gt;                "temperature": 0.7&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-9"&gt;&lt;a href="#cb2-9" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="st"&gt;        },&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-10"&gt;&lt;a href="#cb2-10" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="st"&gt;   "stream": false&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-11"&gt;&lt;a href="#cb2-11" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="st"&gt;  }'&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-12"&gt;&lt;a href="#cb2-12" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="ex"&gt;{&lt;/span&gt;&lt;span class="st"&gt;"model"&lt;/span&gt;&lt;span class="ex"&gt;:&lt;/span&gt;&lt;span class="st"&gt;"qwen3.5:9b"&lt;/span&gt;&lt;span class="ex"&gt;,&lt;/span&gt;&lt;span class="st"&gt;"created_at"&lt;/span&gt;&lt;span class="ex"&gt;:&lt;/span&gt;&lt;span class="st"&gt;"2026-03-05T04:05:38.453523Z"&lt;/span&gt;&lt;span class="ex"&gt;,&lt;/span&gt;&lt;span class="st"&gt;"message"&lt;/span&gt;&lt;span class="ex"&gt;:{&lt;/span&gt;&lt;span class="st"&gt;"role"&lt;/span&gt;&lt;span class="ex"&gt;:&lt;/span&gt;&lt;span class="st"&gt;"assistant"&lt;/span&gt;&lt;span class="ex"&gt;,&lt;/span&gt;&lt;span class="st"&gt;"content"&lt;/span&gt;&lt;span class="ex"&gt;:&lt;/span&gt;&lt;span class="st"&gt;"Why did the scarecrow win an award?\n\nBecause he was **outstanding in his field**! 🌽"&lt;/span&gt;&lt;span class="ex"&gt;,&lt;/span&gt;&lt;span class="st"&gt;"thinking"&lt;/span&gt;&lt;span class="ex"&gt;:&lt;/span&gt;&lt;span class="st"&gt;"Thinking Process:\n\n1.  **Analyze the Request:**\n    *   User: &lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;tell me a joke&lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;\n    *   Intent: The user wants to hear a joke for entertainment.\n    *   Tone: Lighthearted, fun, simple, appropriate for general audiences.\n\n2.  **Select a Joke:**\n    *   Criteria: Needs to be generally understandable, not too niche, not offensive, and ideally have a clear punchline.\n    *   Option 1: A pun (e.g., &lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;Why did the scarecrow...&lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;).\n    *   Option 2: A situational joke (e.g., about animals or everyday life).\n    *   Option 3: A classic short joke.\n\n    *Selection:* Let's go with a classic, clean, slightly punny one. The &lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;scarecrow&lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt; joke is very popular. Or maybe the &lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;parallel lines&lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt; math joke? No, let's try something about animals or daily life. How about the &lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;why don't scientists trust atoms?&lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt; joke? That's a classic. Or the &lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;I told my wife she was drawing her eyebrows too high.&lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;\n\n    Let's pick a funny one-liner or a short setup-punchline.\n    *Joke:* Why did the scarecrow win an award? Because he was outstanding in his field!\n\n    *Alternative:* What do you call a fake noodle? An impasta.\n\n    *Alternative:* Parallel lines have so much in common. It's a shame they'll never meet. (Too nerdy?)\n\n    Let's go with the &lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;scarecrow&lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt; one, it's safe and classic. Or maybe something slightly more conversational.\n    Actually, let's try this one:\n    &lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;Why don't eggs tell jokes? They'd crack each other up.&lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;\n\n    Let's choose a good, reliable one.\n    &lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;What do you call a bear with no teeth? A gummy bear.&lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt; (Simple)\n    &lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;I'm on a seafood diet. I see food and I eat it.&lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt; (Classic)\n\n    Let's go with the &lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;seafood&lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt; one or the &lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;scarecrow&lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;. Scarecrow is good.\n    Wait, let's try a slightly more modern/relatable one.\n    &lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;Why couldn't the bicycle stand up by itself? It was two tired!&lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;\n\n    Okay, I'll pick the &lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;scarecrow&lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt; joke. It's wholesome.\n    Actually, the &lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;I'm on a seafood diet&lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt; is also very common and short.\n    Let's go with the &lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;scarecrow&lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;.\n\n3.  **Draft the Response:**\n    *   Deliver the joke clearly.\n    *   Keep it friendly.\n\n4.  **Review against constraints:**\n    *   No harmful content.\n    *   Short and sweet.\n\n5.  **Final Polish:**\n    &lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;Why did the scarecrow win an award? Because he was outstanding in his field!&lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;\n\n    Let's add a little emoji for flavor.\n\n    Wait, I'll offer two options or just one good one. One is usually better to avoid decision fatigue.\n    Let's go with:\n    &lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;I told my wife she was drawing her eyebrows too high. She looked surprised.&lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;\n    That's a visual pun joke, often well-received.\n\n    Okay, let's stick with the classic Scarecrow one. It's very recognizable.\n    Or the &lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;Parallel lines&lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt; one is a bit dry.\n    Let's try: &lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;Why don't skeletons fight each other? They don't have the guts.&lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;\n\n    Okay, I'll go with the &lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;scarecrow&lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt; joke. It's safe.\n\n    Wait, let me pick a slightly funnier one.\n    &lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;What do you call a factory that makes okay products? A satisfactory.&lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt; (Too wordy)\n    &lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;Why did the math book look sad? Because it had too many problems.&lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;\n\n    Okay, I'll use the &lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;scarecrow&lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt; joke. It's a crowd-pleaser.\n    Actually, let's try this one:\n    &lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;A man walks into a library and asks for a book on paranoia. The librarian whispers, 'There are some books in the back that might interest you...'&lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;\n\n    That's good. But maybe too complex.\n\n    Let's go with the simple &lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;scarecrow&lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt; joke.\n    &lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;Why did the scarecrow win an award? Because he was outstanding in his field!&lt;/span&gt;&lt;span class="dt"&gt;\"&lt;/span&gt;&lt;span class="st"&gt;\n\n    Okay, ready to output.cw"&lt;/span&gt;&lt;span class="ex"&gt;},&lt;/span&gt;&lt;span class="st"&gt;"done"&lt;/span&gt;&lt;span class="ex"&gt;:true,&lt;/span&gt;&lt;span class="st"&gt;"done_reason"&lt;/span&gt;&lt;span class="ex"&gt;:&lt;/span&gt;&lt;span class="st"&gt;"stop"&lt;/span&gt;&lt;span class="ex"&gt;,&lt;/span&gt;&lt;span class="st"&gt;"total_duration"&lt;/span&gt;&lt;span class="ex"&gt;:79915253167,&lt;/span&gt;&lt;span class="st"&gt;"load_duration"&lt;/span&gt;&lt;span class="ex"&gt;:121717125,&lt;/span&gt;&lt;span class="st"&gt;"prompt_eval_count"&lt;/span&gt;&lt;span class="ex"&gt;:14,&lt;/span&gt;&lt;span class="st"&gt;"prompt_eval_duration"&lt;/span&gt;&lt;span class="ex"&gt;:926116750,&lt;/span&gt;&lt;span class="st"&gt;"eval_count"&lt;/span&gt;&lt;span class="ex"&gt;:978,&lt;/span&gt;&lt;span class="st"&gt;"eval_duration"&lt;/span&gt;&lt;span class="ex"&gt;:77819193917}%&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-13"&gt;&lt;a href="#cb2-13" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb2-14"&gt;&lt;a href="#cb2-14" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="co"&gt;## 这种方式是正常的disable掉thinking mode&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-15"&gt;&lt;a href="#cb2-15" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="ex"&gt;🍀&lt;/span&gt; LuckyJohn💫 af:~/ $ curl http://localhost:11434/api/chat &lt;span class="dt"&gt;\ &lt;/span&gt;                                                                                                                                           &lt;span class="pp"&gt;[&lt;/span&gt;&lt;span class="ss"&gt;12:05:38&lt;/span&gt;&lt;span class="pp"&gt;]&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-16"&gt;&lt;a href="#cb2-16" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="ex"&gt;-d&lt;/span&gt; &lt;span class="st"&gt;'{&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-17"&gt;&lt;a href="#cb2-17" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="st"&gt;   "model": "qwen3.5:9b",&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-18"&gt;&lt;a href="#cb2-18" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="st"&gt;   "messages": [{"role": "user", "content": "tell me a joke"}],&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-19"&gt;&lt;a href="#cb2-19" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="st"&gt;        "options": {&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-20"&gt;&lt;a href="#cb2-20" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="st"&gt;                "stop": ["&amp;lt;thought&amp;gt;", "&amp;lt;/thought&amp;gt;"],&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-21"&gt;&lt;a href="#cb2-21" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="st"&gt;                "temperature": 0.7&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-22"&gt;&lt;a href="#cb2-22" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="st"&gt;        },&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-23"&gt;&lt;a href="#cb2-23" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="st"&gt;   "think": false,  &lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-24"&gt;&lt;a href="#cb2-24" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="st"&gt;   "stream": false&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-25"&gt;&lt;a href="#cb2-25" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="st"&gt;  }'&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-26"&gt;&lt;a href="#cb2-26" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="dt"&gt;{&lt;/span&gt;&lt;span class="st"&gt;"model"&lt;/span&gt;&lt;span class="dt"&gt;:&lt;/span&gt;&lt;span class="st"&gt;"qwen3.5:9b"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt;&lt;span class="st"&gt;"created_at"&lt;/span&gt;&lt;span class="dt"&gt;:&lt;/span&gt;&lt;span class="st"&gt;"2026-03-05T04:08:27.629941Z"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt;&lt;span class="st"&gt;"message"&lt;/span&gt;&lt;span class="dt"&gt;:{&lt;/span&gt;&lt;span class="st"&gt;"role"&lt;/span&gt;&lt;span class="dt"&gt;:&lt;/span&gt;&lt;span class="st"&gt;"assistant"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt;&lt;span class="st"&gt;"content"&lt;/span&gt;&lt;span class="dt"&gt;:&lt;/span&gt;&lt;span class="st"&gt;"Why don't scientists trust atoms?\n\nBecause they **make up everything**! 🤓⚛️"&lt;/span&gt;&lt;span class="dt"&gt;}&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt;&lt;span class="st"&gt;"done"&lt;/span&gt;&lt;span class="dt"&gt;:true&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt;&lt;span class="st"&gt;"done_reason"&lt;/span&gt;&lt;span class="dt"&gt;:&lt;/span&gt;&lt;span class="st"&gt;"stop"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt;&lt;span class="st"&gt;"total_duration"&lt;/span&gt;&lt;span class="dt"&gt;:2170299292&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt;&lt;span class="st"&gt;"load_duration"&lt;/span&gt;&lt;span class="dt"&gt;:123259625&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt;&lt;span class="st"&gt;"prompt_eval_count"&lt;/span&gt;&lt;span class="dt"&gt;:16&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt;&lt;span class="st"&gt;"prompt_eval_duration"&lt;/span&gt;&lt;span class="dt"&gt;:351902542&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt;&lt;span class="st"&gt;"eval_count"&lt;/span&gt;&lt;span class="dt"&gt;:23&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt;&lt;span class="st"&gt;"eval_duration"&lt;/span&gt;&lt;span class="dt"&gt;:1670221332}&lt;/span&gt;&lt;span class="ex"&gt;%&lt;/span&gt;                                                  🍀 LuckyJohn💫 af:~/ $&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+     &lt;/div&gt; 
+     &lt;p&gt;另外，可以让claude code配合ollama一起使用：&lt;/p&gt; 
+     &lt;pre&gt;&lt;code&gt;ANTHROPIC_BASE_URL="http://localhost:11434" ANTHROPIC_AUTH_TOKEN="ollama" claude --model qwen3.5:9b &lt;/code&gt;&lt;/pre&gt; 
+     &lt;blockquote&gt; 
+      &lt;p&gt;NOTE&lt;/p&gt; 
+      &lt;p&gt;使用最新版的&lt;code&gt;ollama launch claude --model qwen3.5:9b&lt;/code&gt;命令一键启动也可以，背后的机制相当于是先ollama run启动服务之后，再启动claude code。&lt;/p&gt; 
+     &lt;/blockquote&gt; &lt;!-- tail --&gt; 
+     &lt;ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="7874087130" data-ad-format="auto" data-full-width-responsive="true"&gt;&lt;/ins&gt; 
+     &lt;script&gt;
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            &lt;/script&gt; 
+     &lt;hr&gt; 
+     &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
+     &lt;/div&gt; 
+     &lt;div id="random_posts"&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2020-06-24-instinct-and-data-both-matters.html"&gt;直觉不可靠，让数据[对比]来说话 &lt;/a&gt; 
+      &lt;/div&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2007-04-14-miss-you-grandma.html"&gt;思忆外婆 &lt;/a&gt; 
+      &lt;/div&gt; 
+      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2007-10-25-BF4768EE8B110260_625.html"&gt;答题，答题...&lt;/a&gt; 
+      &lt;/div&gt; 
+     &lt;/div&gt; 
+     &lt;hr&gt; 
+     &lt;div id="comments"&gt;&lt;/div&gt; 
+     &lt;hr&gt; &lt;!-- Section CTA --&gt; 
+     &lt;section class="overflow-x-clip bg-zinc-50 py-16 md:py-24"&gt; 
+      &lt;div class="relative mx-auto w-full max-w-screen-xl px-4"&gt; 
+       &lt;div class="relative z-10 w-full"&gt; &lt;!-- 福强私学推荐 --&gt; 
+        &lt;div class="mx-auto max-w-screen-md"&gt; 
+         &lt;h2 class="mb-4 text-center text-4xl font-bold md:text-5xl"&gt;&lt;a href="https://afoo.me/kb.html" class="border-b"&gt;「福强私学」&lt;/a&gt;来一个？&lt;/h2&gt; 
+         &lt;p class="mx-auto mb-8 w-full text-center text-lg leading-8 text-zinc-700 md:w-5/6 md:text-xl"&gt;「福强私学」, 一部沉淀了个人成长、技术与架构、组织与管理以及商业上的方法与心法的百科全书。&lt;/p&gt; 
+        &lt;/div&gt; 
+        &lt;div class="mx-auto mt-6 w-full md:mt-12 md:w-4/5"&gt; &lt;a href="https://afoo.me/kb.html"&gt; &lt;img alt="footer img for kb.afoo.me" loading="lazy" width="2911" height="1961" decoding="async" data-nimg="1" class="mx-auto rounded-lg object-contain shadow-lg sm:rounded-2xl lg:rounded-3xl" style="color:transparent" src="https://og.afoo.me/?url=footer"&gt; &lt;/a&gt; 
+        &lt;/div&gt; &lt;!-- 小报童推荐 --&gt; 
+        &lt;div class="mx-auto max-w-screen-md"&gt; 
+         &lt;h2 class="mt-8 mb-4 text-center text-4xl font-bold md:text-5xl"&gt;&lt;a href="https://xiaobot.net/p/aifd" class="border-b"&gt;福强老师的 AI 通识课&lt;/a&gt;&lt;/h2&gt;&lt;a href="https://xiaobot.net/p/aifd" class="border-b"&gt; &lt;/a&gt;
+        &lt;/div&gt;&lt;a href="https://xiaobot.net/p/aifd" class="border-b"&gt; &lt;/a&gt;
+        &lt;div class="mx-auto mt-6 w-full md:mt-12 md:w-4/5"&gt;
+         &lt;a href="https://xiaobot.net/p/aifd" class="border-b"&gt; &lt;/a&gt;&lt;a href="https://xiaobot.net/p/aifd"&gt; &lt;img alt="footer img for kb.afoo.me" loading="lazy" width="2911" height="1961" decoding="async" data-nimg="1" class="mx-auto rounded-lg object-contain shadow-lg sm:rounded-2xl lg:rounded-3xl" style="color:transparent" src="/images/xbt-footer.webp"&gt; &lt;/a&gt; 
+        &lt;/div&gt; 
+        &lt;div class="mx-auto mt-6 w-full md:mt-12 md:w-4/5"&gt; 
+         &lt;img alt="footer img for kb.afoo.me" loading="lazy" decoding="async" data-nimg="1" class="mx-auto p-3" style="color:transparent" src="/images/footer-links-2025.webp"&gt; 
+        &lt;/div&gt; 
+       &lt;/div&gt; 
+      &lt;/div&gt; 
+     &lt;/section&gt; 
+     &lt;hr&gt; 
+     &lt;p&gt; &lt;span style="font-size: xx-large;"&gt; 开天窗，拉认知，订阅「福报」，即刻拥有自己的全模态人工智能。 &lt;/span&gt; &lt;/p&gt; &lt;a href="https://wfq.gumroad.com/l/fb"&gt; &lt;img src="/images/fb_subscribe_v2.jpg" alt="订阅「福报」"&gt; &lt;/a&gt; 
+     &lt;hr&gt; 
+     &lt;div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"&gt; 
+      &lt;div id="tfloader" class="x-indicator"&gt; 
+       &lt;svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"&gt; &lt;g fill="none" fill-rule="evenodd"&gt; 
+         &lt;g transform="translate(1 1)" stroke-width="2"&gt; 
+          &lt;circle cx="5" cy="50" r="5"&gt; 
+           &lt;animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /&gt; 
+           &lt;animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /&gt; 
+          &lt;/circle&gt; 
+          &lt;circle cx="27" cy="5" r="5"&gt; 
+           &lt;animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /&gt; 
+           &lt;animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /&gt; 
+          &lt;/circle&gt; 
+          &lt;circle cx="49" cy="50" r="5"&gt; 
+           &lt;animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /&gt; 
+           &lt;animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /&gt; 
+          &lt;/circle&gt; 
+         &lt;/g&gt; 
+        &lt;/g&gt; 
+       &lt;/svg&gt; 
+      &lt;/div&gt; 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+   &lt;/section&gt; 
+  &lt;/main&gt; 
+  &lt;div style="position: fixed; left: 0; bottom: 0; padding: 10px; z-index: 1000;"&gt; 
+   &lt;img src="/icons/Written-By-Human-Not-By-AI-Badge-black@2x.png" alt loading="lazy"&gt; 
+  &lt;/div&gt; 
+  &lt;footer class="border-t border-gray-200 dark:border-slate-800"&gt; 
+   &lt;div class="max-w-6xl mx-auto px-4 sm:px-6"&gt; 
+    &lt;div class="md:flex md:items-center md:justify-between py-6 md:py-8"&gt; 
+     &lt;ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0"&gt; 
+      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Twitter" href="https://twitter.com/afoo_me"&gt; 
+        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-twitter"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z"&gt; 
+         &lt;/path&gt; 
+        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Facebook" href="https://www.facebook.com/fujohnwang/"&gt; 
+        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-facebook"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2H7"&gt;&lt;/path&gt; 
+        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
+      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Github" href="https://github.com/fujohnwang"&gt; 
+        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-github"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"&gt; 
+         &lt;/path&gt; 
+        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
+     &lt;/ul&gt; 
+     &lt;div class="text-sm text-gray-700 mr-4 dark:text-slate-400"&gt; &lt;span class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 float-left rounded-sm"&gt; &lt;img src="https://afoo.me/favicon.svg" class="rounded-md" alt&gt; &lt;/span&gt; Copyright © 王福强个人版权所有 - Since 2004 (Everything is homebrewed with &lt;a href="https://pandoc.org/"&gt;Pandoc&lt;/a&gt; and Markdown, little &lt;a href="https://www.scala-lang.org/"&gt;Scala&lt;/a&gt; also included.) 
+     &lt;/div&gt; 
+    &lt;/div&gt; 
+   &lt;/div&gt; 
+  &lt;/footer&gt; 
+  &lt;script&gt;
+        // Set "light" theme as default
+        if (!localStorage.theme) {
+            localStorage.theme = "light";
+        }
+
+        if (
+            localStorage.theme === 'dark' ||
+            (!('theme' in localStorage) &amp;&amp; window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function attachEvent(selector, event, fn) {
+            const matches = document.querySelectorAll(selector);
+            if (matches &amp;&amp; matches.length) {
+                matches.forEach((elem) =&gt; {
+                    elem.addEventListener(event, () =&gt; fn(elem), false);
+                });
+            }
+        }
+
+        window.onload = function () {
+            attachEvent('[data-toggle-menu]', 'click', function (elem) {
+                elem.classList.toggle('expanded');
+                document.body.classList.toggle('overflow-hidden');
+                document.getElementById('header')?.classList.toggle('h-screen');
+                document.querySelector('#header nav')?.classList.toggle('hidden');
+            });
+            attachEvent("[data-toggle-color-scheme]", "click", function () {
+                    document.documentElement.classList.toggle("light");
+                    localStorage.theme = "light";
+                });
+        };
+        window.onpageshow = function () {
+            const elem = document.querySelector('[data-toggle-menu]');
+            if (elem) {
+                elem.classList.remove('expanded');
+            }
+            document.body.classList.remove('overflow-hidden');
+            document.getElementById('header')?.classList.remove('h-screen');
+            document.querySelector('#header nav')?.classList.add('hidden');
+        };
+    &lt;/script&gt; 
+  &lt;script type="text/javascript"&gt;
+        var gitalk = new Gitalk({
+          clientID: '518a605d711883414ac0',
+          clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
+          repo: 'afoo.me.comments',
+          owner: 'fujohnwang',
+          admin: ['fujohnwang'],
+          id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+        gitalk.render('comments')
+    &lt;/script&gt; 
+  &lt;script src="https://formspree.io/js/formbutton-v1.min.js" defer&gt;&lt;/script&gt; 
+  &lt;script&gt;
+  /* paste this line in verbatim */
+  window.formbutton=window.formbutton||function(){(formbutton.q=formbutton.q||[]).push(arguments)};
+  /* customize formbutton below*/     
+  formbutton("create", {
+    action: "https://formspree.io/f/xknlpkkd",
+    title: "有什么可以帮到您？💕💕💕 How can I help you?",
+    buttonImg: "&lt;img src='https://afoo.me/hero3/70.webp' alt/&gt;",
+    fields: [
+      { 
+        type: "email", 
+        label: "您的电子邮箱（方便与您联系）:", 
+        name: "email",
+        required: true,
+        placeholder: "your@email.com"
+      },
+      {
+        type: "textarea",
+        label: "您想提交的反馈和询问信息:",
+        name: "message",
+        placeholder: "What's on your mind?",
+      },
+      { type: "submit" }      
+    ],
+    styles: {
+      title: {
+        backgroundColor: "blue"
+      },
+      button: {
+        backgroundColor: "blue"
+      }
+    }
+  });
+&lt;/script&gt; 
+  &lt;script&gt;
+	// tooltips
+	tippy('#aiedu', {
+        content: "As to AI nowadays, LLM and Stable Diffusion are hot even hottest among them, If your want to both know-why and know-how with them, instead of only know-how which can't repeat itself, you should get you to https://ai.afoo.me right now ❗"
+    });  
+&lt;/script&gt;  
+ &lt;/body&gt;
+&lt;/html&gt;</description>
+      <pubDate>Wed, 04 Mar 2026 16:00:00 GMT</pubDate>
+      <guid>http://afoo.me/posts/2026-03-05-claude-code-with-qwen3-via-ollama.html</guid>
+      <dc:date>2026-03-04T16:00:00Z</dc:date>
+    </item>
+    <item>
       <title>分享关于 AI 的 7 个 KeeNotes</title>
       <link>http://afoo.me/posts/2026-02-24-seven-keenotes-about-AI.html</link>
       <description>&lt;!doctype html&gt;
@@ -3877,379 +4328,6 @@ count(*) = 886&lt;/code&gt;&lt;/pre&gt;
       <pubDate>Tue, 30 Dec 2025 16:00:00 GMT</pubDate>
       <guid>http://afoo.me/posts/2025-12-31-keentes-trend-redesigned.html</guid>
       <dc:date>2025-12-30T16:00:00Z</dc:date>
-    </item>
-    <item>
-      <title>“斩杀线”只反映了单侧单向…</title>
-      <link>http://afoo.me/posts/2025-12-24-killing-zone.html</link>
-      <description>&lt;!doctype html&gt;
-&lt;html lang="zh" class="motion-safe:scroll-smooth 2xl:text-[20px]"&gt; 
- &lt;head&gt; 
-  &lt;meta charset="utf-8"&gt; 
-  &lt;meta name="keywords" content="“斩杀线”只反映了单侧单向… - 架构师， 架构士，架构教练, 教练, 个人成长, 组织成长, 独立顾问, architecture, book author, thinker, fighter, 架构, 思考, 技术, 武术, 哲学"&gt; 
-  &lt;meta name="description" content="“斩杀线”只反映了单侧单向… - 福强说，扶墙老师说，王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
-  &lt;meta name="author" content="王福强"&gt; 
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt; 
-  &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt; 
-  &lt;meta name="robots" content="index,follow"&gt; 
-  &lt;title&gt;“斩杀线”只反映了单侧单向… -王福强的个人博客：一个架构士的思考与沉淀&lt;/title&gt; 
-  &lt;meta name="date" content="2025-12-24"&gt; 
-  &lt;meta property="og:title" content="“斩杀线”只反映了单侧单向…"&gt; 
-  &lt;meta property="og:type" content="landing page"&gt; 
-  &lt;meta property="og:url" content="https://afoo.me/posts/2025-12-24-killing-zone.html"&gt; 
-  &lt;meta property="og:image" content="https://og.afoo.me?url=https://afoo.me/posts/2025-12-24-killing-zone.html"&gt; 
-  &lt;meta name="twitter:card" content="summary_large_image"&gt; 
-  &lt;meta name="twitter:title" content="“斩杀线”只反映了单侧单向…"&gt; 
-  &lt;meta name="twitter:site" content="@afoo_me"&gt; 
-  &lt;meta name="twitter:creator" content="@afoo_me"&gt; 
-  &lt;meta name="twitter:image" content="https://og.afoo.me?url=https://afoo.me/posts/2025-12-24-killing-zone.html"&gt; 
-  &lt;meta name="twitter:description" content="“斩杀线”只反映了单侧单向… - 王福强的个人博客， 一个架构士的思考与沉淀"&gt; 
-  &lt;link rel="shortcut icon" href="/favicon.ico"&gt; 
-  &lt;link rel="canonical" href="https://afoo.me/posts/2025-12-24-killing-zone.html"&gt; 
-  &lt;link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"&gt; 
-  &lt;link rel="mask-icon" href="https://afoo.me/favicon.svg" color="#3383F8"&gt; 
-  &lt;script src="https://afoo.me/js/htmx.min.js"&gt;&lt;/script&gt; 
-  &lt;link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"&gt; 
-  &lt;script src="https://unpkg.com/gitalk/dist/gitalk.min.js"&gt;&lt;/script&gt; 
-  &lt;script src="https://afoo.me/js/popper.min.js"&gt;&lt;/script&gt; 
-  &lt;script src="https://afoo.me/js/tippy.min.js"&gt;&lt;/script&gt; 
-  &lt;link rel="stylesheet" href="/css/af.css"&gt; 
-  &lt;link rel="stylesheet" href="/css/components.css"&gt; 
-  &lt;link ref="stylesheet" href="/css/pygments.css"&gt; 
-  &lt;style type="text/css"&gt;
-        pre &gt; code{
-          white-space: pre-wrap;
-          font-family: monospace;
-          font-size: 14px;
-          /* border-left: blueviolet;
-          border-left-width: thick;
-          border-left-style: double;
-          padding-left: 1rem !important; */
-        }
-        
-        .x-indicator{
-            display:none;
-        }
-        .htmx-request .x-indicator{
-            display:inline;
-        }
-        .htmx-request.x-indicator{
-            display:inline;
-        }
-    &lt;/style&gt; 
-  &lt;script type="application/ld+json"&gt;
-    {
-      "@context": "https://schema.org",
-      "@type": "NewsArticle",
-      "headline": "“斩杀线”只反映了单侧单向…",
-      "image": [
-        "https://afoo.me/images/fb_subscribe.jpg"
-       ],
-      "datePublished": "2025-12-24",
-      "author": [{
-          "@type": "Person",
-          "name": "王福强",
-          "url": "https://afoo.me"
-        }]
-    }
-  &lt;/script&gt; 
-  &lt;script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3687639021943715" crossorigin="anonymous"&gt;&lt;/script&gt; 
- &lt;/head&gt; 
- &lt;body class="antialiased text-slate-800 dark:text-slate-300 tracking-tight bg-slate-50 dark:bg-gray-900 vsc-initialized"&gt; 
-  &lt;header class="sticky top-0 z-40 flex-none mx-auto w-full bg-slate-50 md:bg-slate-50/90 dark:bg-gray-900 dark:md:bg-gray-900/90 md:backdrop-blur-sm border-b border-slate-200 dark:border-b-0" id="header"&gt; 
-   &lt;div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4"&gt; 
-    &lt;div class="flex justify-between"&gt; &lt;a class="flex items-center" href="https://afoo.me"&gt; &lt;span class="self-center ml-2 text-2xl font-extrabold text-slate-800 whitespace-nowrap dark:text-white"&gt; &lt;img src="/images/afoo.PNG" alt="logo" style="height:60px;"&gt; &lt;/span&gt; &lt;/a&gt; 
-     &lt;div class="flex items-center md:hidden"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
-       &lt;svg viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
-         &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
-         &lt;path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"&gt; 
-         &lt;/path&gt; 
-        &lt;/g&gt; 
-       &lt;/svg&gt; &lt;/button&gt; &lt;button type="button" class="ml-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center transition" aria-label="Toggle Menu" data-toggle-menu=""&gt; 
-       &lt;svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24" class="w-6 h-6" astro-icon="tabler:menu"&gt; &lt;g class="icon-tabler" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"&gt; 
-         &lt;path d="M4 8h16"&gt;&lt;/path&gt; 
-         &lt;path d="M4 16h16"&gt;&lt;/path&gt; 
-        &lt;/g&gt; 
-       &lt;/svg&gt; &lt;/button&gt; 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-    &lt;nav class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto" aria-label="Main navigation"&gt; 
-     &lt;ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base"&gt; 
-      &lt;li&gt;&lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://kb.afoo.me/"&gt;福强私学&lt;/a&gt;&lt;/li&gt; 
-      &lt;li&gt; &lt;a id="aiedu" class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://ai.afoo.me"&gt; 福强AI学堂&lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="http://jiagoubaike.com"&gt;架构百科&lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/posts.html"&gt;博客文章 &lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/books.html"&gt;创作出版&lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://store.afoo.me"&gt;产品与服务&lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt;&lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://auth.afoo.me/user.html"&gt;登录信息&lt;/a&gt;&lt;/li&gt; 
-      &lt;li&gt; &lt;a class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out" href="https://afoo.me/crosslinks.html"&gt;更多链接&lt;/a&gt; &lt;/li&gt; 
-     &lt;/ul&gt; 
-     &lt;div class="md:self-center flex items-center mb-4 md:mb-0 ml-2"&gt; 
-      &lt;div class="hidden items-center md:flex"&gt; &lt;button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-toggle-color-scheme=""&gt; 
-        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:sun"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
-          &lt;circle cx="12" cy="12" r="4"&gt;&lt;/circle&gt; 
-          &lt;path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"&gt; 
-          &lt;/path&gt; 
-         &lt;/g&gt; 
-        &lt;/svg&gt; &lt;/button&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="RSS Feed" href="http://afoo.me/feeds.xml"&gt; 
-        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:rss"&gt; &lt;g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon-tabler"&gt; 
-          &lt;circle cx="5" cy="19" r="1"&gt;&lt;/circle&gt; 
-          &lt;path d="M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"&gt;&lt;/path&gt; 
-         &lt;/g&gt; 
-        &lt;/svg&gt; &lt;/a&gt; 
-      &lt;/div&gt; 
-     &lt;/div&gt; 
-    &lt;/nav&gt; 
-   &lt;/div&gt; 
-  &lt;/header&gt; 
-  &lt;main&gt; 
-   &lt;div id="leftSlot" class="visible md:invisible fixed top-0 left-0" style="width: 16rem;height: 80%;margin-top: 4rem;"&gt; &lt;!-- left --&gt; 
-    &lt;ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="3581141418" data-ad-format="auto" data-full-width-responsive="true"&gt;&lt;/ins&gt; 
-    &lt;script&gt;
-          (adsbygoogle = window.adsbygoogle || []).push({});
-      &lt;/script&gt; 
-   &lt;/div&gt; 
-   &lt;div id="rightSlot" class="visible md:invisible fixed top-0 right-0" style="width: 16rem;height: 80%;margin-top: 4rem;"&gt; &lt;!-- right --&gt; 
-    &lt;ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="7030836806" data-ad-format="auto" data-full-width-responsive="true"&gt;&lt;/ins&gt; 
-    &lt;script&gt;
-           (adsbygoogle = window.adsbygoogle || []).push({});
-      &lt;/script&gt; 
-   &lt;/div&gt; 
-   &lt;section class="text-gray-600 body-font relative"&gt; 
-    &lt;div class="max-w-4xl mx-auto px-5 py-24 mb-12 prose prose-lg dark:prose-invert"&gt; 
-     &lt;p class="lead"&gt; &lt;/p&gt;
-     &lt;h1 class="title"&gt;“斩杀线”只反映了单侧单向…&lt;/h1&gt; &lt;small&gt; &lt;h3 class="author"&gt;王福强&lt;/h3&gt; 
-      &lt;div style="text-align: left;"&gt;
-       2025-12-24
-      &lt;/div&gt; &lt;/small&gt; 
-     &lt;p&gt;&lt;/p&gt; &lt;!-- random --&gt; 
-     &lt;ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="2722720851" data-ad-format="auto" data-full-width-responsive="true"&gt;&lt;/ins&gt; 
-     &lt;script&gt;
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            &lt;/script&gt; 
-     &lt;hr&gt; 
-     &lt;p&gt;这几天频繁看到一个词儿叫“斩杀线”&lt;/p&gt; 
-     &lt;p&gt;我还纳闷为啥呀？&lt;/p&gt; 
-     &lt;p&gt;这词儿啥意思呢？&lt;/p&gt; 
-     &lt;p&gt;我就随手问了下Grok， 它给我的回复是这样的：&lt;/p&gt; 
-     &lt;hr&gt; 
-     &lt;p&gt;“斩杀线”是一个源于游戏的网络术语，主要有两种常见用法：&lt;/p&gt; 
-     &lt;ol type="1"&gt; 
-      &lt;li&gt;&lt;strong&gt;游戏原意&lt;/strong&gt;（最常见的来源）： 
-       &lt;ul&gt; 
-        &lt;li&gt;在各种游戏（如《魔兽世界》、《炉石传说》、《英雄联盟》（LOL）、《王者荣耀》、《DNF》等）中，指敌方单位（英雄、怪物、BOSS）的血量降到一个特定临界值时，可以被玩家的一套技能组合或特定大招瞬间击杀（秒杀）的血量阈值。&lt;/li&gt; 
-        &lt;li&gt;例如： 
-         &lt;ul&gt; 
-          &lt;li&gt;《英雄联盟》里，盖伦、诺手、派克等英雄的大招有百分比斩杀效果，当敌人血量低于一定比例时，就能直接处决。&lt;/li&gt; 
-          &lt;li&gt;《王者荣耀》里，召唤师技能“终结”（以前叫“斩杀”）造成已损失生命值14%的真实伤害，当敌人血量剩约12-13%时，就能用它收割。&lt;/li&gt; 
-          &lt;li&gt;玩家常说“进入斩杀线”意思是血量危险了，一不小心就被秒；高手会精确计算伤害，预判是否能一套带走对手。&lt;/li&gt; 
-         &lt;/ul&gt;&lt;/li&gt; 
-        &lt;li&gt;这个词强调“一旦跨过这条线，就没悬念了，直接死”。&lt;/li&gt; 
-       &lt;/ul&gt;&lt;/li&gt; 
-      &lt;li&gt;&lt;strong&gt;近期网络热梗延伸&lt;/strong&gt;（尤其是2025年底在中国社交平台流行）： 
-       &lt;ul&gt; 
-        &lt;li&gt;借用游戏概念，比喻现实生活（特别是美国社会）中，一个人的财务或生活状态到达某个临界点后，会触发连锁反应（如失业+大病+债务+失去住房），迅速从普通中产滑落到底层（破产、无家可归），几乎无法翻身。&lt;/li&gt; 
-        &lt;li&gt;常称为“美国斩杀线”或“中产斩杀线”，用来调侃或批评美国的社会保障薄弱、医疗昂贵、容错率低等问题。一旦“掉血”到这条线，就被“系统一套连招秒杀”。&lt;/li&gt; 
-       &lt;/ul&gt;&lt;/li&gt; 
-     &lt;/ol&gt; 
-     &lt;hr&gt; 
-     &lt;p&gt;原来就是下坠方向上不可逆的那个点（或者说线）啊…&lt;/p&gt; 
-     &lt;p&gt;但大家为啥只关注这个点和线呢？&lt;/p&gt; 
-     &lt;p&gt;其实全貌应该是“雪锦霜花”线啊，只有雪上加霜这个方向上到了那个点，才不可逆的，但大多数时候你还是可以在“雪锦霜花”之间颠倒颠啊！&lt;/p&gt; 
-     &lt;p&gt;Never give up，bro～&lt;/p&gt; &lt;!-- tail --&gt; 
-     &lt;ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3687639021943715" data-ad-slot="7874087130" data-ad-format="auto" data-full-width-responsive="true"&gt;&lt;/ins&gt; 
-     &lt;script&gt;
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            &lt;/script&gt; 
-     &lt;hr&gt; 
-     &lt;div&gt; &lt;a href="/posts.html"&gt; &lt;b&gt; &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; 更多阅读 &amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; &lt;/b&gt;&lt;/a&gt; 
-     &lt;/div&gt; 
-     &lt;div id="random_posts"&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2024-02-15-mgmt-retalk.html"&gt;“管理”这个东西… &lt;/a&gt; 
-      &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2010-09-05-driving-car-stories.html"&gt;行车记录 &lt;/a&gt; 
-      &lt;/div&gt; 
-      &lt;div class="alert alert-light" role="alert"&gt; &lt;a href="/posts/2012-02-03-linkedin-search-related-projects-rough-notes.html"&gt;“Linkedin Search&lt;/a&gt; 
-      &lt;/div&gt; 
-     &lt;/div&gt; 
-     &lt;hr&gt; 
-     &lt;div id="comments"&gt;&lt;/div&gt; 
-     &lt;hr&gt; &lt;!-- Section CTA --&gt; 
-     &lt;section class="overflow-x-clip bg-zinc-50 py-16 md:py-24"&gt; 
-      &lt;div class="relative mx-auto w-full max-w-screen-xl px-4"&gt; 
-       &lt;div class="relative z-10 w-full"&gt; &lt;!-- 福强私学推荐 --&gt; 
-        &lt;div class="mx-auto max-w-screen-md"&gt; 
-         &lt;h2 class="mb-4 text-center text-4xl font-bold md:text-5xl"&gt;&lt;a href="https://afoo.me/kb.html" class="border-b"&gt;「福强私学」&lt;/a&gt;来一个？&lt;/h2&gt; 
-         &lt;p class="mx-auto mb-8 w-full text-center text-lg leading-8 text-zinc-700 md:w-5/6 md:text-xl"&gt;「福强私学」, 一部沉淀了个人成长、技术与架构、组织与管理以及商业上的方法与心法的百科全书。&lt;/p&gt; 
-        &lt;/div&gt; 
-        &lt;div class="mx-auto mt-6 w-full md:mt-12 md:w-4/5"&gt; &lt;a href="https://afoo.me/kb.html"&gt; &lt;img alt="footer img for kb.afoo.me" loading="lazy" width="2911" height="1961" decoding="async" data-nimg="1" class="mx-auto rounded-lg object-contain shadow-lg sm:rounded-2xl lg:rounded-3xl" style="color:transparent" src="https://og.afoo.me/?url=footer"&gt; &lt;/a&gt; 
-        &lt;/div&gt; &lt;!-- 小报童推荐 --&gt; 
-        &lt;div class="mx-auto max-w-screen-md"&gt; 
-         &lt;h2 class="mt-8 mb-4 text-center text-4xl font-bold md:text-5xl"&gt;&lt;a href="https://xiaobot.net/p/aifd" class="border-b"&gt;福强老师的 AI 通识课&lt;/a&gt;&lt;/h2&gt;&lt;a href="https://xiaobot.net/p/aifd" class="border-b"&gt; &lt;/a&gt;
-        &lt;/div&gt;&lt;a href="https://xiaobot.net/p/aifd" class="border-b"&gt; &lt;/a&gt;
-        &lt;div class="mx-auto mt-6 w-full md:mt-12 md:w-4/5"&gt;
-         &lt;a href="https://xiaobot.net/p/aifd" class="border-b"&gt; &lt;/a&gt;&lt;a href="https://xiaobot.net/p/aifd"&gt; &lt;img alt="footer img for kb.afoo.me" loading="lazy" width="2911" height="1961" decoding="async" data-nimg="1" class="mx-auto rounded-lg object-contain shadow-lg sm:rounded-2xl lg:rounded-3xl" style="color:transparent" src="/images/xbt-footer.webp"&gt; &lt;/a&gt; 
-        &lt;/div&gt; 
-        &lt;div class="mx-auto mt-6 w-full md:mt-12 md:w-4/5"&gt; 
-         &lt;img alt="footer img for kb.afoo.me" loading="lazy" decoding="async" data-nimg="1" class="mx-auto p-3" style="color:transparent" src="/images/footer-links-2025.webp"&gt; 
-        &lt;/div&gt; 
-       &lt;/div&gt; 
-      &lt;/div&gt; 
-     &lt;/section&gt; 
-     &lt;hr&gt; 
-     &lt;p&gt; &lt;span style="font-size: xx-large;"&gt; 开天窗，拉认知，订阅「福报」，即刻拥有自己的全模态人工智能。 &lt;/span&gt; &lt;/p&gt; &lt;a href="https://wfq.gumroad.com/l/fb"&gt; &lt;img src="/images/fb_subscribe_v2.jpg" alt="订阅「福报」"&gt; &lt;/a&gt; 
-     &lt;hr&gt; 
-     &lt;div hx-get="https://toolfooter.afoo.me/" hx-trigger="revealed" htmx-indicator="#tfloader"&gt; 
-      &lt;div id="tfloader" class="x-indicator"&gt; 
-       &lt;svg width="57" height="57" viewbox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#3F83F8"&gt; &lt;g fill="none" fill-rule="evenodd"&gt; 
-         &lt;g transform="translate(1 1)" stroke-width="2"&gt; 
-          &lt;circle cx="5" cy="50" r="5"&gt; 
-           &lt;animate attributename="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcmode="linear" repeatcount="indefinite" /&gt; 
-           &lt;animate attributename="cx" begin="0s" dur="2.2s" values="5;27;49;5" calcmode="linear" repeatcount="indefinite" /&gt; 
-          &lt;/circle&gt; 
-          &lt;circle cx="27" cy="5" r="5"&gt; 
-           &lt;animate attributename="cy" begin="0s" dur="2.2s" from="5" to="5" values="5;50;50;5" calcmode="linear" repeatcount="indefinite" /&gt; 
-           &lt;animate attributename="cx" begin="0s" dur="2.2s" from="27" to="27" values="27;49;5;27" calcmode="linear" repeatcount="indefinite" /&gt; 
-          &lt;/circle&gt; 
-          &lt;circle cx="49" cy="50" r="5"&gt; 
-           &lt;animate attributename="cy" begin="0s" dur="2.2s" values="50;50;5;50" calcmode="linear" repeatcount="indefinite" /&gt; 
-           &lt;animate attributename="cx" from="49" to="49" begin="0s" dur="2.2s" values="49;5;27;49" calcmode="linear" repeatcount="indefinite" /&gt; 
-          &lt;/circle&gt; 
-         &lt;/g&gt; 
-        &lt;/g&gt; 
-       &lt;/svg&gt; 
-      &lt;/div&gt; 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-   &lt;/section&gt; 
-  &lt;/main&gt; 
-  &lt;div style="position: fixed; left: 0; bottom: 0; padding: 10px; z-index: 1000;"&gt; 
-   &lt;img src="/icons/Written-By-Human-Not-By-AI-Badge-black@2x.png" alt loading="lazy"&gt; 
-  &lt;/div&gt; 
-  &lt;footer class="border-t border-gray-200 dark:border-slate-800"&gt; 
-   &lt;div class="max-w-6xl mx-auto px-4 sm:px-6"&gt; 
-    &lt;div class="md:flex md:items-center md:justify-between py-6 md:py-8"&gt; 
-     &lt;ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0"&gt; 
-      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Twitter" href="https://twitter.com/afoo_me"&gt; 
-        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-twitter"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z"&gt; 
-         &lt;/path&gt; 
-        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Facebook" href="https://www.facebook.com/fujohnwang/"&gt; 
-        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-facebook"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2H7"&gt;&lt;/path&gt; 
-        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
-      &lt;li&gt; &lt;a class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Github" href="https://github.com/fujohnwang"&gt; 
-        &lt;svg viewbox="0 0 24 24" class="w-5 h-5" astro-icon="tabler:brand-github"&gt; &lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"&gt; 
-         &lt;/path&gt; 
-        &lt;/svg&gt; &lt;/a&gt; &lt;/li&gt; 
-     &lt;/ul&gt; 
-     &lt;div class="text-sm text-gray-700 mr-4 dark:text-slate-400"&gt; &lt;span class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 float-left rounded-sm"&gt; &lt;img src="https://afoo.me/favicon.svg" class="rounded-md" alt&gt; &lt;/span&gt; Copyright © 王福强个人版权所有 - Since 2004 (Everything is homebrewed with &lt;a href="https://pandoc.org/"&gt;Pandoc&lt;/a&gt; and Markdown, little &lt;a href="https://www.scala-lang.org/"&gt;Scala&lt;/a&gt; also included.) 
-     &lt;/div&gt; 
-    &lt;/div&gt; 
-   &lt;/div&gt; 
-  &lt;/footer&gt; 
-  &lt;script&gt;
-        // Set "light" theme as default
-        if (!localStorage.theme) {
-            localStorage.theme = "light";
-        }
-
-        if (
-            localStorage.theme === 'dark' ||
-            (!('theme' in localStorage) &amp;&amp; window.matchMedia('(prefers-color-scheme: dark)').matches)
-        ) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-
-        function attachEvent(selector, event, fn) {
-            const matches = document.querySelectorAll(selector);
-            if (matches &amp;&amp; matches.length) {
-                matches.forEach((elem) =&gt; {
-                    elem.addEventListener(event, () =&gt; fn(elem), false);
-                });
-            }
-        }
-
-        window.onload = function () {
-            attachEvent('[data-toggle-menu]', 'click', function (elem) {
-                elem.classList.toggle('expanded');
-                document.body.classList.toggle('overflow-hidden');
-                document.getElementById('header')?.classList.toggle('h-screen');
-                document.querySelector('#header nav')?.classList.toggle('hidden');
-            });
-            attachEvent("[data-toggle-color-scheme]", "click", function () {
-                    document.documentElement.classList.toggle("light");
-                    localStorage.theme = "light";
-                });
-        };
-        window.onpageshow = function () {
-            const elem = document.querySelector('[data-toggle-menu]');
-            if (elem) {
-                elem.classList.remove('expanded');
-            }
-            document.body.classList.remove('overflow-hidden');
-            document.getElementById('header')?.classList.remove('h-screen');
-            document.querySelector('#header nav')?.classList.add('hidden');
-        };
-    &lt;/script&gt; 
-  &lt;script type="text/javascript"&gt;
-        var gitalk = new Gitalk({
-          clientID: '518a605d711883414ac0',
-          clientSecret: '69fb8ccc0616c5bcbc64d24ece0d06d279da91ff',
-          repo: 'afoo.me.comments',
-          owner: 'fujohnwang',
-          admin: ['fujohnwang'],
-          id: location.pathname.substring(0, 49),      // Ensure uniqueness and length less than 50
-          distractionFreeMode: false  // Facebook-like distraction free mode
-        })
-        gitalk.render('comments')
-    &lt;/script&gt; 
-  &lt;script src="https://formspree.io/js/formbutton-v1.min.js" defer&gt;&lt;/script&gt; 
-  &lt;script&gt;
-  /* paste this line in verbatim */
-  window.formbutton=window.formbutton||function(){(formbutton.q=formbutton.q||[]).push(arguments)};
-  /* customize formbutton below*/     
-  formbutton("create", {
-    action: "https://formspree.io/f/xknlpkkd",
-    title: "有什么可以帮到您？💕💕💕 How can I help you?",
-    buttonImg: "&lt;img src='https://afoo.me/hero3/70.webp' alt/&gt;",
-    fields: [
-      { 
-        type: "email", 
-        label: "您的电子邮箱（方便与您联系）:", 
-        name: "email",
-        required: true,
-        placeholder: "your@email.com"
-      },
-      {
-        type: "textarea",
-        label: "您想提交的反馈和询问信息:",
-        name: "message",
-        placeholder: "What's on your mind?",
-      },
-      { type: "submit" }      
-    ],
-    styles: {
-      title: {
-        backgroundColor: "blue"
-      },
-      button: {
-        backgroundColor: "blue"
-      }
-    }
-  });
-&lt;/script&gt; 
-  &lt;script&gt;
-	// tooltips
-	tippy('#aiedu', {
-        content: "As to AI nowadays, LLM and Stable Diffusion are hot even hottest among them, If your want to both know-why and know-how with them, instead of only know-how which can't repeat itself, you should get you to https://ai.afoo.me right now ❗"
-    });  
-&lt;/script&gt;  
- &lt;/body&gt;
-&lt;/html&gt;</description>
-      <pubDate>Tue, 23 Dec 2025 16:00:00 GMT</pubDate>
-      <guid>http://afoo.me/posts/2025-12-24-killing-zone.html</guid>
-      <dc:date>2025-12-23T16:00:00Z</dc:date>
     </item>
   </channel>
 </rss>
