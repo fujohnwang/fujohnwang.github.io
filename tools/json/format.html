@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>极简 JSON 格式化工具</title>
+    <style>
+        /* 重置基础样式 */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #1e1e1e; /* 采用暗黑模式背景，保护眼睛 */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 顶部工具栏样式 */
+        .toolbar {
+            height: 60px;
+            background-color: #2d2d2d;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+
+        /* Format 动作按钮 */
+        button {
+            background-color: #0e639c;
+            color: white;
+            border: none;
+            padding: 10px 40px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        button:hover {
+            background-color: #1177bb;
+        }
+
+        button:active {
+            background-color: #094771;
+        }
+
+        /* 主体容器，左右平分 */
+        .container {
+            display: flex;
+            flex: 1;
+            padding: 15px;
+            gap: 15px;
+            box-sizing: border-box;
+        }
+
+        /* 文本框外层 */
+        .editor-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* 文本框样式 */
+        textarea {
+            flex: 1;
+            width: 100%;
+            resize: none;
+            padding: 15px;
+            font-family: 'Consolas', 'Courier New', monospace; /* 等宽字体适合代码 */
+            font-size: 14px;
+            line-height: 1.5;
+            color: #d4d4d4;
+            background-color: #1e1e1e;
+            border: 1px solid #444;
+            border-radius: 6px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        textarea:focus {
+            border-color: #0e639c;
+        }
+
+        textarea::placeholder {
+            color: #666;
+        }
+
+        /* 错误状态下的文本颜色 */
+        .error-text {
+            color: #f48771 !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部动作栏 -->
+    <div class="toolbar">
+        <button id="formatBtn">Format (格式化)</button>
+    </div>
+
+    <!-- 左右双栏容器 -->
+    <div class="container">
+        <!-- 左侧输入框 -->
+        <div class="editor-wrapper">
+            <textarea id="inputJson" placeholder="在此粘贴原始的 JSON 字符串..."></textarea>
+        </div>
+        
+        <!-- 右侧输出框 -->
+        <div class="editor-wrapper">
+            <textarea id="outputJson" placeholder="格式化后的 JSON 将显示在这里..." readonly></textarea>
+        </div>
+    </div>
+
+    <!-- 核心业务逻辑 -->
+    <script>
+        // 获取 DOM 元素
+        const formatBtn = document.getElementById('formatBtn');
+        const inputJson = document.getElementById('inputJson');
+        const outputJson = document.getElementById('outputJson');
+
+        // 绑定按钮点击事件
+        formatBtn.addEventListener('click', () => {
+            const rawData = inputJson.value.trim();
+            
+            // 如果输入为空，则清空输出
+            if (!rawData) {
+                outputJson.value = '';
+                outputJson.classList.remove('error-text');
+                return;
+            }
+
+            try {
+                // 1. 尝试将字符串解析为 JS 对象
+                const parsedObj = JSON.parse(rawData);
+                
+                // 2. 将对象转回字符串，并使用 4 个空格进行缩进美化
+                const formattedJson = JSON.stringify(parsedObj, null, 4);
+                
+                // 3. 将结果输出到右侧框
+                outputJson.value = formattedJson;
+                outputJson.classList.remove('error-text'); // 移除错误状态颜色
+                
+            } catch (error) {
+                // 4. 解析失败（JSON 格式不合法），捕获异常并显示在右侧
+                outputJson.value = '❌ 解析失败，无效的 JSON 格式:\n\n' + error.message;
+                outputJson.classList.add('error-text'); // 标记为红色错误文本
+            }
+        });
+    </script>
+
+</body>
+</html>
