@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<!-- saved from url=(0039)https://banwagong1.com/claude-code.html -->
+<html lang="zh-CN" style="--vsc-domain: &quot;banwagong1.com&quot;;">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code 速查表</title>
+    <style>
+        /* === RESET & BASE === */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            /* Section colors */
+            --keyboard-bg: #EFF6FF;
+            --keyboard-header: #2563EB;
+            --slash-bg: #F5F3FF;
+            --slash-header: #7C3AED;
+            --skills-bg: #ECFDF5;
+            --skills-header: #059669;
+            --memory-bg: #FFFBEB;
+            --memory-header: #D97706;
+            --config-bg: #FFF7ED;
+            --config-header: #C2410C;
+            --workflows-bg: #FEF2F2;
+            --workflows-header: #DC2626;
+            --mcp-bg: #ECFEFF;
+            --mcp-header: #0891B2;
+            --cli-bg: #F9FAFB;
+            --cli-header: #4B5563;
+            --footer-bg: #1F2937;
+            --footer-text: #F9FAFB;
+
+            /* Typography */
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', 'Consolas', monospace;
+        }
+
+        html {
+            font-size: 12px;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            line-height: 1.15;
+            background: #fff;
+            color: #1F2937;
+            padding: 6mm;
+        }
+
+        /* === PAGE LAYOUT === */
+        @page {
+            size: A4 landscape;
+            margin: 8mm;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 279mm;
+            margin: 0 auto;
+        }
+
+        /* === HEADER === */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2mm;
+            padding-bottom: 1mm;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .header h1 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .header-meta {
+            font-size: 0.75rem;
+            color: #6B7280;
+            text-align: right;
+        }
+
+        .header-meta .version-info {
+            display: block;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .header-meta .last-updated {
+            display: block;
+            font-size: 0.7rem;
+            color: #9CA3AF;
+        }
+
+        /* === CHANGELOG === */
+        .changelog {
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            border: 1px solid #F59E0B;
+            border-radius: 4px;
+            padding: 1.5mm 3mm;
+            margin-bottom: 2mm;
+            font-size: 0.72rem;
+        }
+
+        .changelog-header {
+            font-weight: 700;
+            color: #92400E;
+            margin-bottom: 0.5mm;
+            display: flex;
+            align-items: center;
+            gap: 1mm;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .changelog-dismiss {
+            margin-left: auto;
+            font-size: 0.85rem;
+            color: #92400E;
+            cursor: pointer;
+            opacity: 0.6;
+            line-height: 1;
+        }
+
+        .changelog-dismiss:hover {
+            opacity: 1;
+        }
+
+        .changelog-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1mm 4mm;
+            color: #78350F;
+            list-style: none;
+        }
+
+        .changelog-list li {
+            display: flex;
+            align-items: center;
+            gap: 1mm;
+        }
+
+        .changelog-list li::before {
+            content: "•";
+            color: #F59E0B;
+            font-weight: bold;
+        }
+
+        /* === MAIN GRID === */
+        .main-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: 1fr;
+            gap: 2mm;
+            align-items: stretch;
+        }
+
+        /* === SECTION BASE === */
+        .section {
+            border-radius: 3px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Last section in each wrapper stretches to fill space */
+        .section-keyboard-mcp>.section:last-child,
+        .section-slash-memory>.section:last-child,
+        .section-workflows-config>.section:last-child,
+        .section-skills-cli>.section:last-child {
+            flex: 1;
+        }
+
+        .section-header {
+            padding: 1.2mm 2mm;
+            color: white;
+            font-weight: 700;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            display: flex;
+            align-items: center;
+            gap: 1mm;
+        }
+
+        .section-content {
+            padding: 1.5mm 2.5mm;
+            flex: 1;
+        }
+
+        /* === SUB-SECTION === */
+        .sub-header {
+            font-weight: 700;
+            font-style: italic;
+            font-size: 0.75rem;
+            color: #374151;
+            margin-top: 1.2mm;
+            margin-bottom: 0.4mm;
+            padding-bottom: 0.3mm;
+            border-bottom: 1px dotted rgba(0, 0, 0, 0.15);
+        }
+
+        .sub-header:first-child {
+            margin-top: 0;
+        }
+
+        /* === KEY-VALUE ROWS === */
+        .row {
+            display: flex;
+            gap: 1.5mm;
+            padding: 0.3mm 0;
+            line-height: 1.2;
+        }
+
+        .key {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #1F2937;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .desc {
+            font-size: 0.8rem;
+            color: #4B5563;
+            flex: 1;
+        }
+
+        /* === KEYCAP STYLE === */
+        .keycap {
+            display: inline-block;
+            background: linear-gradient(180deg, #FAFAFA 0%, #E5E7EB 100%);
+            border: 1px solid #D1D5DB;
+            border-radius: 2px;
+            padding: 0.2mm 1.2mm;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #374151;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+            margin-right: 0.3mm;
+        }
+
+        /* === NEW BADGE === */
+        /* NEW badges: add data-added="YYYY-MM-DD" when adding. Auto-hidden after 14 days via JS. */
+        .badge-new {
+            display: inline-block;
+            background: #EF4444;
+            color: white;
+            font-size: 0.55rem;
+            font-weight: 700;
+            padding: 0.2mm 1mm;
+            border-radius: 2px;
+            margin-left: 1mm;
+            vertical-align: middle;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        /* === SECTION SPECIFIC COLORS === */
+        .section-keyboard {
+            background: var(--keyboard-bg);
+        }
+
+        .section-keyboard .section-header {
+            background: var(--keyboard-header);
+        }
+
+        .section-slash {
+            background: var(--slash-bg);
+        }
+
+        .section-slash .section-header {
+            background: var(--slash-header);
+        }
+
+        .section-skills {
+            background: var(--skills-bg);
+        }
+
+        .section-skills .section-header {
+            background: var(--skills-header);
+        }
+
+        .section-memory {
+            background: var(--memory-bg);
+        }
+
+        .section-memory .section-header {
+            background: var(--memory-header);
+        }
+
+        .section-workflows {
+            background: var(--workflows-bg);
+        }
+
+        .section-workflows .section-header {
+            background: var(--workflows-header);
+        }
+
+        .section-mcp {
+            background: var(--mcp-bg);
+        }
+
+        .section-mcp .section-header {
+            background: var(--mcp-header);
+        }
+
+        .section-cli {
+            background: var(--cli-bg);
+        }
+
+        .section-cli .section-header {
+            background: var(--cli-header);
+        }
+
+        .section-config {
+            background: var(--config-bg);
+        }
+
+        .section-config .section-header {
+            background: var(--config-header);
+        }
+
+        /* === GRID PLACEMENT === */
+        .section-keyboard-mcp {
+            grid-column: 1;
+            grid-row: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2mm;
+        }
+
+        .section-slash-memory {
+            grid-column: 2;
+            grid-row: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2mm;
+        }
+
+        .section-workflows-config {
+            grid-column: 3;
+            grid-row: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2mm;
+        }
+
+        .section-skills-cli {
+            grid-column: 4;
+            grid-row: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2mm;
+        }
+
+        /* === FOOTER === */
+        .footer {
+            margin-top: 2mm;
+            background: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 1.5mm 2.5mm;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5mm;
+        }
+
+        .footer-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2mm;
+            align-items: center;
+        }
+
+        .footer-label {
+            font-weight: 700;
+            color: #9CA3AF;
+            margin-right: 1mm;
+        }
+
+        .footer-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 1mm;
+        }
+
+        .footer-item code {
+            font-family: var(--font-mono);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.3mm 1mm;
+            border-radius: 2px;
+        }
+
+        .footer-sep {
+            color: #6B7280;
+        }
+
+        /* === PRINT STYLES === */
+        @media print {
+            html {
+                font-size: 8.5px !important;
+            }
+
+            body {
+                padding: 0;
+                background: white;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .page {
+                max-width: none;
+                width: 100%;
+                height: 100vh;
+            }
+
+            .main-grid {
+                gap: 1.5mm;
+            }
+
+            .section-keyboard-mcp,
+            .section-slash-memory,
+            .section-workflows-config,
+            .section-skills-cli {
+                gap: 1.5mm;
+            }
+
+            /* Prevent page breaks inside sections */
+            .section {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            .section-content {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            .sub-header {
+                break-after: avoid;
+                page-break-after: avoid;
+            }
+
+            .row {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            /* Keep sub-headers with their content */
+            .sub-header+.row,
+            .sub-header+.two-col,
+            .sub-header+.three-col {
+                break-before: avoid;
+                page-break-before: avoid;
+            }
+
+            /* Force monospace font for all commands/keys in print */
+            .key,
+            .keycap,
+            code,
+            .footer-item code {
+                font-family: 'Courier New', 'Courier', monospace !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .section-header {
+                padding: 0.8mm 2mm;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .section-content {
+                padding: 1mm 2mm;
+            }
+
+            .row {
+                padding: 0.15mm 0;
+            }
+
+            .sub-header {
+                margin-top: 0.8mm;
+            }
+
+            .keycap {
+                background: #F3F4F6 !important;
+                box-shadow: none;
+                border: 1px solid #9CA3AF;
+            }
+
+            .footer {
+                margin-top: 1mm;
+                padding: 1mm 2mm;
+                background: #374151 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .os-toggle {
+                display: none !important;
+            }
+
+            .header {
+                margin-bottom: 1.5mm;
+            }
+
+            .changelog {
+                display: none !important;
+            }
+        }
+
+        /* Dark mode print removed — print is always light for readability */
+
+        /* === RESPONSIVE === */
+        @media screen and (max-width: 1100px) {
+            html {
+                font-size: 10px;
+            }
+
+            .main-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: auto;
+                align-items: start;
+            }
+
+            .section-keyboard-mcp {
+                grid-column: 1;
+                grid-row: 1;
+            }
+
+            .section-slash-memory {
+                grid-column: 2;
+                grid-row: 1;
+            }
+
+            .section-workflows-config {
+                grid-column: 1;
+                grid-row: 2;
+            }
+
+            .section-skills-cli {
+                grid-column: 2;
+                grid-row: 2;
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            html {
+                font-size: 11px;
+            }
+
+            body {
+                padding: 3mm;
+            }
+
+            .header h1 {
+                font-size: 1.2rem;
+                white-space: nowrap;
+            }
+
+            .header {
+                flex-wrap: wrap;
+                gap: 4px;
+                justify-content: space-between;
+            }
+
+            .header-right {
+                gap: 2mm;
+            }
+
+            .os-toggle {
+                order: -1;
+            }
+
+            .os-btn {
+                padding: 2px 6px;
+            }
+
+            .os-btn svg {
+                width: 11px;
+                height: 11px;
+            }
+
+            .os-btn {
+                padding: 2px 6px;
+            }
+
+            .os-btn svg {
+                width: 11px;
+                height: 11px;
+            }
+
+            .main-grid {
+                grid-template-columns: 1fr;
+                align-items: start;
+            }
+
+            .section-keyboard-mcp,
+            .section-slash-memory,
+            .section-workflows-config,
+            .section-skills-cli {
+                grid-column: 1;
+                grid-row: auto;
+            }
+
+            .footer-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 2px;
+            }
+
+            .changelog-list {
+                flex-direction: column;
+                gap: 1mm;
+            }
+        }
+
+        /* === OS TOGGLE === */
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 3mm;
+        }
+
+        .os-toggle {
+            display: flex;
+            border: 1px solid #9CA3AF;
+            border-radius: 5px;
+            overflow: hidden;
+            background: #F3F4F6;
+        }
+
+        .os-btn {
+            background: #fff;
+            border: none;
+            padding: 3px 8px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            line-height: 1;
+            color: #6B7280;
+            transition: background 0.15s, color 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .os-btn+.os-btn {
+            border-left: 1px solid #9CA3AF;
+        }
+
+        .os-btn.active {
+            background: #111827;
+            color: #fff;
+        }
+
+        .os-btn:hover:not(.active) {
+            background: #F3F4F6;
+        }
+
+        /* === COMPACT MULTI-COLUMN LISTS === */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 4mm;
+        }
+
+        .three-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0 3mm;
+        }
+
+        @media screen and (max-width: 500px) {
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <!-- HEADER -->
+        <header class="header">
+            <h1>Claude Code 速查表</h1>
+            <div class="header-right">
+                <div class="os-toggle" id="osToggle">
+                    <button class="os-btn active" data-os="mac" title="Mac shortcuts"><svg width="14" height="14"
+                            viewBox="0 0 814 1000" fill="currentColor">
+                            <path
+                                d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76.5 0-103.7 40.8-165.9 40.8s-105.6-57.8-155.5-127.4c-58.4-83-106.3-211.5-106.3-334.2 0-196.5 127.8-300.9 253.3-300.9 66.8 0 122.4 43.4 164.1 43.4 39.5 0 101.1-46 176.2-46 28.5 0 130.9 2.6 198.3 99.1zm-169.5-92.8c31.2-37 52.4-88.1 52.4-139.3 0-7.1-.6-14.3-1.9-20.1-50 1.6-109.2 33.3-145 75.1-25.8 29.3-52.4 79.8-52.4 131.6 0 7.8.6 15.6 1.3 18.2 2.6.6 6.4 1.3 10.3 1.3 44.7 0 101.1-30.5 135.3-66.8z">
+                            </path>
+                        </svg></button>
+                    <button class="os-btn" data-os="win" title="Windows shortcuts"><svg width="14" height="14"
+                            viewBox="0 0 88 88" fill="currentColor">
+                            <path
+                                d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 71.48l-.026-25.55zm4.326-39.025L87.314 0v41.527l-47.318.376zm47.329 39.349l-.011 41.34-47.318-6.678-.066-34.739z">
+                            </path>
+                        </svg></button>
+                </div>
+                <div class="header-meta">
+                    <span class="version-info">Claude Code v2.1.81</span>
+                    <span class="last-updated">最后更新：2026年3月23日</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- CHANGELOG -->
+        <div class="changelog">
+            <div class="changelog-header"><a href="https://code.claude.com/docs/en/changelog" target="_blank"
+                    style="color: inherit; text-decoration: none; border-bottom: 1px dashed #92400E;">📋 近期更新</a> <span
+                    class="changelog-dismiss"
+                    onclick="event.stopPropagation(); this.closest(&#39;.changelog&#39;).remove()">✕</span></div>
+            <ul class="changelog-list">
+                <li><code>--bare</code> 标志 — 最小化无头模式（无 hooks/LSP/插件）</li>
+                <li><code>--channels</code> — 权限中继 &amp; MCP 推送消息（预览）</li>
+                <li><code>effort</code> 前置元数据用于技能和斜杠命令</li>
+                <li><code>/fork</code> 重命名为 <code>/branch</code>（别名保留）</li>
+                <li><code>SendMessage</code> 自动恢复已停止的代理</li>
+            </ul>
+        </div>
+
+        <!-- MAIN GRID -->
+        <main class="main-grid">
+
+            <!-- KEYBOARD + MCP WRAPPER -->
+            <div class="section-keyboard-mcp">
+                <!-- KEYBOARD SHORTCUTS -->
+                <section class="section section-keyboard">
+                    <div class="section-header">⌨️ 键盘快捷键</div>
+                    <div class="section-content">
+                        <div class="sub-header">常规控制</div>
+                        <div class="row"><span class="key"><span class="keycap">Ctrl</span><span
+                                    class="keycap">C</span></span> <span class="desc">取消输入/生成</span>
+                        </div>
+                        <div class="row"><span class="key"><span class="keycap">Ctrl</span><span
+                                    class="keycap">D</span></span> <span class="desc">退出会话</span></div>
+                        <div class="row"><span class="key"><span class="keycap">Ctrl</span><span
+                                    class="keycap">L</span></span> <span class="desc">清屏</span></div>
+                        <div class="row"><span class="key"><span class="keycap">Ctrl</span><span
+                                    class="keycap">O</span></span> <span class="desc">切换详细输出</span></div>
+                        <div class="row"><span class="key"><span class="keycap">Ctrl</span><span
+                                    class="keycap">R</span></span> <span class="desc">反向搜索历史</span>
+                        </div>
+                        <div class="row"><span class="key"><span class="keycap">Ctrl</span><span
+                                    class="keycap">G</span></span> <span class="desc">在编辑器中打开提示</span></div>
+                        <div class="row"><span class="key"><span class="keycap">Ctrl</span><span
+                                    class="keycap">B</span></span> <span class="desc">后台运行任务</span>
+                        </div>
+                        <div class="row"><span class="key"><span class="keycap">Ctrl</span><span
+                                    class="keycap">T</span></span> <span class="desc">切换任务列表</span></div>
+                        <div class="row"><span class="key"><span class="keycap">Ctrl</span><span
+                                    class="keycap">V</span></span> <span class="desc">粘贴图片</span></div>
+                        <div class="row"><span class="key"><span class="keycap">Ctrl</span><span
+                                    class="keycap">F</span></span> <span class="desc">终止后台代理（按两次）</span>
+                        </div>
+                        <div class="row"><span class="key"><span class="keycap">Esc</span><span
+                                    class="keycap">Esc</span></span> <span class="desc">回退 / 撤销</span></div>
+
+                        <div class="sub-header">模式切换</div>
+                        <div class="row"><span class="key"><span class="keycap">⇧</span><span
+                                    class="keycap">Tab</span></span> <span class="desc">循环切换权限模式</span>
+                        </div>
+                        <div class="row"><span class="key"><span class="keycap">⌥</span><span
+                                    class="keycap">P</span></span> <span class="desc">切换模型</span></div>
+                        <div class="row"><span class="key"><span class="keycap">⌥</span><span
+                                    class="keycap">T</span></span> <span class="desc">切换思考模式</span></div>
+
+                        <div class="sub-header">输入</div>
+                        <div class="row"><span class="key"><span class="keycap">\</span><span
+                                    class="keycap">Enter</span></span> <span class="desc">换行（快捷）</span></div>
+                        <div class="row"><span class="key"><span class="keycap">Ctrl</span><span
+                                    class="keycap">J</span></span> <span class="desc">换行（控制序列）</span></div>
+
+                        <div class="sub-header">前缀</div>
+                        <div class="row"><span class="key">/</span> <span class="desc">斜杠命令</span></div>
+                        <div class="row"><span class="key">!</span> <span class="desc">直接执行 bash</span></div>
+                        <div class="row"><span class="key">@</span> <span class="desc">文件引用 + 自动补全</span></div>
+
+                        <div class="sub-header">会话选择器</div>
+                        <div class="row"><span class="key"><span class="keycap">↑↓</span></span> <span
+                                class="desc">导航</span></div>
+                        <div class="row"><span class="key"><span class="keycap">←→</span></span> <span
+                                class="desc">展开/折叠</span></div>
+                        <div class="row"><span class="key"><span class="keycap">P</span></span> <span
+                                class="desc">预览</span></div>
+                        <div class="row"><span class="key"><span class="keycap">R</span></span> <span
+                                class="desc">重命名</span></div>
+                        <div class="row"><span class="key"><span class="keycap">/</span></span> <span
+                                class="desc">搜索</span></div>
+                        <div class="row"><span class="key"><span class="keycap">A</span></span> <span
+                                class="desc">所有项目</span></div>
+                        <div class="row"><span class="key"><span class="keycap">B</span></span> <span
+                                class="desc">当前分支</span></div>
+                    </div>
+                </section>
+
+                <!-- MCP SERVERS (under keyboard) -->
+                <section class="section section-mcp">
+                    <div class="section-header">🔌 MCP 服务器</div>
+                    <div class="section-content">
+                        <div class="sub-header">添加服务器</div>
+                        <div class="row"><span class="key">--transport http</span> <span class="desc">远程 HTTP（推荐）</span>
+                        </div>
+                        <div class="row"><span class="key">--transport stdio</span> <span class="desc">本地进程</span></div>
+                        <div class="row"><span class="key">--transport sse</span> <span class="desc">远程 SSE</span>
+                        </div>
+                        <div class="sub-header">作用域</div>
+                        <div class="row"><span class="key">Local</span> <span class="desc">~/.claude.json（每个项目）</span>
+                        </div>
+                        <div class="row"><span class="key">Project</span> <span class="desc">.mcp.json（共享/VCS）</span>
+                        </div>
+                        <div class="row"><span class="key">User</span> <span class="desc">~/.claude.json（全局）</span>
+                        </div>
+                        <div class="sub-header">管理</div>
+                        <div class="row"><span class="key">/mcp</span> <span class="desc">交互式界面</span></div>
+                        <div class="row"><span class="key">claude mcp list</span> <span class="desc">列出所有服务器</span>
+                        </div>
+                        <div class="row"><span class="key">claude mcp serve</span> <span class="desc">CC 作为 MCP
+                                服务器</span></div>
+                        <div class="row"><span class="key">Elicitation</span> <span class="desc">服务器在任务中请求输入<span
+                                    class="badge-new" data-added="2026-03-23">NEW</span></span></div>
+                    </div>
+                </section>
+            </div><!-- end keyboard-mcp wrapper -->
+
+            <!-- SLASH + MEMORY WRAPPER -->
+            <div class="section-slash-memory">
+                <!-- SLASH COMMANDS -->
+                <section class="section section-slash">
+                    <div class="section-header">⚡ 斜杠命令</div>
+                    <div class="section-content">
+                        <div class="sub-header">会话</div>
+                        <div class="row"><span class="key">/clear</span> <span class="desc">清除对话</span>
+                        </div>
+                        <div class="row"><span class="key">/compact [focus]</span> <span class="desc">压缩上下文</span></div>
+                        <div class="row"><span class="key">/resume</span> <span class="desc">恢复/切换会话</span></div>
+                        <div class="row"><span class="key">/rename [name]</span> <span class="desc">命名当前会话</span></div>
+                        <div class="row"><span class="key">/branch [name]</span> <span class="desc">分支对话（/fork
+                                别名）</span></div>
+                        <div class="row"><span class="key">/cost</span> <span class="desc">Token 用量统计</span>
+                        </div>
+                        <div class="row"><span class="key">/context</span> <span class="desc">可视化上下文（网格）</span></div>
+                        <div class="row"><span class="key">/diff</span> <span class="desc">交互式差异查看器</span></div>
+                        <div class="row"><span class="key">/copy</span> <span class="desc">复制上次回复</span>
+                        </div>
+                        <div class="row"><span class="key">/export</span> <span class="desc">导出对话</span>
+                        </div>
+
+                        <div class="sub-header">配置</div>
+                        <div class="row"><span class="key">/config</span> <span class="desc">打开设置</span></div>
+                        <div class="row"><span class="key">/model [model]</span> <span class="desc">切换模型（←→ 努力度）</span>
+                        </div>
+                        <div class="row"><span class="key">/fast [on|off]</span> <span class="desc">切换快速模式</span></div>
+                        <div class="row"><span class="key">/vim</span> <span class="desc">切换 vim 模式</span></div>
+                        <div class="row"><span class="key">/theme</span> <span class="desc">更改颜色主题</span>
+                        </div>
+                        <div class="row"><span class="key">/permissions</span> <span class="desc">查看/更新权限</span></div>
+                        <div class="row"><span class="key">/effort [level]</span> <span
+                                class="desc">设置努力度（low/med/high）<span class="badge-new"
+                                    data-added="2026-03-23">NEW</span></span></div>
+                        <div class="row"><span class="key">/color [color]</span> <span class="desc">设置提示栏颜色</span></div>
+
+                        <div class="sub-header">工具</div>
+                        <div class="row"><span class="key">/init</span> <span class="desc">创建 CLAUDE.md</span></div>
+                        <div class="row"><span class="key">/memory</span> <span class="desc">编辑 CLAUDE.md 文件</span>
+                        </div>
+                        <div class="row"><span class="key">/mcp</span> <span class="desc">管理 MCP 服务器</span>
+                        </div>
+                        <div class="row"><span class="key">/hooks</span> <span class="desc">管理钩子</span></div>
+                        <div class="row"><span class="key">/skills</span> <span class="desc">列出可用技能</span></div>
+                        <div class="row"><span class="key">/agents</span> <span class="desc">管理代理</span></div>
+                        <div class="row"><span class="key">/chrome</span> <span class="desc">Chrome 集成</span>
+                        </div>
+                        <div class="row"><span class="key">/reload-plugins</span> <span class="desc">热重载插件</span></div>
+
+                        <div class="sub-header">特殊</div>
+                        <div class="row"><span class="key">/btw &lt;question&gt;</span> <span
+                                class="desc">附带提问（无上下文）</span></div>
+                        <div class="row"><span class="key">/plan [desc]</span> <span class="desc">计划模式（+ 自动启动）</span>
+                        </div>
+                        <div class="row"><span class="key">/loop [interval]</span> <span class="desc">调度周期性任务</span>
+                        </div>
+                        <div class="row"><span class="key">/voice</span> <span class="desc">按键说话语音（20 种语言）</span></div>
+                        <div class="row"><span class="key">/doctor</span> <span class="desc">诊断安装问题</span></div>
+                        <div class="row"><span class="key">/rc</span> <span class="desc">启用远程控制</span>
+                        </div>
+                        <div class="row"><span class="key">/pr-comments [PR]</span> <span class="desc">获取 GitHub PR
+                                评论</span></div>
+                        <div class="row"><span class="key">/stats</span> <span class="desc">使用连续记录和偏好</span>
+                        </div>
+                        <div class="row"><span class="key">/insights</span> <span class="desc">分析会话报告</span></div>
+                        <div class="row"><span class="key">/desktop</span> <span class="desc">在桌面应用中继续</span></div>
+                        <div class="row"><span class="key">/remote-control</span> <span class="desc">桥接终端到
+                                claude.ai/code<span class="badge-new" data-added="2026-03-23">NEW</span></span></div>
+                        <div class="row"><span class="key">/stickers</span> <span class="desc">订购贴纸！🎉</span>
+                        </div>
+                    </div>
+                </section>
+                <!-- MEMORY & FILES (under Slash) -->
+                <section class="section section-memory">
+                    <div class="section-header">📁 记忆与文件</div>
+                    <div class="section-content">
+                        <div class="sub-header">CLAUDE.md 位置</div>
+                        <div class="row"><span class="key">./CLAUDE.md</span> <span class="desc">项目（团队共享）</span></div>
+                        <div class="row"><span class="key">~/.claude/CLAUDE.md</span> <span class="desc">个人（所有项目）</span>
+                        </div>
+                        <div class="row"><span class="key">/etc/claude-code/</span> <span class="desc">管理（组织级）</span>
+                        </div>
+                        <div class="sub-header">规则与导入</div>
+                        <div class="row"><span class="key">.claude/rules/*.md</span> <span class="desc">项目规则</span>
+                        </div>
+                        <div class="row"><span class="key">~/.claude/rules/*.md</span> <span class="desc">用户规则</span>
+                        </div>
+                        <div class="row"><span class="key">paths: frontmatter</span> <span class="desc">路径特定规则</span>
+                        </div>
+                        <div class="row"><span class="key">@path/to/file</span> <span class="desc">在 CLAUDE.md
+                                中导入</span></div>
+                        <div class="sub-header">自动记忆</div>
+                        <div class="row"><span class="key">~/.claude/projects/&lt;proj&gt;/memory/</span></div>
+                        <div class="row"><span class="desc">MEMORY.md + 主题文件，自动加载</span></div>
+                    </div>
+                </section>
+            </div><!-- end slash-memory wrapper -->
+
+            <!-- WORKFLOWS + CONFIG WRAPPER -->
+            <div class="section-workflows-config">
+                <!-- WORKFLOWS & TIPS -->
+                <section class="section section-workflows">
+                    <div class="section-header">🧠 工作流与技巧</div>
+                    <div class="section-content">
+                        <div class="sub-header">计划模式</div>
+                        <div class="row"><span class="key"><span class="keycap">⇧</span><span
+                                    class="keycap">Tab</span></span> <span class="desc">Normal → Auto → Plan</span>
+                        </div>
+                        <div class="row"><span class="key">--permission-mode plan</span> <span
+                                class="desc">以计划模式启动</span></div>
+                        <div class="sub-header">思考与努力度</div>
+                        <div class="row"><span class="key"><span class="keycap">⌥</span><span
+                                    class="keycap">T</span></span> <span class="desc">切换思考开/关</span>
+                        </div>
+                        <div class="row"><span class="key">"ultrathink"</span> <span class="desc">当前轮次最大努力度</span></div>
+                        <div class="row"><span class="key"><span class="keycap">Ctrl</span><span
+                                    class="keycap">O</span></span> <span class="desc">查看思考（详细模式）</span>
+                        </div>
+                        <div class="row"><span class="key">/effort</span> <span class="desc">○ low · ◐ med · ● high<span
+                                    class="badge-new" data-added="2026-03-23">NEW</span></span></div>
+                        <div class="sub-header">Git Worktrees</div>
+                        <div class="row"><span class="key">--worktree name</span> <span class="desc">每个功能独立分支</span>
+                        </div>
+                        <div class="row"><span class="key">isolation: worktree</span> <span class="desc">代理在独立 worktree
+                                中</span></div>
+                        <div class="row"><span class="key">sparsePaths</span> <span class="desc">仅检出所需目录<span
+                                    class="badge-new" data-added="2026-03-23">NEW</span></span></div>
+                        <div class="row"><span class="key">/batch</span> <span class="desc">自动创建 worktrees</span></div>
+                        <div class="sub-header">语音模式</div>
+                        <div class="row"><span class="key">/voice</span> <span class="desc">启用按键说话</span>
+                        </div>
+                        <div class="row"><span class="key"><span class="keycap">Space</span> (hold)</span> <span
+                                class="desc">录音，释放发送</span></div>
+                        <div class="row"><span class="key">20 种语言</span> <span class="desc">EN, ES, FR, DE, CZ,
+                                PL…</span></div>
+                        <div class="sub-header">上下文管理</div>
+                        <div class="row"><span class="key">/context</span> <span class="desc">用量 + 优化建议</span></div>
+                        <div class="row"><span class="key">/compact [focus]</span> <span class="desc">带焦点压缩</span></div>
+                        <div class="row"><span class="key">Auto-compact</span> <span class="desc">约 95% 容量时触发</span>
+                        </div>
+                        <div class="row"><span class="key">1M context</span> <span class="desc">Opus 4.6
+                                (Max/Team/Ent)</span></div>
+                        <div class="row"><span class="key">CLAUDE.md</span> <span class="desc">压缩后保留！</span></div>
+                        <div class="sub-header">会话高级操作</div>
+                        <div class="row"><span class="key">claude -c</span> <span class="desc">继续上次对话</span>
+                        </div>
+                        <div class="row"><span class="key">claude -r "name"</span> <span class="desc">按名称恢复</span></div>
+                        <div class="row"><span class="key">/btw question</span> <span class="desc">附带提问，无上下文开销</span>
+                        </div>
+                        <div class="sub-header">SDK / 无头模式</div>
+                        <div class="row"><span class="key">claude -p "query"</span> <span class="desc">非交互式</span></div>
+                        <div class="row"><span class="key">--output-format json</span> <span class="desc">结构化输出</span>
+                        </div>
+                        <div class="row"><span class="key">--max-budget-usd 5</span> <span class="desc">费用上限</span>
+                        </div>
+                        <div class="row"><span class="key">cat file | claude -p</span> <span class="desc">管道输入</span>
+                        </div>
+                        <div class="sub-header">调度与远程</div>
+                        <div class="row"><span class="key">/loop 5m msg</span> <span class="desc">周期性任务</span>
+                        </div>
+                        <div class="row"><span class="key">/rc</span> <span class="desc">远程控制</span></div>
+                        <div class="row"><span class="key">--remote</span> <span class="desc">claude.ai 上的 Web 会话</span>
+                        </div>
+                    </div>
+                </section>
+                <!-- CONFIG & ENV (under Workflows) -->
+                <section class="section section-config">
+                    <div class="section-header">⚙️ 配置与环境</div>
+                    <div class="section-content">
+                        <div class="sub-header">配置文件</div>
+                        <div class="row"><span class="key">~/.claude/settings.json</span> <span class="desc">用户设置</span>
+                        </div>
+                        <div class="row"><span class="key">.claude/settings.json</span> <span class="desc">项目（共享）</span>
+                        </div>
+                        <div class="row"><span class="key">.claude/settings.local.json</span> <span
+                                class="desc">仅本地</span></div>
+                        <div class="row"><span class="key">~/.claude.json</span> <span class="desc">OAuth, MCP,
+                                状态</span></div>
+                        <div class="row"><span class="key">.mcp.json</span> <span class="desc">项目 MCP 服务器</span></div>
+                        <div class="sub-header">重要设置</div>
+                        <div class="row"><span class="key">modelOverrides</span> <span class="desc">模型选择器映射自定义 ID</span>
+                        </div>
+                        <div class="row"><span class="key">autoMemoryDirectory</span> <span class="desc">自定义记忆目录</span>
+                        </div>
+                        <div class="row"><span class="key">worktree.sparsePaths</span> <span class="desc">稀疏检出目录<span
+                                    class="badge-new" data-added="2026-03-23">NEW</span></span></div>
+                        <div class="sub-header">重要环境变量</div>
+                        <div class="row"><span class="key">ANTHROPIC_API_KEY</span></div>
+                        <div class="row"><span class="key">ANTHROPIC_MODEL</span></div>
+                        <div class="row"><span class="key">CLAUDE_CODE_EFFORT_LEVEL</span> <span
+                                class="desc">low/med/high</span></div>
+                        <div class="row"><span class="key">MAX_THINKING_TOKENS</span> <span class="desc">0=关闭</span>
+                        </div>
+                        <div class="row"><span class="key">ANTHROPIC_CUSTOM_MODEL_OPTION</span> <span class="desc">自定义
+                                /model 条目</span></div>
+                        <div class="row"><span class="key">CLAUDE_CODE_PLUGIN_SEED_DIR</span> <span
+                                class="desc">多个插件种子目录</span></div>
+                    </div>
+                </section>
+            </div><!-- end workflows-config wrapper -->
+
+            <!-- SKILLS + CLI WRAPPER -->
+            <div class="section-skills-cli">
+                <!-- SKILLS & AGENTS -->
+                <section class="section section-skills">
+                    <div class="section-header">🔧 技能与代理</div>
+                    <div class="section-content">
+                        <div class="sub-header">内置技能</div>
+                        <div class="row"><span class="key">/simplify</span> <span class="desc">代码审查（3 个并行代理）</span>
+                        </div>
+                        <div class="row"><span class="key">/batch</span> <span class="desc">大规模并行修改（5-30
+                                worktrees）</span></div>
+                        <div class="row"><span class="key">/debug [desc]</span> <span class="desc">从调试日志排查问题</span>
+                        </div>
+                        <div class="row"><span class="key">/loop [interval]</span> <span class="desc">周期性调度任务</span>
+                        </div>
+                        <div class="row"><span class="key">/claude-api</span> <span class="desc">加载 API + SDK 参考</span>
+                        </div>
+
+                        <div class="sub-header">自定义技能位置</div>
+                        <div class="row"><span class="key">.claude/skills/&lt;name&gt;/</span> <span
+                                class="desc">项目技能</span></div>
+                        <div class="row"><span class="key">~/.claude/skills/&lt;name&gt;/</span> <span
+                                class="desc">个人技能</span></div>
+
+                        <div class="sub-header">技能前置元数据</div>
+                        <div class="row"><span class="key">description</span> <span class="desc">自动调用触发器</span></div>
+                        <div class="row"><span class="key">allowed-tools</span> <span class="desc">跳过权限提示</span></div>
+                        <div class="row"><span class="key">model</span> <span class="desc">覆盖技能模型</span></div>
+                        <div class="row"><span class="key">effort</span> <span class="desc">覆盖努力度<span class="badge-new"
+                                    data-added="2026-03-23">NEW</span></span></div>
+                        <div class="row"><span class="key">context: fork</span> <span class="desc">在子代理中运行</span></div>
+                        <div class="row"><span class="key">$ARGUMENTS</span> <span class="desc">用户输入占位符</span></div>
+                        <div class="row"><span class="key">${CLAUDE_SKILL_DIR}</span> <span class="desc">技能自身目录</span>
+                        </div>
+                        <div class="row"><span class="key">!`cmd`</span> <span class="desc">动态上下文注入</span></div>
+
+                        <div class="sub-header">内置代理</div>
+                        <div class="row"><span class="key">Explore</span> <span class="desc">快速只读 (Haiku)</span></div>
+                        <div class="row"><span class="key">Plan</span> <span class="desc">计划模式研究</span>
+                        </div>
+                        <div class="row"><span class="key">General</span> <span class="desc">全工具，复杂任务</span></div>
+                        <div class="row"><span class="key">Bash</span> <span class="desc">终端独立上下文</span></div>
+
+                        <div class="sub-header">代理前置元数据</div>
+                        <div class="row"><span class="key">permissionMode</span> <span
+                                class="desc">default/acceptEdits/dontAsk/plan</span></div>
+                        <div class="row"><span class="key">isolation: worktree</span> <span class="desc">在 git worktree
+                                中运行</span></div>
+                        <div class="row"><span class="key">memory: user|project</span> <span class="desc">持久化记忆</span>
+                        </div>
+                        <div class="row"><span class="key">background: true</span> <span class="desc">后台任务</span></div>
+                        <div class="row"><span class="key">maxTurns</span> <span class="desc">限制代理轮次</span>
+                        </div>
+                        <div class="row"><span class="key">SendMessage</span> <span class="desc">恢复代理（替代 resume）<span
+                                    class="badge-new" data-added="2026-03-23">NEW</span></span></div>
+                    </div>
+                </section>
+
+                <!-- CLI COMMANDS & FLAGS -->
+                <section class="section section-cli">
+                    <div class="section-header">🖥️ CLI 与标志</div>
+                    <div class="section-content">
+                        <div class="sub-header">核心命令</div>
+                        <div class="row"><span class="key">claude</span> <span class="desc">交互式</span></div>
+                        <div class="row"><span class="key">claude "q"</span> <span class="desc">带提示</span></div>
+                        <div class="row"><span class="key">claude -p "q"</span> <span class="desc">无头模式</span></div>
+                        <div class="row"><span class="key">claude -c</span> <span class="desc">继续上次</span>
+                        </div>
+                        <div class="row"><span class="key">claude -r "n"</span> <span class="desc">恢复</span></div>
+                        <div class="row"><span class="key">claude update</span> <span class="desc">更新</span></div>
+                        <div class="sub-header">重要标志</div>
+                        <div class="row"><span class="key">--model</span> <span class="desc">设置模型</span></div>
+                        <div class="row"><span class="key">-w</span> <span class="desc">Git worktree</span></div>
+                        <div class="row"><span class="key">-n / --name</span> <span class="desc">会话名称</span>
+                        </div>
+                        <div class="row"><span class="key">--add-dir</span> <span class="desc">添加目录</span></div>
+                        <div class="row"><span class="key">--agent</span> <span class="desc">使用代理</span></div>
+                        <div class="row"><span class="key">--allowedTools</span> <span class="desc">预批准</span>
+                        </div>
+                        <div class="row"><span class="key">--output-format</span> <span class="desc">json/stream</span>
+                        </div>
+                        <div class="row"><span class="key">--json-schema</span> <span class="desc">结构化</span>
+                        </div>
+                        <div class="row"><span class="key">--max-turns</span> <span class="desc">限制轮次</span>
+                        </div>
+                        <div class="row"><span class="key">--max-budget-usd</span> <span class="desc">费用上限</span>
+                        </div>
+                        <div class="row"><span class="key">--console</span> <span class="desc">通过 Anthropic Console
+                                认证</span></div>
+                        <div class="row"><span class="key">--verbose</span> <span class="desc">详细模式</span></div>
+                        <div class="row"><span class="key">--bare</span> <span class="desc">最小化无头（无 hooks/LSP）<span
+                                    class="badge-new" data-added="2026-03-23">NEW</span></span></div>
+                        <div class="row"><span class="key">--channels</span> <span class="desc">权限中继 / MCP 推送<span
+                                    class="badge-new" data-added="2026-03-23">NEW</span></span></div>
+                        <div class="row"><span class="key">--remote</span> <span class="desc">Web 会话</span></div>
+                        <div class="row"><span class="key">--chrome</span> <span class="desc">Chrome</span></div>
+                    </div>
+                </section>
+            </div><!-- end skills-cli wrapper -->
+
+            <!-- (sections moved into wrappers above) -->
+
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div class="footer-row">
+                <span class="footer-label">权限模式：</span>
+                <span class="footer-item"><code>default</code> 提示确认</span>
+                <span class="footer-sep">·</span>
+                <span class="footer-item"><code>acceptEdits</code> 自动接受编辑</span>
+                <span class="footer-sep">·</span>
+                <span class="footer-item"><code>plan</code> 只读</span>
+                <span class="footer-sep">·</span>
+                <span class="footer-item"><code>dontAsk</code> 未允许则拒绝</span>
+                <span class="footer-sep">·</span>
+                <span class="footer-item"><code>bypassPermissions</code> 跳过所有</span>
+            </div>
+            <div class="footer-row">
+                <span class="footer-label">重要环境变量：</span>
+                <span class="footer-item"><code>ANTHROPIC_API_KEY</code></span>
+                <span class="footer-sep">·</span>
+                <span class="footer-item"><code>ANTHROPIC_MODEL</code></span>
+                <span class="footer-sep">·</span>
+                <span class="footer-item"><code>CLAUDE_CODE_EFFORT_LEVEL</code> (low/med/high)</span>
+                <span class="footer-sep">·</span>
+                <span class="footer-item"><code>MAX_THINKING_TOKENS</code> (0=关闭)</span>
+                <span class="footer-sep">·</span>
+                <span class="footer-item"><code>CLAUDE_CODE_MAX_OUTPUT_TOKENS</code> (默认 32K)</span>
+                <span class="footer-sep">·</span>
+                <span class="footer-item"><code>CLAUDE_CODE_DISABLE_CRON</code></span>
+            </div>
+        </footer>
+    </div>
+    <script>
+        (function () {
+            var toggle = document.getElementById('osToggle');
+            var btns = toggle.querySelectorAll('.os-btn');
+            function detectOS() {
+                var p = navigator.platform || '';
+                var ua = navigator.userAgent || '';
+                if (/Mac|iPhone|iPod|iPad/.test(p) || /Mac/.test(ua)) return 'mac';
+                return 'win';
+            }
+            // v2: reset old hardcoded preference, use auto-detect
+            if (localStorage.getItem('cc-os') && !localStorage.getItem('cc-os-manual')) {
+                localStorage.removeItem('cc-os');
+            }
+            var saved = localStorage.getItem('cc-os') || detectOS();
+
+            // Find the Paste image row for special-case handling
+            function findPasteImageRow() {
+                var rows = document.querySelectorAll('.section-keyboard .row');
+                for (var i = 0; i < rows.length; i++) {
+                    var desc = rows[i].querySelector('.desc');
+                    if (desc && desc.textContent.trim() === '粘贴图片') return rows[i];
+                }
+                return null;
+            }
+
+            function apply(os) {
+                btns.forEach(function (b) { b.classList.toggle('active', b.dataset.os === os); });
+
+                var pasteRow = findPasteImageRow();
+                var allKeycaps = document.querySelectorAll('.keycap');
+
+                allKeycaps.forEach(function (keycap) {
+                    var text = keycap.textContent.trim();
+                    // Check if this keycap is inside the Paste image row
+                    var inPasteRow = pasteRow && pasteRow.contains(keycap);
+
+                    if (inPasteRow && (text === 'Ctrl' || text === '⌘' || text === 'Alt' || text === '⌥')) {
+                        // Special case: Paste image → Mac: ⌘+V, Windows: Alt+V
+                        keycap.textContent = (os === 'mac') ? 'Ctrl' : 'Alt';
+                    } else if (text === 'Ctrl' || text === '⌘') {
+                        keycap.textContent = (os === 'mac') ? 'Ctrl' : 'Ctrl';
+                    } else if (text === 'Alt' || text === '⌥') {
+                        keycap.textContent = (os === 'mac') ? '⌥' : 'Alt';
+                    } else if (text === 'Shift' || text === '⇧') {
+                        keycap.textContent = (os === 'mac') ? '⇧' : 'Shift';
+                    }
+                    // Esc, Enter, Tab, letters, arrows etc. — unchanged
+                });
+
+                localStorage.setItem('cc-os', os);
+            }
+
+            btns.forEach(function (btn) {
+                btn.addEventListener('click', function () { localStorage.setItem('cc-os-manual', '1'); apply(btn.dataset.os); });
+            });
+
+            apply(saved);
+        })();
+    </script>
+    <!-- NEW badges: add data-added="YYYY-MM-DD" when adding. Auto-hidden after 14 days via JS. -->
+    <script>
+        (function () {
+            var now = new Date();
+            document.querySelectorAll('.badge-new[data-added]').forEach(function (el) {
+                var added = new Date(el.getAttribute('data-added'));
+                if ((now - added) / 86400000 > 14) el.style.display = 'none';
+            });
+        })();
+    </script>
+
+</body>
+
+</html>
