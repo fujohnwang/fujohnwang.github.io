@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - FooSay</title>
+    <style>
+        :root {
+            /* 核心色彩定义 */
+            --bg-primary: #3F83F8;
+            --text-primary: #FFFFFF;
+            --text-secondary: rgba(255, 255, 255, 0.85);
+            --accent-orange: #FF7A00;
+            --accent-orange-hover: #E06A00;
+            
+            /* 卡片与结构色彩 */
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --card-border: rgba(255, 255, 255, 0.2);
+            --card-bg-hover: rgba(255, 255, 255, 0.15);
+            
+            /* 尺寸与字体 */
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-stack);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        /* 顶部阅读进度条 */
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background-color: var(--accent-orange);
+            z-index: 1000;
+            transition: width 0.1s ease;
+        }
+
+        /* 语言切换按钮 */
+        .lang-switch {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-primary);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .lang-switch:hover {
+            border-color: var(--accent-orange);
+            color: var(--accent-orange);
+            background: var(--card-bg-hover);
+            transform: translateY(-1px);
+        }
+
+        /* 多语言显示控制 */
+        body[data-lang="zh"] .lang-en { display: none !important; }
+        body[data-lang="en"] .lang-zh { display: none !important; }
+
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 80px 20px 60px;
+            position: relative;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .logo-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-lg);
+            margin-bottom: 24px;
+            color: var(--text-primary);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container:hover {
+            transform: scale(1.05);
+            border-color: var(--accent-orange);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .last-updated {
+            display: inline-block;
+            margin-top: 16px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            background: rgba(0, 0, 0, 0.15);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .policy-section {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-md);
+            padding: 32px;
+            margin-bottom: 24px;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .policy-section:hover {
+            background: var(--card-bg-hover);
+            transform: translateY(-2px);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .section-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 122, 0, 0.15);
+            color: var(--accent-orange);
+            border-radius: 10px;
+            margin-right: 16px;
+            flex-shrink: 0;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        ul {
+            color: var(--text-secondary);
+            margin-left: 20px;
+            margin-bottom: 16px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        a {
+            color: var(--accent-orange);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--accent-orange-hover);
+            text-decoration: underline;
+        }
+
+        .cta-container {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 40px;
+            border-top: 1px solid var(--card-border);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--accent-orange);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 14px 32px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 122, 0, 0.3);
+        }
+
+        .btn svg {
+            margin-right: 8px;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-orange-hover);
+            transform: translateY(-2px);
+            text-decoration: none;
+            box-shadow: 0 6px 20px rgba(255, 122, 0, 0.4);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 600px) {
+            .container {
+                padding: 70px 16px 40px;
+            }
+            .policy-section {
+                padding: 24px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .lang-switch {
+                top: 16px;
+                right: 16px;
+            }
+        }
+    </style>
+</head>
+<body data-lang="zh">
+
+    <!-- 阅读进度条 -->
+    <div id="progress-bar"></div>
+
+    <!-- 语言切换按钮 -->
+    <button class="lang-switch" onclick="toggleLanguage()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+        </svg>
+        <span class="lang-zh">English</span>
+        <span class="lang-en">中文</span>
+    </button>
+
+    <div class="container">
+        <!-- 头部区域 -->
+        <header>
+            <div class="logo-container">
+                <!-- FooSay Logo (麦克风+声波) -->
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                    <line x1="12" y1="19" x2="12" y2="22"></line>
+                    <path d="M8 22h8"></path>
+                    <line x1="4" y1="8" x2="4" y2="14" stroke="var(--accent-orange)"></line>
+                    <line x1="20" y1="8" x2="20" y2="14" stroke="var(--accent-orange)"></line>
+                </svg>
+            </div>
+            
+            <h1>
+                <span class="lang-zh">隐私政策</span>
+                <span class="lang-en">Privacy Policy</span>
+            </h1>
+            
+            <p class="subtitle">
+                <span class="lang-zh">属于你的声音，只留在你的 Mac 上。</span>
+                <span class="lang-en">Your voice, stays only on your Mac.</span>
+            </p>
+            
+            <div class="last-updated">
+                <span class="lang-zh">最后更新时间：2026年4月3日</span>
+                <span class="lang-en">Last updated: April 3, 2026</span>
+            </div>
+        </header>
+
+        <!-- 隐私政策核心内容 -->
+        <main>
+            <section class="policy-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            <path d="M9 12l2 2 4-4"></path>
+                        </svg>
+                    </div>
+                    <h2>
+                        <span class="lang-zh">我们的核心承诺</span>
+                        <span class="lang-en">Our Core Promise</span>
+                    </h2>
+                </div>
+                <!-- 中文版 -->
+                <p class="lang-zh">我们开发 <strong>FooSay</strong> 的初衷非常简单：为你提供最高效的 macOS 语音输入体验，同时对你的隐私保持绝对的敬畏。我们坚信，你所说的每一句话都属于你个人或你的业务机密。</p>
+                <p class="lang-zh">因此，我们的原则可以用一句话概括：<strong>我们不收集、不存储、不传输任何属于你的个人数据。</strong></p>
+                
+                <!-- 英文版 -->
+                <p class="lang-en">We built <strong>FooSay</strong> with a simple goal: to provide the most efficient macOS voice typing experience while maintaining absolute respect for your privacy. We firmly believe that every word you say belongs to you or your business secrets.</p>
+                <p class="lang-en">Therefore, our principle can be summarized in one sentence: <strong>We do not collect, store, or transmit any of your personal data.</strong></p>
+            </section>
+
+            <section class="policy-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
+                            <rect x="9" y="9" width="6" height="6"></rect>
+                            <line x1="9" y1="1" x2="9" y2="4"></line>
+                            <line x1="15" y1="1" x2="15" y2="4"></line>
+                            <line x1="9" y1="20" x2="9" y2="23"></line>
+                            <line x1="15" y1="20" x2="15" y2="23"></line>
+                            <line x1="20" y1="9" x2="23" y2="9"></line>
+                            <line x1="20" y1="14" x2="23" y2="14"></line>
+                            <line x1="1" y1="9" x2="4" y2="9"></line>
+                            <line x1="1" y1="14" x2="4" y2="14"></line>
+                        </svg>
+                    </div>
+                    <h2>
+                        <span class="lang-zh">语音数据的处理方式</span>
+                        <span class="lang-en">How Voice Data is Handled</span>
+                    </h2>
+                </div>
+                
+                <!-- 中文版 -->
+                <div class="lang-zh">
+                    <p>在使用 FooSay 时，应用需要获取您 Mac 的麦克风权限。关于这些语音数据：</p>
+                    <ul>
+                        <li><strong>完全本地化处理：</strong> FooSay 优先调用 macOS 本地的语音识别框架，这意味着您的音频处理完全在您的设备本地完成。</li>
+                        <li><strong>零云端留存：</strong> 即使在某些高级功能中需要调用云端接口，数据也是即焚式传输。我们的服务器（如果有）绝不会保存您的音频文件或转换后的文本。</li>
+                        <li><strong>不会用于模型训练：</strong> 您的声音和文本永远不会被我们用于训练任何机器学习或人工智能模型。</li>
+                    </ul>
+                </div>
+
+                <!-- 英文版 -->
+                <div class="lang-en">
+                    <p>When using FooSay, the app requires microphone access on your Mac. Regarding your voice data:</p>
+                    <ul>
+                        <li><strong>Fully Local Processing:</strong> FooSay prioritizes macOS's native speech recognition framework, meaning your audio processing is completely done locally on your device.</li>
+                        <li><strong>Zero Cloud Retention:</strong> Even if advanced features require calling cloud APIs, the data is transmitted ephemerally. Our servers (if any) will never save your audio files or converted text.</li>
+                        <li><strong>Never Used for AI Training:</strong> Your voice and text will never be used by us to train any machine learning or AI models.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="policy-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                            <line x1="1" y1="1" x2="23" y2="23"></line>
+                        </svg>
+                    </div>
+                    <h2>
+                        <span class="lang-zh">绝无隐藏的遥测与追踪</span>
+                        <span class="lang-en">No Hidden Telemetry or Tracking</span>
+                    </h2>
+                </div>
+                
+                <!-- 中文版 -->
+                <div class="lang-zh">
+                    <p>现如今，许多软件在后台默默记录用户的点击、使用时长甚至崩溃日志。<strong>FooSay 选择拒绝这种做法。</strong></p>
+                    <p>我们没有在代码中嵌入任何如 Google Analytics、Mixpanel 等第三方数据收集工具。我们不知道你每天打开软件多少次，也不知道你喜欢用哪些功能。你的使用习惯，只有你自己知道。</p>
+                </div>
+
+                <!-- 英文版 -->
+                <div class="lang-en">
+                    <p>Nowadays, many apps silently record users' clicks, usage time, and even crash logs in the background. <strong>FooSay chooses to reject this practice.</strong></p>
+                    <p>We have not embedded any third-party analytics SDKs like Google Analytics or Mixpanel in our code. We don't know how many times you open the software daily, nor do we know which features you use. Your habits are known only to you.</p>
+                </div>
+            </section>
+
+            <section class="policy-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                    </div>
+                    <h2>
+                        <span class="lang-zh">政策变更</span>
+                        <span class="lang-en">Policy Changes</span>
+                    </h2>
+                </div>
+                
+                <!-- 中文版 -->
+                <p class="lang-zh">如果未来我们在功能迭代中需要变更隐私政策（例如引入了必须要用户授权的新服务），我们会在应用内显著位置通知您。但在“不收集、不出售用户隐私”这一底线问题上，我们的立场永远不会改变。</p>
+                
+                <!-- 英文版 -->
+                <p class="lang-en">If we need to change our privacy policy in future updates (e.g., introducing a new service requiring your authorization), we will prominently notify you within the app. However, our bottom line of "never collecting or selling user privacy" will forever remain unchanged.</p>
+            </section>
+        </main>
+
+        <!-- CTA & 联系方式 -->
+        <div class="cta-container">
+            <h3 style="margin-bottom: 16px; font-size: 1.5rem;">
+                <span class="lang-zh">有任何疑问？</span>
+                <span class="lang-en">Have any questions?</span>
+            </h3>
+            <p style="margin-bottom: 24px; color: var(--text-secondary);">
+                <span class="lang-zh">由于我们不收集信息，这意味着当遇到问题时，我们可能需要您主动联系我们来复现 Bug。</span>
+                <span class="lang-en">Since we do not collect any telemetry, resolving issues may require you to actively contact us with bug details.</span>
+            </p>
+            <a href="https://afoo.me" class="btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                <span class="lang-zh">联系开发者</span>
+                <span class="lang-en">Contact Developer</span>
+            </a>
+        </div>
+
+        <!-- 页脚 -->
+        <footer>
+            <p>&copy; <span id="year">2026</span> FooSay. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // 自动更新页脚年份
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // 语言切换逻辑
+        function toggleLanguage() {
+            const body = document.body;
+            const currentLang = body.getAttribute('data-lang');
+            const newLang = currentLang === 'zh' ? 'en' : 'zh';
+            
+            // 更新 document 属性以触发 CSS 控制显隐
+            body.setAttribute('data-lang', newLang);
+            document.documentElement.lang = newLang === 'zh' ? 'zh-CN' : 'en';
+        }
+
+        // 根据系统偏好自动设置初始语言 (可选，目前默认设为 zh)
+        // const userLang = navigator.language || navigator.userLanguage;
+        // if (userLang.startsWith('en')) { toggleLanguage(); }
+
+        // 阅读进度条联动效果
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progress-bar').style.width = scrolled + "%";
+        });
+    </script>
+</body>
+</html>
