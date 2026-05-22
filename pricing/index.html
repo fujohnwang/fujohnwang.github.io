@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>福强企业服务咨询报价单 - 重设计版</title>
+    <style>
+        /* ================= 基础重置与变量 ================= */
+        :root {
+            --brand-blue: #4A72E8;      /* 提取自 Logo 的品牌蓝 */
+            --text-main: #1A1A1A;       /* 主标题及强调文本 */
+            --text-regular: #444444;    /* 常规正文 */
+            --text-light: #777777;      /* 补充说明文本 */
+            --border-color: #EAEAEA;    /* 极浅灰实线分割 */
+            --bg-color: #F7F9FC;        /* 页面背景 */
+            --bg-card: #FFFFFF;         /* 报价单背景 */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+            color: var(--text-regular);
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ================= 页面主体容器 ================= */
+        .quote-container {
+            background-color: var(--bg-card);
+            width: 100%;
+            max-width: 960px;
+            padding: 80px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.04);
+            border-radius: 12px;
+            position: relative;
+        }
+
+        /* ================= 头部：标题与二维码 ================= */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 70px;
+            position: relative;
+        }
+
+        .header-left-spacer {
+            width: 100px; /* 用于平衡右侧二维码宽度，保证标题绝对居中 */
+        }
+
+        .main-title {
+            font-size: 2.6rem;
+            font-weight: 600;
+            color: var(--text-main);
+            letter-spacing: 2px;
+            text-align: center;
+            flex-grow: 1;
+            padding-top: 10px;
+        }
+
+        .main-title .highlight {
+            color: var(--brand-blue);
+        }
+
+        /* 右上角二维码区块 */
+        .qr-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100px;
+        }
+
+        .qr-box {
+            width: 80px;
+            height: 80px;
+            background-color: #F0F4FF;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .qr-text {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        /* ================= 报价列表网格 ================= */
+        .quote-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .quote-item {
+            display: grid;
+            grid-template-columns: 2fr 3fr; /* 左侧标题占2份，右侧内容占3份 */
+            gap: 50px;
+            padding: 45px 0;
+            border-bottom: 1px solid var(--border-color); /* 改进：实线浅灰分割 */
+            align-items: flex-start;
+        }
+
+        .quote-item:last-child {
+            border-bottom: none;
+            padding-bottom: 20px;
+        }
+
+        /* 左侧项目名称 */
+        .item-name {
+            text-align: right;          /* 改进：靠右对齐，形成垂直中轴线 */
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-main);
+            padding-top: 5px;
+            letter-spacing: 1px;
+        }
+
+        /* 右侧价格详情 */
+        .item-details {
+            text-align: left;           /* 改进：强制左对齐 */
+        }
+
+        .price-line {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        .price-number {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-main);
+            display: inline-block;
+            width: 110px;               /* 改进：固定数字宽度，让单位完全对齐 */
+        }
+
+        .price-unit {
+            color: var(--text-regular);
+        }
+
+        .sub-desc {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-top: 8px;
+        }
+
+        /* 培训价格专属模块 */
+        .training-module {
+            margin-top: 20px;
+            background-color: #F8FAFF;  /* 增加品牌底色块，提升高级感 */
+            padding: 24px;
+            border-radius: 8px;
+            border-left: 4px solid var(--brand-blue);
+        }
+
+        .training-title {
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 16px;
+            font-size: 1.05rem;
+        }
+
+        .training-grid {
+            display: grid;
+            grid-template-columns: 80px 1fr; /* 改进：表格化排版，冒号完美对齐 */
+            gap: 12px;
+            font-size: 1rem;
+            align-items: center;
+        }
+
+        .training-label {
+            color: var(--text-regular);
+        }
+
+        .training-val {
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .min-unit {
+            margin-top: 16px;
+            font-size: 0.9rem;
+            color: var(--brand-blue);
+            font-weight: 500;
+        }
+
+        /* ================= 底部说明与 Logo ================= */
+        /* 改进：将右上角杂乱的注释放到底部集中展示 */
+        .footer-notes {
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px dashed var(--border-color);
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.8;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .footer-notes span::before {
+            content: "•";
+            margin-right: 6px;
+            color: var(--brand-blue);
+        }
+
+        .footer-logo {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .logo-main {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--brand-blue);
+            letter-spacing: -1px;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .logo-sub {
+            font-size: 1.1rem;
+            color: #888888;
+            letter-spacing: 1.5px;
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quote-container">
+    
+    <!-- 头部模块 -->
+    <div class="header">
+        <div class="header-left-spacer"></div>
+        <h1 class="main-title">福强<span class="highlight">企业服务</span>咨询报价单</h1>
+        <div class="qr-section">
+            <!-- 使用内联 SVG 模拟精美的二维码图标，替代原先突兀的紫色 -->
+            <div class="qr-box">
+                <svg width="50" height="50" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 10H40V40H10V10ZM60 10H90V40H60V10ZM10 60H40V90H10V60ZM45 10H55V25H45V10ZM45 30H55V55H45V30ZM60 45H90V55H60V45ZM60 60H75V90H60V60ZM80 60H90V75H80V60ZM80 80H90V90H80V80ZM45 60H55V90H45V60ZM20 20V30H30V20H20ZM70 20V30H80V20H70ZM20 70V80H30V70H20Z" fill="#4A72E8"/>
+                </svg>
+            </div>
+            <div class="qr-text">扫码联系洽谈</div>
+        </div>
+    </div>
+
+    <!-- 报价明细模块 -->
+    <div class="quote-list">
+        
+        <!-- 条目 1 -->
+        <div class="quote-item">
+            <div class="item-name">通用咨询价格</div>
+            <div class="item-details">
+                <div class="price-line">
+                    <span class="price-number">5,800</span>
+                    <span class="price-unit">元 / 小时</span>
+                </div>
+                <div class="price-line">
+                    <span class="price-number">24,980</span>
+                    <span class="price-unit">元 / 天</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 条目 2 -->
+        <div class="quote-item">
+            <div class="item-name">KEECARE<br>全年在线支持</div>
+            <div class="item-details">
+                <div class="price-line">
+                    <span class="price-number" style="width: auto; margin-right: 15px;">21.80</span>
+                    <span class="price-unit">万 / 年</span>
+                </div>
+                <div class="sub-desc">（含4次线下支持 / 每季度一次）</div>
+            </div>
+        </div>
+
+        <!-- 条目 3 -->
+        <div class="quote-item">
+            <div class="item-name">项目与培训价格</div>
+            <div class="item-details">
+                <div class="sub-desc" style="color: var(--text-main); margin-top: 0;">项目报价参考通用咨询价格，单独议价。</div>
+                
+                <div class="training-module">
+                    <div class="training-title">企业培训参考报价</div>
+                    <div class="training-grid">
+                        <span class="training-label">管理培训：</span>
+                        <span class="training-val">5,200 元 / 人(头) / 天</span>
+                        
+                        <span class="training-label">技术培训：</span>
+                        <span class="training-val">4,200 元 / 人(头) / 天</span>
+                    </div>
+                    <div class="min-unit">* 最小报价单元：5人起</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 底部注释模块 (由右上角移至此处，视觉更清爽) -->
+    <div class="footer-notes">
+        <span>所有报价只接受预付</span>
+        <span>初次合作，可先预付一小时咨询费</span>
+        <span>非同城交付，最低报价按天计费</span>
+    </div>
+
+    <!-- 底部 Logo 模块 -->
+    <div class="footer-logo">
+        <div class="logo-main">KEEVOL</div>
+        <div class="logo-sub">Consulting & Intelligence</div>
+    </div>
+
+</div>
+
+</body>
+</html>

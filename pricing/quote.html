@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>KEEVOL 企业服务顾问报价</title>
+    <style>
+        /* ================= 基础重置与变量 (Mobile First) ================= */
+        :root {
+            --brand-blue: #4A72E8;      /* 品牌主色 */
+            --brand-blue-light: #EBF0FF;/* 图标底色 */
+            --text-dark: #1A1A1A;       /* 深色主文本 */
+            --text-regular: #444444;    /* 常规文本 */
+            --text-light: #888888;      /* 次要说明文本 */
+            --border-color: #E8EBF2;    /* 极浅边框 */
+            --bg-page: #F4F6F9;         /* 整体页面背景 (PC端显现) */
+            --bg-paper: #FFFFFF;        /* 报价单背景 */
+            
+            /* 响应式间距变量 */
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 40px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-page);
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+            color: var(--text-regular);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            /* 移动端默认没有外边距，充满屏幕 */
+        }
+
+        /* 核心纸张容器 */
+        .document-wrapper {
+            background-color: var(--bg-paper);
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: var(--spacing-md); /* 移动端内边距 */
+            overflow: hidden;
+        }
+
+        /* ================= 头部 (Header) ================= */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: var(--spacing-md);
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .logo-box .logo-name {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--brand-blue);
+            line-height: 1;
+            letter-spacing: -0.5px;
+        }
+        .logo-box .logo-sub {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        .slogan {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            position: relative;
+        }
+        /* PC端Slogan下的蓝线 */
+        .slogan::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 0;
+            width: 30px;
+            height: 2px;
+            background-color: var(--brand-blue);
+            display: none; /* 手机端隐藏 */
+        }
+
+        /* ================= 标题与说明区 (Hero Section) ================= */
+        .hero {
+            display: flex;
+            flex-direction: column; /* 手机端上下排列 */
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .hero-title h1 {
+            font-size: 2rem;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+        .hero-title .en-title {
+            font-size: 1.1rem;
+            color: #A0A8B5;
+            font-weight: 300;
+            margin-bottom: var(--spacing-md);
+        }
+        .hero-title .desc {
+            font-size: 0.95rem;
+            color: var(--text-regular);
+            line-height: 1.6;
+        }
+
+        .hero-notice {
+            background-color: #FAFCFF;
+            border-radius: 8px;
+            padding: var(--spacing-md);
+            border-left: 3px solid var(--brand-blue);
+        }
+        .notice-icon {
+            width: 40px; height: 40px;
+            background-color: var(--brand-blue-light);
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            margin-bottom: 12px;
+        }
+        .hero-notice h3 {
+            font-size: 1rem;
+            color: var(--brand-blue);
+            margin-bottom: 8px;
+        }
+        .hero-notice p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* ================= 报价卡片区 (Pricing Cards) ================= */
+        .pricing-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+
+        .card {
+            background: var(--bg-paper);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: var(--spacing-md);
+            display: flex;
+            flex-direction: column; /* 手机端垂直排列 */
+            gap: var(--spacing-sm);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 24px rgba(74, 114, 232, 0.08);
+        }
+
+        /* 卡片左侧：图标与标题 */
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .card-icon {
+            width: 50px; height: 50px;
+            background-color: var(--brand-blue-light);
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            flex-shrink: 0;
+        }
+        .card-title h2 {
+            font-size: 1.25rem;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+        .card-title p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* 卡片右侧：价格 */
+        .card-price {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--border-color); /* 手机端加分割线 */
+        }
+        
+        .price-row {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 8px;
+        }
+        .price-symbol {
+            color: var(--brand-blue);
+            font-size: 1.1rem;
+            margin-right: 4px;
+        }
+        .price-num {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--brand-blue);
+            margin-right: 6px;
+        }
+        .price-unit {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .price-desc {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        /* ================= 培训表格区 ================= */
+        .table-container {
+            width: 100%;
+            margin-top: 16px;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        th {
+            color: var(--brand-blue);
+            font-weight: 500;
+            background-color: #FAFCFF;
+        }
+        td:first-child { color: var(--text-dark); font-weight: 500; }
+        td:last-child { color: var(--text-regular); }
+        
+        .table-footer-note {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 12px;
+            padding-left: 12px;
+        }
+
+        /* ================= 底部 (Footer) ================= */
+        .footer {
+            margin-top: var(--spacing-lg);
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column; /* 手机端上下排列 */
+            gap: var(--spacing-lg);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .qr-section {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background-color: #FAFCFF;
+            padding: 16px;
+            border-radius: 8px;
+        }
+        .qr-text {
+            text-align: right;
+            flex-grow: 1;
+        }
+        .qr-text h4 {
+            color: var(--brand-blue);
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+        .qr-text p { font-size: 0.8rem; color: var(--text-light); }
+        .qr-image {
+            width: 80px; height: 80px;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            padding: 4px;
+            border-radius: 4px;
+        }
+
+        /* 真实业务规则声明 */
+        .business-rules {
+            margin-top: 24px;
+            font-size: 0.75rem;
+            color: #999;
+            text-align: center;
+            line-height: 1.8;
+        }
+        .business-rules span { display: inline-block; margin: 0 8px; }
+
+
+        /* ================= 响应式断点 (PC/平板端) ================= */
+        @media (min-width: 768px) {
+            body {
+                padding: 40px 20px; /* PC端给body加内边距，让纸张悬浮 */
+            }
+
+            .document-wrapper {
+                padding: 60px;
+                border-radius: 12px;
+                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05); /* 纸张投影质感 */
+            }
+
+            .slogan::after { display: block; } /* 显示蓝线 */
+
+            .hero {
+                flex-direction: row;
+                align-items: flex-start;
+                justify-content: space-between;
+                margin-bottom: 60px;
+            }
+            .hero-title { max-width: 60%; }
+            .hero-title h1 { font-size: 2.6rem; }
+            
+            .hero-notice {
+                width: 260px;
+                background-color: transparent;
+                border-left: 1px solid var(--border-color);
+                border-radius: 0;
+                padding: 0 0 0 24px;
+            }
+
+            /* 卡片PC端改为三列网格/弹性布局 */
+            .card {
+                flex-direction: row;
+                align-items: center;
+                padding: 30px;
+                gap: 30px;
+            }
+            .card-header {
+                flex: 1;
+                border-right: 1px solid var(--border-color); /* 增加竖向分割线 */
+                padding-right: 20px;
+            }
+            .card-price {
+                flex: 1;
+                margin-top: 0;
+                padding-top: 0;
+                border-top: none;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            /* 针对包含表格的卡片特殊处理 */
+            .card.table-card {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .card.table-card .card-header {
+                border-right: none;
+                padding-right: 0;
+                margin-bottom: 10px;
+            }
+
+            .footer {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-end;
+            }
+            .qr-section { background-color: transparent; padding: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="document-wrapper">
+    
+    <!-- 顶部 Header -->
+    <header class="header">
+        <div class="logo-box">
+            <div class="logo-name">KEEVOL</div>
+            <div class="logo-sub">Consulting & Intelligence</div>
+        </div>
+        <div class="slogan">专业洞察 · 赋能增长</div>
+    </header>
+
+    <!-- 标题与说明区 -->
+    <section class="hero">
+        <div class="hero-title">
+            <h1>企业服务顾问报价</h1>
+            <div class="en-title">Enterprise Consulting Pricing</div>
+            <div class="desc">为企业提供专业的战略咨询、管理提升与人才发展解决方案，<br>助力组织持续增长与能力进化。</div>
+        </div>
+        
+        <div class="hero-notice">
+            <div class="notice-icon">
+                <!-- 用户组图标 -->
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--brand-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+            </div>
+            <h3>说明</h3>
+            <p>以下报价仅供参考，具体服务内容、频次及交付方式可根据企业需求定制，最终以双方签订的服务协议为准。</p>
+        </div>
+    </section>
+
+    <!-- 报价明细区 -->
+    <main class="pricing-list">
+        
+        <!-- 卡片 1: 顾问咨询 -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--brand-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
+                <div class="card-title">
+                    <h2>顾问咨询</h2>
+                    <p>专业顾问一对一服务</p>
+                </div>
+            </div>
+            <div class="card-price">
+                <div class="price-row">
+                    <span class="price-symbol">¥</span>
+                    <span class="price-num">5,800</span>
+                    <span class="price-unit">/ 小时</span>
+                </div>
+                <div class="price-row" style="margin-bottom:0;">
+                    <span class="price-symbol">¥</span>
+                    <span class="price-num">24,980</span>
+                    <span class="price-unit">/ 天</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 卡片 2: KEECARE -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon">
+                    <!-- 耳机支持图标 -->
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--brand-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
+                    </svg>
+                </div>
+                <div class="card-title">
+                    <h2>KEECARE 年度支持</h2>
+                    <p>全年在线支持与季度线下服务</p>
+                </div>
+            </div>
+            <div class="card-price">
+                <div class="price-row">
+                    <span class="price-symbol">¥</span>
+                    <span class="price-num">218,000</span>
+                    <span class="price-unit">/ 年</span>
+                </div>
+                <div class="price-desc">（含4次线下支持 / 每季度一次）</div>
+            </div>
+        </div>
+
+        <!-- 卡片 3: 培训服务 (包含表格) -->
+        <div class="card table-card">
+            <div class="card-header">
+                <div class="card-icon">
+                    <!-- 剪贴板图标 -->
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--brand-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect><path d="M9 14h6M9 18h6M9 10h6"></path>
+                    </svg>
+                </div>
+                <div class="card-title">
+                    <h2>项目与培训服务</h2>
+                    <p>项目报价参考通用咨询价格单独议价</p>
+                </div>
+            </div>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>企业培训参考报价</th>
+                            <th>单价</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>管理培训</td>
+                            <td>¥ 5,200 / 人 · 天</td>
+                        </tr>
+                        <tr>
+                            <td>技术培训</td>
+                            <td>¥ 4,200 / 人 · 天</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="table-footer-note">最小报价单元：5人起</div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- 底部栏 -->
+    <footer class="footer">
+        <!-- 左侧联系信息 -->
+        <div class="contact-info">
+            <div class="logo-name" style="font-size:1.5rem; font-weight:800; color:var(--brand-blue); margin-bottom:8px;">KEEVOL</div>
+            <div class="contact-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                400-xxx-xxxx
+            </div>
+            <div class="contact-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                contact@keevol.com
+            </div>
+            <div class="contact-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                上海市浦东新区陆家嘴环路 xxx 号
+            </div>
+        </div>
+
+        <!-- 右侧二维码 -->
+        <div class="qr-section">
+            <div class="qr-text">
+                <h4>联系顾问</h4>
+                <p>扫码预约企业咨询</p>
+            </div>
+            <!-- 这里用SVG模拟了一个二维码框，实际使用时请替换为真实img标签 -->
+            <div class="qr-image">
+                <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none">
+                    <rect x="5" y="5" width="25" height="25" fill="#1A1A1A"/>
+                    <rect x="70" y="5" width="25" height="25" fill="#1A1A1A"/>
+                    <rect x="5" y="70" width="25" height="25" fill="#1A1A1A"/>
+                    <rect x="40" y="40" width="20" height="20" fill="var(--brand-blue)"/>
+                    <path d="M40 10h20v5H40zM10 40h20v5H10zM70 40h20v5H70zM40 85h20v5H40z" fill="#1A1A1A"/>
+                </svg>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 底部声明（合并了旧版本的核心业务规则） -->
+    <div class="business-rules">
+        <span>* 注：所有报价只接受预付</span>
+        <span>* 初次合作，可先预付一小时咨询费</span>
+        <span>* 非同城交付，最低报价按天计费</span>
+    </div>
+
+</div>
+
+</body>
+</html>
