@@ -36,7 +36,7 @@ LuckyJon💫scarface.local ➜  .codex git:(master) ✗ cat AGENTS.md
 
 项目级别的上下文通常放在项目的根目录下，一般添加只跟这个项目相关的上下文信息，避免占用不必要的上下文窗口，毕竟，大模型的上下文窗口就算声称是百万tokens，但上下文内容一多，效果还是会大大折扣，所以，能简约就简约。 
 
-像我现在手头上的fscloud项目的AGNETS.md， 内容如下供大家参考：
+像我现在手头上的 [fscloud](https://keevol.cn/#fscloud) 项目的AGNETS.md， 内容如下供大家参考：
 
 ```
 LuckyJon💫scarface.local ➜  fscloud git:(master) cat AGENTS.md
@@ -94,7 +94,7 @@ CODEX_HOME={profile 目录} codex
 
 跟Claude Code类似， Codex里其实也支持项目层级以下的目录层级的上下文文件。
 
-比如，在fscloud项目中，我就采用了多层级、多模块的上下文文件管理：
+比如，在 [fscloud](https://keevol.cn/#fscloud) 项目中，我就采用了多层级、多模块的上下文文件管理：
 
 ```
 LuckyJon💫scarface.local ➜  fscloud git:(master) tree -L 2
