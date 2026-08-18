@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tried - Fuqiang's epitaph</title>
+    <style>
+        /* =========================================
+           设计语言：极简、素白、新拟态雕塑感
+           ========================================= */
+        :root {
+            /* 高级素石膏/哑光瓷底色 */
+            --base-color: #e6eaf0;
+            --stone-color: #eef2f7;
+            /* 柔和的环境光影 */
+            --shadow-dark: rgba(163, 177, 198, 0.6);
+            --shadow-light: rgba(255, 255, 255, 1);
+            /* 刻痕内部的暗调 */
+            --carve-depth: #c1c9d6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            background-color: var(--base-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            /* 系统级无衬线字体，方正、现代、工业感 */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* 纯净的背景环境光，打破平面的死板 */
+        .ambient-light {
+            position: absolute;
+            width: 80vw;
+            height: 80vw;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 60%);
+            top: -20vh;
+            left: -10vw;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* =========================================
+           石碑主体：浑然一体的悬浮雕塑
+           ========================================= */
+        .monolith {
+            position: relative;
+            z-index: 1;
+            width: clamp(280px, 45vw, 360px);
+            height: clamp(400px, 60vh, 560px);
+            /* 优雅修长的拱门比例 */
+            border-radius: 180px 180px 8px 8px;
+            background: var(--stone-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            /* 初始阴影，后续由JS接管以实现互动 */
+            box-shadow: 
+                20px 20px 50px var(--shadow-dark), 
+                -20px -20px 50px var(--shadow-light),
+                inset 1px 1px 2px rgba(255,255,255,1), 
+                inset -1px -1px 2px rgba(0,0,0,0.03);
+            /* 入场动画 */
+            opacity: 0;
+            transform: translateY(20px);
+            animation: emerge 2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.2s;
+        }
+
+        /* 赋予物体“真实感”的微弱噪点纹理（模拟细微的石膏颗粒） */
+        .monolith::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            mix-blend-mode: overlay;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* =========================================
+           视觉核心：极度写实的深刻印记
+           ========================================= */
+        .epitaph {
+            position: relative;
+            z-index: 3;
+            margin: 0;
+            margin-top: -40px; 
+            font-size: clamp(5rem, 12vw, 7.5rem);
+            font-weight: 900; /* 最粗字重 */
+            letter-spacing: -0.02em; /* 紧凑排版，更有力量感 */
+            
+            /* 这里的文字不是黑色的，而是石头的暗部颜色 */
+            color: var(--carve-depth); 
+            
+            /* 
+               纯物理阴刻效果：
+               左上角内侧产生阴影 (模拟深陷)
+               右下角边缘产生高光 (模拟切角反光)
+            */
+            text-shadow: 
+                -1px -1px 2px rgba(0, 0, 0, 0.15), 
+                1px 1px 2px rgba(255, 255, 255, 1);
+        }
+
+        /* =========================================
+           基座文字：克制、精密
+           ========================================= */
+        .dates {
+            position: absolute;
+            bottom: 40px;
+            z-index: 3;
+            color: var(--carve-depth);
+            font-family: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, monospace;
+            font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+            letter-spacing: 0.4em; /* 极宽字间距，营造呼吸感 */
+            font-weight: 700;
+            /* 与主标题一致的精细雕刻感 */
+            text-shadow: 
+                -1px -1px 1px rgba(0, 0, 0, 0.1), 
+                1px 1px 1px rgba(255, 255, 255, 0.8);
+        }
+
+        @keyframes emerge {
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 柔和的环境聚光灯 -->
+    <div class="ambient-light" id="light"></div>
+
+    <!-- 纯白石碑 -->
+    <div class="monolith" id="monolith">
+        <h1 class="epitaph" id="epitaph">Tried</h1>
+        <div class="dates">SINCE 1979 ~</div>
+    </div>
+
+    <script>
+        /* =========================================
+           高级交互：带“重力阻尼感”的光影追踪
+           （让交互不再是轻浮的跟随，而是有质量的平滑过渡）
+           ========================================= */
+        const monolith = document.getElementById('monolith');
+        const epitaph = document.getElementById('epitaph');
+        const dates = document.getElementById('dates');
+        const light = document.getElementById('light');
+
+        // 目标鼠标位置
+        let targetX = 0; 
+        let targetY = 0;
+        // 当前缓动位置
+        let currentX = 0; 
+        let currentY = 0;
+
+        // 捕捉屏幕互动 (归一化到 -1 到 1 之间)
+        const updateTarget = (clientX, clientY) => {
+            targetX = (clientX / window.innerWidth - 0.5) * 2;
+            targetY = (clientY / window.innerHeight - 0.5) * 2;
+        };
+
+        window.addEventListener('mousemove', (e) => updateTarget(e.clientX, e.clientY));
+        window.addEventListener('touchstart', (e) => updateTarget(e.touches[0].clientX, e.touches[0].clientY), {passive: true});
+        window.addEventListener('touchmove', (e) => updateTarget(e.touches[0].clientX, e.touches[0].clientY), {passive: true});
+
+        // 渲染循环
+        function render() {
+            // 平滑插值 (Lerp)，0.05决定了阻尼感，越小越沉重
+            currentX += (targetX - currentX) * 0.05;
+            currentY += (targetY - currentY) * 0.05;
+
+            // 1. 背景环境光跟随移动，产生大空间的通透感
+            light.style.transform = `translate(${currentX * 10}vw, ${currentY * 10}vh)`;
+
+            // 2. 碑体新拟态立体阴影运算
+            // 光源在鼠标处，阴影投射在相反方向
+            const shadowOffsetX = -currentX * 30;
+            const shadowOffsetY = -currentY * 30;
+            
+            // 为了保持立体感，即使鼠标在正中央，也保留微弱的基础阴影
+            monolith.style.boxShadow = `
+                ${shadowOffsetX + 10}px ${shadowOffsetY + 10}px 50px rgba(163, 177, 198, 0.6), 
+                ${-shadowOffsetX - 10}px ${-shadowOffsetY - 10}px 50px rgba(255, 255, 255, 1),
+                inset ${-currentX * 3}px ${-currentY * 3}px 4px rgba(255,255,255,0.8), 
+                inset ${currentX * 3}px ${currentY * 3}px 4px rgba(0,0,0,0.05)
+            `;
+
+            // 3. 极写实文字雕刻反光运算
+            // 刻痕内壁的反光面与外部碑体完全相反
+            const textShadowX = currentX * 1.5;
+            const textShadowY = currentY * 1.5;
+
+            const textShadowRule = `
+                ${textShadowX - 1}px ${textShadowY - 1}px 2px rgba(0, 0, 0, 0.15), 
+                ${-textShadowX + 1}px ${-textShadowY + 1}px 2px rgba(255, 255, 255, 1)
+            `;
+            epitaph.style.textShadow = textShadowRule;
+            
+            requestAnimationFrame(render);
+        }
+
+        render();
+    </script>
+</body>
+</html>
