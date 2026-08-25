@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="zh" class="lang-zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FooCloud (福云) - Privacy Policy | 隐私政策</title>
+  <style>
+    /* ==========================================================================
+       CSS Variables & Design Tokens (Blue, White, Orange Palette)
+       ========================================================================== */
+    :root {
+      --primary-blue: #3F83F8;
+      --primary-blue-deep: #1A56DB;
+      --primary-blue-dark: #1E429F;
+      --primary-blue-light: #EBF5FF;
+      --primary-blue-subtle: rgba(63, 131, 248, 0.08);
+
+      --accent-orange: #FF6B00;
+      --accent-orange-hover: #E05D00;
+      --accent-orange-light: #FFF4ED;
+      --accent-orange-glow: rgba(255, 107, 0, 0.25);
+
+      --color-white: #FFFFFF;
+      --color-offwhite: #F9FAFB;
+      --color-card-bg: #FFFFFF;
+      --color-text-main: #1F2A37;
+      --color-text-secondary: #4B5563;
+      --color-text-muted: #9CA3AF;
+      --color-border: #E5E7EB;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 10px 30px rgba(30, 66, 159, 0.08);
+      --shadow-lg: 0 20px 40px rgba(30, 66, 159, 0.12);
+      --shadow-orange: 0 8px 20px var(--accent-orange-glow);
+
+      --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
+
+    /* ==========================================================================
+       Base Reset & Global Styles
+       ========================================================================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      background-color: var(--primary-blue);
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.12) 0%, transparent 25%),
+        radial-gradient(circle at 90% 80%, rgba(255, 107, 0, 0.15) 0%, transparent 30%),
+        linear-gradient(180deg, var(--primary-blue) 0%, #2B6CB0 100%);
+      background-attachment: fixed;
+      color: var(--color-white);
+      font-family: var(--font-family);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Multi-language Visibility Controller */
+    html.lang-zh .en-text { display: none !important; }
+    html.lang-en .zh-text { display: none !important; }
+
+    /* ==========================================================================
+       Header & Navigation
+       ========================================================================== */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background-color: rgba(63, 131, 248, 0.85);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 0.85rem 1.5rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--color-white);
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      background: var(--color-white);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .brand-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      margin-left: 0.25rem;
+    }
+
+    /* Language Switcher Button */
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 4px;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.25s ease;
+    }
+
+    .lang-switcher:hover {
+      background: rgba(255, 255, 255, 0.25);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .lang-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-white);
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .lang-btn.active {
+      background-color: var(--accent-orange);
+      color: var(--color-white);
+      box-shadow: var(--shadow-orange);
+    }
+
+    /* ==========================================================================
+       Hero Section
+       ========================================================================== */
+    .hero {
+      text-align: center;
+      padding: 3.5rem 1.5rem 2.5rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background-color: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: var(--color-white);
+      padding: 6px 16px;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+      backdrop-filter: blur(8px);
+    }
+
+    .badge-pill-orange {
+      background-color: var(--accent-orange);
+      border-color: rgba(255, 255, 255, 0.4);
+      box-shadow: var(--shadow-orange);
+    }
+
+    .hero-title {
+      font-size: 2.75rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      letter-spacing: -0.5px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero-subtitle {
+      font-size: 1.125rem;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 640px;
+      margin: 0 auto;
+      font-weight: 400;
+    }
+
+    /* ==========================================================================
+       Layout Container
+       ========================================================================== */
+    .main-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2rem;
+      align-items: start;
+      flex: 1;
+    }
+
+    /* ==========================================================================
+       Sidebar Navigation (TOC)
+       ========================================================================== */
+    .sidebar {
+      position: sticky;
+      top: 5.5rem;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+    }
+
+    .sidebar-title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: rgba(255, 255, 255, 0.8);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .toc-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      color: rgba(255, 255, 255, 0.85);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s ease;
+    }
+
+    .toc-link:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: var(--color-white);
+      transform: translateX(4px);
+    }
+
+    .toc-link.active {
+      background-color: var(--accent-orange);
+      color: var(--color-white);
+      font-weight: 600;
+      box-shadow: var(--shadow-orange);
+    }
+
+    /* ==========================================================================
+       Content Card (White Surface for High Readability)
+       ========================================================================== */
+    .content-card {
+      background-color: var(--color-card-bg);
+      color: var(--color-text-main);
+      border-radius: var(--radius-lg);
+      padding: 3rem;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .policy-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+      font-weight: 500;
+    }
+
+    .meta-item strong {
+      color: var(--color-text-secondary);
+    }
+
+    /* Section Styling */
+    .policy-section {
+      margin-bottom: 2.75rem;
+      scroll-margin-top: 6rem;
+    }
+
+    .policy-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 1rem;
+    }
+
+    .section-icon-wrap {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background-color: var(--primary-blue-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--primary-blue-dark);
+      letter-spacing: -0.3px;
+    }
+
+    .policy-text {
+      font-size: 0.975rem;
+      color: var(--color-text-secondary);
+      line-height: 1.75;
+      margin-bottom: 1rem;
+    }
+
+    .policy-text p {
+      margin-bottom: 0.85rem;
+    }
+
+    /* Custom Highlight Box */
+    .highlight-box {
+      background-color: var(--accent-orange-light);
+      border-left: 4px solid var(--accent-orange);
+      padding: 1.25rem 1.5rem;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin: 1.25rem 0;
+    }
+
+    .highlight-box-title {
+      font-weight: 700;
+      color: var(--accent-orange-hover);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 0.35rem;
+      font-size: 0.95rem;
+    }
+
+    .highlight-box p {
+      color: #9A3412;
+      font-size: 0.9rem;
+      margin-bottom: 0;
+      line-height: 1.6;
+    }
+
+    /* Styled Lists */
+    .policy-list {
+      list-style: none;
+      margin: 1rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .policy-list li {
+      position: relative;
+      padding-left: 1.75rem;
+      font-size: 0.95rem;
+      color: var(--color-text-secondary);
+      line-height: 1.65;
+    }
+
+    .policy-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.6rem;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--accent-orange);
+    }
+
+    .policy-list strong {
+      color: var(--color-text-main);
+    }
+
+    /* Data Table */
+    .table-container {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+    }
+
+    .policy-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    .policy-table th {
+      background-color: var(--color-offwhite);
+      color: var(--color-text-main);
+      font-weight: 600;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .policy-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+    }
+
+    .policy-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Contact Card */
+    .contact-card {
+      background: linear-gradient(135deg, var(--primary-blue-light) 0%, #FFFFFF 100%);
+      border: 1px solid rgba(63, 131, 248, 0.2);
+      border-radius: var(--radius-md);
+      padding: 1.75rem;
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background-color: var(--accent-orange);
+      color: var(--color-white);
+      text-decoration: none;
+      padding: 10px 24px;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.25s ease;
+      align-self: flex-start;
+      box-shadow: var(--shadow-orange);
+      border: none;
+      cursor: pointer;
+    }
+
+    .contact-btn:hover {
+      background-color: var(--accent-orange-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px var(--accent-orange-glow);
+    }
+
+    /* ==========================================================================
+       Footer
+       ========================================================================== */
+    .footer {
+      background-color: rgba(26, 86, 219, 0.95);
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      margin-top: auto;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.75);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-orange);
+    }
+
+    .copyright {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* Floating Back to Top Button */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background-color: var(--accent-orange);
+      color: var(--color-white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-orange);
+      border: none;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 90;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      background-color: var(--accent-orange-hover);
+      transform: translateY(-4px);
+    }
+
+    /* ==========================================================================
+       Responsive Breakpoints
+       ========================================================================== */
+    @media (max-width: 900px) {
+      .main-container {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        display: none;
+      }
+      .content-card {
+        padding: 2rem 1.5rem;
+      }
+      .hero-title {
+        font-size: 2.15rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .header {
+        padding: 0.75rem 1rem;
+      }
+      .hero {
+        padding: 2.5rem 1rem 2rem;
+      }
+      .hero-title {
+        font-size: 1.85rem;
+      }
+      .content-card {
+        padding: 1.5rem 1.25rem;
+        border-radius: var(--radius-md);
+      }
+      .policy-section {
+        margin-bottom: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="nav-container">
+      <a href="javascript:void(0);" class="brand" title="FooCloud">
+        <div class="brand-icon">
+          <!-- Inlined Cloud Sync SVG Icon -->
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4C9.11 4 6.6 5.64 5.35 8.04C2.34 8.36 0 10.91 0 14C0 17.31 2.69 20 6 20H19C21.76 20 24 17.76 24 15C24 12.36 21.95 10.22 19.35 10.04Z" fill="#3F83F8"/>
+            <path d="M12 12V16M12 16L10 14M12 16L14 14" stroke="#FF6B00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M9 10L12 7L15 10" stroke="#FF6B00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="brand-title zh-text">FooCloud 福云</span>
+        <span class="brand-title en-text">FooCloud</span>
+        <span class="brand-tag zh-text">网盘同步服务</span>
+        <span class="brand-tag en-text">Cloud Sync</span>
+      </a>
+
+      <!-- Language Selector (Removed onclick) -->
+      <div class="lang-switcher" role="group" aria-label="Language Selector">
+        <button type="button" class="lang-btn active" id="btn-zh">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+          中文
+        </button>
+        <button type="button" class="lang-btn" id="btn-en">
+          English
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="badge-pill badge-pill-orange">
+      <!-- Shield Check Icon -->
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg>
+      <span class="zh-text">端到端数据主权保护</span>
+      <span class="en-text">End-to-End Data Sovereignty</span>
+    </div>
+    
+    <h1 class="hero-title zh-text">FooCloud（福云）隐私权政策</h1>
+    <h1 class="hero-title en-text">FooCloud Privacy Policy</h1>
+    
+    <p class="hero-subtitle zh-text">
+      我们深知同步网盘中数据的私密性与重要性。本政策详细阐述 FooCloud 如何严格保护您的个人身份信息、文件数据与同步隐私。
+    </p>
+    <p class="hero-subtitle en-text">
+      We deeply respect your data ownership. This policy outlines how FooCloud securely handles your personal identity, synchronized files, and gateway transmissions.
+    </p>
+  </section>
+
+  <!-- Main Content Layout -->
+  <div class="main-container">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+        <span class="zh-text">目录索引</span>
+        <span class="en-text">Table of Contents</span>
+      </div>
+      <ul class="toc-list">
+        <li><a href="#section-overview" class="toc-link active"><span class="zh-text">1. 服务概述与原则</span><span class="en-text">1. Overview & Principles</span></a></li>
+        <li><a href="#section-collect" class="toc-link"><span class="zh-text">2. 我们收集的信息</span><span class="en-text">2. Data We Collect</span></a></li>
+        <li><a href="#section-usage" class="toc-link"><span class="zh-text">3. 数据的使用方式</span><span class="en-text">3. How We Use Data</span></a></li>
+        <li><a href="#section-encryption" class="toc-link"><span class="zh-text">4. 加密与安全存储</span><span class="en-text">4. Encryption & Storage</span></a></li>
+        <li><a href="#section-sharing" class="toc-link"><span class="zh-text">5. 数据共享与第三方</span><span class="en-text">5. Sharing & Third-Parties</span></a></li>
+        <li><a href="#section-rights" class="toc-link"><span class="zh-text">6. 用户数据权利与注销</span><span class="en-text">6. Your Rights & Erasure</span></a></li>
+        <li><a href="#section-contact" class="toc-link"><span class="zh-text">7. 联系与合规</span><span class="en-text">7. Contact & Compliance</span></a></li>
+      </ul>
+    </aside>
+
+    <!-- Main White Content Card -->
+    <main class="content-card">
+      
+      <!-- Meta Information -->
+      <div class="policy-meta">
+        <div class="meta-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span class="zh-text">生效日期：<strong>2026年08月25日</strong></span>
+          <span class="en-text">Effective Date: <strong>August 25, 2026</strong></span>
+        </div>
+        <div class="meta-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          <span class="zh-text">版本：<strong>v2.4 (Security Enhanced)</strong></span>
+          <span class="en-text">Version: <strong>v2.4 (Security Enhanced)</strong></span>
+        </div>
+      </div>
+
+      <!-- Section 1: Overview -->
+      <section id="section-overview" class="policy-section">
+        <div class="section-header">
+          <div class="section-icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3F83F8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+          </div>
+          <h2 class="section-title zh-text">1. 服务概述与核心隐私原则</h2>
+          <h2 class="section-title en-text">1. Service Overview & Privacy Principles</h2>
+        </div>
+        <div class="policy-text">
+          <div class="zh-text">
+            <p>FooCloud（福云）是一款致力于为个人与团队提供高效、安全的文件同步与云端存储解决方案。我们坚信：<strong>您的数据归您所有，且仅归您所有</strong>。</p>
+            <p>我们遵循最小必要原则（Data Minimization）与端到端隐私保护设计（Privacy by Design），绝不将您的个人数据或文件内容出售给任何第三方用于广告追踪或模型训练。</p>
+          </div>
+          <div class="en-text">
+            <p>FooCloud is a high-performance cloud synchronization and storage service engineered for individuals and organizations. Our core philosophy is simple: <strong>Your data belongs to you, and only you</strong>.</p>
+            <p>We adhere to data minimization and privacy-by-design standards. We never sell your personal data, synchronization metadata, or file payloads to third parties for advertising or unauthorized AI model training.</p>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          <div class="highlight-box-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            <span class="zh-text">零知识承诺 (Zero-Knowledge Stance)</span>
+            <span class="en-text">Zero-Knowledge Commitment</span>
+          </div>
+          <p class="zh-text">在启用了客户端专属加密模式下，FooCloud 服务端仅保存加密后的二进制数据块（Chunks）。即便发生物理介质泄漏，没有您的私钥，任何人都无法解密您的文件。</p>
+          <p class="en-text">When client-side encryption is enabled, FooCloud servers only hold encrypted binary chunks. Without your private keys, nobody—including FooCloud operators—can decrypt your file contents.</p>
+        </div>
+      </section>
+
+      <!-- Section 2: Data We Collect -->
+      <section id="section-collect" class="policy-section">
+        <div class="section-header">
+          <div class="section-icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3F83F8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          </div>
+          <h2 class="section-title zh-text">2. 我们收集的信息类型</h2>
+          <h2 class="section-title en-text">2. Information We Collect</h2>
+        </div>
+        <div class="policy-text">
+          <div class="zh-text">
+            <p>为了保障文件能够实时、无冲突地跨设备同步，FooCloud 仅收集实现该功能所不可或缺的信息：</p>
+          </div>
+          <div class="en-text">
+            <p>To enable real-time, conflict-free synchronization across all your linked devices, FooCloud collects only strictly necessary data:</p>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table class="policy-table">
+            <thead>
+              <tr>
+                <th style="width: 25%;"><span class="zh-text">类别</span><span class="en-text">Category</span></th>
+                <th style="width: 45%;"><span class="zh-text">具体项目</span><span class="en-text">Details Collected</span></th>
+                <th style="width: 30%;"><span class="zh-text">收集目的</span><span class="en-text">Purpose</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong><span class="zh-text">账户信息</span><span class="en-text">Account Profile</span></strong></td>
+                <td><span class="zh-text">注册邮箱、哈希加盐密码、认证令牌 (Token)</span><span class="en-text">Email address, salted & hashed password, auth tokens</span></td>
+                <td><span class="zh-text">身份认证与账户保护</span><span class="en-text">Authentication & Security</span></td>
+              </tr>
+              <tr>
+                <td><strong><span class="zh-text">同步元数据</span><span class="en-text">Sync Metadata</span></strong></td>
+                <td><span class="zh-text">文件路径、SHA-256 分块哈希、修改时间戳、文件大小</span><span class="en-text">File paths, chunk hashes (SHA-256), timestamps, sizes</span></td>
+                <td><span class="zh-text">增量同步与版本冲突合并</span><span class="en-text">Differential sync & conflict resolution</span></td>
+              </tr>
+              <tr>
+                <td><strong><span class="zh-text">设备与网关节点</span><span class="en-text">Device & Gateway</span></strong></td>
+                <td><span class="zh-text">客户端标识符 (Device ID)、操作系统版本、网关连接节点地址</span><span class="en-text">Device ID, OS version, active Gateway node address</span></td>
+                <td><span class="zh-text">就近路由加速与多端会话管理</span><span class="en-text">Routing acceleration & active session control</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Section 3: How We Use Data -->
+      <section id="section-usage" class="policy-section">
+        <div class="section-header">
+          <div class="section-icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3F83F8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+          </div>
+          <h2 class="section-title zh-text">3. 数据的使用方式</h2>
+          <h2 class="section-title en-text">3. How We Use Information</h2>
+        </div>
+        <div class="policy-text">
+          <div class="zh-text">
+            <p>我们收集的数据仅在以下特定场景中使用：</p>
+          </div>
+          <div class="en-text">
+            <p>We process collected data exclusively under the following strict scenarios:</p>
+          </div>
+          <ul class="policy-list">
+            <li>
+              <strong><span class="zh-text">核心同步服务：</span><span class="en-text">Core Synchronization:</span></strong>
+              <span class="zh-text">比较客户端与服务器端文件的差异，以最小带宽执行分块（Delta-sync）断点续传。</span>
+              <span class="en-text">Computing diffs between local directories and cloud storage to perform bandwidth-efficient delta sync.</span>
+            </li>
+            <li>
+              <strong><span class="zh-text">历史版本与回收站：</span><span class="en-text">Version History & Recovery:</span></strong>
+              <span class="zh-text">根据您的套餐规则保留文件的历史修改版本，以便在误删或勒索软件攻击时还原。</span>
+              <span class="en-text">Maintaining file snapshots to allow rollbacks and recovery against accidental deletions or ransomware.</span>
+            </li>
+            <li>
+              <strong><span class="zh-text">服务安全防护：</span><span class="en-text">Abuse Prevention & Security:</span></strong>
+              <span class="zh-text">检测异常高频登录、暴力破解、跨地域异常网关请求等安全威胁。</span>
+              <span class="en-text">Detecting anomalous login attempts, credential stuffing, and unauthorized gateway relays.</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Section 4: Encryption & Storage -->
+      <section id="section-encryption" class="policy-section">
+        <div class="section-header">
+          <div class="section-icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3F83F8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          </div>
+          <h2 class="section-title zh-text">4. 加密技术与存储安全</h2>
+          <h2 class="section-title en-text">4. Storage Security & Encryption</h2>
+        </div>
+        <div class="policy-text">
+          <div class="zh-text">
+            <p>FooCloud 采用国际前沿的密码学标准保障数据在传输中与静态存储时的安全性：</p>
+            <ul class="policy-list">
+              <li><strong>传输层安全 (In-Transit)：</strong>客户端与网关节点之间的所有通信均强制使用 TLS 1.3 / HTTPS 协议，支持 Perfect Forward Secrecy (PFS)。</li>
+              <li><strong>静态存储加密 (At-Rest)：</strong>存储于后端对象存储或磁盘的数据块采用行业标准的 AES-256 算法加密。</li>
+              <li><strong>自建私有网关支持：</strong>针对高级用户，FooCloud 允许配置自托管同步网关（Self-hosted Gateway），数据流直接流向您的私有服务器。</li>
+            </ul>
+          </div>
+          <div class="en-text">
+            <p>FooCloud implements top-tier cryptographic standards to safeguard data in transit and at rest:</p>
+            <ul class="policy-list">
+              <li><strong>In-Transit Protection:</strong> All socket connections and API requests utilize mandatory TLS 1.3 with Perfect Forward Secrecy (PFS).</li>
+              <li><strong>At-Rest Encryption:</strong> Synchronized blocks stored in persistence layers are encrypted using industry-standard AES-256.</li>
+              <li><strong>Self-Hosted Gateways:</strong> Power users can route synchronization through private self-hosted gateways directly to their own hardware.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 5: Data Sharing -->
+      <section id="section-sharing" class="policy-section">
+        <div class="section-header">
+          <div class="section-icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3F83F8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+          </div>
+          <h2 class="section-title zh-text">5. 数据共享与第三方披露</h2>
+          <h2 class="section-title en-text">5. Data Sharing & Third Parties</h2>
+        </div>
+        <div class="policy-text">
+          <div class="zh-text">
+            <p>我们严格限制数据向外部流出。除以下法律必须或基础基础设施所必需的情况外，我们不会向第三方共享任何数据：</p>
+            <ul class="policy-list">
+              <li><strong>基础云基础设施服务商：</strong>如提供高可用算力与数据持久化的合规机房（服务商仅作为数据管道，无权访问解密信息）。</li>
+              <li><strong>法律合规要求：</strong>当且仅当收到合法、有效的法院令状或强制性司法要求时，在严格法律审查后提供法定范围内的信息。</li>
+            </ul>
+          </div>
+          <div class="en-text">
+            <p>We enforce strict boundary controls. We do not expose or share your data with third parties except in the following limited infrastructural and legal contexts:</p>
+            <ul class="policy-list">
+              <li><strong>Infrastructure Providers:</strong> Certified cloud facilities providing physical compute and block persistence without payload access permissions.</li>
+              <li><strong>Legal Compliance:</strong> Only upon receipt of legally binding, verified court warrants or statutory enforcement orders.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 6: User Rights -->
+      <section id="section-rights" class="policy-section">
+        <div class="section-header">
+          <div class="section-icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3F83F8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm0-5.5a1 1 0 0 1-2 0V7a1 1 0 0 1 2 0z"/></svg>
+          </div>
+          <h2 class="section-title zh-text">6. 用户权利与数据删除</h2>
+          <h2 class="section-title en-text">6. Your Rights & Data Erasure</h2>
+        </div>
+        <div class="policy-text">
+          <div class="zh-text">
+            <p>您对存储在 FooCloud（福云）中的数据享有完整的控制权：</p>
+            <ul class="policy-list">
+              <li><strong>数据导出权：</strong>您可以随时通过客户端打包同步目录，导出所有原始文件与目录结构。</li>
+              <li><strong>版本彻底清除：</strong>您可以随时清空“回收站”或特定文件的历史版本，该操作将触发物理存储块的不可逆覆写擦除。</li>
+              <li><strong>账户注销与遗忘权：</strong>在客户端或控制台申请注销账户后，系统将在 7 个自然日后永久销毁关联的所有元数据与文件块。</li>
+            </ul>
+          </div>
+          <div class="en-text">
+            <p>You maintain ultimate sovereignty over your synchronized assets on FooCloud:</p>
+            <ul class="policy-list">
+              <li><strong>Data Portability:</strong> Export, package, and download your entire storage hierarchy locally at any time without vendor lock-in.</li>
+              <li><strong>Permanent Shredding:</strong> Emptying your trash or file revision tree triggers cryptographic deletion across all storage clusters.</li>
+              <li><strong>Right to be Forgotten:</strong> Initiating account termination leads to irreversible erasure of your profile and data within 7 calendar days.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 7: Contact -->
+      <section id="section-contact" class="policy-section">
+        <div class="section-header">
+          <div class="section-icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3F83F8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          </div>
+          <h2 class="section-title zh-text">7. 联系我们与隐私咨询</h2>
+          <h2 class="section-title en-text">7. Contact & Privacy Inquiries</h2>
+        </div>
+        <div class="policy-text">
+          <div class="zh-text">
+            <p>如果您对本隐私政策、网关数据传输机制或个人数据权利行使有任何疑问、建议或申诉，请通过以下专有渠道与我们的安全隐私团队联系：</p>
+          </div>
+          <div class="en-text">
+            <p>If you have questions, feedback, or data subject requests regarding this policy or our sync gateway architecture, reach out directly to our security team:</p>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <div>
+            <div style="font-weight: 700; color: var(--primary-blue-dark); font-size: 1.1rem; margin-bottom: 0.25rem;">
+              <span class="zh-text">FooCloud (福云) 数据隐私与合规办公室</span>
+              <span class="en-text">FooCloud Privacy & Security Office</span>
+            </div>
+            <p style="font-size: 0.9rem; color: var(--color-text-secondary);">
+              <span class="zh-text">响应时效：工作日 24-48 小时内处理</span>
+              <span class="en-text">Response Time: Within 24-48 business hours</span>
+            </p>
+          </div>
+          <a href="mailto:privacy@afoo.me" class="contact-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <span class="zh-text">发送邮件至 privacy@afoo.me</span>
+            <span class="en-text">Email privacy@afoo.me</span>
+          </a>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <ul class="footer-links">
+        <li><a href="javascript:void(0);" class="zh-text">服务条款</a><a href="javascript:void(0);" class="en-text">Terms of Service</a></li>
+        <li><a href="javascript:void(0);" class="zh-text">安全白皮书</a><a href="javascript:void(0);" class="en-text">Security Whitepaper</a></li>
+        <li><a href="javascript:void(0);" class="zh-text">网关配置文档</a><a href="javascript:void(0);" class="en-text">Gateway Docs</a></li>
+        <li><a href="javascript:void(0);" class="zh-text">开源合规</a><a href="javascript:void(0);" class="en-text">Open Source Compliance</a></li>
+      </ul>
+      <p class="copyright">
+        &copy; 2026 FooCloud (cloud.afoo.me). All rights reserved. 
+        <span class="zh-text">保留所有权利。</span>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Floating Back to Top Button -->
+  <button id="backToTop" class="back-to-top" title="Back to top" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+  </button>
+
+  <!-- Vanilla Inline JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      // 1. Language Toggle Logic (Completely encapsulated, no globals needed)
+      const btnZh = document.getElementById('btn-zh');
+      const btnEn = document.getElementById('btn-en');
+      const htmlEl = document.documentElement;
+
+      const setLanguage = (lang) => {
+        if (lang === 'zh') {
+          htmlEl.classList.remove('lang-en');
+          htmlEl.classList.add('lang-zh');
+          htmlEl.setAttribute('lang', 'zh');
+          if (btnZh) btnZh.classList.add('active');
+          if (btnEn) btnEn.classList.remove('active');
+          
+          try { localStorage.setItem('foocloud_lang', 'zh'); } catch(e) {}
+        } else {
+          htmlEl.classList.remove('lang-zh');
+          htmlEl.classList.add('lang-en');
+          htmlEl.setAttribute('lang', 'en');
+          if (btnEn) btnEn.classList.add('active');
+          if (btnZh) btnZh.classList.remove('active');
+          
+          try { localStorage.setItem('foocloud_lang', 'en'); } catch(e) {}
+        }
+      };
+
+      // Bind click events safely
+      if (btnZh) btnZh.addEventListener('click', () => setLanguage('zh'));
+      if (btnEn) btnEn.addEventListener('click', () => setLanguage('en'));
+
+      // Auto-detect or restore preferred language on load
+      let savedLang = null;
+      try { 
+        savedLang = localStorage.getItem('foocloud_lang'); 
+      } catch(e) {
+        // Ignore local storage errors in strict file:// environments
+      }
+      
+      if (savedLang) {
+        setLanguage(savedLang);
+      } else {
+        const browserLang = navigator.language || navigator.userLanguage;
+        if (browserLang && browserLang.toLowerCase().includes('zh')) {
+          setLanguage('zh');
+        } else {
+          setLanguage('en');
+        }
+      }
+
+      // 2. Active TOC Highlighting on Scroll
+      const sections = document.querySelectorAll('.policy-section');
+      const tocLinks = document.querySelectorAll('.toc-link');
+      const backToTopBtn = document.getElementById('backToTop');
+
+      window.addEventListener('scroll', () => {
+        let currentSectionId = '';
+        const scrollPos = window.scrollY + 140;
+
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.offsetHeight;
+          if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+            currentSectionId = section.getAttribute('id');
+          }
+        });
+
+        tocLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === `#${currentSectionId}`) {
+            link.classList.add('active');
+          }
+        });
+
+        // 3. Back to top button visibility
+        if (window.scrollY > 400) {
+          backToTopBtn.classList.add('visible');
+        } else {
+          backToTopBtn.classList.remove('visible');
+        }
+      });
+
+      // Scroll to top execution
+      if (backToTopBtn) {
+        backToTopBtn.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+    });
+  </script>
+</body>
+</html>
