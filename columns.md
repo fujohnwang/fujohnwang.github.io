@@ -47,5 +47,14 @@
 
 ![](images/fqfin.jpg)
 
+---
+
+# 产品专栏
+
+## [做产品，我为什么如此小题大做](columns/product-design/index.html) 
+
+从 FooCloud 的一个具体问题出发，讨论产品如何取舍，也记录那些改了又改的细节。
+
+
 
 
