@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FooCloud · 下载水位动效小样</title>
+<style>
+:root{color-scheme:light;--canvas:#f7f8fc;--text:#20212a;--sub:#747682;--surface:rgba(255,255,255,.78);--action:#3741aa;--line:rgba(40,45,65,.09);--aqua:rgba(44,192,193,.21);--aqua-edge:rgba(44,192,193,.09);--shadow:rgba(42,44,87,.06);--ease-out:cubic-bezier(.23,1,.32,1)}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:radial-gradient(ellipse at 8% 2%,rgba(55,65,170,.11),transparent 70%),var(--canvas);min-height:100vh;line-height:1.5}body.dark{color-scheme:dark;--canvas:#0c0e14;--text:#f0f0f6;--sub:#aaaab7;--surface:rgba(255,255,255,.07);--action:#7e88ff;--line:rgba(255,255,255,.09);--aqua:rgba(44,192,193,.23);--aqua-edge:rgba(92,224,222,.09);--shadow:transparent}main{max-width:1060px;margin:0 auto;padding:48px 30px 40px}.eyebrow{color:var(--action);font-size:12px;font-weight:650;letter-spacing:.1em}h1{font-size:30px;letter-spacing:-.03em;margin:8px 0 10px;line-height:1.3}.intro{color:var(--sub);max-width:680px;margin:0;font-size:15px}.stage{display:grid;grid-template-columns:minmax(320px,1.12fr) minmax(280px,.88fr);gap:38px;margin-top:35px;align-items:start}.preview{padding:22px 18px 28px;border-radius:28px;background:radial-gradient(ellipse at 0% 0%,rgba(55,65,170,.08),transparent 80%),var(--canvas);box-shadow:0 15px 48px var(--shadow);border:1px solid var(--line)}.nav{display:flex;align-items:center;justify-content:space-between;height:44px;margin-bottom:20px}.back{width:40px;height:40px;display:grid;place-items:center;border-radius:50%;border:1px solid var(--line);background:var(--surface)}.nav strong{font-size:17px}.hint{font-size:11px;color:var(--sub);margin-bottom:9px;padding-left:10px}.list{border-radius:20px;overflow:hidden;background:var(--surface)}.row{height:82px;position:relative;isolation:isolate;overflow:hidden}.row+.row:after{position:absolute;content:"";left:62px;right:15px;top:0;height:1px;background:var(--line);z-index:2}.content{position:relative;z-index:2;height:100%;display:flex;align-items:center;gap:12px;padding:0 14px}.file-icon{width:28px;height:28px;flex:none;color:var(--sub)}.title{font-size:16px;font-weight:550;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.meta{font-size:12px;color:var(--sub);margin-top:3px}.name{min-width:0;flex:1}.accessory{width:44px;height:44px;flex:none;border:0;padding:0;display:grid;place-items:center;color:var(--action);background:transparent;border-radius:12px;font:500 12px -apple-system,sans-serif;font-variant-numeric:tabular-nums}.accessory svg{width:25px;height:25px}.water{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;transition:opacity 180ms var(--ease-out)}.water svg{width:100%;height:100%;display:block}.water .rear{fill:var(--aqua-edge)}.water .front{fill:var(--aqua)}.status-note{padding:16px 8px 0;font-size:13px;color:var(--sub);min-height:54px}.controls{padding-top:4px}.control-title{font-size:14px;font-weight:600;margin-bottom:10px}.readout{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}.readout strong{font-size:35px;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.03em}.readout span{color:var(--sub);font-size:13px}input[type=range]{width:100%;accent-color:var(--action);cursor:pointer;height:30px}.ticks{display:flex;justify-content:space-between;color:var(--sub);font-size:12px;margin:0 0 18px}.buttons{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}button{min-height:44px;border-radius:12px;border:1px solid var(--line);font:500 14px -apple-system,sans-serif;cursor:pointer;background:var(--surface);color:var(--text);padding:10px 15px;transition:opacity 160ms ease,transform 120ms var(--ease-out)}button.primary{background:var(--action);color:var(--canvas);border-color:transparent}button:focus-visible,input:focus-visible{outline:2px solid var(--action);outline-offset:4px}button:active{transform:scale(.96)}button:disabled{opacity:.5;cursor:default}.switches{display:flex;gap:17px;flex-wrap:wrap;padding:17px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:13px}.switches label{display:flex;align-items:center;gap:8px;min-height:32px;cursor:pointer}.switches input{accent-color:var(--action)}.explain{font-size:14px;color:var(--sub);line-height:1.8;margin-top:20px}.explain strong{color:var(--text);font-weight:550}.examples{margin-top:28px;padding-top:24px;border-top:1px solid var(--line);display:flex;gap:24px}.example{flex:1}.example .bar{height:28px;border:1px solid var(--line);border-radius:7px;overflow:hidden;background:var(--surface);position:relative;margin-bottom:6px}.example .fill{position:absolute;inset:auto 0 0;background:var(--aqua);height:var(--level)}.example span{font-size:12px;color:var(--sub)}footer{color:var(--sub);font-size:12px;margin-top:28px}.success{color:#38965c}.error{color:#ce545b}@media(max-width:760px){main{padding:28px 18px}.stage{grid-template-columns:1fr;gap:25px;margin-top:22px}.preview{max-width:470px;width:100%;margin:auto}h1{font-size:25px}.controls{max-width:470px;width:100%;margin:auto}}@media(prefers-reduced-motion:reduce){button:active{transform:none}.water{transition:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="document" viewBox="0 0 28 30"><path d="M5 2h11l7 7v18H5Z M16 2v8h7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+<symbol id="download" viewBox="0 0 28 28"><circle cx="14" cy="14" r="11" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M14 7v13m-5-5 5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="check" viewBox="0 0 28 28"><circle cx="14" cy="14" r="11" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m8 14 4 4 8-8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol><symbol id="error" viewBox="0 0 28 28"><circle cx="14" cy="14" r="11" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M14 7.5v8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="14" cy="20" r="1" fill="currentColor"/></symbol></defs></svg>
+<main>
+<div class="eyebrow">FOOCLOUD / MOTION STUDY</div>
+<h1>下载进度，变成缓缓退去的水位。</h1>
+<p class="intro">整行 aqua 表示尚未完成的部分。进度增加，上方恢复原来的背景；剩余颜色的上边缘轻轻起伏。</p>
+<div class="stage">
+<section class="preview" aria-label="文件列表动效小样">
+<div class="nav"><span class="back" aria-hidden="true">〈</span><strong>Audio</strong><span style="width:40px"></span></div>
+<div class="hint">选好保存目录后 · 动效示意</div>
+<div class="list">
+<div class="row"><div class="content"><svg class="file-icon"><use href="#document"/></svg><div class="name"><div class="title">Morning Light.flac</div><div class="meta">38.6 MB · 今天</div></div><span class="accessory"><svg><use href="#download"/></svg></span></div></div>
+<div class="row" id="activeRow">
+<div class="water" id="water" aria-hidden="true"><svg viewBox="0 0 400 82" preserveAspectRatio="none"><path class="rear" id="rear"/><path class="front" id="front"/></svg></div>
+<div class="content"><svg class="file-icon"><use href="#document"/></svg><div class="name"><div class="title">夜间现场录音.flac</div><div class="meta" id="metadata">124.8 MB · 正在下载</div></div><button class="accessory" id="rowAction" aria-label="重播下载动效">42%</button></div></div>
+<div class="row"><div class="content"><svg class="file-icon"><use href="#document"/></svg><div class="name"><div class="title">Demo — Piano.wav</div><div class="meta">16.2 MB · 昨天</div></div><span class="accessory"><svg><use href="#download"/></svg></span></div></div>
+</div>
+<div class="status-note" id="note">上方 42% 已恢复，底部 58% 保留 aqua。</div>
+</section>
+<section class="controls" aria-label="动效控制">
+<div class="control-title">拖动进度，或播放一次完整下载</div>
+<div class="readout"><strong id="amount">42%</strong><span id="phaseLabel">正在下载</span></div>
+<input id="progress" type="range" min="0" max="100" value="42" aria-label="模拟下载进度">
+<div class="ticks"><span>开始</span><span>完成</span></div>
+<div class="buttons"><button class="primary" id="play">播放下载</button><button id="pause">停在这里</button><button id="failure">模拟失败</button></div>
+<div class="switches"><label><input type="checkbox" id="dark">深色模式</label><label><input type="checkbox" id="reduced">减少动态效果</label></div>
+<p class="explain"><strong>只动背景。</strong>文件名、图标和数字不随波浪晃动。右侧显示真实百分比，取代 spinner。</p>
+<p class="explain"><strong>水位跟着真实进度。</strong>等待时保持整行着色；保存文件时保留一条浅色带，保存成功后才完全恢复。失败则停止波纹，回到默认背景并显示错误。</p>
+</section>
+</div>
+<div class="examples" aria-label="退色方向示意">
+<div class="example"><div class="bar"><div class="fill" style="--level:100%"></div></div><span>0% · 全行着色</span></div>
+<div class="example"><div class="bar"><div class="fill" style="--level:50%"></div></div><span>50% · 上半行恢复</span></div>
+<div class="example"><div class="bar"><div class="fill" style="--level:0%"></div></div><span>100% · 恢复默认</span></div>
+</div>
+<footer>本地交互小样，使用模拟进度。用于确认动效方向与配色；尚未接入 iOS App。</footer>
+</main>
+<script>
+const $=id=>document.getElementById(id),reduceSystem=matchMedia('(prefers-reduced-motion: reduce)');
+let progress=42,target=42,playing=false,failed=false,mode='download',last=0,phase=0,phaseStarted=0,request=0;
+$('reduced').checked=reduceSystem.matches;
+function path(level,phase,amp,offset){let d='M 0 '+level;for(let x=0;x<=400;x+=5){const y=level+amp*(Math.sin(x/400*Math.PI*3+phase+offset)+.3*Math.sin(x/400*Math.PI*6-phase*.65+offset));d+=' L '+x.toFixed(1)+' '+y.toFixed(2)}return d+' L 400 90 L 0 90 Z'}
+function paint(){const reduced=$('reduced').checked;const p=mode==='waiting'?0:mode==='saving'?99:progress;const amp=reduced||p<=0||p>=100?0:Math.min(1.8,p*.35,(100-p)*.35);const y=p/100*82;const visible=!failed&&mode!=='complete';$('water').style.opacity=visible?1:0;$('front').setAttribute('d',path(y,phase,amp,0));$('rear').setAttribute('d',path(y-amp*.8,phase*.85,amp,1.1));const rounded=Math.floor(p);$('amount').textContent=mode==='complete'?'100%':rounded+'%';$('progress').value=mode==='complete'?100:p;
+$('phaseLabel').textContent=failed?'下载失败':mode==='waiting'?'等待下载':mode==='saving'?'正在保存':mode==='complete'?'已完成':playing?'正在下载':'进度示意';
+$('metadata').textContent=failed?'下载失败 · 可在下载历史中重试':mode==='waiting'?'124.8 MB · 等待下载':mode==='saving'?'124.8 MB · 正在保存':mode==='complete'?'124.8 MB · 已完成':'124.8 MB · 正在下载';
+$('rowAction').classList.toggle('success',mode==='complete');$('rowAction').classList.toggle('error',failed);$('rowAction').innerHTML=failed?'<svg><use href="#error"/></svg>':mode==='complete'?'<svg><use href="#check"/></svg>':mode==='waiting'?'等待':mode==='saving'?'保存中':rounded+'%';
+$('note').textContent=failed?'波纹停止，恢复默认背景；错误状态保留供重试。':mode==='waiting'?'已加入下载任务，整行着色，水位不会假装推进。':mode==='saving'?'网络传输已结束，仍需等待文件保存成功。':mode==='complete'?'保存成功，整行回到原来的背景。':`上方 ${rounded}% 已恢复，底部 ${100-rounded}% 保留 aqua。`;
+$('play').textContent=playing?'重新播放':'播放下载';}
+function needsFrames(){return !document.hidden&&(playing||Math.abs(progress-target)>.02||(!$('reduced').checked&&!failed&&mode==='download'&&progress>0&&progress<100))}
+function frame(now){request=0;const dt=last?Math.min((now-last)/1000,.1):0;last=now;if(playing){if(mode==='waiting'&&now-phaseStarted>750){mode='download';phaseStarted=now;}else if(mode==='download'){target=Math.min(99,(now-phaseStarted)/105);if(target>=99){mode='saving';phaseStarted=now;}}else if(mode==='saving'&&now-phaseStarted>700){mode='complete';target=100;playing=false;}}
+if($('reduced').checked)progress=target;else {const distance=target-progress;progress+=Math.sign(distance)*Math.min(Math.abs(distance),dt*500);if(mode==='download')phase+=dt*Math.PI*.6;}
+paint();if(needsFrames())request=requestAnimationFrame(frame);else last=0;}
+function wake(){if(!request&&!document.hidden){last=0;request=requestAnimationFrame(frame)}}
+function play(){playing=true;failed=false;mode='waiting';progress=target=0;phaseStarted=performance.now();wake()}
+$('play').onclick=play;$('rowAction').onclick=play;$('pause').onclick=()=>{playing=false;paint();wake()};$('failure').onclick=()=>{failed=true;playing=false;paint();wake()};
+$('progress').oninput=e=>{playing=false;failed=false;target=Number(e.target.value);mode=target>=100?'complete':'download';wake()};$('dark').onchange=e=>document.body.classList.toggle('dark',e.target.checked);$('reduced').onchange=()=>{paint();wake()};
+reduceSystem.addEventListener('change',e=>{$('reduced').checked=e.matches;paint();wake()});document.addEventListener('visibilitychange',()=>{if(document.hidden){if(request)cancelAnimationFrame(request);request=0;playing=false;last=0;}else wake()});paint();wake();
+</script>
+</body></html>
