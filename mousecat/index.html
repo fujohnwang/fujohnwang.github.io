@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#002FB8">
+  <meta name="description" content="MouseCat：为每块屏幕设置一个快捷键，光标一键到达屏幕中心。支持 macOS 13 及以上、Apple Silicon 与 Intel。">
+  <title>MouseCat — 屏幕之间，一键即达。</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%23002FB8'/%3E%3Cpath d='M17 12v38l10-10 8 16 7-4-8-15h15Z' fill='white'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      color-scheme: dark;
+      --blue: #002fb8;
+      --white: #fff;
+      --muted: #becfff;
+      --orange: #ffad6b;
+      --ink: #08225f;
+      --deep: #00299f;
+      --line: rgb(255 255 255 / .2);
+      --body: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", sans-serif;
+      --display: "Avenir Next", Avenir, var(--body);
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 30px; }
+    body { margin: 0; background: var(--blue); color: var(--white); font: 16px/1.65 var(--body); -webkit-font-smoothing: antialiased; }
+    ::selection { background: var(--orange); color: var(--ink); }
+    a { color: inherit; text-decoration: none; }
+    button { color: inherit; font: inherit; cursor: pointer; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button:focus-visible, a:focus-visible, summary:focus-visible { outline: 3px solid var(--orange); outline-offset: 6px; }
+    svg { display: block; }
+    h1, h2, h3, p, figure { margin: 0; }
+    h1, h2, h3 { text-wrap: balance; }
+    p { text-wrap: pretty; }
+    .wrap { width: min(1200px, calc(100% - 96px)); margin-inline: auto; }
+    .icon { width: 22px; height: 22px; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 1.65; stroke-linecap: round; stroke-linejoin: round; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+    .skip { position: fixed; top: 10px; left: 10px; z-index: 10; background: var(--white); color: var(--blue); padding: 8px 16px; transform: translateY(-180%); }
+    .skip:focus { transform: translateY(0); }
+    .site-nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 25px; border-bottom: 1px solid var(--line); }
+    .wordmark { display: inline-flex; align-items: center; gap: 11px; font: 750 24px/1 var(--display); letter-spacing: -.8px; white-space: nowrap; }
+    .logo { width: 31px; height: 36px; overflow: visible; }
+    .nav-actions { display: flex; align-items: center; gap: 30px; font-size: 13px; font-weight: 500; }
+    .nav-link { color: var(--muted); transition: color .15s; }
+    .nav-link:hover { color: var(--white); }
+    .language { display: flex; align-items: center; gap: 3px; padding: 3px; border: 1px solid var(--line); border-radius: 7px; }
+    .language button { min-width: 40px; min-height: 31px; padding: 3px 9px; border: 0; border-radius: 4px; background: transparent; font-size: 12px; line-height: 1.4; color: var(--muted); }
+    .language button[aria-pressed="true"] { background: var(--white); color: var(--blue); }
+    .nav-download { display: inline-flex; align-items: center; gap: 8px; }
+    .nav-download .icon { width: 16px; height: 16px; }
+    .nav-download:hover { color: var(--orange); }
+    .hero { display: grid; grid-template-columns: 1fr 1.12fr; align-items: center; gap: 20px; padding-block: 85px 96px; }
+    .hero h1 { font: 650 clamp(45px, 4.8vw, 70px)/1.16 var(--display); letter-spacing: -.055em; }
+    .hero h1 span { display: block; }
+    .hero-copy { position: relative; z-index: 1; }
+    .hero-description { max-width: 30em; color: var(--muted); font-size: 17px; line-height: 1.9; margin-top: 28px; }
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; margin-top: 32px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 15px 23px; min-height: 54px; border-radius: 9px; border: 1px solid transparent; font-size: 15px; font-weight: 650; line-height: 1.4; transition: background .18s, transform .18s; }
+    .button-primary { background: var(--orange); color: var(--ink); box-shadow: 0 5px 0 rgb(0 0 0 / .06); }
+    .button-primary:hover { background: #ffc18e; transform: translateY(-2px); }
+    .text-link { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; padding-block: 12px; }
+    .text-link .icon { width: 18px; height: 18px; transition: transform .18s; }
+    .text-link:hover { color: var(--orange); }
+    .text-link:hover .icon { transform: translateX(3px); }
+    .compatibility { margin-top: 18px; color: var(--muted); font: 11px/1.8 var(--mono); }
+    .hero-demo { min-width: 0; }
+    .scene { width: 100%; height: auto; overflow: visible; }
+    .screen-outline { stroke: #fff; stroke-opacity: .36; transition: stroke .15s, stroke-opacity .15s; }
+    .screen-number { fill: #fff; opacity: .48; font: 500 18px var(--mono); transition: opacity .15s; }
+    .hero-demo[data-active="1"] .screen-one .screen-outline, .hero-demo[data-active="2"] .screen-two .screen-outline { stroke: var(--orange); stroke-opacity: 1; }
+    .hero-demo[data-active="1"] .screen-one .screen-number, .hero-demo[data-active="2"] .screen-two .screen-number { fill: var(--orange); opacity: 1; }
+    #cursor-pulse { transform-box: fill-box; transform-origin: 0 0; }
+    .demo-controls { display: flex; justify-content: center; align-items: center; gap: 16px; margin-top: 2px; }
+    .demo-controls button { min-width: 85px; min-height: 48px; padding: 6px 14px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; border: 1px solid rgb(255 255 255 / .3); border-bottom-width: 4px; border-radius: 9px; background: rgb(255 255 255 / .06); color: #fff; transition: background .15s, color .15s, transform .15s; }
+    .demo-controls button:hover { background: rgb(255 255 255 / .15); }
+    .demo-controls button[aria-pressed="true"] { color: var(--ink); background: var(--white); border-color: #c1d0f7; }
+    .demo-controls button:active { transform: translateY(2px); }
+    .demo-controls kbd { font: 500 20px/1 var(--mono); }
+    .key-divider { width: 30px; height: 1px; background: var(--line); }
+    .demo-caption { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 12px; margin-top: 18px; color: var(--muted); font-size: 11px; }
+    .demo-status { color: #fff; }
+    .benefit-strip { display: flex; justify-content: space-between; gap: 24px; padding-block: 25px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .benefit-strip div { display: flex; align-items: center; gap: 11px; font-size: 13px; color: var(--muted); }
+    .benefit-strip .icon { color: #fff; width: 20px; height: 20px; }
+    .section { padding-block: 100px; }
+    .section h2 { font: 600 clamp(30px, 3.4vw, 43px)/1.35 var(--display); letter-spacing: -.04em; }
+    .section-intro { margin-top: 20px; max-width: 32em; color: var(--muted); font-size: 15px; line-height: 1.9; }
+    .features { display: grid; grid-template-columns: .84fr 1.16fr; gap: 90px; }
+    .feature-list { list-style: none; padding: 0; margin: 0; }
+    .feature { display: grid; grid-template-columns: 38px 1fr; gap: 20px; padding-block: 29px; border-top: 1px solid var(--line); }
+    .feature:first-child { padding-top: 3px; border-top: 0; }
+    .feature:last-child { padding-bottom: 0; }
+    .feature > .icon { width: 29px; height: 29px; margin-top: 2px; }
+    .feature h3 { font-size: 19px; font-weight: 550; line-height: 1.45; letter-spacing: -.015em; }
+    .feature p { margin-top: 11px; color: var(--muted); font-size: 14px; line-height: 1.85; max-width: 35em; }
+    .quiet-keys { margin-top: 31px; display: flex; align-items: center; gap: 8px; color: rgb(255 255 255 / .8); }
+    .quiet-keys kbd { font: 15px var(--mono); padding: 9px 13px; border: 1px solid var(--line); border-bottom-width: 3px; border-radius: 6px; }
+    .quiet-keys span { margin-inline: 8px; color: var(--muted); }
+    .start-section { background: var(--deep); border-top: 1px solid rgb(255 255 255 / .09); border-bottom: 1px solid rgb(255 255 255 / .09); }
+    .start-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; }
+    .start-heading > p { max-width: 24em; color: var(--muted); font-size: 14px; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 42px; list-style: none; padding: 0; margin: 48px 0 0; counter-reset: steps; }
+    .steps li { counter-increment: steps; border-top: 1px solid var(--line); padding-top: 22px; }
+    .step-number { display: flex; justify-content: space-between; align-items: center; margin-bottom: 27px; }
+    .step-number::before { content: "0" counter(steps); font: 400 14px var(--mono); color: var(--orange); }
+    .step-number .icon { color: rgb(255 255 255 / .55); }
+    .steps h3 { font-size: 18px; font-weight: 550; line-height: 1.5; }
+    .steps p { color: var(--muted); font-size: 14px; margin-top: 13px; line-height: 1.9; }
+    .faq-layout { display: grid; grid-template-columns: .84fr 1.16fr; gap: 90px; }
+    .faq-list details { border-bottom: 1px solid var(--line); }
+    .faq-list details:first-child { border-top: 1px solid var(--line); }
+    .faq-list summary { display: flex; justify-content: space-between; align-items: center; gap: 20px; list-style: none; cursor: pointer; padding-block: 23px; font-size: 16px; font-weight: 500; }
+    .faq-list summary::-webkit-details-marker { display: none; }
+    .faq-list summary::after { content: "+"; color: var(--orange); font: 24px/1 var(--mono); flex: 0 0 auto; }
+    .faq-list details[open] summary::after { content: "−"; }
+    .faq-list details p { padding-bottom: 24px; padding-right: 30px; color: var(--muted); font-size: 14px; line-height: 1.9; }
+    .download-section { border-top: 1px solid var(--line); padding-block: 72px 78px; display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+    .download-section h2 { font: 600 clamp(29px, 3vw, 42px)/1.35 var(--display); letter-spacing: -.04em; }
+    .download-section p { margin-top: 13px; color: var(--muted); font-size: 14px; }
+    .download-action { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .version { color: var(--muted); font: 11px var(--mono); }
+    .site-footer { padding-block: 25px 30px; border-top: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 20px; font-size: 12px; color: var(--muted); }
+    .footer-brand { display: flex; align-items: center; gap: 16px; }
+    .footer-brand strong { color: #fff; font-family: var(--display); font-size: 15px; letter-spacing: -.3px; }
+    .maker { display: flex; align-items: center; flex-wrap: wrap; gap: 15px; }
+    .maker a { color: #fff; }
+    .maker a:hover { color: var(--orange); }
+    .deferred { content-visibility: auto; contain-intrinsic-size: auto 500px; }
+    @media (min-width: 1400px) { .hero { padding-block: 105px 110px; } }
+    @media (max-width: 1050px) {
+      .wrap { width: calc(100% - 64px); }
+      .hero { gap: 10px; padding-block: 70px; }
+      .hero h1 { font-size: 52px; }
+      .hero-description { font-size: 15px; }
+      .hero-actions { gap: 16px; }
+      .features, .faq-layout { gap: 50px; }
+      .nav-actions { gap: 22px; }
+    }
+    @media (max-width: 800px) {
+      .hero { grid-template-columns: 1fr; padding-top: 58px; gap: 40px; }
+      .hero h1 { font-size: clamp(44px, 8.5vw, 68px); }
+      .hero-description { max-width: 35em; font-size: 16px; }
+      .hero-demo { width: min(600px, 100%); justify-self: center; }
+      .hero-actions { margin-top: 26px; }
+      .features, .faq-layout { grid-template-columns: 1fr; gap: 40px; }
+      .section { padding-block: 68px; }
+      .quiet-keys { display: none; }
+      .start-heading { align-items: flex-start; flex-direction: column; gap: 18px; }
+      .steps { gap: 24px; }
+      .steps h3 { font-size: 16px; }
+      .steps p { font-size: 13px; }
+      .benefit-strip { gap: 18px; }
+      .benefit-strip div { font-size: 12px; }
+      .download-section { align-items: flex-start; flex-direction: column; }
+      .download-action { align-items: flex-start; }
+    }
+    @media (max-width: 560px) {
+      .wrap { width: calc(100% - 40px); }
+      .site-nav { gap: 12px; padding-block: 20px; }
+      .wordmark { font-size: 21px; gap: 8px; }
+      .logo { width: 27px; height: 31px; }
+      .nav-actions { gap: 14px; }
+      .nav-link, .nav-download { display: none; }
+      .hero { padding-top: 48px; padding-bottom: 42px; gap: 26px; }
+      .hero h1 { font-size: clamp(40px, 10vw, 54px); }
+      .hero-description { font-size: 15px; margin-top: 23px; line-height: 1.85; }
+      .hero-actions { gap: 18px; }
+      .button { padding: 14px 18px; font-size: 14px; }
+      .text-link { font-size: 13px; }
+      .compatibility { font-size: 10px; }
+      .demo-controls button { min-width: 77px; min-height: 45px; }
+      .demo-caption { font-size: 10px; }
+      .benefit-strip { display: grid; grid-template-columns: 1fr; padding-block: 23px; gap: 15px; }
+      .benefit-strip div { font-size: 13px; }
+      .section { padding-block: 56px; }
+      .section h2 { font-size: 30px; }
+      .section-intro { font-size: 14px; }
+      .feature { grid-template-columns: 28px 1fr; gap: 16px; }
+      .feature > .icon { width: 25px; height: 25px; }
+      .feature h3 { font-size: 18px; }
+      .steps { grid-template-columns: 1fr; gap: 32px; margin-top: 34px; }
+      .step-number { margin-bottom: 17px; }
+      .steps h3 { font-size: 18px; }
+      .steps p { font-size: 14px; }
+      .faq-list summary { font-size: 15px; }
+      .download-section { padding-block: 52px; gap: 28px; }
+      .site-footer { flex-direction: column; align-items: flex-start; gap: 14px; }
+      .footer-brand { flex-wrap: wrap; gap: 10px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute;overflow:hidden">
+    <defs>
+      <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6"/></symbol>
+      <symbol id="icon-download" viewBox="0 0 24 24"><path d="M12 3v12m-4-4 4 4 4-4M5 16v4h14v-4"/></symbol>
+      <symbol id="icon-keyboard" viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="2.5"/><path d="M6 9h.01M10 9h.01M14 9h.01M18 9h.01M6 12h.01M10 12h.01M14 12h.01M18 12h.01M7 15h10"/></symbol>
+      <symbol id="icon-offline" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="12" rx="2"/><path d="M12 15v5m-4 0h8m-8-11 3 3 5-5"/></symbol>
+      <symbol id="icon-menubar" viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="16" rx="2.5"/><path d="M3 9h18M6 6.5h.01m3 0h.01m8 0h1"/></symbol>
+      <symbol id="icon-cursor" viewBox="0 0 24 24"><path d="m5 3 14 11-7 1-4 6-3-18Z"/><path d="m13 16 3 5"/></symbol>
+      <symbol id="icon-focus" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3m13-5v3a2 2 0 0 1-2 2h-3"/><circle cx="12" cy="12" r="3.5"/></symbol>
+    </defs>
+  </svg>
+  <a class="skip" href="#main" data-i18n="skip">跳到正文</a>
+  <header class="wrap">
+    <nav class="site-nav" aria-label="主导航" data-i18n-aria="navigation">
+      <a class="wordmark" href="#main" aria-label="MouseCat 首页" data-i18n-aria="home">
+        <svg class="logo" viewBox="0 0 34 40" aria-hidden="true"><path fill="currentColor" d="M4 3v29l8-8 7 14 6-3-7-13h12L4 3Z"/><path d="M18 4h8M23 9h8" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/></svg>
+        MouseCat
+      </a>
+      <div class="nav-actions">
+        <a class="nav-link" href="#features" data-i18n="navFeatures">体验</a>
+        <a class="nav-link" href="#start" data-i18n="navStart">上手</a>
+        <div class="language" role="group" aria-label="语言 / Language">
+          <button type="button" data-language="zh" lang="zh-CN" aria-pressed="true" aria-label="切换为中文">中文</button>
+          <button type="button" data-language="en" lang="en" aria-pressed="false" aria-label="Switch to English">EN</button>
+        </div>
+        <a class="nav-download" href="https://hulk.afoo.me/download/MouseCat-0.1.0-universal.dmg" data-download><span data-i18n="navDownload">下载</span><svg class="icon" aria-hidden="true"><use href="#icon-download"/></svg></a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <h1 id="hero-title"><span data-i18n="heroLine1">屏幕之间，</span><span data-i18n="heroLine2">一键即达。</span></h1>
+        <p class="hero-description" data-i18n="heroDescription">为每块屏幕设一个快捷键。光标直接到达屏幕中心，思路不用绕路。</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="https://hulk.afoo.me/download/MouseCat-0.1.0-universal.dmg" data-download><svg class="icon" aria-hidden="true"><use href="#icon-download"/></svg><span data-i18n="downloadMac">下载 Mac 版</span></a>
+          <a class="text-link" href="#try"><span data-i18n="tryIt">试试怎么跳</span><svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
+        </div>
+        <p class="compatibility">macOS 13+ <span aria-hidden="true">·</span> Apple Silicon &amp; Intel</p>
+      </div>
+      <figure class="hero-demo" id="try" data-active="1" aria-label="双屏跳转互动演示" data-i18n-aria="demoLabel">
+        <svg class="scene" viewBox="0 0 660 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="scene-title scene-description">
+          <title id="scene-title" data-i18n="sceneTitle">光标在两块屏幕之间跳转</title>
+          <desc id="scene-description" data-i18n="sceneDescription">左侧是笔记本，右侧是外接显示器。点击下方的 Option 1 或 Option 2，观察光标跳转并放大。</desc>
+          <defs>
+            <linearGradient id="screen-fill" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#174CE0"/><stop offset="1" stop-color="#07266F"/></linearGradient>
+            <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#F1F5FF"/><stop offset="1" stop-color="#8AA5E6"/></linearGradient>
+            <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#EBF1FF"/><stop offset="1" stop-color="#9AB3F0"/></linearGradient>
+            <clipPath id="external-clip"><rect x="294" y="49" width="322" height="206" rx="8"/></clipPath>
+            <clipPath id="laptop-clip"><rect x="41" y="198" width="238" height="144" rx="5"/></clipPath>
+            <filter id="device-shadow" x="-25%" y="-25%" width="150%" height="175%"><feDropShadow dx="0" dy="12" stdDeviation="11" flood-color="#00145A" flood-opacity=".3"/></filter>
+            <filter id="cursor-shadow" x="-40%" y="-35%" width="200%" height="200%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#001140" flood-opacity=".4"/></filter>
+          </defs>
+          <ellipse cx="345" cy="373" rx="278" ry="17" fill="#001A79" opacity=".22"/>
+          <g class="screen-two" filter="url(#device-shadow)">
+            <path d="M430 267h51l8 49h-67Z" fill="url(#metal)"/>
+            <rect x="397" y="312" width="116" height="8" rx="4" fill="url(#edge)"/>
+            <rect class="screen-outline" x="284" y="39" width="342" height="226" rx="16" fill="#08225F" stroke-width="2"/>
+            <rect x="294" y="49" width="322" height="206" rx="8" fill="url(#screen-fill)"/>
+            <g clip-path="url(#external-clip)"><ellipse cx="332" cy="250" rx="186" ry="139" transform="rotate(-32 332 250)" fill="#3669EA" opacity=".46"/><path d="M294 243c140-115 183 88 322-37v49H294Z" fill="#7FA6FF" opacity=".15"/></g>
+            <text class="screen-number" x="312" y="77">2</text>
+            <circle cx="455" cy="44" r="1.8" fill="#96AFF0" opacity=".5"/>
+          </g>
+          <g class="screen-one" filter="url(#device-shadow)">
+            <rect class="screen-outline" x="32" y="188" width="256" height="165" rx="12" fill="#08225F" stroke-width="2"/>
+            <rect x="41" y="198" width="238" height="144" rx="5" fill="url(#screen-fill)"/>
+            <g clip-path="url(#laptop-clip)"><ellipse cx="53" cy="341" rx="167" ry="99" transform="rotate(-24 53 341)" fill="#5183F5" opacity=".4"/></g>
+            <text class="screen-number" x="56" y="224">1</text>
+            <path d="M15 353h290v7c-4 7-12 10-23 10H38c-11 0-19-3-23-10Z" fill="url(#metal)"/>
+            <path d="M130 353h60l-5 5h-50Z" fill="#6A87CA" opacity=".8"/>
+          </g>
+          <path d="M208 174c55-55 77-64 125-55" fill="none" stroke="#FFAD6B" stroke-width="1.7" stroke-dasharray="3 8" stroke-linecap="round" opacity=".85"/>
+          <path d="m326 113 9 6-10 4" fill="none" stroke="#FFAD6B" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+          <g id="demo-cursor" transform="translate(158 267)" aria-hidden="true">
+            <g id="cursor-pulse" filter="url(#cursor-shadow)"><path d="M0 0v39l10-11 9 18 7-4-9-17h16L0 0Z" fill="white" stroke="#08225F" stroke-width="1.6" stroke-linejoin="round"/></g>
+          </g>
+        </svg>
+        <div class="demo-controls" role="group" aria-label="选择演示屏幕" data-i18n-aria="demoControls">
+          <button type="button" data-screen="1" aria-pressed="true" aria-label="将演示光标跳到屏幕 1" data-i18n-aria="screenOne"><kbd>⌥</kbd><kbd>1</kbd></button>
+          <span class="key-divider" aria-hidden="true"></span>
+          <button type="button" data-screen="2" aria-pressed="false" aria-label="将演示光标跳到屏幕 2" data-i18n-aria="screenTwo"><kbd>⌥</kbd><kbd>2</kbd></button>
+        </div>
+        <figcaption class="demo-caption"><span data-i18n="demoHint">网页演示 · 点击键帽试试</span><span class="demo-status" id="demo-status" role="status" aria-live="polite">已到达屏幕 1</span></figcaption>
+        <noscript><p class="demo-caption">开启 JavaScript 可体验演示和语言切换。Enable JavaScript for the demo and language switch.</p></noscript>
+      </figure>
+    </section>
+
+    <div class="benefit-strip wrap" aria-label="产品特点" data-i18n-aria="benefits">
+      <div><svg class="icon" aria-hidden="true"><use href="#icon-keyboard"/></svg><span data-i18n="benefitKeys">全局快捷键，随手就能按</span></div>
+      <div><svg class="icon" aria-hidden="true"><use href="#icon-menubar"/></svg><span data-i18n="benefitMenu">常驻菜单栏，安静待命</span></div>
+      <div><svg class="icon" aria-hidden="true"><use href="#icon-offline"/></svg><span data-i18n="benefitOffline">离线运行，无需账号</span></div>
+    </div>
+
+    <section class="section wrap features deferred" id="features" aria-labelledby="features-title">
+      <div>
+        <h2 id="features-title" data-i18n="featuresTitle">少一点来回，多一点专注。</h2>
+        <p class="section-intro" data-i18n="featuresIntro">代码在这边，文档在那边。MouseCat 让光标跟上你的工作节奏，把跨屏变成一个顺手的动作。</p>
+        <div class="quiet-keys" aria-hidden="true"><kbd>⌥</kbd><kbd>1</kbd><span>→</span><kbd>⌥</kbd><kbd>2</kbd></div>
+      </div>
+      <ul class="feature-list">
+        <li class="feature"><svg class="icon" aria-hidden="true"><use href="#icon-keyboard"/></svg><div><h3 data-i18n="featureOneTitle">你的屏幕，你的快捷键。</h3><p data-i18n="featureOneBody">默认从 ⌥1、⌥2 开始，为每块屏幕分配快捷键。点击键帽即可自定义，重新连接显示器后也会保留设置。</p></div></li>
+        <li class="feature"><svg class="icon" aria-hidden="true"><use href="#icon-focus"/></svg><div><h3 data-i18n="featureTwoTitle">光标到了，视线也跟上。</h3><p data-i18n="featureTwoBody">跳转后，光标会短暂放大再恢复，帮你迅速找到落点。可以在设置中关闭，也会照顾系统的“减少动态效果”偏好。</p></div></li>
+        <li class="feature"><svg class="icon" aria-hidden="true"><use href="#icon-menubar"/></svg><div><h3 data-i18n="featureThreeTitle">关掉窗口，快捷依然在。</h3><p data-i18n="featureThreeBody">关闭设置后常驻菜单栏，继续响应全局快捷键，不占 Dock 和 ⌘Tab 列表。需要调整时，从菜单栏打开就好。</p></div></li>
+      </ul>
+    </section>
+
+    <section class="start-section deferred" id="start" aria-labelledby="start-title">
+      <div class="wrap section">
+        <div class="start-heading"><h2 id="start-title" data-i18n="startTitle">几步设置，然后忘掉它。</h2><p data-i18n="startIntro">把准备工作留在第一次。下一次跨屏，只需要一个快捷键。</p></div>
+        <ol class="steps">
+          <li><div class="step-number" aria-hidden="true"><svg class="icon"><use href="#icon-download"/></svg></div><h3 data-i18n="stepOneTitle">放进应用程序</h3><p data-i18n="stepOneBody">下载并打开 DMG，把 MouseCat 拖入 Applications，然后启动应用。</p></li>
+          <li><div class="step-number" aria-hidden="true"><svg class="icon"><use href="#icon-keyboard"/></svg></div><h3 data-i18n="stepTwoTitle">挑一组顺手的键</h3><p data-i18n="stepTwoBody">先用默认的 ⌥1、⌥2，或点击键帽换成自己的组合。“识别屏幕”可以帮你核对编号。</p></li>
+          <li><div class="step-number" aria-hidden="true"><svg class="icon"><use href="#icon-cursor"/></svg></div><h3 data-i18n="stepThreeTitle">按下，直接到达</h3><p data-i18n="stepThreeBody">光标跳到对应屏幕中心。设置窗口可以放心关闭，MouseCat 会在菜单栏继续待命。</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section wrap faq-layout deferred" id="faq" aria-labelledby="faq-title">
+      <div><h2 id="faq-title" data-i18n="faqTitle">再了解一点。</h2><p class="section-intro" data-i18n="faqIntro">一个小工具，做好跨屏这一件事。</p></div>
+      <div class="faq-list">
+        <details><summary data-i18n="faqOneQ">支持哪些 Mac？</summary><p data-i18n="faqOneA">MouseCat 需要 macOS 13 或更新版本。Universal 安装包同时包含 Apple Silicon 和 Intel 两种架构。</p></details>
+        <details><summary data-i18n="faqTwoQ">不止两块屏幕，也能用吗？</summary><p data-i18n="faqTwoA">可以。MouseCat 会列出已连接的屏幕，默认最多预设 ⌥1 到 ⌥9。每块屏幕都可以单独设置快捷键，镜像显示的屏幕不会重复列出。</p></details>
+        <details><summary data-i18n="faqThreeQ">它会自动点击，或者切换应用吗？</summary><p data-i18n="faqThreeA">不会。MouseCat 只把光标移到目标屏幕中心，不执行点击，也不主动切换应用焦点。应用无需账号或网络连接。</p></details>
+        <details><summary data-i18n="faqFourQ">关闭窗口之后，怎样退出？</summary><p data-i18n="faqFourA">点击菜单栏里的 MouseCat 图标，选择“退出 MouseCat”。也可以在 MouseCat 窗口处于前台时按 ⌘Q。</p></details>
+      </div>
+    </section>
+
+    <section class="download-section wrap" id="download" aria-labelledby="download-title">
+      <div><h2 id="download-title" data-i18n="downloadTitle">让下一次跨屏，更顺手。</h2><p data-i18n="downloadDescription">把光标的距离，交给一个快捷键。</p></div>
+      <div class="download-action"><a class="button button-primary" href="https://hulk.afoo.me/download/MouseCat-0.1.0-universal.dmg" data-download><svg class="icon" aria-hidden="true"><use href="#icon-download"/></svg><span data-i18n="downloadMac">下载 Mac 版</span></a><span class="version">v0.1.0 <span aria-hidden="true">/</span> Universal DMG</span></div>
+    </section>
+  </main>
+
+  <footer class="site-footer wrap">
+    <div class="footer-brand"><strong>MouseCat</strong><span>© 2026 <span data-i18n="footerCredit">福强出品</span></span></div>
+    <div class="maker"><span data-i18n="footerNote">为多屏工作，少走一点弯路。</span><a href="https://afoo.me" target="_blank" rel="noopener noreferrer">afoo.me ↗</a></div>
+  </footer>
+
+  <script>
+    (() => {
+      'use strict';
+      const copy = {
+        zh: {
+          title: 'MouseCat — 屏幕之间，一键即达。',
+          description: 'MouseCat：为每块屏幕设置一个快捷键，光标一键到达屏幕中心。支持 macOS 13 及以上、Apple Silicon 与 Intel。',
+          skip: '跳到正文', navigation: '主导航', home: 'MouseCat 首页', navFeatures: '体验', navStart: '上手', navDownload: '下载',
+          heroLine1: '屏幕之间，', heroLine2: '一键即达。', heroDescription: '为每块屏幕设一个快捷键。光标直接到达屏幕中心，思路不用绕路。',
+          downloadMac: '下载 Mac 版', tryIt: '试试怎么跳', demoLabel: '双屏跳转互动演示', sceneTitle: '光标在两块屏幕之间跳转',
+          sceneDescription: '左侧是笔记本，右侧是外接显示器。点击下方的 Option 1 或 Option 2，观察光标跳转并放大。',
+          demoControls: '选择演示屏幕', screenOne: '将演示光标跳到屏幕 1', screenTwo: '将演示光标跳到屏幕 2', demoHint: '网页演示 · 点击键帽试试', arrived: '已到达屏幕 {screen}',
+          benefits: '产品特点', benefitKeys: '全局快捷键，随手就能按', benefitMenu: '常驻菜单栏，安静待命', benefitOffline: '离线运行，无需账号',
+          featuresTitle: '少一点来回，多一点专注。', featuresIntro: '代码在这边，文档在那边。MouseCat 让光标跟上你的工作节奏，把跨屏变成一个顺手的动作。',
+          featureOneTitle: '你的屏幕，你的快捷键。', featureOneBody: '默认从 ⌥1、⌥2 开始，为每块屏幕分配快捷键。点击键帽即可自定义，重新连接显示器后也会保留设置。',
+          featureTwoTitle: '光标到了，视线也跟上。', featureTwoBody: '跳转后，光标会短暂放大再恢复，帮你迅速找到落点。可以在设置中关闭，也会照顾系统的“减少动态效果”偏好。',
+          featureThreeTitle: '关掉窗口，快捷依然在。', featureThreeBody: '关闭设置后常驻菜单栏，继续响应全局快捷键，不占 Dock 和 ⌘Tab 列表。需要调整时，从菜单栏打开就好。',
+          startTitle: '几步设置，然后忘掉它。', startIntro: '把准备工作留在第一次。下一次跨屏，只需要一个快捷键。',
+          stepOneTitle: '放进应用程序', stepOneBody: '下载并打开 DMG，把 MouseCat 拖入 Applications，然后启动应用。',
+          stepTwoTitle: '挑一组顺手的键', stepTwoBody: '先用默认的 ⌥1、⌥2，或点击键帽换成自己的组合。“识别屏幕”可以帮你核对编号。',
+          stepThreeTitle: '按下，直接到达', stepThreeBody: '光标跳到对应屏幕中心。设置窗口可以放心关闭，MouseCat 会在菜单栏继续待命。',
+          faqTitle: '再了解一点。', faqIntro: '一个小工具，做好跨屏这一件事。',
+          faqOneQ: '支持哪些 Mac？', faqOneA: 'MouseCat 需要 macOS 13 或更新版本。Universal 安装包同时包含 Apple Silicon 和 Intel 两种架构。',
+          faqTwoQ: '不止两块屏幕，也能用吗？', faqTwoA: '可以。MouseCat 会列出已连接的屏幕，默认最多预设 ⌥1 到 ⌥9。每块屏幕都可以单独设置快捷键，镜像显示的屏幕不会重复列出。',
+          faqThreeQ: '它会自动点击，或者切换应用吗？', faqThreeA: '不会。MouseCat 只把光标移到目标屏幕中心，不执行点击，也不主动切换应用焦点。应用无需账号或网络连接。',
+          faqFourQ: '关闭窗口之后，怎样退出？', faqFourA: '点击菜单栏里的 MouseCat 图标，选择“退出 MouseCat”。也可以在 MouseCat 窗口处于前台时按 ⌘Q。',
+          downloadTitle: '让下一次跨屏，更顺手。', downloadDescription: '把光标的距离，交给一个快捷键。', footerCredit: '福强出品', footerNote: '为多屏工作，少走一点弯路。'
+        },
+        en: {
+          title: 'MouseCat — One shortcut. Any screen.',
+          description: 'Jump your cursor to any screen with a keyboard shortcut. A quiet macOS menu bar utility for Apple Silicon and Intel. Requires macOS 13 or later.',
+          skip: 'Skip to content', navigation: 'Main navigation', home: 'MouseCat home', navFeatures: 'Features', navStart: 'Get started', navDownload: 'Download',
+          heroLine1: 'One shortcut.', heroLine2: 'Any screen.', heroDescription: 'Give every screen a shortcut. Send your cursor straight to its center, and keep your train of thought.',
+          downloadMac: 'Download for Mac', tryIt: 'Try the jump', demoLabel: 'Interactive two-screen demo', sceneTitle: 'A cursor jumping between two screens',
+          sceneDescription: 'A laptop on the left and an external display on the right. Click Option 1 or Option 2 below to see the cursor jump and grow briefly.',
+          demoControls: 'Choose a demo screen', screenOne: 'Jump the demo cursor to screen 1', screenTwo: 'Jump the demo cursor to screen 2', demoHint: 'Interactive demo · Try a keycap', arrived: 'On screen {screen}',
+          benefits: 'Product highlights', benefitKeys: 'Global shortcuts, within reach', benefitMenu: 'Quietly at home in your menu bar', benefitOffline: 'Works offline. No account needed.',
+          featuresTitle: 'Less back and forth. More flow.', featuresIntro: 'Code on one screen, docs on another. MouseCat keeps your cursor in step with your work, making the next screen one easy move away.',
+          featureOneTitle: 'Your screens. Your shortcuts.', featureOneBody: 'Start with ⌥1 and ⌥2, or click a keycap to choose your own combination for each screen. Your settings stay with the display when you reconnect it.',
+          featureTwoTitle: 'A small pulse. A clear landing.', featureTwoBody: 'After a jump, the cursor briefly grows and returns to normal so you can spot it. Turn the effect off whenever you like; it also respects Reduce Motion.',
+          featureThreeTitle: 'Close the window. Keep the shortcut.', featureThreeBody: 'MouseCat stays in your menu bar, responding to global shortcuts without taking up space in your Dock or ⌘Tab switcher. Settings are always a click away.',
+          startTitle: 'Set it up. Let it stay out of the way.', startIntro: 'A little setup the first time. A single shortcut every time after.',
+          stepOneTitle: 'Drop it into Applications', stepOneBody: 'Download and open the DMG. Drag MouseCat into Applications, then launch it.',
+          stepTwoTitle: 'Find your favorite keys', stepTwoBody: 'Use ⌥1 and ⌥2, or click a keycap to set your own shortcut. Identify Displays helps you match each number to a screen.',
+          stepThreeTitle: 'Press. You’re there.', stepThreeBody: 'Your cursor lands at the center of the chosen screen. Close the settings window; MouseCat stays ready in the menu bar.',
+          faqTitle: 'A few useful details.', faqIntro: 'A small utility with one clear job: getting your cursor to the next screen.',
+          faqOneQ: 'Which Macs are supported?', faqOneA: 'MouseCat requires macOS 13 or later. The Universal download includes both Apple Silicon and Intel architectures.',
+          faqTwoQ: 'Can I use more than two screens?', faqTwoA: 'Yes. MouseCat lists connected displays and offers default shortcuts from ⌥1 through ⌥9. You can customize each display’s shortcut. Mirrored displays are not listed twice.',
+          faqThreeQ: 'Does it click or switch apps for me?', faqThreeA: 'No. MouseCat only moves the cursor to the target screen’s center. It does not click or actively switch app focus. No account or network connection is required.',
+          faqFourQ: 'How do I quit after closing the window?', faqFourA: 'Click the MouseCat menu bar icon and choose Quit MouseCat. You can also press ⌘Q when a MouseCat window is in the foreground.',
+          downloadTitle: 'Make the next screen feel closer.', downloadDescription: 'Put the distance between screens on a shortcut.', footerCredit: 'Made by Fuqiang', footerNote: 'A little less travel for your cursor.'
+        }
+      };
+
+      let language = 'zh';
+      let screen = '1';
+      let pulseAnimation;
+      const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const demo = document.getElementById('try');
+      const cursor = document.getElementById('demo-cursor');
+      const pulse = document.getElementById('cursor-pulse');
+      const status = document.getElementById('demo-status');
+
+      function updateStatus() {
+        status.textContent = copy[language].arrived.replace('{screen}', screen);
+      }
+
+      function setLanguage(next) {
+        language = next === 'en' ? 'en' : 'zh';
+        const strings = copy[language];
+        document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'en';
+        document.title = strings.title;
+        document.querySelector('meta[name="description"]').content = strings.description;
+        document.querySelectorAll('[data-i18n]').forEach(element => {
+          element.textContent = strings[element.dataset.i18n];
+        });
+        document.querySelectorAll('[data-i18n-aria]').forEach(element => {
+          element.setAttribute('aria-label', strings[element.dataset.i18nAria]);
+        });
+        document.querySelectorAll('[data-language]').forEach(button => {
+          button.setAttribute('aria-pressed', String(button.dataset.language === language));
+        });
+        updateStatus();
+        try { localStorage.setItem('mousecat-language', language); } catch (_) { /* file:// may block storage */ }
+      }
+
+      function jump(next) {
+        screen = next === '2' ? '2' : '1';
+        demo.dataset.active = screen;
+        cursor.setAttribute('transform', screen === '1' ? 'translate(158 267)' : 'translate(454 151)');
+        demo.querySelectorAll('[data-screen]').forEach(button => {
+          button.setAttribute('aria-pressed', String(button.dataset.screen === screen));
+        });
+        updateStatus();
+        if (pulseAnimation) pulseAnimation.cancel();
+        if (!motion.matches && typeof pulse.animate === 'function') {
+          pulseAnimation = pulse.animate([
+            { transform: 'scale(1)', offset: 0 },
+            { transform: 'scale(2.4)', offset: .25 },
+            { transform: 'scale(1)', offset: 1 }
+          ], { duration: 480, easing: 'cubic-bezier(.2,.7,.3,1)' });
+        }
+      }
+
+      document.querySelectorAll('[data-language]').forEach(button => {
+        button.addEventListener('click', () => setLanguage(button.dataset.language));
+      });
+      demo.querySelectorAll('[data-screen]').forEach(button => {
+        button.addEventListener('click', () => jump(button.dataset.screen));
+      });
+      const stopPulse = () => { if (pulseAnimation) pulseAnimation.cancel(); };
+      motion.addEventListener('change', stopPulse);
+      document.addEventListener('visibilitychange', () => { if (document.hidden) stopPulse(); });
+
+      let preferred = new URLSearchParams(location.search).get('lang');
+      if (!preferred) {
+        try { preferred = localStorage.getItem('mousecat-language'); } catch (_) { /* keep the document default */ }
+      }
+      setLanguage(preferred || 'zh');
+    })();
+  </script>
+</body>
+</html>
