@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Privacy policy for FooSnippets for iOS and its keyboard extension. Learn about local snippet storage, optional RVX sync, keyboard permissions, and data deletion.">
+  <meta name="referrer" content="no-referrer">
+  <title>FooSnippets for iOS — Privacy Policy / 隐私政策</title>
+  <style>
+    :root { --canvas:#f5f7fb; --paper:#fff; --ink:#1e2b3e; --muted:#526477; --accent:#155ca7; --line:#dce4ef; color-scheme:light; }
+    @media (prefers-color-scheme:dark) {
+      :root { --canvas:#0c1420; --paper:#111e2e; --ink:#e9f0f8; --muted:#a6b7ca; --accent:#86baff; --line:#2b3e54; color-scheme:dark; }
+    }
+    :root[data-theme="light"] { --canvas:#f5f7fb; --paper:#fff; --ink:#1e2b3e; --muted:#526477; --accent:#155ca7; --line:#dce4ef; color-scheme:light; }
+    :root[data-theme="dark"] { --canvas:#0c1420; --paper:#111e2e; --ink:#e9f0f8; --muted:#a6b7ca; --accent:#86baff; --line:#2b3e54; color-scheme:dark; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--canvas); color:var(--ink); font:17px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; overflow-wrap:anywhere; }
+    a { color:var(--accent); text-underline-offset:4px; }
+    a:hover { text-decoration-thickness:2px; }
+    a:focus-visible { outline:3px solid var(--accent); outline-offset:5px; border-radius:2px; }
+    .shell { width:min(100% - 48px,880px); margin-inline:auto; }
+    .masthead { display:flex; align-items:center; justify-content:space-between; gap:20px; padding-block:30px; }
+    .brand { font-size:17px; font-weight:700; letter-spacing:-.02em; }
+    .edition { font:12px/1.5 ui-monospace,"SFMono-Regular",Consolas,monospace; color:var(--muted); }
+    .languages { display:flex; flex-wrap:wrap; gap:18px; font-size:14px; }
+    main { background:var(--paper); border:1px solid var(--line); border-radius:8px; padding:clamp(24px,6vw,64px); }
+    article { display:grid; gap:32px; max-width:68ch; margin-inline:auto; scroll-margin-top:24px; }
+    article + article { border-top:1px solid var(--line); margin-top:64px; padding-top:56px; }
+    .intro { display:grid; gap:16px; }
+    .eyebrow { margin:0; color:var(--accent); font:12px/1.5 ui-monospace,"SFMono-Regular",Consolas,monospace; letter-spacing:.05em; }
+    h1,h2,h3,p,ul,dl { margin:0; }
+    h1,.translation-title { font-size:clamp(29px,5vw,40px); line-height:1.2; font-weight:650; letter-spacing:-.035em; text-wrap:balance; }
+    .date { font-size:13px; color:var(--muted); }
+    .summary { padding-block:19px; border-block:1px solid var(--line); color:var(--muted); }
+    .summary strong { color:var(--ink); }
+    section { display:grid; gap:12px; scroll-margin-top:24px; }
+    h2,h3 { font-size:20px; line-height:1.4; font-weight:650; letter-spacing:-.015em; text-wrap:balance; }
+    ul { padding-inline-start:23px; display:grid; gap:8px; }
+    dl { display:grid; gap:16px; }
+    dl > div { display:grid; gap:4px; }
+    dt { font-weight:600; }
+    dd { margin:0; color:var(--muted); }
+    code { font: .88em/1.5 ui-monospace,"SFMono-Regular",Consolas,monospace; }
+    .contact { padding-top:20px; border-top:1px solid var(--line); }
+    footer { display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; padding-block:24px 40px; font-size:13px; color:var(--muted); }
+    @media (max-width:520px) { .shell { width:calc(100% - 28px); } .masthead { padding-block:22px; } body { font-size:16px; } main { padding:26px 22px; } article { gap:28px; } }
+    @media print { :root { --canvas:#fff; --paper:#fff; --ink:#000; --muted:#333; --accent:#000; --line:#ccc; color-scheme:light; } .shell { width:100%; } main { border:0; padding:0; } .languages { display:none; } section { break-inside:avoid; } a { text-decoration:none; } }
+  </style>
+</head>
+<body>
+  <header class="shell masthead">
+    <div><div class="brand">FooSnippets</div><div class="edition">FOR iOS · PRIVACY</div></div>
+    <nav class="languages" aria-label="Policy language"><a href="#english" lang="en">English</a><a href="#chinese" lang="zh-Hans">简体中文</a></nav>
+  </header>
+  <main class="shell">
+    <article id="english" lang="en" aria-labelledby="policy-title">
+      <header class="intro">
+        <p class="eyebrow">APP SYNCS. KEYBOARD WORKS LOCALLY.</p>
+        <h1 id="policy-title">Privacy Policy</h1>
+        <p class="date">Effective and last updated: <time datetime="2026-11-09">November 9, 2026</time></p>
+        <p>This policy covers FooSnippets for iOS and its keyboard extension, provided by Fuqiang. It describes how the app handles your snippets, connection settings, and local usage information. It does not replace the policies of your chosen RVX service or an app into which you insert text.</p>
+        <p class="summary"><strong>The main app synchronizes your library. The keyboard searches and inserts from local data.</strong> The keyboard does not require Full Access and does not make network requests.</p>
+      </header>
+      <section aria-labelledby="en-local">
+        <h2 id="en-local">Information kept on your iPhone</h2>
+        <dl>
+          <div><dt>Your snippet library</dt><dd>The main app stores a local copy of synchronized snippets and associated information, including titles, text, triggers, aliases, tags, categories, and sync progress. The keyboard receives a local snapshot containing the information needed to search, preview, and insert supported snippets.</dd></div>
+          <div><dt>RVX connection settings</dt><dd>The server address, access token, encryption PIN, and a randomly generated sync client identifier are stored in the main app’s private iOS Keychain. The keyboard does not receive your access token or PIN.</dd></div>
+          <div><dt>Search and test text</dt><dd>Keyboard search queries and text entered in the app’s test area are used in memory. The app does not save them as a typing history or send them to the RVX service.</dd></div>
+          <div><dt>Local preferences and usage counts</dt><dd>The app remembers whether you completed setup. The keyboard stores snippet identifiers and selection counts on this device to suggest frequently used snippets. These counts are not uploaded or shared for advertising.</dd></div>
+        </dl>
+      </section>
+      <section aria-labelledby="en-sync">
+        <h2 id="en-sync">Optional RVX synchronization</h2>
+        <p>Synchronization starts after you save an RVX connection. When configured, the main app checks for changes when opened; you can also start a sync from Settings. A sync may continue in the background when iOS permits. Searching and inserting remain based on the local library and work without a network connection.</p>
+        <p>The main app connects to the server you configure over encrypted HTTPS/WSS transport. It sends the access token for authentication, the sync client identifier, and the last received sync position. The server also receives ordinary connection information such as your IP address. This iOS app downloads library changes; it does not upload your keyboard searches or text typed in the test area.</p>
+        <p>Encrypted snippet content is decrypted by the main app on your iPhone using your PIN. The PIN is not included in sync requests. Your chosen RVX service controls its own server operation, logs, retention, and hosting location, which may be outside your country. Please review that service’s privacy policy before connecting. A prefilled server address alone does not start synchronization.</p>
+      </section>
+      <section aria-labelledby="en-keyboard">
+        <h2 id="en-keyboard">Keyboard permissions and inserted text</h2>
+        <p>You enable FooSnippets as a keyboard in iOS Settings. Full Access is not required. The keyboard does not read the clipboard or retrieve the surrounding text of your conversations, and it does not record what you type with other keyboards.</p>
+        <p>When you select a snippet, its text is inserted into the app you are using. That destination app can then process the inserted text under its own privacy policy. FooSnippets does not render HTML or execute snippet scripts or dynamic macros.</p>
+      </section>
+      <section aria-labelledby="en-protection">
+        <h2 id="en-protection">Local storage and protection</h2>
+        <p>The main app’s private library copy is encrypted. To let the keyboard work locally without Full Access, the main app also writes a <strong>decrypted, plain-text snapshot</strong> into a shared container accessible to FooSnippets and its keyboard extension. This snapshot is protected by iOS file protection; it is not encrypted again with a separate application key.</p>
+        <p>The storage protection permits an ongoing sync to write new files while the device is locked. Once closed, those protected files require the device to be unlocked before they can be read again. Library files are excluded from device backups, and connection credentials use a device-only Keychain protection class. Someone with access to the unlocked shared container can read the snapshot.</p>
+      </section>
+      <section aria-labelledby="en-sharing">
+        <h2 id="en-sharing">Analytics, advertising, and support</h2>
+        <p>The app contains no advertising or third-party analytics SDKs. It does not track you across other apps or websites, and does not sell your snippets or local keyboard usage information.</p>
+        <p>Apple may provide app diagnostics according to your device’s analytics settings and Apple’s policies. FooSnippets does not include a separate service that uploads diagnostic reports. If you contact us for support, we receive the information you choose to send and use it to respond. Please do not send access tokens, encryption PINs, or private snippet content.</p>
+      </section>
+      <section aria-labelledby="en-delete">
+        <h2 id="en-delete">Your choices, retention, and deletion</h2>
+        <ul>
+          <li>You may skip RVX setup and use the keyboard’s current local state, including an empty library.</li>
+          <li>In FooSnippets Settings, choose <strong>Disconnect and remove local library</strong> to stop the connection and remove the downloaded library, shared keyboard snapshot, and saved RVX connection credentials from this iPhone.</li>
+          <li>This action does not delete snippets from your Mac or RVX server. Manage or request remote deletion through that service or the application that maintains your library.</li>
+          <li>Local setup preferences and selection counts may remain until the app is deleted. iOS may retain Keychain items after uninstalling, so use the disconnect action before uninstalling if you want to remove saved RVX credentials. A local encryption key may remain in Keychain after the library is removed; it does not contain snippet text.</li>
+          <li>You can disable or remove the FooSnippets keyboard in iOS Settings at any time.</li>
+        </ul>
+        <p>If applicable law gives you rights concerning information you have provided to us, such as access, correction, or deletion of support correspondence, contact us using the address below. We cannot directly access or delete a library held only on your device or by an independently operated RVX service.</p>
+      </section>
+      <section aria-labelledby="en-changes">
+        <h2 id="en-changes">Changes to this policy</h2>
+        <p>We will update this page when the app’s data practices change and revise the date above. Material changes will also be communicated where required. This policy applies to the iOS app; the macOS app and optional service subscriptions may have separate policies.</p>
+      </section>
+      <section class="contact" aria-labelledby="en-contact">
+        <h2 id="en-contact">Contact</h2>
+        <p>Fuqiang · FooSnippets developer<br><a href="mailto:i@afoo.me">i@afoo.me</a> · <a href="https://afoo.me">afoo.me</a></p>
+      </section>
+    </article>
+    <article id="chinese" lang="zh-Hans" aria-labelledby="zh-title">
+      <header class="intro">
+        <p class="eyebrow">主 APP 同步 · 键盘本地使用</p>
+        <h2 id="zh-title" class="translation-title">隐私政策</h2>
+        <p class="date">生效及最后更新日期：<time datetime="2026-11-09">2026 年 11 月 9 日</time></p>
+        <p>本政策适用于 Fuqiang 提供的 FooSnippets iOS 主 App 及其键盘扩展，说明片段、连接设置和本地使用信息的处理方式。本政策不替代您所选 RVX 服务或接收插入文本的其他 App 的隐私政策。</p>
+        <p class="summary"><strong>主 App 负责同步片段库，键盘基于本地数据搜索和插入。</strong>键盘不要求“允许完全访问”，也不发起网络请求。</p>
+      </header>
+      <section aria-labelledby="zh-local">
+        <h3 id="zh-local">保存在 iPhone 上的信息</h3>
+        <dl>
+          <div><dt>片段库</dt><dd>主 App 保存同步片段的本地副本及相关信息，包括标题、正文、触发词、别名、标签、分类和同步进度。键盘读取本地快照，其中包含搜索、预览和插入受支持片段所需的信息。</dd></div>
+          <div><dt>RVX 连接设置</dt><dd>服务器地址、Access Token、加密 PIN 和随机生成的同步客户端标识保存在主 App 私有的 iOS Keychain 中。键盘不会取得 Access Token 或 PIN。</dd></div>
+          <div><dt>搜索及试用文本</dt><dd>键盘搜索词和主 App 试用区域中的文本仅在内存中使用，不会作为输入历史保存，也不会发送给 RVX 服务。</dd></div>
+          <div><dt>本地偏好与使用次数</dt><dd>主 App 记录是否已完成首次引导。键盘在本机保存片段标识和选择次数，用于推荐常用片段。这些计数不会上传，也不会用于广告共享。</dd></div>
+        </dl>
+      </section>
+      <section aria-labelledby="zh-sync">
+        <h3 id="zh-sync">可选的 RVX 同步</h3>
+        <p>保存 RVX 连接后才会开始同步。配置完成后，主 App 会在打开时检查更新；您也可以在设置中主动同步。iOS 允许时，同步可以在后台继续。搜索和插入始终使用本地库，没有网络连接时也能使用。</p>
+        <p>主 App 通过加密的 HTTPS/WSS 连接访问您配置的服务器，发送用于认证的 Access Token、同步客户端标识和上次接收的同步位置。服务器还会收到 IP 地址等常规连接信息。当前 iOS App 下载片段库变更，不上传键盘搜索词或试用区域中的输入内容。</p>
+        <p>加密的片段内容由主 App 使用 PIN 在您的 iPhone 上解密，PIN 不包含在同步请求中。您选择的 RVX 服务自行决定服务器运行、日志、保留期限和托管地点；服务器可能位于您所在国家或地区之外。连接前请查阅该服务的隐私政策。仅预填服务器地址不会启动同步。</p>
+      </section>
+      <section aria-labelledby="zh-keyboard">
+        <h3 id="zh-keyboard">键盘权限与插入的文本</h3>
+        <p>您需要在 iOS 设置中启用 FooSnippets 键盘，但不需要开启“允许完全访问”。键盘不会读取剪贴板、获取对话中的前后文，也不会记录您使用其他键盘输入的内容。</p>
+        <p>选择片段后，正文会插入您当前使用的 App。接收文本的 App 可以按照其自身隐私政策处理这些内容。FooSnippets 不渲染 HTML，也不执行片段中的脚本或动态宏。</p>
+      </section>
+      <section aria-labelledby="zh-protection">
+        <h3 id="zh-protection">本地存储与保护</h3>
+        <p>主 App 的私有片段库副本经过加密。为了让键盘在不要求完全访问的情况下本地使用片段，主 App 还会将<strong>已解密的明文快照</strong>写入仅供 FooSnippets 主 App 与其键盘扩展访问的共享容器。该快照受 iOS 文件数据保护，不再使用另一把应用层密钥加密。</p>
+        <p>文件保护方式允许正在进行的同步在锁屏时写入新文件；文件关闭后，需要解锁设备才能重新读取。片段库文件不参与设备备份，连接凭据采用仅限本设备的 Keychain 保护方式。能够访问已解锁共享容器的一方可以读取其中的明文快照。</p>
+      </section>
+      <section aria-labelledby="zh-sharing">
+        <h3 id="zh-sharing">分析、广告和支持</h3>
+        <p>App 不包含广告或第三方行为分析 SDK，不跨 App 或网站跟踪您，也不出售您的片段和本地键盘使用信息。</p>
+        <p>Apple 可能根据您设备的分析设置及 Apple 的政策提供 App 诊断信息。FooSnippets 没有自行上传诊断报告的独立服务。如果您联系我们寻求支持，我们会收到您主动提供的信息，并用来回复问题。请勿发送 Access Token、加密 PIN 或私人片段正文。</p>
+      </section>
+      <section aria-labelledby="zh-delete">
+        <h3 id="zh-delete">您的选择、保留期限与删除</h3>
+        <ul>
+          <li>您可以跳过 RVX 配置，直接基于当前本地状态使用键盘，包括空库状态。</li>
+          <li>在 FooSnippets 设置中选择 <strong>Disconnect and remove local library（断开连接并移除本地库）</strong>，可停止连接，并删除这台 iPhone 上已下载的片段库、共享键盘快照和已保存的 RVX 连接凭据。</li>
+          <li>该操作不会删除 Mac 或 RVX 服务器上的片段。远端数据需通过相应服务或维护片段库的应用管理、删除或申请删除。</li>
+          <li>首次引导偏好和本地选择计数可能保留至删除 App。iOS 卸载后可能保留 Keychain 项，因此如需清除 RVX 凭据，请先执行断开连接操作。移除片段库后，本地加密密钥可能仍保留在 Keychain 中，该密钥本身不包含片段正文。</li>
+          <li>您可以随时在 iOS 设置中停用或移除 FooSnippets 键盘。</li>
+        </ul>
+        <p>如果适用法律赋予您访问、更正或删除已向我们提供的信息等权利，例如删除支持邮件，请通过下方联系方式提出请求。我们无法直接访问或删除仅保存在您设备上，或由独立运营的 RVX 服务保存的片段库。</p>
+      </section>
+      <section aria-labelledby="zh-changes">
+        <h3 id="zh-changes">政策更新</h3>
+        <p>当 App 的数据处理方式发生变化时，我们会更新本页面和上方日期，并在需要时另行告知重大变化。本政策适用于 iOS 版；macOS 版及可选服务订阅可能适用单独的政策。</p>
+      </section>
+      <section class="contact" aria-labelledby="zh-contact">
+        <h3 id="zh-contact">联系我们</h3>
+        <p>Fuqiang · FooSnippets 开发者<br><a href="mailto:i@afoo.me">i@afoo.me</a> · <a href="https://afoo.me">afoo.me</a></p>
+      </section>
+    </article>
+  </main>
+  <footer class="shell"><span>© 2026 Fuqiang · FooSnippets for iOS</span><a href="#english">Back to top / 返回顶部</a></footer>
+</body>
+</html>
