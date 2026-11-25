@@ -102,6 +102,6 @@ OMA 有些时候还是得扮演大脑
 
 🤪
 
-
+![](./images/OMA-of-afoo.jpg)
 
 
